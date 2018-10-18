@@ -2,8 +2,6 @@ dashup
 
 Software Requirements Specification
 
-For <Subsystem or Feature>
-
 Version 1.0
 
 <div class="Section2" markdown="1">
@@ -184,7 +182,6 @@ Version 1.0
   
 Software Requirements Specification
 
-<a name="pookie"></a>
 # 1. Introduction
 
 
@@ -197,12 +194,17 @@ Software Requirements Specification
 ##1.1 Purpose
 
 
-\[Specify the purpose of this **SRS**. The **SRS** should fully describe the external behavior of the application or subsystem identified. It also describes nonfunctional requirements, design constraints and other factors necessary to provide a complete and comprehensive description of the requirements for the software.\]
+This Software Requirements Specification was created to collect and organize the requirements for the dashup platform.
+It describes the expected functional and nonfunctional functionality of the platform. This is necessary in order to 
+achieve a common understanding between the client and the software supplier.
+Furthermore it is needed to evaluate the results of the project.
 
 ##1.2 Scope
 
-
-\[A brief description of the software application that the **SRS** applies to; the feature or other subsystem grouping; what Use-Case model(s) it is associated with;  and anything else that is affected or influenced by this document.\]
+The dashup platform should provide a quick overview on multiple microservices without accessing them all separably. 
+It should be a productivity tool which is usable in webbrowser. There will be a collection of default microservices 
+which are developed and hosted by the project team. Furthermore there should be the possibility to integrate own microservices 
+to keep track of all own applications.     
 
 ##1.3 Definitions, Acronyms and Abbreviations
 
