@@ -338,48 +338,54 @@ Where application development tools, such as requirements tools, modeling tools,
 3.9 Interfaces
 --------------
 
-\[This section defines the interfaces that must be supported by the application. It should contain adequate specificity, protocols, ports and logical addresses, etc. so that the software can be developed and verified against the interface requirements.\]
-
 ### 3.9.1 User Interfaces
 
-\[Describe the user interfaces that are to be implemented by the software.\]
+* **Login screen** that provides input fields to login.
+* **Registration screen** where he user can set up an new account.
+* **Main dashboard** on which the user can see all his panels and the information provided by the microservices.
+* **Profile management screen** where a user can edit and update her/his personal information.
+* **Marketplace** where default and custom microservices can be found and added to own dashboard.
+* **Panel editor** on which developers can create their own panels to display information from their own microservices. 
 
 ### 3.9.2 Hardware Interfaces
 
-\[This section defines any hardware interfaces that are to be supported by the software, including logical structure, physical addresses, expected behavior, etc. \]
+N/A
 
 ### 3.9.3 Software Interfaces
 
-\[This section describes software interfaces to other components of the software system. These may be purchased components, components reused from another application or components being developed for subsystems outside of the scope of this **SRS** but with which this software application must interact.\]
+The dashup application runs in a webbroser. We will try to make it work in many different webbrowsers as possible.
 
 ### 3.9.4 Communications Interfaces
 
-\[Describe any communications interfaces to other systems or devices such as local area networks, remote serial devices, etc.\]
+The webapplication should communicate with the java backend by a secured HTTPS connection on Port 443. If there should 
+be a unencrypted connection via HTTP is still to be determined. The Connection should be asynchronous to avoid a reload 
+of the webapplication.   
 
 ##3.10 Licensing Requirements
 
 
-\[Defines any licensing enforcement requirements or other usage restriction requirements that are to be exhibited by the software.\]
+tbd
 
 ##3.11 Legal, Copyright, and Other Notices
 
-
-\[This section describes any necessary legal disclaimers, warranties, copyright notices, patent notice, wordmark, trademark, or logo compliance issues for the software.\]
+The "dashup" team will not take any responsibility for lost data and other damages done to your microservice or other programs. 
+The "dashup" logo may only be used for the official "dashup" application.
 
 ##3.12 Applicable Standards
 
+The code of "dashup" shuold follow some basic rules of clean code such as:
+* Intuitive names of variables and methods.
+* Comments to improve understanding and readability of the code.
+* Design patterns integration.
+* No hard-coded strings.
+* No premature optimization.
 
-\[This section describes by reference any applicable standard and the specific sections of any such standards which apply to the system being described. For example, this could include legal, quality and regulatory standards, industry standards for usability, interoperability, internationalization, operating system compliance, etc.\]
+If necessary there can be exceptions to this rules, but they have to be well considered and discussed.  
+
 
 #4. Supporting Information
-
-
-\[The supporting information makes the **SRS** easier to use.  It includes:
-
-•               Table of contents
-
-•             Index
-
-•               Appendices
-
-These may include use-case storyboards or user-interface prototypes. When appendices are included, the **SRS** should explicitly state whether or not the appendices are to be considered part of the requirements.\]
+**For more information please contact:**
+* Felix Hausberger
+* Sven Leonhard
+* Raphael Müßeler
+* Joshua Schulz
