@@ -288,52 +288,36 @@ Where application development tools, such as requirements tools, modeling tools,
 
 \[The requirement description.\]
 
-##3.4 Performance
+## 3.4 Performance
 
+### 3.4.1 Response Time
 
-\[The system’s performance characteristics should be outlined in this section. Include specific response times. Where applicable, reference related Use Cases by name.
+The response time should be as low as possible. The reload of the page may not take longer than 8 seconds and in average a response time of 5 seconds is acceptable. Therfore the backend should keep up graphic elements like the panels to avoid too large computing effort, if there is a high number of panels mandated on the dashborad of a user.
 
-•               response time for a transaction (average, maximum)
+### 3.4.2 Throughput
+The information displayed on the different panels showed in the dashboard should be reloaded every 10ms. Because of the provision of these data by foreign APIs and servers the fetchung process could take longer. To prevent such a scenario corresponding connventions and rules will be introduced.
 
-•               throughput, for example, transactions per second
+### 3.4.2 Capacity
+The dashboard is to be made for a large number of users. An increase of new members shouldn't slow down the system in the same way.
 
-•               capacity, for example, the number of customers or transactions the system can accommodate
+## 3.5 Supportability
 
-•               degradation modes (what is the acceptable mode of operation when the system has been degraded in some manner)
+### 3.5.1 Naming Conventions
+For naming it is only allowed to use self-descriptive expressions. Classes has to begin wih an uppr-case, variables with a lower-case.  
 
-•               resource utilization, such as memory, disk, communications, etc.
-
-### 3.4.1 <Performance Requirement One>
-
-\[The requirement description goes here.\]
-
-##3.5 Supportability
-
-
-\[This section indicates any requirements that will enhance the supportability or maintainability of the system being built, including coding standards, naming conventions, class libraries, maintenance access, maintenance utilities.\]
-
-### 3.5.1 <Supportability Requirement One>
-
-\[The requirement description goes here.\]
-
-##3.6 Design Constraints
-
-
+## 3.6 Design Constraints
 \[This section should indicate any design constraints on the system being built. Design constraints represent design decisions that have been mandated and must be adhered to.  Examples include software languages, software process requirements, prescribed use of developmental tools, architectural and design constraints, purchased components, class libraries, etc.\]
 
-### 3.6.1 <Design Constraint One>
+### 3.6.1 Architectural Constraints
+It should not be possible to upload executable code to dashup servers. 
 
-\[The requirement description goes here.\]
-
-##3.7 On-line User Documentation and Help System Requirements
-
-
-\[Describes the requirements, if any, for on-line user documentation, help systems, help about notices, etc.\]
+## 3.7 On-line User Documentation and Help System Requirements
+The application should be kept as simple that detailed intorduction into the service is superflous. To provide fast support for standard questions a FAQ will be set up.
+For deveopers of custom panels a documentation including a tutorial should be available. 
 
 3.8 Purchased Components
 ------------------------
-
-\[This section describes any purchased components to be used with the system, any applicable licensing or usage restrictions, and any associated compatibility and interoperability or interface standards.\]
+On the hardware side there will be rent a virtual server. Except the domain which also is a purchased component there are open source or free available components allowed for use only. As a consequence the dashup project on it self has to be licensed under an open source license to avoid conflicts with the owner of software or visual compontens. 
 
 3.9 Interfaces
 --------------
@@ -366,12 +350,12 @@ of the webapplication.
 
 tbd
 
-##3.11 Legal, Copyright, and Other Notices
+## 3.11 Legal, Copyright, and Other Notices
 
 The "dashup" team will not take any responsibility for lost data and other damages done to your microservice or other programs. 
 The "dashup" logo may only be used for the official "dashup" application.
 
-##3.12 Applicable Standards
+## 3.12 Applicable Standards
 
 The code of "dashup" shuold follow some basic rules of clean code such as:
 * Intuitive names of variables and methods.
