@@ -288,26 +288,25 @@ Where application development tools, such as requirements tools, modeling tools,
 
 \[The requirement description.\]
 
-##3.4 Performance
+## 3.4 Performance
 
+### 3.4.1 Response Time
 
-\[The system’s performance characteristics should be outlined in this section. Include specific response times. Where applicable, reference related Use Cases by name.
+The response time should be as low as possible. The reload of the page may not take longer than 8 seconds and in average a response time of 5 seconds is acceptable. Therfore the backend should keep up graphic elements like the panels to avoid too large computing effort, if there is a high number of panels mandated on the dashborad of a user.
 
-•               response time for a transaction (average, maximum)
+### 3.4.2 Throughput
+The information displayed on the different panels showed in the dashboard should be reloaded every 10ms. Because of the provision of these data by foreign APIs and servers the fetchung process could take longer. To prevent such a scenario corresponding connventions and rules will be introduced.
 
-•               throughput, for example, transactions per second
+### 3.4.2 Capacity
+The dashboard is to be made for a large number of users. An increase of new members shouldn't slow down the system in the same way.
 
-•               capacity, for example, the number of customers or transactions the system can accommodate
+### 3.4.2 Degradation modes
+/tbd
 
-•               degradation modes (what is the acceptable mode of operation when the system has been degraded in some manner)
+### 3.4.2 Resource utilization
+The server used provides the follwing resources for the dashboard: . On the frontend-side the application has to be as lightweight as possible to make the use also comfortable for users with lower system properties.
 
-•               resource utilization, such as memory, disk, communications, etc.
-
-### 3.4.1 <Performance Requirement One>
-
-\[The requirement description goes here.\]
-
-##3.5 Supportability
+## 3.5 Supportability
 
 
 \[This section indicates any requirements that will enhance the supportability or maintainability of the system being built, including coding standards, naming conventions, class libraries, maintenance access, maintenance utilities.\]
