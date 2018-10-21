@@ -113,73 +113,50 @@ dashup - Software Requirements Specification
 
 <br />
 
-#Table of Contents
+# Table of Contents
 
-1. Introduction          
-
-    1.1 Purpose    
-
-    1.2 Scope
-
-    1.3 Definitions, Acronyms and Abbreviations
-
-    1.4 References     
-
-    1.5 Overview     
-
-2. Overall Description  
-
-    2.1 Project Vision
-    
-    2.2 General Use Case Diagram    
-
-3. Specific Requirements
-
-    3.1 Functionality
-      
-        3.1.1 Functional Requirement One        
-
-    3.2 Usability   
-
-        3.2.1 <Usability Requirement One>
-    
-    3.3 Reliability     
-
-        3.3.1 Reliability Requirement One
-    
-    3.4 Performance     
-
-        3.4.1 <Performance Requirement One>
-    
-    3.5 Supportability    
-
-        3.5.1 <Supportability Requirement One> 
-
-    3.6 Design Constraints     
-
-        3.6.1 <Design Constraint One>           
-
-    3.7 Online User Documentation and Help System Requirements  
-
-    3.8 Purchased Components
-
-    3.9 Interfaces     
-
-        3.9.1 User Interfaces          
-
-        3.9.2 Hardware Interfaces           
-
-        3.9.3 Software Interfaces           
-
-        3.9.4 Communications Interfaces    
-
-    3.10 Licensing Requirements    
-
-    3.11 Legal, Copyright and Other Notices
-    
-    3.12 Applicable Standards     
-
-4. Supporting Information    
+- [Introduction](#1-introduction)        
+    - [Purpose](#11-purpose)
+    - [Scope](#12-scope)
+    - [Definitions, Acronyms and Abbreviations](#13-definitions-acronyms-and-abbreviations)
+    - [References](#14-references)
+    - [Overview](#15-overview)
+ - [Overall Description](#2-overall-description)
+    - [Project Vision](#21-project-vision)
+    - [General Use Case Diagram](#22-general-use-case-diagram)
+ - [Specific Requirements](#3-specific-requirements)
+    - [Functionality](#31-functionality)
+    - [Functional Requirement One](#311-functional-requirement-one)
+    - [Usability](#32-usability) 
+    - [Usability Requirement One](#321-usability-requirement-one)
+    - [Reliability](#33-reliability)
+    - [Reliability Requirement One](#331-reliability-requirement-one)  
+    - [Performance](#34-performance)
+    - [Response Time](#341-response-time)
+    - [Throughput](#342-throughput)
+    - [Capacity](#343-capacity)
+    - [Degradation Modes](#344-degradation-modes)
+    - [Resource Utilization](#345-resource-utilization) 
+    - [Supportability](#35-supportability)
+    - [Standards and Conventions](#351-standards-and-conventions)
+    - [Class Libraries](#352-class-libraries)
+    - [Maintenance](#353-maintenance)
+    - [Design Constraints](#36-design-constraints)
+    - [Software Languages](#361-software-languages)
+    - [Software Process Requirements](#362-software-process-requirements)
+    - [Developmental tools](#363-developmental-tools)
+    - [Architectural Constraints](#364-architectural-constraints)
+    - [On-line User Documentation and Help System Requirements](#37-on-line-user-documentation-and-help-system-requirements)
+    - [Purchased Components](#38-purchased-components)
+    - [Interfaces](#39-interfaces)
+    - [User Interfaces](#391-user-interfaces)
+    - [Hardware Interfaces](#392-hardware-interfaces)
+    - [Software Interfaces](#393-software-interfaces)
+    - [Communications Interfaces](#394-communications-interfaces)
+    - [Licensing Requirements](#310-licensing-requirements)
+    - [Legal, Copyright, and Other Notices](#311-legal-copyright-and-other-notices)
+    - [Applicable Standards](#312-applicable-standards)
+ - [Supporting Information](#4-supporting-information)  
 
 <br />
 
@@ -189,7 +166,7 @@ dashup - Software Requirements Specification
 
 # 1. Introduction
 
-##1.1 Purpose
+## 1.1 Purpose
 
 This Software Requirements Specification was created to collect and organize the requirements for the dashup platform.
 Agreeing on a general consent between the developer teams expertise and the clients interests and expectations, the 
@@ -198,7 +175,7 @@ the expected functional and nonfunctional requirements of the platform and makes
 therefore gain a better overview over the projects scope. Furthermore it is needed to evaluate the results of the project 
 after its status is considered to be completed and ready for transition. 
 
-##1.2 Scope
+## 1.2 Scope
 
 The dashup platform provides a quick overview of multiple microservices hosted on external servers of different providers.
 Therefore users no longer have to access microservices on separated ways and can gain quick insights into real time data 
@@ -209,7 +186,7 @@ data visualization. Whereas users are provided with a collection of default micr
 enhance their dashboard with further microservices from the dashup store. In addition, there should be the possibility to 
 integrate own microservices as customly defined panels to keep track of all of one's own applications.     
 
-##1.3 Definitions, Acronyms and Abbreviations
+## 1.3 Definitions, Acronyms and Abbreviations
 
 <br />
 
@@ -311,7 +288,7 @@ integrate own microservices as customly defined panels to keep track of all of o
  </tr></tbody>
 </table>
 
-##1.4 References
+## 1.4 References
 
 <br />
 
@@ -363,7 +340,7 @@ integrate own microservices as customly defined panels to keep track of all of o
  </tr></tbody>
 </table>
 
-##1.5 Overview
+## 1.5 Overview
 
 In the next chapter, the general vision as well as the UCD will be provided, in order to give a quick summary about the 
 scope of the project. The more in depth specification of the project will follow in the chapter <i>Specific Requirements</i>.
@@ -378,9 +355,9 @@ interfaces like <i> User-, Software- and Communication-Interfaces</i> on the oth
 offer insights in our coding creeds and the allowed range of usage of our application. If any questions are left open or 
 an adaption of the SRS in needed, please contact one of the developers listed in <i>Further information</i>.
 
-#2 Overall Description
+# 2 Overall Description
 
-##2.1 Project Vision
+## 2.1 Project Vision
 
 In today's digital world, automation is everything. To keep up with modern achievement-oriented society, people need to 
 accomplish daily tasks and planning more efficiently. Therefore people are used to create multiple personal productivity tools. 
@@ -399,7 +376,7 @@ your panel for global usage.
 All in all, dashup will provide you the best experience and overview over all daily productivity tools on a central platform.
 
 
-##2.2 General use Case Diagram
+## 2.2 General use Case Diagram
 
 Following UCD will provide a basic overview to the user characteristics, features, constraints, associations and dependencies 
 within the project scope. Furthermore, non-functional requirements are put outside the system boundaries.
@@ -408,11 +385,11 @@ within the project scope. Furthermore, non-functional requirements are put outsi
 
 <img src="https://github.com/raphaelmue/dashup/blob/master/docs/UCD.jpg?raw=true" alt="Use Case Diagram" />
 
-#3 Specific Requirements
+# 3 Specific Requirements
 
 \[This section of the **SRS** should contain all the software requirements to a level of detail sufficient to enable designers to design a system to satisfy those requirements, and testers to test that the system satisfies those requirements.   When using use-case modeling, these requirements are captured in the Use-Cases and the applicable supplementary specifications.  If use-case modeling is not used, the outline for supplementary specifications may be inserted directly into this section, as shown below.\]
 
-##3.1 Functionality
+## 3.1 Functionality
 
 ### 3.1.1 Main Overview
 
@@ -430,7 +407,7 @@ As a developer it is possible to publish your own micro services as well as taki
 own micro services. Furthermore you can use template panels to display your desired information or create your own template.
 For gathering the relevant information you can specify a public API. 
 
-##3.2 Usability
+## 3.2 Usability
 
 The motivation for the whole project is to increase the productivity, which requires usability. When opening dashup, you 
 should be given an overview of all your micro services, so that you do not have to open each application. 
@@ -450,7 +427,7 @@ All your panels should be showing only the relevant information to keep clarity.
 In all use-cases it ought to be possible to do an action with only a few clicks. Furthermore gestures like drag and drop 
 should facilitate the user. 
 
-##3.3 Reliability
+## 3.3 Reliability
 
 ### 3.3.1 Availability
 
@@ -465,55 +442,57 @@ Since we review our code, the defect rate should be about 10 bugs per 1.000 line
 or limitations within functionality should of course occur less. Minor bugs are for instance the incorrect display of data. 
 Significant bugs are e.g. no sufficient consistency check or similar. 
 
-##3.4 Performance
+## 3.4 Performance
 
+### 3.4.1 Response Time
 
-\[The system’s performance characteristics should be outlined in this section. Include specific response times. Where applicable, reference related Use Cases by name.
+The response time should be as low as possible. The reload of the page may not take longer than 5 seconds and in average a response time of 3 seconds is acceptable. Therfore the backend should keep up graphic elements like the panels to avoid too large computing effort if there is a high number of panels mandated on the dashborad of a user.
 
-•               response time for a transaction (average, maximum)
+### 3.4.2 Throughput
+The information displayed on the different panels showed in the dashboard should be reloaded every 10ms. Because of the provision of these data by foreign APIs and servers the fetchung process could take longer. To prevent such a scenario corresponding connventions and rules must be introduced.
 
-•               throughput, for example, transactions per second
+### 3.4.3 Capacity
+The dashboard has to be designed for a large number of users. An increase of new members shouldn't slow down the system in the same way.
 
-•               capacity, for example, the number of customers or transactions the system can accommodate
+### 3.4.4 Degradation Modes 
+tbd
 
-•               degradation modes (what is the acceptable mode of operation when the system has been degraded in some manner)
+### 3.4.5 Resource Utilization 
+tbd
 
-•               resource utilization, such as memory, disk, communications, etc.
+## 3.5 Supportability
 
-### 3.4.1 <Performance Requirement One>
+### 3.5.1 Standards and Conventions
+To ensure a clear strucutur within the project the latest clean code standards have to be applied. In addition, it is only allowed to use self-descriptive expressions for naming. Classes has to begin wih an upper-case, variables with a lower-case.
 
-\[The requirement description goes here.\]
+### 3.5.2 Class Libraries
+tbd
 
-##3.5 Supportability
+### 3.5.3 Maintenance
+tbd
 
+## 3.6 Design Constraints
 
-\[This section indicates any requirements that will enhance the supportability or maintainability of the system being built, including coding standards, naming conventions, class libraries, maintenance access, maintenance utilities.\]
+### 3.6.1 Software Languages
+tbd
 
-### 3.5.1 <Supportability Requirement One>
+### 3.6.2 Software Process Requirements
+tbd
 
-\[The requirement description goes here.\]
+### 3.6.3 Developmental tools
+The main IDE will be IntelliJ IDEA. More tools are tbd.
 
-##3.6 Design Constraints
+### 3.6.4 Architectural Constraints
+It should not be possible to upload executable code to dashup servers.
 
+## 3.7 On-line User Documentation and Help System Requirements
+The application should be kept as simple that detailed intorduction into the service is superflous. To provide fast support for standard questions a FAQ will be set up.
+For deveopers of custom panels a documentation including a tutorial should be available. 
 
-\[This section should indicate any design constraints on the system being built. Design constraints represent design decisions that have been mandated and must be adhered to.  Examples include software languages, software process requirements, prescribed use of developmental tools, architectural and design constraints, purchased components, class libraries, etc.\]
+### 3.8 Purchased Components
+On the hardware side there will be rent a virtual server. Except the domain which also is a purchased component there are open source or free available components allowed for use only. As a consequence the dashup project on itself has to be licensed under an open source license to avoid conflicts with the owner of software or visual compontens. 
 
-### 3.6.1 <Design Constraint One>
-
-\[The requirement description goes here.\]
-
-##3.7 On-line User Documentation and Help System Requirements
-
-
-\[Describes the requirements, if any, for on-line user documentation, help systems, help about notices, etc.\]
-
-3.8 Purchased Components
-------------------------
-
-\[This section describes any purchased components to be used with the system, any applicable licensing or usage restrictions, and any associated compatibility and interoperability or interface standards.\]
-
-3.9 Interfaces
---------------
+# 3.9 Interfaces
 
 ### 3.9.1 User Interfaces
 
@@ -538,18 +517,18 @@ The webapplication should communicate with the java backend by a secured HTTPS c
 be a unencrypted connection via HTTP is still to be determined. The Connection should be asynchronous to avoid a reload 
 of the webapplication.   
 
-##3.10 Licensing Requirements
+## 3.10 Licensing Requirements
 
 
 tbd
 
-##3.11 Legal, Copyright, and Other Notices
+## 3.11 Legal, Copyright, and Other Notices
 
 The dashup team will not take any responsibility for lost data and other damages done to your microservice or other programs. 
 The dashup logo may only be used for the official dashup application. The copy of the idea or any kind of coding belonging 
 to the dashup application is strictly forbidden and will be taken to court.
 
-##3.12 Applicable Standards
+## 3.12 Applicable Standards
 
 The code of dashup should follow some basic rules of clean code such as:
 * Intuitive names of variables and methods.
@@ -562,9 +541,10 @@ The code of dashup should follow some basic rules of clean code such as:
 If necessary there can be exceptions to this rules, but they have to be well considered and discussed.  
 
 
-#4. Supporting Information
+## 4 Supporting Information
 **For more information please contact:**
 * <a href="mailto:felix.hausberger@sap.com"> Felix Hausberger </a>
 * <a href="mailto:sven.leonhard@sap.com"> Sven Leonhard </a>
 * <a href="mailto:raphael.muesseler@sap.com"> Raphael Müßeler </a>
 * <a href="mailto:joshua.schulz@sap.com"> Joshua Schulz </a>
+
