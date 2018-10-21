@@ -292,31 +292,50 @@ Where application development tools, such as requirements tools, modeling tools,
 
 ### 3.4.1 Response Time
 
-The response time should be as low as possible. The reload of the page may not take longer than 8 seconds and in average a response time of 5 seconds is acceptable. Therfore the backend should keep up graphic elements like the panels to avoid too large computing effort, if there is a high number of panels mandated on the dashborad of a user.
+The response time should be as low as possible. The reload of the page may not take longer than 5 seconds and in average a response time of 3 seconds is acceptable. Therfore the backend should keep up graphic elements like the panels to avoid too large computing effort if there is a high number of panels mandated on the dashborad of a user.
 
 ### 3.4.2 Throughput
-The information displayed on the different panels showed in the dashboard should be reloaded every 10ms. Because of the provision of these data by foreign APIs and servers the fetchung process could take longer. To prevent such a scenario corresponding connventions and rules will be introduced.
+The information displayed on the different panels showed in the dashboard should be reloaded every 10 ms. Because of the provision of these data by foreign APIs and servers the fetchung process could take longer. To prevent such a scenario corresponding connventions and rules must be introduced.
 
-### 3.4.2 Capacity
-The dashboard is to be made for a large number of users. An increase of new members shouldn't slow down the system in the same way.
+### 3.4.3 Capacity
+The dashboard has to be designed for a large number of users. An increase of new members shouldn't slow down the system in the same way.
+
+### 3.4.4 Degradation Modes 
+tbd
+
+### 3.4.5 Resource Utilization 
+tbd
 
 ## 3.5 Supportability
 
-### 3.5.1 Naming Conventions
-For naming it is only allowed to use self-descriptive expressions. Classes has to begin wih an uppr-case, variables with a lower-case.  
+### 3.5.1 Standards and Conventions
+To ensure a clear strucutur within the project the latest clean code standards have to be applied. In addition, it is only allowed to use self-descriptive expressions for naming. Classes has to begin wih an upper-case, variables with a lower-case.
+
+### 3.5.2 Class Libraries
+tbd
+
+### 3.5.3 Maintenance
+tbd
 
 ## 3.6 Design Constraints
-\[This section should indicate any design constraints on the system being built. Design constraints represent design decisions that have been mandated and must be adhered to.  Examples include software languages, software process requirements, prescribed use of developmental tools, architectural and design constraints, purchased components, class libraries, etc.\]
 
-### 3.6.1 Architectural Constraints
-It should not be possible to upload executable code to dashup servers. 
+### 3.6.1 Software Languages
+tbd
+
+### 3.6.2 Software Process Requirements
+tbd
+
+### 3.6.3 Developmental tools
+The main IDE will be IntelliJ IDEA. More tools are tbd.
+
+### 3.6.4 Architectural Constraints
+It should not be possible to upload executable code to dashup servers.
 
 ## 3.7 On-line User Documentation and Help System Requirements
 The application should be kept as simple that detailed intorduction into the service is superflous. To provide fast support for standard questions a FAQ will be set up.
 For deveopers of custom panels a documentation including a tutorial should be available. 
 
-3.8 Purchased Components
-------------------------
+### 3.8 Purchased Components
 On the hardware side there will be rent a virtual server. Except the domain which also is a purchased component there are open source or free available components allowed for use only. As a consequence the dashup project on it self has to be licensed under an open source license to avoid conflicts with the owner of software or visual compontens. 
 
 3.9 Interfaces
