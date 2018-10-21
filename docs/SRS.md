@@ -295,7 +295,7 @@ Where application development tools, such as requirements tools, modeling tools,
 The response time should be as low as possible. The reload of the page may not take longer than 5 seconds and in average a response time of 3 seconds is acceptable. Therfore the backend should keep up graphic elements like the panels to avoid too large computing effort if there is a high number of panels mandated on the dashborad of a user.
 
 ### 3.4.2 Throughput
-The information displayed on the different panels showed in the dashboard should be reloaded every 10 ms. Because of the provision of these data by foreign APIs and servers the fetchung process could take longer. To prevent such a scenario corresponding connventions and rules must be introduced.
+The information displayed on the different panels showed in the dashboard should be reloaded every 10ms. Because of the provision of these data by foreign APIs and servers the fetchung process could take longer. To prevent such a scenario corresponding connventions and rules must be introduced.
 
 ### 3.4.3 Capacity
 The dashboard has to be designed for a large number of users. An increase of new members shouldn't slow down the system in the same way.
@@ -336,7 +336,7 @@ The application should be kept as simple that detailed intorduction into the ser
 For deveopers of custom panels a documentation including a tutorial should be available. 
 
 ### 3.8 Purchased Components
-On the hardware side there will be rent a virtual server. Except the domain which also is a purchased component there are open source or free available components allowed for use only. As a consequence the dashup project on it self has to be licensed under an open source license to avoid conflicts with the owner of software or visual compontens. 
+On the hardware side there will be rent a virtual server. Except the domain which also is a purchased component there are open source or free available components allowed for use only. As a consequence the dashup project on itself has to be licensed under an open source license to avoid conflicts with the owner of software or visual compontens. 
 
 3.9 Interfaces
 --------------
