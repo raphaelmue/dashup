@@ -1,119 +1,117 @@
-dashup
+dashup - Software Requirements Specification
+============================================
+### Version 1.0
 
-Software Requirements Specification
-
-Version 1.0
-
-<div class="Section2" markdown="1">
-
-<p class="MsoTitle">Revision History</p>
+###### Revison history
 
 <table border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;
  border:none;">
  <tbody><tr>
-  <td width="154" valign="top" style="width:1.6in;border:solid windowtext .75pt;
+  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
   <p class="Tabletext" align="center" style="text-align:center"><b>Date</b></p>
   </td>
-  <td width="77" valign="top" style="width:.8in;border:solid windowtext .75pt;
+  <td width="77" style="width:.8in;border:solid windowtext .75pt;
   border-left:none;padding:0in 5.4pt 0in 5.4pt">
   <p class="Tabletext" align="center" style="text-align:center"><b>Version</b></p>
   </td>
-  <td width="250" valign="top" style="width:2.6in;border:solid windowtext .75pt;
+  <td width="250" style="width:2.6in;border:solid windowtext .75pt;
   border-left:none;padding:0in 5.4pt 0in 5.4pt">
   <p class="Tabletext" align="center" style="text-align:center"><b>Description</b></p>
   </td>
-  <td width="154" valign="top" style="width:1.6in;border:solid windowtext .75pt;
+  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
   border-left:none;padding:0in 5.4pt 0in 5.4pt">
   <p class="Tabletext" align="center" style="text-align:center"><b>Author</b></p>
   </td>
  </tr>
  <tr>
-  <td width="154" valign="top" style="width:1.6in;border:solid windowtext .75pt;
+  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&lt;dd/mmm/yy&gt;</p>
+  <p class="Tabletext">21/10/2018</p>
   </td>
-  <td width="77" valign="top" style="width:.8in;border-top:none;border-left:none;
+  <td width="77" style="width:.8in;border-top:none;border-left:none;
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&lt;x.x&gt;</p>
+  <p class="Tabletext">1.0</p>
   </td>
-  <td width="250" valign="top" style="width:2.6in;border-top:none;border-left:none;
+  <td width="250" style="width:2.6in;border-top:none;border-left:none;
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&lt;details&gt;</p>
+  <p class="Tabletext">Initial Specification</p>
   </td>
-  <td width="154" valign="top" style="width:1.6in;border-top:none;border-left:none;
+  <td width="154" style="width:1.6in;border-top:none;border-left:none;
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&lt;name&gt;</p>
+  <p class="Tabletext">Felix Hausberger</p>
   </td>
  </tr>
  <tr>
-  <td width="154" valign="top" style="width:1.6in;border:solid windowtext .75pt;
+  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt">
   <p class="Tabletext">&nbsp;</p>
   </td>
-  <td width="77" valign="top" style="width:.8in;border-top:none;border-left:none;
+  <td width="77" style="width:.8in;border-top:none;border-left:none;
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
   <p class="Tabletext">&nbsp;</p>
   </td>
-  <td width="250" valign="top" style="width:2.6in;border-top:none;border-left:none;
+  <td width="250" style="width:2.6in;border-top:none;border-left:none;
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
   <p class="Tabletext">&nbsp;</p>
   </td>
-  <td width="154" valign="top" style="width:1.6in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&nbsp;</p>
-  </td>
- </tr>
- <tr>
-  <td width="154" valign="top" style="width:1.6in;border:solid windowtext .75pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&nbsp;</p>
-  </td>
-  <td width="77" valign="top" style="width:.8in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&nbsp;</p>
-  </td>
-  <td width="250" valign="top" style="width:2.6in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&nbsp;</p>
-  </td>
-  <td width="154" valign="top" style="width:1.6in;border-top:none;border-left:none;
+  <td width="154" style="width:1.6in;border-top:none;border-left:none;
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
   <p class="Tabletext">&nbsp;</p>
   </td>
  </tr>
  <tr>
-  <td width="154" valign="top" style="width:1.6in;border:solid windowtext .75pt;
+  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt">
   <p class="Tabletext">&nbsp;</p>
   </td>
-  <td width="77" valign="top" style="width:.8in;border-top:none;border-left:none;
+  <td width="77" style="width:.8in;border-top:none;border-left:none;
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
   <p class="Tabletext">&nbsp;</p>
   </td>
-  <td width="250" valign="top" style="width:2.6in;border-top:none;border-left:none;
+  <td width="250" style="width:2.6in;border-top:none;border-left:none;
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
   <p class="Tabletext">&nbsp;</p>
   </td>
-  <td width="154" valign="top" style="width:1.6in;border-top:none;border-left:none;
+  <td width="154" style="width:1.6in;border-top:none;border-left:none;
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
   <p class="Tabletext">&nbsp;</p>
   </td>
  </tr>
-</tbody></table>
-</div>
+ <tr>
+  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext">&nbsp;</p>
+  </td>
+  <td width="77" style="width:.8in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext">&nbsp;</p>
+  </td>
+  <td width="250" style="width:2.6in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext">&nbsp;</p>
+  </td>
+  <td width="154" style="width:1.6in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext">&nbsp;</p>
+  </td>
+ </tr>
+</tbody>
+</table>
+
+<br />
 
 #Table of Contents
 
@@ -129,33 +127,37 @@ Version 1.0
 
     1.5 Overview     
 
-2. Overall Description    
+2. Overall Description  
+
+    2.1 Project Vision
+    
+    2.2 General Use Case Diagram    
 
 3. Specific Requirements
 
     3.1 Functionality
       
-    3.1.1 Functional Requirement One        
+        3.1.1 Functional Requirement One        
 
     3.2 Usability   
 
-    3.2.1 <Usability Requirement One>
+        3.2.1 <Usability Requirement One>
     
     3.3 Reliability     
 
-    3.3.1 Reliability Requirement One
+        3.3.1 Reliability Requirement One
     
     3.4 Performance     
 
-    3.4.1 <Performance Requirement One>
+        3.4.1 <Performance Requirement One>
     
     3.5 Supportability    
 
-    3.5.1 <Supportability Requirement One> 
+        3.5.1 <Supportability Requirement One> 
 
     3.6 Design Constraints     
 
-    3.6.1 <Design Constraint One>           
+        3.6.1 <Design Constraint One>           
 
     3.7 Online User Documentation and Help System Requirements  
 
@@ -163,13 +165,13 @@ Version 1.0
 
     3.9 Interfaces     
 
-    3.9.1 User Interfaces          
+        3.9.1 User Interfaces          
 
-    3.9.2 Hardware Interfaces           
+        3.9.2 Hardware Interfaces           
 
-    3.9.3 Software Interfaces           
+        3.9.3 Software Interfaces           
 
-    3.9.4 Communications Interfaces    
+        3.9.4 Communications Interfaces    
 
     3.10 Licensing Requirements    
 
@@ -179,64 +181,232 @@ Version 1.0
 
 4. Supporting Information    
 
-  
-Software Requirements Specification
+<br />
+
+# Software Requirements Specification
+
+<br />
 
 # 1. Introduction
 
-
-\[The introduction of the **Software Requirements Specification (SRS)** should provide an overview of the entire **SRS**. It should include the purpose, scope, definitions, acronyms, abbreviations, references, and overview of the **SRS**.\]
-
-\[Note: The Software Requirements Specification (**SRS**) captures the complete software requirements for the system, or a portion of the system.  Following is a typical **SRS** outline for a project using only traditional natural-language style requirements – with **no use-case modeling.** It captures all requirements in a single document,  with  applicable sections inserted from the  Supplementary Specifications (which would no longer be needed).  For a template of an **SRS** using use-case modeling, which consists of a package containing Use-Cases of the use-case model and applicable Supplementary Specifications and other supporting information, see rup\_**SRS**\-uc.dot.\]
-
-\[Many different arrangements of an **SRS** are possible.  Refer to \[IEEE830-1998\] for further elaboration of these explanations, as well as other options for **SRS** organization.\]
-
 ##1.1 Purpose
 
-
 This Software Requirements Specification was created to collect and organize the requirements for the dashup platform.
-It describes the expected functional and nonfunctional functionality of the platform. This is necessary in order to 
-achieve a common understanding between the client and the software supplier.
-Furthermore it is needed to evaluate the results of the project.
+Agreeing on a general consent between the developer teams expertise and the clients interests and expectations, the 
+specification contains all realistic requirements, that are compatible with the projects vision. Therefore it describes 
+the expected functional and nonfunctional requirements of the platform and makes it transparent to the community, who can 
+therefore gain a better overview over the projects scope. Furthermore it is needed to evaluate the results of the project 
+after its status is considered to be completed and ready for transition. 
 
 ##1.2 Scope
 
-The dashup platform should provide a quick overview on multiple microservices without accessing them all separably. 
-It should be a productivity tool which is usable in webbrowser. There will be a collection of default microservices 
-which are developed and hosted by the project team. Furthermore there should be the possibility to integrate own microservices 
-to keep track of all own applications.     
+The dashup platform provides a quick overview of multiple microservices hosted on external servers of different providers.
+Therefore users no longer have to access microservices on separated ways and can gain quick insights into real time data 
+of different microservices on one central platform. Furthermore, dashup provides a compressed pool of functionalities for each
+microservice. Dashup is therefore considered to be a productivity tool, running as a web-application on modern browsers.
+Each microservice will be displayed on the central dashboard by its individual panel containing different components for 
+data visualization. Whereas users are provided with a collection of default microservices at the beginning, they can later 
+enhance their dashboard with further microservices from the dashup store. In addition, there should be the possibility to 
+integrate own microservices as customly defined panels to keep track of all of one's own applications.     
 
 ##1.3 Definitions, Acronyms and Abbreviations
 
+<br />
 
-\[This subsection should provide the definitions of all terms, acronyms, and abbreviations required to properly interpret the **SRS**.  This information may be provided by reference to the project Glossary.\]
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;
+ border:none;">
+ <tbody>
+ <tr>
+  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext" align="center" style="text-align:center"><b>Definition</b></p>
+  </td>
+  <td width="77" style="width:.8in;border:solid windowtext .75pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext" align="center" style="text-align:center"><b>Description</b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext"><b>dashup</b></p>
+  </td>
+  <td width="77" style="width:.8in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext">The official name of the project and the software</p>
+  </td>
+ </tr></tbody>
+</table>
+
+<br />
+
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;
+ border:none;">
+ <tbody>
+ <tr>
+  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext" align="center" style="text-align:center"><b>Abbreviation</b></p>
+  </td>
+  <td width="77" style="width:.8in;border:solid windowtext .75pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext" align="center" style="text-align:center"><b>Explanation</b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext"><b>SRS</b></p>
+  </td>
+  <td width="77" style="width:.8in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext">Software Requirements Specification</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext"><b>UC</b></p>
+  </td>
+  <td width="77" style="width:.8in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext">Use Case</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext"><b>UCD</b></p>
+  </td>
+  <td width="77" style="width:.8in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext">Use Case Diagram</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext"><b>n/a</b></p>
+  </td>
+  <td width="77" style="width:.8in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext">not applicable</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext"><b>tbd</b></p>
+  </td>
+  <td width="77" style="width:.8in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext">to be determined</p>
+  </td>
+ </tr></tbody>
+</table>
 
 ##1.4 References
 
+<br />
 
-\[This subsection should provide a complete list of all documents referenced elsewhere in the **SRS**.  Each document should be identified by title, report number (if applicable), date, and publishing organization.  Specify the sources from which the references can be obtained. This information may be provided by reference to an appendix or to another document.\]
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;
+ border:none;">
+ <tbody>
+ <tr>
+  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext" align="center" style="text-align:center"><b>Reference</b></p>
+  </td>
+  <td width="77" style="width:.8in;border:solid windowtext .75pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext" align="center" style="text-align:center"><b>Date</b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext"><a href="https://dashup2k18.wordpress.com/"> Dashup Blog </a></p>
+  </td>
+  <td width="77" style="width:.8in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext">21/10/2018</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext"><a href="https://github.com/raphaelmue/dashup"> GitHub Repository </a></p>
+  </td>
+  <td width="77" style="width:.8in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext">21/10/2018</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext"><a href="https://github.com/raphaelmue/dashup/blob/master/docs/UCD.jpg"> UCD </a></p>
+  </td>
+  <td width="77" style="width:.8in;border-top:none;border-left:none;
+  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="Tabletext">21/10/2018</p>
+  </td>
+ </tr></tbody>
+</table>
 
 ##1.5 Overview
 
-
-\[This subsection should describe what the rest of the **SRS** contains and explain how the document is organized.\]
+In the next chapter, the general vision as well as the UCD will be provided, in order to give a quick summary about the 
+scope of the project. The more in depth specification of the project will follow in the chapter <i>Specific Requirements</i>.
+Every feature that dashup provides, will be described and explained in chapter <i>Functionality</i> going over to <i>Usability</i>
+and <i>Reliability</i> claims of dashup. Furthermore, <i>Performance</i>, <i>Supportability</i> and <i>Design constraints</i> 
+will be a part of the specification, giving information about our service level agreements. In order to meet the expectations 
+of basic users and developers, <i>Documentation and Help System Requirements</i> will also play a big role within this SRS. 
+<i>Purchased components</i>, <i>hardware interfaces</i> as well as <i>Licensing Requirements</i> 
+are minor topics or not applicable for the dashup project and will therefore not be a part of this specification. Other 
+interfaces like <i> User-, Software- and Communication-Interfaces</i> on the other hand, will be described in chapter 
+<i>Interfaces</i>. To finish of the specification, the <i>Legal, Copyright, and Other</i> chapter as well as <i>Applicable Standards</i> 
+offer insights in our coding creeds and the allowed range of usage of our application. If any questions are left open or 
+an adaption of the SRS in needed, please contact one of the developers listed in <i>Further information</i>.
 
 #2 Overall Description
 
+##2.1 Project Vision
 
-\[This section of the **SRS** should describe the general factors that affect the product and its requirements.  This section does not state specific requirements.  Instead, it provides a background for those requirements, which are defined in detail in Section 3, and makes them easier to understand. Include such items as:
+In today's digital world, automation is everything. To keep up with modern achievement-oriented society, people need to 
+accomplish daily tasks and planning more efficiently. Therefore people are used to create multiple personal productivity tools. 
+Keeping an overview over your own pool of applications might occur difficult sometimes. Inspired by this efficiency loss, 
+we will create dashup to give you the ultimate tool to get back on track again.
 
-•               product perspective
+Dashup helps you to get through daily tasks easier by providing various microservices for typical private usage scenarios on a central platform. 
+By fetching relevant information of each microservice, dashup saves you from spending too much time on analyzing data or 
+using applications. You can take use of each microservice restricted to the essential set of features or get insights into 
+real time processed data quickly , thus leading to more efficiency. Each microservice will be displayed as its own panel 
+on the central dashboard. 
 
-•               product functions
+Additionally, dashup gives you the opportunity to create custom panels for your own microservices and to publish 
+your panel for global usage.
 
-•             user characteristics
+All in all, dashup will provide you the best experience and overview over all daily productivity tools on a central platform.
 
-•               constraints
 
-•               assumptions and dependencies
+##2.2 General use Case Diagram
 
-•               requirements subsets\]
+Following UCD will provide a basic overview to the user characteristics, features, constraints, associations and dependencies 
+within the project scope. Furthermore, non-functional requirements are put outside the system boundaries.
+
+<br />
+
+<img src="https://github.com/raphaelmue/dashup/blob/master/docs/UCD.jpg?raw=true" alt="Use Case Diagram" />
 
 #3 Specific Requirements
 
@@ -262,6 +432,8 @@ Where application development tools, such as requirements tools, modeling tools,
 •               specify measurable task times for typical tasks or base the new system’s usability requirements on other systems that the users know and like
 
 •               specify requirement to conform to common usability standards, such as IBM’s CUA standards Microsoft’s GUI standards\]
+
+•               Accessibility
 
 ### 3.2.1 <Usability Requirement One>
 
@@ -353,7 +525,7 @@ N/A
 
 ### 3.9.3 Software Interfaces
 
-The dashup application runs in a webbroser. We will try to make it work in many different webbrowsers as possible.
+The dashup application runs in a web-browser. We will try to make it work in many different web-browsers as possible.
 
 ### 3.9.4 Communications Interfaces
 
@@ -368,24 +540,26 @@ tbd
 
 ##3.11 Legal, Copyright, and Other Notices
 
-The "dashup" team will not take any responsibility for lost data and other damages done to your microservice or other programs. 
-The "dashup" logo may only be used for the official "dashup" application.
+The dashup team will not take any responsibility for lost data and other damages done to your microservice or other programs. 
+The dashup logo may only be used for the official dashup application. The copy of the idea or any kind of coding belonging 
+to the dashup application is strictly forbidden and will be taken to court.
 
 ##3.12 Applicable Standards
 
-The code of "dashup" shuold follow some basic rules of clean code such as:
+The code of dashup should follow some basic rules of clean code such as:
 * Intuitive names of variables and methods.
 * Comments to improve understanding and readability of the code.
 * Design patterns integration.
 * No hard-coded strings.
 * No premature optimization.
+* Secure transfer of data
 
 If necessary there can be exceptions to this rules, but they have to be well considered and discussed.  
 
 
 #4. Supporting Information
 **For more information please contact:**
-* Felix Hausberger
-* Sven Leonhard
-* Raphael Müßeler
-* Joshua Schulz
+* <a href="mailto:felix.hausberger@sap.com"> Felix Hausberger </a>
+* <a href="mailto:sven.leonhard@sap.com"> Sven Leonhard </a>
+* <a href="mailto:raphael.muesseler@sap.com"> Raphael Müßeler </a>
+* <a href="mailto:joshua.schulz@sap.com"> Joshua Schulz </a>
