@@ -189,7 +189,7 @@ dashup - Software Requirements Specification
 
 # 1. Introduction
 
-##1.1 Purpose
+## 1.1 Purpose
 
 This Software Requirements Specification was created to collect and organize the requirements for the dashup platform.
 Agreeing on a general consent between the developer teams expertise and the clients interests and expectations, the 
@@ -198,7 +198,7 @@ the expected functional and nonfunctional requirements of the platform and makes
 therefore gain a better overview over the projects scope. Furthermore it is needed to evaluate the results of the project 
 after its status is considered to be completed and ready for transition. 
 
-##1.2 Scope
+## 1.2 Scope
 
 The dashup platform provides a quick overview of multiple microservices hosted on external servers of different providers.
 Therefore users no longer have to access microservices on separated ways and can gain quick insights into real time data 
@@ -209,7 +209,7 @@ data visualization. Whereas users are provided with a collection of default micr
 enhance their dashboard with further microservices from the dashup store. In addition, there should be the possibility to 
 integrate own microservices as customly defined panels to keep track of all of one's own applications.     
 
-##1.3 Definitions, Acronyms and Abbreviations
+## 1.3 Definitions, Acronyms and Abbreviations
 
 <br />
 
@@ -311,7 +311,7 @@ integrate own microservices as customly defined panels to keep track of all of o
  </tr></tbody>
 </table>
 
-##1.4 References
+## 1.4 References
 
 <br />
 
@@ -363,7 +363,7 @@ integrate own microservices as customly defined panels to keep track of all of o
  </tr></tbody>
 </table>
 
-##1.5 Overview
+## 1.5 Overview
 
 In the next chapter, the general vision as well as the UCD will be provided, in order to give a quick summary about the 
 scope of the project. The more in depth specification of the project will follow in the chapter <i>Specific Requirements</i>.
@@ -378,9 +378,9 @@ interfaces like <i> User-, Software- and Communication-Interfaces</i> on the oth
 offer insights in our coding creeds and the allowed range of usage of our application. If any questions are left open or 
 an adaption of the SRS in needed, please contact one of the developers listed in <i>Further information</i>.
 
-#2 Overall Description
+# 2 Overall Description
 
-##2.1 Project Vision
+## 2.1 Project Vision
 
 In today's digital world, automation is everything. To keep up with modern achievement-oriented society, people need to 
 accomplish daily tasks and planning more efficiently. Therefore people are used to create multiple personal productivity tools. 
@@ -399,7 +399,7 @@ your panel for global usage.
 All in all, dashup will provide you the best experience and overview over all daily productivity tools on a central platform.
 
 
-##2.2 General use Case Diagram
+## 2.2 General use Case Diagram
 
 Following UCD will provide a basic overview to the user characteristics, features, constraints, associations and dependencies 
 within the project scope. Furthermore, non-functional requirements are put outside the system boundaries.
@@ -408,11 +408,11 @@ within the project scope. Furthermore, non-functional requirements are put outsi
 
 <img src="https://github.com/raphaelmue/dashup/blob/master/docs/UCD.jpg?raw=true" alt="Use Case Diagram" />
 
-#3 Specific Requirements
+# 3 Specific Requirements
 
 \[This section of the **SRS** should contain all the software requirements to a level of detail sufficient to enable designers to design a system to satisfy those requirements, and testers to test that the system satisfies those requirements.   When using use-case modeling, these requirements are captured in the Use-Cases and the applicable supplementary specifications.  If use-case modeling is not used, the outline for supplementary specifications may be inserted directly into this section, as shown below.\]
 
-##3.1 Functionality
+## 3.1 Functionality
 
 
 \[This section describes the functional requirements of the system for those requirements which are expressed in the natural language style. For many applications, this may constitute the bulk of the **SRS** Package and thought should be given to the organization of this section. This section is typically organized by feature, but alternative organization methods may also be appropriate, for example, organization by user or organization by subsystem.  Functional requirements may include feature sets, capabilities, and security.
@@ -423,7 +423,7 @@ Where application development tools, such as requirements tools, modeling tools,
 
 \[The requirement description.\]
 
-##3.2 Usability
+## 3.2 Usability
 
 \[This section should include all of those requirements that affect usability. For example,
 
@@ -439,7 +439,7 @@ Where application development tools, such as requirements tools, modeling tools,
 
 \[The requirement description goes here.\]
 
-##3.3 Reliability
+## 3.3 Reliability
 
 
 \[Requirements for reliability of the system should be specified here. Some suggestions follow:
@@ -560,7 +560,7 @@ The code of dashup should follow some basic rules of clean code such as:
 If necessary there can be exceptions to this rules, but they have to be well considered and discussed.  
 
 
-#4. Supporting Information
+## 4 Supporting Information
 **For more information please contact:**
 * <a href="mailto:felix.hausberger@sap.com"> Felix Hausberger </a>
 * <a href="mailto:sven.leonhard@sap.com"> Sven Leonhard </a>
