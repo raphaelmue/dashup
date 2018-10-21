@@ -414,51 +414,56 @@ within the project scope. Furthermore, non-functional requirements are put outsi
 
 ##3.1 Functionality
 
+### 3.1.1 Main Overview
 
-\[This section describes the functional requirements of the system for those requirements which are expressed in the natural language style. For many applications, this may constitute the bulk of the **SRS** Package and thought should be given to the organization of this section. This section is typically organized by feature, but alternative organization methods may also be appropriate, for example, organization by user or organization by subsystem.  Functional requirements may include feature sets, capabilities, and security.
+When opening dashup in your browser, the micro services should display all relevant information graphically or textually 
+and they are presented as panels. You can easily customize the panel by e.g. changing the background image and reordering 
+or resizing the panel. Besides you can also create and modify sections in order to structure your dashup. 
 
-Where application development tools, such as requirements tools, modeling tools, etc., are employed to capture the functionality, this section document will refer to the availability of that data, indicating the location and name of the tool that is used to capture the data.\]
+### 3.1.2 Marketplace
 
-### 3.1.1 <Functional Requirement One>
+In the marketplace all available micro services are offered to you. You can select every one of them and configure them
+as you like. You also can search for micro services and rate panels. Some micro services provide a basic functionality 
+so that you can easily interact with ti. 
 
-\[The requirement description.\]
+As a developer it is possible to publish your own micro services as well as taking a look at the usage statistics of your
+own micro services. Furthermore you can use template panels to display your desired information or create your own template.
+For gathering the relevant information you can specify a public API. 
 
 ##3.2 Usability
 
-\[This section should include all of those requirements that affect usability. For example,
+The motivation for the whole project is to increase the productivity, which requires usability. When opening dashup, you 
+should be given an overview of all your micro services, so that you do not have to open each application. 
 
-•               specify the required training time for a normal users and a power user to become productive at particular operations
+### 3.2.1 Start and go
 
-•               specify measurable task times for typical tasks or base the new system’s usability requirements on other systems that the users know and like
+Without clicking any button or similar, each micro services shows its relevant information. Each micro services fetches 
+the data from its specified API automatically. Besides, if you have been logged in once on your device, you will be 
+automatically logged in without doing anything. 
 
-•               specify requirement to conform to common usability standards, such as IBM’s CUA standards Microsoft’s GUI standards\]
+### 3.2.2 Clarity
 
-•               Accessibility
+All your panels should be showing only the relevant information to keep clarity. This applies also for the marketplace. 
 
-### 3.2.1 <Usability Requirement One>
+### 3.2.3 Easy to use 
 
-\[The requirement description goes here.\]
+In all use-cases it ought to be possible to do an action with only a few clicks. Furthermore gestures like drag and drop 
+should facilitate the user. 
 
 ##3.3 Reliability
 
+### 3.3.1 Availability
 
-\[Requirements for reliability of the system should be specified here. Some suggestions follow:
+The dashup platform should be always available. Since bugs can lead to a crash, we assume that dashup has an up-time of 
+99.5% per month.
 
-•               Availability—specify the percentage of time available ( xx.xx%), hours of use, maintenance access, degraded mode operations, etc.
+The MTBF should not fall below a number of 7 day. However, the MTTR should not exceed a number of 12 hours. 
 
-•               Mean Time Between Failures (MTBF) — this is usually specified in hours, but it could also be specified in terms of days, months or years.
+### 3.2.2 Accuracy
 
-•               Mean Time To Repair (MTTR)—how long is the system allowed to be out of operation after it has failed?
-
-•               Accuracy—specify precision (resolution) and accuracy (by some known standard) that is required in the system’s output.
-
-•               Maximum Bugs or Defect Rate—usually expressed in terms of bugs per thousand of lines of code (bugs/KLOC) or bugs per function-point( bugs/function-point).
-
-•               Bugs or Defect Rate—categorized in terms of minor, significant, and critical bugs: the requirement(s) must define what is meant by a “critical” bug; for example, complete loss of data or a complete inability to use certain parts of the system’s functionality.\]
-
-### 3.3.1 <Reliability Requirement One>
-
-\[The requirement description.\]
+Since we review our code, the defect rate should be about 10 bugs per 1.000 lines of code. Critical bugs like loss of data,
+or limitations within functionality should of course occur less. Minor bugs are for instance the incorrect display of data. 
+Significant bugs are e.g. no sufficient consistency check or similar. 
 
 ##3.4 Performance
 
