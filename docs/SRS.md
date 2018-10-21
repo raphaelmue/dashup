@@ -113,73 +113,50 @@ dashup - Software Requirements Specification
 
 <br />
 
-#Table of Contents
+# Table of Contents
 
-1. Introduction          
-
-    1.1 Purpose    
-
-    1.2 Scope
-
-    1.3 Definitions, Acronyms and Abbreviations
-
-    1.4 References     
-
-    1.5 Overview     
-
-2. Overall Description  
-
-    2.1 Project Vision
-    
-    2.2 General Use Case Diagram    
-
-3. Specific Requirements
-
-    3.1 Functionality
-      
-        3.1.1 Functional Requirement One        
-
-    3.2 Usability   
-
-        3.2.1 <Usability Requirement One>
-    
-    3.3 Reliability     
-
-        3.3.1 Reliability Requirement One
-    
-    3.4 Performance     
-
-        3.4.1 <Performance Requirement One>
-    
-    3.5 Supportability    
-
-        3.5.1 <Supportability Requirement One> 
-
-    3.6 Design Constraints     
-
-        3.6.1 <Design Constraint One>           
-
-    3.7 Online User Documentation and Help System Requirements  
-
-    3.8 Purchased Components
-
-    3.9 Interfaces     
-
-        3.9.1 User Interfaces          
-
-        3.9.2 Hardware Interfaces           
-
-        3.9.3 Software Interfaces           
-
-        3.9.4 Communications Interfaces    
-
-    3.10 Licensing Requirements    
-
-    3.11 Legal, Copyright and Other Notices
-    
-    3.12 Applicable Standards     
-
-4. Supporting Information    
+- [Introduction](#1-introduction)        
+    - [Purpose](#11-purpose)
+    - [Scope](#12-scope)
+    - [Definitions, Acronyms and Abbreviations](#13-definitions-acronyms-and-abbreviations)
+    - [References](#14-references)
+    - [Overview](#15-overview)
+ - [Overall Description](#2-overall-description)
+    - [Project Vision](#21-project-vision)
+    - [General Use Case Diagram](#22-general-use-case-diagram)
+ - [Specific Requirements](#3-specific-requirements)
+    - [Functionality](#31-functionality)
+    - [Functional Requirement One](#311-functional-requirement-one)
+    - [Usability](#32-usability) 
+    - [Usability Requirement One](#321-usability-requirement-one)
+    - [Reliability](#33-reliability)
+    - [Reliability Requirement One](#331-reliability-requirement-one)  
+    - [Performance](#34-performance)
+    - [Response Time](#341-response-time)
+    - [Throughput](#342-throughput)
+    - [Capacity](#343-capacity)
+    - [Degradation Modes](#344-degradation-modes)
+    - [Resource Utilization](#345-resource-utilization) 
+    - [Supportability](#35-supportability)
+    - [Standards and Conventions](#351-standards-and-conventions)
+    - [Class Libraries](#352-class-libraries)
+    - [Maintenance](#353-maintenance)
+    - [Design Constraints](#36-design-constraints)
+    - [Software Languages](#361-software-languages)
+    - [Software Process Requirements](#362-software-process-requirements)
+    - [Developmental tools](#363-developmental-tools)
+    - [Architectural Constraints](#364-architectural-constraints)
+    - [On-line User Documentation and Help System Requirements](#37-on-line-user-documentation-and-help-system-requirements)
+    - [Purchased Components](#38-purchased-components)
+    - [Interfaces](#39-interfaces)
+    - [User Interfaces](#391-user-interfaces)
+    - [Hardware Interfaces](#392-hardware-interfaces)
+    - [Software Interfaces](#393-software-interfaces)
+    - [Communications Interfaces](#394-communications-interfaces)
+    - [Licensing Requirements](#310-licensing-requirements)
+    - [Legal, Copyright, and Other Notices](#311-legal-copyright-and-other-notices)
+    - [Applicable Standards](#312-applicable-standards)
+ - [Supporting Information](#4-supporting-information)  
 
 <br />
 
@@ -510,8 +487,7 @@ For deveopers of custom panels a documentation including a tutorial should be av
 ### 3.8 Purchased Components
 On the hardware side there will be rent a virtual server. Except the domain which also is a purchased component there are open source or free available components allowed for use only. As a consequence the dashup project on itself has to be licensed under an open source license to avoid conflicts with the owner of software or visual compontens. 
 
-3.9 Interfaces
---------------
+# 3.9 Interfaces
 
 ### 3.9.1 User Interfaces
 
@@ -536,7 +512,7 @@ The webapplication should communicate with the java backend by a secured HTTPS c
 be a unencrypted connection via HTTP is still to be determined. The Connection should be asynchronous to avoid a reload 
 of the webapplication.   
 
-##3.10 Licensing Requirements
+## 3.10 Licensing Requirements
 
 
 tbd
