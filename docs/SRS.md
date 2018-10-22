@@ -452,42 +452,37 @@ The information displayed on the different panels showed in the dashboard should
 ### 3.4.3 Capacity
 The dashboard has to be designed for a large number of users. An increase of new members shouldn't slow down the system in the same way.
 
-### 3.4.4 Degradation Modes 
-tbd
+<!--### 3.4.4 Degradation Modes -->
 
-### 3.4.5 Resource Utilization 
-tbd
+<!--### 3.4.5 Resource Utilization--> 
 
 ## 3.5 Supportability
 
 ### 3.5.1 Standards and Conventions
 To ensure a clear strucutur within the project the latest clean code standards have to be applied. In addition, it is only allowed to use self-descriptive expressions for naming. Classes has to begin wih an upper-case, variables with a lower-case.
 
-### 3.5.2 Class Libraries
-tbd
+<!--### 3.5.2 Class Libraries-->
 
-### 3.5.3 Maintenance
-tbd
+<!--### 3.5.3 Maintenance-->
 
 ## 3.6 Design Constraints
 
-### 3.6.1 Software Languages
-tbd
+<!--### 3.6.1 Software Languages-->
 
-### 3.6.2 Software Process Requirements
-tbd
+<!--### 3.6.2 Software Process Requirements-->
 
 ### 3.6.3 Developmental tools
 The main IDE will be IntelliJ IDEA. More tools are tbd.
 
 ### 3.6.4 Architectural Constraints
-It should not be possible to upload executable code to dashup servers.
+The project must be based on the MVC architecture. Therefore the Spring Framwork will be in use.  
+Furthermore it should not be possible to upload executable code to dashup servers.
 
 ## 3.7 On-line User Documentation and Help System Requirements
 The application should be kept as simple that detailed intorduction into the service is superflous. To provide fast support for standard questions a FAQ will be set up.
 For deveopers of custom panels a documentation including a tutorial should be available. 
 
-### 3.8 Purchased Components
+## 3.8 Purchased Components
 On the hardware side there will be rent a virtual server. Except the domain which also is a purchased component there are open source or free available components allowed for use only. As a consequence the dashup project on itself has to be licensed under an open source license to avoid conflicts with the owner of software or visual compontens. 
 
 # 3.9 Interfaces
@@ -502,7 +497,6 @@ On the hardware side there will be rent a virtual server. Except the domain whic
 * **Panel editor** on which developers can create their own panels to display information from their own microservices. 
 
 ### 3.9.2 Hardware Interfaces
-
 N/A
 
 ### 3.9.3 Software Interfaces
@@ -516,8 +510,6 @@ be a unencrypted connection via HTTP is still to be determined. The Connection s
 of the webapplication.   
 
 ## 3.10 Licensing Requirements
-
-
 tbd
 
 ## 3.11 Legal, Copyright, and Other Notices
@@ -542,7 +534,7 @@ If necessary there can be exceptions to this rules, but they have to be well con
 ## 4 Supporting Information
 **For more information please contact:**
 * <a href="mailto:felix.hausberger@sap.com"> Felix Hausberger </a>
-* <a href="mailto:sven.leonhard@sap.com"> Sven Leonhard </a>
+* <a href="mailto:sven.leonhard@7lofficial.de"> Sven Leonhard </a>
 * <a href="mailto:raphael.muesseler@sap.com"> Raphael Müßeler </a>
 * <a href="mailto:joshua.schulz@sap.com"> Joshua Schulz </a>
 
