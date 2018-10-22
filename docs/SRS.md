@@ -126,36 +126,35 @@ dashup - Software Requirements Specification
     - [General Use Case Diagram](#22-general-use-case-diagram)
  - [Specific Requirements](#3-specific-requirements)
     - [Functionality](#31-functionality)
-    - [Functional Requirement One](#311-functional-requirement-one)
+    <!--- - [Functional Requirement One](#311-functional-requirement-one)-->
     - [Usability](#32-usability) 
-    - [Usability Requirement One](#321-usability-requirement-one)
+    <!--- - [Usability Requirement One](#321-usability-requirement-one)-->
     - [Reliability](#33-reliability)
-    - [Reliability Requirement One](#331-reliability-requirement-one)  
     - [Performance](#34-performance)
-    - [Response Time](#341-response-time)
-    - [Throughput](#342-throughput)
-    - [Capacity](#343-capacity)
-    - [Degradation Modes](#344-degradation-modes)
-    - [Resource Utilization](#345-resource-utilization) 
+    <!--- [Response Time](#341-response-time)-->
+    <!--- - [Throughput](#342-throughput)-->
+    <!--- - [Capacity](#343-capacity)-->
+    <!--- [Degradation Modes](#344-degradation-modes)-->
+    <!--- [Resource Utilization](#345-resource-utilization) -->
     - [Supportability](#35-supportability)
-    - [Standards and Conventions](#351-standards-and-conventions)
-    - [Class Libraries](#352-class-libraries)
-    - [Maintenance](#353-maintenance)
+    <!--- - [Standards and Conventions](#351-standards-and-conventions)
+    <!--- [Class Libraries](#352-class-libraries)-->
+    <!--- - [Maintenance](#352-maintenance)-->
     - [Design Constraints](#36-design-constraints)
-    - [Software Languages](#361-software-languages)
-    - [Software Process Requirements](#362-software-process-requirements)
-    - [Developmental tools](#363-developmental-tools)
-    - [Architectural Constraints](#364-architectural-constraints)
+    <!--- [Software Languages](#361-software-languages)-->
+    <!--- [Software Process Requirements](#362-software-process-requirements)-->
+    <!--- - [Developmental tools](#361-developmental-tools)-->
+    <!--- - [Architectural Constraints](#362-architectural-constraints)-->
     - [On-line User Documentation and Help System Requirements](#37-on-line-user-documentation-and-help-system-requirements)
     - [Purchased Components](#38-purchased-components)
     - [Interfaces](#39-interfaces)
-    - [User Interfaces](#391-user-interfaces)
-    - [Hardware Interfaces](#392-hardware-interfaces)
-    - [Software Interfaces](#393-software-interfaces)
-    - [Communications Interfaces](#394-communications-interfaces)
-    - [Licensing Requirements](#310-licensing-requirements)
-    - [Legal, Copyright, and Other Notices](#311-legal-copyright-and-other-notices)
-    - [Applicable Standards](#312-applicable-standards)
+    <!--- - [User Interfaces](#391-user-interfaces)-->
+    <!--- - [Hardware Interfaces](#392-hardware-interfaces)-->
+    <!--- - [Software Interfaces](#393-software-interfaces)-->
+    <!--- - [Communications Interfaces](#394-communications-interfaces)-->
+    <!--- - [Licensing Requirements](#310-licensing-requirements)-->
+    <!--- - [Legal, Copyright, and Other Notices](#311-legal-copyright-and-other-notices)-->
+    <!--- - [Applicable Standards](#312-applicable-standards)-->
  - [Supporting Information](#4-supporting-information)  
 
 <br />
@@ -447,7 +446,7 @@ Significant bugs are e.g. no sufficient consistency check or similar.
 The response time should be as low as possible. The reload of the page may not take longer than 5 seconds and in average a response time of 3 seconds is acceptable. Therfore the backend should keep up graphic elements like the panels to avoid too large computing effort if there is a high number of panels mandated on the dashborad of a user.
 
 ### 3.4.2 Throughput
-The information displayed on the different panels showed in the dashboard should be reloaded every 10ms. Because of the provision of these data by foreign APIs and servers the fetchung process could take longer. To prevent such a scenario corresponding connventions and rules must be introduced.
+The information displayed on the different panels showed in the dashboard should be reloaded every 10ms. Because of the provision of these data by foreign APIs and servers the fetching process could take longer. To prevent such a scenario corresponding connventions and rules must be introduced.
 
 ### 3.4.3 Capacity
 The dashboard has to be designed for a large number of users. An increase of new members shouldn't slow down the system in the same way.
@@ -459,11 +458,12 @@ The dashboard has to be designed for a large number of users. An increase of new
 ## 3.5 Supportability
 
 ### 3.5.1 Standards and Conventions
-To ensure a clear strucutur within the project the latest clean code standards have to be applied. In addition, it is only allowed to use self-descriptive expressions for naming. Classes has to begin wih an upper-case, variables with a lower-case.
+To ensure a clear strucutur within the project the latest clean code standards have to be applied. In addition, it is only allowed to use self-descriptive expressions for naming. Classes have to begin wih an upper-case, variables with a lower-case.
 
-<!--### 3.5.2 Class Libraries-->
+### 3.5.2 Maintenance
+For optimal results, the use of tools for automated testing is essential. Furthermore, every line of code has to be reviewd to ensure compliance with the previously defined conventions.
 
-<!--### 3.5.3 Maintenance-->
+<!--### 3.5.3 Class Libraries-->
 
 ## 3.6 Design Constraints
 
@@ -471,10 +471,10 @@ To ensure a clear strucutur within the project the latest clean code standards h
 
 <!--### 3.6.2 Software Process Requirements-->
 
-### 3.6.3 Developmental tools
+### 3.6.1 Developmental tools
 The main IDE will be IntelliJ IDEA. More tools are tbd.
 
-### 3.6.4 Architectural Constraints
+### 3.6.2 Architectural Constraints
 The project must be based on the MVC architecture. Therefore the Spring Framwork will be in use.  
 Furthermore it should not be possible to upload executable code to dashup servers.
 
@@ -485,7 +485,7 @@ For deveopers of custom panels a documentation including a tutorial should be av
 ## 3.8 Purchased Components
 On the hardware side there will be rent a virtual server. Except the domain which also is a purchased component there are open source or free available components allowed for use only. As a consequence the dashup project on itself has to be licensed under an open source license to avoid conflicts with the owner of software or visual compontens. 
 
-# 3.9 Interfaces
+## 3.9 Interfaces
 
 ### 3.9.1 User Interfaces
 
@@ -531,7 +531,7 @@ The code of dashup should follow some basic rules of clean code such as:
 If necessary there can be exceptions to this rules, but they have to be well considered and discussed.  
 
 
-## 4 Supporting Information
+# 4 Supporting Information
 **For more information please contact:**
 * <a href="mailto:felix.hausberger@sap.com"> Felix Hausberger </a>
 * <a href="mailto:sven.leonhard@7lofficial.de"> Sven Leonhard </a>
