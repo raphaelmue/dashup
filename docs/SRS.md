@@ -387,8 +387,6 @@ within the project scope. Furthermore, non-functional requirements are put outsi
 
 # 3 Specific Requirements
 
-\[This section of the **SRS** should contain all the software requirements to a level of detail sufficient to enable designers to design a system to satisfy those requirements, and testers to test that the system satisfies those requirements.   When using use-case modeling, these requirements are captured in the Use-Cases and the applicable supplementary specifications.  If use-case modeling is not used, the outline for supplementary specifications may be inserted directly into this section, as shown below.\]
-
 ## 3.1 Functionality
 
 ### 3.1.1 Main Overview
