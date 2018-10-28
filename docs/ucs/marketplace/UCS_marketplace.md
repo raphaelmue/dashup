@@ -11,28 +11,28 @@ dashup - Use Case Specification Marketplace
 
 <tr>
 
-<td width="154" valign="top" style="width:1.6in;border:solid windowtext .75pt;
+<td valign="top" style="width:1.6in;border:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
 
 **Date**
 
 </td>
 
-<td width="77" valign="top" style="width:.8in;border:solid windowtext .75pt;
+<td valign="top" style="width:.8in;border:solid windowtext .75pt;
   border-left:none;padding:0in 5.4pt 0in 5.4pt">
 
 **Version**
 
 </td>
 
-<td width="250" valign="top" style="width:2.6in;border:solid windowtext .75pt;
+<td valign="top" style="width:2.6in;border:solid windowtext .75pt;
   border-left:none;padding:0in 5.4pt 0in 5.4pt">
 
 **Description**
 
 </td>
 
-<td width="154" valign="top" style="width:1.6in;border:solid windowtext .75pt;
+<td valign="top" style="width:1.6in;border:solid windowtext .75pt;
   border-left:none;padding:0in 5.4pt 0in 5.4pt">
 
 **Author**
@@ -43,14 +43,14 @@ dashup - Use Case Specification Marketplace
 
 <tr>
 
-<td width="154" valign="top" style="width:1.6in;border:solid windowtext .75pt;
+<td valign="top" style="width:1.6in;border:solid windowtext .75pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt">
 
 28/10/2018
 
 </td>
 
-<td width="77" valign="top" style="width:.8in;border-top:none;border-left:none;
+<td valign="top" style="width:.8in;border-top:none;border-left:none;
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
 
@@ -58,7 +58,7 @@ dashup - Use Case Specification Marketplace
 
 </td>
 
-<td width="250" valign="top" style="width:2.6in;border-top:none;border-left:none;
+<td valign="top" style="width:2.6in;border-top:none;border-left:none;
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
 
@@ -66,7 +66,7 @@ Initial UCS with description, activity diagram and screen flow diagram
 
 </td>
 
-<td width="154" valign="top" style="width:1.6in;border-top:none;border-left:none;
+<td valign="top" style="width:1.6in;border-top:none;border-left:none;
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
 
@@ -85,80 +85,91 @@ Felix Hausberger
 
 # Table of Contents
 
-1.          Use-Case Name
+- [Marketplace](#1-marketplace---brief-description) 
 
-1.1         Brief Description     
+- [Flow of Events](#2-flow-of-events)
 
-2.          Flow of Events
+    - [Basic Flow](#21-basic-flow)   
 
-2.1         Basic Flow     
+    - [Alternative Flows](#22-alternative-flows)
 
-2.2         Alternative Flows     
+- [Special Requirements](#3-special-requirements)
 
-2.2.1       < First Alternative Flow >      
+- [Preconditions](#4-preconditions)
 
-2.2.2       < Second Alternative Flow >     
+    - [Sufficient amount of microservices](#41-sufficient-amount-of-microservices)
 
-3.          Special Requirements
+    - [Sufficient amount of ratings](#42-sufficient-amount-of-ratings)
+    
+    - [Metadata provided for each microservice](#43-metadata-provided-for-each-microservice)
 
-3.1      < First Special Requirement >     
+    - [Logged in to dashup](#44-logged-in-to-dashup)
 
-4.          Preconditions
+- [Postconditions](#5-postconditions) 
 
-4.1      < Precondition One >  
-
-5.          Postconditions  
-
-5.1      < Postcondition One > 
-
-6.          Extension Points
-
-6.1      < Name of Extension Point >     
-
-# 1. Use-Case Name
-
-## 1.1 Brief Description
+- [Extension Points](#6-extension-points)
+   
+# 1. Marketplace - Brief description
 
 The use case _marketplace_ describes the functionality to browse through the internal
-store of microservices within dashup. Here users can rate, comment and add microservices to 
+store of panels for microservices within dashup. Here users can rate, comment and add panels to 
 their dashboard. 
 
-# Flow of Events
+# 2. Flow of Events
 
-## Basic Flow
+## 2.1 Basic Flow
+
+### 2.1.1 Activity Diagram
 
 <img src="./UCS_marketplace.jpg" alt="Use case diagram marketplace" />
 
-## Alternative Flows
+### 2.1.2 Mock-Up
+
+tbd
+
+### 2.1.3 Narrative
+
+tbd
+
+## 2.2 Alternative Flows
 
 n/a
 
-# Special Requirements
+# 3. Special Requirements
 
-In order to add microservices to one's own dashboard through the marketplace,
-a persistent internet connection is needed, to fetch data from the database.
+In order to add panels to one's own dashboard through the marketplace 
+or to browse through the marketplace, a persistent internet connection is needed, 
+to fetch data from the database.
 
-# Preconditions
+# 4. Preconditions
 
-## Sufficient amount of microservices
+## 4.1 Sufficient amount of microservices
 
-In order to take use of the marketplace, a default amount of microservices provided by the 
-community should be available. If there are only built-in dashup microservices availible, the 
-actual sense of a marketplace would get lost.
+To take use of the marketplace, a default amount of panels provided by the 
+community should be available. If there are only the built-in dashup panels for certain microservices
+available, the actual sense of a true _marketplace_ would get lost.
 
-## Sufficient amount of ratings
+## 4.2 Sufficient amount of ratings
 
-In order to get a good overview over the microservice's quality, there should be a certain quantity of
-ratings provided by the community in order to fill the rating menu of a microservice.
+In order to get a good overview over the panel's quality, there should be a certain quantity of
+ratings provided by the community in order to fill the rating menu of a panel with a 
+decent amount of data.
 
-## Logged in to dashup
+## 4.3 Metadata provided for each microservice
+
+To properly display information about a panel for a microservice, metadata such as version, publisher, etc. must be provided.
+Furthermore the publisher must have given a detailed description about the panel to 
+display it on the main menu of a panel in the marketplace.
+
+## 4.4 Logged in to dashup
 
 In order to use the marketplace, the user must be logged in to dashup.
 
-#  Postconditions
+# 5. Postconditions
 
-After the use of the marketplace, the database should by synchronized to the actions the user did. 
+After the use of the marketplace, the database should by synchronized according the actions 
+that the user performed. 
 
-#  Extension Points
+# 6. Extension Points
 
 n/a

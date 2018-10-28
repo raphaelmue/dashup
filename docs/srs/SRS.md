@@ -382,7 +382,7 @@ within the project scope. Furthermore, non-functional requirements are put outsi
 
 <br />
 
-<img src="https://github.com/raphaelmue/dashup/blob/master/docs/UCD.jpg?raw=true" alt="Use Case Diagram" />
+<img src="./UCD.jpg" alt="Use Case Diagram" />
 
 # 3 Specific Requirements
 
@@ -390,19 +390,32 @@ within the project scope. Furthermore, non-functional requirements are put outsi
 
 ### 3.1.1 Main Overview
 
-When opening dashup in your browser, the micro services should display all relevant information graphically or textually 
+When opening dashup in your browser, the microservices should display all relevant information graphically or textually 
 and they are presented as panels. You can easily customize the panel by e.g. changing the background image and reordering 
 or resizing the panel. Besides you can also create and modify sections in order to structure your dashup. 
 
 ### 3.1.2 Marketplace
 
-In the marketplace all available micro services are offered to you. You can select every one of them and configure them
-as you like. You also can search for micro services and rate panels. Some micro services provide a basic functionality 
-so that you can easily interact with ti. 
+In the <a href="../ucs/marketplace/UCS_marketplace.md">marketplace</a> all available panels for microservices are offered to you. You can select every one of them and configure them
+as you like. You also can search for micro services, filter the result set and rate panels. Some micro services provide a basic functionality 
+so that you can easily interact with it. 
 
-As a developer it is possible to publish your own micro services as well as taking a look at the usage statistics of your
-own micro services. Furthermore you can use template panels to display your desired information or create your own template.
+As a developer it is possible to publish your own panels for microservices as well as taking a look at the usage statistics of your
+own microservices. Furthermore you can use template panels to display your desired information or create your own template.
 For gathering the relevant information you can specify a public API. 
+
+### 3.1.3 Account Management
+
+tbd
+
+### 3.1.4 Layouting
+
+tbd
+
+### 3.1.5 Custom Panels
+
+tbd
+
 
 ## 3.2 Usability
 
@@ -533,7 +546,7 @@ If necessary there can be exceptions to this rules, but they have to be well con
 
 # 4 Supporting Information
 **For more information please contact:**
-* <a href="mailto:felix.hausberger@sap.com"> Felix Hausberger </a>
+* <a href="mailto:felix.hausberger@t-online.de"> Felix Hausberger </a>
 * <a href="mailto:sven.leonhard@7lofficial.de"> Sven Leonhard </a>
 * <a href="mailto:raphael.muesseler@sap.com"> Raphael Müßeler </a>
 * <a href="mailto:joshua.schulz@sap.com"> Joshua Schulz </a>
