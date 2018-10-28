@@ -217,7 +217,7 @@ should be changeable at all time while the user is on his/her main dashboard.
 #  Postconditions
 
 ## Save changed data
-After the user has changed the layout or the structure of his/her dashboard the data has to be stored. This is necessary
+After the user has changed the layout of his/her dashboard the data has to be stored. This is necessary
 to get a persistent change. 
 
 #  Extension Points
