@@ -48,7 +48,7 @@ dashup - Change Layout
 <td width="154" valign="top" style="width:1.6in;border:solid windowtext .75pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt">
 
-<28/10/28>
+28/10/28
 
 </td>
 
@@ -56,7 +56,7 @@ dashup - Change Layout
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
 
-<1.0>
+1.0
 
 </td>
 
@@ -64,7 +64,7 @@ dashup - Change Layout
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
 
-
+Initial UCS with description, activity diagram and screen flow diagram
 
 </td>
 
@@ -172,6 +172,8 @@ Panels can be moved between sections.
 ## 2.1 Basic Flow
 
 ## 2.2 Mockup
+
+<img src="mockups/layout_settings_2.png" alt="Mockup for change of layout" />
 
 ## 2.3 Alternative Flows
 N/A
