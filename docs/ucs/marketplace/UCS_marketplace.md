@@ -2,7 +2,7 @@ dashup - Use Case Specification Marketplace
 ============================================
 ### Version 1.0
 
-#Revision History
+# Revision History
 
 <table border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;
  border:none;">

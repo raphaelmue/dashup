@@ -1,14 +1,10 @@
+dashup - Change Layout
+============================================
+### Version 1.0
 
-dashup
+<!-- Use Case Specification: **Change layout of main dashboard**-->
 
-Use Case Specification: **Change layout of main dashboard**
-
-
-
-
-
-
-#Revision History
+# Revision History
 
 <table border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;
  border:none;">
@@ -52,7 +48,9 @@ Use Case Specification: **Change layout of main dashboard**
 <td width="154" valign="top" style="width:1.6in;border:solid windowtext .75pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt">
 
-28.10.2018
+
+28/10/28
+
 
 </td>
 
@@ -68,7 +66,8 @@ Use Case Specification: **Change layout of main dashboard**
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
 
-initial UCS with basic information
+
+Initial UCS with description, activity diagram and screen flow diagram
 
 </td>
 
@@ -146,41 +145,27 @@ Joshua Schulz
 **<span style="font-size:18.0pt;font-family:Arial;">  
 </span>**
 
-Table of Contents
-
-- [Change general layout](#1-change-general-layout) 
-
-- [Flow of Events](#flow-of-events)
-
-    - [Basic Flow](#basic-flow)   
-
-    - [Alternative Flows](#alternative-flows)
-
-- [Special Requirements](#special-requirements)
-
-- [Preconditions](#preconditions)
-
-    - [System State](#system-state)
-
-- [Postconditions](#postconditions) 
-    
-    - [Save changed data](#save-changed-data)
-
-- [Extension Points](#extension-points)
-
-Use-Case Specification: <Use-Case Name>
-
-# 1. Change general layout
-
+# Table of Contents
+- [Change Layout](#1-change-layout---brief-description) 
+- [Flow of Events](#2-flow-of-events)
+    - [Basic Flow](#21-basic-flow)
+    - [Mockup](#22-mockup)
+    - [Alternative Flows](#23-alternative-flows)
+- [Special Requirements](#3-special-requirements)
+- [Preconditions](#4-preconditions)
+    - [System State](#41-system-state)
+- [Postconditions](#5-postconditions) 
+    - [Save Changed Data](51-save-changed-data) 
+- [Extension Points](#6-extension-points)
+ 
+# 1. Change Layout
 ## 1.1 Brief Description
 
 This use-case allows to user to change the layout and the arrangement of sections and panels on his/her
 personal dashboard. First the user should be able to change basic layouts of the board, e.g. the main color or 
 font. These settings can be changed in a little layout menu. 
 
-# Flow of Events
-
-## Basic Flow
+# 2. Flow of Events
 
 ### 2.1.1 Activity Diagram
 
@@ -188,7 +173,7 @@ font. These settings can be changed in a little layout menu.
 
 ### 2.1.2 Mock-Up
 
-tbd
+<img src="mockups/layout_settings_2.png" alt="Mockup for change of layout" />
 
 ### 2.1.3 Narrative
 The user can open up a little menu as shown in the mock-up. In this menu he/she can edit the general layout settings
@@ -203,19 +188,17 @@ In order to add panels to one's own dashboard through the marketplace
 or to browse through the marketplace, a persistent internet connection is needed, 
 to fetch data from the database.
 
-# Preconditions
+# 4. Preconditions
 
-##System state
+## 4.1 System State
 Before this use-case can be performed the user has to sign in and open up his main dashboard. From now on the layout
 should be changeable at all time while the user is on his/her main dashboard.
 
+#  5. Postconditions
 
-#  Postconditions
-
-## Save changed data
-After the user has changed the layout of his/her dashboard the data has to be stored. This is necessary
+## 5.1 Save changed Data
+After the user has changed the layout or the structure of his/her dashboard the data has to be stored. This is necessary
 to get a persistent change. 
 
-#  Extension Points
-
+#  6. Extension Points
 N/A
