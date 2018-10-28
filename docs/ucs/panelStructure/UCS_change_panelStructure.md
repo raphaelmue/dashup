@@ -151,8 +151,6 @@ Table of Contents
 
     - [Alternative Flows](#alternative-flows)
 
-- [Special Requirements](#special-requirements)
-
 - [Preconditions](#preconditions)
 
     - [System State](#system-state)
@@ -183,7 +181,10 @@ Panels can be moved between sections. The user should be able to delete panels f
  
  ### 2.1.2 Mock-Up
  
- tbd
+ <img src="../layout/mockups/layout_mode.png" alt="Use case diagram marketplace" />
+ <img src="mockups/layout_mode_mouse_red.png" alt="Use case diagram marketplace" />
+ <img src="../layout/mockups/layout_mode_remove.png" alt="Use case diagram marketplace" />
+ 
  
  ### 2.1.3 Narrative
 There will be a "change structure mode" that can be enabled by the user while he/she is on the main dashboard. When this
@@ -198,14 +199,11 @@ If the user decides to keep the structure he can confirm his/her changes and the
  
  ## Alternative Flows
  N/A
-# Special Requirements
-In order to add panels to one's own dashboard through the marketplace 
-or to browse through the marketplace, a persistent internet connection is needed, 
-to fetch data from the database.
+
 
 # Preconditions
 
-##System state
+## System State
 Before this use-case can be performed the user has to sign in and open up his main dashboard. From now on the layout
 should be changeable at all time while the user is on his/her main dashboard.
 
