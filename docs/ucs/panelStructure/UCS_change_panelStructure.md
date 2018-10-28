@@ -1,12 +1,7 @@
 
 dashup
 
-Use Case Specification: **Change layout of main dashboard**
-
-
-
-
-
+Use Case Specification: Change Panel structure
 
 #Revision History
 
@@ -52,7 +47,7 @@ Use Case Specification: **Change layout of main dashboard**
 <td width="154" valign="top" style="width:1.6in;border:solid windowtext .75pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt">
 
-28.10.2018
+23.10.2018
 
 </td>
 
@@ -148,7 +143,7 @@ Joshua Schulz
 
 Table of Contents
 
-- [Change general layout](#1-change-general-layout) 
+- [Change general layout](#1-change-panel-structure) 
 
 - [Flow of Events](#flow-of-events)
 
@@ -167,38 +162,43 @@ Table of Contents
     - [Save changed data](#save-changed-data)
 
 - [Extension Points](#extension-points)
+   
 
 Use-Case Specification: <Use-Case Name>
 
-# 1. Change general layout
-
+# 1. Change Panel structure
 ## 1.1 Brief Description
-
-This use-case allows to user to change the layout and the arrangement of sections and panels on his/her
-personal dashboard. First the user should be able to change basic layouts of the board, e.g. the main color or 
-font. These settings can be changed in a little layout menu. 
+ 
+The platform should enable the user to create and name new sections and fill these sections by the panels he/she likes. 
+Furthermore it should be possible to delete sections. A rearrangement of panels should be possible by drag and drop. 
+Panels can be moved between sections. The user should be able to delete panels from his/her dashboard.   
 
 # Flow of Events
 
 ## Basic Flow
 
 ### 2.1.1 Activity Diagram
+ 
+ <img src="./arrange_panels.jpg" alt="Use case diagram change panel structure" />
+ 
+ ### 2.1.2 Mock-Up
+ 
+ tbd
+ 
+ ### 2.1.3 Narrative
+There will be a "change structure mode" that can be enabled by the user while he/she is on the main dashboard. When this
+mode is enabled the sections names are editable, the sections can be deleted and new ones created as shown in the 
+mock-ups.
 
-<img src="./change_layout.jpg" alt="Use case diagram change layout" />
+Panels can be rearranged by drag and drop. They can be moved around between all sections and even deleted from the dashboard.
 
-### 2.1.2 Mock-Up
+The user can exit the change mode at all without saving times and roll the structure back to the previous one.
 
-tbd
-
-### 2.1.3 Narrative
-The user can open up a little menu as shown in the mock-up. In this menu he/she can edit the general layout settings
-for his/her main dashboard. If the user edited some of the settings the dashbord and the menu will be shown with
-the adjusted layout settings. If the change is confirmed the data will be stored on the database, if not the previous
-settings will be restored and there will be no changes on the database.
-## Alternative Flows
-N/A
+If the user decides to keep the structure he can confirm his/her changes and the data will be stored on the database.
+ 
+ ## Alternative Flows
+ N/A
 # Special Requirements
-
 In order to add panels to one's own dashboard through the marketplace 
 or to browse through the marketplace, a persistent internet connection is needed, 
 to fetch data from the database.
@@ -208,7 +208,6 @@ to fetch data from the database.
 ##System state
 Before this use-case can be performed the user has to sign in and open up his main dashboard. From now on the layout
 should be changeable at all time while the user is on his/her main dashboard.
-
 
 #  Postconditions
 
