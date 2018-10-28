@@ -149,14 +149,14 @@ Joshua Schulz
 - [Change Layout](#1-change-layout---brief-description) 
 - [Flow of Events](#2-flow-of-events)
     - [Basic Flow](#21-basic-flow)
-    - [Mockup](#22-mockup)
-    - [Alternative Flows](#23-alternative-flows)
-- [Special Requirements](#3-special-requirements)
-- [Preconditions](#4-preconditions)
-    - [System State](#41-system-state)
-- [Postconditions](#5-postconditions) 
-    - [Save Changed Data](51-save-changed-data) 
-- [Extension Points](#6-extension-points)
+    - [Mock-Up](#22-mockup)
+    - [Narrative](#23-narrative)
+    - [Alternative Flows](#24-alternative-flows)
+- [Preconditions](#3-preconditions)
+    - [System State](#31-system-state)
+- [Postconditions](#4-postconditions) 
+    - [Save Changed Data](41-save-changed-data) 
+- [Extension Points](#5-extension-points)
  
 # 1. Change Layout
 ## 1.1 Brief Description
@@ -167,38 +167,35 @@ font. These settings can be changed in a little layout menu.
 
 # 2. Flow of Events
 
-### 2.1.1 Activity Diagram
+## 2.1 Activity Diagram
 
 <img src="./change_layout.jpg" alt="Use case diagram change layout" />
 
-### 2.1.2 Mock-Up
+## 2.2 Mock-Up
 
-<img src="mockups/layout_settings_2.png" alt="Mockup for change of layout" />
+<img src="../panelStructure/mockups/layout_settings_2.png" alt="Mockup for change of layout" />
 
-### 2.1.3 Narrative
+## 2.3 Narrative
 The user can open up a little menu as shown in the mock-up. In this menu he/she can edit the general layout settings
 for his/her main dashboard. If the user edited some of the settings the dashbord and the menu will be shown with
 the adjusted layout settings. If the change is confirmed the data will be stored on the database, if not the previous
 settings will be restored and there will be no changes on the database.
-## Alternative Flows
+
+## 2.4 Alternative Flows
 N/A
-# Special Requirements
 
-In order to add panels to one's own dashboard through the marketplace 
-or to browse through the marketplace, a persistent internet connection is needed, 
-to fetch data from the database.
 
-# 4. Preconditions
+# 3. Preconditions
 
-## 4.1 System State
+## 3.1 System State
 Before this use-case can be performed the user has to sign in and open up his main dashboard. From now on the layout
 should be changeable at all time while the user is on his/her main dashboard.
 
-#  5. Postconditions
+#  4. Postconditions
 
-## 5.1 Save changed Data
+## 4.1 Save changed Data
 After the user has changed the layout or the structure of his/her dashboard the data has to be stored. This is necessary
 to get a persistent change. 
 
-#  6. Extension Points
+#  5. Extension Points
 N/A
