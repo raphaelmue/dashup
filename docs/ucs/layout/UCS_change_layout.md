@@ -52,7 +52,7 @@ Use Case Specification: **Change layout of main dashboard**
 <td width="154" valign="top" style="width:1.6in;border:solid windowtext .75pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt">
 
-<dd/mmm/yy>
+28.10.2018
 
 </td>
 
@@ -60,7 +60,7 @@ Use Case Specification: **Change layout of main dashboard**
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
 
-<x.x>
+1.0
 
 </td>
 
@@ -68,7 +68,7 @@ Use Case Specification: **Change layout of main dashboard**
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
 
-<details>
+initial UCS with basic information
 
 </td>
 
@@ -76,7 +76,7 @@ Use Case Specification: **Change layout of main dashboard**
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
 
-<name>
+Joshua Schulz
 
 </td>
 
@@ -148,38 +148,29 @@ Use Case Specification: **Change layout of main dashboard**
 
 Table of Contents
 
-1.          Use-Case Name
+- [Change general layout](#1-change-general-layout) 
 
-1.1         Brief Description     
+- [Flow of Events](#flow-of-events)
 
-2.          Flow of Events
+    - [Basic Flow](#basic-flow)   
 
-2.1         Basic Flow     
+    - [Alternative Flows](#alternative-flows)
 
-2.2         Alternative Flows     
+- [Special Requirements](#special-requirements)
 
-2.2.1       < First Alternative Flow >      
+- [Preconditions](#preconditions)
 
-2.2.2       < Second Alternative Flow >     
+    - [System State](#system-state)
 
-3.          Special Requirements
+- [Postconditions](#postconditions) 
+    
+    - [Save changed data](#save-changed-data)
 
-3.1      < First Special Requirement >     
-
-4.          Preconditions
-
-4.1      System state  
-
-5.          Postconditions  
-
-5.1      Save the data 
-
-6.          Extension Points
-  
+- [Extension Points](#extension-points)
 
 Use-Case Specification: <Use-Case Name>
 
-# 1. Use-Case Name
+# 1. Change general layout
 
 ## 1.1 Brief Description
 
@@ -195,21 +186,26 @@ Panels can be moved between sections.
 
 ## Basic Flow
 
-[This use case starts when the actor does something.  An actor always initiates use cases.  The use case describes what the actor does and what the system does in response.  It needs to be phrased in the form of a dialog between the actor and the system.
+### 2.1.1 Activity Diagram
 
-The use case describes what happens inside the system, but not how or why.  If information is exchanged, be specific about what is passed back and forth.  For example, it is not very illuminating to say that the actor enters customer information. It is better to say the actor enters the customer’s name and address.  A Glossary of Terms is often useful to keep the complexity of the use case manageable—you may want to define things like customer information there to keep the use case from drowning in details.
+<img src="./change_layout.jpg" alt="Use case diagram change layout" />
 
-Simple alternatives may be presented within the text of the use case.  If it only takes a few sentences to describe what happens when there is an alternative, do it directly within the **Flow of Events** section.  If the alternative flow is more complex, use a separate section to describe it.  For example, an **Alternative Flow** subsection explains how to describe more complex alternatives.
+### 2.1.2 Mock-Up
 
-A picture is sometimes worth a thousand words, though there is no substitute for clean, clear prose.  If it improves clarity, feel free to paste graphical depictions of user interfaces, process flows or other figures into the use case.  If a flow chart is useful to present a complex decision process, by all means use it!  Similarly for state-dependent behavior, a state-transition diagram often clarifies the behavior of a system better than pages upon pages of text.  Use the right presentation medium for your problem, but be wary of using terminology, notations or figures that your audience may not understand.  Remember that your purpose is to clarify, not obscure.]
+tbd
 
+### 2.1.3 Narrative
+The user can open up a little menu as shown in the mock-up. In this menu he/she can edit the general layout settings
+for his/her main dashboard. If the user edited some of the settings the dashbord and the menu will be shown with
+the adjusted layout settings. If the change is confirmed the data will be stored on the database, if not the previous
+settings will be restored and there will be no changes on the database.
 ## Alternative Flows
 N/A
 # Special Requirements
 
-[A special requirement is typically a nonfunctional requirement that is specific to a use case, but is not easily or naturally specified in the text of the use case’s event flow. Examples of special requirements include legal and regulatory requirements, application standards, and quality attributes of the system to be built including usability, reliability, performance or supportability requirements. Additionally, other requirements—such as operating systems and environments, compatibility requirements, and design constraints—should be captured in this section.]
-
-## < First Special Requirement >
+In order to add panels to one's own dashboard through the marketplace 
+or to browse through the marketplace, a persistent internet connection is needed, 
+to fetch data from the database.
 
 # Preconditions
 
