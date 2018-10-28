@@ -48,7 +48,7 @@ dashup - Change Layout
 <td width="154" valign="top" style="width:1.6in;border:solid windowtext .75pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt">
 
-<dd/mmm/yy>
+<28/10/28>
 
 </td>
 
@@ -56,7 +56,7 @@ dashup - Change Layout
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
 
-<x.x>
+<1.0>
 
 </td>
 
@@ -64,7 +64,7 @@ dashup - Change Layout
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
 
-<details>
+
 
 </td>
 
@@ -72,7 +72,7 @@ dashup - Change Layout
   border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
   padding:0in 5.4pt 0in 5.4pt">
 
-<name>
+Joshua Schulz
 
 </td>
 
