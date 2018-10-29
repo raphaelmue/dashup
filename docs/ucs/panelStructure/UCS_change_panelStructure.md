@@ -1,9 +1,10 @@
 
-dashup
+dashup - Use Case Change Panel structure
+============================================
+### Version 1.0
 
-Use Case Specification: Change Panel structure
 
-#Revision History
+## Revision History
 
 <table border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;
  border:none;">
@@ -141,7 +142,7 @@ Joshua Schulz
 **<span style="font-size:18.0pt;font-family:Arial;">  
 </span>**
 
-Table of Contents
+# Table of Contents
 
 - [Change general layout](#1-change-panel-structure) 
 
@@ -181,9 +182,9 @@ Panels can be moved between sections. The user should be able to delete panels f
  
  ### 2.1.2 Mock-Up
  
- <img src="../layout/mockups/layout_mode.png" alt="Use case diagram marketplace" />
- <img src="mockups/layout_mode_mouse_red.png" alt="Use case diagram marketplace" />
- <img src="../layout/mockups/layout_mode_remove.png" alt="Use case diagram marketplace" />
+ <img src="mockups/layout_mode.png" alt="Mockup for layout mode" />
+ <img src="mockups/layout_mode_mouse_red.png" alt="Mockup to remove section" />
+ <img src="mockups/layout_mode_remove.png" alt="Mockup after removing section" />
  
  
  ### 2.1.3 Narrative
