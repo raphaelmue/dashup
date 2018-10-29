@@ -125,7 +125,17 @@ their dashboard.
 
 ### 2.1.2 Mock-Up
 
-tbd
+<img src="./mockups/Startup Page.png" alt="Startup Page" />
+<br />
+<img src="./mockups/Search Results.png" alt="Search Results" />
+<br />
+<img src="./mockups/Search Results with Filter Dialog.png" alt="Search Results with Filter Dialog" />
+<br />
+<img src="./mockups/Detail Page (Overview).png" alt="Detail Page (Overview)" />
+<br />
+<img src="./mockups/Detail Page (Ratings).png" alt="Detail Page (Ratings)" />
+<br />
+<img src="./mockups/Detail Page (Similar).png" alt="Detail Page (Similar)" />
 
 ### 2.1.3 Narrative
 
