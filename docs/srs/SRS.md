@@ -410,7 +410,9 @@ tbd
 
 ### 3.1.4 Layouting
 
-tbd
+The platform should enable the user to create and name new sections and fill these sections by the panels he/she likes. Furthermore it should be possible to delete sections. A rearrangement of panels should be possible by drag and drop. Panels can be moved between sections. The user should be able to delete panels from his/her dashboard. (Use Case: <a href="../ucs/panelStructure/UCS_change_panelStructure.md">Change Panel structure</a>)
+
+The user to change the layout and the arrangement of sections and panels on his/her personal dashboard. First the user should be able to change basic layouts of the board, e.g. the main color or font. These settings can be changed in a little layout menu. (Use Case: <a href="../ucs/layout/UCS_change_layout.md">Change Layout</a>)
 
 ### 3.1.5 Custom Panels
 
