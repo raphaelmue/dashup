@@ -173,7 +173,7 @@ font. These settings can be changed in a little layout menu.
 
 ## 2.2 Mock-Up
 
-<img src="../panelStructure/mockups/layout_settings_2.png" alt="Mockup for change of layout" />
+<img src="mockups/layout_settings_2.png" alt="Mockup for change of layout" />
 
 ## 2.3 Narrative
 The user can open up a little menu as shown in the mock-up. In this menu he/she can edit the general layout settings
