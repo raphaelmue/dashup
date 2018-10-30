@@ -2,116 +2,11 @@ dashup - Software Requirements Specification
 ============================================
 ### Version 1.0
 
-###### Revison history
+# Revision history
 
-<table border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;
- border:none;">
- <tbody><tr>
-  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext" align="center" style="text-align:center"><b>Date</b></p>
-  </td>
-  <td width="77" style="width:.8in;border:solid windowtext .75pt;
-  border-left:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext" align="center" style="text-align:center"><b>Version</b></p>
-  </td>
-  <td width="250" style="width:2.6in;border:solid windowtext .75pt;
-  border-left:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext" align="center" style="text-align:center"><b>Description</b></p>
-  </td>
-  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
-  border-left:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext" align="center" style="text-align:center"><b>Author</b></p>
-  </td>
- </tr>
- <tr>
-  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">21/10/2018</p>
-  </td>
-  <td width="77" style="width:.8in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">1.0</p>
-  </td>
-  <td width="250" style="width:2.6in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">Initial Specification</p>
-  </td>
-  <td width="154" style="width:1.6in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">Felix Hausberger</p>
-  </td>
- </tr>
- <tr>
-  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&nbsp;</p>
-  </td>
-  <td width="77" style="width:.8in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&nbsp;</p>
-  </td>
-  <td width="250" style="width:2.6in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&nbsp;</p>
-  </td>
-  <td width="154" style="width:1.6in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&nbsp;</p>
-  </td>
- </tr>
- <tr>
-  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&nbsp;</p>
-  </td>
-  <td width="77" style="width:.8in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&nbsp;</p>
-  </td>
-  <td width="250" style="width:2.6in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&nbsp;</p>
-  </td>
-  <td width="154" style="width:1.6in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&nbsp;</p>
-  </td>
- </tr>
- <tr>
-  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&nbsp;</p>
-  </td>
-  <td width="77" style="width:.8in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&nbsp;</p>
-  </td>
-  <td width="250" style="width:2.6in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&nbsp;</p>
-  </td>
-  <td width="154" style="width:1.6in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">&nbsp;</p>
-  </td>
- </tr>
-</tbody>
-</table>
-
-<br />
+| Date       | Version | Description           | Author           |
+|------------|---------|-----------------------|------------------|
+| 21/10/2018 | 1.0     | Initial Specification | Felix Hausberger |
 
 # Table of Contents
 
@@ -166,7 +61,6 @@ dashup - Software Requirements Specification
 # 1. Introduction
 
 ## 1.1 Purpose
-
 This Software Requirements Specification was created to collect and organize the requirements for the dashup platform.
 Agreeing on a general consent between the developer teams expertise and the clients interests and expectations, the 
 specification contains all realistic requirements, that are compatible with the projects vision. Therefore it describes 
@@ -175,7 +69,6 @@ therefore gain a better overview over the projects scope. Furthermore it is need
 after its status is considered to be completed and ready for transition. 
 
 ## 1.2 Scope
-
 The dashup platform provides a quick overview of multiple microservices hosted on external servers of different providers.
 Therefore users no longer have to access microservices on separated ways and can gain quick insights into real time data 
 of different microservices on one central platform. Furthermore, dashup provides a compressed pool of functionalities for each
@@ -187,160 +80,29 @@ integrate own microservices as customly defined panels to keep track of all of o
 
 ## 1.3 Definitions, Acronyms and Abbreviations
 
-<br />
-
-<table border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;
- border:none;">
- <tbody>
- <tr>
-  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext" align="center" style="text-align:center"><b>Definition</b></p>
-  </td>
-  <td width="77" style="width:.8in;border:solid windowtext .75pt;
-  border-left:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext" align="center" style="text-align:center"><b>Description</b></p>
-  </td>
- </tr>
- <tr>
-  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext"><b>dashup</b></p>
-  </td>
-  <td width="77" style="width:.8in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">The official name of the project and the software</p>
-  </td>
- </tr></tbody>
-</table>
+| Definition | Description                                       |
+|------------|---------------------------------------------------|
+| dashup     | The official name of the project and the software |
 
 <br />
 
-<table border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;
- border:none;">
- <tbody>
- <tr>
-  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext" align="center" style="text-align:center"><b>Abbreviation</b></p>
-  </td>
-  <td width="77" style="width:.8in;border:solid windowtext .75pt;
-  border-left:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext" align="center" style="text-align:center"><b>Explanation</b></p>
-  </td>
- </tr>
- <tr>
-  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext"><b>SRS</b></p>
-  </td>
-  <td width="77" style="width:.8in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">Software Requirements Specification</p>
-  </td>
- </tr>
- <tr>
-  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext"><b>UC</b></p>
-  </td>
-  <td width="77" style="width:.8in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">Use Case</p>
-  </td>
- </tr>
- <tr>
-  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext"><b>UCD</b></p>
-  </td>
-  <td width="77" style="width:.8in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">Use Case Diagram</p>
-  </td>
- </tr>
- <tr>
-  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext"><b>n/a</b></p>
-  </td>
-  <td width="77" style="width:.8in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">not applicable</p>
-  </td>
- </tr>
- <tr>
-  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext"><b>tbd</b></p>
-  </td>
-  <td width="77" style="width:.8in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">to be determined</p>
-  </td>
- </tr></tbody>
-</table>
+| Abbreviation | Explanation                         |
+|--------------|-------------------------------------|
+| SRS          | Software Requirements Specification |
+| UC           | Use Case                            |
+| UCD          | Use Case Diagram                    |
+| N/A          | not applicable                      |
+| TBD          | to be determined                    |
 
 ## 1.4 References
 
-<br />
-
-<table border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;
- border:none;">
- <tbody>
- <tr>
-  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext" align="center" style="text-align:center"><b>Reference</b></p>
-  </td>
-  <td width="77" style="width:.8in;border:solid windowtext .75pt;
-  border-left:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext" align="center" style="text-align:center"><b>Date</b></p>
-  </td>
- </tr>
- <tr>
-  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext"><a href="https://dashup2k18.wordpress.com/"> Dashup Blog </a></p>
-  </td>
-  <td width="77" style="width:.8in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">21/10/2018</p>
-  </td>
- </tr>
- <tr>
-  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext"><a href="https://github.com/raphaelmue/dashup"> GitHub Repository </a></p>
-  </td>
-  <td width="77" style="width:.8in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">21/10/2018</p>
-  </td>
- </tr>
- <tr>
-  <td width="154" style="width:1.6in;border:solid windowtext .75pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext"><a href="https://github.com/raphaelmue/dashup/blob/master/docs/UCD.jpg"> UCD </a></p>
-  </td>
-  <td width="77" style="width:.8in;border-top:none;border-left:none;
-  border-bottom:solid windowtext .75pt;border-right:solid windowtext .75pt;
-  padding:0in 5.4pt 0in 5.4pt">
-  <p class="Tabletext">21/10/2018</p>
-  </td>
- </tr></tbody>
-</table>
+| Reference                                                                             | Date       |
+|---------------------------------------------------------------------------------------|------------|
+| <a href="https://dashup2k18.wordpress.com/"> Dashup Blog </a>                         | 21/10/2018 |
+| <a href="https://github.com/raphaelmue/dashup"> GitHub Repository </a>                | 21/10/2018 |
+| <a href="https://github.com/raphaelmue/dashup/blob/master/docs/srs/UCD.jpg"> UCD </a> | 21/10/2018 |
 
 ## 1.5 Overview
-
 In the next chapter, the general vision as well as the UCD will be provided, in order to give a quick summary about the 
 scope of the project. The more in depth specification of the project will follow in the chapter <i>Specific Requirements</i>.
 Every feature that dashup provides, will be described and explained in chapter <i>Functionality</i> going over to <i>Usability</i>
@@ -357,7 +119,6 @@ an adaption of the SRS in needed, please contact one of the developers listed in
 # 2 Overall Description
 
 ## 2.1 Project Vision
-
 In today's digital world, automation is everything. To keep up with modern achievement-oriented society, people need to 
 accomplish daily tasks and planning more efficiently. Therefore people are used to create multiple personal productivity tools. 
 Keeping an overview over your own pool of applications might occur difficult sometimes. Inspired by this efficiency loss, 
@@ -376,12 +137,9 @@ All in all, dashup will provide you the best experience and overview over all da
 
 
 ## 2.2 General use Case Diagram
-
 Following UCD will provide a basic overview to the user characteristics, features, constraints, associations and dependencies 
 within the project scope. Furthermore, non-functional requirements are put outside the system boundaries.
-
 <br />
-
 <img src="./UCD.jpg" alt="Use Case Diagram" />
 
 # 3 Specific Requirements
@@ -389,13 +147,11 @@ within the project scope. Furthermore, non-functional requirements are put outsi
 ## 3.1 Functionality
 
 ### 3.1.1 Main Overview
-
 When opening dashup in your browser, the microservices should display all relevant information graphically or textually 
 and they are presented as panels. You can easily customize the panel by e.g. changing the background image and reordering 
 or resizing the panel. Besides you can also create and modify sections in order to structure your dashup. 
 
 ### 3.1.2 Marketplace
-
 In the <a href="../ucs/marketplace/UCS_marketplace.md">marketplace</a> all available panels for microservices are offered to you. You can select every one of them and configure them
 as you like. You also can search for micro services, filter the result set and rate panels. Some micro services provide a basic functionality 
 so that you can easily interact with it. 
@@ -405,49 +161,39 @@ own microservices. Furthermore you can use template panels to display your desir
 For gathering the relevant information you can specify a public API. 
 
 ### 3.1.3 Account Management
-
-tbd
+TBD
 
 ### 3.1.4 Layouting
-
-tbd
+TBD
 
 ### 3.1.5 Custom Panels
-
-tbd
-
+TBD
 
 ## 3.2 Usability
-
 The motivation for the whole project is to increase the productivity, which requires usability. When opening dashup, you 
 should be given an overview of all your micro services, so that you do not have to open each application. 
 
 ### 3.2.1 Start and go
-
 Without clicking any button or similar, each micro services shows its relevant information. Each micro services fetches 
 the data from its specified API automatically. Besides, if you have been logged in once on your device, you will be 
 automatically logged in without doing anything. 
 
 ### 3.2.2 Clarity
-
 All your panels should be showing only the relevant information to keep clarity. This applies also for the marketplace. 
 
 ### 3.2.3 Easy to use 
-
 In all use-cases it ought to be possible to do an action with only a few clicks. Furthermore gestures like drag and drop 
 should facilitate the user. 
 
 ## 3.3 Reliability
 
 ### 3.3.1 Availability
-
 The dashup platform should be always available. Since bugs can lead to a crash, we assume that dashup has an up-time of 
 99.5% per month.
 
 The MTBF should not fall below a number of 7 day. However, the MTTR should not exceed a number of 12 hours. 
 
 ### 3.2.2 Accuracy
-
 Since we review our code, the defect rate should be about 10 bugs per 1.000 lines of code. Critical bugs like loss of data,
 or limitations within functionality should of course occur less. Minor bugs are for instance the incorrect display of data. 
 Significant bugs are e.g. no sufficient consistency check or similar. 
@@ -455,7 +201,6 @@ Significant bugs are e.g. no sufficient consistency check or similar.
 ## 3.4 Performance
 
 ### 3.4.1 Response Time
-
 The response time should be as low as possible. The reload of the page may not take longer than 5 seconds and in average a response time of 3 seconds is acceptable. Therfore the backend should keep up graphic elements like the panels to avoid too large computing effort if there is a high number of panels mandated on the dashborad of a user.
 
 ### 3.4.2 Throughput
@@ -501,7 +246,6 @@ On the hardware side there will be rent a virtual server. Except the domain whic
 ## 3.9 Interfaces
 
 ### 3.9.1 User Interfaces
-
 * **Login screen** that provides input fields to login.
 * **Registration screen** where he user can set up an new account.
 * **Main dashboard** on which the user can see all his panels and the information provided by the microservices.
@@ -513,26 +257,22 @@ On the hardware side there will be rent a virtual server. Except the domain whic
 N/A
 
 ### 3.9.3 Software Interfaces
-
 The dashup application runs in a web-browser. We will try to make it work in many different web-browsers as possible.
 
 ### 3.9.4 Communications Interfaces
-
 The webapplication should communicate with the java backend by a secured HTTPS connection on Port 443. If there should 
 be a unencrypted connection via HTTP is still to be determined. The Connection should be asynchronous to avoid a reload 
 of the webapplication.   
 
 ## 3.10 Licensing Requirements
-tbd
+TBD
 
 ## 3.11 Legal, Copyright, and Other Notices
-
 The dashup team will not take any responsibility for lost data and other damages done to your microservice or other programs. 
 The dashup logo may only be used for the official dashup application. The copy of the idea or any kind of coding belonging 
 to the dashup application is strictly forbidden and will be taken to court.
 
 ## 3.12 Applicable Standards
-
 The code of dashup should follow some basic rules of clean code such as:
 * Intuitive names of variables and methods.
 * Comments to improve understanding and readability of the code.
