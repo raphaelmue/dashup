@@ -1,12 +1,13 @@
 dashup - Software Requirements Specification
 ============================================
-### Version 1.0
+### Version 1.1
 
 # Revision history
 
-| Date       | Version | Description           | Author           |
-|------------|---------|-----------------------|------------------|
-| 21/10/2018 | 1.0     | Initial Specification | Felix Hausberger |
+| Date       | Version | Description                                          | Author           |
+|------------|---------|------------------------------------------------------|------------------|
+| 21/10/2018 | 1.0     | Initial Specification                                | Felix Hausberger |
+| 28/10/2018 | 1.1     | Functionality description: Marketplace and Layouting | Sven Leonhard    |
 
 # Table of Contents
 
