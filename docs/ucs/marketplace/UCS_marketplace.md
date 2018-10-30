@@ -24,7 +24,6 @@ dashup - Use Case Specification: Marketplace
 - [Extension Points](#6-extension-points)
    
 # 1. Marketplace - Brief description
-
 The use case _marketplace_ describes the functionality to browse through the internal
 store of panels for microservices within dashup. Here users can rate, comment and add panels to 
 their dashboard. 

@@ -36,7 +36,6 @@ font. These settings can be changed in a little layout menu.
 ### 2.1.2 Mock-Up
 
 <img src="mockups/layout_settings_2.png" alt="Mockup for change of layout" />
->>>>>>> 3e387a752b4850c0374229fa47a55d0df7e54d84
 
 ### 2.1.3 Narrative
 The user can open up a little menu as shown in the mock-up. In this menu he/she can edit the general layout settings
