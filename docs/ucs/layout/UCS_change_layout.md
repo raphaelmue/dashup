@@ -23,7 +23,7 @@ dashup - Use Case Specification: Change Layout
  
 # 1. Change Layout - Brief Description
 This use-case allows to user to change the layout and the arrangement of sections and panels on his/her
-personal dashboard. First the user should be able to change basic layouts of the board, e.g. the main color or 
+personal dashboard. The user should be able to change the basic appearance of the board, e.g. the main color or 
 font. These settings can be changed in a little layout menu. 
 
 # 2. Flow of Events

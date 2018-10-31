@@ -47,7 +47,7 @@ mock-ups.
 
 Panels can be rearranged by drag and drop. They can be moved around between all sections and even deleted from the dashboard.
 
-The user can exit the change mode at all without saving times and roll the structure back to the previous one.
+The user can leave the change mode at any time without saving and roll the structure back to the previous one.
 
 If the user decides to keep the structure he can confirm his/her changes and the data will be stored on the database.
  
