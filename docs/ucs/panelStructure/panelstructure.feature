@@ -17,4 +17,4 @@ Feature: User would like to reorder in specific sections
   Scenario: User would like to delete a section
     Given User is logged in to dashup and is located on the main page.
     When User clicks the delete section button
-    Then the section will be deleted and all panel will be moved to the .
+    Then the section will be deleted and all panel will be moved to the section above.
