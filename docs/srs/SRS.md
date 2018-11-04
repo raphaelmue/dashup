@@ -149,28 +149,37 @@ within the project scope. Furthermore, non-functional requirements are put outsi
 
 ### 3.1.1 Main Overview
 When opening dashup in your browser, the microservices should display all relevant information graphically or textually 
-and they are presented as panels. You can easily customize the panel by e.g. changing the background image and reordering 
-or resizing the panel. Besides you can also create and modify sections in order to structure your dashup. 
+and they are presented as panels. You can easily customize the panel by e.g. changing the background color and reordering 
+or resizing the panels. Besides you can also create and modify sections in order to structure your dashup. 
 
 ### 3.1.2 Marketplace
-In the <a href="../ucs/marketplace/UCS_marketplace.md">marketplace</a> all available panels for microservices are offered to you. You can select every one of them and configure them
-as you like. You also can search for micro services, filter the result set and rate panels. Some micro services provide a basic functionality 
-so that you can easily interact with it. 
+In the marketplace all available panels for microservices are offered to you.
+You can simply search for panels, filter the result set, rate and comment on panels. Some panels for microservices provide a basic functionality 
+so that you can easily interact with it.
+There is even a detailed view about each offered panel containing a description and comments about the panel.
+Furthermore, similar panels to the current inspected panel, that other users use as well in combination with this one, are displayed in a "similar" tab.
 
 As a developer it is possible to publish your own panels for microservices as well as taking a look at the usage statistics of your
-own microservices. Furthermore you can use template panels to display your desired information or create your own template.
-For gathering the relevant information you can specify a public API. 
+own microservices.
+(Use Case: <a href="../ucs/marketplace/UCS_marketplace.md">Marketplace</a>)
 
-### 3.1.3 Account Management
+### 3.1.3 User Management
 TBD
 
-### 3.1.4 Layouting
-The platform should enable the user to create and name new sections and fill these sections by the panels he/she likes. Furthermore it should be possible to delete sections. A rearrangement of panels should be possible by drag and drop. Panels can be moved between sections. The user should be able to delete panels from his/her dashboard. (Use Case: <a href="../ucs/panelStructure/UCS_change_panelStructure.md">Change Panel structure</a>)
+### 3.1.4 Layout
+The platform should enable the user to create and name new sections and fill these sections with the desired panels. 
+Furthermore it should be possible to delete sections. A rearrangement of sections as well as panels should be possible by drag and drop. 
+Panels can be moved between sections. 
+(Use Case: <a href="../ucs/layout/change_panelStructure/UCS_change_panelStructure.md">Change Panel Structure</a>)
 
-The user to change the layout and the arrangement of sections and panels on his/her personal dashboard. First the user should be able to change basic layouts of the board, e.g. the main color or font. These settings can be changed in a little layout menu. (Use Case: <a href="../ucs/layout/UCS_change_layout.md">Change Layout</a>)
+The user can also change the layout of his personal dashboard, e.g. the main color or font. 
+These settings can be changed in a little layout menu. 
+(Use Case: <a href="../ucs/layout/change_layout/UCS_change_layout.md">Change Layout</a>)
 
+###3.1.5 Panels
+TBD
 
-### 3.1.5 Custom Panels
+### 3.1.6 Custom Panels
 TBD
 
 ## 3.2 Usability
