@@ -1,4 +1,4 @@
-<img src="./images/logo/dashup_official_small.png" alt="official logo" />
+<img src="./images/logo/dashup_official_icon.png" alt="official logo" />
 
 # dashup
 The dashup platform provides a quick overview of multiple microservices hosted on 
