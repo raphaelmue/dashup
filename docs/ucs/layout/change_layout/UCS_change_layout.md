@@ -37,10 +37,8 @@ These settings can be changed in a little layout menu.
 <img src="mockups/layout_settings.png" alt="Mockup for change of layout" />
 
 ### 2.1.3 Narrative
-The user can open up a little menu as shown in the mock-up. In this menu he/she can edit the general layout settings
-for his/her main dashboard. If the user edited some of the settings the dashboard and the menu will be shown with
-the adjusted layout settings. If the change is confirmed the data will be stored on the database, if not the previous
-settings will be restored and there will be no changes on the database.
+
+You can see the entire _.feature file_ right <a href="./change_layout.feature">here</a>.
 
 ## 2.2 Alternative Flows
 N/A

@@ -49,7 +49,8 @@ their dashboard.
 <img src="./mockups/Detail Page (Similar).png" alt="Detail Page (Similar)" />
 
 ### 2.1.3 Narrative
-TBD
+
+You can see the entire _.feature file_ right <a href="./marketplace.feature">here</a>.
 
 ## 2.2 Alternative Flows
 N/A

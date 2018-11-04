@@ -42,16 +42,9 @@ Panels can be moved between sections and resized between small, medium or large.
 <img src="mockups/layout_mode_remove.png" alt="Mockup after removing section" />
 
 ### 2.1.3 Narrative
-There will be a "change structure mode" that can be enabled by the user while he/she is on the main dashboard. When this
-mode is enabled the sections names are editable, the sections can be deleted and new ones created as shown in the 
-mock-ups.
 
-Panels can be rearranged by drag and drop. They can be moved around between all sections and even deleted from the dashboard.
+You can see the entire _.feature file_ right <a href="./change_panelStructure.feature">here</a>.
 
-The user can leave the change mode at any time without saving and roll the structure back to the previous one.
-
-If the user decides to keep the structure he can confirm his/her changes and the data will be stored on the database.
- 
 ## 2.2 Alternative Flows
 N/A
 
