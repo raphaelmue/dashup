@@ -1,4 +1,4 @@
-dashup - Use Case Specification: Change Layout
+dashup - Use Case Specification: Layout - Change Layout
 ============================================
 ### Version 1.0
 
@@ -22,7 +22,7 @@ dashup - Use Case Specification: Change Layout
 - [Extension Points](#6-extension-points)
  
 # 1. Change Layout - Brief Description
-This use-case allows to user to change the layout and the arrangement of sections and panels on his/her
+The use-case _change layout_ allows the user to change the layout and the arrangement of sections and panels on his/her
 personal dashboard. The user should be able to change the basic appearance of the board, e.g. the main color or 
 font. These settings can be changed in a little layout menu. 
 
@@ -35,11 +35,11 @@ font. These settings can be changed in a little layout menu.
 
 ### 2.1.2 Mock-Up
 
-<img src="mockups/layout_settings_2.png" alt="Mockup for change of layout" />
+<img src="mockups/layout_settings.png" alt="Mockup for change of layout" />
 
 ### 2.1.3 Narrative
 The user can open up a little menu as shown in the mock-up. In this menu he/she can edit the general layout settings
-for his/her main dashboard. If the user edited some of the settings the dashbord and the menu will be shown with
+for his/her main dashboard. If the user edited some of the settings the dashboard and the menu will be shown with
 the adjusted layout settings. If the change is confirmed the data will be stored on the database, if not the previous
 settings will be restored and there will be no changes on the database.
 

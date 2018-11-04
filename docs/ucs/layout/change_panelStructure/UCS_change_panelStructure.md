@@ -1,4 +1,4 @@
-dashup - Use Case Specification: Change Panel Structure
+dashup - Use Case Specification: Layout - Change Panel Structure
 ============================================
 ### Version 1.0
 
@@ -31,7 +31,7 @@ Panels can be moved between sections. The user should be able to delete panels f
 ## 2.1 Basic Flow
 
 ### 2.1.1 Activity Diagram
-<img src="./arrange_panels.jpg" alt="Use case diagram change panel structure" />
+<img src="./change_panelStructure.jpg" alt="Use case diagram change panel structure" />
  
 ### 2.1.2 Mock-Up
 <img src="mockups/layout_mode.png" alt="Mockup for layout mode" />
