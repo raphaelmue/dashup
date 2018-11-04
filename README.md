@@ -1,6 +1,5 @@
-<img src="./images/logo/dashup_official_icon.png" alt="official logo" />
+<h1><img src="./images/logo/dashup_official_icon.png" alt="official logo" />ashup</h1>
 
-# dashup
 The dashup platform provides a quick overview of multiple microservices hosted on 
 external servers of different providers. Therefore users no longer have to access 
 microservices on separated ways and can gain quick insights into real time data of 
