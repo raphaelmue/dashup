@@ -22,9 +22,8 @@ dashup - Use Case Specification: Layout - Change Layout
 - [Extension Points](#6-extension-points)
  
 # 1. Change Layout - Brief Description
-The use-case _change layout_ allows the user to change the layout and the arrangement of sections and panels on his/her
-personal dashboard. The user should be able to change the basic appearance of the board, e.g. the main color or 
-font. These settings can be changed in a little layout menu. 
+In the use case _change layout_, the user can change the layout of his personal dashboard, e.g. the background color or font. 
+These settings can be changed in a little layout menu. 
 
 # 2. Flow of Events
 
@@ -52,7 +51,7 @@ N/A
 # 4. Preconditions
 
 ## 4.1 System State
-Before this use-case can be performed the user has to sign in and open up his main dashboard. From now on the layout
+Before this use case can be performed the user has to sign in and open up his main dashboard. From now on the layout
 should be changeable at all time while the user is on his/her main dashboard.
 
 #  5. Postconditions
