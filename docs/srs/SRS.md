@@ -81,9 +81,10 @@ integrate own microservices as customly defined panels to keep track of all of o
 
 ## 1.3 Definitions, Acronyms and Abbreviations
 
-| Definition | Description                                       |
-|------------|---------------------------------------------------|
-| dashup     | The official name of the project and the software |
+| Definition | Description                                                                    |
+|------------|--------------------------------------------------------------------------------|
+| dashup     | The official name of the project and the software                              |
+| Spring MVC | A java based Model View Control Framework, the architecture used behind dashup |
 
 <br />
 
@@ -92,8 +93,15 @@ integrate own microservices as customly defined panels to keep track of all of o
 | SRS          | Software Requirements Specification |
 | UC           | Use Case                            |
 | UCD          | Use Case Diagram                    |
-| N/A          | not applicable                      |
-| TBD          | to be determined                    |
+| N/A          | Not Applicable                      |
+| TBD          | To Be Determined                    |
+| MTBF         | Mean Time Between Failures          |
+| MTTR         | Mean Time To Recover                |
+| IDE          | Integrated Development Environment  |
+| MVC          | Model View Control                  |
+| FAQ          | Frequently Asked Questions          |
+| HTTP         | Hypertext Transfer Protocol         |
+| HTTPS        | Hypertext Transfer Protocol Secure  |
 
 ## 1.4 References
 
@@ -101,7 +109,7 @@ integrate own microservices as customly defined panels to keep track of all of o
 |---------------------------------------------------------------------------------------|------------|
 | <a href="https://dashup2k18.wordpress.com/"> Dashup Blog </a>                         | 21/10/2018 |
 | <a href="https://github.com/raphaelmue/dashup"> GitHub Repository </a>                | 21/10/2018 |
-| <a href="https://github.com/raphaelmue/dashup/blob/master/docs/srs/UCD.jpg"> UCD </a> | 21/10/2018 |
+| <a href="https://youtrack.dashup.de/issues"> YouTrack </a> | 21/10/2018 |
 
 ## 1.5 Overview
 In the next chapter, the general vision as well as the UCD will be provided, in order to give a quick summary about the 
@@ -141,6 +149,7 @@ All in all, dashup will provide you the best experience and overview over all da
 Following UCD will provide a basic overview to the user characteristics, features, constraints, associations and dependencies 
 within the project scope. Furthermore, non-functional requirements are put outside the system boundaries.
 <br />
+<br />
 <img src="./UCD.jpg" alt="Use Case Diagram" />
 
 # 3 Specific Requirements
@@ -149,36 +158,46 @@ within the project scope. Furthermore, non-functional requirements are put outsi
 
 ### 3.1.1 Main Overview
 When opening dashup in your browser, the microservices should display all relevant information graphically or textually 
-and they are presented as panels. You can easily customize the panel by e.g. changing the background image and reordering 
-or resizing the panel. Besides you can also create and modify sections in order to structure your dashup. 
+and they are presented as panels. You can easily customize the panel by e.g. changing the background color and reordering 
+or resizing the panels. Besides you can also create and modify sections in order to structure your dashup. 
 
 ### 3.1.2 Marketplace
-In the <a href="../ucs/marketplace/UCS_marketplace.md">marketplace</a> all available panels for microservices are offered to you. You can select every one of them and configure them
-as you like. You also can search for micro services, filter the result set and rate panels. Some micro services provide a basic functionality 
-so that you can easily interact with it. 
+In the marketplace all available panels for microservices are offered to you.
+You can simply search for panels, filter the result set, rate and comment on panels. Some panels for microservices provide a basic functionality 
+so that you can easily interact with it.
+There is even a detailed view about each offered panel containing a description and comments about the panel.
+Furthermore, similar panels to the current inspected panel, that other users use as well in combination with the current one, 
+are displayed in a "similar" tab.
 
 As a developer it is possible to publish your own panels for microservices as well as taking a look at the usage statistics of your
-own microservices. Furthermore you can use template panels to display your desired information or create your own template.
-For gathering the relevant information you can specify a public API. 
+own microservices.
+(Use Case: <a href="../ucs/marketplace/UCS_marketplace.md">Marketplace</a>)
 
-### 3.1.3 Account Management
+### 3.1.3 User Management
 TBD
 
-### 3.1.4 Layouting
-The platform should enable the user to create and name new sections and fill these sections by the panels he/she likes. Furthermore it should be possible to delete sections. A rearrangement of panels should be possible by drag and drop. Panels can be moved between sections. The user should be able to delete panels from his/her dashboard. (Use Case: <a href="../ucs/panelStructure/UCS_change_panelStructure.md">Change Panel structure</a>)
+### 3.1.4 Layout
+The platform should enable the user to create, name and delete new sections and fill these sections with the desired panels. 
+A rearrangement of sections as well as panels should be possible by drag and drop. 
+Panels can be moved between sections and resized between small, medium or large. 
+(Use Case: <a href="../ucs/layout/change_panelStructure/UCS_change_panelStructure.md">Change Panel Structure</a>)
 
-The user to change the layout and the arrangement of sections and panels on his/her personal dashboard. First the user should be able to change basic layouts of the board, e.g. the main color or font. These settings can be changed in a little layout menu. (Use Case: <a href="../ucs/layout/UCS_change_layout.md">Change Layout</a>)
+The user can also change the layout of his personal dashboard, e.g. the background color or font. 
+These settings can be changed in a little layout menu. 
+(Use Case: <a href="../ucs/layout/change_layout/UCS_change_layout.md">Change Layout</a>)
 
+### 3.1.5 Panels
+TBD
 
-### 3.1.5 Custom Panels
+### 3.1.6 Custom Panels
 TBD
 
 ## 3.2 Usability
 The motivation for the whole project is to increase the productivity, which requires usability. When opening dashup, you 
-should be given an overview of all your micro services, so that you do not have to open each application. 
+should be given an overview of all your microservices, so that you do not have to open each application. 
 
 ### 3.2.1 Start and go
-Without clicking any button or similar, each micro services shows its relevant information. Each micro services fetches 
+Without clicking any button or similar, each microservice shows its relevant information. Each microservice fetches 
 the data from its specified API automatically. Besides, if you have been logged in once on your device, you will be 
 automatically logged in without doing anything. 
 
@@ -186,7 +205,7 @@ automatically logged in without doing anything.
 All your panels should be showing only the relevant information to keep clarity. This applies also for the marketplace. 
 
 ### 3.2.3 Easy to use 
-In all use-cases it ought to be possible to do an action with only a few clicks. Furthermore gestures like drag and drop 
+In all use cases it ought to be possible to do an action with only a few clicks. Furthermore gestures like drag and drop 
 should facilitate the user. 
 
 ## 3.3 Reliability
@@ -205,13 +224,17 @@ Significant bugs are e.g. no sufficient consistency check or similar.
 ## 3.4 Performance
 
 ### 3.4.1 Response Time
-The response time should be as low as possible. The reload of the page may not take longer than 5 seconds and in average a response time of 3 seconds is acceptable. Therfore the backend should keep up graphic elements like the panels to avoid too large computing effort if there is a high number of panels mandated on the dashborad of a user.
+The response time should be as low as possible. The reload of the page may not take longer than 5 seconds and in average a 
+response time of 3 seconds is acceptable. Therefore the backend should keep up graphic elements like the panels to avoid 
+too large computing effort if there is a high number of panels mandated on the dashboard of a user.
 
 ### 3.4.2 Throughput
-The information displayed on the different panels showed in the dashboard should be reloaded every 10ms. Because of the provision of these data by foreign APIs and servers the fetching process could take longer. To prevent such a scenario corresponding connventions and rules must be introduced.
+The information displayed on the different panels showed in the dashboard should be reloaded every 10ms. Because of the 
+provision of these data by foreign APIs and servers the fetching process could take longer. To prevent such a scenario 
+corresponding conventions and rules must be introduced.
 
 ### 3.4.3 Capacity
-The dashboard has to be designed for a large number of users. An increase of new members shouldn't slow down the system in the same way.
+The dashboard has to be designed for a large number of users. An increase of new members should not slow down the system in the same way.
 
 <!--### 3.4.4 Degradation Modes -->
 
@@ -220,10 +243,12 @@ The dashboard has to be designed for a large number of users. An increase of new
 ## 3.5 Supportability
 
 ### 3.5.1 Standards and Conventions
-To ensure a clear strucutur within the project the latest clean code standards have to be applied. In addition, it is only allowed to use self-descriptive expressions for naming. Classes have to begin wih an upper-case, variables with a lower-case.
+To ensure a clear structure within the project the latest clean code standards have to be applied. In addition, it is only 
+allowed to use self-descriptive expressions for naming. Classes have to begin wih an upper-case, variables with a lower-case.
 
 ### 3.5.2 Maintenance
-For optimal results, the use of tools for automated testing is essential. Furthermore, every line of code has to be reviewd to ensure compliance with the previously defined conventions.
+For optimal results, the use of tools for automated testing is essential. Furthermore, every line of code has to be reviewed 
+to ensure compliance with the previously defined conventions.
 
 <!--### 3.5.3 Class Libraries-->
 
@@ -234,18 +259,20 @@ For optimal results, the use of tools for automated testing is essential. Furthe
 <!--### 3.6.2 Software Process Requirements-->
 
 ### 3.6.1 Developmental tools
-The main IDE will be IntelliJ IDEA. More tools are tbd.
+The main IDE will be IntelliJ IDEA. More tools are TBD.
 
 ### 3.6.2 Architectural Constraints
-The project must be based on the MVC architecture. Therefore the Spring Framwork will be in use.  
+The project must be based on the MVC architecture. Therefore the Spring Framework will be in use.  
 Furthermore it should not be possible to upload executable code to dashup servers.
 
 ## 3.7 On-line User Documentation and Help System Requirements
-The application should be kept as simple that detailed intorduction into the service is superflous. To provide fast support for standard questions a FAQ will be set up.
-For deveopers of custom panels a documentation including a tutorial should be available. 
+The application should be kept as simple that detailed introduction into the service is superfluous. To provide fast support 
+for standard questions a FAQ will be set up. For developers of custom panels a documentation including a tutorial should be available. 
 
 ## 3.8 Purchased Components
-On the hardware side there will be rent a virtual server. Except the domain which also is a purchased component there are open source or free available components allowed for use only. As a consequence the dashup project on itself has to be licensed under an open source license to avoid conflicts with the owner of software or visual compontens. 
+On the hardware side there will be rent a virtual server. Except the domain which also is a purchased component there are 
+open source or free available components allowed for use only. As a consequence the dashup project on itself has to be licensed 
+under an open source license to avoid conflicts with the owner of software or visual components. 
 
 ## 3.9 Interfaces
 
@@ -285,8 +312,7 @@ The code of dashup should follow some basic rules of clean code such as:
 * No premature optimization.
 * Secure transfer of data
 
-If necessary there can be exceptions to this rules, but they have to be well considered and discussed.  
-
+If necessary there can be exceptions to this rules, but they have to be well considered and discussed.
 
 # 4 Supporting Information
 **For more information please contact:**

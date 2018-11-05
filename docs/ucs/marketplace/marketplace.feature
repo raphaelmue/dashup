@@ -1,28 +1,92 @@
-Feature: Browse marketplace
-  in order to find micro services for your personal dashup.
+Feature: Marketplace
 
-  Scenario: The user would like to open the marketplace.
-    Given User is logged in to dashup and is located on the main page.
-    When User clicks on the marketplace button,
-    Then the marketplace shows up.
+  As a basic user
+  I want to browse the marketplace
+  So that I can find new panels and add them into my dashup
 
-  Scenario: The User would like to find micro services applicable to his search term.
-    Given The User is on the marketplace page
+  Scenario: Open marketplace
+    Given User is logged into dashup
+    And User is located on the main page
+    When User clicks on the marketplace button
+    Then The marketplace shows up
+
+
+  Scenario: Navigate back
+    Given User is logged into dashup
+    And User is located on the marketplace page
+    When User clicks on the back button or navigates back over the navigation bar
+    Then User will be directed back to the main page
+
+
+  Scenario: Search panel
+    Given User is logged into dashup
+    And User is on the marketplace page
     When User the types in a search term "<searchTerm>"
-    Then a list with matching micro services shows up.
+    Then A list with matching "<microservices>" shows up
 
-  Examples:
-  | searchTerms  | microServices |
-  | calendar     | Calendar      |
+    Examples:
+    | searchTerms  | microservices |
+    | calendar     | Calendar      |
+    | weather      | Weather      |
 
-  Scenario: User would like to rate and comment on a panel.
-    Given Rating tab is opened of a panel's detailed view marketplace.
+
+  Scenario: Filter result set
+    Given User is logged into dashup
+    And User is on the marketplace page
+    When User clicks on filter icon
+    Then Filter menu will pop up
+    When User changes filter "<filter>" to value "<value>"
+    Then Result set will be restricted to all panels that match "<filter>" equals to "<value>"
+
+    Examples:
+    | filter              | value        |
+    | rating              | 4.0          |
+    | category            | productivity |
+    | tags                | nerdy        |
+    | publisher           | dashup       |
+    | date of publication | 04/11/2018   |
+
+
+  Scenario: User would like to rate and comment on a panel
+    Given User is logged into dashup
+    And Rating tab is opened of a panel's detailed view in the marketplace
     When User writes "<comment>"
     And User chooses "<rating>" of five stars
     And User clicks submit button
-    Then the appropriate comment containing text "<comment>" and rating <"rating"> will be displayed on the top of the comment section.
+    Then The appropriate comment containing text "<comment>" and rating <"rating"> will be displayed on the top of the comment section.
 
-  Examples:
-  | comment              | rating |
-  | Top panel            | 5      |
-  | Room for improvement | 3.5    |
+    Examples:
+    | comment              | rating |
+    | Top panel            | 5      |
+    | Room for improvement | 3.5    |
+
+
+  Scenario: Inspect panel
+    Given User is logged into dashup
+    And User is on the marketplace page
+    When User clicks on a specific listed panel
+    Then A detailed view of the panel will open up, containing the tabs overview, comments and similar
+
+
+  Scenario: Inspect similar panel
+    Given User is logged into dashup
+    And User is on the similar tab of a panel's detailed view in the marketplace
+    When User clicks on a specific listed panel
+    Then A detailed view of the panel will open up, containing the tabs overview, comments and similar
+
+
+  Scenario: Show more results
+    Given User is logged into dashup
+    And User is on the marketplace page
+    And User scrolled down to the end of the page
+    And More results are available
+    When User clicks on the show more button
+    Then more results will be loaded and shown on the marketplace list
+
+
+  Scenario: Add panel to dashup
+    Given User is logged into dashup
+    And User is on the marketplace page
+    When User clicks on the add panel to dashboard button
+    Then Panel with microservice will be added to dashups default section
+    And Menu to add panel to dashup is set to disabled in the marketplace

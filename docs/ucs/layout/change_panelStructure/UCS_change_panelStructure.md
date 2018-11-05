@@ -1,4 +1,4 @@
-dashup - Use Case Specification: Change Panel Structure
+dashup - Use Case Specification: Layout - Change Panel Structure
 ============================================
 ### Version 1.0
 
@@ -22,35 +22,41 @@ dashup - Use Case Specification: Change Panel Structure
 - [Extension Points](#6-extension-points)
 
 # 1. Change Panel Structure - Brief Description
-The platform should enable the user to create and name new sections and fill these sections by the panels he/she likes. 
-Furthermore it should be possible to delete sections. A rearrangement of panels should be possible by drag and drop. 
-Panels can be moved between sections. The user should be able to delete panels from his/her dashboard.   
+In the use case _change panel structure_, the platform should enable the user to create, name and delete new sections and 
+fill these sections with the desired panels. 
+A rearrangement of sections as well as panels should be possible by drag and drop. 
+Panels can be moved between sections and resized between small, medium or large.
 
 # 2. Flow of Events
 
 ## 2.1 Basic Flow
 
 ### 2.1.1 Activity Diagram
-<img src="./arrange_panels.jpg" alt="Use case diagram change panel structure" />
+<img src="./change_panelStructure.jpg" alt="Use case diagram change panel structure" />
  
 ### 2.1.2 Mock-Up
+<img src="mockups/home.png" alt="Mockup for home page" />
+<br />
+<img src="mockups/home_layout_menu.png" alt="Mockup for home page layout menu" />
+<br />
 <img src="mockups/layout_mode.png" alt="Mockup for layout mode" />
 <br />
 <img src="mockups/layout_mode_mouse_red.png" alt="Mockup to remove section" />
 <br />
 <img src="mockups/layout_mode_remove.png" alt="Mockup after removing section" />
+<br />
+<img src="mockups/layout_mode_move.png" alt="Mockup for moving a section" />
+<br />
+<img src="mockups/layout_mode_rename_mouse.png" alt="Mockup for renaming a section (mouseclick)" />
+<br />
+<img src="mockups/layout_mode_rename.png" alt="Mockup before renaming a section" />
+<br />
+<img src="mockups/layout_mode_rename_change.png" alt="Mockup after renaming a section" />
 
 ### 2.1.3 Narrative
-There will be a "change structure mode" that can be enabled by the user while he/she is on the main dashboard. When this
-mode is enabled the sections names are editable, the sections can be deleted and new ones created as shown in the 
-mock-ups.
 
-Panels can be rearranged by drag and drop. They can be moved around between all sections and even deleted from the dashboard.
+You can see the entire _.feature file_ right <a href="./change_panelStructure.feature">here</a>.
 
-The user can leave the change mode at any time without saving and roll the structure back to the previous one.
-
-If the user decides to keep the structure he can confirm his/her changes and the data will be stored on the database.
- 
 ## 2.2 Alternative Flows
 N/A
 
