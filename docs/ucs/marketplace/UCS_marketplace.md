@@ -13,7 +13,7 @@ dashup - Use Case Specification: Marketplace
 - [Marketplace - Brief Description](#1-marketplace---brief-description) 
 - [Flow Of Events](#2-flow-of-events)
     - [Basic Flow](#21-basic-flow)  
-    - [Alternative Flows](#24-alternative-flows)
+    - [Alternative Flows](#22-alternative-flows)
 - [Special Requirements](#3-special-requirements)
 - [Preconditions](#4-preconditions)
     - [Sufficient amount of microservices](#41-sufficient-amount-of-microservices)
@@ -40,11 +40,13 @@ their dashboard.
 <br />
 <img src="./mockups/Search Results.png" alt="Search Results" />
 <br />
-<img src="./mockups/Search Results with Filter Dialog.png" alt="Search Results with Filter Dialog" />
+<img src="./mockups/Search Results (Filter).png" alt="Search Results with Filter Dialog" />
 <br />
 <img src="./mockups/Detail Page (Overview).png" alt="Detail Page (Overview)" />
 <br />
 <img src="./mockups/Detail Page (Ratings).png" alt="Detail Page (Ratings)" />
+<br />
+<img src="./mockups/Detail Page (Write Comment).png" alt="Detail Page (Ratings)" />
 <br />
 <img src="./mockups/Detail Page (Similar).png" alt="Detail Page (Similar)" />
 
