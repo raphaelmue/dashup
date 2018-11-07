@@ -90,3 +90,12 @@ Feature: Marketplace
     When User clicks on the add panel to dashboard button
     Then Panel with microservice will be added to dashups default section
     And Menu to add panel to dashup is set to disabled in the marketplace
+
+  Scenario: User accessing marketplace while not being logged in
+    Given User is not logged into dashup
+    When User accesses marketplace
+    And User tries to add a panel to dashup
+    Then User will be directed to the login page
+    When User enters right credentials
+    Then User will be directed to the main page
+    And Panel is added to dashup
