@@ -1,4 +1,4 @@
-package de.dashup.test.runner;
+package de.dashup.test;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
