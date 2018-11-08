@@ -52,7 +52,7 @@ their dashboard.
 
 ### 2.1.3 Narrative
 
-You can see the entire _.feature file_ right <a href="/../../../../../../src/test/resources/de.dashup.test/marketplace.feature">here</a>.
+You can see the entire _.feature file_ right <a href="/../../../de.dashup.application/src/test/resources/de.dashup.test/marketplace.feature">here</a>.
 
 ## 2.2 Alternative Flows
 N/A
