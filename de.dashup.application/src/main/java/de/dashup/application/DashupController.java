@@ -10,7 +10,7 @@ public class DashupController {
 
     @RequestMapping("/hello")
     public String main(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
-        System.out.println("rednering hello world page");
+        System.out.println("rendering hello world page");
         model.addAttribute("name", name);
         return "index";
     }
