@@ -35,13 +35,11 @@ Panels can be moved between sections and resized between small, medium or large.
 <img src="./change_panelStructure.jpg" alt="Use case diagram change panel structure" />
  
 ### 2.1.2 Mock-Up
-<img src="mockups/home.png" alt="Mockup for home page" />
-<br />
 <img src="mockups/home_layout_menu.png" alt="Mockup for home page layout menu" />
 <br />
 <img src="mockups/layout_mode.png" alt="Mockup for layout mode" />
 <br />
-<img src="mockups/layout_mode_resize" alt="Mockup to resize panel" />
+<img src="mockups/layout_mode_resize.png" alt="Mockup to resize panel" />
 <br />
 <img src="mockups/layout_mode_resize_small.png" alt="Mockup with resized panel" />
 <br />
@@ -57,7 +55,7 @@ Panels can be moved between sections and resized between small, medium or large.
 <br />
 <img src="mockups/layout_mode_mouse.png" alt="Mockup to remove section" />
 <br />
-<img src="mockups/layout_mode_remove_change.png" alt="Mockup to remove change" />
+<img src="mockups/layout_mode_remove.png" alt="Mockup to remove change" />
 
 ### 2.1.3 Narrative
 
