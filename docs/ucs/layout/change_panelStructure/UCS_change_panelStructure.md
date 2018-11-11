@@ -41,17 +41,23 @@ Panels can be moved between sections and resized between small, medium or large.
 <br />
 <img src="mockups/layout_mode.png" alt="Mockup for layout mode" />
 <br />
-<img src="mockups/layout_mode_mouse_red.png" alt="Mockup to remove section" />
+<img src="mockups/layout_mode_resize" alt="Mockup to resize panel" />
 <br />
-<img src="mockups/layout_mode_remove.png" alt="Mockup after removing section" />
+<img src="mockups/layout_mode_resize_small.png" alt="Mockup with resized panel" />
 <br />
-<img src="mockups/layout_mode_move.png" alt="Mockup for moving a section" />
+<img src="mockups/layout_mode_move_section.png" alt="Mockup to move section" />
 <br />
 <img src="mockups/layout_mode_rename_mouse.png" alt="Mockup for renaming a section (mouseclick)" />
 <br />
-<img src="mockups/layout_mode_rename.png" alt="Mockup before renaming a section" />
+<img src="mockups/layout_mode_rename.png" alt="Mockup to rename section" />
 <br />
-<img src="mockups/layout_mode_rename_change.png" alt="Mockup after renaming a section" />
+<img src="mockups/layout_mode_rename_change.png" alt="Mockup with renamed section" />
+<br />
+<img src="mockups/layout_mode_move.png" alt="Mockup to move panel" />
+<br />
+<img src="mockups/layout_mode_mouse.png" alt="Mockup to remove section" />
+<br />
+<img src="mockups/layout_mode_remove_change.png" alt="Mockup to remove change" />
 
 ### 2.1.3 Narrative
 
