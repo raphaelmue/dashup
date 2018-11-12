@@ -37,6 +37,13 @@
         </form>
     </div>
 
+    <br />
+
+    <div class="container col-lg-4 col-lg-offset-4"><div>
+        <label class="text-white" for="google">Or just sign in with Google:</label>
+        <div id="google" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+    </div>
+
     <jsp:include page="./includes/bodyInclude.jsp" />
 </body>
 </html>
