@@ -7,7 +7,7 @@ package de.dashup.shared;
  */
 public interface DatabaseObject {
     /**
-     * Each database entry has an id, which is primary key and autoincrement. This method returns the repective id.
+     * Each database entry has an id, which is primary key and autoincrement. This method returns the respective id.
      *
      * @return id
      */

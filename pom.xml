@@ -12,6 +12,7 @@
         <module>de.dashup.application</module>
         <module>de.dashup.model</module>
         <module>de.dashup.shared</module>
+        <module>de.dashup.util</module>
 
     </modules>
 

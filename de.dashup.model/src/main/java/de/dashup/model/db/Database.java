@@ -143,7 +143,7 @@ public class Database {
      * @return Object with fetched data
      * @throws SQLException thrown, when something went wrong executing the SQL statement
      */
-    public List<DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters) throws SQLException, JsonParseException {
+    public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters) throws SQLException, JsonParseException {
         Gson gson = new GsonBuilder().create();
         JSONArray jsonArray = this.get(table, whereParameters);
         List<DatabaseObject> result = new ArrayList<>();
