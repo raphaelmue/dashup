@@ -10,6 +10,9 @@
 
     <modules>
         <module>de.dashup.application</module>
+        <module>de.dashup.model</module>
+        <module>de.dashup.shared</module>
+
     </modules>
 
     <properties>
@@ -18,4 +21,17 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180813</version>
+        </dependency>
+    </dependencies>
 </project>
