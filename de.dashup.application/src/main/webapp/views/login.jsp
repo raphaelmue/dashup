@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -19,7 +19,7 @@
     <br />
 
     <div class="container col-lg-4 col-lg-offset-4">
-        <form action="/entry/login" method="POST">
+        <form action="${pageContext.request.contextPath}/handleLogin" method="POST">
             <div class="form-group">
                 <label class="text-white" for="email">Email address</label>
                 <input type="text" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email">
