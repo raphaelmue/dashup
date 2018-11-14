@@ -1,0 +1,33 @@
+body {
+    background-image: url("/resources/images/background/background.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#content {
+    color: white;
+    margin-right:15%;
+    padding:1px 16px;
+}
+.menubar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 15%;
+    background-color: rgba(256,256,256,0.7);
+    position: fixed;
+    height: 90%;
+    overflow: auto;
+    right: 0;
+}
+.panel{
+    width: 150px ;
+    height: 150px;
+    border: solid 2px;
+}
+#header {
+    text-align: center;
+    color: white;
+    font-size: 20px;
+}
