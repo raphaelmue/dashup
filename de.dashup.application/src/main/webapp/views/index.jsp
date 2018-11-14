@@ -1,12 +1,14 @@
-<%--@elvariable id="name" type="de.dashup.application.DashupController"--%>
-<%@ page contentType="text/html;charset=UTF-8" %>
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Hello</title>
-</head>
-<body>
-    <h1>Hello ${name}</h1>
-</body>
+    <head>
+        <jsp:include page="./includes/headInclude.jsp" />
+
+        <title>dashup</title>
+    </head>
+    <body>
+        <h1>Hello ${name}</h1>
+
+        <jsp:include page="./includes/headInclude.jsp" />
+    </body>
 </html>
