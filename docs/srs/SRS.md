@@ -192,7 +192,9 @@ These settings can be changed in a little layout menu.
 TBD
 
 ### 3.1.6 Custom Panels
-TBD
+
+#### 3.1.6.1 Add API
+A user (developer) has the possibilty to connect an API to his self created or chosen panel. Therefore a new API has to be added to the system. This use case is about adding such an API. Therefore information like URL, name and credentials has to be entered by a user. It will only be possible to add valid APIs and so a test is reqired before finnishing the addtion. (Use Case: <a href="../ucs/custom_panel/add_api/UCS_add_api.md">Add API</a>)
 
 ## 3.2 System Architecture
 
