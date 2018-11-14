@@ -34,7 +34,7 @@
     <hr>
     <div>
         <h1>another section</h1>
-        <div class="sectionContent" style="display: inline">
+        <div class="sectionContent">
         <div  class="panel">
             <p>This is a panel</p>
         </div>
@@ -47,7 +47,7 @@
         </div>
     </div>
     </div>
-<footer id="footer" style="position: fixed; left: 0; bottom: 0; height: 2%; text-align: center">
+<footer id="footer">
     this is the footer
 </footer>
 </body>

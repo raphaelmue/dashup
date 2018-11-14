@@ -25,9 +25,18 @@ body {
     width: 150px ;
     height: 150px;
     border: solid 2px;
+    display: inline-block;
 }
 #header {
     text-align: center;
     color: white;
     font-size: 20px;
+}
+#footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 2%;
+    text-align: center;
+    color: white;
 }
