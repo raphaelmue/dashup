@@ -50,9 +50,9 @@ dashup - Software Requirements Specification
     <!--- - [Hardware Interfaces](#3102-hardware-interfaces)-->
     <!--- - [Software Interfaces](#3103-software-interfaces)-->
     <!--- - [Communications Interfaces](#3104-communications-interfaces)-->
-    - [Licensing Requirements](#311-licensing-requirements)-->
-    - [Legal, Copyright, and Other Notices](#312-legal-copyright-and-other-notices)-->
-    - [Applicable Standards](#313-applicable-standards)-->
+    - [Licensing Requirements](#311-licensing-requirements)
+    - [Legal, Copyright, and Other Notices](#312-legal-copyright-and-other-notices)
+    - [Applicable Standards](#313-applicable-standards)
  - [Supporting Information](#4-supporting-information)  
 
 <br />
