@@ -7,6 +7,9 @@ import de.dashup.shared.DatabaseObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.sql.*;
 import java.time.LocalDate;
@@ -23,17 +26,11 @@ public class Database {
 
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 
-    // for testing:
-    private static final String HOST_LOCAL = "localhost";
-
-    // for deployment:
-    private static final String HOST_DEPLOY = "raphael-muesseler.de";
-
     private static String HOST;
     private static DatabaseName DB_NAME;
 
-    private static final String DB_USER = "dashup_admin";
-    private static final String DB_PASSWORD = "ND4lLlJGPIwYCnYy";
+    private static String DB_USER;
+    private static String DB_PASSWORD;
 
     private Connection connection;
 
@@ -93,6 +90,14 @@ public class Database {
             // loading database driver
             Class.forName(JDBC_DRIVER);
 
+            if (HOST == null) {
+                throw new IllegalArgumentException("Database: No host is defined!");
+            }
+
+            if (DB_USER == null || DB_PASSWORD == null) {
+                throw new IllegalArgumentException("Database: No user or password is defined!");
+            }
+
             // initializing DB access
             this.connection = DriverManager.getConnection("jdbc:mysql://" + HOST + ":3306/" + DB_NAME.getName() +
                             "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" +
@@ -105,12 +110,23 @@ public class Database {
     }
 
     /**
-     * Sets the static host. This method should be called before the first call of getInstance.
+     * Sets the static host. This method has to be called before the first call of getInstance.
      *
-     * @param local sets the host to 'localhost' if true
+     * @param local sets the host to 'localhost' if true, else the database config file will be read.
      */
     public static void setHost(boolean local) {
-        Database.HOST = local ? Database.HOST_LOCAL : Database.HOST_DEPLOY;
+        if (local) {
+            HOST = "localhost";
+        } else {
+            try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(
+                    Database.class.getResourceAsStream("config/database.conf")))) {
+                HOST = fileReader.readLine();
+                DB_USER = fileReader.readLine();
+                DB_PASSWORD = fileReader.readLine();
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

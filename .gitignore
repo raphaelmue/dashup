@@ -2,3 +2,4 @@
 !.idea/runConfigurations/
 target/
 *.iml
+database.conf
