@@ -1,0 +1,29 @@
+header {
+    padding: 10px 0;
+    background-color: var(--main);
+    color: var(--white);
+
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+}
+
+header h1 {
+    font-size: 25px;
+    margin: 8px 0;
+    display: inline-block;
+    float: left;
+}
+
+nav {
+    display: inline-block;
+    float: right;
+    padding: 14px 0;
+}
+
+nav a {
+    font-weight: 700;
+    text-decoration: none;
+    color: white;
+    margin: 0 20px;
+}
