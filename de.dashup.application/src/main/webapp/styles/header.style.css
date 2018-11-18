@@ -1,6 +1,6 @@
 header {
     padding: 10px 0;
-    background-color: var(--main);
+    background: linear-gradient(141deg, var(--dark), var(--main) 20%, #26c0ad 90%);;
     color: var(--white);
 
     -webkit-box-shadow: 0 0 3px 0 rgba(0,0,0,0.75);

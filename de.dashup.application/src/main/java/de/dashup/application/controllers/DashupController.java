@@ -16,7 +16,8 @@ public class DashupController {
     public String main(Model model, HttpServletRequest request) {
         User user = (User) LocalStorage.readObjectFromSession(request, "user");
         if (user != null) {
-            model.addAttribute("name", user.getFullName());
+            model.addAttribute("name", user.getName());
+            model.addAttribute("email", user.getEmail());
             return "index";
         } else {
             return "redirect:/welcome";

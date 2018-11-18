@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!doctype html>
 <html lang="en">
     <head>
@@ -12,14 +12,14 @@
                 <nav>
                     <a href="${pageContext.request.contextPath}/marketplace">Marketplace</a>
                     <a href="${pageContext.request.contextPath}/layout">Layout</a>
-                    <a href="${pageContext.request.contextPath}/profile">Profile</a>
+                    <a href="${pageContext.request.contextPath}/profile">${email}</a>
                 </nav>
                 <div class="clear-float"></div>
             </div>
         </header>
         <main>
             <div class="wrapper">
-                <h1>Hello ${name}</h1>
+                <h1>Welcome, ${name}!</h1>
             </div>
         </main>
     </body>
