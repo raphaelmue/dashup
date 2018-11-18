@@ -1,39 +1,40 @@
 package de.dashup.application;
 
 import de.dashup.application.local.LocalStorage;
-import de.dashup.model.service.DashupService;
 import de.dashup.shared.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.SQLException;
 
 @Controller
+@RequestMapping("/")
 public class DashupController {
-
-    @RequestMapping("/hello")
-    public String test(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
-        System.out.println("dashup controller");
-        model.addAttribute("name", name);
-        return "index";
+    @RequestMapping("/")
+    public String main(Model model, HttpServletRequest request) {
+        User user = (User) LocalStorage.readObjectFromSession(request, "user");
+        if (user != null) {
+            model.addAttribute("name", user.getFullName());
+            return "index";
+        } else {
+            return "redirect:/welcome";
+        }
     }
 
+    @RequestMapping("/welcome")
+    public String welcome(HttpServletRequest request) {
+        User user = (User) LocalStorage.readObjectFromSession(request, "user");
+        if (user != null) {
+            return "redirect:/";
+        } else {
+            return "welcome";
+        }
+    }
 
     @RequestMapping("/entry")
     public String delegateEntry() {
         System.out.println("Delegating to the entry controller");
         return "redirect:/entry/login";
-    }
-
-    @RequestMapping(value = "/handleLogin", method = RequestMethod.POST)
-    public String handleLogin(@RequestParam(name = "email") String email,
-                              @RequestParam(name = "password") String password, HttpServletRequest request) throws SQLException {
-        User user = DashupService.getInstance().checkCredentials(email, password);
-        LocalStorage.writeObjectToSession(request, "user", user);
-        return "redirect:/hello";
     }
 }

@@ -19,7 +19,7 @@
     <br />
 
     <div class="container col-lg-4 col-lg-offset-4">
-        <form action="${pageContext.request.contextPath}/handleLogin" method="POST">
+        <form action="${pageContext.request.contextPath}/entry/handleLogin" method="POST">
             <div class="form-group">
                 <label class="text-white" for="email">Email address</label>
                 <input type="text" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email">
@@ -33,7 +33,7 @@
                 <input type="checkbox" class="form-check-input" id="rememberMe">
                 <label class="text-white form-check-label" for="rememberMe">Remember me to stay logged in</label>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>
         </form>
     </div>
 

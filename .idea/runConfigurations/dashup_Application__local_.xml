@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="dashup Application" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="dashup Application (local)" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />
@@ -10,6 +10,8 @@
           </option>
           <option name="goals">
             <list>
+              <option value="clean" />
+              <option value="install" />
               <option value="spring-boot:run" />
             </list>
           </option>
