@@ -1,7 +1,5 @@
 body {
-    background-image: url("/resources/images/background/background.jpg");
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
+    background: url("/resources/images/background/background.png") no-repeat;
     background-size: cover;
+    min-height: 100vh;
 }
