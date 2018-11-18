@@ -1,4 +1,4 @@
-package de.dashup.application;
+package de.dashup.application.controllers;
 
 import de.dashup.application.local.LocalStorage;
 import de.dashup.shared.User;
