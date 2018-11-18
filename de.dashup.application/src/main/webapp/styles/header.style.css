@@ -18,12 +18,32 @@ header h1 {
 nav {
     display: inline-block;
     float: right;
-    padding: 14px 0;
+    padding: 14px 0 8px;
 }
 
 nav a {
     font-weight: 700;
     text-decoration: none;
-    color: white;
+    color: var(--white);
     margin: 0 20px;
+    float: left;
+
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+nav a.nav-item:after {
+    display: block;
+    content: '';
+    background: var(--white);
+    height: 2px;
+    width: 0;
+    margin: 5px auto 0;
+
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+nav a.nav-item:hover:after {
+    width: 100%;
 }

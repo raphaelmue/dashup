@@ -10,9 +10,9 @@
             <div class="wrapper">
                 <h1 class="heading">dashup</h1>
                 <nav>
-                    <a href="${pageContext.request.contextPath}/marketplace">Marketplace</a>
-                    <a href="${pageContext.request.contextPath}/layout">Layout</a>
-                    <a href="${pageContext.request.contextPath}/profile">${email}</a>
+                    <a class="nav-item" href="${pageContext.request.contextPath}/marketplace">Marketplace</a>
+                    <a class="nav-item" href="${pageContext.request.contextPath}/layout">Layout</a>
+                    <a id="" href="${pageContext.request.contextPath}/profile">${name}</a>
                 </nav>
                 <div class="clear-float"></div>
             </div>
