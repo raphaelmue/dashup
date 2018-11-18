@@ -33,7 +33,7 @@
                 <input type="checkbox" class="form-check-input" id="rememberMe">
                 <label class="text-white form-check-label" for="rememberMe">Remember me to stay logged in</label>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>
         </form>
     </div>
 
