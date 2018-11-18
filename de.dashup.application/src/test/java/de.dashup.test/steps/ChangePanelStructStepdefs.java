@@ -4,8 +4,13 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.WebDriver;
 
 public class ChangePanelStructStepdefs {
+
+    private WebDriver driver;
+    private String pathToChromeDriver= "C:\\Users\\D070546\\Documents\\chromedriver_win32\\chromedriver.exe";
+
     @When("^The user clicks on the rearrangement button$")
     public void the_user_clicks_on_the_rearrangement_button() throws Exception {
         // Write code here that turns the phrase above into concrete actions
