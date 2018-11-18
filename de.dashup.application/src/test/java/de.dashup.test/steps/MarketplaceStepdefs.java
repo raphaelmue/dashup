@@ -4,6 +4,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -25,15 +26,13 @@ public class MarketplaceStepdefs {
 
     @When("^User submits username and password$")
     public void user_submits_username_and_password() throws Exception {
-        driver.findElement(By.id("email")).sendKeys("Hallo");
-        driver.findElement(By.id("password")).sendKeys("test");
-        driver.findElement(By.className("btn btn-primary")).click();
+        driver.findElement(By.id("email")).sendKeys("raphael@muesseler.de");
+        driver.findElement(By.id("password")).sendKeys("password");
+        driver.findElement(By.id("submit_button")).click();
     }
 
     @Then("^User is logged in$")
     public void user_is_logged_in() throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
     }
 
     @Given("^User is located on the main page$")
