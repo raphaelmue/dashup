@@ -13,8 +13,8 @@
             <div class="wrapper">
                 <h1 class="heading">dashup</h1>
                 <nav>
-                    <a class="nav-item" href="${pageContext.request.contextPath}/marketplace">Marketplace</a>
-                    <a class="nav-item" href="${pageContext.request.contextPath}/layout">Layout</a>
+                    <a class="nav-item" href="${pageContext.request.contextPath}/marketplace"><fmt:message key="i18n.marketplace" /></a>
+                    <a class="nav-item" href="${pageContext.request.contextPath}/layout"><fmt:message key="i18n.layout" /></a>
                     <a id="" href="${pageContext.request.contextPath}/profile">${name}</a>
                 </nav>
                 <div class="clear-float"></div>
