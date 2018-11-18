@@ -1,4 +1,7 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<fmt:setLocale value="${param.lang}" />
+<fmt:setBundle basename="i18n" />
 <!doctype html>
 <html lang="en">
     <head>
@@ -19,7 +22,7 @@
         </header>
         <main>
             <div class="wrapper">
-                <h1>Welcome, ${name}!</h1>
+                <h1><fmt:message key="i18n.welcome"/>, ${name}!</h1>
             </div>
         </main>
     </body>
