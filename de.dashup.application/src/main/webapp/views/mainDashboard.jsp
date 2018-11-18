@@ -17,10 +17,10 @@
     </div>
     <hr>
     <ul class="menubar">
-        <li><a style="display: block; color: #000; padding: 8px 16px; text-decoration: none;">A menuitem</a></li>
-        <li><a href="main" style="display: block; color: #000; padding: 8px 16px; text-decoration: none;">clickable menuitem</a></li>
-        <li><a href="#contact" style="display: block; color: #000; padding: 8px 16px; text-decoration: none;">third menuitem</a></li>
-        <li><a href="#about" style="display: block; color: #000; padding: 8px 16px; text-decoration: none;">last menuitem</a></li>
+        <li><a >A menuitem</a></li>
+        <li><a href="main">clickable menuitem</a></li>
+        <li><a href="#contact">third menuitem</a></li>
+        <li><a href="#about">last menuitem</a></li>
     </ul>
     <div id="content">
     <div id="some section">

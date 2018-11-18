@@ -15,17 +15,19 @@ body {
     margin: 0;
     padding: 0;
     width: 15%;
-    background-color: rgba(256,256,256,0.7);
+    background-color: rgba(256,256,256,0.6);
     position: fixed;
     height: 90%;
     overflow: auto;
     right: 0;
 }
 .panel{
-    width: 150px ;
-    height: 150px;
+    width: 200px ;
+    height: 200px;
     border: solid 2px;
     display: inline-block;
+    background-color: rgba(256,256,256,0.6);
+    border-radius: 25px;
 }
 #header {
     text-align: center;
@@ -39,4 +41,10 @@ body {
     height: 2%;
     text-align: center;
     color: white;
+}
+.menubar li a {
+    color: #000000;
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
 }
