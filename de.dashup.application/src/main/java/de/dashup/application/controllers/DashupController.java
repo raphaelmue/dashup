@@ -14,7 +14,7 @@ public class DashupController {
 
     @RequestMapping("/")
     public String main(Model model, HttpServletRequest request) {
-        User user = (User) LocalStorage.readObjectFromSession(request, "user");
+        User user = (User) LocalStorage.readObject(request, "user");
         if (user != null) {
             model.addAttribute("name", user.getName());
             model.addAttribute("email", user.getEmail());
@@ -26,7 +26,7 @@ public class DashupController {
 
     @RequestMapping("/welcome")
     public String welcome(HttpServletRequest request) {
-        User user = (User) LocalStorage.readObjectFromSession(request, "user");
+        User user = (User) LocalStorage.readObject(request, "user");
         if (user != null) {
             return "redirect:/";
         } else {

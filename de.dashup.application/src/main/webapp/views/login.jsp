@@ -6,6 +6,7 @@
 <html lang="en">
 <head>
     <jsp:include page="./includes/headInclude.jsp" />
+    <jsp:include page="./includes/styles.jsp" />
     <link  rel="stylesheet" type="text/css" href="./../styles/login.css" />
 
     <title><fmt:message key="i18n.login" /></title>
@@ -22,6 +23,7 @@
     <br />
 
     <div class="container col-lg-4 col-lg-offset-4">
+        <div class="error-box">${errorMessage}</div>
         <form action="${pageContext.request.contextPath}/entry/handleLogin" method="POST">
             <div class="form-group">
                 <label class="text-white" for="email"><fmt:message key="i18n.emailAddress" /></label>
