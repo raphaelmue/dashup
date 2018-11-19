@@ -12,4 +12,4 @@
       crossorigin="anonymous">
 
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<script src="../../scripts/login.js"></script>"
+<script src="../../scripts/login.js"></script>
