@@ -7,7 +7,8 @@ dashup - Software Requirements Specification
 | Date       | Version | Description                                          | Author           |
 |------------|---------|------------------------------------------------------|------------------|
 | 21/10/2018 | 1.0     | Initial Specification                                | Felix Hausberger |
-| 28/10/2018 | 1.1     | Functionality description: Marketplace and Layouting | Sven Leonhard    |
+| 28/10/2018 | 1.1     | Functionality: Marketplace and Layout                | Sven Leonhard    |
+| 14/11/2018 | 1.3     | System Architecture                                  | Felix Hausberger |
 
 # Table of Contents
 
@@ -23,34 +24,35 @@ dashup - Software Requirements Specification
  - [Specific Requirements](#3-specific-requirements)
     - [Functionality](#31-functionality)
     <!--- - [Functional Requirement One](#311-functional-requirement-one)-->
-    - [Usability](#32-usability) 
-    <!--- - [Usability Requirement One](#321-usability-requirement-one)-->
-    - [Reliability](#33-reliability)
-    - [Performance](#34-performance)
-    <!--- [Response Time](#341-response-time)-->
-    <!--- - [Throughput](#342-throughput)-->
-    <!--- - [Capacity](#343-capacity)-->
-    <!--- [Degradation Modes](#344-degradation-modes)-->
-    <!--- [Resource Utilization](#345-resource-utilization) -->
-    - [Supportability](#35-supportability)
-    <!--- - [Standards and Conventions](#351-standards-and-conventions)
-    <!--- [Class Libraries](#352-class-libraries)-->
-    <!--- - [Maintenance](#352-maintenance)-->
-    - [Design Constraints](#36-design-constraints)
-    <!--- [Software Languages](#361-software-languages)-->
-    <!--- [Software Process Requirements](#362-software-process-requirements)-->
-    <!--- - [Developmental tools](#361-developmental-tools)-->
-    <!--- - [Architectural Constraints](#362-architectural-constraints)-->
-    - [On-line User Documentation and Help System Requirements](#37-on-line-user-documentation-and-help-system-requirements)
-    - [Purchased Components](#38-purchased-components)
-    - [Interfaces](#39-interfaces)
-    <!--- - [User Interfaces](#391-user-interfaces)-->
-    <!--- - [Hardware Interfaces](#392-hardware-interfaces)-->
-    <!--- - [Software Interfaces](#393-software-interfaces)-->
-    <!--- - [Communications Interfaces](#394-communications-interfaces)-->
-    <!--- - [Licensing Requirements](#310-licensing-requirements)-->
-    <!--- - [Legal, Copyright, and Other Notices](#311-legal-copyright-and-other-notices)-->
-    <!--- - [Applicable Standards](#312-applicable-standards)-->
+    - [System Architecture](#32-system-architecture)
+    - [Usability](#33-usability) 
+    <!--- - [Usability Requirement One](#331-usability-requirement-one)-->
+    - [Reliability](#34-reliability)
+    - [Performance](#35-performance)
+    <!--- [Response Time](#351-response-time)-->
+    <!--- - [Throughput](#352-throughput)-->
+    <!--- - [Capacity](#353-capacity)-->
+    <!--- [Degradation Modes](#354-degradation-modes)-->
+    <!--- [Resource Utilization](#355-resource-utilization) -->
+    - [Supportability](#36-supportability)
+    <!--- - [Standards and Conventions](#361-standards-and-conventions)
+    <!--- [Class Libraries](#362-class-libraries)-->
+    <!--- - [Maintenance](#362-maintenance)-->
+    - [Design Constraints](#37-design-constraints)
+    <!--- [Software Languages](#371-software-languages)-->
+    <!--- [Software Process Requirements](#372-software-process-requirements)-->
+    <!--- - [Developmental tools](#372-developmental-tools)-->
+    <!--- - [Architectural Constraints](#372-architectural-constraints)-->
+    - [On-line User Documentation and Help System Requirements](#38-on-line-user-documentation-and-help-system-requirements)
+    - [Purchased Components](#39-purchased-components)
+    - [Interfaces](#310-interfaces)
+    <!--- - [User Interfaces](#3101-user-interfaces)-->
+    <!--- - [Hardware Interfaces](#3102-hardware-interfaces)-->
+    <!--- - [Software Interfaces](#3103-software-interfaces)-->
+    <!--- - [Communications Interfaces](#3104-communications-interfaces)-->
+    - [Licensing Requirements](#311-licensing-requirements)
+    - [Legal, Copyright, and Other Notices](#312-legal-copyright-and-other-notices)
+    - [Applicable Standards](#313-applicable-standards)
  - [Supporting Information](#4-supporting-information)  
 
 <br />
@@ -145,7 +147,7 @@ your panel for global usage.
 All in all, dashup will provide you the best experience and overview over all daily productivity tools on a central platform.
 
 
-## 2.2 General use Case Diagram
+## 2.2 General Use Case Diagram
 Following UCD will provide a basic overview to the user characteristics, features, constraints, associations and dependencies 
 within the project scope. Furthermore, non-functional requirements are put outside the system boundaries.
 <br />
@@ -192,91 +194,101 @@ TBD
 ### 3.1.6 Custom Panels
 TBD
 
-## 3.2 Usability
+## 3.2 System Architecture
+
+## 3.2.1 Class Diagram
+
+<img src="../application_architecture/class_diagram.jpg" alt="Class Diagram" />
+
+## 3.2.2 Database Scheme
+
+<img src="../database_architecture/database_structure.png" alt="Database Scheme" />
+
+## 3.3 Usability
 The motivation for the whole project is to increase the productivity, which requires usability. When opening dashup, you 
 should be given an overview of all your microservices, so that you do not have to open each application. 
 
-### 3.2.1 Start and go
+### 3.3.1 Start and go
 Without clicking any button or similar, each microservice shows its relevant information. Each microservice fetches 
 the data from its specified API automatically. Besides, if you have been logged in once on your device, you will be 
 automatically logged in without doing anything. 
 
-### 3.2.2 Clarity
+### 3.3.2 Clarity
 All your panels should be showing only the relevant information to keep clarity. This applies also for the marketplace. 
 
-### 3.2.3 Easy to use 
+### 3.3.3 Easy to use 
 In all use cases it ought to be possible to do an action with only a few clicks. Furthermore gestures like drag and drop 
 should facilitate the user. 
 
-## 3.3 Reliability
+## 3.4 Reliability
 
-### 3.3.1 Availability
+### 3.4.1 Availability
 The dashup platform should be always available. Since bugs can lead to a crash, we assume that dashup has an up-time of 
 99.5% per month.
 
 The MTBF should not fall below a number of 7 day. However, the MTTR should not exceed a number of 12 hours. 
 
-### 3.2.2 Accuracy
+### 3.4.2 Accuracy
 Since we review our code, the defect rate should be about 10 bugs per 1.000 lines of code. Critical bugs like loss of data,
 or limitations within functionality should of course occur less. Minor bugs are for instance the incorrect display of data. 
 Significant bugs are e.g. no sufficient consistency check or similar. 
 
-## 3.4 Performance
+## 3.5 Performance
 
-### 3.4.1 Response Time
+### 3.5.1 Response Time
 The response time should be as low as possible. The reload of the page may not take longer than 5 seconds and in average a 
 response time of 3 seconds is acceptable. Therefore the backend should keep up graphic elements like the panels to avoid 
 too large computing effort if there is a high number of panels mandated on the dashboard of a user.
 
-### 3.4.2 Throughput
+### 3.5.2 Throughput
 The information displayed on the different panels showed in the dashboard should be reloaded every 10ms. Because of the 
 provision of these data by foreign APIs and servers the fetching process could take longer. To prevent such a scenario 
 corresponding conventions and rules must be introduced.
 
-### 3.4.3 Capacity
+### 3.5.3 Capacity
 The dashboard has to be designed for a large number of users. An increase of new members should not slow down the system in the same way.
 
-<!--### 3.4.4 Degradation Modes -->
+<!--### 3.5.4 Degradation Modes -->
 
-<!--### 3.4.5 Resource Utilization--> 
+<!--### 3.5.5 Resource Utilization--> 
 
-## 3.5 Supportability
+## 3.6 Supportability
 
-### 3.5.1 Standards and Conventions
+### 3.6.1 Standards and Conventions
 To ensure a clear structure within the project the latest clean code standards have to be applied. In addition, it is only 
 allowed to use self-descriptive expressions for naming. Classes have to begin wih an upper-case, variables with a lower-case.
 
-### 3.5.2 Maintenance
+### 3.6.2 Maintenance
 For optimal results, the use of tools for automated testing is essential. Furthermore, every line of code has to be reviewed 
 to ensure compliance with the previously defined conventions.
 
-<!--### 3.5.3 Class Libraries-->
+<!--### 3.6.3 Class Libraries-->
 
-## 3.6 Design Constraints
+## 3.7 Design Constraints
 
-<!--### 3.6.1 Software Languages-->
+<!--### 3.7.1 Software Languages-->
 
-<!--### 3.6.2 Software Process Requirements-->
+<!--### 3.7.2 Software Process Requirements-->
 
-### 3.6.1 Developmental tools
+### 3.7.1 Developmental tools
 The main IDE will be IntelliJ IDEA. More tools are TBD.
 
-### 3.6.2 Architectural Constraints
+### 3.7.2 Architectural Constraints
 The project must be based on the MVC architecture. Therefore the Spring Framework will be in use.  
 Furthermore it should not be possible to upload executable code to dashup servers.
 
-## 3.7 On-line User Documentation and Help System Requirements
+## 3.8 On-line User Documentation and Help System Requirements
 The application should be kept as simple that detailed introduction into the service is superfluous. To provide fast support 
 for standard questions a FAQ will be set up. For developers of custom panels a documentation including a tutorial should be available. 
 
-## 3.8 Purchased Components
+## 3.9 Purchased Components
 On the hardware side there will be rent a virtual server. Except the domain which also is a purchased component there are 
 open source or free available components allowed for use only. As a consequence the dashup project on itself has to be licensed 
 under an open source license to avoid conflicts with the owner of software or visual components. 
 
-## 3.9 Interfaces
+## 3.10 Interfaces
 
-### 3.9.1 User Interfaces
+### 3.10.1 User Interfaces
 * **Login screen** that provides input fields to login.
 * **Registration screen** where he user can set up an new account.
 * **Main dashboard** on which the user can see all his panels and the information provided by the microservices.
@@ -284,26 +296,26 @@ under an open source license to avoid conflicts with the owner of software or vi
 * **Marketplace** where default and custom microservices can be found and added to own dashboard.
 * **Panel editor** on which developers can create their own panels to display information from their own microservices. 
 
-### 3.9.2 Hardware Interfaces
+### 3.10.2 Hardware Interfaces
 N/A
 
-### 3.9.3 Software Interfaces
+### 3.10.3 Software Interfaces
 The dashup application runs in a web-browser. We will try to make it work in many different web-browsers as possible.
 
-### 3.9.4 Communications Interfaces
+### 3.10.4 Communications Interfaces
 The webapplication should communicate with the java backend by a secured HTTPS connection on Port 443. If there should 
 be a unencrypted connection via HTTP is still to be determined. The Connection should be asynchronous to avoid a reload 
 of the webapplication.   
 
-## 3.10 Licensing Requirements
+## 3.11 Licensing Requirements
 TBD
 
-## 3.11 Legal, Copyright, and Other Notices
+## 3.12 Legal, Copyright, and Other Notices
 The dashup team will not take any responsibility for lost data and other damages done to your microservice or other programs. 
 The dashup logo may only be used for the official dashup application. The copy of the idea or any kind of coding belonging 
 to the dashup application is strictly forbidden and will be taken to court.
 
-## 3.12 Applicable Standards
+## 3.13 Applicable Standards
 The code of dashup should follow some basic rules of clean code such as:
 * Intuitive names of variables and methods.
 * Comments to improve understanding and readability of the code.

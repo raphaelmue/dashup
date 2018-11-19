@@ -21,8 +21,10 @@
 - [Extension Points](#6-extension-points)
    
 # 1. Marketplace - Brief description
-The use case _add_api_ describes the functionality of connecting an API in order to fetch data from a server to display information of a microservice wthin a panel on dashup.
-The user can add the URL of an API, parameters and the authentication information. A new API only can be added to dashup after a succesful conection check.
+The use case _add_api_ describes the functionality of connecting an API to a custom panel in order to fetch data from a 
+server to display data of a microservice within this custom panel on dashup.
+The user can add the URL of an API, parameters and the authentication information. A new API only can be added to the panel 
+after a successful connection check.
 
 # 2. Flow of Events
 
@@ -52,7 +54,7 @@ N/A
 N/A
 
 # 3. Special Requirements
-In order to add an API, the information for a succesfull connection must be available. This includes the URL, in most cases parameters, authentication type and possibly credentials. 
+In order to add an API, the information for a successful connection must be available. This includes the URL, in most cases parameters, authentication type and possibly credentials. 
 
 # 4. Preconditions
 
@@ -61,7 +63,7 @@ Before this use case can be performed the user has to be logged in.
 
 
 # 5. Postconditions
-After the addtion of a new API the access data have to be stored in the database. 
+After adding a new API the access data have to be stored in the database. 
 
 # 6. Extension Points
 N/A
