@@ -5,8 +5,11 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <jsp:include page="./includes/styles.jsp" />
         <title>dashup</title>
+
+        <jsp:include page="./includes/headInclude.jsp" />
+        <jsp:include page="./includes/styles.jsp" />
+        <jsp:include page="./includes/scripts.jsp" />
     </head>
     <body>
         <header>
@@ -25,5 +28,7 @@
                 <h1><fmt:message key="i18n.welcome"/>, ${name}!</h1>
             </div>
         </main>
+
+        <jsp:include page="./includes/bodyInclude.jsp" />
     </body>
 </html>
