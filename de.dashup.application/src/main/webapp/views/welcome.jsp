@@ -20,10 +20,8 @@
             </div>
         </div>
 
-        <p> Have a look at our WebComponents: </p>
-
-        <div id="WeatherComponent">
-            <dashup-weather></dashup-weather>
+        <div id="WeatherComponent" class="container col-lg-4 col-lg-offset-4">
+            <dashup-weather city="Walldorf"></dashup-weather>
         </div>
 
         <jsp:include page="./includes/bodyInclude.jsp" />
