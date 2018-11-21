@@ -33,6 +33,8 @@ public class MarketplaceStepdefs {
 
     @Then("^User is logged in$")
     public void user_is_logged_in() throws Exception {
+        Assert.assertEquals("dashup",driver.getTitle());
+        driver.close();
     }
 
     @Given("^User is located on the main page$")
