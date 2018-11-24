@@ -39,4 +39,10 @@ public class DashupController {
         System.out.println("Delegating to the entry controller");
         return "redirect:/entry/login";
     }
+
+    @RequestMapping("/layoutmode")
+    public String layoutMode() {
+        System.out.println("Delegating to the layoutMode controller");
+        return "redirect:/layoutmode/layoutMode";
+    }
 }
