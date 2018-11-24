@@ -7,10 +7,11 @@
         <title>dashup - Welcome</title>
 
         <jsp:include page="./includes/headInclude.jsp" />
+        <jsp:include page="./includes/webComponents.jsp" />
         <jsp:include page="./includes/styles.jsp" />
         <jsp:include page="./includes/scripts.jsp" />
         <link  rel="stylesheet" type="text/css" href="./../styles/welcome.css" />
-        <jsp:include page="./includes/webComponents.jsp" />
+
     </head>
     <body class="text-white">
 
@@ -22,6 +23,12 @@
 
         <div id="WeatherComponent" class="container col-lg-4 col-lg-offset-4">
             <dashup-weather city="Walldorf"></dashup-weather>
+        </div>
+
+        <br  />
+
+        <div id="CustomWeatherComponent" class="container col-lg-4 col-lg-offset-4">
+            <dashup-input name="weatherInput" action="data" api="http://api.openweathermap.org/data/2.5/weather?units=metric&appid=524da7907b1939626510c547ae65d67c" param="q" consumers=""/>
         </div>
 
         <jsp:include page="./includes/bodyInclude.jsp" />
