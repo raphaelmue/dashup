@@ -1,3 +1,7 @@
+hr{
+    border: 1px solid #007bff;
+}
+
 .gu-mirror {
     position: fixed !important;
     margin: 0 !important;
@@ -24,10 +28,9 @@
     filter: alpha(opacity=20);
 }
 
-#drag_container {
+.drag_container {
     display: flex;
 }
-
 
 .gu-mirror img {
     height: 100px;
@@ -40,4 +43,7 @@
     border: solid 2px;
     border-color: red;
     margin: 20px;
+}
+.section{
+    margin: 10px;
 }
