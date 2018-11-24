@@ -57,24 +57,6 @@
 
         </div>
     </div>
-    <div class="section">
-
-        <div>
-            <span class="handle">#</span>
-            <span><h3>Section 1</h3></span>
-        </div>
-
-
-        <hr/>
-        <div class="drag_container" id="drag_container2">
-            <div class="panel">Panel 1</div>
-            <div class="panel">Panel 2</div>
-            <div class="panel">Panel 3</div>
-            <div class="panel">Panel 4</div>
-
-
-        </div>
-    </div>
 </div>
 </div>
 
