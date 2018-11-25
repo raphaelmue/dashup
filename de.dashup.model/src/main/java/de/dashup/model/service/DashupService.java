@@ -87,4 +87,16 @@ public class DashupService {
 
         return null;
     }
+
+    /**
+     * Deletes a token from the database
+     *
+     * @param token token to be deleted
+     * @throws SQLException thrown if something went wrong executing the SQL statement
+     */
+    public void deleteToken(String token) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("token", token);
+        this.database.delete(Database.Table.USERS_TOKENS, whereParameters);
+    }
 }

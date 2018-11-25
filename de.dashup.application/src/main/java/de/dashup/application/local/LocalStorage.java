@@ -26,6 +26,10 @@ public class LocalStorage {
         request.getSession().setAttribute(key, object);
     }
 
+    public void deleteSessionAttribute(HttpServletRequest request, String key) {
+        request.removeAttribute(key);
+    }
+
     public Optional<String> readCookie(HttpServletRequest request, String key) {
         return Arrays.stream(request.getCookies())
                 .filter(key::equals)
@@ -37,6 +41,13 @@ public class LocalStorage {
         Cookie cookie = new Cookie(key, value);
         cookie.setPath("/");
         cookie.setMaxAge(60 * 60 * 24 * 30);
+        response.addCookie(cookie);
+    }
+
+    public void deleteCookie(HttpServletResponse response, String key) {
+        Cookie cookie = new Cookie(key, null);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
         response.addCookie(cookie);
     }
 }
