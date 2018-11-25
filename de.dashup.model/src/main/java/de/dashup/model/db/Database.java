@@ -38,6 +38,7 @@ public class Database {
 
     public enum Table {
         USERS("users"),
+        USERS_TOKENS("users_tokens"),
         PANELS("panels"),
         USERS_PANELS("users_panels");
 
