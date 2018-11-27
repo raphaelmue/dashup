@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.Locale;
 
 @Controller
 @RequestMapping("/entry")
 public class EntryController {
+    private final LocalStorage localStorage = LocalStorage.getInstance();
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(@RequestParam(name = "invalidCredentials", required = false, defaultValue = "false") boolean invalidCredentials,
@@ -32,10 +34,15 @@ public class EntryController {
 
     @RequestMapping(value = "/handleLogin", method = RequestMethod.POST)
     public String handleLogin(@RequestParam(name = "email") String email,
-                              @RequestParam(name = "password") String password, HttpServletRequest request) throws SQLException {
-        User user = DashupService.getInstance().checkCredentials(email, password);
+                              @RequestParam(name = "password") String password,
+                              @RequestParam(name = "rememberMe", defaultValue = "false") boolean rememberMe,
+                              HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        User user = DashupService.getInstance().checkCredentials(email, password, rememberMe);
         if (user != null) {
-            LocalStorage.writeObject(request, "user", user);
+            if (rememberMe) {
+                this.localStorage.writeCookie(response, "token", user.getToken());
+            }
+            this.localStorage.writeObjectToSession(request, "user", user);
             return "redirect:/";
         } else {
             return "redirect:/entry/login?invalidCredentials=true";
