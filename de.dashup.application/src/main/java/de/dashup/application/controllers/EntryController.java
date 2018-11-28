@@ -48,4 +48,29 @@ public class EntryController {
             return "redirect:/entry/login?invalidCredentials=true";
         }
     }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register() {
+        return "register";
+    }
+
+    @RequestMapping(value = "/handleRegisterUser", method = RequestMethod.POST)
+    public String handleRegisterUser(@RequestParam(name = "email") String email, @RequestParam(name = "name") String name,
+                                     @RequestParam(name = "surname") String surname, @RequestParam(name = "password") String password,
+                                     @RequestParam(name = "repeat-password") String repeatPassword,
+                                     @RequestParam(name = "lang", required = false) Locale locale,
+                                     Model model, HttpServletRequest request) throws SQLException {
+        ControllerHelper.setLocale(request, locale);
+
+        if (password.equals(repeatPassword)) {
+            User user = DashupService.getInstance().registerUser(email, name, surname, password);
+            if (user != null) {
+                this.localStorage.writeObjectToSession(request, "user", user);
+                return "redirect:/";
+            }
+            model.addAttribute("errorMessage", I18N.get("i18n.emailIsAlreadyRegistered"));
+        }
+        model.addAttribute("errorMessage", I18N.get("i18n.passwordsNotMatching"));
+        return "register";
+    }
 }

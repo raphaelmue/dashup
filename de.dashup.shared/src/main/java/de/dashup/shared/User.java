@@ -3,6 +3,12 @@ package de.dashup.shared;
 public class User extends DatabaseUser {
     private String token;
 
+    public User() { }
+
+    public User(int id, String email, String name, String surname, String password, String salt) {
+        super(id, email, name, surname, password, salt);
+    }
+
     @Override
     public DatabaseObject fromDatabaseObject(DatabaseObject databaseObject) {
         if (databaseObject instanceof DatabaseUser) {

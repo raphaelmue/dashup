@@ -7,7 +7,6 @@ import de.dashup.shared.User;
 import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -98,5 +97,28 @@ public class DashupService {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("token", token);
         this.database.delete(Database.Table.USERS_TOKENS, whereParameters);
+    }
+
+    public User registerUser(String email, String name, String surname, String password) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("email", email);
+
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters);
+        if (result == null || result.size() == 0) {
+            String salt = this.randomString.nextString(32);
+            String hashedPassword = Hash.create(password, salt);
+
+            Map<String, Object> values = new HashMap<>();
+            values.put("email", email);
+            values.put("name", name);
+            values.put("surname", surname);
+            values.put("password", hashedPassword);
+            values.put("salt", salt);
+
+            this.database.insert(Database.Table.USERS, values);
+            return new User(this.database.getLatestId(Database.Table.USERS), email, name, surname, hashedPassword, salt);
+        }
+
+        return null;
     }
 }
