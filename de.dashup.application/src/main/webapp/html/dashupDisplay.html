@@ -1,0 +1,80 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<template id="dashupDisplay">
+    <span id="display" class="display-css">No Data</span>
+</template>
+
+<script>
+    const dashupDisplay = document.currentScript.ownerDocument.querySelector('#dashupDisplay').content;
+
+    class DisplayComponent extends HTMLElement {
+
+        constructor(){
+            super();
+            this.attachShadow({mode: 'open'});
+            this.content = document.importNode(dashupDisplay, true);
+            this.shadowRoot.appendChild(this.content);
+
+            this.display = this.shadowRoot.querySelector('#display');
+            this.display.innerHTML = "No Data";
+            this.text = this.display.innerHTML;
+        }
+
+        handleData(data, val){
+            //Workaround, da noch allgemeines API Format festgelegt werden muss
+            if(val=="temperature"){
+                this.text = data.main.temp + "°C";
+            } else {
+                this.text = data.weather[0].description;
+            }
+            this.display.innerHTML = this.text
+        }
+
+        static get observedAttributes() {
+            return ['text'];
+        }
+
+        connectedCallback() {
+            if (!this.hasAttribute('name')) {
+                this.setAttribute('name', 'default');
+            }
+            if (!this.hasAttribute('name')) {
+                this.setAttribute('name', 'default');
+            }
+        }
+
+        disconnectedCallback() {
+            //NOOP
+        }
+
+        adoptedCallback(){
+            //NOOP
+        }
+
+        attributeChangedCallback(name, oldValue, newValue) {
+            switch(name){
+                case 'text':
+                    this.display.value = newValue;
+                    break;
+            }
+        }
+
+        get name(){
+            return this.getAttribute('name');
+        }
+
+        set name(val){
+            this.setAttribute('name', val);
+        }
+
+        get text(){
+            return this.getAttribute('text');
+        }
+
+        set text(val){
+            this.setAttribute('text', val);
+        }
+
+    }
+
+    customElements.define("dashup-display", DisplayComponent);
+</script>
