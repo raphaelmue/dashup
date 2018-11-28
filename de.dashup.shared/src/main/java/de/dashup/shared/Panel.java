@@ -1,27 +1,27 @@
 package de.dashup.shared;
 
-public class Panel implements DatabaseObject {
-
-    private int id;
-    private String name, description;
+public class Panel extends DatabasePanel {
+    private String htmlContent;
 
     public Panel(int id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
+        super(id, name, description);
     }
-
 
     @Override
-    public int getId() {
-        return id;
+    public DatabaseObject fromDatabaseObject(DatabaseObject databaseObject) {
+        if (databaseObject instanceof DatabasePanel) {
+            this.setId(databaseObject.getId());
+            this.setName(((DatabasePanel) databaseObject).getName());
+            this.setDescription(((DatabasePanel) databaseObject).getDescription());
+        }
+        return null;
     }
 
-    public String getName() {
-        return name;
+    public String getHtmlContent() {
+        return htmlContent;
     }
 
-    public String getDescription() {
-        return description;
+    public void setHtmlContent(String htmlContent) {
+        this.htmlContent = htmlContent;
     }
 }

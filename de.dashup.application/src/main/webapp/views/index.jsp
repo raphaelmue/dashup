@@ -41,6 +41,10 @@
             <div class="wrapper">
                 <h1><fmt:message key="i18n.welcome"/>, ${name}!</h1>
             </div>
+
+            <div>
+                ${content}
+            </div>
         </main>
         <jsp:include page="./includes/bodyInclude.jsp" />
         <script>

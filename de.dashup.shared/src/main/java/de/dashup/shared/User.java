@@ -1,7 +1,21 @@
 package de.dashup.shared;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User extends DatabaseUser {
     private String token;
+    private final List<Section> sections;
+
+    public User() {
+        this.sections = new ArrayList<>();
+    }
+
+    public User(int id, String email, String name, String surname, String password, String salt) {
+        super(id, email, name, surname, password, salt);
+
+        this.sections = new ArrayList<>();
+    }
 
     @Override
     public DatabaseObject fromDatabaseObject(DatabaseObject databaseObject) {
@@ -18,6 +32,10 @@ public class User extends DatabaseUser {
 
     public String getToken() {
         return token;
+    }
+
+    public List<Section> getSections() {
+        return sections;
     }
 
     public void setToken(String token) {

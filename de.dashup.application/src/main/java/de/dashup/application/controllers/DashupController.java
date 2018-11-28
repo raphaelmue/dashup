@@ -1,6 +1,7 @@
 package de.dashup.application.controllers;
 
 import de.dashup.application.local.LocalStorage;
+import de.dashup.model.builder.DashupBuilder;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.User;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,8 @@ public class DashupController {
             if (user != null) {
                 model.addAttribute("name", user.getName());
                 model.addAttribute("email", user.getEmail());
+
+                model.addAttribute("content", DashupBuilder.buildUsersPanels(user));
                 return "index";
             }
         }
