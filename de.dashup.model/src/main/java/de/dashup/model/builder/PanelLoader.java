@@ -2,6 +2,9 @@ package de.dashup.model.builder;
 
 import de.dashup.shared.Panel;
 
+import java.io.*;
+import java.util.ArrayList;
+
 public class PanelLoader {
 
     private static PanelLoader INSTANCE;
@@ -22,7 +25,19 @@ public class PanelLoader {
      * @return panel object
      */
     public Panel loadPanel(int id) {
-        return null;
+        StringBuilder htmlContent = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File("WeatherPanel.html")))){
+            while (reader.ready()){
+                htmlContent.append(reader.readLine());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Panel panel = new Panel(0,"weather","niccce");
+        panel.setHtmlContent(htmlContent.toString());
+        return panel;
     }
 
     /**

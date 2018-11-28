@@ -1,9 +1,8 @@
 package de.dashup.model.service;
 
+import de.dashup.model.builder.PanelLoader;
 import de.dashup.model.db.Database;
-import de.dashup.shared.DatabaseObject;
-import de.dashup.shared.DatabaseUser;
-import de.dashup.shared.User;
+import de.dashup.shared.*;
 import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
 import org.json.JSONArray;
@@ -11,6 +10,7 @@ import org.json.JSONObject;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +18,7 @@ import java.util.Map;
 public class DashupService {
 
     private Database database;
+    private PanelLoader panelLoader;
     private RandomString randomString = new RandomString();
 
     private static DashupService INSTANCE;
@@ -35,6 +36,7 @@ public class DashupService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        this.panelLoader = PanelLoader.getInstance();
     }
 
     /**
@@ -52,6 +54,7 @@ public class DashupService {
         List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters);
         if (result != null && result.size() == 1) {
             User user = (User) new User().fromDatabaseObject(result.get(0));
+            user = this.getSectionsAndPanels(user);
             String hashedPassword = Hash.create(password, user.getSalt());
             if (hashedPassword.equals(user.getPassword())) {
                 if (rememberMe) {
@@ -68,6 +71,33 @@ public class DashupService {
         }
 
         return null;
+    }
+
+    private User getSectionsAndPanels(User user) throws SQLException{
+        ArrayList<Section> sections = new ArrayList<>();
+
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("user_id", user.getId());
+
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USER_SECTIONS, Section.class, whereParameters);
+        if (result!=null){
+            for (int i = 0; i < result.size(); i++) {
+                Section section = (Section)result.get(i);
+                Map<String, Object> innerwhereParameters = new HashMap<>();
+                whereParameters.put("section_id",section.getId());
+                List<? extends DatabaseObject> innerResult = this.database.getObject(Database.Table.SECTIONS_PANELS, DatabasePanel.class, innerwhereParameters);
+                if(result!=null){
+                    ArrayList<Panel> panels = new ArrayList<>();
+                    for (int j = 0; j < innerResult.size(); j++) {
+                        panels.add(panelLoader.loadPanel(innerResult.get(j).getId()));
+                    }
+                    section.setPanels(panels);
+                }
+                sections.add(section);
+            }
+        }
+        user.setSections(sections);
+        return user;
     }
 
     public User getUserByToken(String token) throws SQLException {

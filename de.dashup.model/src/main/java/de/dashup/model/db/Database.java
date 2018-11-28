@@ -40,7 +40,9 @@ public class Database {
         USERS("users"),
         USERS_TOKENS("users_tokens"),
         PANELS("panels"),
-        USERS_PANELS("users_panels");
+        USERS_PANELS("users_panels"),
+        USER_SECTIONS("user_sections"),
+        SECTIONS_PANELS("sections_panels");
 
         private String tableName;
 

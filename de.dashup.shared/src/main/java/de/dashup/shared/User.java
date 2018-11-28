@@ -5,7 +5,7 @@ import java.util.List;
 
 public class User extends DatabaseUser {
     private String token;
-    private final List<Section> sections;
+    private List<Section> sections;
 
     public User() {
         this.sections = new ArrayList<>();
@@ -40,5 +40,9 @@ public class User extends DatabaseUser {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public void setSections(List<Section> sections) {
+        this.sections = sections;
     }
 }
