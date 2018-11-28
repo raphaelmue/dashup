@@ -9,7 +9,8 @@ header {
 }
 
 header h1 {
-    font-size: 25px;
+    padding: 0 25px;
+    font-size: 30px;
     margin: 8px 0;
     display: inline-block;
     float: left;
@@ -21,19 +22,29 @@ nav {
     padding: 14px 0 8px;
 }
 
-nav a {
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 20px;
+}
+
+nav ul li a.nav-item {
     font-weight: 700;
     text-decoration: none;
     color: var(--white);
-    margin: 0 20px;
-    float: left;
+    margin: 0;
     font-family: 'Raleway', sans-serif;
 
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
 }
 
-nav a.nav-item:after {
+nav ul li a.nav-item-hover:after {
     display: block;
     content: '';
     background: var(--white);
@@ -45,6 +56,12 @@ nav a.nav-item:after {
     transition: all 0.3s;
 }
 
-nav a.nav-item:hover:after {
+nav ul li a.nav-item-hover:hover:after {
     width: 100%;
+}
+
+li.menu-item a {
+    font-size: 20px;
+    font-weight: 400;
+    text-decoration: none;
 }

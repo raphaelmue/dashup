@@ -38,7 +38,7 @@
                            placeholder="<fmt:message key="i18n.password" />">
                 </div>
                 <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                    <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
                     <label class="text-white form-check-label" for="rememberMe"><fmt:message key="i18n.rememberMe" /></label>
                 </div>
                 <button type="submit" class="btn btn-primary" id="submit_button"><fmt:message key="i18n.submit" /></button>
