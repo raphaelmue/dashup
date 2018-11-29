@@ -27,8 +27,8 @@ public class PanelLoader {
         StringBuilder htmlContent = new StringBuilder();
         htmlContent.append("<div class=\"panel-container\">");
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(
-               PanelLoader.class.getResourceAsStream("panels/"+id+".html")))) {
-            while (fileReader.ready()){
+                PanelLoader.class.getResourceAsStream("panels/" + id + ".html")))) {
+            while (fileReader.ready()) {
                 htmlContent.append(fileReader.readLine());
             }
         } catch (FileNotFoundException e) {
@@ -37,7 +37,7 @@ public class PanelLoader {
             e.printStackTrace();
         }
         htmlContent.append("</div>");
-        Panel panel = new Panel(0,"weather","niccce",0);
+        Panel panel = new Panel(0, "weather", "niccce", 0);
         panel.setHtmlContent(htmlContent.toString());
         return panel;
     }

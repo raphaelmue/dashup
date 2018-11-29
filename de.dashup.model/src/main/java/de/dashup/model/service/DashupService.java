@@ -6,7 +6,6 @@ import de.dashup.shared.*;
 import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -73,20 +72,20 @@ public class DashupService {
         return null;
     }
 
-    public User getSectionsAndPanels(User user) throws SQLException{
+    public User getSectionsAndPanels(User user) throws SQLException {
         ArrayList<Section> sections = new ArrayList<>();
 
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
 
         List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USER_SECTIONS, Section.class, whereParameters);
-        if (result!=null){
-            for (int i = 0; i < result.size(); i++) {
-                Section section = (Section)result.get(i);
-                Map<String, Object> innerwhereParameters = new HashMap<>();
-                innerwhereParameters.put("section_id",section.getId());
-                JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerwhereParameters);
-                if(innerResult!=null){
+        if (result != null) {
+            for (DatabaseObject databaseObject : result) {
+                Section section = (Section) databaseObject;
+                Map<String, Object> innerWhereParameters = new HashMap<>();
+                innerWhereParameters.put("section_id", section.getId());
+                JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerWhereParameters);
+                if (innerResult != null) {
                     ArrayList<Panel> panels = new ArrayList<>();
                     for (int j = 0; j < innerResult.length(); j++) {
                         panels.add(panelLoader.loadPanel(Integer.parseInt(innerResult.getJSONObject(j).get("panel_id").toString())));
