@@ -172,6 +172,25 @@ public class Database {
         }
         return result;
     }
+    /**
+     * Fetches data from the database and parses via the Gson library it to an object.
+     *
+     * @param table           Database table to fetch from
+     * @param resultType      Type of object, which will be returned
+     * @param whereParameters Where parameters which will be concatenated by AND
+     * @return Object with fetched data
+     * @throws SQLException thrown, when something went wrong executing the SQL statement
+     */
+    public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters,String orderByField) throws SQLException, JsonParseException {
+        Gson gson = new GsonBuilder().create();
+        JSONArray jsonArray = this.get(table, whereParameters,orderByField);
+        List<DatabaseObject> result = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            result.add(gson.fromJson(jsonObject.toString(), resultType));
+        }
+        return result;
+    }
 
     /**
      * {@code orderByClause} set to null by default.

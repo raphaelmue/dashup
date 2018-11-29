@@ -2,9 +2,11 @@ package de.dashup.shared;
 
 public class Panel extends DatabasePanel {
     private String htmlContent;
+    private int panel_order;
 
-    public Panel(int id, String name, String description) {
+    public Panel(int id, String name, String description, int panel_order) {
         super(id, name, description);
+        this.panel_order=panel_order;
     }
 
     @Override

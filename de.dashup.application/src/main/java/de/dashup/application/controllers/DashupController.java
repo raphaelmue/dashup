@@ -19,7 +19,7 @@ public class DashupController {
     private final LocalStorage localStorage = LocalStorage.getInstance();
 
     @RequestMapping("/")
-    public String main(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) {
+    public String main(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
         User user = (User) this.localStorage.readObjectFromSession(request, "user");
         if (user != null || token != null && !token.isEmpty()) {
             if (token != null && !token.isEmpty()) {
@@ -32,7 +32,7 @@ public class DashupController {
             if (user != null) {
                 model.addAttribute("name", user.getName());
                 model.addAttribute("email", user.getEmail());
-
+                DashupService.getInstance().getSectionsAndPanels(user);
                 model.addAttribute("content", DashupBuilder.buildUsersPanels(user));
                 return "index";
             }

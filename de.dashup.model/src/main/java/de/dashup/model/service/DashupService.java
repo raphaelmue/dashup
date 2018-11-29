@@ -73,7 +73,7 @@ public class DashupService {
         return null;
     }
 
-    private User getSectionsAndPanels(User user) throws SQLException{
+    public User getSectionsAndPanels(User user) throws SQLException{
         ArrayList<Section> sections = new ArrayList<>();
 
         Map<String, Object> whereParameters = new HashMap<>();
@@ -84,12 +84,12 @@ public class DashupService {
             for (int i = 0; i < result.size(); i++) {
                 Section section = (Section)result.get(i);
                 Map<String, Object> innerwhereParameters = new HashMap<>();
-                whereParameters.put("section_id",section.getId());
-                List<? extends DatabaseObject> innerResult = this.database.getObject(Database.Table.SECTIONS_PANELS, DatabasePanel.class, innerwhereParameters);
-                if(result!=null){
+                innerwhereParameters.put("section_id",section.getId());
+                JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerwhereParameters);
+                if(innerResult!=null){
                     ArrayList<Panel> panels = new ArrayList<>();
-                    for (int j = 0; j < innerResult.size(); j++) {
-                        panels.add(panelLoader.loadPanel(innerResult.get(j).getId()));
+                    for (int j = 0; j < innerResult.length(); j++) {
+                        panels.add(panelLoader.loadPanel(Integer.parseInt(innerResult.getJSONObject(j).get("panel_id").toString())));
                     }
                     section.setPanels(panels);
                 }
