@@ -39,7 +39,7 @@ public class Database {
     public enum Table {
         USERS("users"),
         USERS_TOKENS("users_tokens"),
-        PANELS("panels"),
+        PANELS("de.dashup.model.builder/panels"),
         USERS_PANELS("users_panels"),
         USER_SECTIONS("user_sections"),
         SECTIONS_PANELS("sections_panels");

@@ -3,13 +3,12 @@ package de.dashup.model.builder;
 import de.dashup.shared.Panel;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class PanelLoader {
 
     private static PanelLoader INSTANCE;
 
-    private static final String PANELS_LOCATION = "/panels/";
+    private static final String PANELS_LOCATION = "./panels/";
 
     public static PanelLoader getInstance() {
         if (INSTANCE == null) {
@@ -26,15 +25,18 @@ public class PanelLoader {
      */
     public Panel loadPanel(int id) {
         StringBuilder htmlContent = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new FileReader(new File("WeatherPanel.html")))){
-            while (reader.ready()){
-                htmlContent.append(reader.readLine());
+        htmlContent.append("<div class=\"panel-container\">");
+        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(
+               PanelLoader.class.getResourceAsStream("panels/WeatherPanel.html")))) {
+            while (fileReader.ready()){
+                htmlContent.append(fileReader.readLine());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        htmlContent.append("</div>");
         Panel panel = new Panel(0,"weather","niccce");
         panel.setHtmlContent(htmlContent.toString());
         return panel;

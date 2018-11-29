@@ -29,3 +29,8 @@ main {
     margin: 12px 15px;
     color: var(--white);
 }
+
+.panel-container{
+    width: 33%;
+    padding: 5px;
+}
