@@ -1,14 +1,12 @@
 // dragula([document.querySelector('#drag_container_section')])
 function load () {
 
-
-
     dragula([document.getElementById('drag_container_section')], {
 
         moves: function (el, container, handle) {
             return handle.classList.contains('handle');
         }
-    });
+    }).on('drop', onDropSection);
 
 
 
@@ -23,11 +21,14 @@ function load () {
 
 function onDrop (el, to, from) {
     var id= el.parentNode.id;
-    console.log(getPostionOfPanels("drag_container1"));
+    console.log(getPostionOfPanels(id,"dashup_panel"));
 
 }
 
-
+function onDropSection (el, to, from) {
+    var id= el.parentNode.id;
+    console.log(getPostionOfPanels(id,"dashup_section"));
+}
 
 function onSubmit()
 {
@@ -40,11 +41,11 @@ function onSubmit()
             })
 }
 
-function getPostionOfPanels(sectionId)
+function getPostionOfPanels(sectionId,className)
 {
     let positions = [];
     var panelPosition = [];
-    let sectionTmp = document.getElementById(sectionId).getElementsByClassName("dashup_panel");
+    let sectionTmp = document.getElementById(sectionId).getElementsByClassName(className);
     for (let i=0;i<sectionTmp.length;i++)
     {
         positions.push({

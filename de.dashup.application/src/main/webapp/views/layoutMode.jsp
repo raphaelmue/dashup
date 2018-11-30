@@ -39,7 +39,7 @@
 <div class="container">
 <div id="drag_container_section">
 
-    <div class="dashup_section">
+    <div class="dashup_section" id="s1">
 
         <div>
             <span class="handle">#</span>
@@ -56,7 +56,7 @@
             </div>
 
         </div>
-    <div class="dashup_section">
+    <div class="dashup_section" id="s2">
 
         <div>
             <span class="handle">#</span>
