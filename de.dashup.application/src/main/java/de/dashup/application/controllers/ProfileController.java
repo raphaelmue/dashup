@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
@@ -31,10 +32,16 @@ public class ProfileController {
                 model.addAttribute("name", user.getName());
                 model.addAttribute("fullName", user.getFullName());
                 model.addAttribute("email", user.getEmail());
+                model.addAttribute("language", "English");
                 return "profile";
             }
         }
         return "redirect:/welcome";
+    }
+
+    @RequestMapping("/changeLanguage")
+    public String handleChangeLanguage(@RequestParam(value = "lang") String lang) {
+        return "redirect:/profile/";
     }
 
 }
