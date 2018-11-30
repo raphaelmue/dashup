@@ -18,7 +18,7 @@
                     </a>
                 </li>
                 <li id="nav-item-profile">
-                    <a class="nav-item" href="${pageContext.request.contextPath}/profile">
+                    <a class="nav-item" href="${pageContext.request.contextPath}/profile/">
                         ${name}
                     </a>
                 </li>
