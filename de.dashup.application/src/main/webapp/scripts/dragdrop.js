@@ -1,11 +1,18 @@
 // dragula([document.querySelector('#drag_container_section')])
 function load () {
+
+
+
     dragula([document.getElementById('drag_container_section')], {
 
         moves: function (el, container, handle) {
             return handle.classList.contains('handle');
         }
     });
+
+
+
+
     let i = 1;
     while (i <= 3) {
         var idName = "#drag_container" + i;

@@ -56,8 +56,6 @@
             </div>
 
         </div>
-    </div>
-
     <div class="dashup_section">
 
         <div>
@@ -73,6 +71,9 @@
 
         </div>
     </div>
+    </div>
+
+
 
 </div>
 </div>
