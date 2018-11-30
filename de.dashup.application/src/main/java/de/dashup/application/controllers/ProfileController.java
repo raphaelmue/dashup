@@ -19,18 +19,13 @@ public class ProfileController {
     @RequestMapping("/")
     public String profile(@CookieValue(name = "token", required = false) String token,
                           HttpServletRequest request, Model model) throws SQLException {
-        User user = (User) LocalStorage.getInstance().readObjectFromSession(request, "user");
-        if (user != null || token != null && !token.isEmpty()) {
-            if (token != null && !token.isEmpty()) {
-                user = DashupService.getInstance().getUserByToken(token);
-            }
-            if (user != null) {
-                model.addAttribute("name", user.getName());
-                model.addAttribute("fullName", user.getFullName());
-                model.addAttribute("email", user.getEmail());
-                model.addAttribute("language", "English");
-                return "profile";
-            }
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            model.addAttribute("name", user.getName());
+            model.addAttribute("fullName", user.getFullName());
+            model.addAttribute("email", user.getEmail());
+            model.addAttribute("language", "English");
+            return "profile";
         }
         return "redirect:/welcome";
     }
@@ -45,17 +40,13 @@ public class ProfileController {
                                        @RequestParam(name = "oldPassword") String oldPassword,
                                        @RequestParam(name = "newPassword") String newPassword,
                                        HttpServletRequest request) throws SQLException {
-        User user = (User) LocalStorage.getInstance().readObjectFromSession(request, "user");
-        if (user != null || token != null && !token.isEmpty()) {
-            if (token != null && !token.isEmpty()) {
-                user = DashupService.getInstance().getUserByToken(token);
-            }
-            if (user != null) {
-                 try {
-                     DashupService.getInstance().changePassword(user, oldPassword, newPassword);
-                 } catch(IllegalArgumentException ignored) { }
-            }
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+             try {
+                 DashupService.getInstance().changePassword(user, oldPassword, newPassword);
+             } catch(IllegalArgumentException ignored) { }
+            return "redirect:/profile/";
         }
-        return "redirect:/profile/";
+        return "redirect:/welcome";
     }
 }
