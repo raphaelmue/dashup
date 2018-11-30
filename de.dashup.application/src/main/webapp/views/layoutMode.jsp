@@ -43,7 +43,10 @@
 
         <div>
             <span class="handle">#</span>
-            <span><h3>Section 1</h3></span>
+            <span>
+                <input type="text" name="txt" value="Section 1" onchange="myFunction(this.value)">
+                <button type="button"  onclick="onDelete('s1')" class="btn btn-circle btn-lg"><i class="glyphicon glyphicon-remove"></i></button>
+            </span>
         </div>
 
 
@@ -60,7 +63,10 @@
 
         <div>
             <span class="handle">#</span>
-            <span><h3>Section 2</h3></span>
+            <span>
+                <input type="text" name="txt" value="Section 2" onchange="inputChanged(this.value)">
+                <button type="button"  onclick="onDelete('s2')" class="btn btn-circle btn-lg"><i class="glyphicon glyphicon-remove"></i></button>
+            </span>
         </div>
 
 

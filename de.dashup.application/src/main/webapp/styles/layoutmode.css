@@ -2,6 +2,14 @@ hr{
     border: 1px solid #007bff;
 }
 
+input[type="text"]
+{
+    background: transparent;
+    border: none;
+    color:white;
+    width:10%;
+}
+
 .gu-mirror {
     position: fixed !important;
     margin: 0 !important;

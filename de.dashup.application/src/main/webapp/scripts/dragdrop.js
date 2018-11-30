@@ -41,6 +41,18 @@ function onSubmit()
             })
 }
 
+function onDelete(sectionId)
+{
+    var element = document. getElementById(sectionId);
+    element. parentNode. removeChild(element);
+}
+
+function inputChanged(inputText)
+{
+    console.log(inputText);
+}
+
+
 function getPostionOfPanels(sectionId,className)
 {
     let positions = [];
