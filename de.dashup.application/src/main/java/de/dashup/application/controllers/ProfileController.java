@@ -18,15 +18,11 @@ public class ProfileController {
 
     @RequestMapping("/")
     public String profile(@CookieValue(name = "token", required = false) String token,
-                          HttpServletRequest request, Model model) {
+                          HttpServletRequest request, Model model) throws SQLException {
         User user = (User) LocalStorage.getInstance().readObjectFromSession(request, "user");
         if (user != null || token != null && !token.isEmpty()) {
             if (token != null && !token.isEmpty()) {
-                try {
-                    user = DashupService.getInstance().getUserByToken(token);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                user = DashupService.getInstance().getUserByToken(token);
             }
             if (user != null) {
                 model.addAttribute("name", user.getName());
@@ -44,4 +40,22 @@ public class ProfileController {
         return "redirect:/profile/";
     }
 
+    @RequestMapping("/changePassword")
+    public String handleChangePassword(@CookieValue(name = "token", required = false) String token,
+                                       @RequestParam(name = "oldPassword") String oldPassword,
+                                       @RequestParam(name = "newPassword") String newPassword,
+                                       HttpServletRequest request) throws SQLException {
+        User user = (User) LocalStorage.getInstance().readObjectFromSession(request, "user");
+        if (user != null || token != null && !token.isEmpty()) {
+            if (token != null && !token.isEmpty()) {
+                user = DashupService.getInstance().getUserByToken(token);
+            }
+            if (user != null) {
+                 try {
+                     DashupService.getInstance().changePassword(user, oldPassword, newPassword);
+                 } catch(IllegalArgumentException ignored) { }
+            }
+        }
+        return "redirect:/profile/";
+    }
 }

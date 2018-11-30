@@ -32,7 +32,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row"><fmt:message key="i18n.password"/></th>
-                                    <td><a href="#"><fmt:message key="i18n.changePassword"/></a></td>
+                                    <td><a id="change-password-link" href="#"><fmt:message key="i18n.changePassword"/></a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -76,6 +76,50 @@
         $(document).ready(function() {
             PostRequest.getInstance().setHost(true);
 
+            $("#change-password-link").on("click", function () {
+                $.confirm({
+                    title: "<fmt:message key="i18n.changeLanguage"/>",
+                    content:
+                        "<div class=\"form-group\">" +
+                            "<label class=\"text\" for=\"password\"><fmt:message key="i18n.oldPassword" /></label>" +
+                            "<input type=\"password\" class=\"form-control\" id=\"old-password\" " +
+                                "placeholder=\"<fmt:message key="i18n.oldPassword" />\">" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                                "<label class=\"text\" for=\"password\"><fmt:message key="i18n.newPassword" /></label>" +
+                            "<input type=\"password\" class=\"form-control\" id=\"new-password\" " +
+                            "placeholder=\"<fmt:message key="i18n.newPassword" />\" />"+
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input type=\"password\" class=\"form-control\" id=\"new-repeat-password\" " +
+                            "placeholder=\"<fmt:message key="i18n.repeatPassword" />\">" +
+                        "</div>",
+                    closeIcon: true,
+                    buttons: {
+                        ok: {
+                            text: "<fmt:message key="i18n.ok"/>",
+                            btnClass: 'btn-blue',
+                            action: function() {
+                                if ($("#new-password").val() === $("#new-repeat-password").val()) {
+                                    if ($("#old-password").val() != $("#new-password").val()) {
+                                        PostRequest.getInstance().make("profile/changePassword", {
+                                            oldPassword: $("#old-password").val(),
+                                            newPassword: $("#new-password").val(),
+                                            newRepeatPassword: $("#new-repeat-password").val()
+                                        });
+                                    } else {
+                                        $.alert("<fmt:message key="i18n.oldAndNewPasswordMustDiffer"/>");
+                                    }
+                                } else {
+                                    $.alert("<fmt:message key="i18n.passwordsNotMatching"/>");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+
             $("#change-language-link").on("click", function () {
                 $.confirm({
                     title: "<fmt:message key="i18n.changeLanguage"/>",
@@ -96,9 +140,9 @@
                             }
                         }
                     }
-                })
-            })
-        })
+                });
+            });
+        });
     </script>
 </body>
 </html>

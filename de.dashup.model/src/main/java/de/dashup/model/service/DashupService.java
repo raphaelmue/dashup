@@ -121,4 +121,26 @@ public class DashupService {
 
         return null;
     }
+
+    public User changePassword(User user, String oldPassword, String newPassword) throws SQLException, IllegalArgumentException {
+        if (user.getPassword().equals(Hash.create(oldPassword, user.getSalt()))) {
+            String newSalt = this.randomString.nextString(32);
+            String newHashedPassword = Hash.create(newPassword, newSalt);
+
+            Map<String, Object> whereParameters = new HashMap<>();
+            whereParameters.put("id", user.getId());
+
+            Map<String, Object> values = new HashMap<>();
+            values.put("password", newHashedPassword);
+            values.put("salt", newSalt);
+
+            this.database.update(Database.Table.USERS, whereParameters, values);
+
+            user.setPassword(newHashedPassword);
+            user.setSalt(newSalt);
+            return user;
+        } else {
+            throw new IllegalArgumentException("Passworts does not match");
+        }
+    }
 }
