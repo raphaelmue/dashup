@@ -36,7 +36,7 @@ hr{
     height: 100px;
 }
 
-.panel{
+.dashup_panel{
     width: 150px ;
     height: 150px;
     z-index: 1000;
@@ -44,6 +44,16 @@ hr{
     border-color: red;
     margin: 20px;
 }
-.section{
+.dashup_section{
     margin: 10px;
+}
+
+#bottomRight
+{
+    bottom: 10px;
+    right: 10px;
+    position: fixed;
+    width: 150px;
+    vertical-align: middle;
+    text-align: center;
 }
