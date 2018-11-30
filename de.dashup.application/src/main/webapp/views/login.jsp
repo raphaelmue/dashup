@@ -41,6 +41,7 @@
                     <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
                     <label class="text-white form-check-label" for="rememberMe"><fmt:message key="i18n.rememberMe" /></label>
                 </div>
+                <div style="margin: 10px 0"><a href="${pageContext.request.contextPath}/entry/register"><fmt:message key="i18n.notRegisteredYet"/></a></div>
                 <button type="submit" class="btn btn-primary" id="submit_button"><fmt:message key="i18n.submit" /></button>
             </form>
         </div>
