@@ -21,7 +21,6 @@
     <jsp:include page="./includes/headInclude.jsp" />
     <jsp:include page="./includes/styles.jsp" />
     <jsp:include page="./includes/scripts.jsp" />
-    <link  rel="stylesheet" type="text/css" href="./../styles/welcome.css" />
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">-->
     <link rel="stylesheet" href="./../styles/layoutmode.css">
     <jsp:include page="./includes/webComponents.jsp" />
@@ -30,59 +29,36 @@
 </head>
 <body class="text-white" onload="load()">
 
-<div class="jumbotron jumbotron-fluid bg-primary text-white">
-    <div class="container">
-        <h1 class="display-4"><fmt:message key="i18n.layout" /></h1>
+<header>
+    <div class="wrapper">
+        <h1 class="heading">dashup</h1>
+        <nav id="navbar">
+            <ul>
+                <li id="nav-item-marketplace">
+                    <a class="nav-item nav-item-hover" href="${pageContext.request.contextPath}/marketplace">
+                        <fmt:message key="i18n.marketplace" />
+                    </a>
+                </li>
+                <li id="nav-item-layout">
+                    <a class="nav-item nav-item-hover" href="${pageContext.request.contextPath}/layout">
+                        <fmt:message key="i18n.layout" />
+                    </a>
+                </li>
+                <li id="nav-item-profile">
+                    <a class="nav-item" href="${pageContext.request.contextPath}/profile">
+                        ${name}
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="clear-float"></div>
     </div>
-</div>
-
-<div class="container">
-<div id="drag_container_section">
-
-    <div class="dashup_section" id="s1">
-
-        <div>
-            <span class="handle">#</span>
-            <span>
-                <input type="text" name="txt" value="Section 1" onchange="myFunction(this.value)">
-                <button type="button"  onclick="onDelete('s1')" class="btn btn-circle btn-lg"><i class="glyphicon glyphicon-remove"></i></button>
-            </span>
-        </div>
+</header>
 
 
-        <hr/>
-        <div class="drag_container" id="drag_container1">
-            <div id="p1" class="dashup_panel">Panel 1</div>
-            <div id="p2" class="dashup_panel">Panel 2</div>
-            <div id="p3" class="dashup_panel">Panel 3</div>
-            <div id="p4" class="dashup_panel">Panel 4</div>
-            </div>
-
-        </div>
-    <div class="dashup_section" id="s2">
-
-        <div>
-            <span class="handle">#</span>
-            <span>
-                <input type="text" name="txt" value="Section 2" onchange="inputChanged(this.value)">
-                <button type="button"  onclick="onDelete('s2')" class="btn btn-circle btn-lg"><i class="glyphicon glyphicon-remove"></i></button>
-            </span>
-        </div>
-
-
-        <hr/>
-        <div class="drag_container" id="drag_container2">
-            <div id="p5" class="dashup_panel">Panel 1</div>
-            <div id="p6" class="dashup_panel">Panel 2</div>
-
-        </div>
-    </div>
-    </div>
-
-
-
-</div>
-</div>
+<main>
+${content}
+</main>
 
 <div id="bottomRight">
     <ul><button type="button" class="btn btn-circle btn-lg"><i class="glyphicon glyphicon-remove"></i></button></ul>
@@ -93,6 +69,49 @@
 
 <jsp:include page="./includes/bodyInclude.jsp" />
 <script  src="./../scripts/dragdrop.js"></script>
+<script>
+    $( document ).ready(function() {
+        $("#navbar").navigationBar({
+            structure: {
+                profile: {
+                    groups: {
+                        settings: {
+                            name: "<fmt:message key="i18n.settings"/>",
+                            elements: {
+                                settings: {
+                                    name: "<fmt:message key="i18n.settings"/>",
+                                    url: "",
+                                    iconClass: "fa fa-cog"
+                                },
+                                layout: {
+                                    name: "<fmt:message key="i18n.layout"/>",
+                                    url: "",
+                                    iconClass: "fa fa-pencil-alt"
+                                }
+                            }
+                        },
+                        profile: {
+                            name: "<fmt:message key="i18n.profile" />",
+                            elements: {
+                                myProfile: {
+                                    name: "<fmt:message key="i18n.myProfile" />",
+                                    url: "",
+                                    iconClass: "fa fa-user"
+                                },
+                                logout: {
+                                    name: "<fmt:message key="i18n.logout" />",
+                                    url: "/handleLogout",
+                                    iconClass: "fa fa-sign-out-alt"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            align: "center",
+        });
+    });
+</script>
 
 
 </body>
