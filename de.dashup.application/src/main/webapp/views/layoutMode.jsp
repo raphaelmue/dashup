@@ -61,9 +61,9 @@ ${content}
 </main>
 
 <div id="bottomRight">
-    <ul><button type="button" class="btn btn-circle btn-lg"><i class="glyphicon glyphicon-remove"></i></button></ul>
-    <ul><button type="button" class="btn btn-circle btn-lg"><i class="glyphicon glyphicon-repeat"></i></button></ul>
-    <ul><button type="button" onclick="onSubmit()" class="btn btn-circle btn-lg"><i class="glyphicon glyphicon-ok"></i></button></ul>
+    <ul><button type="button" class="btn btn-circle btn-lg">undo</button></ul>
+    <ul><button type="button" onclick="addSection()" class="btn btn-circle btn-lg">add</button></ul>
+    <ul><button type="button" onclick="onSubmit()" class="btn btn-circle btn-lg">submit</button></ul>
 </div>
 
 

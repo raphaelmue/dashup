@@ -26,9 +26,9 @@ public class DashupBuilder {
             content.append("<div class=\"dashup_section\" id=\"s").append(s.getId()).append("\">");
             content.append("<div><span class=\"handle\">#</span><span><input type=\"text\" name=\"txt\" value=\"");
             content.append(s.getName());
-            content.append("\" onchange=\"myFunction(this.value)\"><button type=\"button\"  onclick=\"onDelete('s");
+            content.append("\" onchange=\"inputChanged(this.value,"+s.getId()+")\"><button type=\"button\"  onclick=\"onDelete('s");
             content.append(s.getId());
-            content.append("')\" class=\"btn btn-circle btn-lg\"><i class=\"glyphicon glyphicon-remove\"></i></button></span></div>");
+            content.append("')\" class=\"btn btn-circle btn-lg\">x</button></span></div>");
             content.append("<hr>");
             content.append("<div class=\"drag_container\" id=\"drag_container");
             content.append(s.getId()).append("\">");
