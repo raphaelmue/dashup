@@ -111,7 +111,11 @@ n/a
 
 ## 7. Deployment View
 
+This is our deployment view:
 
+<img src="./deployment_view.png" alt="Deployment View" />
+
+We only have one instance of an application server due to lack of capacity. The database is running as well on the server due to the same reason.
 
 ## 8. Implementation View
 
@@ -119,8 +123,14 @@ n/a
 
 ## 9. Data View
 
+Our database modeled as follows:
 
+<img src="./data_view.png" alt="Data View" />
 
 ## 10. Size and Performance
 
+n/a
+
 ## 11. Quality/Metrics
+
+To ensure a high quality we are using Jenkins as an continuous integration tools. It automatically builds, tests and deploys the application, if the respective previous step has not failed. This happens periodically and when changes are pushed to a branch. 
