@@ -3,12 +3,11 @@ package de.dashup.application.controllers;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.model.builder.DashupBuilder;
 import de.dashup.model.service.DashupService;
+import de.dashup.shared.DashupPanelStructure;
 import de.dashup.shared.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
@@ -42,9 +41,10 @@ public class LayoutModeController {
     }
 
     @RequestMapping(value = "/confirmChanges", method = RequestMethod.POST)
-    public String confirm(Model model, HttpServletRequest request) {
+    @ResponseBody
+    public String confirm(@RequestBody DashupPanelStructure body, Model model, HttpServletRequest request) {
 
-        System.out.println("Post rec");
+        System.out.println(body);
         return "layoutMode";
 
     }

@@ -50,9 +50,19 @@ function onDropSection (el, to, from) {
 function onSubmit()
 {
     console.log("Submit");
+    console.log(formatChanges());
+
+    var data = {};
+    data["test"] = "test";
+    console.log(data);
 
         $.post('../layoutmode/confirmChanges',   // url
-            { myData: 'This is my data.' }, // data to be submit
+            {  headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                dataType: 'json',
+                myData: JSON.stringify(data) }, // data to be submit
             function(data, status, jqXHR) {// success callback
                 console.log("Success");
             })
@@ -76,7 +86,7 @@ function inputChanged(inputText,id)
 
     sectoinHeadings.push(
         {
-            key:id,
+            key:"s"+id,
             value:inputText
         }
 
@@ -109,9 +119,113 @@ function getPostionOfPanels(sectionId,className)
 
 function formatChanges()
 {
-    var dashupStructure;
+    var dashupStructure = {sections:[]};
+    for(var i=0;i<layoutStorage.length;i++){
+
+        var panelArray = [];
+
+        for(var j=0;j<layoutStorage[i][0].value.length;j++){
+
+            var id = layoutStorage[i][0].value[j].key;
+            var order = layoutStorage[i][0].value[j].value;
+            var panel = {id:id,panel_order:order};
+            panelArray.push(panel);
 
 
+        }
+
+        var panelPosition = getSectionPosition(layoutStorage[0][0].key);
+
+        dashupStructure.sections.push(
+            {
+                section_id : layoutStorage[0][0].key,
+                panels: panelArray,
+                section_name:getSectionName(layoutStorage[0][0].key),
+                section_order:panelPosition
+            }
+        )
+    }
+
+    for(var i=0;i<sectoinHeadings.length;i++){
+
+        if(sectoinHeadings[i].value != "%old%");
+        var sectionOrderValue = "%old%";
+
+        if(sectionOrder!=undefined)
+        {
+            if(sectionOrder!=undefined)
+            {
+                for(var j=0;j<sectionOrder[0].value.length;j++){
+
+                    if(sectionOrder[0].value[j].key == sectoinHeadings[i].key)
+                    {
+                        sectionOrderValue = sectionOrder[0].value[j].value;
+                        sectionOrder[0].value[j].value = "%old%";
+
+                    }
+
+                }
+            }
+
+        }
+        dashupStructure.sections.push(
+            {
+                section_id : sectoinHeadings[i].key,
+                panels: "",
+                section_name:sectoinHeadings[i].value,
+                section_order:sectionOrderValue
+            }
+        )
+
+
+    }
+
+    for(var i=0;i<sectionOrder[0].value.length;i++){
+
+        if(sectionOrder[0].value[i].value != "%old%")
+        {
+            dashupStructure.sections.push(
+                {
+                    section_id : sectionOrder[0].value[i].key,
+                    panels: "",
+                    section_name:"%old%",
+                    section_order:sectionOrder[0].value[i].value
+                }
+            )
+        }
+
+    }
+
+    return dashupStructure;
+}
+
+function getSectionPosition(sectionId)
+{
+    if(sectionOrder==undefined)return "%old%";
+    for(var i=0;i<sectionOrder[0].value.length;i++){
+
+        if(sectionId==sectionOrder[0].value[i].key)
+        {
+            return sectionOrder[0].value[i].value;
+        }
+    }
+
+    return "%old%";
+}
+
+function getSectionName(sectionId)
+{
+    for(var i=0;i<sectoinHeadings.length;i++){
+
+        if(sectionId==sectoinHeadings[i].key)
+        {
+            var ret = sectoinHeadings[i].value;
+            sectoinHeadings[i].value = "%old%";
+            return ret;
+        }
+    }
+
+    return "%old%";
 }
 
 function addSection()
@@ -150,11 +264,11 @@ function addSection()
 
     var newhr = document.createElement("hr");
     newSection.appendChild(newhr);
-    var dragContainer = document.createElement("div");
-    dragContainer.setAttribute("drag_container");
-    dragContainer.setAttribute("drag_container0"+ sectionId);
+    var dragContainerPanel = document.createElement("div");
+    dragContainerPanel.setAttribute("class","drag_container");
+    dragContainerPanel.setAttribute("id","drag_container0"+ sectionId);
 
-    newSection.appendChild(dragContainer);
+    newSection.appendChild(dragContainerPanel);
 
     dragContainer.appendChild(newSection);
 
