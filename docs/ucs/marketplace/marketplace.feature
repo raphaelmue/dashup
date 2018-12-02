@@ -6,7 +6,7 @@ Feature: Marketplace
 
   Background: User is logged into dashup
     Given User is located on login page
-    When User submits username and password
+    When sUer submits username and password
     Then User is logged in
 
   Scenario: Open marketplace
