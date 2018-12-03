@@ -1,0 +1,5 @@
+body {
+    background: url("/resources/images/background/background.png") no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+}

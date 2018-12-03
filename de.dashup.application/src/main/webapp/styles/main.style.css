@@ -15,3 +15,23 @@ main {
     width: 1080px;
     margin: 0 auto;
 }
+
+.error-box {
+    width: 100%;
+    margin: 10px 0;
+    background: rgba(223, 41, 53, 0.7);
+    border-left: 3px solid var(--error);
+    display: block;
+}
+
+.error-box p {
+    display: inline-block;
+    margin: 12px 15px;
+    color: var(--white);
+}
+
+.panel-container{
+    width: 33%;
+    padding: 5px;
+    float: left;
+}
