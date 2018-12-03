@@ -143,4 +143,21 @@ public class DashupService {
             throw new IllegalArgumentException("Passworts does not match");
         }
     }
+
+    public boolean changeLayout(User user, String background_color, String background_image,
+                                int heading_size, String heading_color, String font) throws SQLException {
+
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", user.getId());
+
+        Map<String, Object> values = new HashMap<>();
+        values.put("background_color", background_color);
+        values.put("background_image", background_image);
+        values.put("heading_size", heading_size);
+        values.put("heading_color", heading_color);
+        values.put("font", font);
+
+        this.database.update(Database.Table.USER_LAYOUT, whereParameters, values);
+        return true;
+    }
 }

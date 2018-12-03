@@ -7,94 +7,58 @@
     <jsp:include page="./includes/headInclude.jsp" />
     <jsp:include page="./includes/styles.jsp" />
     <jsp:include page="./includes/scripts.jsp" />
-
-    <link rel="stylesheet" media="screen" type="text/css" href="../scripts/colorpicker/css/colorpicker.css" />
-
-    <link rel="stylesheet" href="../scripts/fontpicker/styles/fontselect-default.css">
-
     <title>dashup - <fmt:message key="i18n.layout"/></title>
 </head>
 <body>
 <jsp:include page="includes/mainHeader.jsp"/>
     <main>
         <div class="wrapper">
-            <h1><fmt:message key="i18n.layout"/></h1>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        <h4><fmt:message key="i18n.background"/></h4>
-                        <table class="table">
-                            <tbody>
-                            <tr>
-                                <th scope="row"><fmt:message key="i18n.backgroundColor"/></th>
-                                <td>
-                                    <a id="colorSelector" href="#"><fmt:message key="i18n.chooseColor"/></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><fmt:message key="i18n.backgroundImage"/></th>
-                                <td></td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                        <h4><fmt:message key="i18n.sections"/></h4>
-                        <table class="table">
-                            <tbody>
-                            <tr>
-                                <th scope="row"><fmt:message key="i18n.headingSize"/></th>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <th scope="row"><fmt:message key="i18n.headingColor"/></th>
-                                <td></td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                        <h4><fmt:message key="i18n.font"/></h4>
-                        <table class="table">
-                            <tbody>
-                            <tr>
-                                <th scope="row"><fmt:message key="i18n.font"/></th>
-                                <td><input id="font" type="text"></td>
-                            </tr>
-                            </tbody>
-                        </table>
+            <form action="${pageContext.request.contextPath}/entry/handleLayout" method="POST">
+                <h4><fmt:message key="i18n.background"/></h4>
+                <div class="form-group">
+                    <label for="backgroundColor"><fmt:message key="i18n.backgroundColor"/></label>
+                    <div id="backgroundColor" name="background_color" class="bfh-colorpicker" data-name="colorpicker2" data-color="#000000"></div>
+                </div>
+                <div class="form-group">
+                    <label for="backgroundImage"><fmt:message key="i18n.backgroundImage"/></label>
+                    <div id="backgroundImage"class="custom-file">
+                        <input name="background_image" type="file" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile"><fmt:message key="i18n.chooseFile"/></label>
                     </div>
                 </div>
-            </div>
+
+                <h4><fmt:message key="i18n.sections"/></h4>
+                <div class="form-group">
+                    <label for="headingSize"><fmt:message key="i18n.headingSize"/></label>
+                    <input id="headingSize" name="heading_size" type="text" class="form-control bfh-number">
+                </div>
+                <div class="form-group">
+                    <label for="headingColor"><fmt:message key="i18n.headingColor"/></label>
+                    <div id="headingColor" name="heading_color" class="bfh-colorpicker" data-name="colorpicker2" data-color="#ffffff"></div>
+                </div>
+
+                <h4><fmt:message key="i18n.font"/></h4>
+                <div class="form-group">
+                    <label for="font"><fmt:message key="i18n.font"/></label>
+                    <div id="font" class="bfh-selectbox bfh-fonts" data-family="Helvetica">
+                        <input type="hidden" value="">
+                        <a class="bfh-selectbox-toggle" role="button" data-toggle="bfh-selectbox" href="#">
+                            <span class="bfh-selectbox-option input-large" data-option=""></span>
+                            <b class="caret"></b>
+                        </a>
+                        <div class="bfh-selectbox-options">
+                            <input name="font" type="text" class="bfh-selectbox-filter">
+                            <div role="listbox">
+                                <ul role="option">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
     </main>
     <jsp:include page="./includes/bodyInclude.jsp" />
-    <script type="text/javascript" src="../scripts/colorpicker/js/colorpicker.js"></script>
-    <script>
-        $('#colorSelector').ColorPicker({
-            color: '#0000ff',
-            onShow: function (colpkr) {
-                $(colpkr).fadeIn(500);
-                return false;
-            },
-            onHide: function (colpkr) {
-                $(colpkr).fadeOut(500);
-                return false;
-            },
-            onChange: function (hsb, hex, rgb) {
-                $('#body').css('backgroundColor', '#' + hex);
-            }
-        });
-    </script>
-
-    <script src="../scripts/fontpicker/jquery.fontselect.js"></script>
-    <script>
-        $(function(){
-            $('#font').fontselect().change(function(){
-                var font = $(this).val().replace(/\+/g, ' ');
-                font = font.split(':');
-                $('*').css('font-family', font[0] + " !important");
-            });
-        });
-    </script>
-
 </body>
 </html>
