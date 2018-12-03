@@ -33,7 +33,7 @@ The use case _Login / Register_ provides the functionality that the user can cre
 
 ### 2.1.1 Activity Diagram
 
-<img src="./login_ucs.jpg" alt="Use case diagram - Login" />
+<img src="./login_ucs.png" alt="Use case diagram - Login" />
 
 ### 2.1.2 Mock-Up
 
