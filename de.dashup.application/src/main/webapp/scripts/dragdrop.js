@@ -3,6 +3,7 @@ var layoutStorage = [];
 var sectionOrder;
 var sectoinHeadings = [];
 var sectionId = 0;
+var sectionsToDelte =[];
 function load () {
 
     dragula([document.getElementById('drag_container_section')], {
@@ -25,13 +26,12 @@ function onDrop (el, to, from) {
     var newPosition = getPostionOfPanels(id,"dashup_panel");
     for(var i=0;i<layoutStorage.length;i++){
 
-        if(layoutStorage[i][0].key == newPosition[0].key)
+        if(layoutStorage[i][0].key === newPosition[0].key)
         {
             layoutStorage.splice(i,1);
             break;
         }
         //console.log(layoutStorage[i][0].key);
-
     }
     console.log(layoutStorage);
     layoutStorage.push(newPosition);
@@ -42,6 +42,7 @@ function onDrop (el, to, from) {
 
 function onDropSection (el, to, from) {
     var id= el.parentNode.id;
+    console.log(id);
     var newPosition = getPostionOfPanels(id,"dashup_section");
     sectionOrder = newPosition;
     console.log(sectionOrder);
@@ -70,6 +71,46 @@ function onSubmit()
 
 function onDelete(sectionId)
 {
+    sectionsToDelte.push(sectionId);
+    console.log(sectionsToDelte);
+    if(layoutStorage!=undefined)
+    {
+        for(var i=0;i<layoutStorage.length;i++){
+
+            if(layoutStorage[i][0].key === sectionId)
+            {
+                layoutStorage.splice(i,1);
+                break;
+            }
+            //console.log(layoutStorage[i][0].key);
+        }
+    }
+
+    if(sectionOrder!=undefined)
+    {
+        for(var i=0;i<sectionOrder[0].value.length;i++){
+
+            if(sectionOrder[0].value[i].key===sectionId){
+                sectionOrder[0].value.splice(i,1);
+            }
+        }
+    }
+
+
+    if(sectoinHeadings!=undefined){
+        for(var i=0;i<sectoinHeadings.length;i++){
+
+            if(sectoinHeadings[i].key === sectionId)
+            {
+                sectoinHeadings.splice(i,1);
+            }
+        }
+    }
+
+
+
+
+
     var element = document. getElementById(sectionId);
     element. parentNode. removeChild(element);
 }
@@ -157,7 +198,7 @@ function formatChanges()
             {
                 for(var j=0;j<sectionOrder[0].value.length;j++){
 
-                    if(sectionOrder[0].value[j].key == sectoinHeadings[i].key)
+                    if(sectionOrder[0].value[j].key === sectoinHeadings[i].key)
                     {
                         sectionOrderValue = sectionOrder[0].value[j].value;
                         sectionOrder[0].value[j].value = "%old%";
@@ -180,22 +221,41 @@ function formatChanges()
 
     }
 
-    for(var i=0;i<sectionOrder[0].value.length;i++){
+    if(sectionOrder!=undefined)
+    {
+        for(var i=0;i<sectionOrder[0].value.length;i++){
 
-        if(sectionOrder[0].value[i].value != "%old%")
-        {
-            dashupStructure.sections.push(
-                {
-                    section_id : sectionOrder[0].value[i].key,
-                    panels: "",
-                    section_name:"%old%",
-                    section_order:sectionOrder[0].value[i].value
-                }
-            )
+            if(sectionOrder[0].value[i].value != "%old%")
+            {
+                dashupStructure.sections.push(
+                    {
+                        section_id : sectionOrder[0].value[i].key,
+                        panels: "",
+                        section_name:"%old%",
+                        section_order:sectionOrder[0].value[i].value
+                    }
+                )
+            }
+
         }
 
     }
 
+    if(sectionsToDelte!=undefined)
+    {
+        for(let i=0;i<sectionsToDelte.length;i++)
+        {
+            console.log(sectionsToDelte[i]);
+            dashupStructure.sections.push(
+                {
+                    section_id : sectionsToDelte[i],
+                    panels: "",
+                    section_name:"",
+                    section_order:-10
+                }
+            )
+        }
+    }
     return dashupStructure;
 }
 
@@ -273,5 +333,8 @@ function addSection()
     dragContainer.appendChild(newSection);
 
     sectionId++;
+
+    var newPosition = getPostionOfPanels("drag_container_section","dashup_section");
+    sectionOrder = newPosition;
 }
 
