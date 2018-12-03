@@ -1,7 +1,7 @@
 // dragula([document.querySelector('#drag_container_section')])
 var layoutStorage = [];
 var sectionOrder;
-var sectoinHeadings = [];
+var sectionHeadings = [];
 var sectionId = 0;
 var sectionsToDelte =[];
 function load () {
@@ -23,7 +23,7 @@ function load () {
 
 function onDrop (el, to, from) {
     var id= el.parentNode.parentNode.id;
-    var newPosition = getPostionOfPanels(id,"dashup_panel");
+    var newPosition = getPositionOfPanels(id,"dashup_panel");
     for(var i=0;i<layoutStorage.length;i++){
 
         if(layoutStorage[i][0].key === newPosition[0].key)
@@ -43,7 +43,7 @@ function onDrop (el, to, from) {
 function onDropSection (el, to, from) {
     var id= el.parentNode.id;
     console.log(id);
-    var newPosition = getPostionOfPanels(id,"dashup_section");
+    var newPosition = getPositionOfPanels(id,"dashup_section");
     sectionOrder = newPosition;
     console.log(sectionOrder);
 }
@@ -67,6 +67,11 @@ function onSubmit()
             function(data, status, jqXHR) {// success callback
                 console.log("Success");
             })
+
+    layoutStorage = [];
+    sectionOrder = null;
+    sectionHeadings = [];
+    sectionsToDelte =[];
 }
 
 function onDelete(sectionId)
@@ -97,12 +102,12 @@ function onDelete(sectionId)
     }
 
 
-    if(sectoinHeadings!=undefined){
-        for(var i=0;i<sectoinHeadings.length;i++){
+    if(sectionHeadings!=undefined){
+        for(var i=0;i<sectionHeadings.length;i++){
 
-            if(sectoinHeadings[i].key === sectionId)
+            if(sectionHeadings[i].key === sectionId)
             {
-                sectoinHeadings.splice(i,1);
+                sectionHeadings.splice(i,1);
             }
         }
     }
@@ -116,27 +121,35 @@ function onDelete(sectionId)
 }
 
 function inputChanged(inputText,id)
-{
-    for(var i=0;i<sectoinHeadings.length;i++){
+{   var sid;
+    var stringId = id+"";
+    if(stringId.includes("s"))
+    {
+        sid = id;
+    }
+    else {
+        sid = "s" + id;
+    }
+    for(var i=0;i<sectionHeadings.length;i++){
 
-        if(sectoinHeadings[i].key==id)
+        if(sectionHeadings[i].key==id)
         {
-            sectoinHeadings.splice(i,1);
+            sectionHeadings.splice(i,1);
         }
     }
 
-    sectoinHeadings.push(
+    sectionHeadings.push(
         {
-            key:"s"+id,
+            key:sid,
             value:inputText
         }
 
     )
-    console.log(sectoinHeadings);
+    console.log(sectionHeadings);
 }
 
 
-function getPostionOfPanels(sectionId,className)
+function getPositionOfPanels(sectionId,className)
 {
     let positions = [];
     var panelPosition = [];
@@ -187,9 +200,9 @@ function formatChanges()
         )
     }
 
-    for(var i=0;i<sectoinHeadings.length;i++){
+    for(var i=0;i<sectionHeadings.length;i++){
 
-        if(sectoinHeadings[i].value != "%old%");
+        if(sectionHeadings[i].value != "%old%");
         var sectionOrderValue = "%old%";
 
         if(sectionOrder!=undefined)
@@ -198,7 +211,7 @@ function formatChanges()
             {
                 for(var j=0;j<sectionOrder[0].value.length;j++){
 
-                    if(sectionOrder[0].value[j].key === sectoinHeadings[i].key)
+                    if(sectionOrder[0].value[j].key === sectionHeadings[i].key)
                     {
                         sectionOrderValue = sectionOrder[0].value[j].value;
                         sectionOrder[0].value[j].value = "%old%";
@@ -211,9 +224,9 @@ function formatChanges()
         }
         dashupStructure.sections.push(
             {
-                section_id : sectoinHeadings[i].key,
+                section_id : sectionHeadings[i].key,
                 panels: "",
-                section_name:sectoinHeadings[i].value,
+                section_name:sectionHeadings[i].value,
                 section_order:sectionOrderValue
             }
         )
@@ -275,12 +288,12 @@ function getSectionPosition(sectionId)
 
 function getSectionName(sectionId)
 {
-    for(var i=0;i<sectoinHeadings.length;i++){
+    for(var i=0;i<sectionHeadings.length;i++){
 
-        if(sectionId==sectoinHeadings[i].key)
+        if(sectionId==sectionHeadings[i].key)
         {
-            var ret = sectoinHeadings[i].value;
-            sectoinHeadings[i].value = "%old%";
+            var ret = sectionHeadings[i].value;
+            sectionHeadings[i].value = "%old%";
             return ret;
         }
     }
@@ -308,7 +321,7 @@ function addSection()
     inputField.setAttribute("type","text");
     inputField.setAttribute("name","txt");
     inputField.setAttribute("value","New Section");
-    inputField.setAttribute("onchange","inputChanged(this.value)");
+    inputField.setAttribute("onchange","inputChanged(this.value,\"" + "sn" + sectionId + "\")");
     inputButtonSpan.appendChild(inputField);
     var deleteButton = document.createElement("button");
     deleteButton.setAttribute("type","button");
@@ -334,7 +347,7 @@ function addSection()
 
     sectionId++;
 
-    var newPosition = getPostionOfPanels("drag_container_section","dashup_section");
+    var newPosition = getPositionOfPanels("drag_container_section","dashup_section");
     sectionOrder = newPosition;
 }
 

@@ -57,7 +57,12 @@
 
 
 <main>
-${content}
+    <div class="wrapper">
+        <h1><fmt:message key="i18n.layout"/>, ${name}!</h1>
+        <div>
+            ${content}
+        </div>
+    </div>
 </main>
 
 <div id="bottomRight">
