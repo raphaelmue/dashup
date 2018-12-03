@@ -2,6 +2,7 @@ package de.dashup.shared;
 
 public class User extends DatabaseUser {
     private String token;
+    private Settings settings;
 
     public User() { }
 
@@ -26,7 +27,15 @@ public class User extends DatabaseUser {
         return token;
     }
 
+    public Settings getSettings() {
+        return settings;
+    }
+
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
     }
 }
