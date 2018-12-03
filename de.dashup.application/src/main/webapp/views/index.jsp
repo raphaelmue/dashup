@@ -24,7 +24,7 @@
                             </a>
                         </li>
                         <li id="nav-item-layout">
-                            <a class="nav-item nav-item-hover" href="${pageContext.request.contextPath}/layout">
+                            <a class="nav-item nav-item-hover" href="${pageContext.request.contextPath}/layoutmode">
                                 <fmt:message key="i18n.layout" />
                             </a>
                         </li>
