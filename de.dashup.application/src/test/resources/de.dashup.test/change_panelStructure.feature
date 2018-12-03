@@ -28,7 +28,7 @@ Feature: Change Panel Structure
     Given User is on the layout page
     And Change structure mode is activated
     When User clicks on the name of a section
-    And User enters "my new panels"
+    And User enters "my new panels" to this section
     And User clicks on submit button
     Then section will be renamed to "my panels"
 

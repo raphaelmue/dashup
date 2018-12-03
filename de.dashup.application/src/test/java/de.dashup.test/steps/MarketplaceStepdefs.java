@@ -10,35 +10,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class MarketplaceStepdefs {
-
-    private final String LOGIN_URL = "http://localhost:8080/entry/login";
-
-    private WebDriver driver;
-    private String pathToChromeDriver= "C:\\Users\\D070546\\Documents\\chromedriver_win32\\chromedriver.exe";
-
-    @Given("^User is located on login page$")
-    public void userIsLocatedOnLoginPage() throws Throwable {
-        System.setProperty("webdriver.chrome.driver",pathToChromeDriver);
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get(LOGIN_URL);
-    }
-
-    @When("^User submits username and password$")
-    public void user_submits_username_and_password() throws Exception {
-        driver.findElement(By.id("email")).sendKeys("raphael@muesseler.de");
-        driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.id("submit_button")).click();
-    }
-
-    @Then("^User is logged in$")
-    public void user_is_logged_in() throws Exception {
-        Assert.assertEquals("dashup",driver.getTitle());
-        driver.close();
-    }
-
     @Given("^User is located on the main page$")
     public void user_is_located_on_the_main_page() throws Exception {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.close();
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
@@ -57,12 +32,16 @@ public class MarketplaceStepdefs {
 
     @Given("^User is located on the marketplace page$")
     public void user_is_located_on_the_marketplace_page() throws Exception {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.close();
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
 
     @When("^User clicks on the back button or navigates back over the navigation bar$")
     public void user_clicks_on_the_back_button_or_navigates_back_over_the_navigation_bar() throws Exception {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.close();
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
@@ -75,6 +54,8 @@ public class MarketplaceStepdefs {
 
     @Given("^User is on the marketplace page$")
     public void user_is_on_the_marketplace_page() throws Exception {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.close();
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
@@ -117,6 +98,8 @@ public class MarketplaceStepdefs {
 
     @Given("^Rating tab is opened of a panel's detailed view in the marketplace$")
     public void rating_tab_is_opened_of_a_panel_s_detailed_view_in_the_marketplace() throws Exception {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.close();
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
@@ -159,6 +142,8 @@ public class MarketplaceStepdefs {
 
     @Given("^User is on the similar tab of a panel's detailed view in the marketplace$")
     public void user_is_on_the_similar_tab_of_a_panel_s_detailed_view_in_the_marketplace() throws Exception {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.close();
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
@@ -207,6 +192,8 @@ public class MarketplaceStepdefs {
 
     @Given("^User is not logged into dashup$")
     public void user_is_not_logged_into_dashup() throws Exception {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.close();
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }

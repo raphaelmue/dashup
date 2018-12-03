@@ -4,6 +4,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 
 public class ChangeLayoutStepdefs {
@@ -11,16 +12,10 @@ public class ChangeLayoutStepdefs {
     private WebDriver driver;
     private String pathToChromeDriver= "C:\\Users\\D070546\\Documents\\chromedriver_win32\\chromedriver.exe";
 
-    @Given("^User is logged into dashup$")
-    public void user_is_logged_into_dashup() throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
-
     @Given("^User is on the main page$")
     public void user_is_on_the_main_page() throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        WebDriver driver = GeneralStepdefs.getDriver();
+        Assert.assertEquals("dashup",driver.getTitle());
     }
 
     @When("^The user clicks on the layout edit button$")
@@ -177,5 +172,10 @@ public class ChangeLayoutStepdefs {
     public void user_clicks_on_back_button_or_navigates_back_over_the_navigation_bar() throws Exception {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
+    }
+
+    @When("^The user clicks on the layout button$")
+    public void theUserClicksOnTheLayoutButton() throws Throwable {
+
     }
 }

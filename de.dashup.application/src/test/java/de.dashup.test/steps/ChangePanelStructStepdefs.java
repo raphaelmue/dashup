@@ -1,10 +1,14 @@
 package de.dashup.test.steps;
 
 import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class ChangePanelStructStepdefs {
 
@@ -13,54 +17,52 @@ public class ChangePanelStructStepdefs {
 
     @When("^The user clicks on the rearrangement button$")
     public void the_user_clicks_on_the_rearrangement_button() throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        WebDriver driver = GeneralStepdefs.getDriver();
+        WebElement element = driver.findElement(By.id("nav-item-layout-link"));
+        if (element == null){
+            Assert.fail();
+        }
     }
 
     @Then("^Dashup's general panel structure is now editable as change structure mode is activated$")
     public void dashup_s_general_panel_structure_is_now_editable_as_change_structure_mode_is_activated() throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        WebDriver driver = GeneralStepdefs.getDriver();
+        Assert.assertEquals("dashup-Welcome",driver.getTitle());
+        driver.close();
     }
 
     @Given("^Change structure mode is activated$")
     public void change_structure_mode_is_activated() throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.get("http://localhost:8080/layoutmode/layoutMode");
+        Assert.assertEquals("dashup-Welcome",driver.getTitle());
     }
 
     @When("^User clicks on add section button$")
     public void user_clicks_on_add_section_button() throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
-
-    @Then("^A pop-up will show up, asking the user for input$")
-    public void a_pop_up_will_show_up_asking_the_user_for_input() throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.findElement(By.id("add_section_btn")).click();
     }
 
     @When("^User enters \"([^\"]*)\"$")
     public void user_enters(String arg1) throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
-
-    @When("^User clicks on submit button$")
-    public void user_clicks_on_submit_button() throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        WebDriver driver = GeneralStepdefs.getDriver();
     }
 
     @Then("^A new empty section will be rendered, being titled with \"([^\"]*)\"$")
     public void a_new_empty_section_will_be_rendered_being_titled_with(String arg1) throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.close();
     }
 
     @When("^User clicks on the name of a section$")
     public void user_clicks_on_the_name_of_a_section() throws Exception {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @And("^User enters \"([^\"]*)\" to this section$")
+    public void userEntersToThisSection(String arg0) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
@@ -103,14 +105,12 @@ public class ChangePanelStructStepdefs {
 
     @When("^User drags a section to another position$")
     public void user_drags_a_section_to_another_position() throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        WebDriver driver = GeneralStepdefs.getDriver();
     }
 
     @Then("^Section will be reordered to the specified position with all its containing panels$")
     public void section_will_be_reordered_to_the_specified_position_with_all_its_containing_panels() throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        WebDriver driver = GeneralStepdefs.getDriver();
     }
 
     @When("^User right clicks on a panel$")
@@ -121,7 +121,7 @@ public class ChangePanelStructStepdefs {
 
     @Then("^Size menu will pop up containing the three options small, medium and large$")
     public void size_menu_will_pop_up_containing_the_three_options_small_medium_and_large() throws Exception {
-        // Write code here that turns the phrase above into concrete actions
+        // Write code here that turns the phrase above intgio concrete actions
         throw new PendingException();
     }
 
@@ -157,6 +157,12 @@ public class ChangePanelStructStepdefs {
 
     @Then("^The latest change will be undone$")
     public void the_latest_change_will_be_undone() throws Exception {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @Given("^User is on the layout page$")
+    public void userIsOnTheLayoutPage() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
