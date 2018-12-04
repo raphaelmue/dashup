@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class DashupService {
 
@@ -145,10 +146,23 @@ public class DashupService {
     }
 
     public boolean changeLayout(User user, String background_color, String background_image,
-                                int heading_size, String heading_color, String font) throws SQLException {
+                                int heading_size, String heading_color, String font, boolean insert) throws SQLException {
+
+        Pattern colorPattern = Pattern.compile("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
+        boolean validBackgroundColor = colorPattern.matcher(background_color).matches();
+        boolean validHeadingColor = colorPattern.matcher(heading_color).matches();
+
+        //For later use
+        //Pattern urlPattern = Pattern.compile("/^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$/");
+        //boolean validURL = urlPattern.matcher(background_image).matches();
+
+        //TBD: Validate Fonts
+        if(!(validBackgroundColor && validHeadingColor && heading_size > 12 && heading_size < 30)){
+            return false;
+        }
 
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("id", user.getId());
+        whereParameters.put("user_id", user.getId());
 
         Map<String, Object> values = new HashMap<>();
         values.put("background_color", background_color);
@@ -157,7 +171,11 @@ public class DashupService {
         values.put("heading_color", heading_color);
         values.put("font", font);
 
-        this.database.update(Database.Table.USER_LAYOUT, whereParameters, values);
+        if(insert){
+            this.database.insert(Database.Table.USER_LAYOUT, values);
+        } else {
+            this.database.update(Database.Table.USER_LAYOUT, whereParameters, values);
+        }
         return true;
     }
 }

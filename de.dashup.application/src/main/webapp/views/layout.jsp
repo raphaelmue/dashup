@@ -13,16 +13,16 @@
 <jsp:include page="includes/mainHeader.jsp"/>
     <main>
         <div class="wrapper">
-            <form action="${pageContext.request.contextPath}/entry/handleLayout" method="POST">
+            <form>
                 <h4><fmt:message key="i18n.background"/></h4>
                 <div class="form-group">
                     <label for="backgroundColor"><fmt:message key="i18n.backgroundColor"/></label>
-                    <div id="backgroundColor" name="background_color" class="bfh-colorpicker" data-name="colorpicker2" data-color="#000000"></div>
+                    <div id="backgroundColor" class="bfh-colorpicker" data-name="backgroundColor" data-color="#000000"></div>
                 </div>
                 <div class="form-group">
                     <label for="backgroundImage"><fmt:message key="i18n.backgroundImage"/></label>
                     <div id="backgroundImage"class="custom-file">
-                        <input name="background_image" type="file" class="custom-file-input" id="customFile">
+                        <input id="customFile" name="backgroundImage" type="file" class="custom-file-input">
                         <label class="custom-file-label" for="customFile"><fmt:message key="i18n.chooseFile"/></label>
                     </div>
                 </div>
@@ -30,35 +30,66 @@
                 <h4><fmt:message key="i18n.sections"/></h4>
                 <div class="form-group">
                     <label for="headingSize"><fmt:message key="i18n.headingSize"/></label>
-                    <input id="headingSize" name="heading_size" type="text" class="form-control bfh-number">
+                    <input id="headingSize" name="headingSize" type="text" class="form-control bfh-number">
                 </div>
                 <div class="form-group">
                     <label for="headingColor"><fmt:message key="i18n.headingColor"/></label>
-                    <div id="headingColor" name="heading_color" class="bfh-colorpicker" data-name="colorpicker2" data-color="#ffffff"></div>
+                    <div id="headingColor" class="bfh-colorpicker" data-name="headingColor" data-color="#ffffff"></div>
                 </div>
 
                 <h4><fmt:message key="i18n.font"/></h4>
                 <div class="form-group">
                     <label for="font"><fmt:message key="i18n.font"/></label>
-                    <div id="font" class="bfh-selectbox bfh-fonts" data-family="Helvetica">
-                        <input type="hidden" value="">
-                        <a class="bfh-selectbox-toggle" role="button" data-toggle="bfh-selectbox" href="#">
-                            <span class="bfh-selectbox-option input-large" data-option=""></span>
-                            <b class="caret"></b>
-                        </a>
-                        <div class="bfh-selectbox-options">
-                            <input name="font" type="text" class="bfh-selectbox-filter">
-                            <div role="listbox">
-                                <ul role="option">
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    <%--<select id="font" class="form-control bfh-fonts" data-name="font" data-available="Arial,Calibri,Helvetica"></select>--%>
+                    <div id="font" class="bfh-selectbox bfh-fonts" data-font="Arial" data-name="font"></div>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button id="submit" type="button" class="btn btn-primary">Submit</button>
+                <br />
+                <div id="result"></div>
             </form>
         </div>
     </main>
     <jsp:include page="./includes/bodyInclude.jsp" />
+
+    <script>
+        $(document).ready(function() {
+            $("#submit").on("click", function () {
+
+                let formData = $("form").serializeArray();
+                let requestBody = {};
+                for(let i = 0; i < formData.length; i++){
+                    requestBody[formData[i].name] = formData[i].value;
+                }
+                requestBody["backgroundImage"] = "notApplicable";
+
+                $.ajax({
+                    type: "POST",
+                    url: "../rest/handleLayout",
+                    data: JSON.stringify(requestBody),
+                    dataType: "json",
+                    contentType : "application/json"
+                }).done(function() {
+                        $("#result").append("" +
+                            "<div id=\"message\" class=\"alert alert-success\">\n" +
+                            "  <strong>Success!</strong> Layout saved.\n" +
+                            "</div>");
+
+                        setTimeout(() => {
+                            $("#message").remove();
+                        }, 3000);
+                    })
+                    .fail(function() {
+                        $("#result").append("" +
+                        "<div id=\"message\" class=\"alert alert-danger\">\n" +
+                        "   <strong>Failure!</strong> Error in field values.\n" +
+                        "</div>");
+
+                        setTimeout(() => {
+                            $("#message").remove();
+                        }, 3000);
+                    });
+            });
+        });
+    </script>
 </body>
 </html>

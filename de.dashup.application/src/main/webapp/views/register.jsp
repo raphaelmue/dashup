@@ -63,7 +63,7 @@
         </div>
 
         <jsp:include page="./includes/bodyInclude.jsp" />
-        <script src="../scripts/login.js"></script>
+        <script src="../libraries/login.js"></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
     </body>
 </html>
