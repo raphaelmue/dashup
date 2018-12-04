@@ -8,6 +8,7 @@
         <title>dashup</title>
 
         <jsp:include page="./includes/headInclude.jsp" />
+        <jsp:include page="./includes/webComponents.jsp" />
         <jsp:include page="./includes/styles.jsp" />
         <jsp:include page="./includes/scripts.jsp" />
     </head>
@@ -16,6 +17,9 @@
         <main>
             <div class="wrapper">
                 <h1><fmt:message key="i18n.welcome"/>, ${name}!</h1>
+                <div>
+                    ${content}
+                </div>
             </div>
         </main>
         <jsp:include page="./includes/bodyInclude.jsp" />

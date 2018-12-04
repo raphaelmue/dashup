@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<template>
+<template id="dashupWeather">
 
     <style>
         #change {
@@ -45,10 +45,10 @@
     </style>
 
     <div style="border-style: groove; padding: 15px">
+        <a id="change" href="#" style="float: right">change city</a>
         <h1>
             <img id="icon" src=""/>
             Weather in <span id="city"> </span>
-            <a id="change" href="#" style="float: right">change city</a>
         </h1>
         <p>
             <span><strong>Temperature:   </strong><span id="temperature"></span></span>
@@ -58,14 +58,14 @@
 </template>
 
 <script>
-    const template = document.currentScript.ownerDocument.querySelector('template').content;
+    const weatherComponent = document.currentScript.ownerDocument.querySelector('#dashupWeather').content;
 
     class WeatherComponent extends HTMLElement {
 
         constructor(){
             super();
             this.attachShadow({mode: 'open'});
-            this.content = document.importNode(template, true);
+            this.content = document.importNode(weatherComponent, true);
             this.shadowRoot.appendChild(this.content);
 
             this.displayedIcon = this.shadowRoot.querySelector('#icon');
@@ -102,12 +102,16 @@
             this.update(this);
         }
 
-        attributeChangedCallback(name, oldValue, newValue) {
-            this.update(this);
+        disconnectedCallback() {
+            //NOOP
         }
 
-        disconnectedCallback(){
-            //Noop
+        adoptedCallback(){
+            //NOOP
+        }
+
+        attributeChangedCallback(name, oldValue, newValue) {
+            this.update(this);
         }
 
         get city(){

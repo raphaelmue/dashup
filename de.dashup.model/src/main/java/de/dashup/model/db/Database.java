@@ -40,7 +40,9 @@ public class Database {
         USERS("users"),
         USERS_TOKENS("users_tokens"),
         PANELS("panels"),
-        USERS_PANELS("users_panels");
+        USERS_PANELS("users_panels"),
+        USER_SECTIONS("user_sections"),
+        SECTIONS_PANELS("sections_panels");
 
         private String tableName;
 
@@ -124,7 +126,7 @@ public class Database {
                 HOST = fileReader.readLine();
                 DB_USER = fileReader.readLine();
                 DB_PASSWORD = fileReader.readLine();
-            } catch(IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -157,18 +159,27 @@ public class Database {
      * @param table           Database table to fetch from
      * @param resultType      Type of object, which will be returned
      * @param whereParameters Where parameters which will be concatenated by AND
+     * @param orderByClause   order by clause which will be appended on the sql statement
      * @return Object with fetched data
      * @throws SQLException thrown, when something went wrong executing the SQL statement
      */
-    public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters) throws SQLException, JsonParseException {
+    public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters,
+                                                    String orderByClause) throws SQLException, JsonParseException {
         Gson gson = new GsonBuilder().create();
-        JSONArray jsonArray = this.get(table, whereParameters);
+        JSONArray jsonArray = this.get(table, whereParameters, orderByClause);
         List<DatabaseObject> result = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             result.add(gson.fromJson(jsonObject.toString(), resultType));
         }
         return result;
+    }
+
+    /**
+     * @see Database#getObject(Table, Type, Map, String)
+     */
+    public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters) throws SQLException, JsonParseException {
+        return this.getObject(table, resultType, whereParameters, null);
     }
 
     /**
