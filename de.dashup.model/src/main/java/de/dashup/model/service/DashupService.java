@@ -3,15 +3,18 @@ package de.dashup.model.service;
 import de.dashup.model.db.Database;
 import de.dashup.shared.DatabaseObject;
 import de.dashup.shared.DatabaseUser;
+import de.dashup.shared.Settings;
 import de.dashup.shared.User;
 import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class DashupService {
@@ -54,6 +57,7 @@ public class DashupService {
             String hashedPassword = Hash.create(password, user.getSalt());
             if (hashedPassword.equals(user.getPassword())) {
                 if (rememberMe) {
+                    user.setSettings(this.getSettingsOfUser(user));
                     String token = this.randomString.nextString(64);
                     user.setToken(token);
                     HashMap<String, Object> values = new HashMap<>();
@@ -85,6 +89,19 @@ public class DashupService {
         }
 
         return null;
+    }
+
+    public Settings getSettingsOfUser(User user) throws SQLException {
+        Settings settings = new Settings();
+
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", user.getId());
+
+        JSONObject jsonObject = this.database.get(Database.Table.USERS, whereParameters).getJSONObject(0);
+        settings.setLanguage(Locale.forLanguageTag(jsonObject.getString("language").isEmpty() ?
+                "en" : jsonObject.getString("language")));
+
+        return settings;
     }
 
     /**
@@ -122,7 +139,7 @@ public class DashupService {
         return null;
     }
 
-    public User changePassword(User user, String oldPassword, String newPassword) throws SQLException, IllegalArgumentException {
+    public User updatePassword(User user, String oldPassword, String newPassword) throws SQLException, IllegalArgumentException {
         if (user.getPassword().equals(Hash.create(oldPassword, user.getSalt()))) {
             String newSalt = this.randomString.nextString(32);
             String newHashedPassword = Hash.create(newPassword, newSalt);
@@ -142,5 +159,15 @@ public class DashupService {
         } else {
             throw new IllegalArgumentException("Passworts does not match");
         }
+    }
+
+    public void updateSettings(User user) throws SQLException {
+        Map<String, Object> whereParameter = new HashMap<>();
+        whereParameter.put("id", user.getId());
+
+        Map<String, Object> values = new HashMap<>();
+        values.put("language", user.getSettings().getLanguage().toLanguageTag());
+
+        this.database.update(Database.Table.USERS, whereParameter, values);
     }
 }
