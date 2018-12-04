@@ -121,7 +121,10 @@ function onDelete(sectionId)
 }
 
 function inputChanged(inputText,id)
-{   var sid;
+{   var stringId = ""+id;
+    var inputField = document.getElementById("i"+stringId.replace("sn",""));
+    inputField.setAttribute("value",inputText);
+    var sid;
     var stringId = id+"";
     if(stringId.includes("s"))
     {
@@ -313,6 +316,7 @@ function addSection()
     handleButtonSpan.setAttribute("class","handle");
     var handleButtonText = document.createTextNode("#");
     handleButtonSpan.appendChild(handleButtonText);
+    handleButtonSpan.setAttribute("id","hn" + sectionId);
     newHeadingDiv.appendChild(handleButtonSpan);
 
 
@@ -322,11 +326,13 @@ function addSection()
     inputField.setAttribute("name","txt");
     inputField.setAttribute("value","New Section");
     inputField.setAttribute("onchange","inputChanged(this.value,\"" + "sn" + sectionId + "\")");
+    inputField.setAttribute("id","in" + sectionId);
     inputButtonSpan.appendChild(inputField);
     var deleteButton = document.createElement("button");
     deleteButton.setAttribute("type","button");
     deleteButton.setAttribute("onclick","onDelete('" + "sn" + sectionId + "')");
     deleteButton.setAttribute("class","btn btn-circle btn-lg");
+    deleteButton.setAttribute("id","bn" + sectionId);
     var xSign = document.createTextNode("x");
     deleteButton.appendChild(xSign);
     inputButtonSpan.appendChild(deleteButton);
