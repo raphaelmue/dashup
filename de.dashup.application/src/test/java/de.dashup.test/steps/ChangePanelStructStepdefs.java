@@ -6,10 +6,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 
@@ -52,13 +49,14 @@ public class ChangePanelStructStepdefs {
     @When("^User enters \"([^\"]*)\"$")
     public void user_enters(String arg1) throws Exception {
         WebDriver driver = GeneralStepdefs.getDriver();
-        driver.findElement(By.id("new_section_id")).sendKeys(arg1);
+        driver.findElement(By.id("in0")).sendKeys(arg1);
+        driver.findElement(By.id("in0")).sendKeys((char)13+"");
     }
 
     @Then("^A new empty section will be rendered, being titled with \"([^\"]*)\"$")
     public void a_new_empty_section_will_be_rendered_being_titled_with(String arg1) throws Exception {
         WebDriver driver = GeneralStepdefs.getDriver();
-        String newSection = driver.findElement(By.id("new_section_id")).getText();
+        String newSection = driver.findElement(By.id("in0")).getAttribute("value");
         Assert.assertEquals(arg1,newSection);
         driver.close();
     }
@@ -89,7 +87,7 @@ public class ChangePanelStructStepdefs {
     public void section_will_be_renamed_to(String arg1) throws Exception {
         WebDriver driver = GeneralStepdefs.getDriver();
         WebElement element=driver.findElement(By.id("i3"));
-        Assert.assertEquals(arg1,element.getText());
+        Assert.assertEquals(arg1,element.getAttribute("value"));
         driver.close();
     }
 
@@ -103,8 +101,13 @@ public class ChangePanelStructStepdefs {
     @Then("^Section will be removed$")
     public void section_will_be_removed() throws Exception {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement removedSection= driver.findElement(By.id("b2"));
-        Assert.assertNull(removedSection);
+        boolean error=true;
+        try {
+            WebElement removedSection = driver.findElement(By.id("b2"));
+        }catch (NoSuchElementException e){
+            error =false;
+        }
+        Assert.assertEquals(false,error);
         driver.close();
     }
 
@@ -131,14 +134,8 @@ public class ChangePanelStructStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         WebElement element = driver.findElement(By.id("h2"));
         sectionPos = element.getLocation();
-        Actions builder = new Actions(driver);
 
-        Action dragAndDrop = builder.clickAndHold(element)
-                .moveByOffset(0,300)
-                .release()
-                .build();
-
-        dragAndDrop.perform();
+        (new Actions(driver)).dragAndDropBy(element, 0, 100).perform();
     }
 
     @Then("^Section will be reordered to the specified position with all its containing panels$")
