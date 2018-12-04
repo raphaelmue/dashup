@@ -11,7 +11,7 @@ Feature: Change Panel Structure
 
   Scenario: Enable rearrangement menu
     Given User is on the main page
-    When The user clicks on the layout button
+    When The user clicks on the rearrangement button
     Then Dashup's general panel structure is now editable as change structure mode is activated
 
 
@@ -38,7 +38,6 @@ Feature: Change Panel Structure
     And Change structure mode is activated
     When User clicks on the remove icon of a section
     Then Section will be removed
-    And All panels will be moved to the section above
 
 
   Scenario: User wants to reorder his panels
