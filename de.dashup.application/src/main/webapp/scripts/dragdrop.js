@@ -122,7 +122,12 @@ function onDelete(sectionId)
 
 function inputChanged(inputText,id)
 {   var stringId = ""+id;
-    var inputField = document.getElementById("i"+stringId.replace("sn",""));
+    var idType;
+    if(stringId.includes("n"))idType="in";
+    else{
+        idType="i";
+    }
+    var inputField = document.getElementById(idType+stringId.replace("sn",""));
     inputField.setAttribute("value",inputText);
     var sid;
     var stringId = id+"";
