@@ -29,8 +29,8 @@ Feature: Change Panel Structure
     And Change structure mode is activated
     When User clicks on the name of a section
     And User enters "my new panels" to this section
-    And User clicks on submit button
-    Then section will be renamed to "my panels"
+    And User presses enter
+    Then section will be renamed to "my new panels"
 
 
   Scenario: User wants to remove a section

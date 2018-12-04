@@ -4,10 +4,10 @@ Feature: Marketplace
   I want to browse the marketplace
   So that I can find new panels and add them into my dashup
 
-  Background: User is logged into dashup
-    Given User is located on login page
-    When User submits username and password
-    Then User is logged in
+  #Background: User is logged into dashup
+   # Given User is located on login page
+   # When User submits username and password
+   # Then User is logged in
 
   Scenario: Open marketplace
     Given User is located on the main page
