@@ -24,7 +24,7 @@
                             </a>
                         </li>
                         <li id="nav-item-layout">
-                            <a class="nav-item nav-item-hover" href="${pageContext.request.contextPath}/layout">
+                            <a class="nav-item nav-item-hover" href="${pageContext.request.contextPath}/layoutmode">
                                 <fmt:message key="i18n.layout" />
                             </a>
                         </li>
@@ -41,6 +41,9 @@
         <main>
             <div class="wrapper">
                 <h1><fmt:message key="i18n.welcome"/>, ${name}!</h1>
+                <div>
+                    ${content}
+                </div>
             </div>
         </main>
         <jsp:include page="./includes/bodyInclude.jsp" />

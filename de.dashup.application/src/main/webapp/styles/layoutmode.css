@@ -1,0 +1,71 @@
+hr{
+    border: 1px solid #007bff;
+}
+
+input[type="text"]
+{
+    background: transparent;
+    border: none;
+    width:15%;
+}
+
+.gu-mirror {
+    position: fixed !important;
+    margin: 0 !important;
+    z-index: 9999 !important;
+    opacity: .8;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    filter: alpha(opacity=80);
+}
+
+.gu-hide {
+    display: none !important;
+}
+
+.gu-unselectable {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+}
+
+.gu-transit {
+    opacity: .2;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    filter: alpha(opacity=20);
+}
+
+.drag_container {
+    display: flex;
+}
+
+.gu-mirror img {
+    height: 100px;
+}
+
+.handle
+{
+    color:black;
+}
+
+.dashup_panel{
+    width: 150px ;
+    height: 150px;
+    z-index: 1000;
+    border: solid 2px;
+    border-color: red;
+    margin: 20px;
+}
+.dashup_section{
+    margin: 10px;
+}
+
+#bottomRight
+{
+    bottom: 10px;
+    right: 10px;
+    position: fixed;
+    width: 150px;
+    vertical-align: middle;
+    text-align: center;
+}
