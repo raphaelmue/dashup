@@ -31,32 +31,22 @@ function onDrop (el, to, from) {
             layoutStorage.splice(i,1);
             break;
         }
-        //console.log(layoutStorage[i][0].key);
     }
-    console.log(layoutStorage);
+
     layoutStorage.push(newPosition);
-    console.log(layoutStorage);
+
 
 
 }
 
 function onDropSection (el, to, from) {
     var id= el.parentNode.id;
-    console.log(id);
     var newPosition = getPositionOfPanels(id,"dashup_section");
     sectionOrder = newPosition;
-    console.log(sectionOrder);
 }
 
 function onSubmit()
 {
-    console.log("Submit");
-    console.log(formatChanges());
-
-    var data = {};
-    data["test"] = "test";
-    console.log(data);
-
     $.ajax({
         type: "POST",
         url: "../layoutmode/handleLayout",
@@ -74,7 +64,6 @@ function onSubmit()
 function onDelete(sectionId)
 {
     sectionsToDelte.push(sectionId);
-    console.log(sectionsToDelte);
     if(layoutStorage!=undefined)
     {
         for(var i=0;i<layoutStorage.length;i++){
@@ -84,7 +73,7 @@ function onDelete(sectionId)
                 layoutStorage.splice(i,1);
                 break;
             }
-            //console.log(layoutStorage[i][0].key);
+
         }
     }
 
@@ -150,7 +139,6 @@ function inputChanged(inputText,id)
         }
 
     )
-    console.log(sectionHeadings);
 }
 
 
@@ -263,7 +251,6 @@ function formatChanges()
     {
         for(let i=0;i<sectionsToDelte.length;i++)
         {
-            console.log(sectionsToDelte[i]);
             dashupStructure.sections.push(
                 {
                     section_id : sectionsToDelte[i],
