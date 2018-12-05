@@ -31,42 +31,29 @@ function onDrop (el, to, from) {
             layoutStorage.splice(i,1);
             break;
         }
-        //console.log(layoutStorage[i][0].key);
     }
-    console.log(layoutStorage);
+
     layoutStorage.push(newPosition);
-    console.log(layoutStorage);
+
 
 
 }
 
 function onDropSection (el, to, from) {
     var id= el.parentNode.id;
-    console.log(id);
     var newPosition = getPositionOfPanels(id,"dashup_section");
     sectionOrder = newPosition;
-    console.log(sectionOrder);
 }
 
 function onSubmit()
 {
-    console.log("Submit");
-    console.log(formatChanges());
-
-    var data = {};
-    data["test"] = "test";
-    console.log(data);
-
-        $.post('../layoutmode/confirmChanges',   // url
-            {  headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                dataType: 'json',
-                myData: JSON.stringify(data) }, // data to be submit
-            function(data, status, jqXHR) {// success callback
-                console.log("Success");
-            })
+    $.ajax({
+        type: "POST",
+        url: "../layoutmode/handleLayout",
+        data: JSON.stringify(formatChanges()),
+        dataType: "json",
+        contentType : "application/json"
+    })
 
     layoutStorage = [];
     sectionOrder = null;
@@ -77,7 +64,6 @@ function onSubmit()
 function onDelete(sectionId)
 {
     sectionsToDelte.push(sectionId);
-    console.log(sectionsToDelte);
     if(layoutStorage!=undefined)
     {
         for(var i=0;i<layoutStorage.length;i++){
@@ -87,7 +73,7 @@ function onDelete(sectionId)
                 layoutStorage.splice(i,1);
                 break;
             }
-            //console.log(layoutStorage[i][0].key);
+
         }
     }
 
@@ -153,7 +139,6 @@ function inputChanged(inputText,id)
         }
 
     )
-    console.log(sectionHeadings);
 }
 
 
@@ -211,7 +196,7 @@ function formatChanges()
     for(var i=0;i<sectionHeadings.length;i++){
 
         if(sectionHeadings[i].value != "%old%");
-        var sectionOrderValue = "%old%";
+        var sectionOrderValue = -1;
 
         if(sectionOrder!=undefined)
         {
@@ -222,7 +207,7 @@ function formatChanges()
                     if(sectionOrder[0].value[j].key === sectionHeadings[i].key)
                     {
                         sectionOrderValue = sectionOrder[0].value[j].value;
-                        sectionOrder[0].value[j].value = "%old%";
+                        sectionOrder[0].value[j].value = -1;
 
                     }
 
@@ -233,7 +218,7 @@ function formatChanges()
         dashupStructure.sections.push(
             {
                 section_id : sectionHeadings[i].key,
-                panels: "",
+                panels: [],
                 section_name:sectionHeadings[i].value,
                 section_order:sectionOrderValue
             }
@@ -246,12 +231,12 @@ function formatChanges()
     {
         for(var i=0;i<sectionOrder[0].value.length;i++){
 
-            if(sectionOrder[0].value[i].value != "%old%")
+            if(sectionOrder[0].value[i].value != -1)
             {
                 dashupStructure.sections.push(
                     {
                         section_id : sectionOrder[0].value[i].key,
-                        panels: "",
+                        panels: [],
                         section_name:"%old%",
                         section_order:sectionOrder[0].value[i].value
                     }
@@ -266,11 +251,10 @@ function formatChanges()
     {
         for(let i=0;i<sectionsToDelte.length;i++)
         {
-            console.log(sectionsToDelte[i]);
             dashupStructure.sections.push(
                 {
                     section_id : sectionsToDelte[i],
-                    panels: "",
+                    panels: [],
                     section_name:"",
                     section_order:-10
                 }
@@ -282,7 +266,7 @@ function formatChanges()
 
 function getSectionPosition(sectionId)
 {
-    if(sectionOrder==undefined)return "%old%";
+    if(sectionOrder==undefined)return -1;
     for(var i=0;i<sectionOrder[0].value.length;i++){
 
         if(sectionId==sectionOrder[0].value[i].key)
@@ -291,7 +275,7 @@ function getSectionPosition(sectionId)
         }
     }
 
-    return "%old%";
+    return -1;
 }
 
 function getSectionName(sectionId)
