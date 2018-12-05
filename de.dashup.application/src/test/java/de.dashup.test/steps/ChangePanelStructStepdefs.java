@@ -49,6 +49,7 @@ public class ChangePanelStructStepdefs {
     @When("^User enters \"([^\"]*)\"$")
     public void user_enters(String arg1) throws Exception {
         WebDriver driver = GeneralStepdefs.getDriver();
+        driver.findElement(By.id("in0")).clear();
         driver.findElement(By.id("in0")).sendKeys(arg1);
         driver.findElement(By.id("in0")).sendKeys((char)13+"");
     }
@@ -132,16 +133,23 @@ public class ChangePanelStructStepdefs {
     @When("^User drags a section to another position$")
     public void user_drags_a_section_to_another_position() throws Exception {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement element = driver.findElement(By.id("h2"));
+        WebElement element = driver.findElement(By.id("h1"));
         sectionPos = element.getLocation();
 
-        (new Actions(driver)).dragAndDropBy(element, 0, 100).perform();
+        Actions builder = new Actions(driver);
+        Action dragAndDrop = builder.clickAndHold(element)
+                .moveByOffset(-1, -1)
+                .moveToElement(driver.findElement(By.id("h3")))
+                .release(driver.findElement(By.id("h3")))
+                .build();
+        dragAndDrop.perform();
     }
 
     @Then("^Section will be reordered to the specified position with all its containing panels$")
     public void section_will_be_reordered_to_the_specified_position_with_all_its_containing_panels() throws Exception {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement element = driver.findElement(By.id("h2"));
+        WebElement element = driver.findElement(By.id("h1"));
+        Thread.sleep(5000);
         Assert.assertNotEquals(sectionPos,element.getLocation());
         driver.close();
     }
