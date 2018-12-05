@@ -1,6 +1,7 @@
 package de.dashup.application.controllers;
 
 import de.dashup.application.local.LocalStorage;
+import de.dashup.model.builder.DashupBuilder;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.User;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,10 @@ public class DashupController {
         if (user != null) {
             model.addAttribute("name", user.getName());
             model.addAttribute("email", user.getEmail());
+            DashupService.getInstance().getSectionsAndPanels(user);
+            model.addAttribute("content", DashupBuilder.buildUsersPanels(user));
             return "index";
+
         }
         return "redirect:/welcome";
     }
@@ -58,5 +62,11 @@ public class DashupController {
         this.localStorage.deleteCookie(response, "token");
 
         return "redirect:/welcome";
+    }
+
+    @RequestMapping("/layoutmode")
+    public String layoutMode() {
+        System.out.println("Delegating to the layoutMode controller");
+        return "redirect:/layoutmode/layoutMode";
     }
 }

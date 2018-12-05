@@ -35,6 +35,7 @@ public class LocalStorage {
         if (user != null || token != null && !token.isEmpty()) {
             if (token != null && !token.isEmpty()) {
                 user = DashupService.getInstance().getUserByToken(token);
+                user.setSettings(DashupService.getInstance().getSettingsOfUser(user));
             }
         }
         return user;

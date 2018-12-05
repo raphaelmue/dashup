@@ -1,22 +1,21 @@
 package de.dashup.model.service;
 
+import de.dashup.model.builder.PanelLoader;
 import de.dashup.model.db.Database;
-import de.dashup.shared.DatabaseObject;
-import de.dashup.shared.DatabaseUser;
-import de.dashup.shared.User;
+import de.dashup.shared.*;
 import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DashupService {
 
     private Database database;
+    private PanelLoader panelLoader;
     private RandomString randomString = new RandomString();
 
     private static DashupService INSTANCE;
@@ -34,6 +33,7 @@ public class DashupService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        this.panelLoader = PanelLoader.getInstance();
     }
 
     /**
@@ -51,9 +51,11 @@ public class DashupService {
         List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters);
         if (result != null && result.size() == 1) {
             User user = (User) new User().fromDatabaseObject(result.get(0));
+            user = this.getSectionsAndPanels(user);
             String hashedPassword = Hash.create(password, user.getSalt());
             if (hashedPassword.equals(user.getPassword())) {
                 if (rememberMe) {
+                    user.setSettings(this.getSettingsOfUser(user));
                     String token = this.randomString.nextString(64);
                     user.setToken(token);
                     HashMap<String, Object> values = new HashMap<>();
@@ -67,6 +69,33 @@ public class DashupService {
         }
 
         return null;
+    }
+
+    public User getSectionsAndPanels(User user) throws SQLException {
+        ArrayList<Section> sections = new ArrayList<>();
+
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("user_id", user.getId());
+
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USER_SECTIONS, Section.class, whereParameters);
+        if (result != null) {
+            for (DatabaseObject databaseObject : result) {
+                Section section = (Section) databaseObject;
+                Map<String, Object> innerWhereParameters = new HashMap<>();
+                innerWhereParameters.put("section_id", section.getId());
+                JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerWhereParameters);
+                if (innerResult != null) {
+                    ArrayList<Panel> panels = new ArrayList<>();
+                    for (int j = 0; j < innerResult.length(); j++) {
+                        panels.add(panelLoader.loadPanel(Integer.parseInt(innerResult.getJSONObject(j).get("panel_id").toString())));
+                    }
+                    section.setPanels(panels);
+                }
+                sections.add(section);
+            }
+        }
+        user.setSections(sections);
+        return user;
     }
 
     public User getUserByToken(String token) throws SQLException {
@@ -85,6 +114,19 @@ public class DashupService {
         }
 
         return null;
+    }
+
+    public Settings getSettingsOfUser(User user) throws SQLException {
+        Settings settings = new Settings();
+
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", user.getId());
+
+        JSONObject jsonObject = this.database.get(Database.Table.USERS, whereParameters).getJSONObject(0);
+        settings.setLanguage(Locale.forLanguageTag(jsonObject.getString("language").isEmpty() ?
+                "en" : jsonObject.getString("language")));
+
+        return settings;
     }
 
     /**
@@ -122,7 +164,7 @@ public class DashupService {
         return null;
     }
 
-    public User changePassword(User user, String oldPassword, String newPassword) throws SQLException, IllegalArgumentException {
+    public User updatePassword(User user, String oldPassword, String newPassword) throws SQLException, IllegalArgumentException {
         if (user.getPassword().equals(Hash.create(oldPassword, user.getSalt()))) {
             String newSalt = this.randomString.nextString(32);
             String newHashedPassword = Hash.create(newPassword, newSalt);
@@ -142,5 +184,15 @@ public class DashupService {
         } else {
             throw new IllegalArgumentException("Passworts does not match");
         }
+    }
+
+    public void updateSettings(User user) throws SQLException {
+        Map<String, Object> whereParameter = new HashMap<>();
+        whereParameter.put("id", user.getId());
+
+        Map<String, Object> values = new HashMap<>();
+        values.put("language", user.getSettings().getLanguage().toLanguageTag());
+
+        this.database.update(Database.Table.USERS, whereParameter, values);
     }
 }
