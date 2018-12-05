@@ -5,6 +5,9 @@
 <!doctype html>
 <html lang="en">
     <head>
+        <meta name="google-signin-scope" content="profile email">
+        <meta name="google-signin-client_id"
+              content="974420842298-kd1mc8a01ij835o0upmgq41fnc2vf5kp.apps.googleusercontent.com">
         <jsp:include page="./includes/headInclude.jsp" />
         <jsp:include page="./includes/styles.jsp" />
         <jsp:include page="./includes/scripts.jsp" />

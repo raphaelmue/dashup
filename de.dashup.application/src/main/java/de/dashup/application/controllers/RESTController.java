@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.SQLException;
 
 @RestController
@@ -23,7 +24,7 @@ public class RESTController {
     public @ResponseBody ResponseEntity<Object> handleLayout(
                                          @CookieValue(name = "token", required = false) String token,
                                          @RequestBody Layout layout,
-                                         HttpServletRequest request, HttpServletResponse response, Model model) throws SQLException {
+                                         HttpServletRequest request, HttpServletResponse response, Model model) throws SQLException, IOException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user == null)
             return new ResponseEntity(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);

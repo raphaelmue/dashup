@@ -8,8 +8,14 @@ import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
 import org.json.JSONArray;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -146,35 +152,39 @@ public class DashupService {
     }
 
     public boolean changeLayout(User user, String background_color, String background_image,
-                                int heading_size, String heading_color, String font, boolean insert) throws SQLException {
+                                int heading_size, String heading_color, String font, boolean insert){
 
         Pattern colorPattern = Pattern.compile("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
+        //Pattern urlPattern = Pattern.compile("/(((http|ftp|https):\\/{2})+(([0-9a-z_-]+\\.)+(aero|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cu|cv|cx|cy|cz|cz|de|dj|dk|dm|do|dz|ec|ee|eg|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mn|mn|mo|mp|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|nom|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ra|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sj|sk|sl|sm|sn|so|sr|st|su|sv|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw|arpa)(:[0-9]+)?((\\/([~0-9a-zA-Z\\#\\+\\%@\\.\\/_-]+))?(\\?[0-9a-zA-Z\\+\\%@\\/&\\[\\];=_-]+)?)?))\\b/imuS");
+
         boolean validBackgroundColor = colorPattern.matcher(background_color).matches();
         boolean validHeadingColor = colorPattern.matcher(heading_color).matches();
-
-        //For later use
-        //Pattern urlPattern = Pattern.compile("/^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$/");
         //boolean validURL = urlPattern.matcher(background_image).matches();
+        boolean validURL = true;
 
         //TBD: Validate Fonts
-        if(!(validBackgroundColor && validHeadingColor && heading_size > 12 && heading_size < 30)){
+        if(!(validBackgroundColor && validHeadingColor && heading_size > 12 && heading_size < 30 && validURL)){
             return false;
         }
 
-        Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("user_id", user.getId());
+        try {
+            Map<String, Object> whereParameters = new HashMap<>();
+            whereParameters.put("user_id", user.getId());
 
-        Map<String, Object> values = new HashMap<>();
-        values.put("background_color", background_color);
-        values.put("background_image", background_image);
-        values.put("heading_size", heading_size);
-        values.put("heading_color", heading_color);
-        values.put("font", font);
+            Map<String, Object> values = new HashMap<>();
+            values.put("background_color", background_color);
+            values.put("background_image", background_image);
+            values.put("heading_size", heading_size);
+            values.put("heading_color", heading_color);
+            values.put("font", font);
 
-        if(insert){
-            this.database.insert(Database.Table.USER_LAYOUT, values);
-        } else {
-            this.database.update(Database.Table.USER_LAYOUT, whereParameters, values);
+            if (insert) {
+                this.database.insert(Database.Table.USER_LAYOUT, values);
+            } else {
+                this.database.update(Database.Table.USER_LAYOUT, whereParameters, values);
+            }
+        } catch (SQLException e) {
+            return false;
         }
         return true;
     }

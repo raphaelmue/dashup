@@ -21,10 +21,7 @@
                 </div>
                 <div class="form-group">
                     <label for="backgroundImage"><fmt:message key="i18n.backgroundImage"/></label>
-                    <div id="backgroundImage"class="custom-file">
-                        <input id="customFile" name="backgroundImage" type="file" class="custom-file-input">
-                        <label class="custom-file-label" for="customFile"><fmt:message key="i18n.chooseFile"/></label>
-                    </div>
+                    <input id="backgroundImage" name="backgroundImage" type="text" class="form-control" placeholder="Enter URL">
                 </div>
 
                 <h4><fmt:message key="i18n.sections"/></h4>
@@ -45,6 +42,7 @@
                 </div>
                 <button id="submit" type="button" class="btn btn-primary">Submit</button>
                 <br />
+                <br />
                 <div id="result"></div>
             </form>
         </div>
@@ -54,13 +52,11 @@
     <script>
         $(document).ready(function() {
             $("#submit").on("click", function () {
-
                 let formData = $("form").serializeArray();
                 let requestBody = {};
                 for(let i = 0; i < formData.length; i++){
                     requestBody[formData[i].name] = formData[i].value;
                 }
-                requestBody["backgroundImage"] = "notApplicable";
 
                 $.ajax({
                     type: "POST",
