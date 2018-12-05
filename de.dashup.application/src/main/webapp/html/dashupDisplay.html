@@ -16,7 +16,6 @@
 
             this.display = this.shadowRoot.querySelector('#display');
             this.display.innerHTML = "No Data";
-            this.text = this.display.innerHTML;
         }
 
         handleData(data, val){
@@ -40,6 +39,7 @@
             if (!this.hasAttribute('name')) {
                 this.setAttribute('name', 'default');
             }
+            this.text = this.display.innerHTML;
         }
 
         disconnectedCallback() {
