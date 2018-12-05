@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/")
@@ -23,6 +24,12 @@ public class DashupController {
         if (user != null) {
             model.addAttribute("name", user.getName());
             model.addAttribute("email", user.getEmail());
+
+            Map<String, String> layout = DashupService.getInstance().loadLayout(user);
+            for (Map.Entry<String, String> entry : layout.entrySet()) {
+                model.addAttribute(entry.getKey(), entry.getValue());
+            }
+
             return "index";
         }
         return "redirect:/welcome";

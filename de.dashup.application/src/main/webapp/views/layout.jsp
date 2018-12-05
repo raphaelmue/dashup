@@ -17,28 +17,28 @@
                 <h4><fmt:message key="i18n.background"/></h4>
                 <div class="form-group">
                     <label for="backgroundColor"><fmt:message key="i18n.backgroundColor"/></label>
-                    <div id="backgroundColor" class="bfh-colorpicker" data-name="backgroundColor" data-color="#000000"></div>
+                    <div id="backgroundColor" class="bfh-colorpicker" data-name="backgroundColor" data-color=${background_color}></div>
                 </div>
                 <div class="form-group">
                     <label for="backgroundImage"><fmt:message key="i18n.backgroundImage"/></label>
-                    <input id="backgroundImage" name="backgroundImage" type="text" class="form-control" placeholder="Enter URL">
+                    <input id="backgroundImage" name="backgroundImage" type="text" class="form-control" placeholder="Enter URL" value=${background_image}>
                 </div>
 
                 <h4><fmt:message key="i18n.sections"/></h4>
                 <div class="form-group">
                     <label for="headingSize"><fmt:message key="i18n.headingSize"/></label>
-                    <input id="headingSize" name="headingSize" type="text" class="form-control bfh-number">
+                    <input id="headingSize" name="headingSize" type="text" class="form-control bfh-number" value=${heading_size}>
                 </div>
                 <div class="form-group">
                     <label for="headingColor"><fmt:message key="i18n.headingColor"/></label>
-                    <div id="headingColor" class="bfh-colorpicker" data-name="headingColor" data-color="#ffffff"></div>
+                    <div id="headingColor" class="bfh-colorpicker" data-name="headingColor" data-color=${heading_color}></div>
                 </div>
 
                 <h4><fmt:message key="i18n.font"/></h4>
                 <div class="form-group">
                     <label for="font"><fmt:message key="i18n.font"/></label>
                     <%--<select id="font" class="form-control bfh-fonts" data-name="font" data-available="Arial,Calibri,Helvetica"></select>--%>
-                    <div id="font" class="bfh-selectbox bfh-fonts" data-font="Arial" data-name="font"></div>
+                    <div id="font" class="bfh-selectbox bfh-fonts" data-font=${font} data-name="font"></div>
                 </div>
                 <button id="submit" type="button" class="btn btn-primary">Submit</button>
                 <br />

@@ -7,18 +7,11 @@ import de.dashup.shared.User;
 import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class DashupService {
@@ -188,4 +181,21 @@ public class DashupService {
         }
         return true;
     }
+
+    public Map<String, String> loadLayout(User user) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("user_id", user.getId());
+        JSONObject jsonObject = this.database.get(Database.Table.USER_LAYOUT, whereParameters).getJSONObject(0);
+
+        Map<String, String> result = new HashMap<>();
+        Iterator<String> iter = jsonObject.keySet().iterator();
+        while (iter.hasNext()) {
+            String key = iter.next();
+            result.put(key, jsonObject.get(key).toString());
+        }
+        result.remove("id");
+        result.remove("user_id");
+        return result;
+    }
+
 }

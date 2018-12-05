@@ -10,12 +10,26 @@
         <jsp:include page="./includes/headInclude.jsp" />
         <jsp:include page="./includes/styles.jsp" />
         <jsp:include page="./includes/scripts.jsp" />
+
+        <style>
+            body {
+                background: url(${background_image}) no-repeat;
+                background-color: ${background_color};
+                background-size: cover;
+                min-height: 100vh;
+            }
+            .sectionHeading {
+                font-size: ${heading_size};
+                font-family: ${font};
+                color: ${heading_color};
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="includes/mainHeader.jsp"/>
         <main>
             <div class="wrapper">
-                <h1><fmt:message key="i18n.welcome"/>, ${name}!</h1>
+                <h1 class="sectionHeading"><fmt:message key="i18n.welcome"/>, ${name}!</h1>
             </div>
         </main>
         <jsp:include page="./includes/bodyInclude.jsp" />
