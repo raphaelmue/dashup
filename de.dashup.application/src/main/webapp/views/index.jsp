@@ -23,5 +23,11 @@
             </div>
         </main>
         <jsp:include page="./includes/bodyInclude.jsp" />
+
+        <script>
+            $( document ).ready(function () {
+                $("#nav-item-home").children().addClass("selected");
+            });
+        </script>
     </body>
 </html>

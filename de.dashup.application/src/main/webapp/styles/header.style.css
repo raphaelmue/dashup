@@ -44,6 +44,10 @@ nav ul li a.nav-item {
     transition: all 0.5s;
 }
 
+nav ul li a.nav-item.selected:after {
+    width: 100%;
+}
+
 nav ul li a.nav-item-hover:after {
     display: block;
     content: '';
