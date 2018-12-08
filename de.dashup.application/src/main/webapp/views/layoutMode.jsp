@@ -66,9 +66,9 @@
 </main>
 
 <div id="bottomRight">
-    <ul><button type="button" class="btn btn-circle btn-lg">undo</button></ul>
-    <ul><button type="button" onclick="addSection()" class="btn btn-circle btn-lg">add</button></ul>
-    <ul><button type="button" onclick="onSubmit()" class="btn btn-circle btn-lg">submit</button></ul>
+    <ul><button type="button" class="btn btn-primary">undo</button></ul>
+    <ul><button type="button" onclick="addSection()" class="btn btn-primary">add</button></ul>
+    <ul><button type="button" onclick="onSubmit()" class="btn btn-primary">submit</button></ul>
 </div>
 
 

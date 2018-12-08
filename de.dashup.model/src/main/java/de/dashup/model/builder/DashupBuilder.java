@@ -31,7 +31,7 @@ public class DashupBuilder {
             content.append(s.getName());
             content.append("\" onchange=\"inputChanged(this.value,"+s.getId()+")\"><button type=\"button\"  id=\"b" + s.getId() + "\" onclick=\"onDelete('s");
             content.append(s.getId());
-            content.append("')\" class=\"btn btn-circle btn-lg\">x</button></span></div>");
+            content.append("')\" class=\"btn btn-primary\">x</button></span></div>");
             content.append("<hr>");
             content.append("<div class=\"drag_container\" id=\"drag_container");
             content.append(s.getId()).append("\">");
