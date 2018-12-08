@@ -8,6 +8,9 @@ input[type="text"]
     border: none;
     width:15%;
 }
+main{
+    color: black;
+}
 
 .gu-mirror {
     position: fixed !important;
@@ -48,19 +51,12 @@ input[type="text"]
     color:black;
 }
 
-.dashup_panel{
-    width: 150px ;
-    height: 150px;
-    z-index: 1000;
-    border: solid 2px;
-    border-color: red;
-    margin: 20px;
-}
-.dashup_section{
+
+.dashup-section{
     margin: 10px;
 }
 
-#bottomRight
+#bottom-right
 {
     bottom: 10px;
     right: 10px;

@@ -58,17 +58,16 @@
 
 <main>
     <div class="wrapper">
-        <h1><fmt:message key="i18n.layout"/>, ${name}!</h1>
         <div>
             ${content}
         </div>
     </div>
 </main>
 
-<div id="bottomRight">
-    <ul><button type="button" class="btn btn-primary">undo</button></ul>
-    <ul><button type="button" onclick="addSection()" class="btn btn-primary">add</button></ul>
-    <ul><button type="button" onclick="onSubmit()" class="btn btn-primary">submit</button></ul>
+<div id="bottom-right">
+    <ul><button type="button" class="btn btn-primary">Undo</button></ul>
+    <ul><button type="button" onclick="addSection()" class="btn btn-primary">Add</button></ul>
+    <ul><button type="button" onclick="onSubmit()" class="btn btn-primary">Submit</button></ul>
 </div>
 
 
