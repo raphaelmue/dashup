@@ -106,6 +106,12 @@ function onDelete(sectionId)
     element. parentNode. removeChild(element);
 }
 
+function onUndo() {
+
+    location.reload();
+
+}
+
 function inputChanged(inputText,id)
 {   var stringId = ""+id;
     var idType;

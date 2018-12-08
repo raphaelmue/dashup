@@ -65,7 +65,7 @@
 </main>
 
 <div id="bottom-right">
-    <ul><button type="button" class="btn btn-primary">Undo</button></ul>
+    <ul><button type="button" onclick="onUndo()" class="btn btn-primary">Undo</button></ul>
     <ul><button type="button" onclick="addSection()" class="btn btn-primary">Add</button></ul>
     <ul><button type="button" onclick="onSubmit()" class="btn btn-primary">Submit</button></ul>
 </div>
