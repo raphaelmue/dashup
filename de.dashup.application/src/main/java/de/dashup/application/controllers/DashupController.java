@@ -1,6 +1,7 @@
 package de.dashup.application.controllers;
 
 import de.dashup.application.local.LocalStorage;
+import de.dashup.model.builder.DashupBuilder;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.User;
 import org.springframework.stereotype.Controller;
@@ -20,14 +21,28 @@ public class DashupController {
 
     @RequestMapping("/")
     public String main(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
-        User user = this.localStorage.getUser(request, token);
-        if (user != null) {
-            model.addAttribute("name", user.getName());
-            model.addAttribute("email", user.getEmail());
 
-            Map<String, String> layout = DashupService.getInstance().loadLayout(user);
-            for (Map.Entry<String, String> entry : layout.entrySet()) {
-                model.addAttribute(entry.getKey(), entry.getValue());
+        User user = (User) this.localStorage.readObjectFromSession(request, "user");
+        if (user != null || token != null && !token.isEmpty()) {
+            if (token != null && !token.isEmpty()) {
+                try {
+                    user = DashupService.getInstance().getUserByToken(token);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (user != null) {
+                model.addAttribute("name", user.getName());
+                model.addAttribute("email", user.getEmail());
+
+                Map<String, String> layout = DashupService.getInstance().loadLayout(user);
+                for (Map.Entry<String, String> entry : layout.entrySet()) {
+                    model.addAttribute(entry.getKey(), entry.getValue());
+                }
+
+                DashupService.getInstance().getSectionsAndPanels(user);
+                model.addAttribute("content", DashupBuilder.buildUsersPanels(user));
+                return "index";
             }
 
             return "index";
@@ -65,5 +80,11 @@ public class DashupController {
         this.localStorage.deleteCookie(response, "token");
 
         return "redirect:/welcome";
+    }
+
+    @RequestMapping("/layoutmode")
+    public String layoutMode() {
+        System.out.println("Delegating to the layoutMode controller");
+        return "redirect:/layoutmode/layoutMode";
     }
 }

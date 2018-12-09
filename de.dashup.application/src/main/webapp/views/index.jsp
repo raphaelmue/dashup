@@ -8,6 +8,7 @@
         <title>dashup</title>
 
         <jsp:include page="./includes/headInclude.jsp" />
+        <jsp:include page="./includes/webComponents.jsp" />
         <jsp:include page="./includes/styles.jsp" />
         <jsp:include page="./includes/scripts.jsp" />
 

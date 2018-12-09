@@ -61,7 +61,7 @@
         <script>
 
             //gapi.load('auth2', function () {
-            //  gapi.auth2.init();
+             //gapi.auth2.init();
             //});
 
             function onSignIn(googleUser) {

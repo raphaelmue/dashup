@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Raleway|Roboto">
 <link rel="stylesheet" href="../../styles/colors.style.css"/>
 <link rel="stylesheet" href="../../styles/typo.style.css"/>
 <link rel="stylesheet" href="../../styles/main.style.css"/>
