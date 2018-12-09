@@ -16,11 +16,14 @@
 
         <div class="jumbotron jumbotron-fluid bg-primary text-white">
             <div class="container">
-                <h1 class="display-4"><a href="${pageContext.request.contextPath}/entry/login"><fmt:message key="i18n.welcome" /></a></h1>
+                <h1 class="display-4"><fmt:message key="i18n.welcome" /></h1>
             </div>
         </div>
 
         <div id="WeatherComponent" class="container col-lg-4 col-lg-offset-4">
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/entry/login" role="button">Login</a>
+            <br />
+            <br />
             <dashup-weather city="Walldorf"></dashup-weather>
         </div>
 
