@@ -37,6 +37,7 @@
                 <div class="form-group">
                     <label for="headingSize"><fmt:message key="i18n.headingSize"/></label>
                     <input id="headingSize" name="headingSize" type="text" class="form-control bfh-number" value="${heading_size}">
+                    <small id="restrictions" class="form-text text-muted">Choose a value between 12pt and 40pt.</small>
                 </div>
 
                 <h4><fmt:message key="i18n.font"/></h4>

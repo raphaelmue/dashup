@@ -148,15 +148,13 @@ public class DashupService {
                                 int heading_size, String heading_color, String font_heading, String font_text, boolean insert){
 
         Pattern colorPattern = Pattern.compile("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
-        //Pattern urlPattern = Pattern.compile("/(((http|ftp|https):\\/{2})+(([0-9a-z_-]+\\.)+(aero|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cu|cv|cx|cy|cz|cz|de|dj|dk|dm|do|dz|ec|ee|eg|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mn|mn|mo|mp|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|nom|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ra|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sj|sk|sl|sm|sn|so|sr|st|su|sv|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw|arpa)(:[0-9]+)?((\\/([~0-9a-zA-Z\\#\\+\\%@\\.\\/_-]+))?(\\?[0-9a-zA-Z\\+\\%@\\/&\\[\\];=_-]+)?)?))\\b/imuS");
+        Pattern urlPattern = Pattern.compile("(http(s?):)([/|.|\\w|\\s|-])*\\.(?:jpg|gif|png)");
+        String[] allowedFonts = {"Andale","Mono","Arial","Arial Black","Avant Garde","Calibri","Courier New","Helvetica","Impact","Times New Roman","Verdana"};
 
-        boolean validBackgroundColor = colorPattern.matcher(background_color).matches();
-        boolean validHeadingColor = colorPattern.matcher(heading_color).matches();
-        //boolean validURL = urlPattern.matcher(background_image).matches();
-        boolean validURL = true;
-
-        //TBD: Validate Fonts
-        if(!(validBackgroundColor && validHeadingColor && heading_size > 12 && heading_size < 30 && validURL)){
+        boolean validColors = colorPattern.matcher(background_color).matches() && colorPattern.matcher(heading_color).matches();
+        boolean validURL = urlPattern.matcher(background_image).matches();
+        boolean validFonts = Arrays.asList(allowedFonts).contains(font_heading) && Arrays.asList(allowedFonts).contains(font_text);
+        if(!(validColors && validFonts && heading_size >= 12 && heading_size <= 40 && validURL)){
             return false;
         }
 
