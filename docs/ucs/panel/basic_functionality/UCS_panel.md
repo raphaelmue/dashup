@@ -27,7 +27,7 @@ dashup - Use Case Specification: Panels - Panel's Basic Functionality
 # 1. Panel's Basic Functionality - Brief Description
 In the use case _panel's basic functionality_, the general usage of a panel on the dashup platform
 is described. As each user can create custom panels, this document rather serves as a guideline 
-for the design and usage of a panel.
+for the design and usage of a panel and is therefore rather more technical oriented. 
 
 # 2. Flow of Events
 
@@ -42,7 +42,7 @@ that matches with the actual idea behind dashup, that only delivers a dashboard 
 ### 2.1.2 Mock-Up
 <img src="mockups/panel.png" alt="Mockup for an example panel" />
 <br />
-<img src="mockups/panel_input.png" alt="Mockup for changing a panel" />
+<img src="mockups/change_input.png" alt="Mockup for changing a panel" />
 <br />
 <img src="mockups/panel_edited.png" alt="Mockup for an edited panel" />
 

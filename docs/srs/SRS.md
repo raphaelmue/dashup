@@ -179,7 +179,7 @@ own microservices.
 The marketplace implements the functionality to browse through the internal
 store of panels for microservices within dashup. Here users can rate, comment and add panels to 
 their dashboard. 
-(Use Case: <a href="../ucs/marketplace/UCS_marketplace.md">Change Panel Structure</a>)
+(Use Case: <a href="../ucs/user_management/UCS_login_register.md">Login And Register</a>)
 
 
 ### 3.1.4 Layout
