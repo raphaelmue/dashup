@@ -6,7 +6,8 @@ public class Layout {
     private String backgroundImage;
     private String headingSize;
     private String headingColor;
-    private String font;
+    private String fontHeading;
+    private String fontText;
 
     public String getBackgroundColor() {
         return backgroundColor;
@@ -40,12 +41,20 @@ public class Layout {
         this.headingColor = headingColor;
     }
 
-    public String getFont() {
-        return font;
+    public String getFontHeading() {
+        return fontHeading;
     }
 
-    public void setFont(String font) {
-        this.font = font;
+    public void setFontHeading(String fontHeading) {
+        this.fontHeading = fontHeading;
+    }
+
+    public String getFontText() {
+        return fontText;
+    }
+
+    public void setFontText(String fontText) {
+        this.fontText = fontText;
     }
 
 }

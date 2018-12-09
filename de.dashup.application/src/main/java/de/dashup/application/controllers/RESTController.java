@@ -30,7 +30,7 @@ public class RESTController {
             return new ResponseEntity(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
 
         boolean success = DashupService.getInstance().changeLayout(user, layout.getBackgroundColor(), layout.getBackgroundImage(), Integer.parseInt(layout.getHeadingSize()),
-                layout.getHeadingColor(), layout.getFont(), false);
+                layout.getHeadingColor(), layout.getFontHeading(), layout.getFontText(), false);
         JSONObject entity = new JSONObject();
         if(success){
             entity.put("message", "Success");

@@ -7,6 +7,11 @@
         <h1 class="heading">dashup</h1>
         <nav id="navbar">
             <ul>
+                <li id="nav-item-dashboard">
+                    <a class="nav-item nav-item-hover" href="${pageContext.request.contextPath}/">
+                        <fmt:message key="i18n.dashboard"/>
+                    </a>
+                </li>
                 <li id="nav-item-marketplace">
                     <a class="nav-item nav-item-hover" href="${pageContext.request.contextPath}/marketplace/">
                         <fmt:message key="i18n.marketplace"/>

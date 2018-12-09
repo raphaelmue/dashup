@@ -12,6 +12,9 @@
         <jsp:include page="./includes/scripts.jsp" />
 
         <style>
+            * {
+                font-family: ${font_text}, sans-serif
+            }
             body {
                 background: url(${background_image}) no-repeat;
                 background-color: ${background_color};
@@ -19,8 +22,8 @@
                 min-height: 100vh;
             }
             .sectionHeading {
-                font-size: ${heading_size};
-                font-family: ${font};
+                font-size: ${heading_size}pt;
+                font-family: ${font_heading};
                 color: ${heading_color};
             }
         </style>

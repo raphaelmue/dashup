@@ -32,22 +32,22 @@
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <div class="form-group">
-                    <label class="text-white" for="email"><fmt:message key="i18n.name" /></label>
+                    <label class="text-white" for="name"><fmt:message key="i18n.name" /></label>
                     <input type="text" class="form-control" id="name" name="name"
                            placeholder="<fmt:message key="i18n.name" />">
                 </div>
                 <div class="form-group">
-                    <label class="text-white" for="email"><fmt:message key="i18n.surname" /></label>
+                    <label class="text-white" for="surname"><fmt:message key="i18n.surname" /></label>
                     <input type="text" class="form-control" id="surname" name="surname"
                            placeholder="<fmt:message key="i18n.surname" />">
                 </div>
                 <div class="form-group">
-                    <label class="text-white" for="email"><fmt:message key="i18n.password" /></label>
+                    <label class="text-white" for="password"><fmt:message key="i18n.password" /></label>
                     <input type="password" class="form-control" id="password" name="password"
                            placeholder="<fmt:message key="i18n.password" />">
                 </div>
                 <div class="form-group">
-                    <label class="text-white" for="password"><fmt:message key="i18n.repeatPassword" /></label>
+                    <label class="text-white" for="repeat-password"><fmt:message key="i18n.repeatPassword" /></label>
                     <input type="password" class="form-control" id="repeat-password" name="repeat-password"
                            placeholder="<fmt:message key="i18n.repeatPassword" />">
                 </div>
@@ -55,15 +55,7 @@
             </form>
         </div>
 
-        <br />
-
-        <div class="container col-lg-4 col-lg-offset-4"><div>
-            <label class="text-white" for="google"><fmt:message key="i18n.signInWithGoogle" /></label>
-            <div id="google" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-        </div>
-
         <jsp:include page="./includes/bodyInclude.jsp" />
-        <script src="../libraries/login.js"></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
     </body>
 </html>
