@@ -53,7 +53,7 @@ using specific interaction components, like a button or an input field.
 ### 2.1.3 Narrative
 The functionality of the application behind a panel is hosted on an external server (see UCD in SRS) and provided by its API.
 Therefore, the functionality of a panel won't get tested. Only the mechanism of updating a panels content
-is worth testing, but as the content of a panel itself is defined by the user, testing of a panel is not possible.
+is worth testing, but as the content of a panel itself is defined by the user (role: developer), testing of a panel is not possible.
 
 Possible tests for the technical point of view of a panel, that is implemented through web components, would be possible though. 
 But as this is not related to a certain use case and not human readable as really technical sided, these functional tests remain internal.
@@ -71,7 +71,7 @@ Rendering takes place in the Shadow DOM of the browser, the user only has to pas
 
 - name: Name of the component in order to address it uniquely
 - api: Address of the api of the user, that delivers the data to display
-- param: name of parameter for the POST Request, whose value is added by the component (optional)
+- param: name of parameter for the API call, whose value is added by the component (optional)
 - action: use "data" to fetch data or "rfc" to make a remote function call with data of the component (optional, default: rfc)
 - consumers: components, to which the response should be forwarded, in order to display the result (optional)
 
