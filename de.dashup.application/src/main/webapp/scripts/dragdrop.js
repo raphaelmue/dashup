@@ -326,7 +326,7 @@ function addSection()
     var deleteButton = document.createElement("button");
     deleteButton.setAttribute("type","button");
     deleteButton.setAttribute("onclick","onDelete('" + "sn" + sectionId + "')");
-    deleteButton.setAttribute("class","btn btn-circle btn-lg");
+    deleteButton.setAttribute("class","btn btn-primary");
     deleteButton.setAttribute("id","bn" + sectionId);
     var xSign = document.createTextNode("x");
     deleteButton.appendChild(xSign);
