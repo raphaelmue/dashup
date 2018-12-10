@@ -21,7 +21,11 @@
             </div>
         </div>
 
-        <div id="WeatherComponent" class="container col-lg-8 col-lg-offset-2">
+        <div id="WeatherComponent" class="container col-lg-4 col-lg-offset-4">
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/entry/login" role="button">Login</a>
+            <br />
+            <br />
+
             <dashup-weather city="Walldorf"></dashup-weather>
         </div>
 

@@ -40,12 +40,6 @@
             this.input = this.shadowRoot.querySelector('#input');
             this.input.value = "Heidelberg";
             this.text =  this.input.value;
-            if(this.hasAttribute('api') && this._validURL(this.api)){
-                this.input.addEventListener('change', () => {
-                    this.text =  this.input.value;
-                    this._callAPI();
-                });
-            }
         }
 
         _callAPI(){
@@ -110,8 +104,14 @@
         }
 
         connectedCallback() {
-            if (this.hasAttribute('api') && !this.hasAttribute('action')) {
-                this.setAttribute('action', 'rpc');
+            if(this.hasAttribute('api') && this._validURL(this.api)){
+                this.input.addEventListener('change', () => {
+                    this.text =  this.input.value;
+                    this._callAPI();
+                });
+                if(!this.hasAttribute('action')) {
+                    this.setAttribute('action', 'rpc');
+                }
             }
         }
 
