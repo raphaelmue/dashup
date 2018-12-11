@@ -78,7 +78,7 @@
 
             $("#change-password-link").on("click", function () {
                 $.confirm({
-                    title: "<fmt:message key="i18n.changeLanguage"/>",
+                    title: "<fmt:message key="i18n.changePassword"/>",
                     content:
                         "<div class=\"form-group\">" +
                             "<label class=\"text\" for=\"password\"><fmt:message key="i18n.oldPassword" /></label>" +
