@@ -12,8 +12,12 @@ pipeline {
       }
     }
     stage('Deploy') {
-      when (env.BRANCH_NAME == 'deployment')
+      when{
+        branch 'deployment'
+      }
+      steps {
         sh 'mvn spring-boot:run'
+      }
     }
   }
 }
