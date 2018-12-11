@@ -176,7 +176,11 @@ own microservices.
 (Use Case: <a href="../ucs/marketplace/UCS_marketplace.md">Marketplace</a>)
 
 ### 3.1.3 User Management
-TBD
+The marketplace implements the functionality to browse through the internal
+store of panels for microservices within dashup. Here users can rate, comment and add panels to 
+their dashboard. 
+(Use Case: <a href="../ucs/user_management/UCS_login_register.md">Login And Register</a>)
+
 
 ### 3.1.4 Layout
 The platform should enable the user to create, name and delete new sections and fill these sections with the desired panels. 
@@ -189,7 +193,9 @@ These settings can be changed in a little layout menu.
 (Use Case: <a href="../ucs/layout/change_layout/UCS_change_layout.md">Change Layout</a>)
 
 ### 3.1.5 Panels
-TBD
+As each user can create custom panels, the extent of usage and functionality is up to the user itself.
+But there are certain guidelines and restrictions that apply to each panel.
+(Use Case: <a href="../ucs/panel/basic_functionality/UCS_panel.md">Panel's Basic Functionality</a>)
 
 ### 3.1.6 Custom Panels
 
