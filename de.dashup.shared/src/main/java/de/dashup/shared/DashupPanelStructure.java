@@ -4,18 +4,22 @@ import java.util.List;
 
 public class DashupPanelStructure {
 
-    private String test;
+    private List<DashupSectionStructure> sections;
 
-    public DashupPanelStructure(String test)
-    {
-        this.test = test;
+    public List<DashupSectionStructure> getSections() {
+        return sections;
     }
 
-    public String toString()
-    {
-        return test;
+    public void setSections(List<DashupSectionStructure> sections) {
+        this.sections = sections;
     }
 
+    public  String ret()
+    {
+        if(sections !=null) return String.valueOf(sections.get(0).getSection_id() + " && " + sections.get(0).getPanels());
 
+        return "is null";
+
+    }
 
 }

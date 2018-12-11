@@ -2,6 +2,7 @@ header {
     padding: 10px 0;
     background: linear-gradient(141deg, var(--dark), var(--main) 20%, #26c0ad 90%);;
     color: var(--white);
+    margin: 0 0 25px;
 
     -webkit-box-shadow: 0 0 3px 0 rgba(0,0,0,0.75);
     -moz-box-shadow: 0 0 3px 0 rgba(0,0,0,0.75);
@@ -9,7 +10,6 @@ header {
 }
 
 header h1 {
-    padding: 0 25px;
     font-size: 30px;
     margin: 8px 0;
     display: inline-block;
@@ -42,6 +42,10 @@ nav ul li a.nav-item {
 
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
+}
+
+nav ul li a.nav-item.selected:after {
+    width: 100%;
 }
 
 nav ul li a.nav-item-hover:after {

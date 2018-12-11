@@ -39,6 +39,7 @@ public class Database {
     public enum Table {
         USERS("users"),
         USERS_TOKENS("users_tokens"),
+        USER_LAYOUT("user_layout"),
         PANELS("panels"),
         USERS_PANELS("users_panels"),
         USER_SECTIONS("user_sections"),

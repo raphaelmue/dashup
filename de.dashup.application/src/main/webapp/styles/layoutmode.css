@@ -7,7 +7,9 @@ input[type="text"]
     background: transparent;
     border: none;
     width:15%;
+    color:white;
 }
+
 
 .gu-mirror {
     position: fixed !important;
@@ -43,24 +45,13 @@ input[type="text"]
     height: 100px;
 }
 
-.handle
-{
-    color:black;
-}
 
-.dashup_panel{
-    width: 150px ;
-    height: 150px;
-    z-index: 1000;
-    border: solid 2px;
-    border-color: red;
-    margin: 20px;
-}
-.dashup_section{
+
+.dashup-section{
     margin: 10px;
 }
 
-#bottomRight
+#bottom-right
 {
     bottom: 10px;
     right: 10px;

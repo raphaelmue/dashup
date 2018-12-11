@@ -1,6 +1,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<fmt:setLocale value="${param.lang}" />
+<fmt:setLocale value="${param.lang}" scope="session" />
 <fmt:setBundle basename="i18n" />
 <html>
     <head>
@@ -21,7 +21,11 @@
             </div>
         </div>
 
-        <div id="WeatherComponent" class="container col-lg-8 col-lg-offset-2">
+        <div id="WeatherComponent" class="container col-lg-4 col-lg-offset-4">
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/entry/login" role="button">Login</a>
+            <br />
+            <br />
+
             <dashup-weather city="Walldorf"></dashup-weather>
         </div>
 

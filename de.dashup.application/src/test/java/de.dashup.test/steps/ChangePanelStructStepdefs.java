@@ -65,14 +65,14 @@ public class ChangePanelStructStepdefs {
     @When("^User clicks on the name of a section$")
     public void user_clicks_on_the_name_of_a_section() throws Exception {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement element=driver.findElement(By.id("i3"));
+        WebElement element=driver.findElement(By.id("i8"));
         element.click();
     }
 
     @And("^User enters \"([^\"]*)\" to this section$")
     public void userEntersToThisSection(String arg0) throws Throwable {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement element=driver.findElement(By.id("i3"));
+        WebElement element=driver.findElement(By.id("i8"));
         element.clear();
         element.sendKeys(arg0);
     }
@@ -80,14 +80,14 @@ public class ChangePanelStructStepdefs {
     @And("^User presses enter$")
     public void userPressesEnter() throws Throwable {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement element=driver.findElement(By.id("i3"));
+        WebElement element=driver.findElement(By.id("i8"));
         element.sendKeys((char)13+"");
     }
 
     @Then("^section will be renamed to \"([^\"]*)\"$")
     public void section_will_be_renamed_to(String arg1) throws Exception {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement element=driver.findElement(By.id("i3"));
+        WebElement element=driver.findElement(By.id("i8"));
         Assert.assertEquals(arg1,element.getAttribute("value"));
         driver.close();
     }
