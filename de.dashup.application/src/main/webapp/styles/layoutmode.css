@@ -7,10 +7,9 @@ input[type="text"]
     background: transparent;
     border: none;
     width:15%;
+    color:white;
 }
-main{
-    color: black;
-}
+
 
 .gu-mirror {
     position: fixed !important;
@@ -46,10 +45,6 @@ main{
     height: 100px;
 }
 
-.handle
-{
-    color:black;
-}
 
 
 .dashup-section{

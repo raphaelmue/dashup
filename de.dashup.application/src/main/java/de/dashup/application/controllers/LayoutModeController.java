@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/layoutmode")
@@ -39,6 +40,11 @@ public class LayoutModeController {
                 model.addAttribute("name", user.getName());
                 model.addAttribute("email", user.getEmail());
                 model.addAttribute("content", DashupBuilder.buildUsersPanelsLayoutMode(user));
+
+                Map<String, String> layout = DashupService.getInstance().loadLayout(user);
+                for (Map.Entry<String, String> entry : layout.entrySet()) {
+                    model.addAttribute(entry.getKey(), entry.getValue());
+                }
 
             }
         }
