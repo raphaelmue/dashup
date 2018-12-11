@@ -6,7 +6,7 @@ var sectionId = 0;
 var sectionsToDelte =[];
 function load () {
 
-    dragula([document.getElementById('drag_container_section')], {
+    dragula([document.getElementById('drag-container-section')], {
 
         moves: function (el, container, handle) {
             return handle.classList.contains('handle');
@@ -15,7 +15,7 @@ function load () {
 
     let i = 1;
     while (i <= 3) {
-        var idName = "#drag_container" + i;
+        var idName = "#drag-container" + i;
         dragula([document.querySelector(idName)]).on('drop', onDrop);
         i++;
     }
@@ -23,7 +23,7 @@ function load () {
 
 function onDrop (el, to, from) {
     var id= el.parentNode.parentNode.id;
-    var newPosition = getPositionOfPanels(id,"dashup_panel");
+    var newPosition = getPositionOfPanels(id,"dashup-panel");
     for(var i=0;i<layoutStorage.length;i++){
 
         if(layoutStorage[i][0].key === newPosition[0].key)
@@ -41,7 +41,7 @@ function onDrop (el, to, from) {
 
 function onDropSection (el, to, from) {
     var id= el.parentNode.id;
-    var newPosition = getPositionOfPanels(id,"dashup_section");
+    var newPosition = getPositionOfPanels(id,"dashup-section");
     sectionOrder = newPosition;
 }
 
@@ -104,6 +104,12 @@ function onDelete(sectionId)
 
     var element = document. getElementById(sectionId);
     element. parentNode. removeChild(element);
+}
+
+function onUndo() {
+
+    location.reload();
+
 }
 
 function inputChanged(inputText,id)
@@ -295,9 +301,9 @@ function getSectionName(sectionId)
 
 function addSection()
 {
-    var dragContainer = document.getElementById("drag_container_section");
+    var dragContainer = document.getElementById("drag-container-section");
     var newSection = document.createElement("div");
-    newSection.setAttribute("class","dashup_section");
+    newSection.setAttribute("class","dashup-section");
     newSection.setAttribute("id","sn" + sectionId);
 
     var newHeadingDiv = document.createElement("div");
@@ -320,7 +326,7 @@ function addSection()
     var deleteButton = document.createElement("button");
     deleteButton.setAttribute("type","button");
     deleteButton.setAttribute("onclick","onDelete('" + "sn" + sectionId + "')");
-    deleteButton.setAttribute("class","btn btn-circle btn-lg");
+    deleteButton.setAttribute("class","btn btn-primary");
     deleteButton.setAttribute("id","bn" + sectionId);
     var xSign = document.createTextNode("x");
     deleteButton.appendChild(xSign);
@@ -333,8 +339,8 @@ function addSection()
     var newhr = document.createElement("hr");
     newSection.appendChild(newhr);
     var dragContainerPanel = document.createElement("div");
-    dragContainerPanel.setAttribute("class","drag_container");
-    dragContainerPanel.setAttribute("id","drag_container0"+ sectionId);
+    dragContainerPanel.setAttribute("class","drag-container");
+    dragContainerPanel.setAttribute("id","drag-container0"+ sectionId);
 
     newSection.appendChild(dragContainerPanel);
 
@@ -342,7 +348,7 @@ function addSection()
 
     sectionId++;
 
-    var newPosition = getPositionOfPanels("drag_container_section","dashup_section");
+    var newPosition = getPositionOfPanels("drag-container-section","dashup-section");
     sectionOrder = newPosition;
 }
 

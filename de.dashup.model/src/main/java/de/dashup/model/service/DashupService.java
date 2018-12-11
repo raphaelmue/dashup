@@ -251,4 +251,46 @@ public class DashupService {
         this.database.update(Database.Table.USERS, whereParameter, values);
     }
 
+
+    public void updateSection(User user,String section_name,int section_id,int section_order)throws SQLException
+    {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("user_id", user.getId());
+        whereParameters.put("section_id", section_id);
+
+        Map<String, Object> values = new HashMap<>();
+
+      if(section_name.equals("%old%")==false){
+
+            values.put("section_name",section_name);
+        }
+        if(section_order!=-1)values.put("section_order",section_order);
+
+        if(values.isEmpty()==false){
+            this.database.update(Database.Table.USER_SECTIONS, whereParameters, values);
+        }
+        return;
+    }
+
+    public void deleteSection(User user,int section_id) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("section_id",section_id);
+        whereParameters.put("user_id",user.getId());
+        database.delete(Database.Table.USER_SECTIONS,whereParameters);
+    }
+
+    public void addSection(User user,String section_name,int section_order) throws SQLException {
+        if(section_name==null)section_name="New Section";
+
+        Map<String, Object> values = new HashMap<>();
+        values.put("section_name",section_name);
+        values.put("user_id", user.getId());
+
+        this.database.insert(Database.Table.USER_SECTIONS, values);
+
+        return;
+    }
+
+
+
 }

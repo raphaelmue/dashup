@@ -58,22 +58,21 @@
 
 <main>
     <div class="wrapper">
-        <h1><fmt:message key="i18n.layout"/>, ${name}!</h1>
         <div>
             ${content}
         </div>
     </div>
 </main>
 
-<div id="bottomRight">
-    <ul><button type="button" class="btn btn-circle btn-lg">undo</button></ul>
-    <ul><button type="button" onclick="addSection()" class="btn btn-circle btn-lg">add</button></ul>
-    <ul><button type="button" onclick="onSubmit()" class="btn btn-circle btn-lg">submit</button></ul>
+<div id="bottom-right">
+    <ul><button type="button" onclick="onUndo()" class="btn btn-primary">Undo</button></ul>
+    <ul><button type="button" onclick="addSection()" class="btn btn-primary">Add</button></ul>
+    <ul><button type="button" onclick="onSubmit()" class="btn btn-primary">Submit</button></ul>
 </div>
 
 
 <jsp:include page="./includes/bodyInclude.jsp" />
-<script  src="./../scripts/dragdrop.js"></script>
+<script  src="./../libraries/dragdrop.js"></script>
 <script>
     $( document ).ready(function() {
         $("#navbar").navigationBar({
