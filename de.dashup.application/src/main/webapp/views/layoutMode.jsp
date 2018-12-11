@@ -15,7 +15,7 @@
 
 
 <head>
-    <title>dashup - <fmt:message key="i18n.layoutmode"/></title>
+    <title>dashup - <fmt:message key="i18n.layoutMode"/></title>
 
 
     <jsp:include page="./includes/headInclude.jsp" />

@@ -10,9 +10,9 @@ import org.json.JSONObject;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-
 import java.util.*;
 import java.util.regex.Pattern;
+
 
 public class DashupService {
 
@@ -57,6 +57,7 @@ public class DashupService {
             String hashedPassword = Hash.create(password, user.getSalt());
             if (hashedPassword.equals(user.getPassword())) {
                 if (rememberMe) {
+                    user.setSettings(this.getSettingsOfUser(user));
                     String token = this.randomString.nextString(64);
                     user.setToken(token);
                     HashMap<String, Object> values = new HashMap<>();
@@ -117,6 +118,19 @@ public class DashupService {
         return null;
     }
 
+    public Settings getSettingsOfUser(User user) throws SQLException {
+        Settings settings = new Settings();
+
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", user.getId());
+
+        JSONObject jsonObject = this.database.get(Database.Table.USERS, whereParameters).getJSONObject(0);
+        settings.setLanguage(Locale.forLanguageTag(jsonObject.getString("language").isEmpty() ?
+                "en" : jsonObject.getString("language")));
+
+        return settings;
+    }
+
     /**
      * Deletes a token from the database
      *
@@ -152,7 +166,7 @@ public class DashupService {
         return null;
     }
 
-    public User changePassword(User user, String oldPassword, String newPassword) throws SQLException, IllegalArgumentException {
+    public User updatePassword(User user, String oldPassword, String newPassword) throws SQLException, IllegalArgumentException {
         if (user.getPassword().equals(Hash.create(oldPassword, user.getSalt()))) {
             String newSalt = this.randomString.nextString(32);
             String newHashedPassword = Hash.create(newPassword, newSalt);
@@ -225,6 +239,16 @@ public class DashupService {
         result.remove("id");
         result.remove("user_id");
         return result;
+    }
+
+    public void updateSettings(User user) throws SQLException {
+        Map<String, Object> whereParameter = new HashMap<>();
+        whereParameter.put("id", user.getId());
+
+        Map<String, Object> values = new HashMap<>();
+        values.put("language", user.getSettings().getLanguage().toLanguageTag());
+
+        this.database.update(Database.Table.USERS, whereParameter, values);
     }
 
 }

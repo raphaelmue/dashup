@@ -5,6 +5,7 @@ import java.util.List;
 
 public class User extends DatabaseUser {
     private String token;
+    private Settings settings;
     private List<Section> sections;
 
     public User() {
@@ -34,12 +35,20 @@ public class User extends DatabaseUser {
         return token;
     }
 
+    public Settings getSettings() {
+        return settings;
+    }
+
     public List<Section> getSections() {
         return sections;
     }
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
     }
 
     public void setSections(List<Section> sections) {

@@ -2,6 +2,7 @@ package de.dashup.application.controllers;
 
 import de.dashup.application.local.LocalStorage;
 import de.dashup.model.service.DashupService;
+import de.dashup.shared.Settings;
 import de.dashup.shared.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/profile")
@@ -24,14 +26,27 @@ public class ProfileController {
             model.addAttribute("name", user.getName());
             model.addAttribute("fullName", user.getFullName());
             model.addAttribute("email", user.getEmail());
-            model.addAttribute("language", "English");
+            if (user.getSettings() != null) {
+                model.addAttribute("language", user.getSettings().getLanguage().getDisplayLanguage());
+            } else {
+                model.addAttribute("language", "English");
+            }
             return "profile";
         }
         return "redirect:/welcome";
     }
 
     @RequestMapping("/changeLanguage")
-    public String handleChangeLanguage(@RequestParam(value = "lang") String lang) {
+    public String handleChangeLanguage(@CookieValue(name = "token", required = false) String token,
+                                       @RequestParam(value = "lang") String lang,
+                                       HttpServletRequest request) throws SQLException {
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            Settings settings = new Settings();
+            settings.setLanguage(Locale.forLanguageTag(lang));
+            user.setSettings(settings);
+            DashupService.getInstance().updateSettings(user);
+        }
         return "redirect:/profile/";
     }
 
@@ -42,9 +57,10 @@ public class ProfileController {
                                        HttpServletRequest request) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-             try {
-                 DashupService.getInstance().changePassword(user, oldPassword, newPassword);
-             } catch(IllegalArgumentException ignored) { }
+            try {
+                DashupService.getInstance().updatePassword(user, oldPassword, newPassword);
+            } catch (IllegalArgumentException ignored) {
+            }
             return "redirect:/profile/";
         }
         return "redirect:/welcome";

@@ -21,7 +21,6 @@ public class DashupController {
 
     @RequestMapping("/")
     public String main(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
-
         User user = (User) this.localStorage.readObjectFromSession(request, "user");
         if (user != null || token != null && !token.isEmpty()) {
             if (token != null && !token.isEmpty()) {

@@ -1,6 +1,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<fmt:setLocale value="${param.lang}" />
+<fmt:setLocale value="${param.lang}" scope="session" />
 <fmt:setBundle basename="i18n" />
 <!doctype html>
 <html lang="en">
@@ -37,5 +37,11 @@
             </div>
         </main>
         <jsp:include page="./includes/bodyInclude.jsp" />
+
+        <script>
+            $( document ).ready(function () {
+                $("#nav-item-home").children().addClass("selected");
+            });
+        </script>
     </body>
 </html>

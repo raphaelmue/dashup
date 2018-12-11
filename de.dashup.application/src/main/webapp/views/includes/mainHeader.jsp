@@ -1,15 +1,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<fmt:setLocale value="${param.lang}"/>
+<fmt:setLocale value="${param.lang}" scope="session"/>
 <fmt:setBundle basename="i18n"/>
 <header>
     <div class="wrapper">
         <h1 class="heading">dashup</h1>
         <nav id="navbar">
             <ul>
-                <li id="nav-item-dashboard">
+                <li id="nav-item-home">
                     <a class="nav-item nav-item-hover" href="${pageContext.request.contextPath}/">
-                        <fmt:message key="i18n.dashboard"/>
+                        <fmt:message key="i18n.home"/>
                     </a>
                 </li>
                 <li id="nav-item-marketplace">
