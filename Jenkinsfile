@@ -12,6 +12,9 @@ pipeline {
       }
     }
     stage('Deploy') {
+      when{
+        branch 'deployment'
+      }
       steps {
         sh 'mvn spring-boot:run'
       }
