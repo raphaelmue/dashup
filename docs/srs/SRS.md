@@ -111,7 +111,8 @@ integrate own microservices as customly defined panels to keep track of all of o
 |---------------------------------------------------------------------------------------|------------|
 | <a href="https://dashup2k18.wordpress.com/"> Dashup Blog </a>                         | 21/10/2018 |
 | <a href="https://github.com/raphaelmue/dashup"> GitHub Repository </a>                | 21/10/2018 |
-| <a href="https://youtrack.dashup.de/issues"> YouTrack </a> | 21/10/2018 |
+| <a href="https://youtrack.dashup.de/issues"> YouTrack </a>                            | 21/10/2018 |
+| <a href="http://jenkins.raphael-muesseler.de/job/dashup"> Jenkins </a>                | 21/10/2018 |
 
 ## 1.5 Overview
 In the next chapter, the general vision as well as the UCD will be provided, in order to give a quick summary about the 
