@@ -65,7 +65,7 @@ Our project dashup uses the classic MVC structure as follows:
 
 As our main technology we decided to use Spring MVC, which is a framework that takes not only care of the back-end but also of the front-end. Besides is the Controller and Model language Java, so that we do not have to care about serialization. 
 
-The main architectural goal of this project is portability, distribution and reuse. Since we wont our users to customize their dashup as much as their want, everything has to be kept abstract and to be made for reuse. 
+The main architectural goal of this project is portability, distribution and reuse. Since we want our users to customize their dashup as much as their want, everything has to be kept abstract and to be made for reuse. 
 
 But of course, the dashup project should be safe as we are storing user sensitive data that should not fall into wrong hands.
 
