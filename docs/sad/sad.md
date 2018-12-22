@@ -130,7 +130,7 @@ Our data view is modelled as followed:
 Note that the current database scheme looks a bit different. Here are the current
 tables, that we use in order to generate the main dashboard:
 
-<img src="../database_architecture/database_scheme.png" alt="Database Scheme" />
+<img src="../database_architecture/database_scheme.jpg" alt="Database Scheme" />
 
 ## 10. Size and Performance
 
