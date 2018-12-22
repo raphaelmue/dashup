@@ -43,7 +43,7 @@ The user should be able to change his/her log in credentials and additional info
 <br />
 
 ### 2.1.3 Narrative
-You can see the entire _.feature file_ right [here](./editProfile.feature).
+You can see the entire _.feature file_ right [here](editProfile.feature).
 ## 2.2 Alternative Flows
 N/A
 
