@@ -1,4 +1,4 @@
-dashup - Use Case Specification: Edit user profile
+dashup - Use Case Specification: Edit profile
 ============================================
 ### Version 1.0
 
@@ -23,7 +23,7 @@ dashup - Use Case Specification: Edit user profile
 - [Extension Points](#6-extension-points)
     - [Name of Extention Point](#61-name-of-extension-point)
 
-# 1. Edit user profile - Brief Description
+# 1. Edit profile - Brief Description
 
 This use case describes the functionality to change a users personal information while using dashup.
 The user should be able to change his/her log in credentials and additional information such as date of birth and gender.
