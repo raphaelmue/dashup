@@ -2,15 +2,14 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <fmt:setLocale value="${param.lang}" />
 <fmt:setBundle basename="i18n" scope="session" />
-<!doctype html>
-<html lang="en">
+<html>
     <head>
         <jsp:include page="./includes/headInclude.jsp" />
         <jsp:include page="./includes/styles.jsp" />
         <jsp:include page="./includes/scripts.jsp" />
         <link  rel="stylesheet" type="text/css" href="./../styles/login.css" />
 
-        <title><fmt:message key="i18n.login" /></title>
+        <title>dashup - <fmt:message key="i18n.registering" /></title>
     </head>
     <body>
         <div class="jumbotron jumbotron-fluid bg-primary text-white">
@@ -25,7 +24,7 @@
 
         <div class="container col-lg-4 col-lg-offset-4">
             <div class="error-box">${errorMessage}</div>
-            <form action="${pageContext.request.contextPath}/entry/handleLogin" method="POST">
+            <form action="${pageContext.request.contextPath}/entry/handleRegisterUser" method="POST">
                 <div class="form-group">
                     <label class="text-white" for="email"><fmt:message key="i18n.emailAddress" /></label>
                     <input type="text" class="form-control" id="email" name="email" aria-describedby="emailHelp"
@@ -33,15 +32,25 @@
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <div class="form-group">
-                    <label class="text-white" for="password"><fmt:message key="i18n.password" /></label>
+                    <label class="text-white" for="email"><fmt:message key="i18n.name" /></label>
+                    <input type="text" class="form-control" id="name" name="name"
+                           placeholder="<fmt:message key="i18n.name" />">
+                </div>
+                <div class="form-group">
+                    <label class="text-white" for="email"><fmt:message key="i18n.surname" /></label>
+                    <input type="text" class="form-control" id="surname" name="surname"
+                           placeholder="<fmt:message key="i18n.surname" />">
+                </div>
+                <div class="form-group">
+                    <label class="text-white" for="email"><fmt:message key="i18n.password" /></label>
                     <input type="password" class="form-control" id="password" name="password"
                            placeholder="<fmt:message key="i18n.password" />">
                 </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
-                    <label class="text-white form-check-label" for="rememberMe"><fmt:message key="i18n.rememberMe" /></label>
+                <div class="form-group">
+                    <label class="text-white" for="password"><fmt:message key="i18n.repeatPassword" /></label>
+                    <input type="password" class="form-control" id="repeat-password" name="repeat-password"
+                           placeholder="<fmt:message key="i18n.repeatPassword" />">
                 </div>
-                <div style="margin: 10px 0"><a href="${pageContext.request.contextPath}/entry/register"><fmt:message key="i18n.notRegisteredYet"/></a></div>
                 <button type="submit" class="btn btn-primary" id="submit_button"><fmt:message key="i18n.submit" /></button>
             </form>
         </div>

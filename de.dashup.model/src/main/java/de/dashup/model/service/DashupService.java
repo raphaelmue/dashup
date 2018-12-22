@@ -6,13 +6,11 @@ import de.dashup.shared.*;
 import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DashupService {
 
@@ -57,6 +55,7 @@ public class DashupService {
             String hashedPassword = Hash.create(password, user.getSalt());
             if (hashedPassword.equals(user.getPassword())) {
                 if (rememberMe) {
+                    user.setSettings(this.getSettingsOfUser(user));
                     String token = this.randomString.nextString(64);
                     user.setToken(token);
                     HashMap<String, Object> values = new HashMap<>();
@@ -117,6 +116,19 @@ public class DashupService {
         return null;
     }
 
+    public Settings getSettingsOfUser(User user) throws SQLException {
+        Settings settings = new Settings();
+
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", user.getId());
+
+        JSONObject jsonObject = this.database.get(Database.Table.USERS, whereParameters).getJSONObject(0);
+        settings.setLanguage(Locale.forLanguageTag(jsonObject.getString("language").isEmpty() ?
+                "en" : jsonObject.getString("language")));
+
+        return settings;
+    }
+
     /**
      * Deletes a token from the database
      *
@@ -127,5 +139,60 @@ public class DashupService {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("token", token);
         this.database.delete(Database.Table.USERS_TOKENS, whereParameters);
+    }
+
+    public User registerUser(String email, String name, String surname, String password) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("email", email);
+
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters);
+        if (result == null || result.size() == 0) {
+            String salt = this.randomString.nextString(32);
+            String hashedPassword = Hash.create(password, salt);
+
+            Map<String, Object> values = new HashMap<>();
+            values.put("email", email);
+            values.put("name", name);
+            values.put("surname", surname);
+            values.put("password", hashedPassword);
+            values.put("salt", salt);
+
+            this.database.insert(Database.Table.USERS, values);
+            return new User(this.database.getLatestId(Database.Table.USERS), email, name, surname, hashedPassword, salt);
+        }
+
+        return null;
+    }
+
+    public User updatePassword(User user, String oldPassword, String newPassword) throws SQLException, IllegalArgumentException {
+        if (user.getPassword().equals(Hash.create(oldPassword, user.getSalt()))) {
+            String newSalt = this.randomString.nextString(32);
+            String newHashedPassword = Hash.create(newPassword, newSalt);
+
+            Map<String, Object> whereParameters = new HashMap<>();
+            whereParameters.put("id", user.getId());
+
+            Map<String, Object> values = new HashMap<>();
+            values.put("password", newHashedPassword);
+            values.put("salt", newSalt);
+
+            this.database.update(Database.Table.USERS, whereParameters, values);
+
+            user.setPassword(newHashedPassword);
+            user.setSalt(newSalt);
+            return user;
+        } else {
+            throw new IllegalArgumentException("Passworts does not match");
+        }
+    }
+
+    public void updateSettings(User user) throws SQLException {
+        Map<String, Object> whereParameter = new HashMap<>();
+        whereParameter.put("id", user.getId());
+
+        Map<String, Object> values = new HashMap<>();
+        values.put("language", user.getSettings().getLanguage().toLanguageTag());
+
+        this.database.update(Database.Table.USERS, whereParameter, values);
     }
 }

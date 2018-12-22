@@ -20,29 +20,21 @@ public class DashupController {
 
     @RequestMapping("/")
     public String main(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
-        User user = (User) this.localStorage.readObjectFromSession(request, "user");
-        if (user != null || token != null && !token.isEmpty()) {
-            if (token != null && !token.isEmpty()) {
-                try {
-                    user = DashupService.getInstance().getUserByToken(token);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (user != null) {
-                model.addAttribute("name", user.getName());
-                model.addAttribute("email", user.getEmail());
-                DashupService.getInstance().getSectionsAndPanels(user);
-                model.addAttribute("content", DashupBuilder.buildUsersPanels(user));
-                return "index";
-            }
+        User user = this.localStorage.getUser(request, token);
+        if (user != null) {
+            model.addAttribute("name", user.getName());
+            model.addAttribute("email", user.getEmail());
+            DashupService.getInstance().getSectionsAndPanels(user);
+            model.addAttribute("content", DashupBuilder.buildUsersPanels(user));
+            return "index";
+
         }
         return "redirect:/welcome";
     }
 
     @RequestMapping("/welcome")
-    public String welcome(HttpServletRequest request) {
-        User user = (User) this.localStorage.readObjectFromSession(request, "user");
+    public String welcome(@CookieValue(name = "token", required = false) String token, HttpServletRequest request) throws SQLException {
+        User user = this.localStorage.getUser(request, token);
         if (user != null) {
             return "redirect:/";
         } else {

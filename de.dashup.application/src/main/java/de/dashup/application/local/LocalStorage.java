@@ -1,8 +1,12 @@
 package de.dashup.application.local;
 
+import de.dashup.model.service.DashupService;
+import de.dashup.shared.User;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -24,6 +28,17 @@ public class LocalStorage {
 
     public void writeObjectToSession(HttpServletRequest request, String key, Object object) {
         request.getSession().setAttribute(key, object);
+    }
+
+    public User getUser(HttpServletRequest request, String token) throws SQLException {
+        User user = (User) LocalStorage.getInstance().readObjectFromSession(request, "user");
+        if (user != null || token != null && !token.isEmpty()) {
+            if (token != null && !token.isEmpty()) {
+                user = DashupService.getInstance().getUserByToken(token);
+                user.setSettings(DashupService.getInstance().getSettingsOfUser(user));
+            }
+        }
+        return user;
     }
 
     public void deleteSessionAttribute(HttpServletRequest request, String key) {
