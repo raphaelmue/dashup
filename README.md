@@ -1,4 +1,4 @@
-<h1><img src="./images/logo/dashup_official_icon.png" alt="official logo" />ashup</h1>
+<h1><img src="./images/logo/dashup_official_icon_small.png" alt="official logo" />ashup</h1>
 
 The dashup platform provides a quick overview of multiple microservices hosted on 
 external servers of different providers. Therefore users no longer have to access 
