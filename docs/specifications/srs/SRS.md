@@ -173,7 +173,7 @@ making repeated login processes redundant. In the <i>Profile</i> tab, users can 
 or company. Note that personal information are not required during registration process. Furthermore the unique 
 username, login credentials and language settings are changeable. 
 (Use Case: <a href="../ucs/user_management/login_register/UCS_login_register.md">Login And Register</a>)
-(Use Case: <a href="../ucs/user_management/edit_profile/UCS_ledit_profile.md">Edit Profile</a>)
+(Use Case: <a href="../ucs/user_management/edit_profile/UCS_edit_profile.md">Edit Profile</a>)
 
 ### 3.2.4 Layout
 The platform should enable the user to create, modify and delete sections and fill these sections with the desired 
