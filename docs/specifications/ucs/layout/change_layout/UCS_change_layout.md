@@ -89,4 +89,4 @@ to get a persistent change.
 
 #  6. Extension Points
 If enough time is left after having implemented all use cases, maybe a separation between panel, section and dashboard 
-layout settings could be implemented
+layout settings could be implemented.
