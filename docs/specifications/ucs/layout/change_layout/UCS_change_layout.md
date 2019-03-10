@@ -1,12 +1,13 @@
 dashup - Use Case Specification: Layout - Change Layout
 ============================================
-### Version 1.0
+### Version 2.0
 
 # Revision History
 
-| Date       | Version | Description                                                            | Author        |
-|------------|---------|------------------------------------------------------------------------|---------------|
-| 28/10/2018 | 1.0     | Initial UCS with description, activity diagram and screen flow diagram | Joshua Schulz |
+| Date       | Version | Description                                                            | Author           |
+|------------|---------|------------------------------------------------------------------------|------------------|
+| 28/10/2018 | 1.0     | Initial UCS with description, activity diagram and screen flow diagram | Joshua Schulz    |
+| 09/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
 
 # Table of Contents
 
@@ -22,41 +23,70 @@ dashup - Use Case Specification: Layout - Change Layout
 - [Extension Points](#6-extension-points)
  
 # 1. Change Layout - Brief Description
-In the use case _change layout_, the user can change the layout of his personal dashboard, e.g. the background color or font. 
-These settings can be changed in a little layout menu. 
+In the use case _change layout_, the user can change the layout dashup by choosing a theme, 
+font and background image for the central dashboard. These settings can be changed in the <i>Settings</i> menu.  
 
 # 2. Flow of Events
 
 ## 2.1 Basic Flow
 
 ### 2.1.1 Activity Diagram
-<img src="./change_layout.jpg" alt="Use case diagram change layout" />
+<img src="./activity_diagrams/change_layout.png" alt="Use case diagram change layout" />
 
 ### 2.1.2 Mock-Up
 
-<img src="mockups/layout_settings.png" alt="Mockup for change of layout" />
+<img src="./mockups/layout_settings.png" alt="layout settings menu" />
+<br />
+<img src="./mockups/layout_settings_image_upload.png" alt="image upload layout settings menu" />
 
 ### 2.1.3 Narrative
 
-You can see the entire _.feature file_ right <a href="./change_layout.feature">here</a>.
+You can see the entire _.feature file_ right <a href="./narratives/change_layout.feature">here</a>.
 
 ## 2.2 Alternative Flows
 N/A
 
 # 3. Special Requirements
-N/A
+All layout adaption must be compliant to our global design policies of using the new Google Material UI design. After 
+having changed a layout setting, the view should get rerendered, so that the user can have an impression of the new 
+layout. If the user likes the current status, he can activate the changes using the confirm icon or reset the changes 
+with the abandon icon.
+
+Following five themes are supported:
+- Blue Sky: Light and happy design in blue
+- Green Nature: Powerful and exotic design in green
+- Red Love: Powerful and exotic design in red
+- White Diamond: Plain but noble design in white
+- Black Night: Plain but noble design in black
+
+Following fonts are supported:
+- Roboto
+- Montserrat
+- Overpass
+- Poppins
+- Lora
+- Sniglet
+- Inconsolata
+- Indie Flower
+- Anton
+- Lobster
+- Pacifico
+- Cinzel
+- Fredoka One
+- Biblo
+- Orbitron
 
 # 4. Preconditions
 
 ## 4.1 System State
-Before this use case can be performed the user has to sign in and open up his main dashboard. From now on the layout
-should be changeable at all time while the user is on his/her main dashboard.
+The user has to be signed in and must have navigated to the settings menu.
 
 #  5. Postconditions
 
 ## 5.1 Save Changed Data
-After the user has changed the layout or the structure of his/her dashboard the data has to be stored. This is necessary
+After the user has changed the layout settings and pressed the confirm icon the data has to be stored. This is necessary
 to get a persistent change. 
 
 #  6. Extension Points
-N/A
+If enough time is left after having implemented all use cases, maybe a separation between panel, section and dashboard 
+layout settings could be implemented

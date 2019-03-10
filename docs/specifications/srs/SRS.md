@@ -1,5 +1,6 @@
 dashup - Software Requirements Specification
 ============================================
+### Version 2.0
 
 # Revision history
 
@@ -127,7 +128,7 @@ Following UCD will provide a basic overview to the user characteristics, feature
 dependencies within the project scope. Furthermore, non-functional requirements are put outside the system boundaries.
 <br />
 <br />
-<img src="./UCD.jpg" alt="General Use Case Diagram" />
+<img src="./UCD.png" alt="General Use Case Diagram" />
 
 # 3 Specific Requirements
 
@@ -143,15 +144,15 @@ dependencies within the project scope. Furthermore, non-functional requirements 
 
 ## 3.2 Functionality
 
-### 3.2.1 Central Dashboard
+### 3.2.1 Dashboard
 When opening dashup in your browser, all widgets are displayed as panels on a central dashboard structured in 
 sections. Each panel in a section can contain multiple components used for data visualization and user interaction. You 
 can easily customize your central dashboard by for instance changing the layout or the order of sections and panels on 
-the dashboard. To change the layout, navigate to the <i>Layout</i> tab. Changing the order of sections and panels can be 
-done directly in the central dashboard. Each dashup-panel is a web component and itself build with web components. For 
+the dashboard. To change the layout, navigate to the <i>Settings</i> menu. Changing the order of sections and panels can 
+be done directly in the central dashboard. Each dashup-panel is a web component and itself build with web components. For 
 a detailed specification for all available web components please see the extra <a href="../dashup_web_components">dashup 
-web components</a> specifications. Besides you can also manage you personal profile settings in the <i>Profile</i> tab 
-or navigate to the dashup marketplace by using the <i>Marketplace</i> tab. 
+web components</a> specifications. Besides you can also manage you personal profile settings in the <i>Settings</i> menu 
+or navigate to the dashup marketplace by using the <i>Marketplace</i> menu. 
 
 ### 3.2.2 Marketplace
 In the marketplace all available panels for widgets are offered to you. You can simply search, rate and comment on 
@@ -159,9 +160,9 @@ panels. To find your desired panels faster, you can set filters for the search t
 range of panels reach from default dashup-panels, that are natively available on the dashup platform, to custom user 
 panels, that were uploaded by users. A detailed view is offered for each offered panel containing a description and 
 comments about the panel. Furthermore, similar panels to the current inspected panel, that other users use as well in 
-combination with the current one, are displayed in a <i>similar</i> tab. As a developer it is possible to publish your own 
-panels for widgets as well as taking a look at the usage statistics of your published panels. The marketplace is as well 
-the key entry point oo add panels to the central dashboard.
+combination with the current one, are displayed in a <i>similar</i> tab. As a developer it is possible to publish your 
+own panels for widgets as well as taking a look at the usage statistics of your published panels. The marketplace is as 
+well the key entry point oo add panels to the central dashboard.
 (Use Case: <a href="../ucs/marketplace/UCS_marketplace.md">Marketplace</a>)
 
 ### 3.2.3 User Management
@@ -169,9 +170,9 @@ User management includes registration and login processes as well as adapting yo
 referenced by a unique username and authenticated by a confirmation e-mail to his entered e-mail address during 
 registration process. To log in users have to provide the password and e-mail address for their account and are 
 directed to the central dashboard if all credentials entered are correct. Browser cookies will store user sessions, 
-making repeated login processes redundant. In the <i>Profile</i> tab, users can adapt personal information like birthday 
-or company. Note that personal information are not required during registration process. Furthermore the unique 
-username, login credentials and language settings are changeable. 
+making repeated login processes redundant. In the <i>Settings</i> menu, users can adapt personal information like 
+name, birthday, company or a short biography and profile picture. Note that personal information are not required during 
+registration process. Furthermore the unique username, login credentials and language settings are changeable. 
 (Use Case: <a href="../ucs/user_management/login_register/UCS_login_register.md">Login And Register</a>)
 (Use Case: <a href="../ucs/user_management/edit_profile/UCS_edit_profile.md">Edit Profile</a>)
 
@@ -181,8 +182,8 @@ panels. A rearrangement of sections as well as panels should be possible by drag
 Panels can be moved between sections and resized between small, medium or large size. 
 (Use Case: <a href="../ucs/layout/change_panelStructure/UCS_change_panelStructure.md">Change Panel Structure</a>)
 
-The user can also change the layout of his personal dashboard, e.g. the background color or font. 
-These settings can be changed in the <i>Layout</i> tab. 
+The user can also change the layout of dashup by choosing a theme, font and background image for the central dashboard. 
+These settings can be changed in the <i>Settings</i> menu. 
 (Use Case: <a href="../ucs/layout/change_layout/UCS_change_layout.md">Change Layout</a>)
 
 ### 3.2.5 Workshop
@@ -231,7 +232,7 @@ The information displayed on the different panels showed in the dashboard should
 provision of data by external APIs and servers should therefore have a decent response time.
 
 ### 3.5.3 Capacity
-The dashboard has to be designed for a large number of users. An increase of new members should not slow down the system 
+The web application has to be designed for a large number of users. An increase of new members should not slow down the system 
 in the same way. The amount of widgets that can be displayed on the central dashboard should remain unrestricted. 
 Pagination should only be used in the marketplace. Furthermore only one API can be added to a custom panel.
 
@@ -254,9 +255,9 @@ To ensure a clear structure within the project the latest clean code standards h
 * Secure transfer of data
 
 If necessary there can be exceptions to this rules, but they have to be well considered and discussed. In addition, any 
-file or folder published in the GitHub repository should start with a lowercase letter. Pictures are to be saved as jpg 
-format. Every web component and the general design of the dashup platform must be compliant to the new Google material 
-design policy.
+file or folder published in the GitHub repository should start with a lowercase letter. Pictures are to be saved as png 
+format. Every web component and the general design of the dashup platform must be compliant to the new Google Material 
+UI design policy.
 
 ### 3.6.2 Maintenance
 For optimal results, the use of tools for automated testing is essential. Furthermore, every line of code has to be 
@@ -301,7 +302,7 @@ world wide web.
 - Start screen: Simple welcome page with possibility to navigate to the login or registration screen
 - Login screen: Provides login form
 - Registration screen: Users can set up an new account
-- Central dashboard screen: Users can see all their added widgets for productivity use
+- Dashboard screen: Users can see all their added widgets for productivity use
 - Profile screen: Users can edit and update their profile information
 - Marketplace screen: All widgets for the dashup platform can be found and added to the central dashboard
 - Layout screen: Change the design of dashup
