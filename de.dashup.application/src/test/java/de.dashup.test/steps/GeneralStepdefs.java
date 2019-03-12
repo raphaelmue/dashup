@@ -13,11 +13,11 @@ public class GeneralStepdefs {
     private final String LOGIN_URL = "http://localhost:9004/entry/login";
 
     private static WebDriver driver;
-    private String pathToChromeDriver= "C:\\Users\\D070546\\Documents\\chromedriver_win32\\chromedriver.exe";
+    public static String chromeDriverPath = "/usr/bin/chromedriver";
 
     @Given("^User is located on login page$")
     public void userIsLocatedOnLoginPage() throws Throwable {
-        System.setProperty("webdriver.chrome.driver",pathToChromeDriver);
+        System.setProperty("webdriver.chrome.driver",chromeDriverPath);
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get(LOGIN_URL);
