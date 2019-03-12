@@ -10,7 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class GeneralStepdefs {
 
-    private final String LOGIN_URL = "http://localhost:8080/entry/login";
+    private final String LOGIN_URL = "http://localhost:9004/entry/login";
 
     private static WebDriver driver;
     private String pathToChromeDriver= "C:\\Users\\D070546\\Documents\\chromedriver_win32\\chromedriver.exe";

@@ -20,7 +20,7 @@ public class ChangePanelStructStepdefs {
     @When("^The user clicks on the rearrangement button$")
     public void the_user_clicks_on_the_rearrangement_button() throws Exception {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement element = driver.findElement(By.id("nav-item-layout-link"));
+        WebElement element = driver.findElement(By.id("nav-item-layoutmode"));
         if (element == null){
             Assert.fail();
         }
@@ -65,14 +65,14 @@ public class ChangePanelStructStepdefs {
     @When("^User clicks on the name of a section$")
     public void user_clicks_on_the_name_of_a_section() throws Exception {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement element=driver.findElement(By.id("i8"));
+        WebElement element=driver.findElement(By.id("i9"));
         element.click();
     }
 
     @And("^User enters \"([^\"]*)\" to this section$")
     public void userEntersToThisSection(String arg0) throws Throwable {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement element=driver.findElement(By.id("i8"));
+        WebElement element=driver.findElement(By.id("i9"));
         element.clear();
         element.sendKeys(arg0);
     }
@@ -80,14 +80,14 @@ public class ChangePanelStructStepdefs {
     @And("^User presses enter$")
     public void userPressesEnter() throws Throwable {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement element=driver.findElement(By.id("i8"));
+        WebElement element=driver.findElement(By.id("i9"));
         element.sendKeys((char)13+"");
     }
 
     @Then("^section will be renamed to \"([^\"]*)\"$")
     public void section_will_be_renamed_to(String arg1) throws Exception {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement element=driver.findElement(By.id("i8"));
+        WebElement element=driver.findElement(By.id("i9"));
         Assert.assertEquals(arg1,element.getAttribute("value"));
         driver.close();
     }
@@ -95,7 +95,7 @@ public class ChangePanelStructStepdefs {
     @When("^User clicks on the remove icon of a section$")
     public void user_clicks_on_the_remove_icon_of_a_section() throws Exception {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement element=driver.findElement(By.id("b2"));
+        WebElement element=driver.findElement(By.id("b9"));
         element.click();
     }
 
@@ -139,8 +139,8 @@ public class ChangePanelStructStepdefs {
         Actions builder = new Actions(driver);
         Action dragAndDrop = builder.clickAndHold(element)
                 .moveByOffset(-1, -1)
-                .moveToElement(driver.findElement(By.id("h3")))
-                .release(driver.findElement(By.id("h3")))
+                .moveToElement(driver.findElement(By.id("h10")))
+                .release(driver.findElement(By.id("h10")))
                 .build();
         dragAndDrop.perform();
     }
@@ -205,7 +205,7 @@ public class ChangePanelStructStepdefs {
     @Given("^User is on the layout page$")
     public void userIsOnTheLayoutPage() throws Throwable {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement element = driver.findElement(By.id("nav-item-layout-link"));
+        WebElement element = driver.findElement(By.id("nav-item-layoutmode"));
         if (element == null){
             Assert.fail();
         }
