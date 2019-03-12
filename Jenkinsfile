@@ -8,8 +8,8 @@ pipeline {
       }
     }
     stage('Testing') {
-      wrap([$class: 'Xvfb', screen: '1440x900x24']) {
           steps {
+          wrap([$class: 'Xvfb', screen: '1440x900x24']) {
             sh 'mvn test'
           }
       }
