@@ -1,6 +1,5 @@
 pipeline {
   agent any
-  tool name: 'Xvfb', type: 'org.jenkinsci.plugins.xvfb.XvfbInstallation'
   stages {
     stage('Build') {
       steps {
