@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class GeneralStepdefs {
 
@@ -24,10 +25,10 @@ public class GeneralStepdefs {
         final DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
         final ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setBinary("/usr/bin/chromium-browser");
-        chromeOptions.addArguments("--headless");
+        chromeOptions.addArguments("--headless", "window-size=1024,768", "--no-sandbox");
         desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         System.setProperty("webdriver.chrome.driver",chromeDriverPath);
-        driver = new ChromeDriver(desiredCapabilities);
+        driver = new RemoteWebDriver(desiredCapabilities);
         driver.manage().window().maximize();
         driver.get(LOGIN_URL);
     }
