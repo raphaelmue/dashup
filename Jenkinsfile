@@ -8,7 +8,7 @@ pipeline {
     }
     stage('Testing') {
           steps {
-          wrap([$class: 'Xvfb', screen: '1440x900x24']) {
+          wrap([$class: 'Xvfb', additionalOptions: '', assignedLabels: '', autoDisplayName: true, debug: true, displayNameOffset: 0, installationName: 'Xvfb', parallelBuild: true, screen: '1024x758x24', timeout: 25]) {
             sh 'mvn test'
           }
       }
