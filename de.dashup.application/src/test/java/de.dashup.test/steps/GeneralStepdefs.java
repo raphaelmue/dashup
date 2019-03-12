@@ -7,6 +7,8 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class GeneralStepdefs {
 
@@ -14,11 +16,18 @@ public class GeneralStepdefs {
 
     private static WebDriver driver;
     public static String chromeDriverPath = "/usr/bin/chromedriver";
+    //public static String chromeDriverPath = "C:/Users/D070546/Documents/chromedriver_win32/chromedriver.exe";
+
 
     @Given("^User is located on login page$")
     public void userIsLocatedOnLoginPage() throws Throwable {
+        final DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
+        final ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.setBinary("/usr/bin/chromium-browser");
+        chromeOptions.addArguments("--headless");
+        desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         System.setProperty("webdriver.chrome.driver",chromeDriverPath);
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(desiredCapabilities);
         driver.manage().window().maximize();
         driver.get(LOGIN_URL);
     }
