@@ -33,7 +33,10 @@
         <jsp:include page="includes/mainHeader.jsp"/>
         <main>
             <div class="wrapper">
-                <h1 class="sectionHeading"><fmt:message key="i18n.welcome"/>, ${name}!</h1>
+
+                <div>
+                    ${content}
+                </div>
             </div>
         </main>
         <jsp:include page="./includes/bodyInclude.jsp" />

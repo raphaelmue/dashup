@@ -23,7 +23,9 @@
     <jsp:include page="./includes/scripts.jsp" />
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">-->
     <link rel="stylesheet" href="./../styles/layoutmode.css">
+
     <jsp:include page="./includes/webComponents.jsp" />
+    <jsp:include page="./includes/mainLayout.jsp" />
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
 
     <style>
@@ -44,9 +46,11 @@
     </style>
 
 </head>
-<body class="text-white" onload="load()">
+<body onload="load()">
 
-<jsp:include page="includes/mainHeader.jsp"/>
+
+    <jsp:include page="includes/mainHeader.jsp"/>
+
 
 
 <main>
@@ -55,6 +59,8 @@
             ${content}
         </div>
     </div>
+
+    <div id="result"></div>
 </main>
 
 <div id="bottom-right">
@@ -66,52 +72,8 @@
 
 <jsp:include page="./includes/bodyInclude.jsp" />
 <script  src="./../libraries/dragdrop.js"></script>
-<script>
-    $( document ).ready(function() {
-        $("#navbar").navigationBar({
-            structure: {
-                profile: {
-                    groups: {
-                        settings: {
-                            name: "<fmt:message key="i18n.settings"/>",
-                            elements: {
-                                settings: {
-                                    name: "<fmt:message key="i18n.settings"/>",
-                                    url: "",
-                                    iconClass: "fa fa-cog"
-                                },
-                                layout: {
-                                    name: "<fmt:message key="i18n.layout"/>",
-                                    url: "",
-                                    iconClass: "fa fa-pencil-alt"
-                                }
-                            }
-                        },
-                        profile: {
-                            name: "<fmt:message key="i18n.profile" />",
-                            elements: {
-                                myProfile: {
-                                    name: "<fmt:message key="i18n.myProfile" />",
-                                    url: "",
-                                    iconClass: "fa fa-user"
-                                },
-                                logout: {
-                                    name: "<fmt:message key="i18n.logout" />",
-                                    url: "/handleLogout",
-                                    iconClass: "fa fa-sign-out-alt"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            align: "center",
-        });
-    });
-</script>
 
 
 </body>
 
-</body>
 </html>

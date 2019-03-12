@@ -43,6 +43,10 @@ public class EntryController {
                 this.localStorage.writeCookie(response, "token", user.getToken());
             }
             this.localStorage.writeObjectToSession(request, "user", user);
+            if (user.getSettings() != null) {
+                this.localStorage.writeCookie(response, "org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE",
+                        user.getSettings().getLanguage().toLanguageTag());
+            }
             return "redirect:/";
         } else {
             return "redirect:/entry/login?invalidCredentials=true";

@@ -52,7 +52,27 @@ function onSubmit()
         url: "../layoutmode/handleLayout",
         data: JSON.stringify(formatChanges()),
         dataType: "json",
-        contentType : "application/json"
+        contentType : "application/json",
+        success: function(){
+            $("#result").append("" +
+                "<div id=\"message\" class=\"alert alert-success\">\n" +
+                "  <strong>Success!</strong> Layout saved.\n" +
+                "</div>");
+
+            setTimeout(() => {
+                $("#message").remove();
+            }, 3000);
+        },
+        error: function(){
+            $("#result").append("" +
+                "<div id=\"message\" class=\"alert alert-danger\">\n" +
+                "   <strong>Failure!</strong> Changes could not be saved!.\n" +
+                "</div>");
+
+            setTimeout(() => {
+                $("#message").remove();
+            }, 3000);
+        }
     })
 
     layoutStorage = [];
@@ -309,8 +329,11 @@ function addSection()
     var newHeadingDiv = document.createElement("div");
     var handleButtonSpan = document.createElement("span");
     handleButtonSpan.setAttribute("class","handle");
-    var handleButtonText = document.createTextNode("#");
-    handleButtonSpan.appendChild(handleButtonText);
+    var handleButtonTextt = document.createTextNode("  ");
+    var handleButtonText = document.createElement("i");
+    handleButtonText.setAttribute("class","fas fa-arrows-alt handle");
+        handleButtonSpan.appendChild(handleButtonText);
+        handleButtonSpan.appendChild(handleButtonTextt)
     handleButtonSpan.setAttribute("id","hn" + sectionId);
     newHeadingDiv.appendChild(handleButtonSpan);
 
@@ -323,13 +346,16 @@ function addSection()
     inputField.setAttribute("onchange","inputChanged(this.value,\"" + "sn" + sectionId + "\")");
     inputField.setAttribute("id","in" + sectionId);
     inputButtonSpan.appendChild(inputField);
-    var deleteButton = document.createElement("button");
-    deleteButton.setAttribute("type","button");
-    deleteButton.setAttribute("onclick","onDelete('" + "sn" + sectionId + "')");
-    deleteButton.setAttribute("class","btn btn-primary");
+    var deleteButton = document.createElement("a");
+    //deleteButton.setAttribute("type","button");
+    deleteButton.setAttribute("href","javascript:onDelete('" + "sn" + sectionId + "')");
+    deleteButton.setAttribute("class","btn btn-danger");
     deleteButton.setAttribute("id","bn" + sectionId);
-    var xSign = document.createTextNode("x");
+    var xSign = document.createElement("i")
+    var textNode = document.createTextNode("Delete");
+    xSign.setAttribute("class","icon-trash icon-large");
     deleteButton.appendChild(xSign);
+    deleteButton.appendChild(textNode);
     inputButtonSpan.appendChild(deleteButton);
 
 

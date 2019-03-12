@@ -12,7 +12,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Pattern;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DashupService {
 
@@ -251,7 +254,6 @@ public class DashupService {
         this.database.update(Database.Table.USERS, whereParameter, values);
     }
 
-
     public void updateSection(User user,String section_name,int section_id,int section_order)throws SQLException
     {
         Map<String, Object> whereParameters = new HashMap<>();
@@ -260,7 +262,7 @@ public class DashupService {
 
         Map<String, Object> values = new HashMap<>();
 
-      if(section_name.equals("%old%")==false){
+        if(section_name.equals("%old%")==false){
 
             values.put("section_name",section_name);
         }
@@ -290,7 +292,4 @@ public class DashupService {
 
         return;
     }
-
-
-
 }
