@@ -13,13 +13,18 @@
                     </a>
                 </li>
                 <li id="nav-item-marketplace">
-                    <a class="nav-item nav-item-hover" href="${pageContext.request.contextPath}/marketplace">
+                    <a class="nav-item nav-item-hover" href="${pageContext.request.contextPath}/marketplace/">
                         <fmt:message key="i18n.marketplace"/>
                     </a>
                 </li>
                 <li id="nav-item-layout">
-                    <a class="nav-item nav-item-hover" href="${pageContext.request.contextPath}/layout">
+                    <a class="nav-item nav-item-hover" href="${pageContext.request.contextPath}/layout/">
                         <fmt:message key="i18n.layout"/>
+                    </a>
+                </li>
+                <li id="nav-item-layoutmode">
+                    <a class="nav-item nav-item-hover" href="${pageContext.request.contextPath}/layoutmode">
+                        <fmt:message key="i18n.layoutMode" />
                     </a>
                 </li>
                 <li id="nav-item-profile">

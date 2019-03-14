@@ -1,5 +1,5 @@
 package de.dashup.application.controllers;
-import de.dashup.util.layout.LayoutMode;
+import de.dashup.shared.DashupSectionStructure;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.model.builder.DashupBuilder;
 import de.dashup.model.service.DashupService;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/layoutmode")
@@ -40,6 +41,11 @@ public class LayoutModeController {
                 model.addAttribute("email", user.getEmail());
                 model.addAttribute("content", DashupBuilder.buildUsersPanelsLayoutMode(user));
 
+                Map<String, String> layout = DashupService.getInstance().loadLayout(user);
+                for (Map.Entry<String, String> entry : layout.entrySet()) {
+                    model.addAttribute(entry.getKey(), entry.getValue());
+                }
+
             }
         }
         return "layoutMode";
@@ -61,9 +67,30 @@ public class LayoutModeController {
             @RequestBody DashupPanelStructure dps,
             HttpServletRequest request, HttpServletResponse response, Model model) throws SQLException {
         User user = (User) this.localStorage.readObjectFromSession(request, "user");
-        //if (user == null)return new ResponseEntity(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
+        if(user == null)return new ResponseEntity(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
 
-        System.out.println(LayoutMode.updateLayoutStructure(dps));
+
+
+        for (DashupSectionStructure dss: dps.getSections()) {
+            if(dss.getSection_id().contains("sn"))
+            {
+                DashupService.getInstance().addSection(user,dss.getSection_name(),dss.getSection_order());
+            }
+            else
+            {
+                if(dss.getSection_order()==-10)
+                {
+                    DashupService.getInstance().deleteSection(user,Integer.valueOf(dss.getSection_id().substring(1)));
+                }
+                else
+                {
+                    String section_name = dss.getSection_name();
+                    int section_id = Integer.valueOf(dss.getSection_id().substring(1));
+                    DashupService.getInstance().updateSection(user,section_name,section_id,dss.getSection_order());
+
+                }
+            }
+        }
 
         JSONObject entity = new JSONObject();
         entity.put("message", "Success");

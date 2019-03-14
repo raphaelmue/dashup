@@ -39,6 +39,7 @@ public class Database {
     public enum Table {
         USERS("users"),
         USERS_TOKENS("users_tokens"),
+        USER_LAYOUT("user_layout"),
         PANELS("panels"),
         USERS_PANELS("users_panels"),
         USER_SECTIONS("user_sections"),
@@ -94,7 +95,18 @@ public class Database {
             Class.forName(JDBC_DRIVER);
 
             if (HOST == null) {
-                throw new IllegalArgumentException("Database: No host is defined!");
+                //this is a workaround until we can evaluate if the current mvn command is test or not
+                //Note: In testcase DashupApplication.main is not executed and therefore no HOST is set => Exception
+                //throw new IllegalArgumentException("Database: No host is defined!");
+                try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(
+                        Database.class.getResourceAsStream("config/database.conf")))) {
+                    HOST = fileReader.readLine();
+                    DB_USER = fileReader.readLine();
+                    DB_PASSWORD = fileReader.readLine();
+                    DB_NAME=DatabaseName.DEV;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             if (DB_USER == null || DB_PASSWORD == null) {
@@ -102,6 +114,7 @@ public class Database {
             }
 
             // initializing DB access
+
             this.connection = DriverManager.getConnection("jdbc:mysql://" + HOST + ":3306/" + DB_NAME.getName() +
                             "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" +
                             "serverTimezone=UTC&autoReconnect=true",

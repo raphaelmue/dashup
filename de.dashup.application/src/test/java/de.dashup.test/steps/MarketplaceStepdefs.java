@@ -4,27 +4,16 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public class MarketplaceStepdefs {
-    @Given("^User is located on login page$")
-    public void userIsLocatedOnLoginPage() throws Throwable {
-        throw new PendingException();
-    }
-
-    @When("^User submits username and password$")
-    public void user_submits_username_and_password() throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
-
-    @Then("^User is logged in$")
-    public void user_is_logged_in() throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
-
     @Given("^User is located on the main page$")
     public void user_is_located_on_the_main_page() throws Exception {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.close();
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
@@ -43,12 +32,16 @@ public class MarketplaceStepdefs {
 
     @Given("^User is located on the marketplace page$")
     public void user_is_located_on_the_marketplace_page() throws Exception {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.close();
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
 
     @When("^User clicks on the back button or navigates back over the navigation bar$")
     public void user_clicks_on_the_back_button_or_navigates_back_over_the_navigation_bar() throws Exception {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.close();
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
@@ -61,6 +54,8 @@ public class MarketplaceStepdefs {
 
     @Given("^User is on the marketplace page$")
     public void user_is_on_the_marketplace_page() throws Exception {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.close();
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
@@ -103,6 +98,8 @@ public class MarketplaceStepdefs {
 
     @Given("^Rating tab is opened of a panel's detailed view in the marketplace$")
     public void rating_tab_is_opened_of_a_panel_s_detailed_view_in_the_marketplace() throws Exception {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.close();
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
@@ -145,6 +142,8 @@ public class MarketplaceStepdefs {
 
     @Given("^User is on the similar tab of a panel's detailed view in the marketplace$")
     public void user_is_on_the_similar_tab_of_a_panel_s_detailed_view_in_the_marketplace() throws Exception {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.close();
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
@@ -193,6 +192,8 @@ public class MarketplaceStepdefs {
 
     @Given("^User is not logged into dashup$")
     public void user_is_not_logged_into_dashup() throws Exception {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.close();
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }

@@ -11,6 +11,11 @@ import org.json.JSONObject;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DashupService {
 
@@ -186,6 +191,60 @@ public class DashupService {
         }
     }
 
+    public boolean changeLayout(User user, String background_color, String background_image,
+                                int heading_size, String heading_color, String font_heading, String font_text, boolean insert){
+
+        Pattern colorPattern = Pattern.compile("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
+        Pattern urlPattern = Pattern.compile("(http(s?):)([/|.|\\w|\\s|-])*\\.(?:jpg|gif|png)");
+        String[] allowedFonts = {"Andale","Mono","Arial","Arial Black","Avant Garde","Calibri","Courier New","Helvetica","Impact","Times New Roman","Verdana"};
+
+        boolean validColors = colorPattern.matcher(background_color).matches() && colorPattern.matcher(heading_color).matches();
+        boolean validURL = urlPattern.matcher(background_image).matches();
+        boolean validFonts = Arrays.asList(allowedFonts).contains(font_heading) && Arrays.asList(allowedFonts).contains(font_text);
+        if(!(validColors && validFonts && heading_size >= 12 && heading_size <= 40 && validURL)){
+            return false;
+        }
+
+        try {
+            Map<String, Object> whereParameters = new HashMap<>();
+            whereParameters.put("user_id", user.getId());
+
+            Map<String, Object> values = new HashMap<>();
+            values.put("background_color", background_color);
+            values.put("background_image", background_image);
+            values.put("heading_size", heading_size);
+            values.put("heading_color", heading_color);
+            values.put("font_heading", font_heading);
+            values.put("font_text", font_text);
+
+            if (insert) {
+                this.database.insert(Database.Table.USER_LAYOUT, values);
+            } else {
+                this.database.update(Database.Table.USER_LAYOUT, whereParameters, values);
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public Map<String, String> loadLayout(User user) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("user_id", user.getId());
+        JSONObject jsonObject = this.database.get(Database.Table.USER_LAYOUT, whereParameters).getJSONObject(0);
+
+        Map<String, String> result = new HashMap<>();
+        Set<String> iterSet = jsonObject.keySet();
+        Iterator<String> iter = iterSet.iterator();
+        while (iter.hasNext()) {
+            String key = iter.next();
+            result.put(key, jsonObject.get(key).toString());
+        }
+        result.remove("id");
+        result.remove("user_id");
+        return result;
+    }
+
     public void updateSettings(User user) throws SQLException {
         Map<String, Object> whereParameter = new HashMap<>();
         whereParameter.put("id", user.getId());
@@ -194,5 +253,44 @@ public class DashupService {
         values.put("language", user.getSettings().getLanguage().toLanguageTag());
 
         this.database.update(Database.Table.USERS, whereParameter, values);
+    }
+
+    public void updateSection(User user,String section_name,int section_id,int section_order)throws SQLException
+    {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("user_id", user.getId());
+        whereParameters.put("section_id", section_id);
+
+        Map<String, Object> values = new HashMap<>();
+
+        if(section_name.equals("%old%")==false){
+
+            values.put("section_name",section_name);
+        }
+        if(section_order!=-1)values.put("section_order",section_order);
+
+        if(values.isEmpty()==false){
+            this.database.update(Database.Table.USER_SECTIONS, whereParameters, values);
+        }
+        return;
+    }
+
+    public void deleteSection(User user,int section_id) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("section_id",section_id);
+        whereParameters.put("user_id",user.getId());
+        database.delete(Database.Table.USER_SECTIONS,whereParameters);
+    }
+
+    public void addSection(User user,String section_name,int section_order) throws SQLException {
+        if(section_name==null)section_name="New Section";
+
+        Map<String, Object> values = new HashMap<>();
+        values.put("section_name",section_name);
+        values.put("user_id", user.getId());
+
+        this.database.insert(Database.Table.USER_SECTIONS, values);
+
+        return;
     }
 }

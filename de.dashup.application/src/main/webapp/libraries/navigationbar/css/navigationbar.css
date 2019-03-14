@@ -1,0 +1,116 @@
+@font-face {
+    font-family: 'Font Awesome\ 5 Free';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../../../typo/fontawesome-free-5.0.1/web-fonts-with-css/webfonts/fa-solid-900.eot);
+    src: url(../../../typo/fontawesome-free-5.0.1/web-fonts-with-css/webfonts/fa-solid-900.eot?#iefix) format("embedded-opentype"),
+    url(../../../typo/fontawesome-free-5.0.1/web-fonts-with-css/webfonts/fa-solid-900.woff2) format("woff2"),
+    url(../../../typo/fontawesome-free-5.0.1/web-fonts-with-css/webfonts/fa-solid-900.woff) format("woff"),
+    url(../../../typo/fontawesome-free-5.0.1/web-fonts-with-css/webfonts/fa-solid-900.ttf) format("truetype"),
+    url(../../../typo/fontawesome-free-5.0.1/web-fonts-with-css/webfonts/fa-solid-900.svg#fontawesome) format("svg");
+}
+
+.fixed-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+span.expand-icon {
+    margin-left: 12px;
+}
+
+div.menu-container {
+    font-family: Font Awesome\ 5 Free;
+
+    display: block;
+    visibility: hidden;
+    position: absolute;
+    opacity: 0;
+    height: 0;
+
+    background-color: #fafafa;
+    border-radius: 3px;
+    z-index: 999;
+
+    transition: all, .0s ease-in-out !important;
+    -webkit-transition: all, .0s ease-in-out !important;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+div.menu-container::before {
+    font-family: Font Awesome\ 5 Free;
+
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+    display: block;
+    position: absolute;
+    top: -22px;
+    width: 100%;
+    height: 22px;
+    font-size: 24px;
+    text-align: center;
+    content: "\f0d8";
+    font-weight: 400;
+    color: var(--white);
+    z-index: 999;
+}
+
+div.group {
+    margin: 0 10px;
+    padding: 15px 0;
+    border-bottom: 1px solid #c3c3c3;
+    display: block;
+    position: relative;
+}
+
+div.group:last-child {
+    border: 0 !important;
+}
+
+div.group h3 {
+    display: block !important;
+    margin: 5px 5px;
+    font-size: 15px;
+    text-transform: uppercase;
+    color: #7d7d7d;
+    position: relative;
+}
+
+div.group ul {
+    position: relative;
+    display: block !important;
+    width: 100%;
+    margin: 0;
+    padding: 0 10px;
+    float: none !important;
+}
+
+li.menu-item {
+    padding: 8px 0px 8px 0 !important;
+    list-style: none;
+    display: block !important;
+    position: relative;
+    color: #7a7d88 !important;
+    float: none !important;
+    border: 0 !important;
+}
+
+li.menu-item a {
+    display: inline-block;
+    font-size: 20px !important;
+    color: #3e4249 !important;
+    text-transform: none;
+    text-align: left;
+}
+
+li.menu-item span.menu-item-icon {
+    display: inline-block;
+    font-size: 20px !important;
+    margin-right: 15px;
+}

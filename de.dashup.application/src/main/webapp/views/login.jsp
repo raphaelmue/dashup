@@ -5,6 +5,9 @@
 <!doctype html>
 <html lang="en">
     <head>
+        <meta name="google-signin-scope" content="profile email">
+        <meta name="google-signin-client_id"
+              content="974420842298-kd1mc8a01ij835o0upmgq41fnc2vf5kp.apps.googleusercontent.com">
         <jsp:include page="./includes/headInclude.jsp" />
         <jsp:include page="./includes/styles.jsp" />
         <jsp:include page="./includes/scripts.jsp" />
@@ -41,7 +44,7 @@
                     <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
                     <label class="text-white form-check-label" for="rememberMe"><fmt:message key="i18n.rememberMe" /></label>
                 </div>
-                <div style="margin: 10px 0"><a href="${pageContext.request.contextPath}/entry/register"><fmt:message key="i18n.notRegisteredYet"/></a></div>
+                <div style="margin: 10px 0"><a class="text-white" href="${pageContext.request.contextPath}/entry/register"><fmt:message key="i18n.notRegisteredYet"/></a></div>
                 <button type="submit" class="btn btn-primary" id="submit_button"><fmt:message key="i18n.submit" /></button>
             </form>
         </div>
@@ -54,7 +57,29 @@
         </div>
 
         <jsp:include page="./includes/bodyInclude.jsp" />
-        <script src="../scripts/login.js"></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script>
+
+            //gapi.load('auth2', function () {
+             //gapi.auth2.init();
+            //});
+
+            //function onSignIn(googleUser) {
+                // Useful data for your client-side scripts:
+             //   var profile = googleUser.getBasicProfile();
+
+             //   console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+              //  console.log('Full Name: ' + profile.getName());
+              //  console.log('Given Name: ' + profile.getGivenName());
+              //  console.log('Family Name: ' + profile.getFamilyName());
+               // console.log("Image URL: " + profile.getImageUrl());
+               // console.log("Email: " + profile.getEmail());
+
+                // The ID token you need to pass to your backend:
+              //  var id_token = googleUser.getAuthResponse().id_token;
+             //   console.log("ID Token: " + id_token);
+          //  };
+
+        </script>
     </body>
 </html>
