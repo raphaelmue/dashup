@@ -40,46 +40,46 @@ Feature: Change Panel Structure
     Then Section will be removed
 
 
-  Scenario: User wants to reorder his panels
-    Given User is on the layout page
-    And Change structure mode is activated
-    When User drags a panel to another section
-    Then All the other panel will reorder and the dragged panel is in the other section
+#  Scenario: User wants to reorder his panels
+#    Given User is on the layout page
+#    And Change structure mode is activated
+#    When User drags a panel to another section
+#    Then All the other panel will reorder and the dragged panel is in the other section
 
 
-  Scenario: User wants to reorder his sections
-    Given User is on the layout page
-    And Change structure mode is activated
-    When User drags a section to another position
-    Then Section will be reordered to the specified position with all its containing panels
+#  Scenario: User wants to reorder his sections
+#    Given User is on the layout page
+#    And Change structure mode is activated
+#    When User drags a section to another position
+#    Then Section will be reordered to the specified position with all its containing panels
 
 
-  Scenario Outline: User wants to resize a panel.
-    Given User is on the layout page
-    And Change structure mode is activated
-    When User right clicks on a panel
-    Then Size menu will pop up containing the three options small, medium and large
-    When User selects menu entry "<entry>"
-    Then panel will be resized to "<entry>"
+ # Scenario Outline: User wants to resize a panel.
+ #   Given User is on the layout page
+ #   And Change structure mode is activated
+ #   When User right clicks on a panel
+ #   Then Size menu will pop up containing the three options small, medium and large
+ #   When User selects menu entry "<entry>"
+ #   Then panel will be resized to "<entry>"
 
-    Examples:
-      | entry  |
-      | small  |
-      | medium |
-      | large  |
-
-
-  Scenario: Submit changes
-    Given User is on the layout page
-    And Change structure mode is activated
-    And User has made changes
-    When User clicks on submit button
-    Then All changes will come into effect
+ #   Examples:
+ #     | entry  |
+ #     | small  |
+ #     | medium |
+ #     | large  |
 
 
-  Scenario: Undo changes
-    Given User is on the layout page
-    And Change structure mode is activated
-    And User has made a change
-    When User clicks on undo button
-    Then The latest change will be undone
+ # Scenario: Submit changes
+ #   Given User is on the layout page
+ #   And Change structure mode is activated
+ #   And User has made changes
+ #   When User clicks on submit button
+ #   Then All changes will come into effect
+
+
+ # Scenario: Undo changes
+ #   Given User is on the layout page
+ #   And Change structure mode is activated
+ #   And User has made a change
+ #   When User clicks on undo button
+ #   Then The latest change will be undone
