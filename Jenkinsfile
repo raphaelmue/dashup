@@ -30,14 +30,6 @@ pipeline {
                 sh 'mvn spring-boot:run'
             }
         }
-        stage('Deploy') {
-                    when{
-                        branch 'deployment'
-                    }
-                    steps {
-                    sh 'mvn spring-boot:run'
-                    }
-        }
     }
     post {
         always {
