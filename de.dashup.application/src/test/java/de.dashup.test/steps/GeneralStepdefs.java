@@ -20,15 +20,15 @@ public class GeneralStepdefs extends SpringBootBase {
     private final String LOGIN_URL = "http://localhost:9004/entry/login";
 
     private static WebDriver driver;
-    //public static String chromeDriverPath = "/usr/bin/chromedriver";
-    public static String chromeDriverPath = "C:/Users/D070546/Documents/chromedriver_win32/chromedriver.exe";
+    public static String chromeDriverPath = "/usr/bin/chromedriver";
+    //public static String chromeDriverPath = "C:/Users/D070546/Documents/chromedriver_win32/chromedriver.exe";
 
 
     @Given("^User is located on login page$")
     public void userIsLocatedOnLoginPage() throws Throwable {
         final DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
         final ChromeOptions chromeOptions = new ChromeOptions();
-        //chromeOptions.setBinary("/usr/bin/chromium-browser");
+        chromeOptions.setBinary("/usr/bin/chromium-browser");
         //chromeOptions.addArguments("--headless", "window-size=1024,768", "--no-sandbox");
         desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         System.setProperty("webdriver.chrome.driver",chromeDriverPath);
