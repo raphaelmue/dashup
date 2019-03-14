@@ -95,7 +95,16 @@ public class Database {
             Class.forName(JDBC_DRIVER);
 
             if (HOST == null) {
-                throw new IllegalArgumentException("Database: No host is defined!");
+                //throw new IllegalArgumentException("Database: No host is defined!");
+                try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(
+                        Database.class.getResourceAsStream("config/database.conf")))) {
+                    HOST = fileReader.readLine();
+                    DB_USER = fileReader.readLine();
+                    DB_PASSWORD = fileReader.readLine();
+                    DB_NAME=DatabaseName.DEV;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             if (DB_USER == null || DB_PASSWORD == null) {
@@ -103,6 +112,7 @@ public class Database {
             }
 
             // initializing DB access
+
             this.connection = DriverManager.getConnection("jdbc:mysql://" + HOST + ":3306/" + DB_NAME.getName() +
                             "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" +
                             "serverTimezone=UTC&autoReconnect=true",

@@ -234,7 +234,8 @@ public class DashupService {
         JSONObject jsonObject = this.database.get(Database.Table.USER_LAYOUT, whereParameters).getJSONObject(0);
 
         Map<String, String> result = new HashMap<>();
-        Iterator<String> iter = jsonObject.keySet().iterator();
+        Set<String> iterSet = jsonObject.keySet();
+        Iterator<String> iter = iterSet.iterator();
         while (iter.hasNext()) {
             String key = iter.next();
             result.put(key, jsonObject.get(key).toString());
