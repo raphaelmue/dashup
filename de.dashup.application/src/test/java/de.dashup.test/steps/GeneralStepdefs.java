@@ -11,8 +11,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Ignore
 public class GeneralStepdefs extends SpringBootBase {
@@ -21,6 +19,7 @@ public class GeneralStepdefs extends SpringBootBase {
 
     private static WebDriver driver;
     public static String chromeDriverPath = "/usr/bin/chromedriver";
+    //use this line to test local on your pc; adapt path to your needs
     //public static String chromeDriverPath = "C:/Users/D070546/Documents/chromedriver_win32/chromedriver.exe";
 
 
@@ -29,7 +28,6 @@ public class GeneralStepdefs extends SpringBootBase {
         final DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
         final ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setBinary("/etc/alternatives/google-chrome");
-        //chromeOptions.addArguments("--headless", "window-size=1024,768", "--no-sandbox");
         desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         System.setProperty("webdriver.chrome.driver",chromeDriverPath);
         driver = new ChromeDriver(desiredCapabilities);

@@ -9,9 +9,6 @@ import org.openqa.selenium.WebDriver;
 
 public class ChangeLayoutStepdefs {
 
-    private WebDriver driver;
-    private String pathToChromeDriver= "C:\\Users\\D070546\\Documents\\chromedriver_win32\\chromedriver.exe";
-
     @Given("^User is on the main page$")
     public void user_is_on_the_main_page() throws Exception {
         WebDriver driver = GeneralStepdefs.getDriver();

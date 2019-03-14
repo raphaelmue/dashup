@@ -12,9 +12,6 @@ import org.openqa.selenium.interactions.Actions;
 
 public class ChangePanelStructStepdefs {
 
-    private WebDriver driver;
-    private String pathToChromeDriver= "C:\\Users\\D070546\\Documents\\chromedriver_win32\\chromedriver.exe";
-
     private Point sectionPos;
 
     @When("^The user clicks on the rearrangement button$")

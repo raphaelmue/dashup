@@ -95,6 +95,8 @@ public class Database {
             Class.forName(JDBC_DRIVER);
 
             if (HOST == null) {
+                //this is a workaround until we can evaluate if the current mvn command is test or not
+                //Note: In testcase DashupApplication.main is not executed and therefore no HOST is set => Exception
                 //throw new IllegalArgumentException("Database: No host is defined!");
                 try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(
                         Database.class.getResourceAsStream("config/database.conf")))) {
