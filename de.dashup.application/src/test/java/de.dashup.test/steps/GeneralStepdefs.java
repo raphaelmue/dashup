@@ -28,7 +28,7 @@ public class GeneralStepdefs extends SpringBootBase {
     public void userIsLocatedOnLoginPage() throws Throwable {
         final DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
         final ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setBinary("/usr/bin/chromium-browser");
+        chromeOptions.setBinary("/etc/alternatives/google-chrome");
         //chromeOptions.addArguments("--headless", "window-size=1024,768", "--no-sandbox");
         desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         System.setProperty("webdriver.chrome.driver",chromeDriverPath);
