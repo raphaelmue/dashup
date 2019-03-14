@@ -8,10 +8,6 @@ pipeline {
     }
     stage('Preparing tests') {
       steps {
-        sh 'mkdir ./de.dashup.model/src/main/resources'
-        sh 'mkdir ./de.dashup.model/src/main/resources/de'
-        sh 'mkdir ./de.dashup.model/src/main/resources/de/dashup'
-        sh 'mkdir ./de.dashup.model/src/main/resources/de/dashup/model'
         sh 'mkdir ./de.dashup.model/src/main/resources/de/dashup/model/db'
         sh 'mkdir ./de.dashup.model/src/main/resources/de/dashup/model/db/config'
         sh 'cp /var/lib/jenkins/workspace/dashup_database.conf ./de.dashup.model/src/main/resources/de/dashup/model/db/config/database.conf'
