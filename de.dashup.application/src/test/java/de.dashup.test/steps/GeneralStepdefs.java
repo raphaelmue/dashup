@@ -26,18 +26,17 @@ public class GeneralStepdefs extends SpringBootBase {
     private final String LOGIN_URL = "http://localhost:9004/entry/login";
 
     private static WebDriver driver;
-    public static String chromeDriverPath = "/usr/bin/chromedriver";
-    //use this line to test local on your pc; adapt path to your needs
-    //public static String chromeDriverPath = "C:/Users/D070546/Documents/chromedriver_win32/chromedriver.exe";
 
 
     @Given("^User is located on login page$")
     public void userIsLocatedOnLoginPage() throws Throwable {
         final DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
         final ChromeOptions chromeOptions = new ChromeOptions();
+
         if(DriverUtil.getPathToChromeBinary()!=null) {
             chromeOptions.setBinary(DriverUtil.getPathToChromeBinary());
         }
+
         desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         System.setProperty("webdriver.chrome.driver", DriverUtil.getDriverPath());
         driver = new ChromeDriver(desiredCapabilities);
