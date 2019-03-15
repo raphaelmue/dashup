@@ -6,6 +6,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import de.dashup.model.db.Database;
 import de.dashup.test.SpringBootBase;
+import de.dashup.test.utils.DriverUtil;
 import de.dashup.util.string.Hash;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -34,9 +35,11 @@ public class GeneralStepdefs extends SpringBootBase {
     public void userIsLocatedOnLoginPage() throws Throwable {
         final DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
         final ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setBinary("/etc/alternatives/google-chrome");
+        if(DriverUtil.getPathToChromeBinary()!=null) {
+            chromeOptions.setBinary(DriverUtil.getPathToChromeBinary());
+        }
         desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-        System.setProperty("webdriver.chrome.driver",chromeDriverPath);
+        System.setProperty("webdriver.chrome.driver", DriverUtil.getDriverPath());
         driver = new ChromeDriver(desiredCapabilities);
         driver.manage().window().maximize();
         driver.get(LOGIN_URL);
