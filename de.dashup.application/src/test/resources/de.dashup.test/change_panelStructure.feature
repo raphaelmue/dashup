@@ -6,6 +6,7 @@ Feature: Change Panel Structure
 
   Background: User is logged into dashup
     Given User is located on login page
+    And Database is setup for testing
     When User submits username and password
     Then User is logged in
 

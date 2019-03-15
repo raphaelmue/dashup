@@ -41,7 +41,6 @@ public class Database {
         USERS_TOKENS("users_tokens"),
         USER_LAYOUT("user_layout"),
         PANELS("panels"),
-        USERS_PANELS("users_panels"),
         USER_SECTIONS("user_sections"),
         SECTIONS_PANELS("sections_panels");
 
@@ -95,18 +94,7 @@ public class Database {
             Class.forName(JDBC_DRIVER);
 
             if (HOST == null) {
-                //this is a workaround until we can evaluate if the current mvn command is test or not
-                //Note: In testcase DashupApplication.main is not executed and therefore no HOST is set => Exception
-                //throw new IllegalArgumentException("Database: No host is defined!");
-                try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(
-                        Database.class.getResourceAsStream("config/database.conf")))) {
-                    HOST = fileReader.readLine();
-                    DB_USER = fileReader.readLine();
-                    DB_PASSWORD = fileReader.readLine();
-                    DB_NAME=DatabaseName.DEV;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                throw new IllegalArgumentException("Database: No host is defined!");
             }
 
             if (DB_USER == null || DB_PASSWORD == null) {
@@ -133,6 +121,8 @@ public class Database {
     public static void setHost(boolean local) {
         if (local) {
             HOST = "localhost";
+            DB_USER = "root";
+            DB_PASSWORD = "";
         } else {
             try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(
                     Database.class.getResourceAsStream("config/database.conf")))) {
@@ -289,6 +279,21 @@ public class Database {
                 this.getClause(whereParameters, "WHERE", " AND ");
         statement = this.preparedStatement(connection.prepareStatement(query), whereParameters);
         statement.execute();
+    }
+
+    /**
+     * Clears all data in the database. Only possible if server is in test mode.
+     *
+     * @throws SQLException thrown, when something went wrong executing the SQL statement
+     */
+    public void clearDatabase() throws SQLException {
+        if (DB_NAME == DatabaseName.TEST) {
+            this.connection.prepareStatement("SET FOREIGN_KEY_CHECKS = 0").execute();
+            for (Table table : Table.values()) {
+                this.connection.prepareStatement("TRUNCATE TABLE " + table.getTableName()).execute();
+            }
+            this.connection.prepareStatement("SET FOREIGN_KEY_CHECKS = 1").execute();
+        }
     }
 
     /**

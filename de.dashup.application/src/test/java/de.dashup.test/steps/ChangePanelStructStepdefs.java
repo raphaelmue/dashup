@@ -62,14 +62,14 @@ public class ChangePanelStructStepdefs {
     @When("^User clicks on the name of a section$")
     public void user_clicks_on_the_name_of_a_section() throws Exception {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement element=driver.findElement(By.id("i9"));
+        WebElement element=driver.findElement(By.id("i1"));
         element.click();
     }
 
     @And("^User enters \"([^\"]*)\" to this section$")
     public void userEntersToThisSection(String arg0) throws Throwable {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement element=driver.findElement(By.id("i9"));
+        WebElement element=driver.findElement(By.id("i1"));
         element.clear();
         element.sendKeys(arg0);
     }
@@ -77,14 +77,14 @@ public class ChangePanelStructStepdefs {
     @And("^User presses enter$")
     public void userPressesEnter() throws Throwable {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement element=driver.findElement(By.id("i9"));
+        WebElement element=driver.findElement(By.id("i1"));
         element.sendKeys((char)13+"");
     }
 
     @Then("^section will be renamed to \"([^\"]*)\"$")
     public void section_will_be_renamed_to(String arg1) throws Exception {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement element=driver.findElement(By.id("i9"));
+        WebElement element=driver.findElement(By.id("i1"));
         Assert.assertEquals(arg1,element.getAttribute("value"));
         driver.close();
     }
@@ -92,7 +92,7 @@ public class ChangePanelStructStepdefs {
     @When("^User clicks on the remove icon of a section$")
     public void user_clicks_on_the_remove_icon_of_a_section() throws Exception {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement element=driver.findElement(By.id("b9"));
+        WebElement element=driver.findElement(By.id("b1"));
         element.click();
     }
 
@@ -101,10 +101,11 @@ public class ChangePanelStructStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         boolean error=true;
         try {
-            WebElement removedSection = driver.findElement(By.id("b2"));
+            WebElement removedSection = driver.findElement(By.id("b1"));
         }catch (NoSuchElementException e){
             error =false;
         }
+
         Assert.assertEquals(false,error);
         driver.close();
     }
