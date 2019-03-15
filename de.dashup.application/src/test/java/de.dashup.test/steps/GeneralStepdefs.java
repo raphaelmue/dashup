@@ -85,5 +85,13 @@ public class GeneralStepdefs extends SpringBootBase {
         values.put("font_text","Verdana");
 
         database.insert(Database.Table.USER_LAYOUT,values);
+
+        values.clear();
+        values.put("user_id","1");
+        values.put("section_id","1");
+        values.put("section_name","Test Section");
+        values.put("section_order","0");
+
+        database.insert(Database.Table.USER_SECTIONS,values);
     }
 }
