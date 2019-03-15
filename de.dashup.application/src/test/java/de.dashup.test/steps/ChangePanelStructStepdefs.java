@@ -105,7 +105,7 @@ public class ChangePanelStructStepdefs {
         }catch (NoSuchElementException e){
             error =false;
         }
-        
+
         Assert.assertEquals(false,error);
         driver.close();
     }
