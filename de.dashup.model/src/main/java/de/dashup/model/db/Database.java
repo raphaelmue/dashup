@@ -94,18 +94,7 @@ public class Database {
             Class.forName(JDBC_DRIVER);
 
             if (HOST == null) {
-                //this is a workaround until we can evaluate if the current mvn command is test or not
-                //Note: In testcase DashupApplication.main is not executed and therefore no HOST is set => Exception
-                //throw new IllegalArgumentException("Database: No host is defined!");
-                try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(
-                        Database.class.getResourceAsStream("config/database.conf")))) {
-                    HOST = fileReader.readLine();
-                    DB_USER = fileReader.readLine();
-                    DB_PASSWORD = fileReader.readLine();
-                    DB_NAME=DatabaseName.TEST;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                throw new IllegalArgumentException("Database: No host is defined!");
             }
 
             if (DB_USER == null || DB_PASSWORD == null) {
@@ -132,6 +121,8 @@ public class Database {
     public static void setHost(boolean local) {
         if (local) {
             HOST = "localhost";
+            DB_USER = "root";
+            DB_PASSWORD = "";
         } else {
             try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(
                     Database.class.getResourceAsStream("config/database.conf")))) {

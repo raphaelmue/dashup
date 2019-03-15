@@ -61,6 +61,7 @@ public class GeneralStepdefs extends SpringBootBase {
 
     @And("^Database is setup for testing$")
     public void databaseIsSetupForTesting() throws SQLException {
+        //change param of setHost to true if you need to test on local DB
         Database.setHost(false);
         Database.setDbName(Database.DatabaseName.TEST);
         Database database = Database.getInstance();
