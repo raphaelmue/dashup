@@ -16,7 +16,7 @@ public class DatabaseUnitTest {
 
     @BeforeEach
     protected void cleanDB(){
-        Database.setHost(true);
+        Database.setHost(false);
         Database.setDbName(Database.DatabaseName.TEST);
         try {
             database = Database.getInstance();
