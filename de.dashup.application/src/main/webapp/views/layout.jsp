@@ -26,7 +26,7 @@
                 <h4><fmt:message key="i18n.background"/></h4>
                 <div class="form-group">
                     <label for="backgroundColor"><fmt:message key="i18n.backgroundColor"/></label>
-                    <div id="backgroundColor" class="bfh-colorpicker" data-name="backgroundColor" data-color="${background_color}"></div>
+                    <div id="backgroundColor" class="bfh-colorpicker" data-name="backgroundColor" data-color="${background_color}" id="backgroundColorPicker"></div>
                 </div>
                 <div class="form-group">
                     <label for="backgroundImage"><fmt:message key="i18n.backgroundImage"/></label>

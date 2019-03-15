@@ -5,7 +5,10 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 public class ChangeLayoutStepdefs {
 
@@ -17,20 +20,29 @@ public class ChangeLayoutStepdefs {
 
     @When("^The user clicks on the layout edit button$")
     public void the_user_clicks_on_the_layout_edit_button() throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        WebDriver driver = GeneralStepdefs.getDriver();
+        WebElement element = driver.findElement(By.id("nav-item-layout"));
+        if (element == null){
+            Assert.fail();
+        }
+        element.click();
     }
 
     @Then("^The layout setting menu opens up$")
     public void the_layout_setting_menu_opens_up() throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        WebDriver driver = GeneralStepdefs.getDriver();
+        Assert.assertEquals("dashup - Layout",driver.getTitle());
+        driver.close();
     }
 
     @Given("^User is located on the layout settings menu$")
     public void user_is_located_on_the_layout_settings_menu() throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        WebDriver driver = GeneralStepdefs.getDriver();
+        WebElement element = driver.findElement(By.id("nav-item-layout"));
+        if (element == null){
+            Assert.fail();
+        }
+        element.click();
     }
 
     @When("^User changes the background color to '#ff(\\d+)ff'$")
@@ -47,8 +59,8 @@ public class ChangeLayoutStepdefs {
 
     @Then("^Color picker changes color to \"([^\"]*)\"$")
     public void color_picker_changes_color_to(String arg1) throws Exception {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.findElement(By.id("backgroundColorPicker"));
     }
 
     @When("^User changes the background color to '#ffff(\\d+)'$")
@@ -173,6 +185,24 @@ public class ChangeLayoutStepdefs {
 
     @When("^The user clicks on the layout button$")
     public void theUserClicksOnTheLayoutButton() throws Throwable {
+        
+
+    }
+
+    @When("^User changes the background color$")
+    public void userChangesTheBackgroundColorToColors() {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        WebElement element = driver.findElement(By.id("backgroundColorPicker"));
+        if (element == null){
+            Assert.fail();
+        }
+        element.click();
+        Actions act = new Actions(driver);
+        act.moveToElement(element).moveByOffset(element.getSize().width/2,element.getSize().height/2).click().perform();
+    }
+
+    @Then("^Background of dashup main page changes$")
+    public void backgroundOfDashupMainPageChangesToColors() {
 
     }
 }
