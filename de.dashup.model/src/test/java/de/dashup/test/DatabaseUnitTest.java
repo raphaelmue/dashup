@@ -61,7 +61,7 @@ public class DatabaseUnitTest {
     @Test
     protected void testReadLatestID(){
         try {
-            Assert.assertEquals(1,database.getLatestId(Database.Table.USERS));
+            Assert.assertEquals(2,database.getLatestId(Database.Table.USERS));
         }catch (SQLException e){
             Assert.fail("Could not read latest id due to SQLException!");
         }
