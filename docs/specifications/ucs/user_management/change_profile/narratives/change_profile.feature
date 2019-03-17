@@ -1,4 +1,4 @@
-Feature: edit profile
+Feature: Change Profile
 
   As a basic user
   I want to change my personal profile
@@ -28,7 +28,7 @@ Then User is logged in
   Scenario: Change password
     Given User is located on settings menu
     When User changes password to 'imthegreatest'
-    And repeated password is the same
+    And User repeates 'imthegreatest' as password
     And new password is longer than eight characters
     Then password changes to 'imthegreatest'
 

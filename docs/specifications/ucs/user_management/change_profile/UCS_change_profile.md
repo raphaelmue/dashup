@@ -24,7 +24,7 @@ dashup - Use Case Specification: Change Profile
 - [Extension Points](#6-extension-points)
 
 # 1. Change Profile - Brief Description
-In the use case _edit profile_, users can adapt personal information like name, birthday, company or a short biography 
+In the use case _edit profile_ users can adapt personal information like name, birthday, company or a short biography 
 and profile picture in the <i>Settings</i> menu. Note that personal information are not required during registration 
 process. Furthermore the unique username, login credentials and language settings are changeable. 
 
@@ -33,7 +33,7 @@ process. Furthermore the unique username, login credentials and language setting
 ## 2.1 Basic Flow
 
 ### 2.1.1 Activity Diagram
-<img src="./activity_diagrams/change_profile.png" alt="change profile" />
+<img src="./activity_diagrams/change_profile.png" alt="activity diagram" />
 
 ### 2.1.2 Mock-Up
 <img src="./mockups/account_information.png" alt="account information" />

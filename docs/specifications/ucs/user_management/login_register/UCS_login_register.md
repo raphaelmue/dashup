@@ -4,28 +4,32 @@ dashup - Use Case Specification: Login / Register
 
 # Revision History
 
-| Date       | Version | Description                                                            | Author          |
-|------------|---------|------------------------------------------------------------------------|-----------------|
-| 11/29/2018 |     1.0 | Initial UCS with description, activity diagram and screen flow diagram | Raphael Müßeler |
+| Date       | Version | Description                                                            | Author           |
+|------------|---------|------------------------------------------------------------------------|------------------|
+| 11/29/2018 | 1.0     | Initial ucs with description, activity diagram and screen flow diagram | Raphael Müßeler  |
+| 17/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
 
 # Table of Contents
 
-- [Use-Case Name - Brief Description](#1-use-case-name---brief-description) 
+- [Login / Register - Brief Description](#1-login--register---brief-description) 
 - [Flow Of Events](#2-flow-of-events)
     - [Basic Flow](#21-basic-flow)
     - [Alternative Flows](#22-alternative-flows)
 - [Special Requirements](#3-special-requirements)
-    - [First Special Reqiurement](#31--first-special-requirement-)
 - [Preconditions](#4-preconditions)
-    - [Precondition One](#41--precondition-one-)
+    - [Registered to log in](#41-registered-to-log-in)
 - [Postconditions](#5-postconditions) 
-    - [Postcondition One](#51--postcondition-one-) 
+    - [Save Changed Data](#51-save-changed-data) 
+    - [Navigated to central dashboard](#52-navigated-to-central-dashboard)
 - [Extension Points](#6-extension-points)
-    - [Name of Extention Point](#61-name-of-extension-point)
 
-# 1. Use-Case Name - Brief Description
+# 1. Login / Register - Brief Description
 
-The use case _Login / Register_ provides the functionality that the user can create his own profile and the possibility to enter the application with his credentials. 
+In the use case _login / register_ each user is referenced by a unique e-mail address and authenticated by a 
+confirmation e-mail to his entered e-mail address during registration process. During registration users have to provide 
+a username, e-mail address and password. The password has to be repeated correctly. To log in users have to provide the 
+password and e-mail address for their account and are directed to the central dashboard if all credentials entered are 
+correct. Browser cookies will store user sessions, making repeated login processes redundant. 
 
 # 2. Flow of Events
 
@@ -33,45 +37,46 @@ The use case _Login / Register_ provides the functionality that the user can cre
 
 ### 2.1.1 Activity Diagram
 
-<img src="./login_ucs.png" alt="Use case diagram - Login" />
+<img src="./activity_diagrams/login_register.png" alt="activity diagram" />
 
 ### 2.1.2 Mock-Up
 
-<img src="./mockups/Login.png" alt="Mockup: Login" />
+<img src="./mockups/login.png" alt="login" />
 <br />
-<img src="./mockups/Login (invalid credentials).png" alt="Mockup: Login (invalid credentials)" />
+<img src="./mockups/register.png" alt="register" />
 <br />
-<img src="./mockups/Register.png" alt="Mockup: Register" />
+<img src="./mockups/e-mail_not_unique.png" alt="e-mail not unique" />
 <br />
-<img src="./mockups/Register (e-Mail already registered).png" alt="Mockup: Register  (e-Mail already registered)" />
+<img src="./mockups/password_too_short.png" alt="password too short" />
+<br />
+<img src="./mockups/authentication.png" alt="authentication" />
 <br />
 
 ### 2.1.3 Narrative
-
-You can see the entire _.feature file_ right [here](narratives/login_register.feature).
+You can see the entire _.feature file_ right <a href="./narratives/login_register.feature">here</a>.
 
 ## 2.2 Alternative Flows
-
-n/a
+N/A
 
 # 3. Special Requirements
-
-n/a
+Every e-mail is used as a unique identifier. Therefore e-mail addresses must be entered uniquely. Furthermore, every 
+password must at least be eight characters long, regardless which characters. To confirm the 
 
 # 4. Preconditions
 
-## 4.1 Registering
-
-Since registering is the first use case, there are no preconditions.
-
-## 4.2 Login
-
-The user ought to be registered, before the user can login into dashup. 
+## 4.1 Registered to log in
+The user has to be registered before he can login in to dashup. 
 
 # 5. Postconditions
 
-After registering, the respective user should be stored into database, so that he or she can login. Furthermore the user should be logged in after registering.
+## 5.1 Save Changed Data
+After the user has confirmed his identity via e-mail, the account information has to be stored. This is necessary
+to enable future logins. 
+
+## 5.2 Navigated to central dashboard
+After having registered or logged in to dashup the user should be automatically navigated to the central dashboard.
 
 # 6. Extension Points
-
-n/a
+If enough time is left after having implemented all use cases, maybe sending automated e-mails to users when account 
+hijacking is suspected could be implemented. A checkbox to allow dashup to send advertisements per e-mail could as well 
+be considered.

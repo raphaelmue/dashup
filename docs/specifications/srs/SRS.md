@@ -167,20 +167,21 @@ well the key entry point oo add panels to the central dashboard.
 
 ### 3.2.3 User Management
 User management includes registration and login processes as well as adapting your personal profile. Each user is 
-referenced by a unique username and authenticated by a confirmation e-mail to his entered e-mail address during 
-registration process. To log in users have to provide the password and e-mail address for their account and are 
+referenced by a unique e-mail address and authenticated by a confirmation e-mail to his entered e-mail address during 
+registration process. During registration users have to provide a username, e-mail address and password. The password 
+has to be repeated correctly. To log in users have to provide the password and e-mail address for their account and are 
 directed to the central dashboard if all credentials entered are correct. Browser cookies will store user sessions, 
 making repeated login processes redundant. In the <i>Settings</i> menu, users can adapt personal information like 
 name, birthday, company or a short biography and profile picture. Note that personal information are not required during 
 registration process. Furthermore the unique username, login credentials and language settings are changeable. 
 (Use Case: <a href="../ucs/user_management/login_register/UCS_login_register.md">Login And Register</a>)
-(Use Case: <a href="../ucs/user_management/edit_profile/UCS_change_profile.md">Change Profile</a>)
+(Use Case: <a href="../ucs/user_management/change_profile/UCS_change_profile.md">Change Profile</a>)
 
 ### 3.2.4 Layout
 The platform should enable the user to create, modify and delete sections and fill these sections with the desired 
 panels. A rearrangement of sections as well as panels should be possible by drag and drop on the central dashboard. 
 Panels can be moved between sections and resized between small, medium or large size. 
-(Use Case: <a href="../ucs/layout/change_panelStructure/UCS_change_panelStructure.md">Change Panel Structure</a>)
+(Use Case: <a href="../ucs/layout/change_panel_structure/UCS_change_panel_structure.md">Change Panel Structure</a>)
 
 The user can also change the layout of dashup by choosing a theme, font and background image for the central dashboard. 
 These settings can be changed in the <i>Settings</i> menu. 

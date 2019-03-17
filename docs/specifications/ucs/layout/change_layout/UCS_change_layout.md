@@ -24,7 +24,7 @@ dashup - Use Case Specification: Layout - Change Layout
 - [Extension Points](#6-extension-points)
  
 # 1. Change Layout - Brief Description
-In the use case _change layout_, the user can change the layout dashup by choosing a theme, 
+In the use case _change layout_ the user can change the layout dashup by choosing a theme, 
 font and background image for the central dashboard. These settings can be changed in the <i>Settings</i> menu.  
 
 # 2. Flow of Events
