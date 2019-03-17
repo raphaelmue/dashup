@@ -4,71 +4,75 @@ Feature: Change Panel Structure
   I want to customize the central dashboard of dashup
   In order to design dashup the way I want
 
-  Scenario: Enable edit mode
-    Given User is logged in to dashup
-    And User is on the central dashboard
-    When User clicks on the edit icon
-    Then Central dashboard can now be edited
+  Background: Autheticated
+  Given User is located on login page
+  When User submits e-mail and password
+  Then User is logged in
 
-  Scenario: Add section
-    Given User enabled edit mode
-    When User clicks on add section button
-    Then New section is added with a placeholder name
+    Scenario: Enable edit mode
+      Given User is located on the central dashboard
+      When User clicks on edit icon
+      Then Central dashboard can now be edited
 
-  Scenario: Modify section
-    Given User enabled edit mode
-    When User clicks on the name of a section
-    And User enters "my new panels"
-    And User unfocuses section name
-    Then Section will be renamed to "my panels"
+    Scenario: Add section
+      Given User enabled edit mode
+      When User clicks on add section button
+      Then New section is added with a placeholder name
 
-  Scenario: Remove section
-    Given User enabled edit mode
-    When User clicks on the remove icon of a section
-    Then Section will be removed with all its containing panels
+    Scenario: Modify section
+      Given User enabled edit mode
+      When User clicks on the name of a section
+      And User enters "my new panels"
+      And User unfocuses section name
+      Then Section will be renamed to "my panels"
 
-  Scenario: Reorder panels
-    Given User enabled edit mode
-    When User drags a panel to another section
-    Then All other panels will reorder and the dragged panel is at the desired position
+    Scenario: Remove section
+      Given User enabled edit mode
+      When User clicks on the remove icon of a section
+      Then Section will be removed with all its containing panels
 
-  Scenario: Reorder sections
-    Given User enabled edit mode
-    When User drags a section to another position
-    Then Sections will be reordered according to the changed section
-    And Moved section still contains all its panels
+    Scenario: Reorder panels
+      Given User enabled edit mode
+      When User drags a panel to another section
+      Then All other panels will reorder and the dragged panel is at the desired position
 
-  Scenario Outline: User wants to resize a panel.
-    Given User enabled edit mode
-    When User clicks on size icon
-    Then Size menu will pop up containing the three options small, medium and large
-    When User selects menu entry "<entry>"
-    Then panel will be resized to "<entry>"
+    Scenario: Reorder sections
+      Given User enabled edit mode
+      When User drags a section to another position
+      Then Sections will be reordered according to the changed section
+      And Moved section still contains all its panels
 
-    Examples:
-      | entry  |
-      | small  |
-      | medium |
-      | large  |
+    Scenario Outline: User wants to resize a panel.
+      Given User enabled edit mode
+      When User clicks on size icon
+      Then Size menu will pop up containing the three options small, medium and large
+      When User selects menu entry "<entry>"
+      Then panel will be resized to "<entry>"
 
-  Scenario Outline: Undo changes
-    Given User has made a change, section "<section>" was renamed from "<latestValue>" to "<newValues>"
-    And User enabled edit mode
-    When User clicks on abandon icon
-    Then Section "<section>" was renamed back to "<latestValue>"
+      Examples:
+        | entry  |
+        | small  |
+        | medium |
+        | large  |
 
-    Examples:
-    | section | latestValue | newValue |
-    | one     | All Day     | Main     |
-    | two     | Finance     | Stocks   |
+    Scenario Outline: Undo changes
+      Given User has made a change, section "<section>" was renamed from "<latestValue>" to "<newValues>"
+      And User enabled edit mode
+      When User clicks on abandon icon
+      Then Section "<section>" was renamed back to "<latestValue>"
 
-  Scenario Outline: Confirm changes
-    Given User has made a change, section "<section>" was renamed from "<latestValue>" to "<newValues>"
-    And User enabled edit mode
-    When User clicks on confirm icon
-    Then Section "<section>" was renamed to "<newValue>"
+      Examples:
+      | section | latestValue | newValue |
+      | one     | All Day     | Main     |
+      | two     | Finance     | Stocks   |
 
-    Examples:
-    | section | latestValue | newValue        |
-    | three   | Health      | Food            |
-    | four    | Traffic     | Time Management |
+    Scenario Outline: Confirm changes
+      Given User has made a change, section "<section>" was renamed from "<latestValue>" to "<newValues>"
+      And User enabled edit mode
+      When User clicks on confirm icon
+      Then Section "<section>" was renamed to "<newValue>"
+
+      Examples:
+      | section | latestValue | newValue        |
+      | three   | Health      | Food            |
+      | four    | Traffic     | Time Management |

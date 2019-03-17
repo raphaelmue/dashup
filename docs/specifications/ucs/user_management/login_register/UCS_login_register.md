@@ -48,7 +48,7 @@ The use case _Login / Register_ provides the functionality that the user can cre
 
 ### 2.1.3 Narrative
 
-You can see the entire _.feature file_ right [here](login_register.feature).
+You can see the entire _.feature file_ right [here](narratives/login_register.feature).
 
 ## 2.2 Alternative Flows
 

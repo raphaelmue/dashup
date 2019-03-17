@@ -174,7 +174,7 @@ making repeated login processes redundant. In the <i>Settings</i> menu, users ca
 name, birthday, company or a short biography and profile picture. Note that personal information are not required during 
 registration process. Furthermore the unique username, login credentials and language settings are changeable. 
 (Use Case: <a href="../ucs/user_management/login_register/UCS_login_register.md">Login And Register</a>)
-(Use Case: <a href="../ucs/user_management/edit_profile/UCS_edit_profile.md">Edit Profile</a>)
+(Use Case: <a href="../ucs/user_management/edit_profile/UCS_change_profile.md">Change Profile</a>)
 
 ### 3.2.4 Layout
 The platform should enable the user to create, modify and delete sections and fill these sections with the desired 
