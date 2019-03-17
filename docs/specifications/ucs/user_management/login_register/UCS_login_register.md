@@ -41,9 +41,9 @@ correct. Browser cookies will store user sessions, making repeated login process
 
 ### 2.1.2 Mock-Up
 
-<img src="./mockups/login.png" alt="login" />
+<img src="./mockups/Login.png" alt="login" />
 <br />
-<img src="./mockups/register.png" alt="register" />
+<img src="./mockups/Register.png" alt="register" />
 <br />
 <img src="./mockups/e-mail_not_unique.png" alt="e-mail not unique" />
 <br />
