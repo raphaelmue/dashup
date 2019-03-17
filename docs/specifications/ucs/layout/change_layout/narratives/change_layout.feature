@@ -7,8 +7,8 @@ Feature: Change Layout
   Scenario: Open layout settings menu
     Given User is logged in to dashup
     And User is on the central dashboard
-    When The user clicks on the settings menu
-    Then The Setting menu opens up
+    When User clicks on the settings menu
+    Then Settings menu opens up
 
   Scenario: Navigate back to dashboard
     Given User is located on the layout settings menu
@@ -18,7 +18,7 @@ Feature: Change Layout
   Scenario Outline: Customize theming
     Given User is located on the layout settings menu
     When User changes the theme to '<themes>'
-    Then theme of dashup changes to '<themes>'
+    Then Theme of dashup changes to '<themes>'
 
     Examples:
     | themes        |
@@ -62,17 +62,17 @@ Feature: Change Layout
     Then Key "<settings>" will be restored to "<latestValue>".
 
     Examples:
-    | settings        | latestValue | newValue      |
-    | font            | Lora        | Inconsolata   |
-    | theme           | Blue Sky    | White Diamond |
+    | settings | latestValue | newValue      |
+    | font     | Lora        | Inconsolata   |
+    | theme    | Blue Sky    | White Diamond |
 
   Scenario Outline: Confirm changes
     Given User has made a change, key "<settings>" was changed from "<latestValue>" to "<newValues>"
     And User is located on the layout settings menu
     When User clicks on confirm icon
-    Then Key "<settings>" will be changes to "<newValue>".
+    Then Key "<settings>" will be changes to "<newValue>"
 
     Examples:
-    | settings        | latestValue | newValue |
-    | font            | Roboto      | Poppins  |
-    | theme           | Black Night | Red Love |
+    | settings | latestValue | newValue |
+    | font     | Roboto      | Poppins  |
+    | theme    | Black Night | Red Love |

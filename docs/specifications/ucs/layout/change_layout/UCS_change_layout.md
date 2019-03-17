@@ -19,7 +19,7 @@ dashup - Use Case Specification: Layout - Change Layout
 - [Preconditions](#4-preconditions)
     - [System State](#41-system-state)
 - [Postconditions](#5-postconditions) 
-    - [Save Changed Data](51-save-changed-data) 
+    - [Save Changed Data](#51-save-changed-data) 
 - [Extension Points](#6-extension-points)
  
 # 1. Change Layout - Brief Description
@@ -31,13 +31,13 @@ font and background image for the central dashboard. These settings can be chang
 ## 2.1 Basic Flow
 
 ### 2.1.1 Activity Diagram
-<img src="./activity_diagrams/change_layout.png" alt="Use case diagram change layout" />
+<img src="./activity_diagrams/change_layout.png" alt="activity diagram" />
 
 ### 2.1.2 Mock-Up
-
-<img src="./mockups/layout_settings.png" alt="layout settings menu" />
+<img src="./mockups/layout_settings.png" alt="layout settings" />
 <br />
-<img src="./mockups/layout_settings_image_upload.png" alt="image upload layout settings menu" />
+<img src="./mockups/image_upload.png" alt="image upload" />
+<br />
 
 ### 2.1.3 Narrative
 

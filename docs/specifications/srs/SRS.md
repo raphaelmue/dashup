@@ -186,7 +186,7 @@ The user can also change the layout of dashup by choosing a theme, font and back
 These settings can be changed in the <i>Settings</i> menu. 
 (Use Case: <a href="../ucs/layout/change_layout/UCS_change_layout.md">Change Layout</a>)
 
-### 3.2.5 Workshop
+### 3.2.5 Workbench
 
 As each user can create custom panels, the extent of usage and functionality is up to the user himself. Note that users 
 can only take use of dashup web components to build own custom panels. Any program logic must be hosted as an external 
@@ -194,7 +194,7 @@ API offering RESTful services. A user (developer role) has the possibility to co
 panel in order to fetch data to display on the panel or to run server-side program logic. Therefore information like 
 URL, parameters and credentials have to be entered by the user. Before the API can be added, testing the connection is 
 necessary. 
-(Use Case: <a href="../ucs/workshop/add_api/UCS_add_api.md">Add API</a>)
+(Use Case: <a href="../ucs/workbench/add_api/UCS_add_api.md">Add API</a>)
 
 ## 3.3 Usability
 Dashups goal is it to simplify the usage of complex applications by offering (custom) widgets, which restrict the 
@@ -306,7 +306,7 @@ world wide web.
 - Profile screen: Users can edit and update their profile information
 - Marketplace screen: All widgets for the dashup platform can be found and added to the central dashboard
 - Layout screen: Change the design of dashup
-- Workshop screen: Developers can create their own custom panels
+- Workbench screen: Developers can create their own custom panels
 
 ### 3.10.2 Software Interfaces
 The dashup application runs in a web browser. We will try to make it work in as many different web browsers as possible. 
