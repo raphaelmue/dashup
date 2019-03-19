@@ -6,12 +6,20 @@
     <nav>
         <div class="nav-wrapper">
             <a href="#" class="brand-logo" style="font-size: 20px;">D A S H U P</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="#" class="develop-tab develop-tab--active"><fmt:message key="i18n.dashboard"/></a></li>
-                <li><a href="#" class="develop-tab"><fmt:message key="i18n.marketplace"/></a></li>
-                <li><a href="#" class="develop-tab"><fmt:message key="i18n.layout"/></a></li>
-                <li><a href="#" class="develop-tab"><fmt:message key="i18n.settings"/></a></li>
+            <a href="#" data-target="mobile-nav-bar" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="${pageContext.request.contextPath}/" id="nav-item-dashboard"><fmt:message key="i18n.dashboard"/></a></li>
+                <li><a href="${pageContext.request.contextPath}/marketplace/" id="nav-item-marketplace"><fmt:message key="i18n.marketplace"/></a></li>
+                <li><a href="${pageContext.request.contextPath}/layout/" id="nav-item-layout"><fmt:message key="i18n.layout"/></a></li>
+                <li><a href="${pageContext.request.contextPath}/settings/" id="nav-item-settings"><fmt:message key="i18n.settings"/></a></li>
             </ul>
         </div>
     </nav>
+
+    <ul class="sidenav" id="mobile-nav-bar">
+        <li><a href="${pageContext.request.contextPath}/" ><fmt:message key="i18n.dashboard"/></a></li>
+        <li><a href="${pageContext.request.contextPath}/marketplace/"><fmt:message key="i18n.marketplace"/></a></li>
+        <li><a href="${pageContext.request.contextPath}/layout/"><fmt:message key="i18n.layout"/></a></li>
+        <li><a href="${pageContext.request.contextPath}/settings/"><fmt:message key="i18n.settings"/></a></li>
+    </ul>
 </header>

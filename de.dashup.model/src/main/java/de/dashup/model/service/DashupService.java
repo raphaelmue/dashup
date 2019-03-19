@@ -103,6 +103,17 @@ public class DashupService {
         return user;
     }
 
+    public Panel getPanelById(int id) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", id);
+
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, Panel.class, whereParameters);
+        if (result != null && result.size() == 1) {
+            return (Panel) new Panel().fromDatabaseObject(result.get(0));
+        }
+        return null;
+    }
+
     public User getUserByToken(String token) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("token", token);
@@ -192,16 +203,16 @@ public class DashupService {
     }
 
     public boolean changeLayout(User user, String background_color, String background_image,
-                                int heading_size, String heading_color, String font_heading, String font_text, boolean insert){
+                                int heading_size, String heading_color, String font_heading, String font_text, boolean insert) {
 
         Pattern colorPattern = Pattern.compile("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
         Pattern urlPattern = Pattern.compile("(http(s?):)([/|.|\\w|\\s|-])*\\.(?:jpg|gif|png)");
-        String[] allowedFonts = {"Andale","Mono","Arial","Arial Black","Avant Garde","Calibri","Courier New","Helvetica","Impact","Times New Roman","Verdana"};
+        String[] allowedFonts = {"Andale", "Mono", "Arial", "Arial Black", "Avant Garde", "Calibri", "Courier New", "Helvetica", "Impact", "Times New Roman", "Verdana"};
 
         boolean validColors = colorPattern.matcher(background_color).matches() && colorPattern.matcher(heading_color).matches();
         boolean validURL = urlPattern.matcher(background_image).matches();
         boolean validFonts = Arrays.asList(allowedFonts).contains(font_heading) && Arrays.asList(allowedFonts).contains(font_text);
-        if(!(validColors && validFonts && heading_size >= 12 && heading_size <= 40 && validURL)){
+        if (!(validColors && validFonts && heading_size >= 12 && heading_size <= 40 && validURL)) {
             return false;
         }
 
@@ -255,38 +266,37 @@ public class DashupService {
         this.database.update(Database.Table.USERS, whereParameter, values);
     }
 
-    public void updateSection(User user,String section_name,int section_id,int section_order)throws SQLException
-    {
+    public void updateSection(User user, String section_name, int section_id, int section_order) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
         whereParameters.put("section_id", section_id);
 
         Map<String, Object> values = new HashMap<>();
 
-        if(section_name.equals("%old%")==false){
+        if (section_name.equals("%old%") == false) {
 
-            values.put("section_name",section_name);
+            values.put("section_name", section_name);
         }
-        if(section_order!=-1)values.put("section_order",section_order);
+        if (section_order != -1) values.put("section_order", section_order);
 
-        if(values.isEmpty()==false){
+        if (values.isEmpty() == false) {
             this.database.update(Database.Table.USER_SECTIONS, whereParameters, values);
         }
         return;
     }
 
-    public void deleteSection(User user,int section_id) throws SQLException {
+    public void deleteSection(User user, int section_id) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("section_id",section_id);
-        whereParameters.put("user_id",user.getId());
-        database.delete(Database.Table.USER_SECTIONS,whereParameters);
+        whereParameters.put("section_id", section_id);
+        whereParameters.put("user_id", user.getId());
+        database.delete(Database.Table.USER_SECTIONS, whereParameters);
     }
 
-    public void addSection(User user,String section_name,int section_order) throws SQLException {
-        if(section_name==null)section_name="New Section";
+    public void addSection(User user, String section_name, int section_order) throws SQLException {
+        if (section_name == null) section_name = "New Section";
 
         Map<String, Object> values = new HashMap<>();
-        values.put("section_name",section_name);
+        values.put("section_name", section_name);
         values.put("user_id", user.getId());
 
         this.database.insert(Database.Table.USER_SECTIONS, values);

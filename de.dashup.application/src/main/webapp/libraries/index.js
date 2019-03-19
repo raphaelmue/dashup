@@ -1,3 +1,3 @@
 $(document).ready(function () {
-    // do stuff
+    $('.sidenav').sidenav();
 });

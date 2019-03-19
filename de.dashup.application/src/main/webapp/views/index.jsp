@@ -6,20 +6,14 @@
 <html lang="en">
     <jsp:include page="includes/head.jsp" />
     <body>
-    <jsp:include page="includes/header.jsp" />
         <jsp:include page="includes/header.jsp"/>
-        <main>
-            <div class="wrapper">
-
-                <div>
-                    ${content}
-                </div>
-            </div>
-        </main>
+        <div class="container">
+            ${content}
+        </div>
 
         <script>
             $( document ).ready(function () {
-                $("#nav-item-home").children().addClass("selected");
+                $("#nav-item-dashboard").addClass("active");
             });
         </script>
     </body>

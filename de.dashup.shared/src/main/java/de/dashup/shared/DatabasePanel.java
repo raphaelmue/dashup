@@ -5,7 +5,10 @@ public class DatabasePanel implements DatabaseObject {
     private int id;
     private String name, description;
 
-    public DatabasePanel(int id, String name, String description) {
+    public DatabasePanel() {
+    }
+
+    DatabasePanel(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
