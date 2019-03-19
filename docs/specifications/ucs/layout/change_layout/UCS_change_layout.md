@@ -6,7 +6,7 @@ dashup - Use Case Specification: Layout - Change Layout
 
 | Date       | Version | Description                                                            | Author           |
 |------------|---------|------------------------------------------------------------------------|------------------|
-| 28/10/2018 | 1.0     | Initial UCS with description, activity diagram and screen flow diagram | Joshua Schulz    |
+| 28/10/2018 | 1.0     | Initial ucs with description, activity diagram and screen flow diagram | Joshua Schulz    |
 | 09/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
 
 # Table of Contents
@@ -19,11 +19,12 @@ dashup - Use Case Specification: Layout - Change Layout
 - [Preconditions](#4-preconditions)
     - [System State](#41-system-state)
 - [Postconditions](#5-postconditions) 
-    - [Save Changed Data](51-save-changed-data) 
+    - [Save changed data](#51-save-changed-data)
+    - [Discard changed data](#52-discard-changed-data)
 - [Extension Points](#6-extension-points)
  
 # 1. Change Layout - Brief Description
-In the use case _change layout_, the user can change the layout dashup by choosing a theme, 
+In the use case _change layout_ the user can change the layout dashup by choosing a theme, 
 font and background image for the central dashboard. These settings can be changed in the <i>Settings</i> menu.  
 
 # 2. Flow of Events
@@ -31,16 +32,15 @@ font and background image for the central dashboard. These settings can be chang
 ## 2.1 Basic Flow
 
 ### 2.1.1 Activity Diagram
-<img src="./activity_diagrams/change_layout.png" alt="Use case diagram change layout" />
+<img src="./activity_diagrams/change_layout.png" alt="activity diagram" />
 
 ### 2.1.2 Mock-Up
-
-<img src="./mockups/layout_settings.png" alt="layout settings menu" />
+<img src="./mockups/layout_settings.png" alt="layout settings" />
 <br />
-<img src="./mockups/layout_settings_image_upload.png" alt="image upload layout settings menu" />
+<img src="./mockups/image_upload.png" alt="image upload" />
+<br />
 
 ### 2.1.3 Narrative
-
 You can see the entire _.feature file_ right <a href="./narratives/change_layout.feature">here</a>.
 
 ## 2.2 Alternative Flows
@@ -85,7 +85,10 @@ The user has to be signed in and must have navigated to the settings menu.
 
 ## 5.1 Save Changed Data
 After the user has changed the layout settings and pressed the confirm icon the data has to be stored. This is necessary
-to get a persistent change. 
+to get a persistent change.
+
+## 5.2 Discard changed data
+If the user leaves dashup before saving the changes, the old settings will be restored.
 
 #  6. Extension Points
 If enough time is left after having implemented all use cases, maybe a separation between panel, section and dashboard 
