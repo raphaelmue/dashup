@@ -40,6 +40,8 @@ process. Furthermore the unique username, login credentials and language setting
 <br />
 <img src="./mockups/personal_information.png" alt="personal information" />
 <br />
+<img src="./mockups/other.png" alt="other" />
+<br />
 
 ### 2.1.3 Narrative
 You can see the entire _.feature file_ right <a href="./narratives/change_profile.feature">here</a>.
