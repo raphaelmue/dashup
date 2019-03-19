@@ -28,7 +28,7 @@ public class LayoutController {
 
             return "layout";
         }
-        return "redirect:/welcome";
+        return "redirect:/login";
     }
 
 }

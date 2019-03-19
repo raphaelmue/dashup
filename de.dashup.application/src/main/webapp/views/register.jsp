@@ -16,14 +16,14 @@
             <div class="row">
                 <div class="col m6 offset-m3 s10 offset-s1">
                     <h3>
-                        <a href="${pageContext.request.contextPath}/entry/login" style="color: var(--color-black);">
+                        <a href="${pageContext.request.contextPath}/login" style="color: var(--color-black);">
                             <i class="fas fa-arrow-left"></i>
                         </a>
                         <fmt:message key="i18n.registering" />
                     </h3>
                 </div>
             </div>
-            <form action="${pageContext.request.contextPath}/entry/handleRegisterUser" method="POST">
+            <form action="${pageContext.request.contextPath}/handleRegisterUser" method="POST">
                 <div class="row">
                     <div class="col m6 offset-m3 s10 offset-s1">
                         <div class="input-field">

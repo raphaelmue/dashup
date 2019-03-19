@@ -34,23 +34,7 @@ public class DashupController {
             model.addAttribute("content", DashupBuilder.buildUsersPanels(user));
             return "index";
         }
-        return "redirect:/welcome";
-    }
-
-    @RequestMapping("/welcome")
-    public String welcome(@CookieValue(name = "token", required = false) String token, HttpServletRequest request) throws SQLException {
-        User user = this.localStorage.getUser(request, token);
-        if (user != null) {
-            return "redirect:/";
-        } else {
-            return "welcome";
-        }
-    }
-
-    @RequestMapping("/entry")
-    public String delegateEntry() {
-        System.out.println("Delegating to the entry controller");
-        return "redirect:/entry/login";
+        return "redirect:/login";
     }
 
     @RequestMapping("/handleLogout")
@@ -66,7 +50,7 @@ public class DashupController {
         }
         this.localStorage.deleteCookie(response, "token");
 
-        return "redirect:/welcome";
+        return "redirect:/login";
     }
 
     @RequestMapping("/layoutmode")

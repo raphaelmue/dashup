@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.Locale;
 
 @Controller
-@RequestMapping("/entry")
+@RequestMapping("/")
 public class EntryController {
     private final LocalStorage localStorage = LocalStorage.getInstance();
 
@@ -49,7 +49,7 @@ public class EntryController {
             }
             return "redirect:/";
         } else {
-            return "redirect:/entry/login/#invalidCredentials";
+            return "redirect:/login/#invalidCredentials";
         }
     }
 

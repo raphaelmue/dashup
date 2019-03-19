@@ -33,7 +33,7 @@ public class SettingsController {
             }
             return "settings";
         }
-        return "redirect:/welcome";
+        return "redirect:/login";
     }
 
     @RequestMapping("/changeLanguage")
@@ -64,6 +64,6 @@ public class SettingsController {
             }
             return "redirect:/settings/#changedPassword";
         }
-        return "redirect:/welcome";
+        return "redirect:/login";
     }
 }

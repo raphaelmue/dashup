@@ -23,7 +23,7 @@ import java.util.Map;
 @Ignore
 public class GeneralStepdefs extends SpringBootBase {
 
-    private final String LOGIN_URL = "http://localhost:9004/entry/login";
+    private final String LOGIN_URL = "http://localhost:9004/login";
 
     private static WebDriver driver;
 
