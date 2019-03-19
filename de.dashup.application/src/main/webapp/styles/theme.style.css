@@ -1,6 +1,9 @@
 :root {
     --color-primary: rgb(33, 150, 243);
     --color-primary-dark: rgb(0, 105, 192);
+    --color-success: #5cb85c;
+    --color-warning: #ffc200;
+    --color-error: #fc3b37;
     --color-black: rgba(0, 0, 0, 0.87);
 }
 
@@ -59,4 +62,36 @@
 button i.fas {
     font-size: 15px;
     margin-left: 3px;
+}
+
+
+.toast:before {
+    font-family: 'Font Awesome 5 Free', serif;
+    font-weight: 900;
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+.toast.success {
+    background-color: var(--color-success);
+}
+
+.toast.success:before {
+    content:"\f00c";
+}
+
+.toast.warning {
+    background-color: var(--color-warning);
+}
+
+.toast.warning:before {
+    content:"\f12a";
+}
+
+.toast.error {
+    background-color: var(--color-error);
+}
+
+.toast.error:before {
+    content:"\f00d";
 }

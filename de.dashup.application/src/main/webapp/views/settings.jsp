@@ -60,12 +60,52 @@
                                 <p><fmt:message key="i18n.language" /></p>
                             </div>
                             <div class="col s8 m8">
-                                <p><a id="change-language-link" href="#"><fmt:message key="i18n.changeLanguage" /></a></p>
+                                <p><a id="change-language-link" href="#dialog-change-language"><fmt:message key="i18n.changeLanguage" /></a></p>
                             </div>
                         </div>
                     </div>
                 </li>
             </ul>
+        </div>
+
+        <div id="dialog-change-password" class="modal">
+            <div class="modal-content">
+                <div class="row">
+                    <h4><fmt:message key="i18n.changePassword" /></h4>
+                    <div class="input-field col s12">
+                        <input id="change-password-old" type="password" class="validate">
+                        <label for="change-password-old"><fmt:message key="i18n.oldPassword" /></label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="change-password-new" type="password" class="validate">
+                        <label for="change-password-new"><fmt:message key="i18n.newPassword" /></label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="change-password-new-repeat" type="password" class="validate">
+                        <label for="change-password-new-repeat"><fmt:message key="i18n.repeatPassword" /></label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="btn-submit-change-password" class="waves-effect waves-green btn-flat"><fmt:message key="i18n.ok" /></a>
+            </div>
+        </div>
+        <div id="dialog-change-language" class="modal">
+            <div class="modal-content">
+                <div class="row">
+                    <h4><fmt:message key="i18n.selectLanguage" /></h4>
+                    <div class="input-field col s12">
+                        <select id="language-dropdown">
+                            <option value="en">English</option>
+                            <option value="de">German</option>
+                        </select>
+                        <label><fmt:message key="i18n.language" /></label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="btn-submit-change-language" class="modal-close waves-effect waves-green btn-flat"><fmt:message key="i18n.ok" /></a>
+            </div>
         </div>
     </body>
 
@@ -73,71 +113,76 @@
         $( document ).ready(function () {
             $("#nav-item-settings").parent().addClass("active");
 
-            $("#change-password-link").on("click", function () {
-                $.confirm({
-                    title: "<fmt:message key="i18n.changePassword"/>",
-                    content:
-                        "<div class=\"form-group\">" +
-                        "<label class=\"text\" for=\"password\"><fmt:message key="i18n.oldPassword" /></label>" +
-                        "<input type=\"password\" class=\"form-control\" id=\"old-password\" " +
-                        "placeholder=\"<fmt:message key="i18n.oldPassword" />\">" +
-                        "</div>" +
-                        "<div class=\"form-group\">" +
-                        "<label class=\"text\" for=\"password\"><fmt:message key="i18n.newPassword" /></label>" +
-                        "<input type=\"password\" class=\"form-control\" id=\"new-password\" " +
-                        "placeholder=\"<fmt:message key="i18n.newPassword" />\" />"+
-                        "</div>" +
-                        "<div class=\"form-group\">" +
-                        "<input type=\"password\" class=\"form-control\" id=\"new-repeat-password\" " +
-                        "placeholder=\"<fmt:message key="i18n.repeatPassword" />\">" +
-                        "</div>",
-                    closeIcon: true,
-                    buttons: {
-                        ok: {
-                            text: "<fmt:message key="i18n.ok"/>",
-                            btnClass: 'btn-blue',
-                            action: function() {
-                                if ($("#new-password").val() === $("#new-repeat-password").val()) {
-                                    if ($("#old-password").val() != $("#new-password").val()) {
-                                        PostRequest.getInstance().make("settings/changePassword", {
-                                            oldPassword: $("#old-password").val(),
-                                            newPassword: $("#new-password").val(),
-                                            newRepeatPassword: $("#new-repeat-password").val()
-                                        });
-                                    } else {
-                                        $.alert("<fmt:message key="i18n.oldAndNewPasswordMustDiffer"/>");
-                                    }
-                                } else {
-                                    $.alert("<fmt:message key="i18n.passwordsNotMatching"/>");
-                                    return false;
-                                }
-                            }
-                        }
-                    }
-                });
+            let toastOptions = {};
+            switch (getAnchor()) {
+                case "changedPassword":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.successChangedPassword" />",
+                        classes: "success"
+                    };
+                    break;
+                case "oldPasswordWrong":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.oldPasswordIsWrong" />",
+                        classes: "error"
+                    };
+                    break;
+                case "changedLanguage":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.successChangedLanguage" />",
+                        classes: "success"
+                    };
+                    break;
+
+            }
+            if (getAnchor() !== null && getAnchor() !== "") {
+                M.toast(toastOptions);
+                clearAnchor()
+            }
+
+            let changeLanguageDialog = M.Modal.getInstance(document.getElementById("dialog-change-language"));
+            $('#change-language-link').on("click", function () {
+                changeLanguageDialog.open();
             });
 
-            $("#change-language-link").on("click", function () {
-                $.confirm({
-                    title: "<fmt:message key="i18n.changeLanguage"/>",
-                    content: "<div class=\"container\"><div class=\"row\"><div id=\language-dropdown\" class=\"input-field col s12\"><select>" +
-                        "<option value=\"en\">English</option> " +
-                        "<option value=\"de\">German</option> " +
-                        "</select><label><fmt:message key="i18n.language" /></label></div></div></div>",
-                    closeIcon: true,
-                    buttons: {
-                        ok: {
-                            text: "<fmt:message key="i18n.ok"/>",
-                            btnClass: 'btn-blue',
-                            action: function() {
-                                PostRequest.getInstance().make("settings/changeLanguage", {
-                                    lang: $("#language-dropdown").val()
-                                });
-                            }
-                        }
-                    }
+            let changePasswordDialog = M.Modal.getInstance(document.getElementById("dialog-change-password"));
+            $("#change-password-link").on("click", function () {
+                changePasswordDialog.open();
+            });
+
+            $('#btn-submit-change-language').on("click", function () {
+                PostRequest.getInstance().make("settings/changeLanguage", {
+                    lang: $("#language-dropdown").val()
                 });
             });
+            $("#btn-submit-change-password").on("click", function () {
+                let oldPassword = $("#change-password-old").val(),
+                    newPassword = $("#change-password-new").val(),
+                    newRepeatPassword = $("#change-password-new-repeat").val()
+
+                if (newPassword === newRepeatPassword) {
+                    if (oldPassword !== newPassword) {
+                        changePasswordDialog.close();
+                        PostRequest.getInstance().make("settings/changePassword", {
+                            oldPassword: oldPassword,
+                            newPassword: newPassword,
+                            newRepeatPassword: newRepeatPassword
+                        });
+                    } else {
+                        M.toast({
+                            html: "<fmt:message key="i18n.oldAndNewPasswordMustDiffer"/>",
+                            classes: "error"
+                        });
+                    }
+                } else {
+                    M.toast({
+                        html: "<fmt:message key="i18n.passwordsNotMatching"/>",
+                        classes: "error"
+                    });
+                }
+            });
+
+
         });
     </script>
 </html>

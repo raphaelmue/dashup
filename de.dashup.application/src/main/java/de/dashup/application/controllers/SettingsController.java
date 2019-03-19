@@ -47,7 +47,7 @@ public class SettingsController {
             user.setSettings(settings);
             DashupService.getInstance().updateSettings(user);
         }
-        return "redirect:/profile/";
+        return "redirect:/settings/#changedLanguage";
     }
 
     @RequestMapping("/changePassword")
@@ -60,8 +60,9 @@ public class SettingsController {
             try {
                 DashupService.getInstance().updatePassword(user, oldPassword, newPassword);
             } catch (IllegalArgumentException ignored) {
+                return "redirect:/settings/#oldPasswordWrong";
             }
-            return "redirect:/profile/";
+            return "redirect:/settings/#changedPassword";
         }
         return "redirect:/welcome";
     }
