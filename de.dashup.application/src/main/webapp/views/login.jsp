@@ -54,4 +54,20 @@
             </form>
         </div>
     </body>
+
+    <script>
+        let toastOptions = {};
+        switch (getAnchor()) {
+            case "invalidCredentials":
+                toastOptions = {
+                    html: "<fmt:message key="i18n.errorInvalidCredentials" />",
+                    classes: "error"
+                };
+                break;
+        }
+        if (getAnchor() !== null && getAnchor() !== "") {
+            M.toast(toastOptions);
+            clearAnchor()
+        }
+    </script>
 </html>

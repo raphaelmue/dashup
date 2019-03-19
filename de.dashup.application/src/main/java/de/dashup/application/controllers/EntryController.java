@@ -27,7 +27,7 @@ public class EntryController {
         ControllerHelper.setLocale(request, locale);
 
         if (invalidCredentials) {
-            model.addAttribute("errorMessage", "<p>" + I18N.get("i18n.invalidCredentials") + "</p>");
+            model.addAttribute("errorMessage", "<p>" + I18N.get("i18n.errorInvalidCredentials") + "</p>");
         }
         return "login";
     }
@@ -49,7 +49,7 @@ public class EntryController {
             }
             return "redirect:/";
         } else {
-            return "redirect:/entry/login?invalidCredentials=true";
+            return "redirect:/entry/login/#invalidCredentials";
         }
     }
 

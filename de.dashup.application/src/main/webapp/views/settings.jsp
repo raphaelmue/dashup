@@ -133,7 +133,6 @@
                         classes: "success"
                     };
                     break;
-
             }
             if (getAnchor() !== null && getAnchor() !== "") {
                 M.toast(toastOptions);
