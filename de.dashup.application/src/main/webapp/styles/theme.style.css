@@ -1,10 +1,18 @@
 :root {
     --color-primary: rgb(33, 150, 243);
+    --color-primary-dark: rgb(0, 105, 192);
     --color-black: rgba(0, 0, 0, 0.87);
 }
 
 .nav-wrapper {
     background-color: var(--color-primary);
+}
+
+.breadcrumb:before {
+    content: "\f054";
+    font-family: 'Font Awesome 5 Free', serif;
+    font-weight: 900;
+    font-size: 20px;
 }
 
 .secondary-content > .material-icons {

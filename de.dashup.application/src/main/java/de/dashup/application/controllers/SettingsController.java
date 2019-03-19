@@ -15,12 +15,12 @@ import java.sql.SQLException;
 import java.util.Locale;
 
 @Controller
-@RequestMapping("/profile")
-public class ProfileController {
+@RequestMapping("/settings")
+public class SettingsController {
 
     @RequestMapping("/")
-    public String profile(@CookieValue(name = "token", required = false) String token,
-                          HttpServletRequest request, Model model) throws SQLException {
+    public String settings(@CookieValue(name = "token", required = false) String token,
+                           HttpServletRequest request, Model model) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             model.addAttribute("name", user.getName());
@@ -31,7 +31,7 @@ public class ProfileController {
             } else {
                 model.addAttribute("language", "English");
             }
-            return "profile";
+            return "settings";
         }
         return "redirect:/welcome";
     }

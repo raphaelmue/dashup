@@ -13,7 +13,7 @@
 
         <script>
             $( document ).ready(function () {
-                $("#nav-item-dashboard").addClass("active");
+                $("#nav-item-dashboard").parent().addClass("active");
             });
         </script>
     </body>

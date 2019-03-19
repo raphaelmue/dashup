@@ -102,7 +102,7 @@
                             action: function() {
                                 if ($("#new-password").val() === $("#new-repeat-password").val()) {
                                     if ($("#old-password").val() != $("#new-password").val()) {
-                                        PostRequest.getInstance().make("profile/changePassword", {
+                                        PostRequest.getInstance().make("settings/changePassword", {
                                             oldPassword: $("#old-password").val(),
                                             newPassword: $("#new-password").val(),
                                             newRepeatPassword: $("#new-repeat-password").val()
@@ -134,7 +134,7 @@
                             text: "<fmt:message key="i18n.ok"/>",
                             btnClass: 'btn-blue',
                             action: function() {
-                                PostRequest.getInstance().make("profile/changeLanguage", {
+                                PostRequest.getInstance().make("settings/changeLanguage", {
                                     lang: $("#language-dropdown").val()
                                 });
                             }
