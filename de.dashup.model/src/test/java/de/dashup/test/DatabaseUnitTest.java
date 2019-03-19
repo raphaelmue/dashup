@@ -1,18 +1,22 @@
 package de.dashup.test;
 
 import de.dashup.model.db.Database;
+import de.dashup.shared.DatabaseObject;
+import de.dashup.shared.DatabaseUser;
+import de.dashup.shared.User;
 import de.dashup.util.string.Hash;
 import org.json.JSONArray;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("WeakerAccess")
 public class DatabaseUnitTest {
     private static Database database;
 
@@ -84,8 +88,25 @@ public class DatabaseUnitTest {
 
     @Test
     public void testGetWithOrderBy() throws SQLException {
-        HashMap<String, Object> whereParams = new HashMap<>();
-        JSONArray result = database.get(Database.Table.USERS, whereParams, "id DESC");
+        JSONArray result = database.get(Database.Table.USERS, new HashMap<>(), "id DESC");
         Assertions.assertEquals(2, result.getJSONObject(0).getInt("id"));
+    }
+
+    @Test
+    public void testGetObject() throws SQLException {
+        HashMap<String, Object> whereParams = new HashMap<>();
+        whereParams.put("id", "1");
+        List<? extends DatabaseObject> result = database.getObject(Database.Table.USERS, DatabaseUser.class, whereParams);
+        Assertions.assertEquals(1, result.size());
+        User user = (User) new User().fromDatabaseObject(result.get(0));
+        Assertions.assertEquals(1, user.getId());
+    }
+
+    @Test
+    public void testGetObjectWithOrderBy() throws SQLException {
+        List<? extends DatabaseObject> result = database.getObject(Database.Table.USERS, DatabaseUser.class, new HashMap<>(), "id DESC");
+        Assertions.assertEquals(2, result.size());
+        User user = (User) new User().fromDatabaseObject(result.get(0));
+        Assertions.assertEquals(2, user.getId());
     }
 }
