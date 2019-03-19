@@ -99,8 +99,26 @@ public class DashupService {
                 sections.add(section);
             }
         }
-        user.setSections(sections);
+        user.setSections(this.orderSections(sections));
         return user;
+    }
+
+    private ArrayList<Section> orderSections(ArrayList<Section> sections){
+        ArrayList<Section> result = new ArrayList<>();
+        while(!sections.isEmpty()){
+            for (Section section: sections) {
+                if (result.isEmpty() && section.getPredecessor() == -1){
+                    result.add(section);
+                    sections.remove(section);
+                    break;
+                }else if(!result.isEmpty() && section.getPredecessor() == result.get(result.size()-1).getSuccessor()){
+                    result.add(section);
+                    sections.remove(section);
+                    break;
+                }
+            }
+        }
+        return result;
     }
 
     public User getUserByToken(String token) throws SQLException {
@@ -288,6 +306,7 @@ public class DashupService {
         Map<String, Object> values = new HashMap<>();
         values.put("section_name",section_name);
         values.put("user_id", user.getId());
+        //TODO: section order needs to be converted to predecessor and successor
 
         this.database.insert(Database.Table.USER_SECTIONS, values);
 

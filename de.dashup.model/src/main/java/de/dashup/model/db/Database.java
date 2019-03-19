@@ -39,9 +39,9 @@ public class Database {
     public enum Table {
         USERS("users"),
         USERS_TOKENS("users_tokens"),
-        USER_LAYOUT("user_layout"),
+        USER_LAYOUT("users_layout"),
         PANELS("panels"),
-        USER_SECTIONS("user_sections"),
+        USER_SECTIONS("users_sections"),
         SECTIONS_PANELS("sections_panels");
 
         private String tableName;
