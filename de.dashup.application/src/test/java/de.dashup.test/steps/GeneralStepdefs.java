@@ -23,17 +23,17 @@ import java.util.Map;
 @Ignore
 public class GeneralStepdefs extends SpringBootBase {
 
-    private final String LOGIN_URL = "http://localhost:9004/login";
+    private final static String LOGIN_URL = "http://localhost:9004/login";
 
     private static WebDriver driver;
 
 
     @Given("^User is located on login page$")
-    public void userIsLocatedOnLoginPage() throws Throwable {
+    public void userIsLocatedOnLoginPage() {
         final DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
         final ChromeOptions chromeOptions = new ChromeOptions();
 
-        if(DriverUtil.getPathToChromeBinary()!=null) {
+        if (DriverUtil.getPathToChromeBinary() != null) {
             chromeOptions.setBinary(DriverUtil.getPathToChromeBinary());
         }
 
@@ -45,17 +45,19 @@ public class GeneralStepdefs extends SpringBootBase {
     }
 
     @When("^User submits username and password$")
-    public void user_submits_username_and_password() throws Exception {
-        driver.findElement(By.id("email")).sendKeys("nobody@test.com");
-        driver.findElement(By.id("password")).sendKeys("password");
-        driver.findElement(By.id("submit_button")).click();
+    public void user_submits_username_and_password() {
+        driver.findElement(By.id("text-field-login-email")).sendKeys("nobody@test.com");
+        driver.findElement(By.id("text-field-login-password")).sendKeys("password");
+        driver.findElement(By.id("btn-login-submit")).click();
     }
 
     @Then("^User is logged in$")
-    public void user_is_logged_in() throws Exception {
-        Assert.assertEquals("dashup",driver.getTitle());
+    public void user_is_logged_in() {
+        Assert.assertEquals("http://localhost:9004/", driver.getCurrentUrl());
+
     }
-    public static WebDriver getDriver(){
+
+    public static WebDriver getDriver() {
         return driver;
     }
 
@@ -79,22 +81,22 @@ public class GeneralStepdefs extends SpringBootBase {
         database.insert(Database.Table.USERS, values);
 
         values.clear();
-        values.put("user_id","1");
-        values.put("background_color","#ffffff");
-        values.put("background_image","https://stmed.net/sites/default/files/sky-wallpapers-28043-2711012.jpg");
-        values.put("heading_size","30");
-        values.put("heading_color","#5569ff");
-        values.put("font_heading","Arial Black");
-        values.put("font_text","Verdana");
+        values.put("user_id", "1");
+        values.put("background_color", "#ffffff");
+        values.put("background_image", "https://stmed.net/sites/default/files/sky-wallpapers-28043-2711012.jpg");
+        values.put("heading_size", "30");
+        values.put("heading_color", "#5569ff");
+        values.put("font_heading", "Arial Black");
+        values.put("font_text", "Verdana");
 
-        database.insert(Database.Table.USER_LAYOUT,values);
+        database.insert(Database.Table.USER_LAYOUT, values);
 
         values.clear();
-        values.put("user_id","1");
-        values.put("section_id","1");
-        values.put("section_name","Test Section");
-        values.put("section_order","0");
+        values.put("user_id", "1");
+        values.put("section_id", "1");
+        values.put("section_name", "Test Section");
+        values.put("section_order", "0");
 
-        database.insert(Database.Table.USER_SECTIONS,values);
+        database.insert(Database.Table.USER_SECTIONS, values);
     }
 }

@@ -24,14 +24,14 @@
                 <div class="row">
                     <div class="col m6 offset-m3 s10 offset-s1">
                         <div class="input-field">
-                            <input id="text_field_login_email" name="email" type="text" class="validate">
-                            <label for="text_field_login_email"><fmt:message key="i18n.emailAddress" /></label>
+                            <input id="text-field-login-email" name="email" type="text" class="validate">
+                            <label for="text-field-login-email"><fmt:message key="i18n.emailAddress" /></label>
                         </div>
                     </div>
                     <div class="col m6 offset-m3 s10 offset-s1">
                         <div class="input-field">
-                            <input id="text_field_login_password" name="password" type="password" class="validate">
-                            <label for="text_field_login_password"><fmt:message key="i18n.password" /></label>
+                            <input id="text-field-login-password" name="password" type="password" class="validate">
+                            <label for="text-field-login-password"><fmt:message key="i18n.password" /></label>
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="row">
                     <div class="col m6 offset-m3 s10 offset-s1">
-                        <button class="btn waves-effect waves-light" type="submit" name="action">
+                        <button id="btn-login-submit" class="btn waves-effect waves-light" type="submit" name="action">
                             <fmt:message key="i18n.login" />
                             <i class="fas fa-sign-in-alt"></i>
                         </button>
