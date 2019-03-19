@@ -71,22 +71,30 @@ public class LayoutModeController {
 
 
 
-        for (DashupSectionStructure dss: dps.getSections()) {
-            if(dss.getSection_id().contains("sn"))
+        for (int i =0;i< dps.getSections().size();i++) {
+            if(dps.getSections().get(i).getSection_id().contains("sn"))
             {
-                DashupService.getInstance().addSection(user,dss.getSection_name(),dss.getSection_order());
+                if(i==0){
+                    DashupService.getInstance().addSection(user, dps.getSections().get(i).getSection_name(), -1, -1);
+                }else {
+                    DashupService.getInstance().addSection(user, dps.getSections().get(i).getSection_name(), Integer.valueOf(dps.getSections().get(i - 1).getSection_id().substring(1)), -1);
+                }
             }
             else
             {
-                if(dss.getSection_order()==-10)
+                if(dps.getSections().get(i).getSection_order()==-10)
                 {
-                    DashupService.getInstance().deleteSection(user,Integer.valueOf(dss.getSection_id().substring(1)));
+                    DashupService.getInstance().deleteSection(user,Integer.valueOf(dps.getSections().get(i).getSection_id().substring(1)));
                 }
                 else
                 {
-                    String section_name = dss.getSection_name();
-                    int section_id = Integer.valueOf(dss.getSection_id().substring(1));
-                    DashupService.getInstance().updateSection(user,section_name,section_id,dss.getSection_order());
+                    String section_name = dps.getSections().get(i).getSection_name();
+                    int section_id = Integer.valueOf(dps.getSections().get(i).getSection_id().substring(1));
+                    if(i==0) {
+                        DashupService.getInstance().updateSection(user, section_name, section_id, -1, -1);
+                    }else {
+                        DashupService.getInstance().updateSection(user, section_name, section_id, Integer.valueOf(dps.getSections().get(i - 1).getSection_id().substring(1)), -1);
+                    }
 
                 }
             }

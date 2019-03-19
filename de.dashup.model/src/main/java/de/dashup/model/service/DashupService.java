@@ -113,7 +113,7 @@ public class DashupService {
                     result.add(section);
                     sections.remove(section);
                     break;
-                }else if(!result.isEmpty() && section.getId() == result.get(result.size()-1).getSuccessor()){
+                }else if(!result.isEmpty() && section.getPredecessor() == result.get(result.size()-1).getId()){
                     result.add(section);
                     sections.remove(section);
                     break;
@@ -131,7 +131,7 @@ public class DashupService {
                     result.add(panel);
                     panels.remove(panel);
                     break;
-                }else if(!result.isEmpty() && panel.getId() == result.get(result.size()-1).getPanel_successor()){
+                }else if(!result.isEmpty() && panel.getPanel_predecessor() == result.get(result.size()-1).getId()){
                     result.add(panel);
                     panels.remove(panel);
                     break;
@@ -293,7 +293,7 @@ public class DashupService {
         this.database.update(Database.Table.USERS, whereParameter, values);
     }
 
-    public void updateSection(User user,String section_name,int section_id,int section_order)throws SQLException
+    public void updateSection(User user,String section_name,int section_id,int predecessor, int successor)throws SQLException
     {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
@@ -301,16 +301,16 @@ public class DashupService {
 
         Map<String, Object> values = new HashMap<>();
 
-        if(section_name.equals("%old%")==false){
+        if(!section_name.equals("%old%")){
 
             values.put("section_name",section_name);
         }
-        if(section_order!=-1)values.put("section_order",section_order);
+        values.put("predecessor_id",predecessor);
+        values.put("successor_id",successor);
 
-        if(values.isEmpty()==false){
+        if(!values.isEmpty()){
             this.database.update(Database.Table.USER_SECTIONS, whereParameters, values);
         }
-        return;
     }
 
     public void deleteSection(User user,int section_id) throws SQLException {
@@ -320,13 +320,14 @@ public class DashupService {
         database.delete(Database.Table.USER_SECTIONS,whereParameters);
     }
 
-    public void addSection(User user,String section_name,int section_order) throws SQLException {
+    public void addSection(User user,String section_name,int predecessor,int successor) throws SQLException {
         if(section_name==null)section_name="New Section";
 
         Map<String, Object> values = new HashMap<>();
         values.put("section_name",section_name);
         values.put("user_id", user.getId());
-        //TODO: section order needs to be converted to predecessor and successor
+        values.put("predecessor_id",predecessor);
+        values.put("successor_id",successor);
 
         this.database.insert(Database.Table.USER_SECTIONS, values);
 
