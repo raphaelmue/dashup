@@ -88,13 +88,15 @@ public class DashupService {
                 Section section = (Section) databaseObject;
                 Map<String, Object> innerWhereParameters = new HashMap<>();
                 innerWhereParameters.put("section_id", section.getId());
-                JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerWhereParameters);
+                List<? extends DatabaseObject> innerResult = this.database.getObject(Database.Table.SECTIONS_PANELS,Panel.class, innerWhereParameters);
                 if (innerResult != null) {
                     ArrayList<Panel> panels = new ArrayList<>();
-                    for (int j = 0; j < innerResult.length(); j++) {
-                        panels.add(panelLoader.loadPanel(Integer.parseInt(innerResult.getJSONObject(j).get("panel_id").toString())));
+                    for (int j = 0; j < innerResult.size(); j++) {
+                        Panel panel = (Panel) innerResult.get(j);
+                        panel.setHtmlContent(panelLoader.loadPanelContent(panel.getId()));
+                        panels.add(panel);
                     }
-                    section.setPanels(panels);
+                    section.setPanels(this.orderPanels(panels));
                 }
                 sections.add(section);
             }
@@ -111,9 +113,27 @@ public class DashupService {
                     result.add(section);
                     sections.remove(section);
                     break;
-                }else if(!result.isEmpty() && section.getPredecessor() == result.get(result.size()-1).getSuccessor()){
+                }else if(!result.isEmpty() && section.getId() == result.get(result.size()-1).getSuccessor()){
                     result.add(section);
                     sections.remove(section);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    private ArrayList<Panel> orderPanels(ArrayList<Panel> panels){
+        ArrayList<Panel> result = new ArrayList<>();
+        while(!panels.isEmpty()){
+            for (Panel panel: panels) {
+                if (result.isEmpty() && panel.getPanel_predecessor() == -1){
+                    result.add(panel);
+                    panels.remove(panel);
+                    break;
+                }else if(!result.isEmpty() && panel.getId() == result.get(result.size()-1).getPanel_successor()){
+                    result.add(panel);
+                    panels.remove(panel);
                     break;
                 }
             }

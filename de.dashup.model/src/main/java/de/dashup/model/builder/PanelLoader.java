@@ -18,12 +18,12 @@ public class PanelLoader {
     }
 
     /**
-     * Loads a panel from database by id and sets its html content
+     * Loads a panel content from database by id
      *
      * @param id panel id
-     * @return panel object
+     * @return content of panel
      */
-    public Panel loadPanel(int id) {
+    public String loadPanelContent(int id) {
         StringBuilder htmlContent = new StringBuilder();
         htmlContent.append("<div class=\"panel-container\">");
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(
@@ -37,9 +37,7 @@ public class PanelLoader {
             e.printStackTrace();
         }
         htmlContent.append("</div>");
-        Panel panel = new Panel(0, "weather", "niccce", 0);
-        panel.setHtmlContent(htmlContent.toString());
-        return panel;
+        return htmlContent.toString();
     }
 
     /**
