@@ -42,6 +42,14 @@
                                 <p><a id="change-password-link" href="#"><fmt:message key="i18n.changePassword" /></a></p>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col s4 m4">
+                                <p><fmt:message key="i18n.logout" /></p>
+                            </div>
+                            <div class="col s8 m8">
+                                <p><a id="logout-link" href="${pageContext.request.contextPath}/handleLogout"><fmt:message key="i18n.logout" /></a></p>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li>
