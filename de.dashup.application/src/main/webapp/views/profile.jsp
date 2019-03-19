@@ -4,14 +4,14 @@
 <fmt:setBundle basename="i18n"/>
 <html>
 <head>
-    <jsp:include page="./includes/headInclude.jsp" />
-    <jsp:include page="./includes/styles.jsp" />
-    <jsp:include page="./includes/scripts.jsp" />
+    <%--<jsp:include page="./includes/headInclude.jsp" />--%>
+    <%--<jsp:include page="./includes/styles.jsp" />--%>
+    <%--<jsp:include page="./includes/scripts.jsp" />--%>
 
     <title>dashup - <fmt:message key="i18n.profile"/></title>
 </head>
 <body>
-    <jsp:include page="includes/mainHeader.jsp"/>
+    <jsp:include page="includes/header.jsp"/>
     <main>
         <div class="wrapper">
             <h1><fmt:message key="i18n.profile"/></h1>

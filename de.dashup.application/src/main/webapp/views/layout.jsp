@@ -14,12 +14,12 @@
     <link href="../libraries/bootstrapFormHelper/dist/css/bootstrap-formhelpers.min.css" rel="stylesheet" media="screen">
     <%--Entfernt wegen unkompatibel zu Bootstrap Form Helper:
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Raleway|Roboto" rel="stylesheet">--%>
-    <jsp:include page="./includes/styles.jsp" />
-    <jsp:include page="./includes/scripts.jsp" />
+    <%--<jsp:include page="./includes/styles.jsp" />--%>
+    <%--<jsp:include page="./includes/scripts.jsp" />--%>
     <title>dashup - <fmt:message key="i18n.layout"/></title>
 </head>
 <body>
-<jsp:include page="includes/mainHeader.jsp"/>
+<jsp:include page="includes/header.jsp"/>
     <main>
         <div class="wrapper">
             <form>
@@ -60,7 +60,6 @@
             </form>
         </div>
     </main>
-    <jsp:include page="./includes/bodyInclude.jsp" />
 
     <script>
         $(document).ready(function() {
