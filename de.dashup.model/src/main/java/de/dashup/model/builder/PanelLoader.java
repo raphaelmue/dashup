@@ -1,14 +1,18 @@
 package de.dashup.model.builder;
 
+import de.dashup.model.service.DashupService;
 import de.dashup.shared.Panel;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.SQLException;
 
 public class PanelLoader {
 
     private static PanelLoader INSTANCE;
 
-    private static final String PANELS_LOCATION = "./panels/";
+    private static final String PANELS_LOCATION = "panels/";
 
     public static PanelLoader getInstance() {
         if (INSTANCE == null) {
@@ -18,26 +22,35 @@ public class PanelLoader {
     }
 
     /**
-     * Loads a panel from database by id and sets its html content
+     * Loads a panel content from database by id
      *
      * @param id panel id
-     * @return panel object
+     * @return content of panel
      */
     public Panel loadPanel(int id) {
+        Panel panel;
+        try {
+            panel = DashupService.getInstance().getPanelById(id);
+        } catch (SQLException e) {
+            throw new IllegalArgumentException("There is no panel with id '" + id + "' in database!");
+        }
+
+        // TODO: fetch size from database
+        panel.setSize(Panel.Size.MEDIUM);
+
         StringBuilder htmlContent = new StringBuilder();
-        htmlContent.append("<div class=\"panel-container\">");
+        htmlContent.append("<div class=\"col ")
+                .append(panel.getSize().getStyleClass())
+                .append("\">");
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(
-                PanelLoader.class.getResourceAsStream("panels/" + id + ".html")))) {
+                PanelLoader.class.getResourceAsStream(PANELS_LOCATION + id + "-" + panel.getSize().getName() + ".html")))) {
             while (fileReader.ready()) {
                 htmlContent.append(fileReader.readLine());
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
         htmlContent.append("</div>");
-        Panel panel = new Panel(0, "weather", "niccce", 0);
         panel.setHtmlContent(htmlContent.toString());
         return panel;
     }

@@ -1,12 +1,48 @@
 package de.dashup.shared;
 
-public class Panel extends DatabasePanel {
-    private String htmlContent;
-    private int panel_order;
+import com.google.gson.annotations.SerializedName;
 
-    public Panel(int id, String name, String description, int panel_order) {
-        super(id, name, description);
-        this.panel_order=panel_order;
+public class Panel extends DatabasePanel {
+
+    public enum Size {
+        SMALL("small", "m2 s6"),
+        MEDIUM("medium", "m4 s12"),
+        LARGE("large", "m6 s12");
+
+        private final String name, styleClass;
+
+        Size(String name, String styleClass) {
+            this.name = name;
+            this.styleClass = styleClass;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getStyleClass() {
+            return styleClass;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
+
+    private String htmlContent;
+    private Size size;
+
+    public Panel() {
+    }
+
+    @SerializedName("panel_predecessor")
+    private int predecessor;
+
+    public Panel(int id, String name, String description, int numberOfDownloads, int averageRating,
+                 int predecessor) {
+        super(id, name, description, numberOfDownloads, averageRating);
+        this.predecessor = predecessor;
     }
 
     @Override
@@ -16,14 +52,30 @@ public class Panel extends DatabasePanel {
             this.setName(((DatabasePanel) databaseObject).getName());
             this.setDescription(((DatabasePanel) databaseObject).getDescription());
         }
-        return null;
+        return this;
+    }
+
+    public Size getSize() {
+        return size;
+    }
+
+    public int getPredecessor() {
+        return predecessor;
     }
 
     public String getHtmlContent() {
         return htmlContent;
     }
 
+    public void setSize(Size size) {
+        this.size = size;
+    }
+
     public void setHtmlContent(String htmlContent) {
         this.htmlContent = htmlContent;
+    }
+
+    public void setPredecessor(int predecessor) {
+        this.predecessor = predecessor;
     }
 }

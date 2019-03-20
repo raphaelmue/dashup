@@ -1,5 +1,6 @@
 package de.dashup.application.controllers;
 
+import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.application.local.format.I18N;
 import de.dashup.model.service.DashupService;
@@ -16,7 +17,7 @@ import java.sql.SQLException;
 import java.util.Locale;
 
 @Controller
-@RequestMapping("/entry")
+@RequestMapping("/")
 public class EntryController {
     private final LocalStorage localStorage = LocalStorage.getInstance();
 
@@ -27,7 +28,7 @@ public class EntryController {
         ControllerHelper.setLocale(request, locale);
 
         if (invalidCredentials) {
-            model.addAttribute("errorMessage", "<p>" + I18N.get("i18n.invalidCredentials") + "</p>");
+            model.addAttribute("errorMessage", "<p>" + I18N.get("i18n.errorInvalidCredentials") + "</p>");
         }
         return "login";
     }
@@ -49,7 +50,7 @@ public class EntryController {
             }
             return "redirect:/";
         } else {
-            return "redirect:/entry/login?invalidCredentials=true";
+            return "redirect:/login/#invalidCredentials";
         }
     }
 
@@ -69,7 +70,7 @@ public class EntryController {
         if (password.equals(repeatPassword)) {
             User user = DashupService.getInstance().registerUser(email, name, surname, password);
             if (user != null) {
-                DashupService.getInstance().changeLayout(user,"#ffffff", "", 20, "#000000", "Calibri", "Calibri", true);
+                DashupService.getInstance().updateSettings(user, true);
                 this.localStorage.writeObjectToSession(request, "user", user);
                 return "redirect:/";
             }
