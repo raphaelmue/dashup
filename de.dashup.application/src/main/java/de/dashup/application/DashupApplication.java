@@ -27,7 +27,7 @@ public class DashupApplication extends SpringBootServletInitializer implements W
     public static void main(String[] args) {
         // setting up configurations
         Database.DatabaseName databaseName = null;
-        Database.setHost(true);
+        Database.setHost(false);
         for (String arg : args) {
             if (arg.contains("--db-host=")) {
                 Database.setHost(arg.substring(10).equals("local"));
