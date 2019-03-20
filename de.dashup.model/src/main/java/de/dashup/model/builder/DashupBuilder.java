@@ -8,14 +8,18 @@ public class DashupBuilder {
 
     public static String buildUsersPanels(User user) {
         StringBuilder content = new StringBuilder();
-        for (Section s : user.getSections()) {
-            content.append("<div class=\"row\"><h3 class=\"sectionHeading\">")
-                    .append(s.getName())
-                    .append("</h3><hr/><div>");
-            for (Panel p : s.getPanels()) {
-                content.append(p.getHtmlContent());
+        if (user.getSections() != null) {
+            for (Section section : user.getSections()) {
+                content.append("<div class=\"row\"><h3 class=\"sectionHeading\">")
+                        .append(section.getName())
+                        .append("</h3><hr/><div>");
+                if (section.getPanels() != null) {
+                    for (Panel panel : section.getPanels()) {
+                        content.append(panel.getHtmlContent());
+                    }
+                }
+                content.append("<div class=\"clear-float\"></div></div></div>");
             }
-            content.append("<div class=\"clear-float\"></div></div></div>");
         }
         return content.toString();
     }

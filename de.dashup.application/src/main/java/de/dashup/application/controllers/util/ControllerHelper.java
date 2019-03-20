@@ -15,7 +15,7 @@ public class ControllerHelper {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             model.addAttribute("language", user.getSettings().getLanguage().getDisplayLanguage());
-            model.addAttribute("theme", user.getSettings().getTheme().getStyleSheetName());
+            model.addAttribute("theme", user.getSettings().getTheme().getTechnicalName());
             action.action(user);
             return viewName;
         }

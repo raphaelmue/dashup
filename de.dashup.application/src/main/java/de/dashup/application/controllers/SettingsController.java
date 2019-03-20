@@ -5,10 +5,12 @@ import de.dashup.application.local.LocalStorage;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.Settings;
 import de.dashup.shared.User;
+import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +28,7 @@ public class SettingsController {
             model.addAttribute("name", user.getName());
             model.addAttribute("fullName", user.getFullName());
             model.addAttribute("email", user.getEmail());
+            model.addAttribute("backgroundImage", user.getSettings().getBackgroundImage());
         });
     }
 
@@ -56,6 +59,21 @@ public class SettingsController {
                 return "redirect:/settings/#oldPasswordWrong";
             }
             return "redirect:/settings/#changedPassword";
+        }
+        return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/changeLayout", method = RequestMethod.POST)
+    public String handleLayout(@CookieValue(name = "token", required = false) String token,
+                               @RequestParam("theme") String theme,
+                               @RequestParam("backgroundImage") String backgroundImage,
+                               HttpServletRequest request) throws SQLException {
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            user.getSettings().setTheme(Settings.Theme.getThemeByTechnicalName(theme));
+            user.getSettings().setBackgroundImage(backgroundImage);
+            DashupService.getInstance().updateSettings(user, false);
+            return "redirect:/settings/#changedLayout";
         }
         return "redirect:/login";
     }

@@ -70,7 +70,7 @@ public class EntryController {
         if (password.equals(repeatPassword)) {
             User user = DashupService.getInstance().registerUser(email, name, surname, password);
             if (user != null) {
-                DashupService.getInstance().changeLayout(user,"#ffffff", "", 20, "#000000", "Calibri", "Calibri", true);
+                DashupService.getInstance().updateSettings(user, true);
                 this.localStorage.writeObjectToSession(request, "user", user);
                 return "redirect:/";
             }

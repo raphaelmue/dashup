@@ -59,13 +59,13 @@
                 <li>
                     <div class="collapsible-header"><i class="fas fa-pen-fancy"></i><fmt:message key="i18n.layout" /></div>
                     <div class="collapsible-body">
-                        <form>
+                        <form action="${pageContext.request.contextPath}/settings/changeLayout" method="post">
                             <div class="row">
                                 <div class="col s4 m4">
                                     <p><fmt:message key="i18n.theme" /></p>
                                 </div>
                                 <div class="input-field col s8 m8">
-                                    <select id="theme-dropdown">
+                                    <select name="theme" id="theme-dropdown">
                                         <option value="blue-sky">Blue Sky</option>
                                         <option value="black-and-white">Black and White</option>
                                         <option value="high-contrast">High Contrast</option>
@@ -78,7 +78,8 @@
                                     <p><fmt:message key="i18n.backgroundImage" /></p>
                                 </div>
                                 <div class="input-field col s8 m8" style="margin-top: 0">
-                                    <input id="text-field-background-image" type="text" class="validate">
+                                    <input id="text-field-background-image" name="backgroundImage" type="text" class="validate"
+                                           value="${backgroundImage}" />
                                     <label for="text-field-background-image"><fmt:message key="i18n.backgroundImage" /></label>
                                 </div>
                             </div>
@@ -167,6 +168,12 @@
                     toastOptions = {
                         html: "<fmt:message key="i18n.oldPasswordIsWrong" />",
                         classes: "error"
+                    };
+                    break;
+                case "changedLayout":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.successChangedLayout" />",
+                        classes: "success"
                     };
                     break;
                 case "changedLanguage":

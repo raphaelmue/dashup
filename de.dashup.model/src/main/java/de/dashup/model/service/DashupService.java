@@ -8,14 +8,11 @@ import de.dashup.util.string.RandomString;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.regex.Pattern;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class DashupService {
 
@@ -179,6 +176,8 @@ public class DashupService {
         JSONObject jsonObject = this.database.get(Database.Table.USERS_SETTINGS, whereParameters).getJSONObject(0);
         settings.setLanguage(Locale.forLanguageTag(jsonObject.getString("language").isEmpty() ?
                 "en" : jsonObject.getString("language")));
+        settings.setTheme(Settings.Theme.getThemeByTechnicalName(jsonObject.getString("theme")));
+        settings.setBackgroundImage(jsonObject.getString("background_image"));
 
         return settings;
     }
@@ -240,41 +239,34 @@ public class DashupService {
         }
     }
 
-    public boolean changeLayout(User user, String background_color, String background_image,
-                                int heading_size, String heading_color, String font_heading, String font_text, boolean insert) {
-
-        Pattern colorPattern = Pattern.compile("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
-        Pattern urlPattern = Pattern.compile("(http(s?):)([/|.|\\w|\\s|-])*\\.(?:jpg|gif|png)");
-        String[] allowedFonts = {"Andale", "Mono", "Arial", "Arial Black", "Avant Garde", "Calibri", "Courier New", "Helvetica", "Impact", "Times New Roman", "Verdana"};
-
-        boolean validColors = colorPattern.matcher(background_color).matches() && colorPattern.matcher(heading_color).matches();
-        boolean validURL = urlPattern.matcher(background_image).matches();
-        boolean validFonts = Arrays.asList(allowedFonts).contains(font_heading) && Arrays.asList(allowedFonts).contains(font_text);
-        if (!(validColors && validFonts && heading_size >= 12 && heading_size <= 40 && validURL)) {
-            return false;
+    public void updateSettings(User user, boolean insert) throws SQLException {
+        if (!user.getSettings().getBackgroundImage().isEmpty() && !isValidURL(user.getSettings().getBackgroundImage())) {
+            throw new IllegalArgumentException("URL is not valid.");
         }
 
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("user_id", user.getId());
+
+        Map<String, Object> values = new HashMap<>();
+        values.put("background_image", user.getSettings().getBackgroundImage());
+        values.put("theme", user.getSettings().getTheme().getTechnicalName());
+        values.put("language", user.getSettings().getLanguage().toLanguageTag());
+
+        if (insert) {
+            this.database.insert(Database.Table.USERS_SETTINGS, values);
+        } else {
+            this.database.update(Database.Table.USERS_SETTINGS, whereParameters, values);
+        }
+    }
+
+    private boolean isValidURL(String urlStr) {
         try {
-            Map<String, Object> whereParameters = new HashMap<>();
-            whereParameters.put("user_id", user.getId());
-
-            Map<String, Object> values = new HashMap<>();
-            values.put("background_color", background_color);
-            values.put("background_image", background_image);
-            values.put("heading_size", heading_size);
-            values.put("heading_color", heading_color);
-            values.put("font_heading", font_heading);
-            values.put("font_text", font_text);
-
-            if (insert) {
-                this.database.insert(Database.Table.USERS_SETTINGS, values);
-            } else {
-                this.database.update(Database.Table.USERS_SETTINGS, whereParameters, values);
-            }
-        } catch (SQLException e) {
+            URL url = new URL(urlStr);
+            return true;
+        }
+        catch (MalformedURLException e) {
             return false;
         }
-        return true;
     }
 
     public Map<String, String> loadLayout(User user) throws SQLException {
@@ -340,7 +332,5 @@ public class DashupService {
         values.put("successor_id", successor);
 
         this.database.insert(Database.Table.USER_SECTIONS, values);
-
-        return;
     }
 }
