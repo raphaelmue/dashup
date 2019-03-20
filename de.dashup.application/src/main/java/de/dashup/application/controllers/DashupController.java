@@ -20,7 +20,7 @@ public class DashupController {
     private final LocalStorage localStorage = LocalStorage.getInstance();
     @RequestMapping("/")
     public String main(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
-        return ControllerHelper.defaultMapping(token, request, model, "settings", user -> {
+        return ControllerHelper.defaultMapping(token, request, model, "index", user -> {
             model.addAttribute("name", user.getName());
             model.addAttribute("email", user.getEmail());
 
