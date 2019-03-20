@@ -5,6 +5,15 @@
 <!doctype html>
 <html lang="en">
     <jsp:include page="includes/head.jsp" />
+    <style>
+        body {
+            background: url('${backgroundImage}') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
     <body>
         <jsp:include page="includes/header.jsp"/>
         <div class="container">

@@ -23,6 +23,7 @@ public class DashupController {
         return ControllerHelper.defaultMapping(token, request, model, "index", user -> {
             model.addAttribute("name", user.getName());
             model.addAttribute("email", user.getEmail());
+            model.addAttribute("backgroundImage", user.getSettings().getBackgroundImage());
 
             Map<String, String> layout = DashupService.getInstance().loadLayout(user);
             for (Map.Entry<String, String> entry : layout.entrySet()) {
