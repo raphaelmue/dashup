@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.Map;
 
 @Controller
@@ -57,20 +59,32 @@ public class LayoutModeController {
         User user = (User) this.localStorage.readObjectFromSession(request, "user");
         if (user == null) return new ResponseEntity(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
 
-
-        for (DashupSectionStructure dss : dps.getSections()) {
+        dps.getSections().sort(Comparator.comparingInt(DashupSectionStructure::getSection_order));
+        Iterator<DashupSectionStructure> iterator = dps.getSections().iterator();
+        DashupSectionStructure lastdss = null;
+        while (iterator.hasNext()) {
+            DashupSectionStructure dss = iterator.next();
             if (dss.getSection_id().contains("sn")) {
-                DashupService.getInstance().addSection(user, dss.getSection_name(), dss.getSection_order());
+                if (lastdss == null) {
+                    DashupService.getInstance().addSection(user, dss.getSection_name(), -1, -1);
+                } else {
+                    DashupService.getInstance().addSection(user, dss.getSection_name(), Integer.valueOf(lastdss.getSection_id().substring(1)), -1);
+                }
             } else {
                 if (dss.getSection_order() == -10) {
                     DashupService.getInstance().deleteSection(user, Integer.valueOf(dss.getSection_id().substring(1)));
+                    iterator.remove();
                 } else {
                     String section_name = dss.getSection_name();
                     int section_id = Integer.valueOf(dss.getSection_id().substring(1));
-                    DashupService.getInstance().updateSection(user, section_name, section_id, dss.getSection_order());
-
+                    if (lastdss == null) {
+                        DashupService.getInstance().updateSection(user, section_name, section_id, -1, -1);
+                    } else {
+                        DashupService.getInstance().updateSection(user, section_name, section_id, Integer.valueOf(lastdss.getSection_id().substring(1)), -1);
+                    }
                 }
             }
+            lastdss = dss;
         }
 
         JSONObject entity = new JSONObject();

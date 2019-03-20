@@ -89,17 +89,19 @@ public class DashupService {
                 Map<String, Object> innerWhereParameters = new HashMap<>();
                 innerWhereParameters.put("section_id", section.getId());
                 JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerWhereParameters);
-                if (innerResult != null) {
+                if (innerResult != null && innerResult.length() > 0) {
                     ArrayList<Panel> panels = new ArrayList<>();
-                    for (int j = 0; j < innerResult.length(); j++) {
-                        panels.add(panelLoader.loadPanel(Integer.parseInt(innerResult.getJSONObject(j).get("panel_id").toString())));
+                    for (int i = 0; i < innerResult.length(); i++) {
+                        Panel panel = panelLoader.loadPanel(innerResult.getJSONObject(i).getInt("panel_id"));
+                        panel.setPredecessor(innerResult.getJSONObject(i).getInt("panel_predecessor"));
+                        panels.add(panel);
                     }
-                    section.setPanels(panels);
+                    section.setPanels(this.orderPanels(panels));
                 }
                 sections.add(section);
             }
         }
-        user.setSections(sections);
+        user.setSections(this.orderSections(sections));
         return user;
     }
 
@@ -112,6 +114,42 @@ public class DashupService {
             return (Panel) new Panel().fromDatabaseObject(result.get(0));
         }
         return null;
+    }
+
+    private ArrayList<Section> orderSections(ArrayList<Section> sections) {
+        ArrayList<Section> result = new ArrayList<>();
+        while (!sections.isEmpty()) {
+            for (Section section : sections) {
+                if (result.isEmpty() && section.getPredecessor() == -1) {
+                    result.add(section);
+                    sections.remove(section);
+                    break;
+                } else if (!result.isEmpty() && section.getPredecessor() == result.get(result.size() - 1).getId()) {
+                    result.add(section);
+                    sections.remove(section);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    private ArrayList<Panel> orderPanels(ArrayList<Panel> panels) {
+        ArrayList<Panel> result = new ArrayList<>();
+        while (!panels.isEmpty()) {
+            for (Panel panel : panels) {
+                if (result.isEmpty() && panel.getPredecessor() == -1) {
+                    result.add(panel);
+                    panels.remove(panel);
+                    break;
+                } else if (!result.isEmpty() && panel.getPredecessor() == result.get(result.size() - 1).getId()) {
+                    result.add(panel);
+                    panels.remove(panel);
+                    break;
+                }
+            }
+        }
+        return result;
     }
 
     public User getUserByToken(String token) throws SQLException {
@@ -138,7 +176,7 @@ public class DashupService {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", user.getId());
 
-        JSONObject jsonObject = this.database.get(Database.Table.USERS, whereParameters).getJSONObject(0);
+        JSONObject jsonObject = this.database.get(Database.Table.USERS_SETTINGS, whereParameters).getJSONObject(0);
         settings.setLanguage(Locale.forLanguageTag(jsonObject.getString("language").isEmpty() ?
                 "en" : jsonObject.getString("language")));
 
@@ -229,9 +267,9 @@ public class DashupService {
             values.put("font_text", font_text);
 
             if (insert) {
-                this.database.insert(Database.Table.USER_LAYOUT, values);
+                this.database.insert(Database.Table.USERS_SETTINGS, values);
             } else {
-                this.database.update(Database.Table.USER_LAYOUT, whereParameters, values);
+                this.database.update(Database.Table.USERS_SETTINGS, whereParameters, values);
             }
         } catch (SQLException e) {
             return false;
@@ -242,7 +280,7 @@ public class DashupService {
     public Map<String, String> loadLayout(User user) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
-        JSONObject jsonObject = this.database.get(Database.Table.USER_LAYOUT, whereParameters).getJSONObject(0);
+        JSONObject jsonObject = this.database.get(Database.Table.USERS_SETTINGS, whereParameters).getJSONObject(0);
 
         Map<String, String> result = new HashMap<>();
         Set<String> iterSet = jsonObject.keySet();
@@ -266,23 +304,23 @@ public class DashupService {
         this.database.update(Database.Table.USERS, whereParameter, values);
     }
 
-    public void updateSection(User user, String section_name, int section_id, int section_order) throws SQLException {
+    public void updateSection(User user, String section_name, int section_id, int predecessor, int successor) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
         whereParameters.put("section_id", section_id);
 
         Map<String, Object> values = new HashMap<>();
 
-        if (section_name.equals("%old%") == false) {
+        if (!section_name.equals("%old%")) {
 
             values.put("section_name", section_name);
         }
-        if (section_order != -1) values.put("section_order", section_order);
+        values.put("predecessor_id", predecessor);
+        values.put("successor_id", successor);
 
-        if (values.isEmpty() == false) {
+        if (!values.isEmpty()) {
             this.database.update(Database.Table.USER_SECTIONS, whereParameters, values);
         }
-        return;
     }
 
     public void deleteSection(User user, int section_id) throws SQLException {
@@ -292,12 +330,14 @@ public class DashupService {
         database.delete(Database.Table.USER_SECTIONS, whereParameters);
     }
 
-    public void addSection(User user, String section_name, int section_order) throws SQLException {
+    public void addSection(User user, String section_name, int predecessor, int successor) throws SQLException {
         if (section_name == null) section_name = "New Section";
 
         Map<String, Object> values = new HashMap<>();
         values.put("section_name", section_name);
         values.put("user_id", user.getId());
+        values.put("predecessor_id", predecessor);
+        values.put("successor_id", successor);
 
         this.database.insert(Database.Table.USER_SECTIONS, values);
 

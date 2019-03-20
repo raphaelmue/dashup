@@ -22,10 +22,10 @@ public class PanelLoader {
     }
 
     /**
-     * Loads a panel from database by id and sets its html content
+     * Loads a panel content from database by id
      *
      * @param id panel id
-     * @return panel object
+     * @return content of panel
      */
     public Panel loadPanel(int id) {
         Panel panel;
@@ -51,7 +51,6 @@ public class PanelLoader {
             e.printStackTrace();
         }
         htmlContent.append("</div>");
-
         panel.setHtmlContent(htmlContent.toString());
         return panel;
     }

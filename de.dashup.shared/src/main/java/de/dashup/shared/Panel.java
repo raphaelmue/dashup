@@ -1,5 +1,7 @@
 package de.dashup.shared;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Panel extends DatabasePanel {
 
     public enum Size {
@@ -34,8 +36,13 @@ public class Panel extends DatabasePanel {
     public Panel() {
     }
 
-    public Panel(int id, String name, String description) {
-        super(id, name, description);
+    @SerializedName("panel_predecessor")
+    private int predecessor;
+
+    public Panel(int id, String name, String description, int numberOfDownloads, int averageRating,
+                 int predecessor) {
+        super(id, name, description, numberOfDownloads, averageRating);
+        this.predecessor = predecessor;
     }
 
     @Override
@@ -52,6 +59,10 @@ public class Panel extends DatabasePanel {
         return size;
     }
 
+    public int getPredecessor() {
+        return predecessor;
+    }
+
     public String getHtmlContent() {
         return htmlContent;
     }
@@ -62,5 +73,9 @@ public class Panel extends DatabasePanel {
 
     public void setHtmlContent(String htmlContent) {
         this.htmlContent = htmlContent;
+    }
+
+    public void setPredecessor(int predecessor) {
+        this.predecessor = predecessor;
     }
 }
