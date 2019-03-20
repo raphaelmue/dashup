@@ -7,21 +7,9 @@
     <body>
         <jsp:include page="includes/header.jsp"/>
         <div class="container">
-            <div>
-                ${content}
+            <div class="row">
+                <h3><fmt:message key="i18n.layoutMode" /></h3>
             </div>
-        </div>
-
-        <div id="bottom-right">
-            <ul>
-                <button type="button" onclick="onUndo()" class="btn btn-primary">Undo</button>
-            </ul>
-            <ul>
-                <button type="button" id="add_section_btn" onclick="addSection()" class="btn btn-primary">Add</button>
-            </ul>
-            <ul>
-                <button type="button" onclick="onSubmit()" class="btn btn-primary">Submit</button>
-            </ul>
         </div>
     <script src="./../libraries/dragdrop.js"></script>
     </body>

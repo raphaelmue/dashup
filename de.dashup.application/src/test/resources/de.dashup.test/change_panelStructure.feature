@@ -4,41 +4,41 @@ Feature: Change Panel Structure
   I want to customize the general arrangement of sections and panels
   So that I can have a better overview over my panel structure
 
-  Background: User is logged into dashup
-    Given User is located on login page
-    And Database is setup for testing
-    When User submits username and password
-    Then User is logged in
+#  Background: User is logged into dashup
+#    Given User is located on login page
+#    And Database is setup for testing
+#    When User submits username and password
+#    Then User is logged in
 
-  Scenario: Enable rearrangement menu
-    Given User is on the main page
-    When The user clicks on the rearrangement button
-    Then Dashup's general panel structure is now editable as change structure mode is activated
-
-
-  Scenario: User wants to add a section to his dashup
-    Given User is on the layout page
-    And Change structure mode is activated
-    When User clicks on add section button
-    And User enters "my panels"
-    And User presses enter
-    Then A new empty section will be rendered, being titled with "my panels"
+#  Scenario: Enable rearrangement menu
+#    Given User is on the main page
+#    When The user clicks on the rearrangement button
+#    Then Dashup's general panel structure is now editable as change structure mode is activated
 
 
-  Scenario: User wants to rename a section
-    Given User is on the layout page
-    And Change structure mode is activated
-    When User clicks on the name of a section
-    And User enters "my new panels" to this section
-    And User presses enter
-    Then section will be renamed to "my new panels"
+#  Scenario: User wants to add a section to his dashup
+#    Given User is on the layout page
+#    And Change structure mode is activated
+#    When User clicks on add section button
+#    And User enters "my panels"
+#    And User presses enter
+#    Then A new empty section will be rendered, being titled with "my panels"
 
 
-  Scenario: User wants to remove a section
-    Given User is on the layout page
-    And Change structure mode is activated
-    When User clicks on the remove icon of a section
-    Then Section will be removed
+#  Scenario: User wants to rename a section
+#    Given User is on the layout page
+#    And Change structure mode is activated
+#    When User clicks on the name of a section
+#    And User enters "my new panels" to this section
+#    And User presses enter
+#    Then section will be renamed to "my new panels"
+
+
+#  Scenario: User wants to remove a section
+#    Given User is on the layout page
+#    And Change structure mode is activated
+#    When User clicks on the remove icon of a section
+#    Then Section will be removed
 
 
 #  Scenario: User wants to reorder his panels
