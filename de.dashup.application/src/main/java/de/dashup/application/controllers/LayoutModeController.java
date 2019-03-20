@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.Map;
 
 @Controller
@@ -70,34 +72,39 @@ public class LayoutModeController {
         if(user == null)return new ResponseEntity(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
 
 
-
-        for (int i =0;i< dps.getSections().size();i++) {
-            if(dps.getSections().get(i).getSection_id().contains("sn"))
+        dps.getSections().sort(Comparator.comparingInt(DashupSectionStructure::getSection_order));
+        Iterator<DashupSectionStructure> iterator=dps.getSections().iterator();
+        DashupSectionStructure lastdss= null;
+        while (iterator.hasNext()) {
+            DashupSectionStructure dss = iterator.next();
+            if(dss.getSection_id().contains("sn"))
             {
-                if(i==0){
-                    DashupService.getInstance().addSection(user, dps.getSections().get(i).getSection_name(), -1, -1);
+                if(lastdss==null){
+                    DashupService.getInstance().addSection(user, dss.getSection_name(), -1, -1);
                 }else {
-                    DashupService.getInstance().addSection(user, dps.getSections().get(i).getSection_name(), Integer.valueOf(dps.getSections().get(i - 1).getSection_id().substring(1)), -1);
+                    DashupService.getInstance().addSection(user, dss.getSection_name(), Integer.valueOf(lastdss.getSection_id().substring(1)), -1);
                 }
             }
             else
             {
-                if(dps.getSections().get(i).getSection_order()==-10)
+                if(dss.getSection_order()==-10)
                 {
-                    DashupService.getInstance().deleteSection(user,Integer.valueOf(dps.getSections().get(i).getSection_id().substring(1)));
+                    DashupService.getInstance().deleteSection(user,Integer.valueOf(dss.getSection_id().substring(1)));
+                    iterator.remove();
                 }
                 else
                 {
-                    String section_name = dps.getSections().get(i).getSection_name();
-                    int section_id = Integer.valueOf(dps.getSections().get(i).getSection_id().substring(1));
-                    if(i==0) {
+                    String section_name = dss.getSection_name();
+                    int section_id = Integer.valueOf(dss.getSection_id().substring(1));
+                    if(lastdss==null) {
                         DashupService.getInstance().updateSection(user, section_name, section_id, -1, -1);
                     }else {
-                        DashupService.getInstance().updateSection(user, section_name, section_id, Integer.valueOf(dps.getSections().get(i - 1).getSection_id().substring(1)), -1);
+                        DashupService.getInstance().updateSection(user, section_name, section_id, Integer.valueOf(lastdss.getSection_id().substring(1)), -1);
                     }
 
                 }
             }
+            lastdss = dss;
         }
 
         JSONObject entity = new JSONObject();

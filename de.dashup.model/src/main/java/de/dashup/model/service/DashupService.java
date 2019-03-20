@@ -165,7 +165,7 @@ public class DashupService {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", user.getId());
 
-        JSONObject jsonObject = this.database.get(Database.Table.USERS, whereParameters).getJSONObject(0);
+        JSONObject jsonObject = this.database.get(Database.Table.USERS_SETTINGS, whereParameters).getJSONObject(0);
         settings.setLanguage(Locale.forLanguageTag(jsonObject.getString("language").isEmpty() ?
                 "en" : jsonObject.getString("language")));
 
@@ -256,9 +256,9 @@ public class DashupService {
             values.put("font_text", font_text);
 
             if (insert) {
-                this.database.insert(Database.Table.USER_LAYOUT, values);
+                this.database.insert(Database.Table.USERS_SETTINGS, values);
             } else {
-                this.database.update(Database.Table.USER_LAYOUT, whereParameters, values);
+                this.database.update(Database.Table.USERS_SETTINGS, whereParameters, values);
             }
         } catch (SQLException e) {
             return false;
@@ -269,7 +269,7 @@ public class DashupService {
     public Map<String, String> loadLayout(User user) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
-        JSONObject jsonObject = this.database.get(Database.Table.USER_LAYOUT, whereParameters).getJSONObject(0);
+        JSONObject jsonObject = this.database.get(Database.Table.USERS_SETTINGS, whereParameters).getJSONObject(0);
 
         Map<String, String> result = new HashMap<>();
         Set<String> iterSet = jsonObject.keySet();
