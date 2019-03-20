@@ -6,3 +6,8 @@ div.nav-wrapper {
     padding: 0 25px;
 }
 
+.btn-floating {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+}

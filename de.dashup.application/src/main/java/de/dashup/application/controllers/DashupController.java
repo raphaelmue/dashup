@@ -50,9 +50,9 @@ public class DashupController {
         return "redirect:/login";
     }
 
-    @RequestMapping("/layoutmode")
+    @RequestMapping("/layoutMode")
     public String layoutMode() {
         System.out.println("Delegating to the layoutMode controller");
-        return "redirect:/layoutmode/layoutMode";
+        return "redirect:/layoutMode/";
     }
 }
