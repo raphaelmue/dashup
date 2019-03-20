@@ -1,16 +1,21 @@
 package de.dashup.shared;
 
-public class DatabasePanel implements DatabaseObject {
+import com.google.gson.annotations.SerializedName;
 
-    private int id, number_of_downloads, average_rating;
+public class DatabasePanel implements DatabaseObject {
+    @SerializedName("number_of_downloads")
+    private int numberOfDownloads;
+    @SerializedName("average_rating")
+    private int averageRating;
+    private int id;
     private String name, description;
 
-    public DatabasePanel(int id, String name, String description, int number_of_downloads, int average_rating) {
+    public DatabasePanel(int id, String name, String description, int numberOfDownloads, int average_rating) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.number_of_downloads = number_of_downloads;
-        this.average_rating = average_rating;
+        this.numberOfDownloads = numberOfDownloads;
+        this.averageRating = average_rating;
     }
 
 

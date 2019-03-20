@@ -1,35 +1,28 @@
 package de.dashup.shared;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Section implements DatabaseObject {
-    private int section_id;
+    @SerializedName("section_id")
+    private int sectionID;
     private String section_name;
-    private int predecessor_id;
-    private int successor_id;
-
-    public int getPredecessor() {
-        return predecessor_id;
-    }
-
-    public int getSuccessor() {
-        return successor_id;
-    }
-
+    @SerializedName("predecessor_id")
+    private int predecessorID;
     private List<Panel> panels;
 
     public Section() {
     }
 
-    public Section(int user_id, int section_id, String section_name, int predecessor_id, int successor_id) {
-        this.section_id = section_id;
+    public Section(int user_id, int section_id, String section_name, int predecessorID) {
+        this.sectionID = section_id;
         this.section_name = section_name;
-        this.predecessor_id = predecessor_id;
-        this.successor_id = successor_id;
+        this.predecessorID = predecessorID;
     }
 
     public void setId(int id) {
-        this.section_id = id;
+        this.sectionID = id;
     }
 
     public void setName(String name) {
@@ -48,8 +41,12 @@ public class Section implements DatabaseObject {
         return panels;
     }
 
+    public int getPredecessor() {
+        return predecessorID;
+    }
+
     @Override
     public int getId() {
-        return section_id;
+        return sectionID;
     }
 }

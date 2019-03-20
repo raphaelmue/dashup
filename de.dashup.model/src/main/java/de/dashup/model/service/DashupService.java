@@ -127,11 +127,11 @@ public class DashupService {
         ArrayList<Panel> result = new ArrayList<>();
         while(!panels.isEmpty()){
             for (Panel panel: panels) {
-                if (result.isEmpty() && panel.getPanel_predecessor() == -1){
+                if (result.isEmpty() && panel.getPredecessor() == -1){
                     result.add(panel);
                     panels.remove(panel);
                     break;
-                }else if(!result.isEmpty() && panel.getPanel_predecessor() == result.get(result.size()-1).getId()){
+                }else if(!result.isEmpty() && panel.getPredecessor() == result.get(result.size()-1).getId()){
                     result.add(panel);
                     panels.remove(panel);
                     break;

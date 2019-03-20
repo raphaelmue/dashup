@@ -1,14 +1,16 @@
 package de.dashup.shared;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Panel extends DatabasePanel {
     private String htmlContent;
-    private int panel_predecessor,panel_successor;
+    @SerializedName("panel_predecessor")
+    private int predecessor;
 
-    public Panel(int id, String name, String description, int number_of_downloads, int average_rating,
-                 int panel_predecessor, int panel_successor) {
-        super(id, name, description, number_of_downloads,average_rating);
-        this.panel_predecessor = panel_predecessor;
-        this.panel_successor = panel_successor;
+    public Panel(int id, String name, String description, int numberOfDownloads, int averageRating,
+                 int predecessor) {
+        super(id, name, description, numberOfDownloads, averageRating);
+        this.predecessor = predecessor;
     }
 
     @Override
@@ -25,12 +27,8 @@ public class Panel extends DatabasePanel {
         return htmlContent;
     }
 
-    public int getPanel_predecessor() {
-        return panel_predecessor;
-    }
-
-    public int getPanel_successor() {
-        return panel_successor;
+    public int getPredecessor() {
+        return predecessor;
     }
 
     public void setHtmlContent(String htmlContent) {
