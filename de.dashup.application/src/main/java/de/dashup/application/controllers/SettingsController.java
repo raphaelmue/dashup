@@ -1,5 +1,6 @@
 package de.dashup.application.controllers;
 
+import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.Settings;
@@ -21,19 +22,11 @@ public class SettingsController {
     @RequestMapping("/")
     public String settings(@CookieValue(name = "token", required = false) String token,
                            HttpServletRequest request, Model model) throws SQLException {
-        User user = LocalStorage.getInstance().getUser(request, token);
-        if (user != null) {
+        return ControllerHelper.defaultMapping(token, request, model, "settings", user -> {
             model.addAttribute("name", user.getName());
             model.addAttribute("fullName", user.getFullName());
             model.addAttribute("email", user.getEmail());
-            if (user.getSettings() != null) {
-                model.addAttribute("language", user.getSettings().getLanguage().getDisplayLanguage());
-            } else {
-                model.addAttribute("language", "English");
-            }
-            return "settings";
-        }
-        return "redirect:/login";
+        });
     }
 
     @RequestMapping("/changeLanguage")

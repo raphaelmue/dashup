@@ -1,5 +1,6 @@
 package de.dashup.application.controllers;
 
+import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.application.local.format.I18N;
 import de.dashup.model.service.DashupService;

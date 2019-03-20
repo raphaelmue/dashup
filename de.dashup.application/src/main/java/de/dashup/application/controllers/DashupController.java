@@ -1,9 +1,9 @@
 package de.dashup.application.controllers;
 
+import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.model.builder.DashupBuilder;
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -20,8 +20,7 @@ public class DashupController {
     private final LocalStorage localStorage = LocalStorage.getInstance();
     @RequestMapping("/")
     public String main(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
-        User user = this.localStorage.getUser(request, token);
-        if (user != null) {
+        return ControllerHelper.defaultMapping(token, request, model, "settings", user -> {
             model.addAttribute("name", user.getName());
             model.addAttribute("email", user.getEmail());
 
@@ -32,9 +31,7 @@ public class DashupController {
 
             DashupService.getInstance().getSectionsAndPanels(user);
             model.addAttribute("content", DashupBuilder.buildUsersPanels(user));
-            return "index";
-        }
-        return "redirect:/login";
+        });
     }
 
     @RequestMapping("/handleLogout")

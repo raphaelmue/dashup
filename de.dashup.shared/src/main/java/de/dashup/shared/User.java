@@ -36,6 +36,9 @@ public class User extends DatabaseUser {
     }
 
     public Settings getSettings() {
+        if (settings == null) {
+            settings = new Settings();
+        }
         return settings;
     }
 

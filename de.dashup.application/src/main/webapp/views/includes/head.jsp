@@ -19,7 +19,7 @@
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <!-- Style -->
-    <link rel="stylesheet" href="../../styles/theme.style.css"/>
+    <link rel="stylesheet" href="../../styles/theme.${theme}.style.css"/>
     <link rel="stylesheet" href="../../styles/main.style.css"/>
 
     <!-- JavaScript Classes -->
