@@ -296,12 +296,12 @@ public class DashupService {
 
     public void updateSettings(User user) throws SQLException {
         Map<String, Object> whereParameter = new HashMap<>();
-        whereParameter.put("id", user.getId());
+        whereParameter.put("user_id", user.getId());
 
         Map<String, Object> values = new HashMap<>();
         values.put("language", user.getSettings().getLanguage().toLanguageTag());
 
-        this.database.update(Database.Table.USERS, whereParameter, values);
+        this.database.update(Database.Table.USERS_SETTINGS, whereParameter, values);
     }
 
     public void updateSection(User user, String section_name, int section_id, int predecessor, int successor) throws SQLException {
