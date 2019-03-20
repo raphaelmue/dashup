@@ -4,46 +4,27 @@
 <fmt:setBundle basename="i18n" />
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>dashup</title>
-
-        <jsp:include page="./includes/headInclude.jsp" />
-        <jsp:include page="./includes/webComponents.jsp" />
-        <jsp:include page="./includes/styles.jsp" />
-        <jsp:include page="./includes/scripts.jsp" />
-
-        <style>
-            * {
-                font-family: ${font_text}, sans-serif
-            }
-            body {
-                background: url(${background_image}) no-repeat;
-                background-color: ${background_color};
-                background-size: cover;
-                min-height: 100vh;
-            }
-            .sectionHeading {
-                font-size: ${heading_size}pt;
-                font-family: ${font_heading};
-                color: ${heading_color};
-            }
-        </style>
-    </head>
+    <jsp:include page="includes/head.jsp" />
+    <style>
+        body {
+            background: url('${backgroundImage}') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
     <body>
-        <jsp:include page="includes/mainHeader.jsp"/>
-        <main>
-            <div class="wrapper">
+        <jsp:include page="includes/header.jsp"/>
+        <div class="container">
+            ${content}
+        </div>
 
-                <div>
-                    ${content}
-                </div>
-            </div>
-        </main>
-        <jsp:include page="./includes/bodyInclude.jsp" />
+        <a href="${pageContext.request.contextPath}/layoutMode/" class="btn-floating btn-large waves-effect waves-light"><i class="fas fa-edit"></i></a>
 
         <script>
             $( document ).ready(function () {
-                $("#nav-item-home").children().addClass("selected");
+                $("#nav-item-dashboard").parent().addClass("active");
             });
         </script>
     </body>
