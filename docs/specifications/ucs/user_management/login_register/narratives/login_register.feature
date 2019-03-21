@@ -56,6 +56,7 @@ Feature: Login / Register
 
   Scenario: Successful registration
     Given User is located on registration page
+    And Database is set up for tests
     When User enters "John Doe" as username
     And User enters "John.Doe@gmail.com" as e-mail
     And User enters "d(&1h8%ac4_Z" as password
