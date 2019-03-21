@@ -40,7 +40,7 @@ public class Settings {
 
     private Locale language = Locale.ENGLISH;
     private Theme theme = Theme.BLUE_SKY;
-    private String backgroundImage;
+    private String backgroundImage = "";
 
     public Locale getLanguage() {
         return language;

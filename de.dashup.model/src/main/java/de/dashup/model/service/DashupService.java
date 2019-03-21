@@ -211,7 +211,8 @@ public class DashupService {
             values.put("salt", salt);
 
             this.database.insert(Database.Table.USERS, values);
-            return new User(this.database.getLatestId(Database.Table.USERS), email, name, surname, hashedPassword, salt);
+            Settings defaultSettings = new Settings();
+            return new User(this.database.getLatestId(Database.Table.USERS), email, name, surname, hashedPassword, salt,defaultSettings);
         }
 
         return null;
@@ -240,7 +241,7 @@ public class DashupService {
     }
 
     public void updateSettings(User user, boolean insert) throws SQLException {
-        if (!user.getSettings().getBackgroundImage().isEmpty() && !isValidURL(user.getSettings().getBackgroundImage())) {
+        if (!user.getSettings().getBackgroundImage().isEmpty() && !isValidURL(user.getSettings().getBackgroundImage()) && !insert) {
             throw new IllegalArgumentException("URL is not valid.");
         }
 
@@ -248,6 +249,7 @@ public class DashupService {
         whereParameters.put("user_id", user.getId());
 
         Map<String, Object> values = new HashMap<>();
+        values.put("user_id",user.getId());
         values.put("background_image", user.getSettings().getBackgroundImage());
         values.put("theme", user.getSettings().getTheme().getTechnicalName());
         values.put("language", user.getSettings().getLanguage().toLanguageTag());

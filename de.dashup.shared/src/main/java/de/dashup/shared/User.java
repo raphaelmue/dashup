@@ -12,9 +12,10 @@ public class User extends DatabaseUser {
         this.sections = new ArrayList<>();
     }
 
-    public User(int id, String email, String name, String surname, String password, String salt) {
+    public User(int id, String email, String name, String surname, String password, String salt, Settings settings) {
         super(id, email, name, surname, password, salt);
 
+        this.settings = settings;
         this.sections = new ArrayList<>();
     }
 
