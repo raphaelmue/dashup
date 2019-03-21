@@ -212,7 +212,7 @@ public class DashupService {
 
             this.database.insert(Database.Table.USERS, values);
             Settings defaultSettings = new Settings();
-            return new User(this.database.getLatestId(Database.Table.USERS), email, name, surname, hashedPassword, salt,defaultSettings);
+            return new User(this.database.getLatestId(Database.Table.USERS), email, name, surname, hashedPassword, salt, defaultSettings);
         }
 
         return null;
@@ -249,7 +249,7 @@ public class DashupService {
         whereParameters.put("user_id", user.getId());
 
         Map<String, Object> values = new HashMap<>();
-        values.put("user_id",user.getId());
+        values.put("user_id", user.getId());
         values.put("background_image", user.getSettings().getBackgroundImage());
         values.put("theme", user.getSettings().getTheme().getTechnicalName());
         values.put("language", user.getSettings().getLanguage().toLanguageTag());
@@ -265,8 +265,7 @@ public class DashupService {
         try {
             URL url = new URL(urlStr);
             return true;
-        }
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             return false;
         }
     }
