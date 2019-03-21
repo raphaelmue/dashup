@@ -62,7 +62,7 @@ public class EntryController {
     @RequestMapping(value = "/handleRegisterUser", method = RequestMethod.POST)
     public String handleRegisterUser(@RequestParam(name = "email") String email, @RequestParam(name = "name") String name,
                                      @RequestParam(name = "surname") String surname, @RequestParam(name = "password") String password,
-                                     @RequestParam(name = "repeat-password") String repeatPassword,
+                                     @RequestParam(name = "repeatPassword") String repeatPassword,
                                      @RequestParam(name = "lang", required = false) Locale locale,
                                      Model model, HttpServletRequest request) throws SQLException {
         ControllerHelper.setLocale(request, locale);
