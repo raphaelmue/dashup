@@ -60,6 +60,9 @@ public class DatabaseUnitTest {
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("id", "1");
         database.delete(Database.Table.USERS, whereParams);
+        Assertions.assertEquals(0, database.get(Database.Table.USERS, whereParams).length());
+        whereParams.clear();
+        Assertions.assertEquals(1, database.get(Database.Table.USERS, whereParams).length());
     }
 
     @Test
