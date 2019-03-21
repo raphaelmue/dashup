@@ -1,0 +1,97 @@
+:root {
+    --color-primary: rgb(33, 150, 243);
+    --color-primary-dark: rgb(0, 105, 192);
+    --color-success: #5cb85c;
+    --color-warning: #ffc200;
+    --color-error: #fc3b37;
+    --color-black: rgba(0, 0, 0, 0.87);
+}
+
+.nav-wrapper {
+    background-color: var(--color-primary);
+}
+
+.breadcrumb:before {
+    content: "\f054";
+    font-family: 'Font Awesome 5 Free', serif;
+    font-weight: 900;
+    font-size: 20px;
+}
+
+.secondary-content > .material-icons {
+    color: var(--color-primary);
+}
+
+.btn {
+    background-color: var(--color-primary);
+}
+
+.page-footer {
+    background-color: var(--color-primary);
+}
+
+.input-field {
+    padding: 0;
+    color: var(--color-primary);
+}
+
+.input-field > .material-icons {
+    color: var(--color-primary);
+}
+
+.input-field > label,
+.input-field input[type=text]:not(.browser-default):focus:not([readonly]) + label,
+.input-field input[type=password]:not(.browser-default):focus:not([readonly]) + label {
+    color: var(--color-primary);
+}
+
+.input-field input[type=text]:not(.browser-default):focus:not([readonly]),
+.input-field input[type=password]:not(.browser-default):focus:not([readonly]) {
+    border-bottom: 1px solid var(--color-primary);
+}
+
+[type="checkbox"].filled-in:checked + span:not(.lever):after {
+    border: 2px solid var(--color-primary);
+    background-color: var(--color-primary);
+}
+
+.btn-floating {
+    background-color: var(--color-primary);
+}
+
+button i.fas {
+    font-size: 15px;
+    margin-left: 3px;
+}
+
+
+.toast:before {
+    font-family: 'Font Awesome 5 Free', serif;
+    font-weight: 900;
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+.toast.success {
+    background-color: var(--color-success);
+}
+
+.toast.success:before {
+    content:"\f00c";
+}
+
+.toast.warning {
+    background-color: var(--color-warning);
+}
+
+.toast.warning:before {
+    content:"\f12a";
+}
+
+.toast.error {
+    background-color: var(--color-error);
+}
+
+.toast.error:before {
+    content:"\f00d";
+}

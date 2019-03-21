@@ -1,65 +1,83 @@
 Feature: Change Layout
 
-#  As A basic user
-#  I want to customize color settings and size of sections
-#  So that I can clearly design my personal dashup the way I want
-
-#  Background: User is logged into dashup
-#    Given User is located on login page
-#    And Database is setup for testing
-#    When User submits username and password
-#    Then User is logged in
-
-#  Scenario: Open layout settings menu
-#    Given User is on the main page
-#    When The user clicks on the layout edit button
-#    Then The layout setting menu opens up
-
-#  Scenario: Go back to main page
-#     Given User is located on the layout settings menu
-#     When User clicks on back button or navigates back over the navigation bar
-#     Then User will be directed back to the main page
+  As a basic user
+  I want to customize the layout of dashup
+  In order to design dashup the way I want
 
 
-#  Scenario: Customize background color
-#    Given User is located on the layout settings menu
-#    When User changes the background color
-#    Then Background of dashup main page changes
+#Background: Authenticated
+#Given User is located on login page
+#When User submits e-mail and password
+#Then User is logged in
 
+#  Scenario: Open settings menu
+#    Given User is located on central dashboard
+#    When User clicks on settings menu
+#    Then Settings menu opens up
 
-#  Scenario Outline: Customize font color
-#    Given User is located on the layout settings menu
-#    When User changes the font color of section to '<colors>'
-#    Then Section color of dashup main page changes to '<colors>'
-#    And Color picker changes color to "<colors>"
+#  Scenario: Navigate back to dashboard
+#    Given User is located on settings menu
+#    When User clicks on dashboard icon or navigates back over the navigation bar
+#    Then User will be directed back to central dashboard
+
+#  Scenario Outline: Customize theming
+#    Given User is located on settings menu
+#    When User changes theme to '<themes>'
+#    Then Theme of dashup changes to '<themes>'
 
 #    Examples:
-#    | colors  |
-#    | #ff00ff |
-#    | #ffff00 |
-#    | #ff0000 |
+#    | themes        |
+#    | Blue Sky      |
+#    | Green Nature  |
+#    | Red Love      |
+#    | White Diamond |
+#    | Black Night   |
 
-
-#  Scenario Outline: Customize section heading size
-#    Given User is located on the layout settings menu
-#    When User changes the section heading size to '<size>'
-#    Then Section color of dashup main page changes to '<size>'
+#  Scenario Outline: Customize font
+#    Given User is located on settings menu
+#    When User changes font to '<fonts>'
+#    Then Font of dashup changes to '<fonts>'
 
 #    Examples:
-#    | size   |
-#    | small  |
-#    | medium |
-#    | large  |
+#    | fonts        |
+#    | Roboto       |
+#    | Montserrat   |
+#    | Poppins      |
+#    | Lora         |
+#    | Sniglet      |
+#    | Inconsolata  |
+#    | Indie Flower |
+#    | Anton        |
+#    | Lobster      |
+#    | Pacifico     |
+#    | Cinzel       |
+#    | Fredoka One  |
+#    | Biblo        |
+#    | Orbitron     |
 
+#  Scenario: Set background image
+#    Given User is located on settings menu
+#    When User uploads a picture
+#    Then Picture is displayed in image preview
 
 #  Scenario Outline: Undo changes
 #    Given User has made a change, key "<settings>" was changed from "<latestValue>" to "<newValues>"
-#    And User is located on the layout settings menu
-#    When User clicks on undo button
-#    Then Key "<settings>" will be restored to "<latestValue>".
+#    And User is located on settings menu
+#    When User clicks on abandon icon
+#    Then Key "<settings>" will be restored to "<latestValue>"
 
 #    Examples:
-#    | settings        | latestValue | newValue |
-#    | headingSize     | medium      | large    |
-#    | backgroundColor | #ff00ff     | #ff0000  |
-#    | headingColor    | #0000ff     | #ffff00  |
+#    | settings | latestValue | newValue      |
+#    | font     | Lora        | Inconsolata   |
+#    | theme    | Blue Sky    | White Diamond |
+
+#  Scenario Outline: Confirm changes
+#    Given User has made a change, key "<settings>" was changed from "<latestValue>" to "<newValues>"
+#    And User is located on settings menu
+#    When User clicks on confirm icon
+#    Then Key "<settings>" will be changes to "<newValue>"
+
+#    Examples:
+#    | settings | latestValue | newValue |
+#    | font     | Roboto      | Poppins  |
+#    | theme    | Black Night | Red Love |
