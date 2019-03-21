@@ -74,8 +74,7 @@ public class EntryController {
                 this.localStorage.writeObjectToSession(request, "user", user);
                 return "redirect:/";
             }
-            model.addAttribute("errorMessage", "<p>" + I18N.get("i18n.emailIsAlreadyRegistered") + "</p>");
-            return "register";
+            return "redirect:/register/#emailInUse";
         }
         model.addAttribute("errorMessage", "<p>" + I18N.get("i18n.passwordsNotMatching") + "</p>");
         return "register";

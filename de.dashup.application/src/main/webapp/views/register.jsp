@@ -67,13 +67,28 @@
 </body>
 <script>
     $(document).ready(function () {
+
+        let toastOptions = {};
+        switch (getAnchor()) {
+            case "emailInUse":
+                toastOptions = {
+                    html: "<fmt:message key="i18n.emailIsAlreadyRegistered" />",
+                    classes: "error"
+                };
+                break;
+        }
+        if (getAnchor() !== null && getAnchor() !== "") {
+            M.toast(toastOptions);
+            clearAnchor()
+        }
+
         $("#submit_registration").on("click", function () {
             let password = $("#text_field_register_password").val(),
                 repeatPassword = $("#text_field_register_repeat_password").val(),
                 email = $("#text_field_register_email").val(),
                 name = $("#text_field_register_name").val(),
                 surname = $("#text_field_register_surname").val()
-            if (email !== "" || name !== "" || surname !== "") {
+            if (email !== "" && name !== "" && surname !== "") {
                 if (password === repeatPassword && password !== "") {
                     PostRequest.getInstance().make("handleRegisterUser", {
                         email: $("#text_field_register_email").val(),
