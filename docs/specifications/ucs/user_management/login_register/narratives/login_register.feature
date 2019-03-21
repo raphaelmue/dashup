@@ -6,48 +6,48 @@ Feature: Login / Register
 
   Scenario: Successful login
     Given User is located on login page
-    And E-mail is "John.Doe@gmail.com"
-    And Password is "d(&!h8%ac4_Z"
-    When User enters "John.Doe@gmail.com" as e-mail
-    And User enters "d(&!h8%ac4_Z" as password
+    And Database is set up for tests
+    When User enters "nobody@test.de" as e-mail
+    And User enters "password" as password
     And User presses login button
     Then User is logged in
     And User was navigated to central dashboard
 
   Scenario: Failed login
     Given User is located on login page
-    And E-mail is "John.Doe@gmail.com"
-    And Password is "d(&!h8%ac4_Z"
-    When User enters "John.Doe@gmail.com" as e-mail
-    And User enters "d(&1h8%ac4_Z" as password
+    And Database is set up for tests
+    When User enters "notValid@no.de" as e-mail
+    And User enters "wrongPW" as password
     And User presses login button
     Then Login error message is displayed
 
 Scenario: Navigate to registration page
-    Given User is located on login page 
+    Given User is located on login page
+    And Database is set up for tests
     When User clicks on link to register
     Then User is navigated to registration page
 
 Scenario: Failed registration due to an invalid e-mail
     Given User is located on registration page
-    And E-Mail "John.Doe@gmail.com" already exists
+    And Database is set up for tests
     When User enters "John Doe" as username
-    And User enters "John.Doe@gmail.com" as e-mail
-    And User enters "d(&1h8%ac4_Z" as password
-    And User repeats "d(&1h8%ac4_Z" as password
+    And User enters "nobody@test.de" as e-mail
+    And User enters "newPassword" as password
+    And User repeats "newPassword" as password
     Then Registration error message is displayed stating that e-mail is invalid
 
 Scenario: Failed registration due to an invalid password
     Given User is located on registration page
-    And Minimum password length is set to eight
+    And Database is set up for tests
     When User enters "John Doe" as username
     And User enters "John.Doe@gmail.com" as e-mail
-    And User repeats "d(&1h8%" as password
-    And User enters "d(&1h8%" as password
+    And User enters "short" as password
+    And User repeats "short" as password
     Then Registration error message is displayed stating that password is invalid
 
 Scenario: Failed registration due to an not matching passwords
     Given User is located on registration page
+    And Database is set up for tests
     When User enters "John Doe" as username
     And User enters "John.Doe@gmail.com" as e-mail
     And User enters "d(&1h8%ac4_Z" as password
@@ -61,8 +61,9 @@ Scenario: Successful registration
     And User enters "d(&1h8%ac4_Z" as password
     And User repeats "d(&1h8%ac4_Z" as password
     And User presses start button
-    Then Confirmation e-mail was sent
-    When User opens mail client
-    And User opens mail from dashup
-    And User clicks on confirmation link
+    #Nivce to have but in far future!
+    #Then Confirmation e-mail was sent
+    #When User opens mail client
+    #And User opens mail from dashup
+    #And User clicks on confirmation link
     Then User is navigated to central dashboard
