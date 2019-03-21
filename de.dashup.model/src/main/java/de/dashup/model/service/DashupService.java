@@ -171,7 +171,7 @@ public class DashupService {
         Settings settings = new Settings();
 
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("id", user.getId());
+        whereParameters.put("user_id", user.getId());
 
         JSONObject jsonObject = this.database.get(Database.Table.USERS_SETTINGS, whereParameters).getJSONObject(0);
         settings.setLanguage(Locale.forLanguageTag(jsonObject.getString("language").isEmpty() ?
