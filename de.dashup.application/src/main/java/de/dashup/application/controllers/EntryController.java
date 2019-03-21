@@ -66,8 +66,6 @@ public class EntryController {
                                      @RequestParam(name = "lang", required = false) Locale locale,
                                      Model model, HttpServletRequest request) throws SQLException {
         ControllerHelper.setLocale(request, locale);
-
-        if (password.equals(repeatPassword)) {
             User user = DashupService.getInstance().registerUser(email, name, surname, password);
             if (user != null) {
                 DashupService.getInstance().updateSettings(user, true);
@@ -75,8 +73,5 @@ public class EntryController {
                 return "redirect:/";
             }
             return "redirect:/register/#emailInUse";
-        }
-        model.addAttribute("errorMessage", "<p>" + I18N.get("i18n.passwordsNotMatching") + "</p>");
-        return "register";
     }
 }
