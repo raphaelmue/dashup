@@ -69,26 +69,33 @@
     $(document).ready(function () {
         $("#submit_registration").on("click", function () {
             let password = $("#text_field_register_password").val(),
-                repeatPassword = $("#text_field_register_repeat_password").val()
-
-
-
-            if (password === repeatPassword && password !== "") {
-                PostRequest.getInstance().make("handleRegisterUser", {
-                    email: $("#text_field_register_email").val(),
-                    password: password,
-                    repeatPassword: repeatPassword,
-                    name: $("#text_field_register_name").val(),
-                    surname: $("#text_field_register_surname").val(),
-                });
-            } else if (password !== repeatPassword) {
+                repeatPassword = $("#text_field_register_repeat_password").val(),
+                email = $("#text_field_register_email").val(),
+                name = $("#text_field_register_name").val(),
+                surname = $("#text_field_register_surname").val()
+            if (email !== "" || name !== "" || surname !== "") {
+                if (password === repeatPassword && password !== "") {
+                    PostRequest.getInstance().make("handleRegisterUser", {
+                        email: $("#text_field_register_email").val(),
+                        password: password,
+                        repeatPassword: repeatPassword,
+                        name: $("#text_field_register_name").val(),
+                        surname: $("#text_field_register_surname").val(),
+                    });
+                } else if (password !== repeatPassword) {
+                    M.toast({
+                        html: "<fmt:message key="i18n.passwordsNotMatching"/>",
+                        classes: "error"
+                    });
+                } else if (password === repeatPassword && password === "") {
+                    M.toast({
+                        html: "<fmt:message key="i18n.emptyPassword"/>",
+                        classes: "error"
+                    });
+                }
+            } else {
                 M.toast({
-                    html: "<fmt:message key="i18n.passwordsNotMatching"/>",
-                    classes: "error"
-                });
-            } else if (password === repeatPassword && password === ""){
-                M.toast({
-                    html: "<fmt:message key="i18n.emptyPassword"/>",
+                    html: "<fmt:message key="i18n.missingPersonalInfo"/>",
                     classes: "error"
                 });
             }
