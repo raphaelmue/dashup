@@ -48,6 +48,8 @@ public class DatabaseUnitTest {
         testDataMap.put("password", hashedPassword);
         testDataMap.put("salt", salt);
         database.insert(Database.Table.USERS, testDataMap);
+
+        Assertions.assertEquals(2, database.get(Database.Table.USERS,new HashMap<>()).length());
     }
 
     @Test
@@ -66,7 +68,7 @@ public class DatabaseUnitTest {
     }
 
     @Test
-    public void testSimpleGet() throws SQLException {
+    public void testGet() throws SQLException {
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("id", "1");
         JSONArray result = database.get(Database.Table.USERS, whereParams);
@@ -111,5 +113,13 @@ public class DatabaseUnitTest {
         Assertions.assertEquals(2, result.size());
         User user = (User) new User().fromDatabaseObject(result.get(0));
         Assertions.assertEquals(2, user.getId());
+    }
+
+    @Test
+    public void getUserThatDoesNotExist() throws SQLException{
+        HashMap<String, Object> whereParams = new HashMap<>();
+        whereParams.put("id", "3");
+        JSONArray result = database.get(Database.Table.USERS, whereParams);
+        Assertions.assertEquals(0, result.length());
     }
 }
