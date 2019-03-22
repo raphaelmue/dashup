@@ -32,9 +32,12 @@ public class ServiceLoginRegisterTest {
     //---------------Login---------------\\
     @Test
     public void testLogin() throws SQLException {
-        User user = dashupService.checkCredentials("nobody@test.com", "password", false);
+        final String correctMail = "nobody@test.com";
+        final String correctPassword = "password";
+
+        User user = dashupService.checkCredentials(correctMail, correctPassword, false);
         Assertions.assertNotNull(user, "Could not get user with correct credentials!");
-        Assertions.assertEquals("nobody@test.com", user.getEmail(), "User information are incorrect!");
+        Assertions.assertEquals(correctMail, user.getEmail(), "User information are incorrect!");
         Assertions.assertNull(user.getToken(), "User has token even if rememberMe is false!");
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("user_id", user.getId());
@@ -44,9 +47,12 @@ public class ServiceLoginRegisterTest {
 
     @Test
     public void testLoginWithRememberMe() throws SQLException {
-        User user = dashupService.checkCredentials("nobody@test.com", "password", true);
+        final String correctMail= "nobody@test.com";
+        final String correctPassword = "password";
+
+        User user = dashupService.checkCredentials(correctMail, correctPassword, true);
         Assertions.assertNotNull(user, "Could not get user with correct credentials!");
-        Assertions.assertEquals("nobody@test.com", user.getEmail(), "User information are incorrect!");
+        Assertions.assertEquals(correctMail, user.getEmail(), "User information are incorrect!");
         Assertions.assertNotNull(user.getToken(), "No token is generated when rememberMe is true!");
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("user_id", user.getId());
@@ -56,9 +62,15 @@ public class ServiceLoginRegisterTest {
 
     @Test
     public void testLoginInvalidCredentials() throws SQLException {
-        User user = dashupService.checkCredentials("nobody@test.com", "invalid", false);
+        final String correctMail = "nobody@test.com";
+        final String incorrectMail= "invalid@test.com";
+        final String correctPassword = "password";
+        final String incorrectPassword = "invalid";
+
+
+        User user = dashupService.checkCredentials(correctMail, incorrectPassword, false);
         Assertions.assertNull(user);
-        user = dashupService.checkCredentials("invalid@test.com", "password", false);
+        user = dashupService.checkCredentials(incorrectMail, correctPassword, false);
         Assertions.assertNull(user);
         user = dashupService.checkCredentials("", "", false);
         Assertions.assertNull(user);
@@ -66,8 +78,11 @@ public class ServiceLoginRegisterTest {
 
     @Test
     public void testGetUserByToken() throws SQLException {
+        final String mailToLogin = "nobody@test.com";
+        final String passwordToLogin = "password";
+
         //this is working, otherwise testLoginWithRememberMe() would fail
-        User user = dashupService.checkCredentials("nobody@test.com", "password", true);
+        User user = dashupService.checkCredentials(mailToLogin, passwordToLogin, true);
 
         User userByToken = dashupService.getUserByToken(user.getToken());
         Assertions.assertNotNull(userByToken, "Could not get correct user by token!");
@@ -91,11 +106,11 @@ public class ServiceLoginRegisterTest {
 
     @Test
     public void testRegisterUserWithEmailInUse() throws SQLException {
-        final String newEmail = "nobody@test.com";
+        final String emailInUse = "nobody@test.com";
         final String newUserName = "newUser";
         final String newPassword = "password";
 
-        User newUser = dashupService.registerUser(newEmail, newUserName, newPassword);
+        User newUser = dashupService.registerUser(emailInUse, newUserName, newPassword);
         Assertions.assertNull(newUser, "Can create new user with email which is already in use!");
     }
 }
