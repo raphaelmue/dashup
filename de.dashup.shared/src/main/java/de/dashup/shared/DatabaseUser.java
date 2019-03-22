@@ -21,19 +21,19 @@ public class DatabaseUser implements Serializable, DatabaseObject {
         this.salt = salt;
     }
 
-    public void setId(int id) {
+    void setId(int id) {
         this.id = id;
     }
 
-    public void setEmail(String email) {
+    void setEmail(String email) {
         this.email = email;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 
-    public void setSurname(String surname) {
+    void setSurname(String surname) {
         this.surname = surname;
     }
 
@@ -58,7 +58,7 @@ public class DatabaseUser implements Serializable, DatabaseObject {
         return name;
     }
 
-    public String getSurname() {
+    String getSurname() {
         return surname;
     }
 
@@ -74,11 +74,11 @@ public class DatabaseUser implements Serializable, DatabaseObject {
         return this.name + " " + this.surname;
     }
 
-    public String getUserName() {
+    String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
+    void setUserName(String userName) {
         this.userName = userName;
     }
 

@@ -1,6 +1,6 @@
 package de.dashup.shared;
 
-public class DashupPanelInformation {
+class DashupPanelInformation {
 
     private String id;
     private int panel_order;

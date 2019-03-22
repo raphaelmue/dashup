@@ -44,13 +44,13 @@ public class Database {
         USER_SECTIONS("users_sections"),
         SECTIONS_PANELS("sections_panels");
 
-        private String tableName;
+        private final String tableName;
 
         Table(String tableName) {
             this.tableName = tableName;
         }
 
-        public String getTableName() {
+        String getTableName() {
             return tableName;
         }
 
@@ -71,7 +71,7 @@ public class Database {
             this.name = name;
         }
 
-        public String getName() {
+        String getName() {
             return name;
         }
 

@@ -5,7 +5,6 @@ import de.dashup.application.local.LocalStorage;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.Settings;
 import de.dashup.shared.User;
-import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;

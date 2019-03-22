@@ -1,6 +1,6 @@
 package de.dashup.shared;
 
-public class Layout {
+class Layout {
 
     private String backgroundColor;
     private String backgroundImage;
