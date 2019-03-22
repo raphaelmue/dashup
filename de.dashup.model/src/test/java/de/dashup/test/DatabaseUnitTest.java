@@ -37,7 +37,13 @@ public class DatabaseUnitTest {
 
     @Test
     public void testDelete() throws SQLException {
+        //delete users settings, without this deletion of user will fail due to foreign key constraints
         HashMap<String, Object> whereParams = new HashMap<>();
+        whereParams.put("user_id", "1");
+        database.delete(Database.Table.USERS_SETTINGS, whereParams);
+        Assertions.assertEquals(0, database.get(Database.Table.USERS_SETTINGS, whereParams).length());
+        //delete User
+        whereParams.clear();
         whereParams.put("id", "1");
         database.delete(Database.Table.USERS, whereParams);
         Assertions.assertEquals(0, database.get(Database.Table.USERS, whereParams).length());
