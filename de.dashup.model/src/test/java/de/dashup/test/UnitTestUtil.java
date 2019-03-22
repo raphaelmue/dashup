@@ -1,6 +1,7 @@
 package de.dashup.test;
 
 import de.dashup.model.db.Database;
+import de.dashup.model.service.DashupService;
 import de.dashup.util.string.Hash;
 import org.junit.jupiter.api.Assertions;
 
@@ -8,14 +9,18 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UnitTestUtil {
-    public static Database getDBInstance(boolean local, Database.DatabaseName name) throws SQLException{
+class UnitTestUtil {
+    static Database getDBInstance(boolean local, Database.DatabaseName name) throws SQLException{
         Database.setHost(local);
         Database.setDbName(name);
         return Database.getInstance();
     }
 
-    public static void setUpTestDataset(Database database) throws SQLException {
+    static DashupService getServiceInstance(){
+        return DashupService.getInstance();
+    }
+
+    static void setUpTestDataset(Database database) throws SQLException {
         database.clearDatabase();
         String salt = "VQoX3kxwjX3gOOY1Jixk)Dc$0y$e4B!9";
         String hashedPassword = Hash.create("password", salt);
@@ -39,5 +44,11 @@ public class UnitTestUtil {
         database.insert(Database.Table.USERS, testDataMap);
 
         Assertions.assertEquals(2, database.get(Database.Table.USERS,new HashMap<>()).length());
+
+        testDataMap.clear();
+        testDataMap.put("user_id", "1");
+        testDataMap.put("theme", "blue-sky");
+        testDataMap.put("language", "en");
+        database.insert(Database.Table.USERS_SETTINGS, testDataMap);
     }
 }
