@@ -15,7 +15,7 @@ public class ServiceLoginRegisterTest {
 
     private static Database database;
     private static DashupService dashupService;
-
+    //---------------Setup---------------\\
     @BeforeAll
     public static void createDatabaseConnection() throws SQLException {
         database = UnitTestUtil.getDBInstance(false, Database.DatabaseName.TEST);
@@ -27,6 +27,7 @@ public class ServiceLoginRegisterTest {
         UnitTestUtil.setUpTestDataset(database);
     }
 
+    //---------------Login---------------\\
     @Test
     public void testLogin() throws SQLException{
         User user = dashupService.checkCredentials("nobody@test.com","password",false);
@@ -59,5 +60,40 @@ public class ServiceLoginRegisterTest {
         Assertions.assertNull(user);
         user = dashupService.checkCredentials("","",false);
         Assertions.assertNull(user);
+    }
+
+    @Test
+    public void testGetUserByToken() throws  SQLException{
+        //this is working, otherwise testLoginWithRememberMe() would fail
+        User user = dashupService.checkCredentials("nobody@test.com","password",true);
+
+        User userByToken = dashupService.getUserByToken(user.getToken());
+        Assertions.assertNotNull(userByToken,"Could not get correct user by token!");
+        Assertions.assertEquals(user.getId(),userByToken.getId(), "Could not get correct user by token!");
+        Assertions.assertEquals(user.getEmail(),userByToken.getEmail());
+    }
+
+    //---------------Register---------------\\
+    @Test
+    public void testRegisterUser() throws SQLException{
+        final String newEmail = "new@email.de";
+        final String newUserName = "newUser";
+        final String newPassword = "password";
+
+        User newUser = dashupService.registerUser(newEmail,newUserName,newPassword);
+        Assertions.assertNotNull(newUser, "Could not create new user!");
+        Assertions.assertEquals(newEmail,newUser.getEmail());
+        Assertions.assertEquals(newUserName,newUser.getUserName());
+        Assertions.assertNotEquals(newPassword,newUser.getPassword(), "Password is not hashed!");
+    }
+
+    @Test
+    public void testRegisterUserWithEmailInUse() throws SQLException{
+        final String newEmail = "nobody@test.com";
+        final String newUserName = "newUser";
+        final String newPassword = "password";
+
+        User newUser = dashupService.registerUser(newEmail,newUserName,newPassword);
+        Assertions.assertNull(newUser, "Can create new user with email which is already in use!");
     }
 }
