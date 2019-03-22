@@ -100,7 +100,7 @@ public class DatabaseUnitTest {
     }
 
     @Test
-    public void getUserThatDoesNotExist() throws SQLException{
+    public void getUserThatDoesNotExist() throws SQLException {
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("id", "3");
         JSONArray result = database.get(Database.Table.USERS, whereParams);

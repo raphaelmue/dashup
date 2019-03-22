@@ -10,13 +10,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 class UnitTestUtil {
-    static Database getDBInstance(boolean local, Database.DatabaseName name) throws SQLException{
+    static Database getDBInstance(boolean local, Database.DatabaseName name) throws SQLException {
         Database.setHost(local);
         Database.setDbName(name);
         return Database.getInstance();
     }
 
-    static DashupService getServiceInstance(){
+    static DashupService getServiceInstance() {
         return DashupService.getInstance();
     }
 
@@ -43,7 +43,7 @@ class UnitTestUtil {
         testDataMap.put("salt", salt);
         database.insert(Database.Table.USERS, testDataMap);
 
-        Assertions.assertEquals(2, database.get(Database.Table.USERS,new HashMap<>()).length());
+        Assertions.assertEquals(2, database.get(Database.Table.USERS, new HashMap<>()).length());
 
         testDataMap.clear();
         testDataMap.put("user_id", "1");
