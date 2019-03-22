@@ -35,6 +35,7 @@ public class DatabaseUnitTest {
 
         Map<String, Object> testDataMap = new HashMap<>();
         testDataMap.put("email", "nobody@test.com");
+        testDataMap.put("user_name", "NobodyTest");
         testDataMap.put("name", "Nobody");
         testDataMap.put("surname", "Test");
         testDataMap.put("password", hashedPassword);
@@ -43,6 +44,7 @@ public class DatabaseUnitTest {
 
         testDataMap.clear();
         testDataMap.put("email", "second@test.com");
+        testDataMap.put("user_name", "SecondTest");
         testDataMap.put("name", "Second");
         testDataMap.put("surname", "Test");
         testDataMap.put("password", hashedPassword);
