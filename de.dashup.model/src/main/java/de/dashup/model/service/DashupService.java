@@ -56,8 +56,8 @@ public class DashupService {
             user = this.getSectionsAndPanels(user);
             String hashedPassword = Hash.create(password, user.getSalt());
             if (hashedPassword.equals(user.getPassword())) {
+                user.setSettings(this.getSettingsOfUser(user));
                 if (rememberMe) {
-                    user.setSettings(this.getSettingsOfUser(user));
                     String token = this.randomString.nextString(64);
                     user.setToken(token);
                     HashMap<String, Object> values = new HashMap<>();
