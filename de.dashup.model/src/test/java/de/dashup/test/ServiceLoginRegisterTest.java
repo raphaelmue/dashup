@@ -47,7 +47,7 @@ public class ServiceLoginRegisterTest {
 
     @Test
     public void testLoginWithRememberMe() throws SQLException {
-        final String correctMail= "nobody@test.com";
+        final String correctMail = "nobody@test.com";
         final String correctPassword = "password";
 
         User user = dashupService.checkCredentials(correctMail, correctPassword, true);
@@ -63,7 +63,7 @@ public class ServiceLoginRegisterTest {
     @Test
     public void testLoginInvalidCredentials() throws SQLException {
         final String correctMail = "nobody@test.com";
-        final String incorrectMail= "invalid@test.com";
+        final String incorrectMail = "invalid@test.com";
         final String correctPassword = "password";
         final String incorrectPassword = "invalid";
 
