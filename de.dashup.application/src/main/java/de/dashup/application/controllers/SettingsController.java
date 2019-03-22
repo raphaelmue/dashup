@@ -40,7 +40,7 @@ public class SettingsController {
             Settings settings = new Settings();
             settings.setLanguage(Locale.forLanguageTag(lang));
             user.setSettings(settings);
-            DashupService.getInstance().updateSettings(user);
+            DashupService.getInstance().updateLanguage(user);
         }
         return "redirect:/settings/#changedLanguage";
     }
