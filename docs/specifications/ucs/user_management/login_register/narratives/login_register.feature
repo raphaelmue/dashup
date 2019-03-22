@@ -5,9 +5,12 @@ Feature: Login / Register
   In order to use the dashup platform
 Background: User is registered
   Given User is registered for dashup
+
   Scenario: Successful login
     Given User is located on login page
-    When User enters "nobody@test.de" as e-mail
+    And Registered email is "nobody@test.com"
+    And Registered password is "password"
+    When User enters "nobody@test.com" as e-mail
     And User enters "password" as password
     And User presses login button
     Then User is logged in
@@ -15,6 +18,8 @@ Background: User is registered
 
   Scenario: Failed login
     Given User is located on login page
+    And Registered email is "nobody@test.com"
+    And Registered password is "password"
     When User enters "notValid@no.de" as e-mail
     And User enters "wrongPW" as password
     And User presses login button
@@ -27,6 +32,7 @@ Background: User is registered
 
   Scenario: Failed registration due to an invalid e-mail
     Given User is located on registration page
+    And Registered email is "nobody@test.com"
     When User enters "John Doe" as username
     And User enters "nobody@test.de" as e-mail
     And User enters "newPassword" as password
