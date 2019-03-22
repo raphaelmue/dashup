@@ -194,7 +194,7 @@ public class DashupService {
         this.database.delete(Database.Table.USERS_TOKENS, whereParameters);
     }
 
-    public User registerUser(String email, String name, String surname, String password) throws SQLException {
+    public User registerUser(String email, String userName, String password) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("email", email);
 
@@ -205,14 +205,13 @@ public class DashupService {
 
             Map<String, Object> values = new HashMap<>();
             values.put("email", email);
-            values.put("name", name);
-            values.put("surname", surname);
+            values.put("user_name", userName);
             values.put("password", hashedPassword);
             values.put("salt", salt);
 
             this.database.insert(Database.Table.USERS, values);
             Settings defaultSettings = new Settings();
-            return new User(this.database.getLatestId(Database.Table.USERS), email, name, surname, hashedPassword, salt, defaultSettings);
+            return new User(this.database.getLatestId(Database.Table.USERS), email, userName, "", "", hashedPassword, salt, defaultSettings);
         }
 
         return null;

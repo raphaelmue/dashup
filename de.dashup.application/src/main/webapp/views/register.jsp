@@ -30,16 +30,10 @@
                 <label for="text_field_register_email"><fmt:message key="i18n.emailAddress"/></label>
             </div>
         </div>
-        <div class="col m3 offset-m3 s10 offset-s1">
+        <div class="col m6 offset-m3 s10 offset-s1">
             <div class="input-field">
                 <input id="text_field_register_name" name="name" type="text" class="validate">
-                <label for="text_field_register_name"><fmt:message key="i18n.name"/></label>
-            </div>
-        </div>
-        <div class="col m3  s10 offset-s1">
-            <div class="input-field">
-                <input id="text_field_register_surname" name="surname" type="text" class="validate">
-                <label for="text_field_register_surname"><fmt:message key="i18n.surname"/></label>
+                <label for="text_field_register_name"><fmt:message key="i18n.userName"/></label>
             </div>
         </div>
         <div class="col m6 offset-m3 s10 offset-s1">
@@ -86,16 +80,14 @@
             let password = $("#text_field_register_password").val(),
                 repeatPassword = $("#text_field_register_repeat_password").val(),
                 email = $("#text_field_register_email").val(),
-                name = $("#text_field_register_name").val(),
-                surname = $("#text_field_register_surname").val()
-            if (email !== "" && name !== "" && surname !== "") {
+                name = $("#text_field_register_name").val()
+            if (email !== "" && name !== "") {
                 if (password === repeatPassword && password !== "") {
                     PostRequest.getInstance().make("handleRegisterUser", {
                         email: $("#text_field_register_email").val(),
                         password: password,
                         repeatPassword: repeatPassword,
-                        name: $("#text_field_register_name").val(),
-                        surname: $("#text_field_register_surname").val(),
+                        userName: $("#text_field_register_name").val(),
                     });
                 } else if (password !== repeatPassword) {
                     M.toast({

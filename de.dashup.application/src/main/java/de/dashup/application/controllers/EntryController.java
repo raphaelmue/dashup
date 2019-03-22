@@ -60,18 +60,17 @@ public class EntryController {
     }
 
     @RequestMapping(value = "/handleRegisterUser", method = RequestMethod.POST)
-    public String handleRegisterUser(@RequestParam(name = "email") String email, @RequestParam(name = "name") String name,
-                                     @RequestParam(name = "surname") String surname, @RequestParam(name = "password") String password,
-                                     @RequestParam(name = "repeatPassword") String repeatPassword,
+    public String handleRegisterUser(@RequestParam(name = "email") String email, @RequestParam(name = "userName") String userName,
+                                     @RequestParam(name = "password") String password,
                                      @RequestParam(name = "lang", required = false) Locale locale,
-                                     Model model, HttpServletRequest request) throws SQLException {
+                                     HttpServletRequest request) throws SQLException {
         ControllerHelper.setLocale(request, locale);
-            User user = DashupService.getInstance().registerUser(email, name, surname, password);
-            if (user != null) {
-                DashupService.getInstance().updateSettings(user, true);
-                this.localStorage.writeObjectToSession(request, "user", user);
-                return "redirect:/";
-            }
-            return "redirect:/register/#emailInUse";
+        User user = DashupService.getInstance().registerUser(email, userName, password);
+        if (user != null) {
+            DashupService.getInstance().updateSettings(user, true);
+            this.localStorage.writeObjectToSession(request, "user", user);
+            return "redirect:/";
+        }
+        return "redirect:/register/#emailInUse";
     }
 }
