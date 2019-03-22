@@ -22,34 +22,12 @@ public class DatabaseUnitTest {
 
     @BeforeAll
     public static void createDatabaseConnection() throws SQLException {
-        Database.setHost(false);
-        Database.setDbName(Database.DatabaseName.TEST);
-        database = Database.getInstance();
+        database = UnitTestUtil.getDBInstance(false, Database.DatabaseName.TEST);
     }
 
     @BeforeEach
     public void cleanDB() throws SQLException {
-        database.clearDatabase();
-        String salt = "VQoX3kxwjX3gOOY1Jixk)Dc$0y$e4B!9";
-        String hashedPassword = Hash.create("password", salt);
-
-        Map<String, Object> testDataMap = new HashMap<>();
-        testDataMap.put("email", "nobody@test.com");
-        testDataMap.put("name", "Nobody");
-        testDataMap.put("surname", "Test");
-        testDataMap.put("password", hashedPassword);
-        testDataMap.put("salt", salt);
-        database.insert(Database.Table.USERS, testDataMap);
-
-        testDataMap.clear();
-        testDataMap.put("email", "second@test.com");
-        testDataMap.put("name", "Second");
-        testDataMap.put("surname", "Test");
-        testDataMap.put("password", hashedPassword);
-        testDataMap.put("salt", salt);
-        database.insert(Database.Table.USERS, testDataMap);
-
-        Assertions.assertEquals(2, database.get(Database.Table.USERS,new HashMap<>()).length());
+        UnitTestUtil.setUpTestDataset(database);
     }
 
     @Test
