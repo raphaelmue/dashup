@@ -6,13 +6,15 @@ public class DatabaseUser implements Serializable, DatabaseObject {
     private static final long serialVersionUID = -8352045621135035810L;
 
     private int id;
-    private String email, name, surname, password, salt;
+    private String email, userName, name, surname, password, salt;
 
-    public DatabaseUser() {}
+    public DatabaseUser() {
+    }
 
-    public DatabaseUser(int id, String email, String name, String surname, String password, String salt) {
+    public DatabaseUser(int id, String email, String userName, String name, String surname, String password, String salt) {
         this.id = id;
         this.email = email;
+        this.userName = userName;
         this.name = name;
         this.surname = surname;
         this.password = password;
@@ -71,6 +73,15 @@ public class DatabaseUser implements Serializable, DatabaseObject {
     public String getFullName() {
         return this.name + " " + this.surname;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
 
     @Override
     public String toString() {
