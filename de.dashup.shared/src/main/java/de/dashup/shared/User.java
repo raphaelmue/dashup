@@ -12,9 +12,10 @@ public class User extends DatabaseUser {
         this.sections = new ArrayList<>();
     }
 
-    public User(int id, String email, String name, String surname, String password, String salt) {
-        super(id, email, name, surname, password, salt);
+    public User(int id, String email, String userName, String name, String surname, String password, String salt, Settings settings) {
+        super(id, email, userName, name, surname, password, salt);
 
+        this.settings = settings;
         this.sections = new ArrayList<>();
     }
 
@@ -24,6 +25,7 @@ public class User extends DatabaseUser {
             this.setId(databaseObject.getId());
             this.setName(((DatabaseUser) databaseObject).getName());
             this.setSurname(((DatabaseUser) databaseObject).getSurname());
+            this.setUserName(((DatabaseUser) databaseObject).getUserName());
             this.setEmail(((DatabaseUser) databaseObject).getEmail());
             this.setPassword(((DatabaseUser) databaseObject).getPassword());
             this.setSalt(((DatabaseUser) databaseObject).getSalt());
