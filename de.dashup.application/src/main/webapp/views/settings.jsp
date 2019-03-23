@@ -69,7 +69,7 @@
                                     <p><fmt:message key="i18n.surname" /></p>
                                 </div>
                                 <div class="input-field col s8 m4" style="margin-top: 0">
-                                    <input id="text-field-personal-info-surname" name="name" type="text" class="validate"
+                                    <input id="text-field-personal-info-surname" name="surname" type="text" class="validate"
                                            value="${surname}" />
                                     <label for="text-field-personal-info-surname"><fmt:message key="i18n.surname" /></label>
                                 </div>

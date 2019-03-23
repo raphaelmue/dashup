@@ -238,6 +238,20 @@ public class DashupService {
         }
     }
 
+    public void updateNameAndSurname(User user,String newName,String newSurname) throws SQLException{
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", user.getId());
+
+        Map<String, Object> values = new HashMap<>();
+        values.put("name", newName);
+        values.put("surname", newSurname);
+
+        this.database.update(Database.Table.USERS, whereParameters, values);
+
+        user.setName(newName);
+        user.setSurname(newSurname);
+    }
+
     public void updateSettings(User user, boolean insert) throws SQLException {
         if (!user.getSettings().getBackgroundImage().isEmpty() && !isValidURL(user.getSettings().getBackgroundImage()) && !insert) {
             throw new IllegalArgumentException("URL is not valid.");

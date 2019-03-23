@@ -29,11 +29,11 @@ public class DatabaseUser implements Serializable, DatabaseObject {
         this.email = email;
     }
 
-    void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    void setSurname(String surname) {
+    public void setSurname(String surname) {
         this.surname = surname;
     }
 
@@ -58,7 +58,7 @@ public class DatabaseUser implements Serializable, DatabaseObject {
         return name;
     }
 
-    String getSurname() {
+    public String getSurname() {
         return surname;
     }
 
