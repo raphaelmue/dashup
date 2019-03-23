@@ -47,7 +47,7 @@ public class LocalStorage {
 
     public Optional<String> readCookie(HttpServletRequest request, String key) {
         return Arrays.stream(request.getCookies())
-                .filter(key::equals)
+                .filter(cookie -> cookie.getName().equals(key))
                 .map(Cookie::getValue)
                 .findAny();
     }

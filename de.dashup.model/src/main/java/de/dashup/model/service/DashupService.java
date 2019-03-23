@@ -17,8 +17,8 @@ import java.util.*;
 public class DashupService {
 
     private Database database;
-    private PanelLoader panelLoader;
-    private RandomString randomString = new RandomString();
+    private final PanelLoader panelLoader;
+    private final RandomString randomString = new RandomString();
 
     private static DashupService INSTANCE;
 
@@ -217,7 +217,7 @@ public class DashupService {
         return null;
     }
 
-    public User updatePassword(User user, String oldPassword, String newPassword) throws SQLException, IllegalArgumentException {
+    public void updatePassword(User user, String oldPassword, String newPassword) throws SQLException, IllegalArgumentException {
         if (user.getPassword().equals(Hash.create(oldPassword, user.getSalt()))) {
             String newSalt = this.randomString.nextString(32);
             String newHashedPassword = Hash.create(newPassword, newSalt);
@@ -233,7 +233,6 @@ public class DashupService {
 
             user.setPassword(newHashedPassword);
             user.setSalt(newSalt);
-            return user;
         } else {
             throw new IllegalArgumentException("Passworts does not match");
         }

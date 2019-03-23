@@ -29,12 +29,8 @@ public final class I18N {
             return name;
         }
 
-        public Locale getLocale() {
+        Locale getLocale() {
             return locale;
-        }
-
-        public static List<Language> getAll() {
-            return Arrays.asList(values());
         }
 
         public static Language getLanguageByLocale(Locale locale) {
