@@ -238,7 +238,7 @@ public class DashupService {
         }
     }
 
-    public void updateNameAndSurname(User user,String newName,String newSurname) throws SQLException{
+    public void updateNameAndSurname(User user, String newName, String newSurname) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", user.getId());
 

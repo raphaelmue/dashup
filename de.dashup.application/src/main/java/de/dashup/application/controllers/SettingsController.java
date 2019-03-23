@@ -25,7 +25,7 @@ public class SettingsController {
                            HttpServletRequest request, Model model) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "settings", user -> {
             model.addAttribute("name", user.getName());
-            model.addAttribute("surname",user.getSurname());
+            model.addAttribute("surname", user.getSurname());
             model.addAttribute("fullName", user.getFullName());
             model.addAttribute("email", user.getEmail());
             model.addAttribute("backgroundImage", user.getSettings().getBackgroundImage());
@@ -85,7 +85,7 @@ public class SettingsController {
                                      HttpServletRequest request) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            DashupService.getInstance().updateNameAndSurname(user,name,surname);
+            DashupService.getInstance().updateNameAndSurname(user, name, surname);
             return "redirect:/settings/#changedPersonalInfo";
         }
         return "redirect:/login";
