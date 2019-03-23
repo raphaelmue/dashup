@@ -209,6 +209,12 @@
                         classes: "success"
                     };
                     break;
+                case "changedPersonalInfo":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.dataSuccessfullySaved" />",
+                        classes: "success"
+                    };
+                    break;
             }
             if (getAnchor() !== null && getAnchor() !== "") {
                 M.toast(toastOptions);
