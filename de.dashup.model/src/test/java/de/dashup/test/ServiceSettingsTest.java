@@ -57,17 +57,16 @@ public class ServiceSettingsTest {
         final String invalidPassword = "invalid";
 
         //test if everything works fine with valid credentials
-        User updatedUser = dashupService.updatePassword(testUser, USER_PASSWORD, newPassword);
-        Assertions.assertNotEquals(USER_HASHED_PASSWORD, updatedUser.getPassword());
-        Assertions.assertNotEquals(USER_SALT, updatedUser.getSalt());
+        dashupService.updatePassword(testUser, USER_PASSWORD, newPassword);
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("email", USER_EMAIL);
         List<? extends DatabaseObject> result = database.getObject(Database.Table.USERS, User.class, whereParams);
         Assertions.assertEquals(1, result.size());
         User databaseUser = new User();
         databaseUser.fromDatabaseObject(result.get(0));
-        Assertions.assertEquals(updatedUser.getPassword(), databaseUser.getPassword(),
-                "Password from returned user and password on DB differ!");
+        Assertions.assertNotEquals(USER_SALT,databaseUser.getSalt());
+        Assertions.assertNotEquals(USER_HASHED_PASSWORD,databaseUser.getPassword());
+        Assertions.assertEquals(Hash.create(newPassword, databaseUser.getSalt()),databaseUser.getPassword());
 
         //test if exception is thrown when entering wrong old password
         Assertions.assertThrows(IllegalArgumentException.class,
@@ -103,7 +102,7 @@ public class ServiceSettingsTest {
         whereParams.put("user_id", 2);
         database.delete(Database.Table.USERS_SETTINGS, whereParams);
         //new insert
-        testUser.setId(2);
+        testUser = new User(2, USER_EMAIL, USER_USERNAME, "", "", USER_HASHED_PASSWORD, USER_SALT, new Settings());
         dashupService.updateSettings(testUser, true);
 
         JSONArray result = database.get(Database.Table.USERS_SETTINGS, whereParams);

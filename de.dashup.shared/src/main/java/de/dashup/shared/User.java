@@ -59,4 +59,8 @@ public class User extends DatabaseUser {
     public void setSections(List<Section> sections) {
         this.sections = sections;
     }
+
+    public String getUserName(){
+        return super.getUserName();
+    }
 }
