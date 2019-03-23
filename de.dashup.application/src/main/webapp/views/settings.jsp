@@ -54,7 +54,34 @@
                 </li>
                 <li>
                     <div class="collapsible-header"><i class="fas fa-info-circle"></i><fmt:message key="i18n.personalInformation" /></div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                    <div class="collapsible-body">
+                        <form action="${pageContext.request.contextPath}/settings/changePersonalInfo" method="post">
+                            <div class="row">
+                                <div class="col s4 m1">
+                                    <p><fmt:message key="i18n.name" /></p>
+                                </div>
+                                <div class="input-field col s8 m4" style="margin-top: 0">
+                                    <input id="text-field-personal-info-name" name="name" type="text" class="validate"
+                                            value="${name}" />
+                                    <label for="text-field-personal-info-name"><fmt:message key="i18n.name" /></label>
+                                </div>
+                                <div class="col s4 m1 offset-m1">
+                                    <p><fmt:message key="i18n.surname" /></p>
+                                </div>
+                                <div class="input-field col s8 m4" style="margin-top: 0">
+                                    <input id="text-field-personal-info-surname" name="name" type="text" class="validate"
+                                           value="${surname}" />
+                                    <label for="text-field-personal-info-surname"><fmt:message key="i18n.surname" /></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <button class="btn waves-effect waves-light" type="submit" name="action">
+                                    <fmt:message key="i18n.save" />
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </li>
                 <li>
                     <div class="collapsible-header"><i class="fas fa-pen-fancy"></i><fmt:message key="i18n.layout" /></div>
