@@ -3,14 +3,15 @@ Feature: Login / Register
   As a basic user
   I want to login or register to dashup
   In order to use the dashup platform
-Background: User is registered
-  Given User is registered for dashup
+
+  Background: User is registered
+    Given User is registered for dashup
 
   Scenario: Successful login
     Given User is located on login page
-    And Registered email is "nobody@test.com"
-    And Registered password is "password"
-    When User enters "nobody@test.com" as e-mail
+    And User registered with e-mail "John.Doe@gmail.com"
+    And User registered with "password"
+    When User enters "John.Doe@gmail.com" as e-mail
     And User enters "password" as password
     And User presses login button
     Then User is logged in
@@ -18,10 +19,10 @@ Background: User is registered
 
   Scenario: Failed login
     Given User is located on login page
-    And Registered email is "nobody@test.com"
-    And Registered password is "password"
-    When User enters "notValid@no.de" as e-mail
-    And User enters "wrongPW" as password
+    And User registered with e-mail "John.Doe@gmail.com"
+    And User registered with "password"
+    When User enters "notValid@test.com" as e-mail
+    And User enters "wrongPassword" as password
     And User presses login button
     Then Login error message is displayed
 
@@ -32,11 +33,11 @@ Background: User is registered
 
   Scenario: Failed registration due to an invalid e-mail
     Given User is located on registration page
-    And Registered email is "nobody@test.com"
+    And E-mail "John.Doe@gmail.com" already exists
     When User enters "John Doe" as username
-    And User enters "nobody@test.de" as e-mail
-    And User enters "newPassword" as password
-    And User repeats "newPassword" as password
+    And User enters "John.Doe@gmail.com" as e-mail
+    And User enters "password" as password
+    And User repeats "password" as password
     Then Registration error message is displayed stating that e-mail is invalid
 
   Scenario: Failed registration due to an invalid password
@@ -62,7 +63,7 @@ Background: User is registered
     And User enters "d(&1h8%ac4_Z" as password
     And User repeats "d(&1h8%ac4_Z" as password
     And User presses start button
-    #Nivce to have but in far future!
+    #--Extension Point--
     #Then Confirmation e-mail was sent
     #When User opens mail client
     #And User opens mail from dashup
