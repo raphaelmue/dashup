@@ -10,10 +10,10 @@ public class DatabasePanel implements DatabaseObject {
     private int id;
     private String name, description;
 
-    public DatabasePanel() {
+    DatabasePanel() {
     }
 
-    public DatabasePanel(int id, String name, String description, int numberOfDownloads, int average_rating) {
+    DatabasePanel(int id, String name, String description, int numberOfDownloads, int average_rating) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -27,23 +27,23 @@ public class DatabasePanel implements DatabaseObject {
         return id;
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return description;
     }
 
-    public void setId(int id) {
+    void setId(int id) {
         this.id = id;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         this.description = description;
     }
 }

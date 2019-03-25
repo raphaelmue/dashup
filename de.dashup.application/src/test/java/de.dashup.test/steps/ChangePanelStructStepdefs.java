@@ -106,7 +106,7 @@ public class ChangePanelStructStepdefs {
             error =false;
         }
 
-        Assert.assertEquals(false,error);
+        Assert.assertFalse(error);
         driver.close();
     }
 

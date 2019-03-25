@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Converter {
+class Converter {
     /**
      * Convert a result set into a JSON Array
      *
@@ -14,7 +14,7 @@ public class Converter {
      * @return a JSONArray
      * @throws SQLException thrown, if something went wrong with the result set
      */
-    public static JSONArray convertResultSetIntoJSON(ResultSet resultSet) throws SQLException {
+    static JSONArray convertResultSetIntoJSON(ResultSet resultSet) throws SQLException {
         JSONArray jsonArray = new JSONArray();
         while (resultSet.next()) {
             int total_rows = resultSet.getMetaData().getColumnCount();

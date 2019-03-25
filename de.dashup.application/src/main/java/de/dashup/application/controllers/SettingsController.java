@@ -5,7 +5,6 @@ import de.dashup.application.local.LocalStorage;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.Settings;
 import de.dashup.shared.User;
-import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -41,7 +40,7 @@ public class SettingsController {
             Settings settings = new Settings();
             settings.setLanguage(Locale.forLanguageTag(lang));
             user.setSettings(settings);
-            DashupService.getInstance().updateSettings(user);
+            DashupService.getInstance().updateLanguage(user);
         }
         return "redirect:/settings/#changedLanguage";
     }
