@@ -71,6 +71,31 @@ public class GeneralStepdefs extends SpringBootBase {
         database.insert(Database.Table.USERS_SETTINGS, testDataMap);
     }
 
+    private WebDriver setUpChromeDriver(){
+        final DesiredCapabilities desiredChromeCapabilities = DesiredCapabilities.chrome();
+        final ChromeOptions chromeOptions = new ChromeOptions();
+
+        if (DriverUtil.getPathToChromeBinary() != null) {
+            chromeOptions.setBinary(DriverUtil.getPathToChromeBinary());
+        }
+
+        desiredChromeCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+        System.setProperty("webdriver.chrome.driver", DriverUtil.getDriverPath());
+        WebDriver returningDriver = new ChromeDriver(desiredChromeCapabilities);
+        returningDriver.manage().window().maximize();
+        return returningDriver;
+    }
+    private WebDriver setUpFirefoxDriver(){
+        final DesiredCapabilities desiredFirefoxCapabilities = DesiredCapabilities.firefox();
+        final FirefoxOptions firefoxOptions = new FirefoxOptions();
+
+        desiredFirefoxCapabilities.setCapability(FirefoxOptions.FIREFOX_OPTIONS, firefoxOptions);
+        System.setProperty("webdriver.gecko.driver", "./src/test/resources/de/dashup/test/geckodriver.exe");
+        WebDriver returningDriver = new FirefoxDriver(desiredFirefoxCapabilities);
+        returningDriver.manage().window().maximize();
+        return returningDriver;
+    }
+
     @Given("^User is registered for dashup$")
     public void userIsRegisteredForDashup() throws SQLException, IOException {
         this.setupDBForTesting();
@@ -81,40 +106,14 @@ public class GeneralStepdefs extends SpringBootBase {
         if (name != null) {
             switch (name) {
                 case "chrome":
-                    final DesiredCapabilities desiredChromeCapabilities = DesiredCapabilities.chrome();
-                    final ChromeOptions chromeOptions = new ChromeOptions();
-
-                    if (DriverUtil.getPathToChromeBinary() != null) {
-                        chromeOptions.setBinary(DriverUtil.getPathToChromeBinary());
-                    }
-
-                    desiredChromeCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-                    System.setProperty("webdriver.chrome.driver", DriverUtil.getDriverPath());
-                    driver = new ChromeDriver(desiredChromeCapabilities);
-                    driver.manage().window().maximize();
+                    driver = this.setUpChromeDriver();
                     break;
                 case "firefox":
-                    final DesiredCapabilities desiredFirefoxCapabilities = DesiredCapabilities.firefox();
-                    final FirefoxOptions firefoxOptions = new FirefoxOptions();
-
-                    desiredFirefoxCapabilities.setCapability(FirefoxOptions.FIREFOX_OPTIONS, firefoxOptions);
-                    System.setProperty("webdriver.gecko.driver", "./src/test/resources/de/dashup/test/geckodriver.exe");
-                    driver = new FirefoxDriver(desiredFirefoxCapabilities);
-                    driver.manage().window().maximize();
+                    driver = this.setUpFirefoxDriver();
                     break;
             }
         }else {
-            final DesiredCapabilities desiredChromeCapabilities = DesiredCapabilities.chrome();
-            final ChromeOptions chromeOptions = new ChromeOptions();
-
-            if (DriverUtil.getPathToChromeBinary() != null) {
-                chromeOptions.setBinary(DriverUtil.getPathToChromeBinary());
-            }
-
-            desiredChromeCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-            System.setProperty("webdriver.chrome.driver", DriverUtil.getDriverPath());
-            driver = new ChromeDriver(desiredChromeCapabilities);
-            driver.manage().window().maximize();
+            driver = this.setUpChromeDriver();
         }
     }
 
