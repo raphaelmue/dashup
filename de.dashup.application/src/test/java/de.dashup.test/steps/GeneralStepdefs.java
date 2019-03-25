@@ -44,24 +44,10 @@ public class GeneralStepdefs extends SpringBootBase {
         driver.get(LOGIN_URL);
     }
 
-    @When("^User submits username and password$")
-    public void user_submits_username_and_password() {
-        driver.findElement(By.id("text-field-login-email")).sendKeys("nobody@test.com");
-        driver.findElement(By.id("text-field-login-password")).sendKeys("password");
-        driver.findElement(By.id("btn-login-submit")).click();
-    }
-
-    @Then("^User is logged in$")
-    public void user_is_logged_in() {
-        Assert.assertEquals("http://localhost:9004/", driver.getCurrentUrl());
-
-    }
-
     public static WebDriver getDriver() {
         return driver;
     }
 
-    @And("^Database is setup for testing$")
     public void databaseIsSetupForTesting() throws SQLException {
         //change param of setHost to true if you need to test on local DB
         Database.setHost(false);
