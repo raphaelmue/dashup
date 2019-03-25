@@ -80,7 +80,6 @@ public class ServiceSettingsTest {
 
         //test update w/o insert
         testUser.getSettings().setTheme(Settings.Theme.BLACK_AND_WHITE);
-        testUser.getSettings().setLanguage(new Locale("de"));
         testUser.getSettings().setBackgroundImage(backgroundURL);
 
         dashupService.updateSettings(testUser, false);
