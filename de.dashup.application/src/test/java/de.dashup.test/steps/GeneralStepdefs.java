@@ -10,11 +10,15 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 @Ignore
 public class GeneralStepdefs extends SpringBootBase {
@@ -68,19 +72,50 @@ public class GeneralStepdefs extends SpringBootBase {
     }
 
     @Given("^User is registered for dashup$")
-    public void userIsRegisteredForDashup() throws SQLException {
+    public void userIsRegisteredForDashup() throws SQLException, IOException {
         this.setupDBForTesting();
-        final DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
-        final ChromeOptions chromeOptions = new ChromeOptions();
+        java.io.InputStream is = this.getClass().getResourceAsStream("../../../../my.properties");
+        java.util.Properties p = new Properties();
+        p.load(is);
+        String name = p.getProperty("test.browser");
+        if (name != null) {
+            switch (name) {
+                case "chrome":
+                    final DesiredCapabilities desiredChromeCapabilities = DesiredCapabilities.chrome();
+                    final ChromeOptions chromeOptions = new ChromeOptions();
 
-        if (DriverUtil.getPathToChromeBinary() != null) {
-            chromeOptions.setBinary(DriverUtil.getPathToChromeBinary());
+                    if (DriverUtil.getPathToChromeBinary() != null) {
+                        chromeOptions.setBinary(DriverUtil.getPathToChromeBinary());
+                    }
+
+                    desiredChromeCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+                    System.setProperty("webdriver.chrome.driver", DriverUtil.getDriverPath());
+                    driver = new ChromeDriver(desiredChromeCapabilities);
+                    driver.manage().window().maximize();
+                    break;
+                case "firefox":
+                    final DesiredCapabilities desiredFirefoxCapabilities = DesiredCapabilities.firefox();
+                    final FirefoxOptions firefoxOptions = new FirefoxOptions();
+
+                    desiredFirefoxCapabilities.setCapability(FirefoxOptions.FIREFOX_OPTIONS, firefoxOptions);
+                    System.setProperty("webdriver.gecko.driver", "./src/test/resources/de/dashup/test/geckodriver.exe");
+                    driver = new FirefoxDriver(desiredFirefoxCapabilities);
+                    driver.manage().window().maximize();
+                    break;
+            }
+        }else {
+            final DesiredCapabilities desiredChromeCapabilities = DesiredCapabilities.chrome();
+            final ChromeOptions chromeOptions = new ChromeOptions();
+
+            if (DriverUtil.getPathToChromeBinary() != null) {
+                chromeOptions.setBinary(DriverUtil.getPathToChromeBinary());
+            }
+
+            desiredChromeCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+            System.setProperty("webdriver.chrome.driver", DriverUtil.getDriverPath());
+            driver = new ChromeDriver(desiredChromeCapabilities);
+            driver.manage().window().maximize();
         }
-
-        desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-        System.setProperty("webdriver.chrome.driver", DriverUtil.getDriverPath());
-        driver = new ChromeDriver(desiredCapabilities);
-        driver.manage().window().maximize();
     }
 
     @Given("^User is located on login page$")
