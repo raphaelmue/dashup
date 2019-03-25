@@ -116,7 +116,7 @@ public class ServiceSettingsTest {
     public void testUpdateLanguage() throws SQLException {
         //execute method
         testUser.getSettings().setLanguage(new Locale("de"));
-        dashupService.updateSettings(testUser);
+        dashupService.updateLanguage(testUser);
         //assert result
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("user_id", 1);
