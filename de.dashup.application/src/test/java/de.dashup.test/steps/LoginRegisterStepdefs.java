@@ -2,6 +2,7 @@ package de.dashup.test.steps;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import de.dashup.model.db.Database;
@@ -70,7 +71,7 @@ public class LoginRegisterStepdefs {
         driver.quit();
     }
 
-    //--------------- Registering ---------------\\
+    //--------------- Navigation for registering ---------------\\
     @When("^User clicks on link to register$")
     public void userClicksOnLinkToRegister() {
         WebDriver driver = GeneralStepdefs.getDriver();
@@ -82,6 +83,65 @@ public class LoginRegisterStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         Assertions.assertEquals("http://localhost:9004/register",driver.getCurrentUrl());
         Assertions.assertNotNull(driver.findElement(By.id("text-field-register-email")));
+        driver.quit();
+    }
+
+    //--------------- Registering ---------------\\
+    @Given("^User is located on registration page$")
+    public void userIsLocatedOnRegistrationPage() {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.get("http://localhost:9004/register");
+        Assertions.assertEquals("dashup",driver.getTitle());
+        Assertions.assertEquals("http://localhost:9004/register",driver.getCurrentUrl());
+        Assertions.assertNotNull(driver.findElement(By.id("text-field-register-email")));
+    }
+
+    @And("^E-mail \"([^\"]*)\" already exists$")
+    public void eMailAlreadyExists(String arg0) throws SQLException {
+        HashMap<String,Object> whereParams = new HashMap<>();
+        whereParams.put("email",arg0);
+        Assertions.assertEquals(1,GeneralStepdefs.getDatabase().get(Database.Table.USERS,whereParams));
+    }
+
+    @When("^User enters \"([^\"]*)\" as username$")
+    public void userEntersAsUsername(String arg0) {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.findElement(By.id("text-field-register-name")).sendKeys(arg0);
+    }
+
+    @And("^User enters \"([^\"]*)\" as e-mail to registration formula$")
+    public void userEntersAsEMailToRegistrationFormula(String arg0) {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.findElement(By.id("text-field-register-email")).sendKeys(arg0);
+    }
+
+    @And("^User enters \"([^\"]*)\" as password to registration formula$")
+    public void userEntersAsPasswordToRegistrationFormula(String arg0) {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.findElement(By.id("text-field-register-password")).sendKeys(arg0);
+    }
+
+    @And("^User repeats \"([^\"]*)\" as password$")
+    public void userRepeatsAsPassword(String arg0) {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.findElement(By.id("text-field-register-repeat-password")).sendKeys(arg0);
+    }
+
+    @Then("^Registration error message is displayed stating that e-mail is invalid$")
+    public void registrationErrorMessageIsDisplayedStatingThatEMailIsInvalid() {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        WebElement element = driver.findElement(By.className("toast"));
+        Assertions.assertNotNull(element);
+        Assertions.assertEquals("http://localhost:9004/register/#",driver.getCurrentUrl());
+        driver.quit();
+    }
+
+    @Then("^Registration error message is displayed stating that passwords are not matching$")
+    public void registrationErrorMessageIsDisplayedStatingThatPasswordsAreNotMatching() {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        WebElement element = driver.findElement(By.className("toast"));
+        Assertions.assertNotNull(element);
+        Assertions.assertEquals("http://localhost:9004/register/#",driver.getCurrentUrl());
         driver.quit();
     }
 }

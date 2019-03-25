@@ -59,7 +59,7 @@ Feature: Login / Register
   Scenario: Successful registration
     Given User is located on registration page
     When User enters "John Doe" as username
-    And User enters "John.Doe@gmail.com" as e-mail to registration formula
+    And User enters "John.Doe@test.com" as e-mail to registration formula
     And User enters "d(&1h8%ac4_Z" as password to registration formula
     And User repeats "d(&1h8%ac4_Z" as password
     And User presses start button

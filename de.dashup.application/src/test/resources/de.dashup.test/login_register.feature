@@ -40,13 +40,14 @@ Feature: Login / Register
     And User repeats "password" as password
     Then Registration error message is displayed stating that e-mail is invalid
 
-  Scenario: Failed registration due to an invalid password
-    Given User is located on registration page
-    When User enters "John Doe" as username
-    And User enters "John.Doe@gmail.com" as e-mail to registration formula
-    And User enters "short" as password to registration formula
-    And User repeats "short" as password
-    Then Registration error message is displayed stating that password is invalid
+  #--Not implemented yet--
+  #Scenario: Failed registration due to an invalid password
+  #  Given User is located on registration page
+  #  When User enters "John Doe" as username
+  #  And User enters "John.Doe@gmail.com" as e-mail to registration formula
+  #  And User enters "short" as password to registration formula
+  #  And User repeats "short" as password
+  #  Then Registration error message is displayed stating that password is invalid
 
   Scenario: Failed registration due to an not matching passwords
     Given User is located on registration page
@@ -59,7 +60,7 @@ Feature: Login / Register
   Scenario: Successful registration
     Given User is located on registration page
     When User enters "John Doe" as username
-    And User enters "John.Doe@gmail.com" as e-mail to registration formula
+    And User enters "John.Doe@test.com" as e-mail to registration formula
     And User enters "d(&1h8%ac4_Z" as password to registration formula
     And User repeats "d(&1h8%ac4_Z" as password
     And User presses start button
