@@ -66,9 +66,9 @@ public class ServiceSettingsTest {
         databaseUser.fromDatabaseObject(result.get(0));
         Assertions.assertFalse(databaseUser.getSalt().isEmpty());
         Assertions.assertFalse(databaseUser.getPassword().isEmpty());
-        Assertions.assertNotEquals(USER_SALT,databaseUser.getSalt());
-        Assertions.assertNotEquals(USER_HASHED_PASSWORD,databaseUser.getPassword());
-        Assertions.assertEquals(Hash.create(newPassword, databaseUser.getSalt()),databaseUser.getPassword());
+        Assertions.assertNotEquals(USER_SALT, databaseUser.getSalt());
+        Assertions.assertNotEquals(USER_HASHED_PASSWORD, databaseUser.getPassword());
+        Assertions.assertEquals(Hash.create(newPassword, databaseUser.getSalt()), databaseUser.getPassword());
 
         //test if exception is thrown when entering wrong old password
         Assertions.assertThrows(IllegalArgumentException.class,

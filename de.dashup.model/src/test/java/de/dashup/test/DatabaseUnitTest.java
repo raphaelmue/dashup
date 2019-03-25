@@ -1,6 +1,5 @@
 package de.dashup.test;
 
-import com.google.gson.JsonArray;
 import de.dashup.model.db.Database;
 import de.dashup.shared.DatabaseObject;
 import de.dashup.shared.DatabaseUser;
@@ -32,7 +31,7 @@ public class DatabaseUnitTest {
     }
 
     @Test
-    public void testInsert() throws SQLException{
+    public void testInsert() throws SQLException {
         String salt = "VQoX3kxwjX3gOOY1Jixk)Dc$0y$e4B!9";
         String hashedPassword = Hash.create("password", salt);
 
@@ -47,13 +46,13 @@ public class DatabaseUnitTest {
 
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("id", "3");
-        JSONArray result = database.get(Database.Table.USERS,whereParams);
-        Assertions.assertEquals("test",result.getJSONObject(0).getString("user_name"));
-        Assertions.assertEquals(hashedPassword,result.getJSONObject(0).getString("password"));
-        Assertions.assertEquals("testInsert@test.com",result.getJSONObject(0).getString("email"));
-        Assertions.assertEquals("Test",result.getJSONObject(0).getString("surname"));
-        Assertions.assertEquals("Insert",result.getJSONObject(0).getString("name"));
-        Assertions.assertEquals(salt,result.getJSONObject(0).getString("salt"));
+        JSONArray result = database.get(Database.Table.USERS, whereParams);
+        Assertions.assertEquals("test", result.getJSONObject(0).getString("user_name"));
+        Assertions.assertEquals(hashedPassword, result.getJSONObject(0).getString("password"));
+        Assertions.assertEquals("testInsert@test.com", result.getJSONObject(0).getString("email"));
+        Assertions.assertEquals("Test", result.getJSONObject(0).getString("surname"));
+        Assertions.assertEquals("Insert", result.getJSONObject(0).getString("name"));
+        Assertions.assertEquals(salt, result.getJSONObject(0).getString("salt"));
     }
 
     @Test
