@@ -26,7 +26,7 @@ public class EntryController {
                         @RequestParam(name = "lang", required = false) Locale locale,
                         Model model, HttpServletRequest request) {
         ControllerHelper.setLocale(request, locale);
-
+        model.addAttribute("theme", "blue-sky");
         if (invalidCredentials) {
             model.addAttribute("errorMessage", "<p>" + I18N.get("i18n.errorInvalidCredentials") + "</p>");
         }
@@ -55,7 +55,8 @@ public class EntryController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String register() {
+    public String register(Model model) {
+        model.addAttribute("theme", "blue-sky");
         return "register";
     }
 
