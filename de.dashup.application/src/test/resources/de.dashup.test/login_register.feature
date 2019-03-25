@@ -38,6 +38,7 @@ Feature: Login / Register
     And User enters "John.Doe@gmail.com" as e-mail to registration formula
     And User enters "password" as password to registration formula
     And User repeats "password" as password
+    And User presses start button
     Then Registration error message is displayed stating that e-mail is invalid
 
   #--Not implemented yet--
@@ -47,6 +48,7 @@ Feature: Login / Register
   #  And User enters "John.Doe@gmail.com" as e-mail to registration formula
   #  And User enters "short" as password to registration formula
   #  And User repeats "short" as password
+  #  And User presses start button
   #  Then Registration error message is displayed stating that password is invalid
 
   Scenario: Failed registration due to an not matching passwords
@@ -55,6 +57,7 @@ Feature: Login / Register
     And User enters "John.Doe@gmail.com" as e-mail to registration formula
     And User enters "d(&1h8%ac4_Z" as password to registration formula
     And User repeats "d(&1h8%ac3_Z" as password
+    And User presses start button
     Then Registration error message is displayed stating that passwords are not matching
 
   Scenario: Successful registration

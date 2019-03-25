@@ -76,18 +76,18 @@
             clearAnchor()
         }
 
-        $("#submit_registration").on("click", function () {
-            let password = $("#text_field_register_password").val(),
-                repeatPassword = $("#text_field_register_repeat_password").val(),
-                email = $("#text_field_register_email").val(),
-                name = $("#text_field_register_name").val()
+        $("#submit-registration").on("click", function () {
+            let password = $("#text-field-register-password").val(),
+                repeatPassword = $("#text-field-register-repeat-password").val(),
+                email = $("#text-field-register-email").val(),
+                name = $("#text-field-register-name").val()
             if (email !== "" && name !== "") {
                 if (password === repeatPassword && password !== "") {
                     PostRequest.getInstance().make("handleRegisterUser", {
-                        email: $("#text_field_register_email").val(),
+                        email: $("#text-field-register-email").val(),
                         password: password,
                         repeatPassword: repeatPassword,
-                        userName: $("#text_field_register_name").val(),
+                        userName: $("#text-field-register-name").val(),
                     });
                 } else if (password !== repeatPassword) {
                     M.toast({
