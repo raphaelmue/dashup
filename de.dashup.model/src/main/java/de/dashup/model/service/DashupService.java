@@ -285,7 +285,7 @@ public class DashupService {
         return result;
     }
 
-    public void updateSettings(User user) throws SQLException {
+    public void updateLanguage(User user) throws SQLException {
         Map<String, Object> whereParameter = new HashMap<>();
         whereParameter.put("user_id", user.getId());
 
