@@ -14,14 +14,21 @@ pipeline {
                 sh 'mvn clean install -DskipTests'
             }
         }
-        stage('Testing') {
+        stage('Testing in Chrome') {
             steps {
                 wrap([$class: 'Xvfb', additionalOptions: '', assignedLabels: '', autoDisplayName: true, debug: true, displayNameOffset: 0, installationName: 'Xvfb', parallelBuild: true, screen: '1024x758x24', timeout: 25]) {
-                    sh 'mvn test'
+                    sh 'mvn -Dtesting=chrome test'
                 }
-                sh 'rm ./de.dashup.model/src/main/resources/de/dashup/model/db/config/database.conf'
             }
         }
+        stage('Testing in Firefox') {
+                    steps {
+                        wrap([$class: 'Xvfb', additionalOptions: '', assignedLabels: '', autoDisplayName: true, debug: true, displayNameOffset: 0, installationName: 'Xvfb', parallelBuild: true, screen: '1024x758x24', timeout: 25]) {
+                            sh 'mvn -Dtesting=firefox test'
+                        }
+                        sh 'rm ./de.dashup.model/src/main/resources/de/dashup/model/db/config/database.conf'
+                    }
+                }
         stage('Deploy') {
             when {
                 branch 'deployment'
