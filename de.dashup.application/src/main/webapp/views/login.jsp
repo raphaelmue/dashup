@@ -37,7 +37,7 @@
                 </div>
                 <div class="row">
                     <div class="col m6 offset-m3 s10 offset-s1">
-                        <label >
+                        <label id="label-remember-me-checkbox">
                             <input type="checkbox" name="rememberMe" class="filled-in" checked="checked" />
                             <span><fmt:message key="i18n.rememberMe" /></span>
                         </label>

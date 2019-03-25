@@ -1,16 +1,12 @@
 package de.dashup.test.steps;
 
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
 import de.dashup.model.db.Database;
 import de.dashup.test.SpringBootBase;
 import de.dashup.test.utils.DriverUtil;
 import de.dashup.util.string.Hash;
-import org.junit.Assert;
 import org.junit.Ignore;
-import org.openqa.selenium.By;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -26,10 +22,54 @@ public class GeneralStepdefs extends SpringBootBase {
     private final static String LOGIN_URL = "http://localhost:9004/login";
 
     private static WebDriver driver;
+    private static Database database;
 
+    public static WebDriver getDriver() {
+        return driver;
+    }
+    public static Database getDatabase() {
+        return database;
+    }
 
-    @Given("^User is located on login page$")
-    public void userIsLocatedOnLoginPage() {
+    public void setupDBForTesting() throws SQLException {
+        //change param of setHost to true if you need to test on local DB
+        Database.setHost(false);
+        Database.setDbName(Database.DatabaseName.TEST);
+        database = Database.getInstance();
+        database.clearDatabase();
+        String salt = "VQoX3kxwjX3gOOY1Jixk)Dc$0y$e4B!9";
+        String hashedPassword = Hash.create("password", salt);
+
+        Map<String, Object> testDataMap = new HashMap<>();
+        testDataMap.put("email", "John.Doe@gmail.com");
+        testDataMap.put("user_name", "NobodyTest");
+        testDataMap.put("name", "Nobody");
+        testDataMap.put("surname", "Test");
+        testDataMap.put("password", hashedPassword);
+        testDataMap.put("salt", salt);
+        database.insert(Database.Table.USERS, testDataMap);
+
+        testDataMap.clear();
+        testDataMap.put("email", "second@test.com");
+        testDataMap.put("user_name", "SecondTest");
+        testDataMap.put("name", "Second");
+        testDataMap.put("surname", "Test");
+        testDataMap.put("password", hashedPassword);
+        testDataMap.put("salt", salt);
+        database.insert(Database.Table.USERS, testDataMap);
+
+        Assertions.assertEquals(2, database.get(Database.Table.USERS, new HashMap<>()).length());
+
+        testDataMap.clear();
+        testDataMap.put("user_id", "1");
+        testDataMap.put("theme", "blue-sky");
+        testDataMap.put("language", "en");
+        database.insert(Database.Table.USERS_SETTINGS, testDataMap);
+    }
+
+    @Given("^User is registered for dashup$")
+    public void userIsRegisteredForDashup() throws SQLException {
+        this.setupDBForTesting();
         final DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
         final ChromeOptions chromeOptions = new ChromeOptions();
 
@@ -41,48 +81,11 @@ public class GeneralStepdefs extends SpringBootBase {
         System.setProperty("webdriver.chrome.driver", DriverUtil.getDriverPath());
         driver = new ChromeDriver(desiredCapabilities);
         driver.manage().window().maximize();
+    }
+
+    @Given("^User is located on login page$")
+    public void userIsLocatedOnLoginPage() {
         driver.get(LOGIN_URL);
-    }
-
-    public static WebDriver getDriver() {
-        return driver;
-    }
-
-    public void databaseIsSetupForTesting() throws SQLException {
-        //change param of setHost to true if you need to test on local DB
-        Database.setHost(false);
-        Database.setDbName(Database.DatabaseName.TEST);
-        Database database = Database.getInstance();
-        database.clearDatabase();
-        String salt = "VQoX3kxwjX3gOOY1Jixk)Dc$0y$e4B!9";
-        String hashedPassword = Hash.create("password", salt);
-
-        Map<String, Object> values = new HashMap<>();
-        values.put("email", "nobody@test.com");
-        values.put("name", "Nobody");
-        values.put("surname", "Test");
-        values.put("password", hashedPassword);
-        values.put("salt", salt);
-
-        database.insert(Database.Table.USERS, values);
-
-        values.clear();
-        values.put("user_id", "1");
-        values.put("background_color", "#ffffff");
-        values.put("background_image", "https://stmed.net/sites/default/files/sky-wallpapers-28043-2711012.jpg");
-        values.put("heading_size", "30");
-        values.put("heading_color", "#5569ff");
-        values.put("font_heading", "Arial Black");
-        values.put("font_text", "Verdana");
-
-        database.insert(Database.Table.USERS_SETTINGS,values);
-
-        values.clear();
-        values.put("user_id", "1");
-        values.put("section_id", "1");
-        values.put("section_name", "Test Section");
-        values.put("section_order", "0");
-
-        database.insert(Database.Table.USER_SECTIONS, values);
+        Assertions.assertEquals("dashup",driver.getTitle());
     }
 }
