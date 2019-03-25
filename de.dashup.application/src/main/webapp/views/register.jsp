@@ -26,8 +26,8 @@
     <div class="row">
         <div class="col m6 offset-m3 s10 offset-s1">
             <div class="input-field">
-                <input id="text_field_register_email" name="email" type="text" class="validate">
-                <label for="text_field_register_email"><fmt:message key="i18n.emailAddress"/></label>
+                <input id="text-field-register-email" name="email" type="text" class="validate">
+                <label for="text-field-register-email"><fmt:message key="i18n.emailAddress"/></label>
             </div>
         </div>
         <div class="col m6 offset-m3 s10 offset-s1">
@@ -38,20 +38,20 @@
         </div>
         <div class="col m6 offset-m3 s10 offset-s1">
             <div class="input-field">
-                <input id="text_field_register_password" name="password" type="password" class="validate">
-                <label for="text_field_register_password"><fmt:message key="i18n.password"/></label>
+                <input id="text-field-register-password" name="password" type="password" class="validate">
+                <label for="text-field-register-password"><fmt:message key="i18n.password"/></label>
             </div>
         </div>
         <div class="col m6 offset-m3 s10 offset-s1">
             <div class="input-field">
-                <input id="text_field_register_repeat_password" name="repeatPassword" type="password" class="validate">
-                <label for="text_field_register_repeat_password"><fmt:message key="i18n.repeatPassword"/></label>
+                <input id="text-field-register-repeat-password" name="repeatPassword" type="password" class="validate">
+                <label for="text-field-register-repeat-password"><fmt:message key="i18n.repeatPassword"/></label>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col m6 offset-m3 s10 offset-s1">
-            <button class="btn waves-effect waves-light" type="submit" name="action" id="submit_registration">
+            <button class="btn waves-effect waves-light" type="submit" name="action" id="submit-registration">
                 <fmt:message key="i18n.register"/>
                 <i class="fas fa-sign-in-alt"></i>
             </button>

@@ -15,6 +15,7 @@ import java.util.HashMap;
 
 public class LoginRegisterStepdefs {
 
+    //--------------- Login ---------------\\
     @And("^User registered with e-mail \"([^\"]*)\"$")
     public void userRegisteredWithEMail(String arg0) throws SQLException {
         Database database = GeneralStepdefs.getDatabase();
@@ -66,6 +67,21 @@ public class LoginRegisterStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         WebElement element = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(element);
+        driver.quit();
+    }
+
+    //--------------- Registering ---------------\\
+    @When("^User clicks on link to register$")
+    public void userClicksOnLinkToRegister() {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.findElement(By.id("href-registering")).click();
+    }
+
+    @Then("^User is navigated to registration page$")
+    public void userIsNavigatedToRegistrationPage() {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        Assertions.assertEquals("http://localhost:9004/register",driver.getCurrentUrl());
+        Assertions.assertNotNull(driver.findElement(By.id("text-field-register-email")));
         driver.quit();
     }
 }

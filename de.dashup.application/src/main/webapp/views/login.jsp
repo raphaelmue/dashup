@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col m6 offset-m3 s10 offset-s1">
                     <h3><fmt:message key="i18n.login" /></h3>
-                    <p><a href="${pageContext.request.contextPath}/register"><fmt:message key="i18n.notRegisteredYet" /></a></p>
+                    <p><a href="${pageContext.request.contextPath}/register" id="href-registering"><fmt:message key="i18n.notRegisteredYet" /></a></p>
                 </div>
             </div>
             <form action="${pageContext.request.contextPath}/handleLogin" method="POST">
