@@ -142,7 +142,7 @@ public class LoginRegisterStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         WebElement element = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(element);
-        Assertions.assertEquals("http://localhost:9004/register/#",driver.getCurrentUrl());
+        Assertions.assertEquals("http://localhost:9004/register",driver.getCurrentUrl());
         driver.quit();
     }
 
