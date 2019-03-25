@@ -64,6 +64,8 @@ public class ServiceSettingsTest {
         Assertions.assertEquals(1, result.size());
         User databaseUser = new User();
         databaseUser.fromDatabaseObject(result.get(0));
+        Assertions.assertFalse(databaseUser.getSalt().isEmpty());
+        Assertions.assertFalse(databaseUser.getPassword().isEmpty());
         Assertions.assertNotEquals(USER_SALT,databaseUser.getSalt());
         Assertions.assertNotEquals(USER_HASHED_PASSWORD,databaseUser.getPassword());
         Assertions.assertEquals(Hash.create(newPassword, databaseUser.getSalt()),databaseUser.getPassword());
