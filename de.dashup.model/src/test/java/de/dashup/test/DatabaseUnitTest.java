@@ -1,9 +1,11 @@
 package de.dashup.test;
 
+import com.google.gson.JsonArray;
 import de.dashup.model.db.Database;
 import de.dashup.shared.DatabaseObject;
 import de.dashup.shared.DatabaseUser;
 import de.dashup.shared.User;
+import de.dashup.util.string.Hash;
 import org.json.JSONArray;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("WeakerAccess")
 public class DatabaseUnitTest {
@@ -26,6 +29,31 @@ public class DatabaseUnitTest {
     @BeforeEach
     public void cleanDB() throws SQLException {
         UnitTestUtil.setUpTestDataset(database);
+    }
+
+    @Test
+    public void testInsert() throws SQLException{
+        String salt = "VQoX3kxwjX3gOOY1Jixk)Dc$0y$e4B!9";
+        String hashedPassword = Hash.create("password", salt);
+
+        Map<String, Object> testDataMap = new HashMap<>();
+        testDataMap.put("email", "testInsert@test.com");
+        testDataMap.put("user_name", "test");
+        testDataMap.put("name", "Insert");
+        testDataMap.put("surname", "Test");
+        testDataMap.put("password", hashedPassword);
+        testDataMap.put("salt", salt);
+        database.insert(Database.Table.USERS, testDataMap);
+
+        HashMap<String, Object> whereParams = new HashMap<>();
+        whereParams.put("id", "3");
+        JSONArray result = database.get(Database.Table.USERS,whereParams);
+        Assertions.assertEquals("test",result.getJSONObject(0).getString("user_name"));
+        Assertions.assertEquals(hashedPassword,result.getJSONObject(0).getString("password"));
+        Assertions.assertEquals("testInsert@test.com",result.getJSONObject(0).getString("email"));
+        Assertions.assertEquals("Test",result.getJSONObject(0).getString("surname"));
+        Assertions.assertEquals("Insert",result.getJSONObject(0).getString("name"));
+        Assertions.assertEquals(salt,result.getJSONObject(0).getString("salt"));
     }
 
     @Test
