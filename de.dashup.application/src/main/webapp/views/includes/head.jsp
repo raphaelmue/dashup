@@ -20,7 +20,7 @@
 
     <!-- Style -->
     <link rel="stylesheet" href="../../styles/theme.style.css"/>
-    <link rel="stylesheet" href="../../styles/theme.${theme}.style.css"/>
+    <link rel="stylesheet" href="../../styles/themes/theme.${theme}.style.css"/>
     <link rel="stylesheet" href="../../styles/main.style.css"/>
 
     <!-- JavaScript Classes -->

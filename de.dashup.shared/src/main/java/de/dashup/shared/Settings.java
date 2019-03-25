@@ -5,8 +5,10 @@ import java.util.Locale;
 public class Settings {
     public enum Theme {
         BLUE_SKY("blue-sky", "Blue Sky"),
-        BLACK_AND_WHITE("black-and-white", "Black And White"),
-        HIGH_CONTRAST("high-contrast", "High Contrast");
+        GREEN_NATURE("green-nature", "Green Nature"),
+        RED_LOVE("red-love", "Red Love"),
+        WHITE_DIAMOND("white-diamond", "White Diamond"),
+        BLACK_NIGHT("black-night", "Black Night");
 
         private final String technicalName, name;
 
