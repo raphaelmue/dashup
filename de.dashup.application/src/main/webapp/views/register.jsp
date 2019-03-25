@@ -32,8 +32,8 @@
         </div>
         <div class="col m6 offset-m3 s10 offset-s1">
             <div class="input-field">
-                <input id="text_field_register_name" name="name" type="text" class="validate">
-                <label for="text_field_register_name"><fmt:message key="i18n.userName"/></label>
+                <input id="text-field-register-name" name="name" type="text" class="validate">
+                <label for="text-field-register-name"><fmt:message key="i18n.userName"/></label>
             </div>
         </div>
         <div class="col m6 offset-m3 s10 offset-s1">

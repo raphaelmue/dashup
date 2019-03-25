@@ -101,7 +101,7 @@ public class LoginRegisterStepdefs {
     public void eMailAlreadyExists(String arg0) throws SQLException {
         HashMap<String,Object> whereParams = new HashMap<>();
         whereParams.put("email",arg0);
-        Assertions.assertEquals(1,GeneralStepdefs.getDatabase().get(Database.Table.USERS,whereParams));
+        Assertions.assertEquals(1,GeneralStepdefs.getDatabase().get(Database.Table.USERS,whereParams).length());
     }
 
     @When("^User enters \"([^\"]*)\" as username$")
