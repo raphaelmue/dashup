@@ -68,4 +68,4 @@ Feature: Login / Register
     #When User opens mail client
     #And User opens mail from dashup
     #And User clicks on confirmation link
-    Then User is navigated to central dashboard
+    Then User was navigated to central dashboard
