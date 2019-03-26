@@ -14,21 +14,27 @@ pipeline {
                 sh 'mvn clean install -DskipTests'
             }
         }
+        stage('Unit testing') {
+             steps {
+                sh 'mvn test --projects de.dasup.shared,de.dasup.util,de.dasup.model'
+             }
+        }
+
         stage('Testing in Chrome') {
             steps {
                 wrap([$class: 'Xvfb', additionalOptions: '', assignedLabels: '', autoDisplayName: true, debug: true, displayNameOffset: 0, installationName: 'Xvfb', parallelBuild: true, screen: '1024x758x24', timeout: 25]) {
-                    sh 'mvn -Dtesting=chrome test'
+                    sh 'mvn -Dtesting=chrome test -pl de.dasup.application'
                 }
             }
         }
         stage('Testing in Firefox') {
-                    steps {
-                        wrap([$class: 'Xvfb', additionalOptions: '', assignedLabels: '', autoDisplayName: true, debug: true, displayNameOffset: 0, installationName: 'Xvfb', parallelBuild: true, screen: '1024x758x24', timeout: 25]) {
-                            sh 'mvn -Dtesting=firefox test'
-                        }
-                        sh 'rm ./de.dashup.model/src/main/resources/de/dashup/model/db/config/database.conf'
-                    }
+            steps {
+                wrap([$class: 'Xvfb', additionalOptions: '', assignedLabels: '', autoDisplayName: true, debug: true, displayNameOffset: 0, installationName: 'Xvfb', parallelBuild: true, screen: '1024x758x24', timeout: 25]) {
+                    sh 'mvn -Dtesting=firefox test -pl de.dasup.application'
                 }
+                sh 'rm ./de.dashup.model/src/main/resources/de/dashup/model/db/config/database.conf'
+             }
+        }
         stage('Deploy') {
             when {
                 branch 'deployment'
