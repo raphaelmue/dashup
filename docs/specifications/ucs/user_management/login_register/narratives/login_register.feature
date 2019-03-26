@@ -41,6 +41,7 @@ Feature: Login / Register
     And User presses start button
     Then Registration error message is displayed stating that e-mail is invalid
 
+  #--Not implemented yet--
   Scenario: Failed registration due to an invalid password
     Given User is located on registration page
     When User enters "John Doe" as username
