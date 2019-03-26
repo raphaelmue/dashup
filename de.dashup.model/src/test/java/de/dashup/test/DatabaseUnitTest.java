@@ -22,36 +22,37 @@ public class DatabaseUnitTest {
 
     @BeforeAll
     public static void createDatabaseConnection() throws SQLException {
-        Database.setHost(false);
-        Database.setDbName(Database.DatabaseName.TEST);
-        database = Database.getInstance();
+        database = UnitTestUtil.getDBInstance(false, Database.DatabaseName.TEST);
     }
 
     @BeforeEach
     public void cleanDB() throws SQLException {
-        database.clearDatabase();
+        UnitTestUtil.setUpTestDataset(database);
+    }
+
+    @Test
+    public void testInsert() throws SQLException {
         String salt = "VQoX3kxwjX3gOOY1Jixk)Dc$0y$e4B!9";
         String hashedPassword = Hash.create("password", salt);
 
         Map<String, Object> testDataMap = new HashMap<>();
-        testDataMap.put("email", "nobody@test.com");
-        testDataMap.put("user_name", "NobodyTest");
-        testDataMap.put("name", "Nobody");
+        testDataMap.put("email", "testInsert@test.com");
+        testDataMap.put("user_name", "test");
+        testDataMap.put("name", "Insert");
         testDataMap.put("surname", "Test");
         testDataMap.put("password", hashedPassword);
         testDataMap.put("salt", salt);
         database.insert(Database.Table.USERS, testDataMap);
 
-        testDataMap.clear();
-        testDataMap.put("email", "second@test.com");
-        testDataMap.put("user_name", "SecondTest");
-        testDataMap.put("name", "Second");
-        testDataMap.put("surname", "Test");
-        testDataMap.put("password", hashedPassword);
-        testDataMap.put("salt", salt);
-        database.insert(Database.Table.USERS, testDataMap);
-
-        Assertions.assertEquals(2, database.get(Database.Table.USERS,new HashMap<>()).length());
+        HashMap<String, Object> whereParams = new HashMap<>();
+        whereParams.put("id", "3");
+        JSONArray result = database.get(Database.Table.USERS, whereParams);
+        Assertions.assertEquals("test", result.getJSONObject(0).getString("user_name"));
+        Assertions.assertEquals(hashedPassword, result.getJSONObject(0).getString("password"));
+        Assertions.assertEquals("testInsert@test.com", result.getJSONObject(0).getString("email"));
+        Assertions.assertEquals("Test", result.getJSONObject(0).getString("surname"));
+        Assertions.assertEquals("Insert", result.getJSONObject(0).getString("name"));
+        Assertions.assertEquals(salt, result.getJSONObject(0).getString("salt"));
     }
 
     @Test
@@ -61,7 +62,13 @@ public class DatabaseUnitTest {
 
     @Test
     public void testDelete() throws SQLException {
+        //delete users settings, without this deletion of user will fail due to foreign key constraints
         HashMap<String, Object> whereParams = new HashMap<>();
+        whereParams.put("user_id", "1");
+        database.delete(Database.Table.USERS_SETTINGS, whereParams);
+        Assertions.assertEquals(0, database.get(Database.Table.USERS_SETTINGS, whereParams).length());
+        //delete User
+        whereParams.clear();
         whereParams.put("id", "1");
         database.delete(Database.Table.USERS, whereParams);
         Assertions.assertEquals(0, database.get(Database.Table.USERS, whereParams).length());
@@ -118,7 +125,7 @@ public class DatabaseUnitTest {
     }
 
     @Test
-    public void getUserThatDoesNotExist() throws SQLException{
+    public void getUserThatDoesNotExist() throws SQLException {
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("id", "3");
         JSONArray result = database.get(Database.Table.USERS, whereParams);
