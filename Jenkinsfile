@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Unit testing') {
              steps {
-                sh 'mvn test --projects de.dasup.shared,de.dasup.util,de.dasup.model'
+                sh 'mvn test --projects de.dashup.shared,de.dashup.util,de.dashup.model'
              }
         }
 
