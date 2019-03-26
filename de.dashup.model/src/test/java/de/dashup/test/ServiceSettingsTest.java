@@ -48,7 +48,7 @@ public class ServiceSettingsTest {
         Assertions.assertNotNull(settings);
         Assertions.assertEquals(testUser.getSettings().getTheme().getName(), settings.getTheme().getName());
         Assertions.assertEquals(testUser.getSettings().getLanguage(), settings.getLanguage());
-        Assertions.assertEquals("null", settings.getBackgroundImage());
+        Assertions.assertEquals("", settings.getBackgroundImage());
     }
 
     @Test
