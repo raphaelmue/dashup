@@ -67,7 +67,7 @@ The user has to be signed in and must have navigated to the settings menu.
 #  5. Postconditions
 
 ## 5.1 Save Changed Data
-After the user has changed the layout settings and pressed the confirm icon the data has to be stored. This is necessary
+After the user has changed the layout settings and pressed the confirm icon, the data has to be stored. This is necessary
 to get a persistent change.
 
 ## 5.2 Discard changed data

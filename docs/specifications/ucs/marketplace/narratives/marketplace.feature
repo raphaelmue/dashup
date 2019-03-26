@@ -2,96 +2,86 @@ Feature: Marketplace
 
   As a basic user
   I want to browse the marketplace
-  So that I can find new panels and add them into my dashup
+  In order to find new widgets and add them into my central dashboard
 
-  Background: User is logged into dashup
+  Background: Authenticated
     Given User is located on login page
-    When User submits username and password
+    When User submits e-mail and password
     Then User is logged in
 
-  Scenario: Open marketplace
-    Given User is located on the main page
-    When User clicks on the marketplace button
-    Then The marketplace shows up
+  Scenario: Open marketplace menu
+    Given User is located on central dashboard
+    When User clicks on marketplace menu
+    Then Marketplace menu opens up
+    And Three sections "Recently uploaded", "Most popular" and "Best rating" are shown
 
+  Scenario: Navigate back to dashboard
+    Given User is located on marketplace menu
+    When User clicks on dashboard icon or navigates back over the navigation bar
+    Then User will be directed back to central dashboard
 
-  Scenario: Navigate back
-    Given User is located on the marketplace page
-    When User clicks on the back button or navigates back over the navigation bar
-    Then User will be directed back to the main page
-
-
-  Scenario Outline: Search panel
-    Given User is on the marketplace page
+  Scenario Outline: Search widget
+    Given User is located on marketplace menu
     When User the types in a search term "<searchTerms>"
-    Then A list with matching "<microservices>" shows up
+    Then A list with matching "<widgets>" shows up
 
     Examples:
-    | searchTerms  | microservices |
-    | calendar     | Calendar      |
-    | weather      | Weather      |
+    | searchTerms  | widgets    |
+    | calendar     | Calendar   |
+    | money        | ShareValue |
 
 
   Scenario Outline: Filter result set
-    Given User is on the marketplace page
+    Given User is located on marketplace menu
     When User clicks on filter icon
     Then Filter menu will pop up
     When User changes filter "<filter>" to value "<value>"
-    Then Result set will be restricted to all panels that match "<filter>" equals to "<value>"
+    Then Result set will be restricted to all widgets that match "<filter>" equals to "<value>"
 
     Examples:
     | filter              | value        |
     | rating              | 4.0          |
-    | category            | productivity |
-    | tags                | nerdy        |
+    | categories          | money        |
+    | tags                | productivity |
     | publisher           | dashup       |
     | date of publication | 04/11/2018   |
 
+  Scenario: Inspect widget
+    Given User is located on marketplace menu
+    When User clicks on a specific listed widget
+    Then A detailed view of the widget will open up, containing the tabs overview, comments and similar
+    And User is located on overview tab
 
-  Scenario Outline: User would like to rate and comment on a panel
-    Given Rating tab is opened of a panel's detailed view in the marketplace
-    When User writes "<comment>"
-    And User chooses "<rating>" of five stars
+  Scenario Outline: Rate and comment widget
+    Given User opened a widget's detailed view in the marketplace menu
+    When User clicks on rating tab
+    And User clicks comment icon
+    And User writes "<comment>"
+    And User chooses "<rating>"
     And User clicks submit button
-    Then The appropriate comment containing text "<comment>" and rating <"rating"> will be displayed on the top of the comment section.
+    Then The appropriate comment containing text "<comment>" and rating <"rating"> will be displayed on the top of the
+         comment section.
 
     Examples:
     | comment              | rating |
     | Top panel            | 5      |
     | Room for improvement | 3.5    |
 
-
-  Scenario: Inspect panel
-    Given User is on the marketplace page
-    When User clicks on a specific listed panel
-    Then A detailed view of the panel will open up, containing the tabs overview, comments and similar
-
-
   Scenario: Inspect similar panel
-    Given User is on the similar tab of a panel's detailed view in the marketplace
-    When User clicks on a specific listed panel
-    Then A detailed view of the panel will open up, containing the tabs overview, comments and similar
-
+    Given User opened a widget's detailed view in the marketplace menu
+    When User clicks on similar tab
+    And User clicks on a specific listed widget
+    Then A detailed view of the selected widget will open up, containing the tabs overview, comments and similar
 
   Scenario: Show more results
-    Given User is on the marketplace page
+    Given User is located on marketplace menu
     And User scrolled down to the end of the page
     And More results are available
     When User clicks on the show more button
-    Then more results will be loaded and shown on the marketplace list
-
+    Then More results will be loaded and shown on the marketplace list
 
   Scenario: Add panel to dashup
-    Given User is on the marketplace page
-    When User clicks on the add panel to dashboard button
-    Then Panel with microservice will be added to dashups default section
-    And Menu to add panel to dashup is set to disabled in the marketplace
-
-  Scenario: User accessing marketplace while not being logged in
-    Given User is not logged into dashup
-    When User accesses marketplace
-    And User tries to add a panel to dashup
-    Then User will be directed to the login page
-    When User enters right credentials
-    Then User will be directed to the main page
-    And Panel is added to dashup
+    Given User is located on marketplace menu
+    When User clicks on the add button
+    Then Widget will be added to a new section section of central dashboard at the top, named after the widget
+    And Button to add widget is set to disabled in the marketplace
