@@ -17,6 +17,7 @@ Then User is logged in
   Scenario: Change username
     Given User is located on settings menu
     When User changes  username to 'Jane Doe'
+    And Username is unique
     Then username changes to 'Jane Doe'
 
   Scenario: Change e-mail
@@ -63,7 +64,7 @@ Then User is logged in
     Then language changes to 'German'
 
   Scenario Outline: Undo changes
-    Given User has made a change, key "<settings>" was changed from "<latestValue>" to "<newValues>"
+    Given User has made a change, key "<settings>" was changed from "<latestValue>" to "<newValue>"
     And User is located on settings menu
     When User clicks on abandon icon
     Then Key "<settings>" will be restored to "<latestValue>"

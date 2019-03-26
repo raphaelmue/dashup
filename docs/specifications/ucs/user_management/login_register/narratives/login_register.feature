@@ -63,9 +63,4 @@ Feature: Login / Register
     And User enters "d(&1h8%ac4_Z" as password
     And User repeats "d(&1h8%ac4_Z" as password
     And User presses start button
-    #--Extension Point--
-    #Then Confirmation e-mail was sent
-    #When User opens mail client
-    #And User opens mail from dashup
-    #And User clicks on confirmation link
     Then User is navigated to central dashboard
