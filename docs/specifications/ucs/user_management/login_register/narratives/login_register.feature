@@ -73,3 +73,4 @@ Feature: Login / Register
     #And User opens mail from dashup
     #And User clicks on confirmation link
     Then User was navigated to central dashboard
+
