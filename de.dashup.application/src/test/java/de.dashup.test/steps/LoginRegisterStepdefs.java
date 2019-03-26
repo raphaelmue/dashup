@@ -1,6 +1,5 @@
 package de.dashup.test.steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -20,13 +19,13 @@ public class LoginRegisterStepdefs {
     @And("^User registered with e-mail \"([^\"]*)\"$")
     public void userRegisteredWithEMail(String arg0) throws SQLException {
         Database database = GeneralStepdefs.getDatabase();
-        HashMap<String,Object> whereParams = new HashMap<>();
-        whereParams.put("email",arg0);
-        Assertions.assertEquals(1, database.get(Database.Table.USERS,whereParams).length());
+        HashMap<String, Object> whereParams = new HashMap<>();
+        whereParams.put("email", arg0);
+        Assertions.assertEquals(1, database.get(Database.Table.USERS, whereParams).length());
     }
 
     @And("^User registered with \"([^\"]*)\"$")
-    public void userRegisteredWith(String arg0)  {
+    public void userRegisteredWith(String arg0) {
     }
 
     @When("^User enters \"([^\"]*)\" as e-mail$")
@@ -58,8 +57,8 @@ public class LoginRegisterStepdefs {
     @And("^User was navigated to central dashboard$")
     public void userWasNavigatedToCentralDashboard() {
         WebDriver driver = GeneralStepdefs.getDriver();
-        Assertions.assertEquals("dashup",driver.getTitle());
-        Assertions.assertEquals("http://localhost:9004/",driver.getCurrentUrl());
+        Assertions.assertEquals("dashup", driver.getTitle());
+        Assertions.assertEquals("http://localhost:9004/", driver.getCurrentUrl());
         driver.quit();
     }
 
@@ -68,7 +67,7 @@ public class LoginRegisterStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         WebElement element = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(element);
-        Assertions.assertEquals("http://localhost:9004/login/#",driver.getCurrentUrl());
+        Assertions.assertEquals("http://localhost:9004/login/#", driver.getCurrentUrl());
         driver.quit();
     }
 
@@ -82,7 +81,7 @@ public class LoginRegisterStepdefs {
     @Then("^User is navigated to registration page$")
     public void userIsNavigatedToRegistrationPage() {
         WebDriver driver = GeneralStepdefs.getDriver();
-        Assertions.assertEquals("http://localhost:9004/register",driver.getCurrentUrl());
+        Assertions.assertEquals("http://localhost:9004/register", driver.getCurrentUrl());
         Assertions.assertNotNull(driver.findElement(By.id("text-field-register-email")));
         driver.quit();
     }
@@ -92,16 +91,16 @@ public class LoginRegisterStepdefs {
     public void userIsLocatedOnRegistrationPage() {
         WebDriver driver = GeneralStepdefs.getDriver();
         driver.get("http://localhost:9004/register");
-        Assertions.assertEquals("dashup",driver.getTitle());
-        Assertions.assertEquals("http://localhost:9004/register",driver.getCurrentUrl());
+        Assertions.assertEquals("dashup", driver.getTitle());
+        Assertions.assertEquals("http://localhost:9004/register", driver.getCurrentUrl());
         Assertions.assertNotNull(driver.findElement(By.id("text-field-register-email")));
     }
 
     @And("^E-mail \"([^\"]*)\" already exists$")
     public void eMailAlreadyExists(String arg0) throws SQLException {
-        HashMap<String,Object> whereParams = new HashMap<>();
-        whereParams.put("email",arg0);
-        Assertions.assertEquals(1,GeneralStepdefs.getDatabase().get(Database.Table.USERS,whereParams).length());
+        HashMap<String, Object> whereParams = new HashMap<>();
+        whereParams.put("email", arg0);
+        Assertions.assertEquals(1, GeneralStepdefs.getDatabase().get(Database.Table.USERS, whereParams).length());
     }
 
     @When("^User enters \"([^\"]*)\" as username$")
@@ -133,7 +132,7 @@ public class LoginRegisterStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         WebElement element = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(element);
-        Assertions.assertEquals("http://localhost:9004/register/#",driver.getCurrentUrl());
+        Assertions.assertEquals("http://localhost:9004/register/#", driver.getCurrentUrl());
         driver.quit();
     }
 
@@ -142,7 +141,7 @@ public class LoginRegisterStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         WebElement element = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(element);
-        Assertions.assertEquals("http://localhost:9004/register",driver.getCurrentUrl());
+        Assertions.assertEquals("http://localhost:9004/register", driver.getCurrentUrl());
         driver.quit();
     }
 

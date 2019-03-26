@@ -31,6 +31,7 @@ public class GeneralStepdefs extends SpringBootBase {
     public static WebDriver getDriver() {
         return driver;
     }
+
     public static Database getDatabase() {
         return database;
     }
@@ -71,7 +72,7 @@ public class GeneralStepdefs extends SpringBootBase {
         database.insert(Database.Table.USERS_SETTINGS, testDataMap);
     }
 
-    private WebDriver setUpChromeDriver(){
+    private WebDriver setUpChromeDriver() {
         final DesiredCapabilities desiredChromeCapabilities = DesiredCapabilities.chrome();
         final ChromeOptions chromeOptions = new ChromeOptions();
 
@@ -85,7 +86,8 @@ public class GeneralStepdefs extends SpringBootBase {
         returningDriver.manage().window().maximize();
         return returningDriver;
     }
-    private WebDriver setUpFirefoxDriver(){
+
+    private WebDriver setUpFirefoxDriver() {
         final DesiredCapabilities desiredFirefoxCapabilities = DesiredCapabilities.firefox();
         final FirefoxOptions firefoxOptions = new FirefoxOptions();
 
@@ -116,7 +118,7 @@ public class GeneralStepdefs extends SpringBootBase {
                     driver = this.setUpFirefoxDriver();
                     break;
             }
-        }else {
+        } else {
             driver = this.setUpChromeDriver();
         }
     }
@@ -124,6 +126,6 @@ public class GeneralStepdefs extends SpringBootBase {
     @Given("^User is located on login page$")
     public void userIsLocatedOnLoginPage() {
         driver.get(LOGIN_URL);
-        Assertions.assertEquals("dashup",driver.getTitle());
+        Assertions.assertEquals("dashup", driver.getTitle());
     }
 }
