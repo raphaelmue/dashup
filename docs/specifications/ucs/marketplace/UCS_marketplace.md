@@ -38,7 +38,7 @@ dashboard.
 ## 2.1 Basic Flow
 
 ### 2.1.1 Activity Diagram
-<img src="./marketplace.png" alt="activity diagram" />
+<img src="./activity_diagrams/marketplace.png" alt="activity diagram" />
 
 ### 2.1.2 Mock-Up
 <img src="./mockups/start_page.png" alt="start page" />
