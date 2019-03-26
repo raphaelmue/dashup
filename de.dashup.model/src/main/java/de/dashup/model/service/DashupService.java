@@ -177,7 +177,7 @@ public class DashupService {
         settings.setLanguage(Locale.forLanguageTag(jsonObject.getString("language").isEmpty() ?
                 "en" : jsonObject.getString("language")));
         settings.setTheme(Settings.Theme.getThemeByTechnicalName(jsonObject.getString("theme")));
-        settings.setBackgroundImage(jsonObject.getString("background_image"));
+        settings.setBackgroundImage(jsonObject.getString("background_image").equals("null") ? "" : jsonObject.getString("background_image"));
 
         return settings;
     }
