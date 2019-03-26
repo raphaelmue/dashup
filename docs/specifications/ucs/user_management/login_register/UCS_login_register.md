@@ -27,9 +27,10 @@ dashup - Use Case Specification: Login / Register
 # 1. Login / Register - Brief Description
 
 In the use case _login / register_ each user is referenced by a unique e-mail address. During registration users have to 
-provide a username, e-mail address and password. The password has to be repeated correctly. To log in users have to 
-provide the password and e-mail address for their account and are directed to the central dashboard if all credentials 
-entered are correct. Browser cookies will store user sessions, making repeated login processes redundant. 
+provide a username (which is as well unique), e-mail address and password. The password has to be repeated correctly. To 
+log in users have to provide the password and e-mail address for their account and are directed to the central dashboard 
+if all credentials entered are correct. Browser cookies will store user sessions, making repeated login processes 
+redundant. 
 
 # 2. Flow of Events
 
@@ -58,7 +59,8 @@ N/A
 
 # 3. Special Requirements
 Every e-mail and username is used as an unique identifier. Therefore both information must be entered uniquely. 
-Furthermore, every password must at least be eight characters long, regardless which characters.
+Furthermore, every password must at least be eight characters long, regardless which characters. Note that personal 
+information is not required during registration process.
 
 # 4. Preconditions
 

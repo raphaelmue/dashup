@@ -57,8 +57,6 @@ When changing account settings, there must always be a unique username and e-mai
 passwords with less than eight characters are not tolerated. After having selected a different language, there will be a 
 preview of the selected language. Supported languages are english and german.
 
-Note that personal information are not required during registration process.
-
 # 4. Preconditions
 
 ## 4.1 System State

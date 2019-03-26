@@ -17,23 +17,28 @@ dashup - Use Case Specification: Marketplace
     - [Alternative Flows](#22-alternative-flows)
 - [Special Requirements](#3-special-requirements)
 - [Preconditions](#4-preconditions)
-    - [Sufficient amount of microservices](#41-sufficient-amount-of-microservices)
-    - [Sufficient amount of ratings](#42-sufficient-amount-of-ratings)
-    - [Metadata provided for each microservice](#43-metadata-provided-for-each-microservice)
-    - [Logged in to dashup](#44-logged-in-to-dashup)
+    - [System state](#41-system-state)
+    - [Default amount of widgets](#42-default-amount-of-widgets)
+    - [Metadata provided for each widget](#43-metadata-provided-for-each-widget)
 - [Postconditions](#5-postconditions) 
 - [Extension Points](#6-extension-points)
    
 # 1. Marketplace - Brief description
-The use case _marketplace_ describes the functionality to browse through the internal store of widgets within dashup. 
-Here users can rate, comment and add panels to their central dashboard. 
+The use case _marketplace_ offers all available widgets to you. You can simply search, rate and comment on widgets. To 
+find your desired widgets faster, you can set filters for the search to adapt the result set. The offered range of 
+widgets reach from default widgets, that are natively available on the dashup platform, to custom user widgets, that 
+were uploaded by users. A detailed view is given for each offered widget containing a description and comments about the 
+widget. Furthermore, similar widgets to the current inspected widget, that other users use as well in combination with 
+the current one, are displayed in a <i>similar</i> tab. As a developer it is possible to publish your own widgets to 
+the marketplace from the <i>Workbench</i>. The marketplace is as well the key entry point to add panels to the central 
+dashboard.
 
 # 2. Flow of Events
 
 ## 2.1 Basic Flow
 
 ### 2.1.1 Activity Diagram
-<img src="./UCS_marketplace.jpg" alt="Use case diagram marketplace" />
+<img src="./marketplace.png" alt="activity diagram" />
 
 ### 2.1.2 Mock-Up
 <img src="./mockups/start_page.png" alt="start page" />
@@ -80,7 +85,7 @@ after the widget
 ## 4.1 System State
 The user has to be signed in and must have navigated to the marketplace menu.
 
-## 4.1 Default amount of widgets
+## 4.2 Default amount of widgets
 There must be at least one widget available to use the marketplace.
 
 ## 4.3 Metadata provided for each widget
@@ -96,4 +101,4 @@ necessary to get a persistent change.
 
 # 6. Extension Points
 If enough time is left after having implemented all use cases, a feature to contact publishers of a widget could be 
-implemented.
+implemented. Furthermore showing statistics of own published widgets could be another extension point.
