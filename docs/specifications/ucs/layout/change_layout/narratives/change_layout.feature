@@ -47,14 +47,3 @@ Then User is logged in
     | settings | latestValue                             | newValue                            |
     | theme    | Blue Sky                                | White Diamond                       |
     | picture  | https://www.wallpaper.com/mountains.png | https://www.wallpaper.com/beach.png |
-
-  Scenario Outline: Confirm changes
-    Given User has made a change, key "<settings>" was changed from "<latestValue>" to "<newValues>"
-    And User is located on settings menu
-    When User clicks on confirm icon
-    Then Key "<settings>" will be changes to "<newValue>"
-
-    Examples:
-    | settings | latestValue                             | newValue                            |
-    | theme    | Black Night                             | Red Love                            |
-    | picture  | https://www.wallpaper.com/mountains.png | https://www.wallpaper.com/beach.png |
