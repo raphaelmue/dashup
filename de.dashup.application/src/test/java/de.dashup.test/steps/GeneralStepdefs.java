@@ -7,6 +7,7 @@ import de.dashup.test.utils.DriverUtil;
 import de.dashup.util.string.Hash;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -127,5 +128,6 @@ public class GeneralStepdefs extends SpringBootBase {
     public void userIsLocatedOnLoginPage() {
         driver.get(LOGIN_URL);
         Assertions.assertEquals("dashup", driver.getTitle());
+        Assertions.assertNotNull(driver.findElement(By.id("login-form")));
     }
 }
