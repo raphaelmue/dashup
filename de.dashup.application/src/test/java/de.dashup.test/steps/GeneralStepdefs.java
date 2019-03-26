@@ -80,7 +80,7 @@ public class GeneralStepdefs extends SpringBootBase {
         }
 
         desiredChromeCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-        System.setProperty("webdriver.chrome.driver", DriverUtil.getDriverPath());
+        System.setProperty("webdriver.chrome.driver", DriverUtil.getDriverPath("chrome"));
         WebDriver returningDriver = new ChromeDriver(desiredChromeCapabilities);
         returningDriver.manage().window().maximize();
         return returningDriver;
@@ -89,8 +89,12 @@ public class GeneralStepdefs extends SpringBootBase {
         final DesiredCapabilities desiredFirefoxCapabilities = DesiredCapabilities.firefox();
         final FirefoxOptions firefoxOptions = new FirefoxOptions();
 
+        if (DriverUtil.getPathToChromeBinary() != null) {
+            firefoxOptions.setBinary(DriverUtil.getPathToFirefoxBinary());
+        }
+
         desiredFirefoxCapabilities.setCapability(FirefoxOptions.FIREFOX_OPTIONS, firefoxOptions);
-        System.setProperty("webdriver.gecko.driver", "./src/test/resources/de/dashup/test/geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", DriverUtil.getDriverPath("firefox"));
         WebDriver returningDriver = new FirefoxDriver(desiredFirefoxCapabilities);
         returningDriver.manage().window().maximize();
         return returningDriver;
