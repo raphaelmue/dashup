@@ -51,7 +51,11 @@ public class LoginRegisterStepdefs {
 
     @Then("^User is logged in$")
     public void userIsLoggedIn() {
-        //nothing to check here; just for understanding in feature file
+        WebDriver driver = GeneralStepdefs.getDriver();
+        WebElement element = driver.findElement(By.id("nav-item-dashboard"));
+        Assertions.assertNotNull(element);
+        WebElement parent = element.findElement(By.xpath("./.."));
+        Assertions.assertEquals("active",parent.getAttribute("class"));
     }
 
     @And("^User was navigated to central dashboard$")
