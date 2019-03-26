@@ -67,6 +67,7 @@ public class LoginRegisterStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         WebElement element = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(element);
+        Assertions.assertEquals("Your credentials are invalid!",element.getText());
         Assertions.assertEquals("http://localhost:9004/login/#", driver.getCurrentUrl());
         driver.quit();
     }
@@ -132,6 +133,7 @@ public class LoginRegisterStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         WebElement element = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(element);
+        Assertions.assertEquals("The email is already registered.",element.getText());
         Assertions.assertEquals("http://localhost:9004/register/#", driver.getCurrentUrl());
         driver.quit();
     }
@@ -141,6 +143,7 @@ public class LoginRegisterStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         WebElement element = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(element);
+        Assertions.assertEquals("Your passwords are not matching.",element.getText());
         Assertions.assertEquals("http://localhost:9004/register", driver.getCurrentUrl());
         driver.quit();
     }

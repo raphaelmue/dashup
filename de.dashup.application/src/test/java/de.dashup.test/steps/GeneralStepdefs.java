@@ -16,6 +16,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -106,8 +107,8 @@ public class GeneralStepdefs extends SpringBootBase {
     @Given("^User is registered for dashup$")
     public void userIsRegisteredForDashup() throws SQLException, IOException {
         this.setupDBForTesting();
-        java.io.InputStream is = this.getClass().getResourceAsStream("../../../../my.properties");
-        java.util.Properties p = new Properties();
+        InputStream is = this.getClass().getResourceAsStream("../../../../my.properties");
+        Properties p = new Properties();
         p.load(is);
         String name = p.getProperty("test.browser");
         if (name != null) {
