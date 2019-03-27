@@ -65,7 +65,7 @@ web application on modern browsers.
 | Definition    | Description                                                                    |
 |---------------|--------------------------------------------------------------------------------|
 | Dashup        | Name of the product and project                                                |
-| Dashup-panel  | Relatively simple and easy-to-use software component on the dashup platform    |
+| Dashup-widget | Relatively simple and easy-to-use software component on the dashup platform    |
 | Spring MVC    | Java based model-view-controller framework, architecture used behind dashup    |
 
 <br />
@@ -92,7 +92,7 @@ web application on modern browsers.
 In the next chapter, the general vision as well as the general UCD will be provided, in order to give a quick summary 
 about the scope of the project. The more in depth specification of the project will follow in the chapter <i>Specific 
 Requirements</i>. How the web application is constructed and why these technologies are used is described in the chapter 
-<i>System Architecture</i>. Every feature that dashup provides as well as the constraints when using dashup-panels, 
+<i>System Architecture</i>. Every feature that dashup provides as well as the constraints when using dashup-components, 
 will be explained in chapter <i>Functionality</i> going over to <i>Usability</i> and <i>Reliability</i> claims of 
 dashup. Furthermore, <i>Performance</i>, <i>Supportability</i> and <i>Dependencies</i> will be a part of the 
 specification, giving information about our service level agreements, development standards like design policies, 
@@ -145,35 +145,35 @@ dependencies within the project scope. Furthermore, non-functional requirements 
 ## 3.2 Functionality
 
 ### 3.2.1 Dashboard
-When opening dashup in your browser, all widgets are displayed as panels on a central dashboard structured in 
-sections. Each panel in a section can contain multiple components used for data visualization and user interaction. You 
-can easily customize your central dashboard by for instance changing the layout or the order of sections and panels on 
-the dashboard. To change the layout, navigate to the <i>Settings</i> menu. Changing the order of sections and panels can 
-be done directly in the central dashboard. Each dashup-panel is a web component and itself build with web components. For 
+When opening dashup in your browser, all widgets are displayed as panels on a central dashboard structured in sections. 
+Each panel in a section contains a widget used for data visualization and user interaction. You can easily customize 
+your central dashboard by for instance changing the layout or the order of sections and panels on the dashboard. To 
+change the layout, navigate to the <i>Settings</i> menu. Changing the order of sections and panels can be done directly 
+in the central dashboard. Each widget in a panel is a web component and can itself be built with web components. For 
 a detailed specification for all available web components please see the extra <a href="../dashup_web_components">dashup 
 web components</a> specifications. Besides you can also manage you personal profile settings in the <i>Settings</i> menu 
-or navigate to the dashup marketplace by using the <i>Marketplace</i> menu. 
+or navigate to the dashup marketplace by using the <i>Marketplace</i> menu. If users like to create and publish own 
+widgets to dashup, they can take use of dashup web components in the <i>Workbench</i>. 
 
 ### 3.2.2 Marketplace
-In the marketplace all available panels for widgets are offered to you. You can simply search, rate and comment on 
-panels. To find your desired panels faster, you can set filters for the search to adapt the result set. The offered 
-range of panels reach from default dashup-panels, that are natively available on the dashup platform, to custom user 
-panels, that were uploaded by users. A detailed view is offered for each offered panel containing a description and 
-comments about the panel. Furthermore, similar panels to the current inspected panel, that other users use as well in 
-combination with the current one, are displayed in a <i>similar</i> tab. As a developer it is possible to publish your 
-own panels for widgets as well as taking a look at the usage statistics of your published panels. The marketplace is as 
-well the key entry point oo add panels to the central dashboard.
+In the marketplace all available widgets are offered to you. You can simply search, rate and comment on widgets. To find 
+your desired widgets faster, you can set filters for the search to adapt the result set. The offered range of widgets 
+reach from default widgets, that are natively available on the dashup platform, to custom user widgets, that were 
+uploaded by users. A detailed view is given for each offered widget containing a description and comments about the 
+widget. Furthermore, similar widgets to the current inspected widget, that other users use as well in combination with 
+the current one, are displayed in a <i>similar</i> tab. As a developer it is possible to publish your own widgets to 
+the marketplace from the <i>Workbench</i>. The marketplace is as well the key entry point to add panels to the central 
+dashboard.
 (Use Case: <a href="../ucs/marketplace/UCS_marketplace.md">Marketplace</a>)
 
 ### 3.2.3 User Management
-User management includes registration and login processes as well as adapting your personal profile. Each user is 
-referenced by a unique e-mail address and authenticated by a confirmation e-mail to his entered e-mail address during 
-registration process. During registration users have to provide a username, e-mail address and password. The password 
-has to be repeated correctly. To log in users have to provide the password and e-mail address for their account and are 
-directed to the central dashboard if all credentials entered are correct. Browser cookies will store user sessions, 
-making repeated login processes redundant. In the <i>Settings</i> menu, users can adapt personal information like 
-name, birthday, company or a short biography and profile picture. Note that personal information are not required during 
-registration process. Furthermore the unique username, login credentials and language settings are changeable. 
+User management includes registration and login processes as well as adapting your personal profile. In the use case 
+_login / register_ each user is referenced by a unique e-mail address. During registration users have to provide a 
+username (which is as well unique), e-mail address and password. The password has to be repeated correctly. To log in 
+users have to provide the password and e-mail address for their account and are directed to the central dashboard if all 
+credentials entered are correct. Browser cookies will store user sessions, making repeated login processes redundant. 
+In the <i>Settings</i> menu, users can adapt personal information like name, birthday, company or a short biography and 
+profile picture. Furthermore the unique username, login credentials and language settings are changeable. 
 (Use Case: <a href="../ucs/user_management/login_register/UCS_login_register.md">Login And Register</a>)
 (Use Case: <a href="../ucs/user_management/change_profile/UCS_change_profile.md">Change Profile</a>)
 
@@ -183,19 +183,19 @@ panels. A rearrangement of sections as well as panels should be possible by drag
 Panels can be moved between sections and resized between small, medium or large size. 
 (Use Case: <a href="../ucs/layout/change_panel_structure/UCS_change_panel_structure.md">Change Panel Structure</a>)
 
-The user can also change the layout of dashup by choosing a theme, font and background image for the central dashboard. 
+The user can also change the layout of dashup by choosing a theme and background image for the central dashboard. 
 These settings can be changed in the <i>Settings</i> menu. 
 (Use Case: <a href="../ucs/layout/change_layout/UCS_change_layout.md">Change Layout</a>)
 
 ### 3.2.5 Workbench
-
-As each user can create custom panels, the extent of usage and functionality is up to the user himself. Note that users 
-can only take use of dashup web components to build own custom panels. Any program logic must be hosted as an external 
+As each user can create custom widgets, the extent of usage and functionality is up to the user himself. Note that users 
+can only take use of dashup web components to build own custom widgets. Any program logic must be hosted as an external 
 API offering RESTful services. A user (developer role) has the possibility to connect such an API to his self-developed 
-panel in order to fetch data to display on the panel or to run server-side program logic. Therefore information like 
+widget in order to fetch data to display on the widget or to run server-side program logic. Therefore information like 
 URL, parameters and credentials have to be entered by the user. Before the API can be added, testing the connection is 
 necessary. 
 (Use Case: <a href="../ucs/workbench/add_api/UCS_add_api.md">Add API</a>)
+After the user created his widget, he has the possibility to publish the widget to the dashup marketplace.
 
 ## 3.3 Usability
 Dashups goal is it to simplify the usage of complex applications by offering (custom) widgets, which restrict the 
@@ -216,7 +216,7 @@ hours.
 Since we review our code, the defect rate should be about 10 bugs per 1.000 lines of code. Critical bugs like loss of 
 data or limitations within functionality should of course occur less. Minor bugs are for instance the incorrect display 
 of data. Significant bugs are e.g. no sufficient consistency check or similar. As users should be made possible to 
-create custom panels using the dashup web components, XSS attacks should be prevented.
+create custom widgets using the dashup web components, XSS attacks should be prevented.
 
 ## 3.5 Performance
 
@@ -229,13 +229,13 @@ Furthermore the web application should orient its implementation according to a 
 style meaning that for instance rerendering of ui components should be restricted to the necessary parts.
 
 ### 3.5.2 Throughput
-The information displayed on the different panels showed in the dashboard should be reloaded every 10s. The 
+The information displayed on the different panels shown in the dashboard should be reloaded every 10s. The 
 provision of data by external APIs and servers should therefore have a decent response time.
 
 ### 3.5.3 Capacity
 The web application has to be designed for a large number of users. An increase of new members should not slow down the system 
 in the same way. The amount of widgets that can be displayed on the central dashboard should remain unrestricted. 
-Pagination should only be used in the marketplace. Furthermore only one API can be added to a custom panel.
+Pagination should only be used in the marketplace. Furthermore only one API can be added to a custom widget.
 
 ### 3.5.5 Resource Utilization
 If capacity is not sufficient enough for the current demand, highly-scalable server-side infrastructures like Kubernetes 
@@ -307,7 +307,7 @@ world wide web.
 - Profile screen: Users can edit and update their profile information
 - Marketplace screen: All widgets for the dashup platform can be found and added to the central dashboard
 - Layout screen: Change the design of dashup
-- Workbench screen: Developers can create their own custom panels
+- Workbench screen: Developers can create their own custom widgets
 
 ### 3.10.2 Software Interfaces
 The dashup application runs in a web browser. We will try to make it work in as many different web browsers as possible. 

@@ -13,7 +13,7 @@ Feature: Login / Register
     When User enters "John.Doe@gmail.com" as e-mail
     And User enters "password" as password
     And User presses login button
-    Then User is logged in
+    Then User is located on login page
     And User was navigated to central dashboard
 
   Scenario: Failed login

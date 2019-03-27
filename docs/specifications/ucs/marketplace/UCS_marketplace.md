@@ -1,12 +1,13 @@
 dashup - Use Case Specification: Marketplace
 ============================================
-### Version 1.0
+### Version 2.0
 
 # Revision History
 
 | Date       | Version | Description                                                            | Author           |
 |------------|---------|------------------------------------------------------------------------|------------------|
 | 28/10/2018 | 1.0     | Initial UCS with description, activity diagram and screen flow diagram | Felix Hausberger |
+| 26/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
 
 # Table of Contents
 
@@ -16,39 +17,45 @@ dashup - Use Case Specification: Marketplace
     - [Alternative Flows](#22-alternative-flows)
 - [Special Requirements](#3-special-requirements)
 - [Preconditions](#4-preconditions)
-    - [Sufficient amount of microservices](#41-sufficient-amount-of-microservices)
-    - [Sufficient amount of ratings](#42-sufficient-amount-of-ratings)
-    - [Metadata provided for each microservice](#43-metadata-provided-for-each-microservice)
-    - [Logged in to dashup](#44-logged-in-to-dashup)
+    - [System state](#41-system-state)
+    - [Default amount of widgets](#42-default-amount-of-widgets)
+    - [Metadata provided for each widget](#43-metadata-provided-for-each-widget)
 - [Postconditions](#5-postconditions) 
 - [Extension Points](#6-extension-points)
    
 # 1. Marketplace - Brief description
-The use case _marketplace_ describes the functionality to browse through the internal
-store of panels for microservices within dashup. Here users can rate, comment and add panels to 
-their dashboard. 
+The use case _marketplace_ offers all available widgets to you. You can simply search, rate and comment on widgets. To 
+find your desired widgets faster, you can set filters for the search to adapt the result set. The offered range of 
+widgets reach from default widgets, that are natively available on the dashup platform, to custom user widgets, that 
+were uploaded by users. A detailed view is given for each offered widget containing a description and comments about the 
+widget. Furthermore, similar widgets to the current inspected widget, that other users use as well in combination with 
+the current one, are displayed in a <i>similar</i> tab. As a developer it is possible to publish your own widgets to 
+the marketplace from the <i>Workbench</i>. The marketplace is as well the key entry point to add panels to the central 
+dashboard.
 
 # 2. Flow of Events
 
 ## 2.1 Basic Flow
 
 ### 2.1.1 Activity Diagram
-<img src="./UCS_marketplace.jpg" alt="Use case diagram marketplace" />
+<img src="./activity_diagrams/marketplace.png" alt="activity diagram" />
 
 ### 2.1.2 Mock-Up
-<img src="./mockups/Startup Page.png" alt="Startup Page" />
+<img src="./mockups/start_page.png" alt="start page" />
 <br />
-<img src="./mockups/Search Results.png" alt="Search Results" />
+<img src="./mockups/result_page.png" alt="result page" />
 <br />
-<img src="./mockups/Search Results (Filter).png" alt="Search Results with Filter Dialog" />
+<img src="./mockups/filter.png" alt="filter" />
 <br />
-<img src="./mockups/Detail Page (Overview).png" alt="Detail Page (Overview)" />
+<img src="./mockups/filter_result.png" alt="filter result" />
 <br />
-<img src="./mockups/Detail Page (Ratings).png" alt="Detail Page (Ratings)" />
+<img src="./mockups/overview.png" alt="overview" />
 <br />
-<img src="./mockups/Detail Page (Write Comment).png" alt="Detail Page (Ratings)" />
+<img src="./mockups/rating.png" alt="rating" />
 <br />
-<img src="./mockups/Detail Page (Similar).png" alt="Detail Page (Similar)" />
+<img src="./mockups/comment.png" alt="comment" />
+<br />
+<img src="./mockups/similar.png" alt="similar" />
 
 ### 2.1.3 Narrative
 
@@ -58,33 +65,40 @@ You can see the entire _.feature file_ right <a href="./marketplace.feature">her
 N/A
 
 # 3. Special Requirements
-In order to add panels to one's own dashboard through the marketplace 
-or to browse through the marketplace, a persistent internet connection is needed, 
-to fetch data from the database.
+A widget can be matched to one of the following five categories:
+
+- productivity
+- lifestyle
+- time
+- finance
+- planning
+
+Furthermore associating widgets with tags is possible, which can be set to any value the user chooses when uploading the 
+widget. 
+
+When adding a widget from the marketplace, a new section will be generated in the central dashboard at the top, named 
+after the widget 
+
 
 # 4. Preconditions
 
-## 4.1 Sufficient amount of microservices
-To take use of the marketplace, a default amount of panels provided by the 
-community should be available. If there are only the built-in dashup panels for certain microservices
-available, the actual sense of a true _marketplace_ would get lost.
+## 4.1 System State
+The user has to be signed in and must have navigated to the marketplace menu.
 
-## 4.2 Sufficient amount of ratings
-In order to get a good overview over the panel's quality, there should be a certain quantity of
-ratings provided by the community in order to fill the rating menu of a panel with a 
-decent amount of data.
+## 4.2 Default amount of widgets
+There must be at least one widget available to use the marketplace.
 
-## 4.3 Metadata provided for each microservice
-To properly display information about a panel for a microservice, metadata such as version, publisher, etc. must be provided.
-Furthermore the publisher must have given a detailed description about the panel to 
-display it on the main menu of a panel in the marketplace.
-
-## 4.4 Logged in to dashup
-In order to use the marketplace, the user must be logged in to dashup.
+## 4.3 Metadata provided for each widget
+To properly display information about a widget, metadata such as publisher, category etc. must be provided. Furthermore 
+the publisher must have given a detailed description about the widget to display it on the main menu in the marketplace. 
+Besides a description, the widget must be associated with a category and if possbile with tags.
 
 # 5. Postconditions
-After the use of the marketplace, the database should by synchronized according the actions 
-that the user performed. 
+
+## 5.1 Save Changed Data
+After the user has added widgets to his central dashboard, the data has to be stored. This is 
+necessary to get a persistent change.
 
 # 6. Extension Points
-N/A
+If enough time is left after having implemented all use cases, a feature to contact publishers of a widget could be 
+implemented. Furthermore showing statistics of own published widgets could be another extension point.

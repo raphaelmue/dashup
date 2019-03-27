@@ -94,8 +94,10 @@
                                 <div class="input-field col s8 m8">
                                     <select name="theme" id="theme-dropdown">
                                         <option value="blue-sky">Blue Sky</option>
-                                        <option value="black-and-white">Black and White</option>
-                                        <option value="high-contrast">High Contrast</option>
+                                        <option value="green-nature">Green Nature</option>
+                                        <option value="red-love">Red Love</option>
+                                        <option value="white-diamond">White Diamond</option>
+                                        <option value="black-night">Black Night</option>
                                     </select>
                                     <label><fmt:message key="i18n.theme" /></label>
                                 </div>
@@ -111,10 +113,18 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col s2 m2">
                                 <button class="btn waves-effect waves-light" type="submit" name="action">
-                                    <fmt:message key="i18n.save" />
                                     <i class="fas fa-check"></i>
+                                    <fmt:message key="i18n.save" />
                                 </button>
+                                </div>
+                                <div class="col s2 m2 offset-m1">
+                                <a id ="btn-undo-layout-changes" class="btn waves-effect waves-light">
+                                    <i class="fas fa-times"></i>
+                                    <fmt:message key="i18n.undo" />
+                                </a>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -215,6 +225,12 @@
                         classes: "success"
                     };
                     break;
+                case "undoComplete":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.undoComplete" />",
+                        classes: "success"
+                    };
+                    break;
             }
             if (getAnchor() !== null && getAnchor() !== "") {
                 M.toast(toastOptions);
@@ -231,6 +247,14 @@
                 changePasswordDialog.open();
             });
 
+            $('#btn-undo-layout-changes').on("click", function () {
+                if (window.location.href.slice(-1) === '#') {
+                    window.location.href += 'undoComplete';
+                }else {
+                    window.location.href += '#undoComplete';
+                }
+                window.location.reload(false);
+            });
             $('#btn-submit-change-language').on("click", function () {
                 PostRequest.getInstance().make("settings/changeLanguage", {
                     lang: $("#language-dropdown").val()

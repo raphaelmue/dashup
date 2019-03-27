@@ -69,7 +69,7 @@ The user has to be signed in and must have activated the edit mode.
 # 5. Postconditions
 
 ## 5.1 Save changed data
-After the user has personalized the central dashboard the data has to be stored. This is necessary
+After the user has personalized the central dashboard, the data has to be stored. This is necessary
 to get a persistent change. 
 
 ## 5.2 Discard changed data

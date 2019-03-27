@@ -81,7 +81,7 @@ public class ServiceSettingsTest {
         final String invalidURL = "null";
 
         //test update w/o insert
-        testUser.getSettings().setTheme(Settings.Theme.BLACK_AND_WHITE);
+        testUser.getSettings().setTheme(Settings.Theme.GREEN_NATURE);
         testUser.getSettings().setBackgroundImage(backgroundURL);
 
         dashupService.updateSettings(testUser, false);

@@ -4,7 +4,7 @@ Feature: Change Panel Structure
   I want to customize the central dashboard of dashup
   In order to design dashup the way I want
 
-  Background: Autheticated
+  Background: Authenticated
   Given User is located on login page
   When User submits e-mail and password
   Then User is logged in
@@ -42,7 +42,7 @@ Feature: Change Panel Structure
       Then Sections will be reordered according to the changed section
       And Moved section still contains all its panels
 
-    Scenario Outline: User wants to resize a panel.
+    Scenario Outline: Resize panels.
       Given User enabled edit mode
       When User clicks on size icon
       Then Size menu will pop up containing the three options small, medium and large

@@ -57,8 +57,6 @@ When changing account settings, there must always be a unique username and e-mai
 passwords with less than eight characters are not tolerated. After having selected a different language, there will be a 
 preview of the selected language. Supported languages are english and german.
 
-Note that personal information are not required during registration process.
-
 # 4. Preconditions
 
 ## 4.1 System State
@@ -67,7 +65,7 @@ The user has to be signed in and must have navigated to the settings menu.
 # 5. Postconditions
 
 ## 5.1 Save Changed Data
-After the user has changed the profile settings and pressed the confirm icon the data has to be stored. This is 
+After the user has changed the profile settings and pressed the confirm icon, the data has to be stored. This is 
 necessary to get a persistent change.
 
 ## 5.2 Discard changed data
