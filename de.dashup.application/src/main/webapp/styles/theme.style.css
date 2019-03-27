@@ -1,14 +1,24 @@
 :root {
-    --color-primary: rgb(33, 150, 243);
-    --color-primary-dark: rgb(0, 105, 192);
     --color-success: #5cb85c;
     --color-warning: #ffc200;
     --color-error: #fc3b37;
     --color-black: rgba(0, 0, 0, 0.87);
 }
 
+/*** MAIN ***/
+
+body {
+    background-color: var(--color-background);
+}
+
+/*** HEADER ***/
+
 .nav-wrapper {
     background-color: var(--color-primary);
+}
+
+.nav-wrapper a {
+    color: var(--color-background-font);
 }
 
 .breadcrumb:before {
@@ -22,12 +32,27 @@
     color: var(--color-primary);
 }
 
-.btn {
+/*** FORM ***/
+
+.btn.waves-effect.waves-light {
     background-color: var(--color-primary);
 }
 
-.page-footer {
-    background-color: var(--color-primary);
+.btn.waves-effect.waves-light:hover {
+    background-color: var(--color-primary-dark);
+}
+
+.btn-floating {
+    background-color: var(--color-secondary);
+}
+
+.btn-floating:hover {
+    background-color: var(--color-secondary-light);
+}
+
+button i.fas {
+    font-size: 15px;
+    margin-left: 3px;
 }
 
 .input-field {
@@ -55,15 +80,11 @@
     background-color: var(--color-primary);
 }
 
-.btn-floating {
-    background-color: var(--color-primary);
+.dropdown-content.select-dropdown li span {
+    color: var(--color-primary);
 }
 
-button i.fas {
-    font-size: 15px;
-    margin-left: 3px;
-}
-
+/*** TOAST ***/
 
 .toast:before {
     font-family: 'Font Awesome 5 Free', serif;
