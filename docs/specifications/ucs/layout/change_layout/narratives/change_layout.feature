@@ -32,43 +32,21 @@ Then User is logged in
     | White Diamond |
     | Black Night   |
 
-  Scenario Outline: Customize font
-    Given User is located on settings menu
-    When User changes font to '<fonts>'
-    Then Font of dashup changes to '<fonts>'
-
-    Examples:
-    | fonts        |
-    | Roboto       |
-    | Montserrat   |
-    | Poppins      |
-    | Lora         |
-    | Sniglet      |
-    | Inconsolata  |
-    | Indie Flower |
-    | Anton        |
-    | Lobster      |
-    | Pacifico     |
-    | Cinzel       |
-    | Fredoka One  |
-    | Biblo        |
-    | Orbitron     |
-
   Scenario: Set background image
     Given User is located on settings menu
-    When User uploads a picture
-    Then Picture is displayed in image preview
+    When User sets background image URL to 'https://www.wallpaper.com/mountains.png'
+    Then Picture provided by URL is displayed in image preview
 
   Scenario Outline: Undo changes
-    Given User has made a change, key "<settings>" was changed from "<latestValue>" to "<newValues>"
+    Given User has made a change, key "<settings>" was changed from "<latestValue>" to "<newValue>"
     And User is located on settings menu
     When User clicks on abandon icon
     Then Key "<settings>" will be restored to "<latestValue>"
 
     Examples:
-    | settings | latestValue | newValue      |
-    | font     | Lora        | Inconsolata   |
-    | theme    | Blue Sky    | White Diamond |
+    | settings | latestValue                             | newValue                            |
+    | theme    | Blue Sky                                | White Diamond                       |
+    | picture  | https://www.wallpaper.com/mountains.png | https://www.wallpaper.com/beach.png |
 
   Scenario Outline: Confirm changes
     Given User has made a change, key "<settings>" was changed from "<latestValue>" to "<newValues>"
@@ -77,6 +55,6 @@ Then User is logged in
     Then Key "<settings>" will be changes to "<newValue>"
 
     Examples:
-    | settings | latestValue | newValue |
-    | font     | Roboto      | Poppins  |
-    | theme    | Black Night | Red Love |
+    | settings | latestValue                             | newValue                            |
+    | theme    | Black Night                             | Red Love                            |
+    | picture  | https://www.wallpaper.com/mountains.png | https://www.wallpaper.com/beach.png |

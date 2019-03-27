@@ -1,6 +1,6 @@
 dashup - Use Case Specification: Change Profile
 ============================================
-### Version 1.0
+### Version 2.1
 
 # Revision History
 
@@ -8,6 +8,7 @@ dashup - Use Case Specification: Change Profile
 |------------|---------|------------------------------------------------------------------------|------------------|
 | 30/11/2018 | 1.0     | Added ucs and mockups                                                  | Joshua Schulz    |
 | 17/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
+| 17/03/2019 | 2.1     | Adapted process of setting a new password                              | Felix Hausberger |
 
 # Table of Contents
 
@@ -25,8 +26,8 @@ dashup - Use Case Specification: Change Profile
 
 # 1. Change Profile - Brief Description
 In the use case _edit profile_ users can adapt personal information like name, birthday, company or a short biography 
-and profile picture in the <i>Settings</i> menu. Note that personal information are not required during registration 
-process. Furthermore the unique username, login credentials and language settings are changeable. 
+and profile picture in the <i>Settings</i> menu. Furthermore the unique username, login credentials and language 
+settings are changeable. 
 
 # 2. Flow of Events
 
@@ -38,7 +39,9 @@ process. Furthermore the unique username, login credentials and language setting
 ### 2.1.2 Mock-Up
 <img src="./mockups/account_information.png" alt="account information" />
 <br />
-<img src="./mockups/personal_information.png" alt="personal information" />
+<img src="./mockups/account_information.png" alt="account information" />
+<br />
+<img src="./mockups/change_password.png" alt="change password" />
 <br />
 <img src="./mockups/other.png" alt="other" />
 <br />
@@ -50,9 +53,9 @@ You can see the entire _.feature file_ right <a href="./narratives/change_profil
 N/A
 
 # 3. Special Requirements
-When changing account settings, there must always be a unique e-mail address provided. Furthermore, passwords with less 
-tha eight characters are not tolerated. After having selected a different language, there will be a preview of the 
-selected language.
+When changing account settings, there must always be a unique username and e-mail address provided. Furthermore, 
+passwords with less than eight characters are not tolerated. After having selected a different language, there will be a 
+preview of the selected language. Supported languages are english and german.
 
 # 4. Preconditions
 
@@ -62,7 +65,7 @@ The user has to be signed in and must have navigated to the settings menu.
 # 5. Postconditions
 
 ## 5.1 Save Changed Data
-After the user has changed the profile settings and pressed the confirm icon the data has to be stored. This is 
+After the user has changed the profile settings and pressed the confirm icon, the data has to be stored. This is 
 necessary to get a persistent change.
 
 ## 5.2 Discard changed data

@@ -177,7 +177,7 @@ public class DashupService {
         settings.setLanguage(Locale.forLanguageTag(jsonObject.getString("language").isEmpty() ?
                 "en" : jsonObject.getString("language")));
         settings.setTheme(Settings.Theme.getThemeByTechnicalName(jsonObject.getString("theme")));
-        settings.setBackgroundImage(jsonObject.getString("background_image"));
+        settings.setBackgroundImage(jsonObject.getString("background_image").equals("null") ? "" : jsonObject.getString("background_image"));
 
         return settings;
     }
@@ -238,6 +238,20 @@ public class DashupService {
         }
     }
 
+    public void updateNameAndSurname(User user, String newName, String newSurname) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", user.getId());
+
+        Map<String, Object> values = new HashMap<>();
+        values.put("name", newName);
+        values.put("surname", newSurname);
+
+        this.database.update(Database.Table.USERS, whereParameters, values);
+
+        user.setName(newName);
+        user.setSurname(newSurname);
+    }
+
     public void updateSettings(User user, boolean insert) throws SQLException {
         if (!user.getSettings().getBackgroundImage().isEmpty() && !isValidURL(user.getSettings().getBackgroundImage()) && !insert) {
             throw new IllegalArgumentException("URL is not valid.");
@@ -285,7 +299,7 @@ public class DashupService {
         return result;
     }
 
-    public void updateSettings(User user) throws SQLException {
+    public void updateLanguage(User user) throws SQLException {
         Map<String, Object> whereParameter = new HashMap<>();
         whereParameter.put("user_id", user.getId());
 

@@ -1,6 +1,6 @@
 dashup - Use Case Specification: Layout - Change Layout
 ============================================
-### Version 2.0
+### Version 2.1
 
 # Revision History
 
@@ -8,6 +8,7 @@ dashup - Use Case Specification: Layout - Change Layout
 |------------|---------|------------------------------------------------------------------------|------------------|
 | 28/10/2018 | 1.0     | Initial ucs with description, activity diagram and screen flow diagram | Joshua Schulz    |
 | 09/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
+| 26/03/2019 | 2.1     | Removed font customization and picture upload                          | Felix Hausberger |
 
 # Table of Contents
 
@@ -24,8 +25,8 @@ dashup - Use Case Specification: Layout - Change Layout
 - [Extension Points](#6-extension-points)
  
 # 1. Change Layout - Brief Description
-In the use case _change layout_ the user can change the layout dashup by choosing a theme, 
-font and background image for the central dashboard. These settings can be changed in the <i>Settings</i> menu.  
+In the use case _change layout_ the user can change the layout dashup by choosing a theme and background image for the 
+central dashboard. These settings can be changed in the <i>Settings</i> menu.  
 
 # 2. Flow of Events
 
@@ -36,8 +37,6 @@ font and background image for the central dashboard. These settings can be chang
 
 ### 2.1.2 Mock-Up
 <img src="./mockups/layout_settings.png" alt="layout settings" />
-<br />
-<img src="./mockups/image_upload.png" alt="image upload" />
 <br />
 
 ### 2.1.3 Narrative
@@ -50,31 +49,15 @@ N/A
 All layout adaption must be compliant to our global design policies of using the new Google Material UI design. After 
 having changed a layout setting, the view should get rerendered, so that the user can have an impression of the new 
 layout. If the user likes the current status, he can activate the changes using the confirm icon or reset the changes 
-with the abandon icon.
+with the abandon icon. As the background image will only be set to the central dashboard, an image preview will be 
+rendered beneath the layout settings section.
 
 Following five themes are supported:
-- Blue Sky: Light and happy design in blue
+- Blue Sky: Light and happy design in blue (default)
 - Green Nature: Powerful and exotic design in green
 - Red Love: Powerful and exotic design in red
 - White Diamond: Plain but noble design in white
 - Black Night: Plain but noble design in black
-
-Following fonts are supported:
-- Roboto
-- Montserrat
-- Overpass
-- Poppins
-- Lora
-- Sniglet
-- Inconsolata
-- Indie Flower
-- Anton
-- Lobster
-- Pacifico
-- Cinzel
-- Fredoka One
-- Biblo
-- Orbitron
 
 # 4. Preconditions
 
@@ -84,7 +67,7 @@ The user has to be signed in and must have navigated to the settings menu.
 #  5. Postconditions
 
 ## 5.1 Save Changed Data
-After the user has changed the layout settings and pressed the confirm icon the data has to be stored. This is necessary
+After the user has changed the layout settings and pressed the confirm icon, the data has to be stored. This is necessary
 to get a persistent change.
 
 ## 5.2 Discard changed data
@@ -92,4 +75,7 @@ If the user leaves dashup before saving the changes, the old settings will be re
 
 #  6. Extension Points
 If enough time is left after having implemented all use cases, maybe a separation between panel, section and dashboard 
-layout settings could be implemented.
+layout settings could be implemented. 
+
+Furthermore an adaption of fonts by using predefined font types could be considered as well as an image upload instead 
+of providing an URL.

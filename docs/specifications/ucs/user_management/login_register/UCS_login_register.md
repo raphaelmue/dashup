@@ -1,6 +1,6 @@
 dashup - Use Case Specification: Login / Register
 ============================================
-### Version 1.0
+### Version 2.1
 
 # Revision History
 
@@ -8,6 +8,7 @@ dashup - Use Case Specification: Login / Register
 |------------|---------|------------------------------------------------------------------------|------------------|
 | 11/29/2018 | 1.0     | Initial ucs with description, activity diagram and screen flow diagram | Raphael Müßeler  |
 | 17/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
+| 26/03/2019 | 2.1     | Removed authentication e-mail                                          | Felix Hausberger |
 
 # Table of Contents
 
@@ -25,11 +26,11 @@ dashup - Use Case Specification: Login / Register
 
 # 1. Login / Register - Brief Description
 
-In the use case _login / register_ each user is referenced by a unique e-mail address and authenticated by a 
-confirmation e-mail to his entered e-mail address during registration process. During registration users have to provide 
-a username, e-mail address and password. The password has to be repeated correctly. To log in users have to provide the 
-password and e-mail address for their account and are directed to the central dashboard if all credentials entered are 
-correct. Browser cookies will store user sessions, making repeated login processes redundant. 
+In the use case _login / register_ each user is referenced by a unique e-mail address. During registration users have to 
+provide a username (which is as well unique), e-mail address and password. The password has to be repeated correctly. To 
+log in users have to provide the password and e-mail address for their account and are directed to the central dashboard 
+if all credentials entered are correct. Browser cookies will store user sessions, making repeated login processes 
+redundant. 
 
 # 2. Flow of Events
 
@@ -49,8 +50,6 @@ correct. Browser cookies will store user sessions, making repeated login process
 <br />
 <img src="./mockups/password_too_short.png" alt="password too short" />
 <br />
-<img src="./mockups/authentication.png" alt="authentication" />
-<br />
 
 ### 2.1.3 Narrative
 You can see the entire _.feature file_ right <a href="./narratives/login_register.feature">here</a>.
@@ -59,8 +58,9 @@ You can see the entire _.feature file_ right <a href="./narratives/login_registe
 N/A
 
 # 3. Special Requirements
-Every e-mail is used as a unique identifier. Therefore e-mail addresses must be entered uniquely. Furthermore, every 
-password must at least be eight characters long, regardless which characters. To confirm the 
+Every e-mail and username is used as an unique identifier. Therefore both information must be entered uniquely. 
+Furthermore, every password must at least be eight characters long, regardless which characters. Note that personal 
+information is not required during registration process.
 
 # 4. Preconditions
 
@@ -70,7 +70,7 @@ The user has to be registered before he can login in to dashup.
 # 5. Postconditions
 
 ## 5.1 Save Changed Data
-After the user has confirmed his identity via e-mail, the account information has to be stored. This is necessary
+After the user has submitted his account information, the information has to be stored. This is necessary
 to enable future logins. 
 
 ## 5.2 Navigated to central dashboard
@@ -80,3 +80,6 @@ After having registered or logged in to dashup the user should be automatically 
 If enough time is left after having implemented all use cases, maybe sending automated e-mails to users when account 
 hijacking is suspected could be implemented. A checkbox to allow dashup to send advertisements per e-mail could as well 
 be considered.
+
+Furthermore, an additional authetication method by sending a registration e-mail containing a registration link is 
+possible.

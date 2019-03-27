@@ -25,6 +25,7 @@ public class SettingsController {
                            HttpServletRequest request, Model model) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "settings", user -> {
             model.addAttribute("name", user.getName());
+            model.addAttribute("surname", user.getSurname());
             model.addAttribute("fullName", user.getFullName());
             model.addAttribute("email", user.getEmail());
             model.addAttribute("backgroundImage", user.getSettings().getBackgroundImage());
@@ -40,7 +41,7 @@ public class SettingsController {
             Settings settings = new Settings();
             settings.setLanguage(Locale.forLanguageTag(lang));
             user.setSettings(settings);
-            DashupService.getInstance().updateSettings(user);
+            DashupService.getInstance().updateLanguage(user);
         }
         return "redirect:/settings/#changedLanguage";
     }
@@ -73,6 +74,19 @@ public class SettingsController {
             user.getSettings().setBackgroundImage(backgroundImage);
             DashupService.getInstance().updateSettings(user, false);
             return "redirect:/settings/#changedLayout";
+        }
+        return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/changePersonalInfo", method = RequestMethod.POST)
+    public String handlePersonalInfo(@CookieValue(name = "token", required = false) String token,
+                                     @RequestParam("name") String name,
+                                     @RequestParam("surname") String surname,
+                                     HttpServletRequest request) throws SQLException {
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            DashupService.getInstance().updateNameAndSurname(user, name, surname);
+            return "redirect:/settings/#changedPersonalInfo";
         }
         return "redirect:/login";
     }
