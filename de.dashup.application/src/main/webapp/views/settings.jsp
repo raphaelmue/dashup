@@ -94,8 +94,10 @@
                                 <div class="input-field col s8 m8">
                                     <select name="theme" id="theme-dropdown">
                                         <option value="blue-sky">Blue Sky</option>
-                                        <option value="black-and-white">Black and White</option>
-                                        <option value="high-contrast">High Contrast</option>
+                                        <option value="green-nature">Green Nature</option>
+                                        <option value="red-love">Red Love</option>
+                                        <option value="white-diamond">White Diamond</option>
+                                        <option value="black-night">Black Night</option>
                                     </select>
                                     <label><fmt:message key="i18n.theme" /></label>
                                 </div>
