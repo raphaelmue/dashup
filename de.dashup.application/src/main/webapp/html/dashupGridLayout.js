@@ -1,56 +1,56 @@
-const dashupGridLayout = document.currentScript.ownerDocument.querySelector('#dashupGridLayout').content;
+const dashupGridLayout = document.currentScript.ownerDocument.querySelector("#dashup-grid-layout-template").content;
 
 class GridLayoutComponent extends HTMLElement {
 
     constructor() {
         super();
-        this.attachShadow({mode: 'open'});
+        this.attachShadow({mode: "open"});
         this.content = document.importNode(dashupGridLayout, true);
         this.shadowRoot.appendChild(this.content);
+
+        this.gridLayout = this.shadowRoot.querySelector("#dashup-grid-layout");
     }
 
     static get observedAttributes() {
-        return ['action', 'api', 'param', 'consumers'];
+        return ["col-size"];
     }
 
     connectedCallback() {
+        let that = this;
+        let index = 0;
+        let ids = [];
+        let observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+                if (mutation.addedNodes.length && mutation.addedNodes[0].nodeType === 1 &&
+                    (!ids.includes(mutation.addedNodes[0].getAttribute("id")) || mutation.addedNodes[0].getAttribute("id") == null)) {
+                    let col = document.createElement("div");
+                    col.setAttribute("class", "col s" + that._getColSizeByIndex(index));
+                    col.appendChild(mutation.addedNodes[0]);
+                    that.gridLayout.appendChild(col);
+                    ids.push(mutation.addedNodes[0].getAttribute("id"));
+                    index++;
+                }
+            });
+        });
 
+        observer.observe(this, {childList: true})
     }
 
-    disconnectedCallback() {
-        //NOOP
+    _getColSizeByIndex(index) {
+        let colSize = this.getAttribute("col-size").split(" ");
+        return colSize[index % colSize.length];
     }
 
-    adoptedCallback() {
-        //NOOP
+    getShadowRoot() {
+        return this.shadowRoot;
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        //NOOP
+    get colSize() {
+        return this.getAttribute("col-size");
     }
 
-    get name() {
-        return this.getAttribute('name');
-    }
-
-    set name(val) {
-        this.setAttribute('name', val);
-    }
-
-    get rows() {
-        return this.getAttribute('rows');
-    }
-
-    set rows(val) {
-        this.setAttribute('rows', val);
-    }
-
-    get columns() {
-        return this.getAttribute('columns');
-    }
-
-    set columns(val) {
-        this.setAttribute('columns', val);
+    set colSize(val) {
+        this.setAttribute("col-size", val);
     }
 }
 

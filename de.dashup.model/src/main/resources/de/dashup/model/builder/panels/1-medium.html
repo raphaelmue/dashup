@@ -1,8 +1,13 @@
-<div id="CustomWeatherComponent">
+<dashup-grid-layout id="grid-container" col-size="9 3">
     <dashup-text-field id="input-city" label="City"></dashup-text-field>
-    <dashup-display id="label-temperature" label="Temperature: " api-key="main.temp"></dashup-display>
     <dashup-button label="OK"
                    api="http://api.openweathermap.org/data/2.5/weather?units=metric&appid=524da7907b1939626510c547ae65d67c"
                    api-param="q:input-city"
-                   consumers="label-temperature"></dashup-button>
-</div>
+                   consumers="label-temperature label-humidity"></dashup-button>
+
+    <dashup-display id="label-temperature" label="Temperature:" api-key="main.temp" quantity="°C"></dashup-display>
+    <dashup-display></dashup-display>
+    <dashup-display id="label-humidity" label="Humidity:" api-key="main.humidity" quantity="%"></dashup-display>
+    <dashup-display></dashup-display>
+
+</dashup-grid-layout>

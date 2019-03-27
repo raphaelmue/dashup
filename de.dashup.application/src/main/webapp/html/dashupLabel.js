@@ -9,19 +9,37 @@ class DisplayComponent extends InputComponent {
         this.shadowRoot.appendChild(this.content);
 
         this.labelElement = this.shadowRoot.querySelector("#dashup-label");
-        this.labelElement.innerHTML = "No Data";
     }
 
     handleData(data) {
         super.handleData(data);
-        this.labelElement.innerHTML = this.getAttribute("label") + " " + this.getAttribute("value");
+    }
+
+    setText() {
+        if (this.hasAttribute("label")) {
+            this.labelElement.innerHTML = this.getAttribute("label") + " ";
+        }
+        if (this.hasAttribute("value")) {
+            this.labelElement.innerHTML += this.getAttribute("value");
+            if (this.hasAttribute("quantity")) {
+                this.labelElement.innerHTML += this.getAttribute("quantity");
+            }
+        }
     }
 
     /**
      * Called when web component is shown on screen.
      */
     connectedCallback() {
-        this.labelElement.innerHTML = this.getAttribute("label") + this.text;
+        this.setText();
+    }
+
+    get quantity() {
+        return this.getAttribute("quantity");
+    }
+
+    set quantity(val) {
+        this.setAttribute("quantity", val);
     }
 }
 

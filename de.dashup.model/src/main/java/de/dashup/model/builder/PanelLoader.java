@@ -39,9 +39,10 @@ public class PanelLoader {
         panel.setSize(Panel.Size.MEDIUM);
 
         StringBuilder htmlContent = new StringBuilder();
-        htmlContent.append("<div class=\"col ")
+        htmlContent.append("<div class=\"card col ")
                 .append(panel.getSize().getStyleClass())
-                .append("\">");
+                .append("\">")
+                .append("<div class=\"card-content\">");
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(
                 PanelLoader.class.getResourceAsStream(PANELS_LOCATION + id + "-" + panel.getSize().getName() + ".html")))) {
             while (fileReader.ready()) {
@@ -50,7 +51,7 @@ public class PanelLoader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        htmlContent.append("</div>");
+        htmlContent.append("</div></div>");
         panel.setHtmlContent(htmlContent.toString());
         return panel;
     }

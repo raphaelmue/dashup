@@ -23,8 +23,14 @@ class InputComponent extends HTMLElement {
             }
 
             this.setAttribute("value", data);
+            this.setText();
         }
     }
+
+    /**
+     * Implementation required
+     */
+    setText() { }
 
     /**
      * Returns all attributes, that this web component can have.

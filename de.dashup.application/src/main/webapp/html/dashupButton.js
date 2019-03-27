@@ -45,15 +45,25 @@ class ButtonComponent extends HTMLElement {
         fetch(url).then(function (response) {
             return response.json();
         }).then(function (response) {
-            that.getAttribute("consumers").split(" ").forEach(function (consumerId) {
-                let obj = document.querySelector("#" + consumerId);
-                obj.handleData(response);
+            that.getAttribute("consumers").split(" ").forEach(function (consumer) {
+                let consumerElement;
+                if (consumer.split(".").length === 2) {
+                    let consumerContainer = consumer.split(".")[0],
+                        consumerId = consumer.split(".")[1];
+
+                    consumerElement = that.getRootNode().querySelector("#" + consumerContainer)
+                        .getShadowRoot().querySelector("#" + consumerId);
+                } else {
+                    consumerElement = that.getRootNode().querySelector("#" + consumer);
+                }
+                consumerElement.handleData(response);
             });
         });
     }
 
     _createURLWithParameters() {
-        let url;
+        let url,
+            that = this;
         if (this.hasAttribute("api-param")) {
             // append "?" if not exists
             url = this.api;
@@ -64,7 +74,7 @@ class ButtonComponent extends HTMLElement {
                 let parameterName = parameterIdPair.split(":")[0],
                     parameterId = parameterIdPair.split(":")[1];
 
-                let parameterValue = document.querySelector("#" + parameterId).getAttribute("value");
+                let parameterValue = that.getRootNode().querySelector("#" + parameterId).getAttribute("value");
                 if (parameterValue !== null) {
                     if (url.includes("?")) {
                         if (!(url.slice(-1) === ("?" || "&"))) {
