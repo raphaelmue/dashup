@@ -18,14 +18,14 @@ import java.util.HashMap;
 public class LoginRegisterStepdefs {
 
     //--------------- Login ---------------\\
-    @And("^User registered with e-mail \"([^\"]*)\" and User registered with \"([^\"]*)\"$")
-    public void userRegisteredWithEMailAndUserRegisteredWith(String arg0, String arg1) throws SQLException {
+    @And("^User registered with e-mail \"([^\"]*)\" and password \"([^\"]*)\"$")
+    public void userRegisteredWithEMailAndPassword(String arg0, String arg1) throws Throwable {
         Database database = GeneralStepdefs.getDatabase();
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("email", arg0);
         Assertions.assertEquals(1, database.get(Database.Table.USERS, whereParams).length());
-        Assertions.assertEquals(Hash.create(arg1,database.get(Database.Table.USERS, whereParams).getJSONObject(0).getString("salt")),
-                                    database.get(Database.Table.USERS, whereParams).getJSONObject(0).getString("password"));
+        Assertions.assertEquals(Hash.create(arg1, database.get(Database.Table.USERS, whereParams).getJSONObject(0).getString("salt")),
+                database.get(Database.Table.USERS, whereParams).getJSONObject(0).getString("password"));
     }
 
     @When("^User enters \"([^\"]*)\" as e-mail$")
@@ -55,7 +55,7 @@ public class LoginRegisterStepdefs {
         WebElement element = driver.findElement(By.id("nav-item-dashboard"));
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
-        Assertions.assertEquals("active",parent.getAttribute("class"));
+        Assertions.assertEquals("active", parent.getAttribute("class"));
     }
 
     @And("^User was navigated to central dashboard$")
@@ -66,7 +66,7 @@ public class LoginRegisterStepdefs {
         WebElement element = driver.findElement(By.id("nav-item-dashboard"));
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
-        Assertions.assertEquals("active",parent.getAttribute("class"));
+        Assertions.assertEquals("active", parent.getAttribute("class"));
         driver.quit();
     }
 
@@ -75,7 +75,7 @@ public class LoginRegisterStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         WebElement element = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(element);
-        Assertions.assertEquals("Your credentials are invalid!",element.getText());
+        Assertions.assertEquals("Your credentials are invalid!", element.getText());
         Assertions.assertEquals("http://localhost:9004/login/#", driver.getCurrentUrl());
         driver.quit();
     }
@@ -141,7 +141,7 @@ public class LoginRegisterStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         WebElement element = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(element);
-        Assertions.assertEquals("The email is already registered.",element.getText());
+        Assertions.assertEquals("The email is already registered.", element.getText());
         Assertions.assertEquals("http://localhost:9004/register/#", driver.getCurrentUrl());
         driver.quit();
     }
@@ -151,7 +151,7 @@ public class LoginRegisterStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         WebElement element = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(element);
-        Assertions.assertEquals("Your passwords are not matching.",element.getText());
+        Assertions.assertEquals("Your passwords are not matching.", element.getText());
         Assertions.assertEquals("http://localhost:9004/register", driver.getCurrentUrl());
         driver.quit();
     }
