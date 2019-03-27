@@ -89,7 +89,8 @@ public class DashupService {
                 if (innerResult != null && innerResult.length() > 0) {
                     ArrayList<Panel> panels = new ArrayList<>();
                     for (int i = 0; i < innerResult.length(); i++) {
-                        Panel panel = panelLoader.loadPanel(innerResult.getJSONObject(i).getInt("panel_id"));
+                        Panel panel = panelLoader.loadPanel(innerResult.getJSONObject(i).getInt("panel_id"),
+                                Panel.Size.getSizeByName(innerResult.getJSONObject(i).getString("size")));
                         panel.setPredecessor(innerResult.getJSONObject(i).getInt("panel_predecessor"));
                         panels.add(panel);
                     }
