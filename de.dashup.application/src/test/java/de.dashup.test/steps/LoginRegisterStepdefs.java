@@ -1,10 +1,12 @@
 package de.dashup.test.steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import de.dashup.model.db.Database;
+import de.dashup.util.string.Hash;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,16 +18,14 @@ import java.util.HashMap;
 public class LoginRegisterStepdefs {
 
     //--------------- Login ---------------\\
-    @And("^User registered with e-mail \"([^\"]*)\"$")
-    public void userRegisteredWithEMail(String arg0) throws SQLException {
+    @And("^User registered with e-mail \"([^\"]*)\" and User registered with \"([^\"]*)\"$")
+    public void userRegisteredWithEMailAndUserRegisteredWith(String arg0, String arg1) throws SQLException {
         Database database = GeneralStepdefs.getDatabase();
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("email", arg0);
         Assertions.assertEquals(1, database.get(Database.Table.USERS, whereParams).length());
-    }
-
-    @And("^User registered with \"([^\"]*)\"$")
-    public void userRegisteredWith(String arg0) {
+        Assertions.assertEquals(Hash.create(arg1,database.get(Database.Table.USERS, whereParams).getJSONObject(0).getString("salt")),
+                                    database.get(Database.Table.USERS, whereParams).getJSONObject(0).getString("password"));
     }
 
     @When("^User enters \"([^\"]*)\" as e-mail$")
@@ -63,6 +63,10 @@ public class LoginRegisterStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         Assertions.assertEquals("dashup", driver.getTitle());
         Assertions.assertEquals("http://localhost:9004/", driver.getCurrentUrl());
+        WebElement element = driver.findElement(By.id("nav-item-dashboard"));
+        Assertions.assertNotNull(element);
+        WebElement parent = element.findElement(By.xpath("./.."));
+        Assertions.assertEquals("active",parent.getAttribute("class"));
         driver.quit();
     }
 

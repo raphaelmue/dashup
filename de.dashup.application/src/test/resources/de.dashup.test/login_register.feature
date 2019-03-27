@@ -9,8 +9,7 @@ Feature: Login / Register
 
   Scenario: Successful login
     Given User is located on login page
-    And User registered with e-mail "John.Doe@gmail.com"
-    And User registered with "password"
+    And User registered with e-mail "John.Doe@gmail.com" and User registered with "password"
     When User enters "John.Doe@gmail.com" as e-mail
     And User enters "password" as password
     And User presses login button
@@ -19,8 +18,7 @@ Feature: Login / Register
 
   Scenario: Failed login
     Given User is located on login page
-    And User registered with e-mail "John.Doe@gmail.com"
-    And User registered with "password"
+    And User registered with e-mail "John.Doe@gmail.com" and User registered with "password"
     When User enters "notValid@test.com" as e-mail
     And User enters "wrongPassword" as password
     And User presses login button
