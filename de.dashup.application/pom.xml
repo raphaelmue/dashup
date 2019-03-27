@@ -12,6 +12,34 @@
     <artifactId>de.dashup.application</artifactId>
     <packaging>war</packaging>
 
+    <profiles>
+        <profile>
+            <id>chrome-testing</id>
+            <activation>
+                <property>
+                    <name>testing</name>
+                    <value>chrome</value>
+                </property>
+            </activation>
+            <properties>
+                <test.browser>chrome</test.browser>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>firefox-testing</id>
+            <activation>
+                <property>
+                    <name>testing</name>
+                    <value>firefox</value>
+                </property>
+            </activation>
+            <properties>
+                <test.browser>firefox</test.browser>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <finalName>dashup</finalName>
 
@@ -27,6 +55,24 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.1</version>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>write-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <outputFile>${project.build.testOutputDirectory}/my.properties</outputFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 

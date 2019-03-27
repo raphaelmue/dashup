@@ -14,13 +14,26 @@ pipeline {
                 sh 'mvn clean install -DskipTests'
             }
         }
-        stage('Testing') {
+        stage('Unit testing') {
+             steps {
+                sh 'mvn test --projects de.dashup.shared,de.dashup.util,de.dashup.model'
+             }
+        }
+
+        stage('Testing in Chrome') {
             steps {
                 wrap([$class: 'Xvfb', additionalOptions: '', assignedLabels: '', autoDisplayName: true, debug: true, displayNameOffset: 0, installationName: 'Xvfb', parallelBuild: true, screen: '1024x758x24', timeout: 25]) {
-                    sh 'mvn test'
+                    sh 'mvn -Dtesting=chrome test -pl de.dashup.application'
+                }
+            }
+        }
+        stage('Testing in Firefox') {
+            steps {
+                wrap([$class: 'Xvfb', additionalOptions: '', assignedLabels: '', autoDisplayName: true, debug: true, displayNameOffset: 0, installationName: 'Xvfb', parallelBuild: true, screen: '1024x758x24', timeout: 25]) {
+                    sh 'mvn -Dtesting=firefox test -pl de.dashup.application'
                 }
                 sh 'rm ./de.dashup.model/src/main/resources/de/dashup/model/db/config/database.conf'
-            }
+             }
         }
         stage('Deploy') {
             when {

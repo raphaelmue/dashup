@@ -26,32 +26,32 @@
     <div class="row">
         <div class="col m6 offset-m3 s10 offset-s1">
             <div class="input-field">
-                <input id="text_field_register_email" name="email" type="text" class="validate">
-                <label for="text_field_register_email"><fmt:message key="i18n.emailAddress"/></label>
+                <input id="text-field-register-email" name="email" type="text" class="validate">
+                <label for="text-field-register-email"><fmt:message key="i18n.emailAddress"/></label>
             </div>
         </div>
         <div class="col m6 offset-m3 s10 offset-s1">
             <div class="input-field">
-                <input id="text_field_register_name" name="name" type="text" class="validate">
-                <label for="text_field_register_name"><fmt:message key="i18n.userName"/></label>
+                <input id="text-field-register-name" name="name" type="text" class="validate">
+                <label for="text-field-register-name"><fmt:message key="i18n.userName"/></label>
             </div>
         </div>
         <div class="col m6 offset-m3 s10 offset-s1">
             <div class="input-field">
-                <input id="text_field_register_password" name="password" type="password" class="validate">
-                <label for="text_field_register_password"><fmt:message key="i18n.password"/></label>
+                <input id="text-field-register-password" name="password" type="password" class="validate">
+                <label for="text-field-register-password"><fmt:message key="i18n.password"/></label>
             </div>
         </div>
         <div class="col m6 offset-m3 s10 offset-s1">
             <div class="input-field">
-                <input id="text_field_register_repeat_password" name="repeatPassword" type="password" class="validate">
-                <label for="text_field_register_repeat_password"><fmt:message key="i18n.repeatPassword"/></label>
+                <input id="text-field-register-repeat-password" name="repeatPassword" type="password" class="validate">
+                <label for="text-field-register-repeat-password"><fmt:message key="i18n.repeatPassword"/></label>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col m6 offset-m3 s10 offset-s1">
-            <button class="btn waves-effect waves-light" type="submit" name="action" id="submit_registration">
+            <button class="btn waves-effect waves-light" type="submit" name="action" id="submit-registration">
                 <fmt:message key="i18n.register"/>
                 <i class="fas fa-sign-in-alt"></i>
             </button>
@@ -76,18 +76,18 @@
             clearAnchor()
         }
 
-        $("#submit_registration").on("click", function () {
-            let password = $("#text_field_register_password").val(),
-                repeatPassword = $("#text_field_register_repeat_password").val(),
-                email = $("#text_field_register_email").val(),
-                name = $("#text_field_register_name").val()
+        $("#submit-registration").on("click", function () {
+            let password = $("#text-field-register-password").val(),
+                repeatPassword = $("#text-field-register-repeat-password").val(),
+                email = $("#text-field-register-email").val(),
+                name = $("#text-field-register-name").val()
             if (email !== "" && name !== "") {
                 if (password === repeatPassword && password !== "") {
                     PostRequest.getInstance().make("handleRegisterUser", {
-                        email: $("#text_field_register_email").val(),
+                        email: $("#text-field-register-email").val(),
                         password: password,
                         repeatPassword: repeatPassword,
-                        userName: $("#text_field_register_name").val(),
+                        userName: $("#text-field-register-name").val(),
                     });
                 } else if (password !== repeatPassword) {
                     M.toast({
