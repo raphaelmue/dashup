@@ -83,12 +83,19 @@
                 name = $("#text-field-register-name").val()
             if (email !== "" && name !== "") {
                 if (password === repeatPassword && password !== "") {
-                    PostRequest.getInstance().make("handleRegisterUser", {
-                        email: $("#text-field-register-email").val(),
-                        password: password,
-                        repeatPassword: repeatPassword,
-                        userName: $("#text-field-register-name").val(),
-                    });
+                    if (password.length >= 8) {
+                        PostRequest.getInstance().make("handleRegisterUser", {
+                            email: $("#text-field-register-email").val(),
+                            password: password,
+                            repeatPassword: repeatPassword,
+                            userName: $("#text-field-register-name").val(),
+                        });
+                    } else {
+                        M.toast({
+                            html: "<fmt:message key="i18n.passwordLength" />",
+                            classes: "error"
+                        })
+                    }
                 } else if (password !== repeatPassword) {
                     M.toast({
                         html: "<fmt:message key="i18n.passwordsNotMatching"/>",
