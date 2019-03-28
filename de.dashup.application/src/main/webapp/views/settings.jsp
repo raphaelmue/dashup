@@ -21,7 +21,7 @@
             </div>
             <ul class="collapsible">
                 <li>
-                    <div class="collapsible-header"><i class="fas fa-user"></i><fmt:message key="i18n.accountManagement" /></div>
+                    <div id="header-account-management" class="collapsible-header"><i class="fas fa-user"></i><fmt:message key="i18n.accountManagement" /></div>
                     <div class="collapsible-body">
                         <div class="row">
                             <div class="col s4 m4">
@@ -53,7 +53,7 @@
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header"><i class="fas fa-info-circle"></i><fmt:message key="i18n.personalInformation" /></div>
+                    <div id="header-personal-information" class="collapsible-header"><i class="fas fa-info-circle"></i><fmt:message key="i18n.personalInformation" /></div>
                     <div class="collapsible-body">
                         <form action="${pageContext.request.contextPath}/settings/changePersonalInfo" method="post">
                             <div class="row">
@@ -84,7 +84,7 @@
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header"><i class="fas fa-pen-fancy"></i><fmt:message key="i18n.layout" /></div>
+                    <div id="header-layout" class="collapsible-header"><i class="fas fa-pen-fancy"></i><fmt:message key="i18n.layout" /></div>
                     <div class="collapsible-body">
                         <form action="${pageContext.request.contextPath}/settings/changeLayout" method="post">
                             <div class="row">
@@ -114,7 +114,7 @@
                             </div>
                             <div class="row">
                                 <div class="col s2 m2">
-                                <button class="btn waves-effect waves-light" type="submit" name="action">
+                                <button id= "save-layout-changes" class="btn waves-effect waves-light" type="submit" name="action">
                                     <i class="fas fa-check"></i>
                                     <fmt:message key="i18n.save" />
                                 </button>
@@ -130,7 +130,7 @@
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header"><i class="fas fa-cogs"></i><fmt:message key="i18n.other" /></div>
+                    <div id="header-other" class="collapsible-header"><i class="fas fa-cogs"></i><fmt:message key="i18n.other" /></div>
                     <div class="collapsible-body">
                         <div class="row">
                             <div class="col s4 m4">

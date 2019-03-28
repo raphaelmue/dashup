@@ -10,6 +10,7 @@ import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -141,5 +142,15 @@ public class GeneralStepdefs extends SpringBootBase {
         driver.findElement(By.id("label-remember-me-checkbox")).click();
         //click login button
         driver.findElement(By.id("btn-login-submit")).click();
+    }
+
+    @Given("^User is located on central dashboard$")
+    public void userIsLocatedOnCentralDashboard() {
+        Assertions.assertEquals("dashup", driver.getTitle());
+        Assertions.assertEquals("http://localhost:9004/", driver.getCurrentUrl());
+        WebElement element = driver.findElement(By.id("nav-item-dashboard"));
+        Assertions.assertNotNull(element);
+        WebElement parent = element.findElement(By.xpath("./.."));
+        Assertions.assertEquals("active", parent.getAttribute("class"));
     }
 }

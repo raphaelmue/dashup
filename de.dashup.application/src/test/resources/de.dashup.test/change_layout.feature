@@ -6,9 +6,10 @@ Feature: Change Layout
 
 
 Background: Authenticated
-Given User is located on login page
-When User submits e-mail and password
-Then User is logged in
+Given User is registered for dashup
+  And User is located on login page
+  When User submits e-mail and password
+  Then User is logged in
 
   Scenario: Open settings menu
     Given User is located on central dashboard
@@ -27,8 +28,8 @@ Then User is logged in
 
   Scenario Outline: Customize theming
     Given User is located on settings menu
-    When User changes theme to '<themes>'
-    Then Theme of dashup changes to '<themes>'
+    When User changes theme to "<themes>"
+    Then Theme of dashup changes to "<themes>"
 
     Examples:
     | themes        |
@@ -63,8 +64,8 @@ Then User is logged in
 
   Scenario: Set background image
     Given User is located on settings menu
-    When User provides a valid image URL
-    Then Picture is displayed as background image
+    When User provides the valid image URL "https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg"
+    Then Picture with URL "https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg" is displayed as background image
 
   Scenario Outline: Undo changes
     Given User has made a change, key "<settings>" was changed from "<latestValue>" to "<newValues>"
@@ -74,5 +75,6 @@ Then User is logged in
 
     Examples:
     | settings | latestValue | newValue      |
-    | font     | Lora        | Inconsolata   |
+  #--------------- Not implemented yet ---------------#
+  #  | font     | Lora        | Inconsolata   |
     | theme    | Blue Sky    | White Diamond |
