@@ -38,49 +38,16 @@ public class GeneralStepdefs extends SpringBootBase {
         return driver;
     }
 
+    public static void setDatabase(Database database) {
+        GeneralStepdefs.database = database;
+    }
+
     public static Database getDatabase() {
         return database;
     }
 
-    public void setupDBForTesting() throws SQLException {
-        //change param of setHost to true if you need to test on local DB
-        Database.setHost(false);
-        Database.setDbName(Database.DatabaseName.TEST);
-        database = Database.getInstance();
-        database.clearDatabase();
-        String salt = "VQoX3kxwjX3gOOY1Jixk)Dc$0y$e4B!9";
-        String hashedPassword = Hash.create("password", salt);
-
-        Map<String, Object> testDataMap = new HashMap<>();
-        testDataMap.put("email", "John.Doe@gmail.com");
-        testDataMap.put("user_name", "NobodyTest");
-        testDataMap.put("name", "Nobody");
-        testDataMap.put("surname", "Test");
-        testDataMap.put("password", hashedPassword);
-        testDataMap.put("salt", salt);
-        database.insert(Database.Table.USERS, testDataMap);
-
-        testDataMap.clear();
-        testDataMap.put("email", "second@test.com");
-        testDataMap.put("user_name", "SecondTest");
-        testDataMap.put("name", "Second");
-        testDataMap.put("surname", "Test");
-        testDataMap.put("password", hashedPassword);
-        testDataMap.put("salt", salt);
-        database.insert(Database.Table.USERS, testDataMap);
-
-        Assertions.assertEquals(2, database.get(Database.Table.USERS, new HashMap<>()).length());
-
-        testDataMap.clear();
-        testDataMap.put("user_id", "1");
-        testDataMap.put("theme", "blue-sky");
-        testDataMap.put("language", "en");
-        database.insert(Database.Table.USERS_SETTINGS, testDataMap);
-    }
-
     @Given("^User is registered for dashup$")
     public void userIsRegisteredForDashup() throws SQLException, IOException {
-        this.setupDBForTesting();
 
     }
 
