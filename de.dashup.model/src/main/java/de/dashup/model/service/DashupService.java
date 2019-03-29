@@ -275,7 +275,7 @@ public class DashupService {
 
     private boolean isValidURL(String urlStr) {
         try {
-            URL url = new URL(urlStr);
+            new URL(urlStr);
             return true;
         } catch (MalformedURLException e) {
             return false;
@@ -309,16 +309,16 @@ public class DashupService {
         this.database.update(Database.Table.USERS_SETTINGS, whereParameter, values);
     }
 
-    public void updateSection(User user, String section_name, int section_id, int predecessor, int successor) throws SQLException {
+    public void updateSection(User user, String sectionName, int sectionId, int predecessor, int successor) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
-        whereParameters.put("section_id", section_id);
+        whereParameters.put("section_id", sectionId);
 
         Map<String, Object> values = new HashMap<>();
 
-        if (!section_name.equals("%old%")) {
+        if (!"%old%".equals(sectionName)) {
 
-            values.put("section_name", section_name);
+            values.put("section_name", sectionName);
         }
         values.put("predecessor_id", predecessor);
         values.put("successor_id", successor);
@@ -335,11 +335,13 @@ public class DashupService {
         database.delete(Database.Table.USER_SECTIONS, whereParameters);
     }
 
-    public void addSection(User user, String section_name, int predecessor, int successor) throws SQLException {
-        if (section_name == null) section_name = "New Section";
+    public void addSection(User user, String sectionName, int predecessor, int successor) throws SQLException {
+        if (sectionName == null) {
+            sectionName = "New Section";
+        }
 
         Map<String, Object> values = new HashMap<>();
-        values.put("section_name", section_name);
+        values.put("section_name", sectionName);
         values.put("user_id", user.getId());
         values.put("predecessor_id", predecessor);
         values.put("successor_id", successor);

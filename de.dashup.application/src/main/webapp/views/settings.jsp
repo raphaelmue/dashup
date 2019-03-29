@@ -1,4 +1,5 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <fmt:setLocale value="${param.lang}" scope="session"/>
 <fmt:setBundle basename="i18n"/>
@@ -28,7 +29,7 @@
                                 <p><fmt:message key="i18n.emailAddress" /></p>
                             </div>
                             <div class="col s4 m4">
-                                <p>${email}</p>
+                                <p>${fn:escapeXml(email)}</p>
                             </div>
                             <div class="col s4 m4">
                                 <p><a href="#"><fmt:message key="i18n.changeEmailAddress" /></a></p>
@@ -47,7 +48,7 @@
                                 <p><fmt:message key="i18n.logout" /></p>
                             </div>
                             <div class="col s8 m8">
-                                <p><a id="logout-link" href="${pageContext.request.contextPath}/handleLogout"><fmt:message key="i18n.logout" /></a></p>
+                                <p><a id="logout-link" href="${fn:escapeXml(pageContext.request.contextPath)}/handleLogout"><fmt:message key="i18n.logout" /></a></p>
                             </div>
                         </div>
                     </div>
@@ -62,7 +63,7 @@
                                 </div>
                                 <div class="input-field col s8 m4" style="margin-top: 0">
                                     <input id="text-field-personal-info-name" name="name" type="text" class="validate"
-                                            value="${name}" />
+                                            value="${fn:escapeXml(name)}" />
                                     <label for="text-field-personal-info-name"><fmt:message key="i18n.name" /></label>
                                 </div>
                                 <div class="col s4 m1 offset-m1">
@@ -70,7 +71,7 @@
                                 </div>
                                 <div class="input-field col s8 m4" style="margin-top: 0">
                                     <input id="text-field-personal-info-surname" name="surname" type="text" class="validate"
-                                           value="${surname}" />
+                                           value="${fn:escapeXml(pageContext.request.contextPath)}" />
                                     <label for="text-field-personal-info-surname"><fmt:message key="i18n.surname" /></label>
                                 </div>
                             </div>
@@ -86,7 +87,7 @@
                 <li>
                     <div class="collapsible-header"><i class="fas fa-pen-fancy"></i><fmt:message key="i18n.layout" /></div>
                     <div class="collapsible-body">
-                        <form action="${pageContext.request.contextPath}/settings/changeLayout" method="post">
+                        <form action="${fn:escapeXml(pageContext.request.contextPath)}/settings/changeLayout" method="post">
                             <div class="row">
                                 <div class="col s4 m4">
                                     <p><fmt:message key="i18n.theme" /></p>
@@ -108,7 +109,7 @@
                                 </div>
                                 <div class="input-field col s8 m8" style="margin-top: 0">
                                     <input id="text-field-background-image" name="backgroundImage" type="text" class="validate"
-                                           value="${backgroundImage}" />
+                                           value="${fn:escapeXml(backgroundImage)}" />
                                     <label for="text-field-background-image"><fmt:message key="i18n.backgroundImage" /></label>
                                 </div>
                             </div>
@@ -190,7 +191,7 @@
         $( document ).ready(function () {
             $("#nav-item-settings").parent().addClass("active");
 
-            $("#theme-dropdown option[value=${theme}]").attr("selected", "selected");
+            $("#theme-dropdown option[value=${fn:escapeXml(theme)}]").attr("selected", "selected");
             $('select').formSelect();
 
             let toastOptions = {};
