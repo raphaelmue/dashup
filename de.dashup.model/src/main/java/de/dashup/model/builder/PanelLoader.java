@@ -54,13 +54,4 @@ public class PanelLoader {
         panel.setHtmlContent(htmlContent.toString());
         return panel;
     }
-
-    /**
-     * Stores the html content of a panel into resources
-     *
-     * @param panel panel to store
-     */
-    public void storePanel(Panel panel) {
-
-    }
 }
