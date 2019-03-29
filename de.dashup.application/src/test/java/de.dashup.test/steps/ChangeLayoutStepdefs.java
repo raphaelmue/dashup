@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -15,6 +17,8 @@ public class ChangeLayoutStepdefs {
     @When("^User clicks on settings menu$")
     public void userClicksOnSettingsMenu() {
         WebDriver driver = GeneralStepdefs.getDriver();
+        WebDriverWait wait = new WebDriverWait(driver, 3);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nav-item-settings")));
         driver.findElement(By.id("nav-item-settings")).click();
     }
 
