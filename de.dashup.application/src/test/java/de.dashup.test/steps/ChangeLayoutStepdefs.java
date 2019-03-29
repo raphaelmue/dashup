@@ -169,5 +169,6 @@ public class ChangeLayoutStepdefs {
                 //Not implemented yet
                 break;
         }
+        driver.quit();
     }
 }
