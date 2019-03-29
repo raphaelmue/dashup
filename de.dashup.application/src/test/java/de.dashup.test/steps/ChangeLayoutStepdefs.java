@@ -23,7 +23,7 @@ public class ChangeLayoutStepdefs {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nav-item-settings")));
         try {
             driver.findElement(By.id("li-for-nav-item-settings")).click();
-        }catch (ElementNotInteractableException e){
+        } catch (ElementNotInteractableException e) {
             //fallback for firefox
             driver.findElement(By.className("sidenav-trigger")).click();
             driver.findElement(By.id("li-for-nav-item-settings-sidenav")).click();
@@ -48,7 +48,7 @@ public class ChangeLayoutStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         try {
             driver.findElement(By.id("li-for-nav-item-settings")).click();
-        }catch (ElementNotInteractableException e){
+        } catch (ElementNotInteractableException e) {
             //fallback for firefox
             driver.findElement(By.className("sidenav-trigger")).click();
             driver.findElement(By.id("li-for-nav-item-settings-sidenav")).click();
@@ -157,7 +157,7 @@ public class ChangeLayoutStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         try {
             driver.findElement(By.id("li-for-nav-item-settings")).click();
-        }catch (ElementNotInteractableException e){
+        } catch (ElementNotInteractableException e) {
             //fallback for firefox
             driver.findElement(By.className("sidenav-trigger")).click();
             driver.findElement(By.id("li-for-nav-item-settings-sidenav")).click();
@@ -194,7 +194,7 @@ public class ChangeLayoutStepdefs {
     @Then("^Key \"([^\"]*)\" will be restored to \"([^\"]*)\"$")
     public void keyWillBeRestoredTo(String arg0, String arg1) throws Throwable {
         WebDriver driver = GeneralStepdefs.getDriver();
-        switch (arg0){
+        switch (arg0) {
             case "theme":
                 Thread.sleep(1000);
                 WebElement header = driver.findElement(By.id("header-layout"));
@@ -205,7 +205,7 @@ public class ChangeLayoutStepdefs {
                 WebElement selectedTheme = input.findElement(By.xpath("//span[text()='" + arg1 + "']"));
                 Thread.sleep(1000);
                 WebElement listElementForSelectedTheme = selectedTheme.findElement(By.xpath("./.."));
-                Assertions.assertEquals("selected",listElementForSelectedTheme.getAttribute("class"));
+                Assertions.assertEquals("selected", listElementForSelectedTheme.getAttribute("class"));
                 this.themeOfDashupChangesTo(arg1);
                 break;
             case "font":
