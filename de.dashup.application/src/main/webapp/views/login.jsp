@@ -1,4 +1,5 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <fmt:setLocale value="${param.lang}" />
 <fmt:setBundle basename="i18n" scope="session" />
@@ -9,7 +10,7 @@
         <header class="develop-toolbar mdc-toolbar mdc-toolbar--platform">
             <nav>
                 <div class="nav-wrapper">
-                    <a href="${pageContext.request.contextPath}/" class="brand-logo" style="font-size: 20px;">D A S H U P</a>
+                    <a href="${fn:escapeXml(pageContext.request.contextPath)}//" class="brand-logo" style="font-size: 20px;">D A S H U P</a>
                 </div>
             </nav>
         </header>
