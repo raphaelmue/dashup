@@ -13,7 +13,15 @@ class TextFieldComponent extends InputComponent {
 
     handleData(data) {
         super.handleData(data);
-        this.input.innerHTML = this.getAttribute("value");
+    }
+
+    setText() {
+        if  (this.hasAttribute("label")) {
+            this.inputLabel.innerHTML = escape(this.getAttribute("label"));
+        }
+        if (this.hasAttribute("value")) {
+            this.input.innerHTML = escape(this.getAttribute("value"));
+        }
     }
 
     /**
@@ -21,11 +29,10 @@ class TextFieldComponent extends InputComponent {
      */
     connectedCallback() {
         // set text and label
-        this.input.innerHTML = this.getAttribute("value");
+        this.setText();
         this.input.addEventListener("change", () => {
             this.value = this.input.value;
         });
-        this.inputLabel.innerHTML = this.getAttribute("label");
     }
 }
 

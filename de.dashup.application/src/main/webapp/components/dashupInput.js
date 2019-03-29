@@ -1,4 +1,4 @@
-class InputComponent extends HTMLElement {
+class InputComponent extends DashupComponent {
 
     constructor() {
         super();

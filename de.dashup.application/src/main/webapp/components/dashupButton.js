@@ -1,6 +1,6 @@
 const dashupButton = document.currentScript.ownerDocument.querySelector("#dashup-button-template").content;
 
-class ButtonComponent extends HTMLElement {
+class ButtonComponent extends DashupComponent {
 
     constructor() {
         super();
@@ -17,7 +17,7 @@ class ButtonComponent extends HTMLElement {
     connectedCallback() {
         // setting label
         if (this.hasAttribute("label")) {
-            this.button.innerHTML = this.getAttribute("label");
+            this.button.innerHTML = escape(this.getAttribute("label"));
         }
 
         // fetching data from api if api is valid
@@ -104,7 +104,7 @@ class ButtonComponent extends HTMLElement {
      */
     static _isURLValid(url) {
         let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain id
             '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
             '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
             '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
@@ -112,12 +112,12 @@ class ButtonComponent extends HTMLElement {
         return pattern.test(url);
     }
 
-    get name() {
-        return this.getAttribute("name");
+    get id() {
+        return this.getAttribute("id");
     }
 
-    set name(val) {
-        this.setAttribute("name", val);
+    set id(val) {
+        this.setAttribute("id", val);
     }
 
     get label() {

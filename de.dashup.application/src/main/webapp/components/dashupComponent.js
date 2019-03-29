@@ -1,0 +1,3 @@
+class DashupComponent extends HTMLElement {
+
+}

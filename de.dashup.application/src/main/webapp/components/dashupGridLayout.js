@@ -1,6 +1,6 @@
 const dashupGridLayout = document.currentScript.ownerDocument.querySelector("#dashup-grid-layout-template").content;
 
-class GridLayoutComponent extends HTMLElement {
+class GridLayoutComponent extends DashupComponent {
 
     constructor() {
         super();
