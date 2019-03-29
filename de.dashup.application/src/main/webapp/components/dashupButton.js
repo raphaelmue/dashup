@@ -16,7 +16,9 @@ class ButtonComponent extends HTMLElement {
      */
     connectedCallback() {
         // setting label
-        this.button.innerHTML = this.getAttribute("label");
+        if (this.hasAttribute("label")) {
+            this.button.innerHTML = this.getAttribute("label");
+        }
 
         // fetching data from api if api is valid
         if (this.hasAttribute("api") && ButtonComponent._isURLValid(this.api)) {
@@ -70,22 +72,24 @@ class ButtonComponent extends HTMLElement {
 
             // build URL
             let parameters = this.getAttribute("api-param").split(" ");
-            parameters.forEach(function (parameterIdPair) {
-                let parameterName = parameterIdPair.split(":")[0],
-                    parameterId = parameterIdPair.split(":")[1];
+            if (parameters.length > 0) {
+                parameters.forEach(function (parameterIdPair) {
+                    let parameterName = parameterIdPair.split(":")[0],
+                        parameterId = parameterIdPair.split(":")[1];
 
-                let parameterValue = that.getRootNode().querySelector("#" + parameterId).getAttribute("value");
-                if (parameterValue !== null) {
-                    if (url.includes("?")) {
-                        if (!(url.slice(-1) === ("?" || "&"))) {
-                            url += "&";
+                    let parameterValue = that.getRootNode().querySelector("#" + parameterId).getAttribute("value");
+                    if (parameterValue !== null) {
+                        if (url.includes("?")) {
+                            if (!(url.slice(-1) === ("?" || "&"))) {
+                                url += "&";
+                            }
+                        } else {
+                            url += "?";
                         }
-                    } else {
-                        url += "?";
+                        url += parameterName + "=" + parameterValue;
                     }
-                    url += parameterName + "=" + parameterValue;
-                }
-            });
+                });
+            }
         } else {
             url = this.api;
         }
@@ -99,8 +103,13 @@ class ButtonComponent extends HTMLElement {
      * @private
      */
     static _isURLValid(url) {
-        let regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
-        return regexp.test(url);
+        let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+            '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+        return pattern.test(url);
     }
 
     get name() {

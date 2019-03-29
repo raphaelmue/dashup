@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+
 <%-- include templates --%>
 <jsp:include page="components/dashupButton.jsp" />
 <jsp:include page="components/dashupGridLayout.jsp" />

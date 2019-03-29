@@ -20,17 +20,19 @@ class GridLayoutComponent extends HTMLElement {
         let index = 0;
         let ids = [];
         let observer = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                if (mutation.addedNodes.length && mutation.addedNodes[0].nodeType === 1 &&
-                    (!ids.includes(mutation.addedNodes[0].getAttribute("id")) || mutation.addedNodes[0].getAttribute("id") == null)) {
-                    let col = document.createElement("div");
-                    col.setAttribute("class", "col s" + that._getColSizeByIndex(index));
-                    col.appendChild(mutation.addedNodes[0]);
-                    that.gridLayout.appendChild(col);
-                    ids.push(mutation.addedNodes[0].getAttribute("id"));
-                    index++;
-                }
-            });
+            if (mutations.length > 0) {
+                mutations.forEach(function (mutation) {
+                    if (mutation.addedNodes.length && mutation.addedNodes[0].nodeType === 1 &&
+                        (!ids.includes(mutation.addedNodes[0].getAttribute("id")) || mutation.addedNodes[0].getAttribute("id") == null)) {
+                        let col = document.createElement("div");
+                        col.setAttribute("class", "col s" + that._getColSizeByIndex(index));
+                        col.appendChild(mutation.addedNodes[0]);
+                        that.gridLayout.appendChild(col);
+                        ids.push(mutation.addedNodes[0].getAttribute("id"));
+                        index++;
+                    }
+                });
+            }
         });
 
         observer.observe(this, {childList: true})
