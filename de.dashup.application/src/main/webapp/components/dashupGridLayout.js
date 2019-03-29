@@ -35,7 +35,7 @@ class GridLayoutComponent extends DashupComponent {
             }
         });
 
-        observer.observe(this, {childList: true})
+        observer.observe(this, {childList: true});
     }
 
     _getColSizeByIndex(index) {
