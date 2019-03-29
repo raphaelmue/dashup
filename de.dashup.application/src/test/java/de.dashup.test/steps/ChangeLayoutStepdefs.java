@@ -5,6 +5,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -19,7 +20,13 @@ public class ChangeLayoutStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         WebDriverWait wait = new WebDriverWait(driver, 3);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nav-item-settings")));
-        driver.findElement(By.id("li-for-nav-item-settings")).click();
+        try {
+            driver.findElement(By.id("li-for-nav-item-settings")).click();
+        }catch (ElementNotInteractableException e){
+            driver.findElement(By.className("sidenav-trigger")).click();
+            driver.findElement(By.id("li-for-nav-item-settings-sidenav")).click();
+        }
+
     }
 
     @Then("^Settings menu opens up$")

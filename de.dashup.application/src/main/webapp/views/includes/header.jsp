@@ -21,6 +21,6 @@
         <li><a href="${pageContext.request.contextPath}/"><fmt:message key="i18n.dashboard"/></a></li>
         <li><a href="${pageContext.request.contextPath}/marketplace/"><fmt:message key="i18n.marketplace"/></a></li>
         <li><a href="${pageContext.request.contextPath}/workbench/"><fmt:message key="i18n.workbench"/></a></li>
-        <li><a href="${pageContext.request.contextPath}/settings/"><fmt:message key="i18n.settings"/></a></li>
+        <li id="li-for-nav-item-settings-sidenav"><a href="${pageContext.request.contextPath}/settings/"><fmt:message key="i18n.settings"/></a></li>
     </ul>
 </header>
