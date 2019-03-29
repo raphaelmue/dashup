@@ -77,8 +77,7 @@ Furthermore associating widgets with tags is possible, which can be set to any v
 widget. 
 
 When adding a widget from the marketplace, a new section will be generated in the central dashboard at the top, named 
-after the widget 
-
+after the widget .
 
 # 4. Preconditions
 
@@ -91,13 +90,13 @@ There must be at least one widget available to use the marketplace.
 ## 4.3 Metadata provided for each widget
 To properly display information about a widget, metadata such as publisher, category etc. must be provided. Furthermore 
 the publisher must have given a detailed description about the widget to display it on the main menu in the marketplace. 
-Besides a description, the widget must be associated with a category and if possbile with tags.
+Besides a description, the widget must be associated with a category and if possible with tags.
 
 # 5. Postconditions
 
 ## 5.1 Save Changed Data
-After the user has added widgets to his central dashboard, the data has to be stored. This is 
-necessary to get a persistent change.
+After the user has added widgets to his central dashboard, the data has to be stored. This is necessary to get a 
+persistent change.
 
 # 6. Extension Points
 If enough time is left after having implemented all use cases, a feature to contact publishers of a widget could be 
