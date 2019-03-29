@@ -10,7 +10,7 @@
         <header class="develop-toolbar mdc-toolbar mdc-toolbar--platform">
             <nav>
                 <div class="nav-wrapper">
-                    <a href="#" class="brand-logo" style="font-size: 20px;">D A S H U P</a>
+                    <a href="${fn:escapeXml(pageContext.request.contextPath)}//" class="brand-logo" style="font-size: 20px;">D A S H U P</a>
                 </div>
             </nav>
         </header>
