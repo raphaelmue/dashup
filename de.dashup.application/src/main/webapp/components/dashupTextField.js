@@ -17,10 +17,10 @@ class TextFieldComponent extends InputComponent {
 
     setText() {
         if  (this.hasAttribute("label")) {
-            this.inputLabel.innerHTML = escape(this.getAttribute("label"));
+            this.inputLabel.innerHTML = this.escapeHTML(this.getAttribute("label"));
         }
         if (this.hasAttribute("value")) {
-            this.input.innerHTML = escape(this.getAttribute("value"));
+            this.input.innerHTML = this.escapeHTML(this.getAttribute("value"));
         }
     }
 

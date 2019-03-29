@@ -17,12 +17,12 @@ class DisplayComponent extends InputComponent {
 
     setText() {
         if (this.hasAttribute("label")) {
-            this.labelElement.innerHTML = escape(this.getAttribute("label") + " ");
+            this.labelElement.innerHTML = this.escapeHTML(this.getAttribute("label") + " ");
         }
         if (this.hasAttribute("value")) {
-            this.labelElement.innerHTML += escape(this.getAttribute("value"));
+            this.labelElement.innerHTML += this.escapeHTML(this.getAttribute("value"));
             if (this.hasAttribute("quantity")) {
-                this.labelElement.innerHTML += escape(this.getAttribute("quantity"));
+                this.labelElement.innerHTML += this.escapeHTML(this.getAttribute("quantity"));
             }
         }
     }

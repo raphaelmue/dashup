@@ -17,7 +17,7 @@ class ButtonComponent extends DashupComponent {
     connectedCallback() {
         // setting label
         if (this.hasAttribute("label")) {
-            this.button.innerHTML = escape(this.getAttribute("label"));
+            this.button.innerHTML = this.escapeHTML(this.getAttribute("label"));
         }
 
         // fetching data from api if api is valid
