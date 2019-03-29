@@ -13,11 +13,11 @@ class DashupPanelInformation {
         this.id = id;
     }
 
-    public int getPanel_order() {
+    public int getPanelOrder() {
         return panel_order;
     }
 
-    public void setPanel_order(int panel_order) {
+    public void setPanelOrder(int panel_order) {
         this.panel_order = panel_order;
     }
 }

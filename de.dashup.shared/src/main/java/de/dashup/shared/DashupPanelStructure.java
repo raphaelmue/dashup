@@ -16,7 +16,7 @@ public class DashupPanelStructure {
 
     public  String ret()
     {
-        if(sections !=null) return sections.get(0).getSection_id() + " && " + sections.get(0).getPanels();
+        if(sections !=null) return sections.get(0).getSectionId() + " && " + sections.get(0).getPanels();
 
         return "is null";
 

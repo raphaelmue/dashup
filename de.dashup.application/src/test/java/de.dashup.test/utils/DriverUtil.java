@@ -18,9 +18,9 @@ public class DriverUtil {
                 return GECKO_DRIVER_WINDOWS;
             }
         } else if (System.getProperty("os.name").toLowerCase().contains("linux")) {
-            if (profile.equals("chrome")) {
+            if ("chrome".equals(profile)) {
                 return CHROME_DRIVER_LINUX;
-            } else if (profile.equals("firefox")) {
+            } else if ("firefox".equals(profile)) {
                 return GECKO_DRIVER_LINUX;
             }
         } else {

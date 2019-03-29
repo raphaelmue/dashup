@@ -15,9 +15,9 @@ public class Section implements DatabaseObject {
     public Section() {
     }
 
-    public Section(int user_id, int section_id, String section_name, int predecessorID) {
-        this.sectionID = section_id;
-        this.section_name = section_name;
+    public Section(int sectionId, String sectionName, int predecessorID) {
+        this.sectionID = sectionId;
+        this.section_name = sectionName;
         this.predecessorID = predecessorID;
     }
 
