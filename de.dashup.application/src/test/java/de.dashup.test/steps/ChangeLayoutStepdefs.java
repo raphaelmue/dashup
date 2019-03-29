@@ -1,6 +1,5 @@
 package de.dashup.test.steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -115,7 +114,9 @@ public class ChangeLayoutStepdefs {
     @Then("^Picture with URL \"([^\"]*)\" is displayed as background image$")
     public void pictureWithURLIsDisplayedAsBackgroundImage(String arg0) throws InterruptedException {
         WebDriver driver = GeneralStepdefs.getDriver();
-        WebElement styleTag = driver.findElement(By.tagName("head")).findElement(By.xpath("//style"));
+        Thread.sleep(1000);
+        WebElement headTag = driver.findElement(By.tagName("head"));
+        WebElement styleTag = headTag.findElement(By.xpath(".//style"));
         Thread.sleep(1000);
         Assertions.assertTrue(styleTag.getAttribute("innerText").contains(arg0));
         driver.quit();
@@ -155,6 +156,7 @@ public class ChangeLayoutStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         switch (arg0){
             case "theme":
+                Thread.sleep(1000);
                 WebElement header = driver.findElement(By.id("header-layout"));
                 header.click();
                 WebElement input = header.findElement(By.xpath("//input[@class=\"select-dropdown dropdown-trigger\"]"));
