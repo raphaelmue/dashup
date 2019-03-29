@@ -4,3 +4,4 @@ target/
 *.iml
 database.conf
 chromedriver.exe
+geckodriver.exe

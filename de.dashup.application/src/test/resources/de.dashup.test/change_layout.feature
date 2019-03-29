@@ -4,6 +4,7 @@ Feature: Change Layout
   I want to customize the layout of dashup
   In order to design dashup the way I want
 
+
 #Background: Authenticated
 #Given User is located on login page
 #When User submits e-mail and password
