@@ -267,12 +267,19 @@
 
                 if (newPassword === newRepeatPassword) {
                     if (oldPassword !== newPassword) {
-                        changePasswordDialog.close();
-                        PostRequest.getInstance().make("settings/changePassword", {
-                            oldPassword: oldPassword,
-                            newPassword: newPassword,
-                            newRepeatPassword: newRepeatPassword
-                        });
+                        if (newPassword.length >= 8) {
+                            changePasswordDialog.close();
+                            PostRequest.getInstance().make("settings/changePassword", {
+                                oldPassword: oldPassword,
+                                newPassword: newPassword,
+                                newRepeatPassword: newRepeatPassword
+                            });
+                        } else {
+                            M.toast({
+                                html: "<fmt:message key="i18n.passwordLength" />",
+                                classes: "error"
+                            })
+                        }
                     } else {
                         M.toast({
                             html: "<fmt:message key="i18n.oldAndNewPasswordMustDiffer"/>",

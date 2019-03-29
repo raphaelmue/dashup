@@ -5,6 +5,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import de.dashup.application.local.format.I18N;
 import de.dashup.model.db.Database;
 import de.dashup.util.string.Hash;
 import org.junit.jupiter.api.Assertions;
@@ -134,6 +135,15 @@ public class LoginRegisterStepdefs {
     public void userRepeatsAsPassword(String arg0) {
         WebDriver driver = GeneralStepdefs.getDriver();
         driver.findElement(By.id("text-field-register-repeat-password")).sendKeys(arg0);
+    }
+
+    @Then("^Registration error message is displayed stating that password is invalid$")
+    public void registrationErrorMessageIsDisplayedStatingThatPasswordIsInvalid() {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        WebElement element = driver.findElement(By.className("toast"));
+        Assertions.assertNotNull(element);
+        Assertions.assertEquals(I18N.get("i18n.passwordLength"), element.getText());
+        driver.quit();
     }
 
     @Then("^Registration error message is displayed stating that e-mail is invalid$")
