@@ -78,55 +78,10 @@ public class GeneralStepdefs extends SpringBootBase {
         database.insert(Database.Table.USERS_SETTINGS, testDataMap);
     }
 
-    private WebDriver setUpChromeDriver() {
-        final DesiredCapabilities desiredChromeCapabilities = DesiredCapabilities.chrome();
-        final ChromeOptions chromeOptions = new ChromeOptions();
-
-        if (DriverUtil.getPathToChromeBinary() != null) {
-            chromeOptions.setBinary(DriverUtil.getPathToChromeBinary());
-        }
-
-        desiredChromeCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-        System.setProperty("webdriver.chrome.driver", DriverUtil.getDriverPath("chrome"));
-        WebDriver returningDriver = new ChromeDriver(desiredChromeCapabilities);
-        returningDriver.manage().window().maximize();
-        return returningDriver;
-    }
-
-    private WebDriver setUpFirefoxDriver() {
-        final DesiredCapabilities desiredFirefoxCapabilities = DesiredCapabilities.firefox();
-        final FirefoxOptions firefoxOptions = new FirefoxOptions();
-
-        if (DriverUtil.getPathToChromeBinary() != null) {
-            firefoxOptions.setBinary(DriverUtil.getPathToFirefoxBinary());
-        }
-
-        desiredFirefoxCapabilities.setCapability(FirefoxOptions.FIREFOX_OPTIONS, firefoxOptions);
-        System.setProperty("webdriver.gecko.driver", DriverUtil.getDriverPath("firefox"));
-        WebDriver returningDriver = new FirefoxDriver(desiredFirefoxCapabilities);
-        returningDriver.manage().window().maximize();
-        return returningDriver;
-    }
-
     @Given("^User is registered for dashup$")
     public void userIsRegisteredForDashup() throws SQLException, IOException {
         this.setupDBForTesting();
-        InputStream is = this.getClass().getResourceAsStream("../../../../my.properties");
-        Properties p = new Properties();
-        p.load(is);
-        String name = p.getProperty("test.browser");
-        if (name != null) {
-            switch (name) {
-                case "chrome":
-                    driver = this.setUpChromeDriver();
-                    break;
-                case "firefox":
-                    driver = this.setUpFirefoxDriver();
-                    break;
-            }
-        } else {
-            driver = this.setUpChromeDriver();
-        }
+
     }
 
     @Given("^User is located on login page$")
