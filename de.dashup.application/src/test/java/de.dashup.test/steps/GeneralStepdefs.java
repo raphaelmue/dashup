@@ -30,6 +30,10 @@ public class GeneralStepdefs extends SpringBootBase {
     private static WebDriver driver;
     private static Database database;
 
+    public static void setDriver(WebDriver driver) {
+        GeneralStepdefs.driver = driver;
+    }
+
     public static WebDriver getDriver() {
         return driver;
     }
