@@ -68,8 +68,8 @@ Given User is registered for dashup
     Then Picture with URL "https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg" is displayed as background image
 
   Scenario Outline: Undo changes
-    Given User has made a change, key "<settings>" was changed from "<latestValue>" to "<newValues>"
-    And User is located on settings menu
+    Given User is located on settings menu
+    And   User has made a change, key "<settings>" was changed from "<latestValue>" to "<newValue>"
     When User clicks on abandon icon
     Then Key "<settings>" will be restored to "<latestValue>"
 

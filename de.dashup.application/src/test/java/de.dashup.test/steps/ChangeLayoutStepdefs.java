@@ -75,7 +75,7 @@ public class ChangeLayoutStepdefs {
         WebElement input = header.findElement(By.xpath("//input[@class=\"select-dropdown dropdown-trigger\"]"));
         Thread.sleep(1000);
         input.click();
-        WebElement selectedTheme = input.findElement(By.xpath("//span[text()='"+arg0+"']"));
+        WebElement selectedTheme = input.findElement(By.xpath("//span[text()='" + arg0 + "']"));
         Thread.sleep(1000);
         selectedTheme.click();
         driver.findElement(By.id("save-layout-changes")).click();
@@ -87,12 +87,12 @@ public class ChangeLayoutStepdefs {
         WebElement headTag = driver.findElement(By.tagName("head"));
         List<WebElement> links = headTag.findElements(By.xpath("//link[@rel=\"stylesheet\"]"));
         boolean found = false;
-        for (WebElement link: links) {
-            if(link.getAttribute("href").contains("/styles/themes/theme."+arg0.replace(' ','-').toLowerCase()+".style.css")){
-                found=true;
+        for (WebElement link : links) {
+            if (link.getAttribute("href").contains("/styles/themes/theme." + arg0.replace(' ', '-').toLowerCase() + ".style.css")) {
+                found = true;
             }
         }
-        if (!found){
+        if (!found) {
             Assertions.fail("Current stylesheet does not match selected theme!");
         }
         driver.quit();
@@ -112,11 +112,62 @@ public class ChangeLayoutStepdefs {
     }
 
     @Then("^Picture with URL \"([^\"]*)\" is displayed as background image$")
-    public void pictureWithURLIsDisplayedAsBackgroundImage(String arg0) throws Throwable {
+    public void pictureWithURLIsDisplayedAsBackgroundImage(String arg0) throws InterruptedException {
         WebDriver driver = GeneralStepdefs.getDriver();
         WebElement styleTag = driver.findElement(By.tagName("head")).findElement(By.xpath("//style"));
         Thread.sleep(1000);
         Assertions.assertTrue(styleTag.getAttribute("innerText").contains(arg0));
         driver.quit();
+    }
+
+    //--------------- Undo ---------------\\
+    @Given("^User has made a change, key \"([^\"]*)\" was changed from \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void userHasMadeAChangeKeyWasChangedFromTo(String arg0, String arg1, String arg2) throws Throwable {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.findElement(By.id("nav-item-settings")).click();
+        switch (arg0) {
+            case "theme":
+                this.userChangesThemeTo(arg1);
+                WebElement header = driver.findElement(By.id("header-layout"));
+                header.click();
+                WebElement input = header.findElement(By.xpath("//input[@class=\"select-dropdown dropdown-trigger\"]"));
+                Thread.sleep(1000);
+                input.click();
+                WebElement selectedTheme = input.findElement(By.xpath("//span[text()='" + arg2 + "']"));
+                Thread.sleep(1000);
+                selectedTheme.click();
+                break;
+            case "font":
+                //Not implemented yet
+                break;
+        }
+    }
+
+    @When("^User clicks on abandon icon$")
+    public void userClicksOnAbandonIcon() {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.findElement(By.id("btn-undo-layout-changes")).click();
+    }
+
+    @Then("^Key \"([^\"]*)\" will be restored to \"([^\"]*)\"$")
+    public void keyWillBeRestoredTo(String arg0, String arg1) throws Throwable {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        switch (arg0){
+            case "theme":
+                WebElement header = driver.findElement(By.id("header-layout"));
+                header.click();
+                WebElement input = header.findElement(By.xpath("//input[@class=\"select-dropdown dropdown-trigger\"]"));
+                Thread.sleep(1000);
+                input.click();
+                WebElement selectedTheme = input.findElement(By.xpath("//span[text()='" + arg1 + "']"));
+                Thread.sleep(1000);
+                WebElement listElementForSelectedTheme = selectedTheme.findElement(By.xpath("./.."));
+                Assertions.assertEquals("selected",listElementForSelectedTheme.getAttribute("class"));
+                this.themeOfDashupChangesTo(arg1);
+                break;
+            case "font":
+                //Not implemented yet
+                break;
+        }
     }
 }
