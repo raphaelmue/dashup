@@ -90,7 +90,6 @@ public class LoginRegisterStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         Assertions.assertEquals("http://localhost:9004/register", driver.getCurrentUrl());
         Assertions.assertNotNull(driver.findElement(By.id("text-field-register-email")));
-
     }
 
     //--------------- Registering ---------------\\
