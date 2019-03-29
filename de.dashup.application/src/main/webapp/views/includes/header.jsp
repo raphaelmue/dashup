@@ -6,7 +6,7 @@
 <header class="develop-toolbar mdc-toolbar mdc-toolbar--platform">
     <nav>
         <div class="nav-wrapper">
-            <a href=${fn:escapeXml(pageContext.request.contextPath)}/" class="brand-logo" style="font-size: 20px;">D A S H U P</a>
+            <a href="${fn:escapeXml(pageContext.request.contextPath)}/" class="brand-logo" style="font-size: 20px;">D A S H U P</a>
             <a href="#" data-target="mobile-nav-bar" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="${pageContext.request.contextPath}/" id="nav-item-dashboard"><fmt:message key="i18n.dashboard"/></a></li>

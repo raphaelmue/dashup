@@ -45,7 +45,8 @@ public class ChangeLayoutStepdefs {
 
     @When("^User clicks on dashboard icon$")
     public void userClicksOnDashboardIcon() {
-        //TODO
+        WebDriver driver = GeneralStepdefs.getDriver();
+        driver.findElement(By.className("brand-logo")).click();
     }
 
     @When("^User navigates back over the navigation bar$")
