@@ -19,7 +19,7 @@ public class ChangeLayoutStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         WebDriverWait wait = new WebDriverWait(driver, 3);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nav-item-settings")));
-        driver.findElement(By.id("nav-item-settings")).click();
+        driver.findElement(By.id("li-for-nav-item-settings")).click();
     }
 
     @Then("^Settings menu opens up$")
