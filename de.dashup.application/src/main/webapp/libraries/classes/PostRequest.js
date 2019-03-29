@@ -18,7 +18,7 @@ PostRequest.getInstance = function() {
 PostRequest.prototype = {
     constructor: PostRequest,
 
-    setHost: function(local) {
+    setHost(local) {
         PostRequest.URL = local ? PostRequest.URL_LOCAL : PostRequest.URL_DEPLOY;
     },
 
@@ -27,7 +27,7 @@ PostRequest.prototype = {
      * @param action action which will be performed on server side
      * @param data parameters of action
      */
-    make: function(action, data) {
+    make(action, data) {
         let htmlForm = "<form id=\"submission-form\" method=\"post\" action=" + PostRequest.URL + action + ">";
 
         jQuery.each(data, function(key, val) {
