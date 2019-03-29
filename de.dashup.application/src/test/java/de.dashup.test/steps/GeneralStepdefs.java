@@ -41,7 +41,11 @@ public class GeneralStepdefs extends SpringBootBase {
     public void setupDBForTesting() throws SQLException {
         //change param of setHost to true if you need to test on local DB
         Database.setHost(false);
-        Database.setDbName(Database.DatabaseName.TEST);
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            Database.setDbName(Database.DatabaseName.TEST);
+        } else {
+            Database.setDbName(Database.DatabaseName.JENKINS);
+        }
         database = Database.getInstance();
         database.clearDatabase();
         String salt = "VQoX3kxwjX3gOOY1Jixk)Dc$0y$e4B!9";
