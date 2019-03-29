@@ -57,7 +57,7 @@ public class LayoutModeController {
             @RequestBody DashupPanelStructure dps,
             HttpServletRequest request, HttpServletResponse response, Model model) throws SQLException {
         User user = (User) this.localStorage.readObjectFromSession(request, "user");
-        if (user == null) return new ResponseEnity(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
+        if (user == null) return new ResponseEntity(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
 
         dps.getSections().sort(Comparator.comparingInt(DashupSectionStructure::getSectionOrder));
         Iterator<DashupSectionStructure> iterator = dps.getSections().iterator();
