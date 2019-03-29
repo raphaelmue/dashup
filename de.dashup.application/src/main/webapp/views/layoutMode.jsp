@@ -11,6 +11,5 @@
                 <h3><fmt:message key="i18n.layoutMode" /></h3>
             </div>
         </div>
-    <script src="./../libraries/dragdrop.js"></script>
     </body>
 </html>
