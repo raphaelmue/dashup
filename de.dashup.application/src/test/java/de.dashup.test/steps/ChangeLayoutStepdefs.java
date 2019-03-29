@@ -44,7 +44,12 @@ public class ChangeLayoutStepdefs {
     @Given("^User is located on settings menu$")
     public void userIsLocatedOnSettingsMenu() {
         WebDriver driver = GeneralStepdefs.getDriver();
-        driver.findElement(By.id("nav-item-settings")).click();
+        try {
+            driver.findElement(By.id("li-for-nav-item-settings")).click();
+        }catch (ElementNotInteractableException e){
+            driver.findElement(By.className("sidenav-trigger")).click();
+            driver.findElement(By.id("li-for-nav-item-settings-sidenav")).click();
+        }
         Assertions.assertEquals("dashup", driver.getTitle());
         Assertions.assertEquals("http://localhost:9004/settings/", driver.getCurrentUrl());
         WebElement element = driver.findElement(By.id("nav-item-settings"));
