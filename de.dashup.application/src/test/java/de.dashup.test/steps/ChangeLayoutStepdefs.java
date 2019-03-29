@@ -23,6 +23,7 @@ public class ChangeLayoutStepdefs {
         try {
             driver.findElement(By.id("li-for-nav-item-settings")).click();
         }catch (ElementNotInteractableException e){
+            //fallback for firefox
             driver.findElement(By.className("sidenav-trigger")).click();
             driver.findElement(By.id("li-for-nav-item-settings-sidenav")).click();
         }
@@ -47,6 +48,7 @@ public class ChangeLayoutStepdefs {
         try {
             driver.findElement(By.id("li-for-nav-item-settings")).click();
         }catch (ElementNotInteractableException e){
+            //fallback for firefox
             driver.findElement(By.className("sidenav-trigger")).click();
             driver.findElement(By.id("li-for-nav-item-settings-sidenav")).click();
         }
@@ -142,7 +144,13 @@ public class ChangeLayoutStepdefs {
     @Given("^User has made a change, key \"([^\"]*)\" was changed from \"([^\"]*)\" to \"([^\"]*)\"$")
     public void userHasMadeAChangeKeyWasChangedFromTo(String arg0, String arg1, String arg2) throws Throwable {
         WebDriver driver = GeneralStepdefs.getDriver();
-        driver.findElement(By.id("nav-item-settings")).click();
+        try {
+            driver.findElement(By.id("li-for-nav-item-settings")).click();
+        }catch (ElementNotInteractableException e){
+            //fallback for firefox
+            driver.findElement(By.className("sidenav-trigger")).click();
+            driver.findElement(By.id("li-for-nav-item-settings-sidenav")).click();
+        }
         switch (arg0) {
             case "theme":
                 this.userChangesThemeTo(arg1);
