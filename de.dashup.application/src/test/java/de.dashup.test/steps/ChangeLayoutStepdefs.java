@@ -3,6 +3,7 @@ package de.dashup.test.steps;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import de.dashup.application.local.format.I18N;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
@@ -86,7 +87,7 @@ public class ChangeLayoutStepdefs {
 
     //--------------- Themes ---------------\\
     @When("^User changes theme to \"([^\"]*)\"$")
-    public void userChangesThemeTo(String arg0) throws Throwable {
+    public void userChangesThemeTo(String arg0) throws InterruptedException {
         WebDriver driver = GeneralStepdefs.getDriver();
         WebElement header = driver.findElement(By.id("header-layout"));
         header.click();
@@ -97,6 +98,11 @@ public class ChangeLayoutStepdefs {
         Thread.sleep(1000);
         selectedTheme.click();
         driver.findElement(By.id("save-layout-changes")).click();
+        Thread.sleep(1000);
+        WebElement toast = driver.findElement(By.className("toast"));
+        Assertions.assertNotNull(toast);
+        Assertions.assertEquals(I18N.get("i18n.successChangedLayout"), toast.getText());
+        Assertions.assertEquals("http://localhost:9004/settings/#", driver.getCurrentUrl());
     }
 
     @Then("^Theme of dashup changes to \"([^\"]*)\"$")
@@ -126,6 +132,11 @@ public class ChangeLayoutStepdefs {
         WebElement input = driver.findElement(By.id("text-field-background-image"));
         input.sendKeys(arg0);
         driver.findElement(By.id("save-layout-changes")).click();
+        Thread.sleep(1000);
+        WebElement toast = driver.findElement(By.className("toast"));
+        Assertions.assertNotNull(toast);
+        Assertions.assertEquals(I18N.get("i18n.successChangedLayout"), toast.getText());
+        Assertions.assertEquals("http://localhost:9004/settings/#", driver.getCurrentUrl());
         driver.findElement(By.linkText("dashup")).click();
     }
 
@@ -170,9 +181,14 @@ public class ChangeLayoutStepdefs {
     }
 
     @When("^User clicks on abandon icon$")
-    public void userClicksOnAbandonIcon() {
+    public void userClicksOnAbandonIcon() throws InterruptedException {
         WebDriver driver = GeneralStepdefs.getDriver();
         driver.findElement(By.id("btn-undo-layout-changes")).click();
+        Thread.sleep(1000);
+        WebElement toast = driver.findElement(By.className("toast"));
+        Assertions.assertNotNull(toast);
+        Assertions.assertEquals(I18N.get("i18n.undoComplete"), toast.getText());
+        Assertions.assertEquals("http://localhost:9004/settings/#", driver.getCurrentUrl());
     }
 
     @Then("^Key \"([^\"]*)\" will be restored to \"([^\"]*)\"$")

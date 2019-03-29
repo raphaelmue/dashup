@@ -137,8 +137,9 @@ public class LoginRegisterStepdefs {
     }
 
     @Then("^Registration error message is displayed stating that e-mail is invalid$")
-    public void registrationErrorMessageIsDisplayedStatingThatEMailIsInvalid() {
+    public void registrationErrorMessageIsDisplayedStatingThatEMailIsInvalid() throws InterruptedException {
         WebDriver driver = GeneralStepdefs.getDriver();
+        Thread.sleep(1000);
         WebElement element = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(element);
         Assertions.assertEquals("The email is already registered.", element.getText());
