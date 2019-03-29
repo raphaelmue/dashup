@@ -84,9 +84,14 @@ public class CucumberHooks {
         GeneralStepdefs.setDriver(driver);
     }
 
-    @After
+    @After(order = 1)
     public void doTearDown() {
         GeneralStepdefs.getDriver().quit();
+    }
+
+    @After(order = 2)
+    public void clearDatabase() throws SQLException{
+        GeneralStepdefs.getDatabase().clearDatabase();
     }
 
     private WebDriver setUpChromeDriver() {
