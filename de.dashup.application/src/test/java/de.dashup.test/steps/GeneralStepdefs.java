@@ -3,24 +3,10 @@ package de.dashup.test.steps;
 import cucumber.api.java.en.Given;
 import de.dashup.model.db.Database;
 import de.dashup.test.SpringBootBase;
-import de.dashup.test.utils.DriverUtil;
-import de.dashup.util.string.Hash;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
 
 @Ignore
 public class GeneralStepdefs extends SpringBootBase {
@@ -44,11 +30,6 @@ public class GeneralStepdefs extends SpringBootBase {
 
     public static Database getDatabase() {
         return database;
-    }
-
-    @Given("^User is registered for dashup$")
-    public void userIsRegisteredForDashup() throws SQLException, IOException {
-
     }
 
     @Given("^User is located on login page$")

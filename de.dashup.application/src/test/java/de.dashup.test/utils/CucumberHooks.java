@@ -85,7 +85,7 @@ public class CucumberHooks {
     }
 
     @After
-    public void doTearDown(){
+    public void doTearDown() {
         GeneralStepdefs.getDriver().quit();
     }
 
