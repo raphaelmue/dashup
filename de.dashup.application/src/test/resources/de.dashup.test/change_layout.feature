@@ -73,7 +73,6 @@ Given User is located on login page
     Then Key "<settings>" will be restored to "<latestValue>"
 
     Examples:
-    | settings | latestValue | newValue      |
-  #--------------- Not implemented yet ---------------#
-  #  | font     | Lora        | Inconsolata   |
-    | theme    | Blue Sky    | White Diamond |
+    | settings      | latestValue | newValue      |
+    | theme         | Blue Sky    | White Diamond |
+    | background    |             | https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg|

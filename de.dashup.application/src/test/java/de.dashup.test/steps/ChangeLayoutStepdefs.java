@@ -174,7 +174,7 @@ public class ChangeLayoutStepdefs {
                 Thread.sleep(1000);
                 selectedTheme.click();
                 break;
-            case "font":
+            case "background":
                 //Not implemented yet
                 break;
             default:
@@ -210,7 +210,7 @@ public class ChangeLayoutStepdefs {
                 Assertions.assertEquals("selected", listElementForSelectedTheme.getAttribute("class"));
                 this.themeOfDashupChangesTo(arg1);
                 break;
-            case "font":
+            case "background":
                 //Not implemented yet
                 break;
             default:
