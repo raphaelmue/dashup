@@ -6,8 +6,7 @@ Feature: Change Layout
 
 
 Background: Authenticated
-Given User is registered for dashup
-  And User is located on login page
+Given User is located on login page
   When User submits e-mail and password
   Then User is logged in
 
