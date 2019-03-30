@@ -190,12 +190,12 @@ These settings can be changed in the <i>Settings</i> menu.
 ### 3.2.5 Workbench
 As each user can create custom widgets, the extent of usage and functionality is up to the user himself. Note that users 
 can only take use of dashup web components to build own custom widgets. Any program logic must be hosted as an external 
-API offering RESTful services. A user (developer role) has the possibility to connect such an API to his self-developed 
-widget in order to fetch data to display on the widget or to run server-side program logic. Therefore information like 
-URL, parameters and credentials have to be entered by the user. Before the API can be added, testing the connection is 
-necessary. 
-(Use Case: <a href="../ucs/workbench/add_api/UCS_add_api.md">Add API</a>)
-After the user created his widget, he has the possibility to publish the widget to the dashup marketplace.
+API offering RESTful services. A user has the possibility to connect such an API to the provided dashup web components 
+in order to fetch data to display on the widget or to run server-side program logic. After the user created his widget, 
+he has the possibility to publish the widget to the dashup marketplace. Therefore he needs to provide several metadata 
+including widget name, short description, overview text, widget category and at least one tag as well as a username in 
+the account settings menu. Furthermore the user can add his own widget to his central dashboard independent from having 
+it published. If users wish to delete a custom widget, it gets deleted from the marketplace as well, if published.
 
 ## 3.3 Usability
 Dashups goal is it to simplify the usage of complex applications by offering (custom) widgets, which restrict the 

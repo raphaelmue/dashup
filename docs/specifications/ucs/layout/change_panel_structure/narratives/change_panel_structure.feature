@@ -5,9 +5,9 @@ Feature: Change Panel Structure
   In order to design dashup the way I want
 
   Background: Authenticated
-  Given User is located on login page
-  When User submits e-mail and password
-  Then User is logged in
+    Given User is located on login page
+    When User submits e-mail and password
+    Then User is logged in
 
     Scenario: Enable edit mode
       Given User is located on the central dashboard
@@ -47,7 +47,7 @@ Feature: Change Panel Structure
       When User clicks on size icon
       Then Size menu will pop up containing the three options small, medium and large
       When User selects menu entry "<entry>"
-      Then panel will be resized to "<entry>"
+      Then Panel will be resized to "<entry>"
 
       Examples:
         | entry  |

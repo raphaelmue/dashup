@@ -10,7 +10,7 @@ dashup - Use Case Specification: Layout - Change Layout
 | 09/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
 | 26/03/2019 | 2.1     | Removed font customization and picture upload                          | Felix Hausberger |
 
-# Table of Contents
+# Table Of Contents
 
 - [Change Layout - Brief Description](#1-change-layout---brief-description) 
 - [Flow Of Events](#2-flow-of-events)
@@ -20,15 +20,15 @@ dashup - Use Case Specification: Layout - Change Layout
 - [Preconditions](#4-preconditions)
     - [System State](#41-system-state)
 - [Postconditions](#5-postconditions) 
-    - [Save changed data](#51-save-changed-data)
-    - [Discard changed data](#52-discard-changed-data)
+    - [Save Changed data](#51-save-changed-data)
+    - [Discard Changed Data](#52-discard-changed-data)
 - [Extension Points](#6-extension-points)
  
 # 1. Change Layout - Brief Description
 In the use case _change layout_ the user can change the layout dashup by choosing a theme and background image for the 
 central dashboard. These settings can be changed in the <i>Settings</i> menu.  
 
-# 2. Flow of Events
+# 2. Flow Of Events
 
 ## 2.1 Basic Flow
 
@@ -70,7 +70,7 @@ The user has to be signed in and must have navigated to the settings menu.
 After the user has changed the layout settings and pressed the confirm icon, the data has to be stored. This is necessary
 to get a persistent change.
 
-## 5.2 Discard changed data
+## 5.2 Discard Changed Data
 If the user leaves dashup before saving the changes, the old settings will be restored.
 
 #  6. Extension Points
