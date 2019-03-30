@@ -177,6 +177,8 @@ public class ChangeLayoutStepdefs {
             case "font":
                 //Not implemented yet
                 break;
+            default:
+                throw new IllegalArgumentException("The argument " + arg0 + " is not expected in this test!");
         }
     }
 
