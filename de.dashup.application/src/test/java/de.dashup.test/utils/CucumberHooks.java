@@ -13,7 +13,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -23,14 +22,13 @@ import java.util.Properties;
 
 public class CucumberHooks {
     private WebDriver driver;
-    private Database database;
 
     @Before(order = 1)
     public void doDatabaseSetup() throws SQLException {
         //change param of setHost to true if you need to test on local DB
         Database.setHost(false);
         Database.setDbName(Database.DatabaseName.TEST);
-        database = Database.getInstance();
+        Database database = Database.getInstance();
         database.clearDatabase();
         String salt = "VQoX3kxwjX3gOOY1Jixk)Dc$0y$e4B!9";
         String hashedPassword = Hash.create("password", salt);
@@ -77,6 +75,8 @@ public class CucumberHooks {
                 case "firefox":
                     driver = this.setUpFirefoxDriver();
                     break;
+                default:
+                    throw new IllegalArgumentException("The argument " + name + " was read from properties, but is not expected!");
             }
         } else {
             driver = this.setUpChromeDriver();
