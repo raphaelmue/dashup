@@ -27,6 +27,7 @@ Feature: Change Layout
   Scenario Outline: Customize theming
     Given User is located on settings menu
     When User changes theme to '<themes>'
+    And User clicks on submit icon for layout settings
     Then Theme of dashup changes to '<themes>'
 
     Examples:
@@ -40,7 +41,8 @@ Feature: Change Layout
   Scenario: Set background image
     Given User is located on settings menu
     When User sets background image URL to 'https://www.wallpaper.com/mountains.png'
-    Then Picture provided by URL is displayed in image preview
+    And User clicks on submit icon for layout settings
+    Then Picture provided by URL is displayed on central dashboard
 
   Scenario Outline: Undo changes
     Given User has made a change, key "<settings>" was changed from "<latestValue>" to "<newValue>"

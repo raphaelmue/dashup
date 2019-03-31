@@ -6,7 +6,7 @@ dashup - Use Case Specification: Login / Register
 
 | Date       | Version | Description                                                            | Author           |
 |------------|---------|------------------------------------------------------------------------|------------------|
-| 11/29/2018 | 1.0     | Initial ucs with description, activity diagram and screen flow diagram | Raphael Müßeler  |
+| 29/11/2018 | 1.0     | Initial ucs with description, activity diagram and screen flow diagram | Raphael Müßeler  |
 | 17/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
 | 26/03/2019 | 2.1     | Removed authentication e-mail                                          | Felix Hausberger |
 

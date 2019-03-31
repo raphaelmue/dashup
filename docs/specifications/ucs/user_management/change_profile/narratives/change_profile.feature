@@ -84,6 +84,13 @@ Feature: Change Profile
     And User clicks on submit icon for personal information
     Then Biography changes to 'My cool biography'
 
+  Scenario: Change profile picture
+    Given User is located on settings menu
+    When User clicks on image upload
+    And User uploads an image
+    And User clicks on submit icon for personal information
+    Then Profile picture has changed
+
   Scenario: Change language
     Given User is located on settings menu
     When User clicks on edit icon for other information

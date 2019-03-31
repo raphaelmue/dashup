@@ -89,7 +89,7 @@ There must be at least one widget available to use the marketplace.
 ## 4.3 Metadata Provided For Each Widget
 To properly display information about a widget, metadata such as publisher, category etc. must be provided. Furthermore 
 the publisher must have given a detailed description about the widget to display it on the main menu in the marketplace. 
-Besides a description, the widget must be associated with a category and if possible with tags.
+Besides a description, the widget must be associated with a category and at least one tag.
 
 # 5. Postconditions
 

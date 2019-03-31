@@ -49,8 +49,7 @@ N/A
 All layout adaption must be compliant to our global design policies of using the new Google Material UI design. After 
 having changed a layout setting, the view should get rerendered, so that the user can have an impression of the new 
 layout. If the user likes the current status, he can activate the changes using the confirm icon or reset the changes 
-with the abandon icon. As the background image will only be set to the central dashboard, an image preview will be 
-rendered beneath the layout settings section.
+with the abandon icon.
 
 Following five themes are supported:
 - Blue Sky: Light and happy design in blue (default)
@@ -67,8 +66,8 @@ The user has to be signed in and must have navigated to the settings menu.
 #  5. Postconditions
 
 ## 5.1 Save Changed Data
-After the user has changed the layout settings and pressed the confirm icon, the data has to be stored. This is necessary
-to get a persistent change.
+After the user has changed the layout settings and pressed the confirm icon, the data has to be stored. This is 
+necessary to get a persistent change.
 
 ## 5.2 Discard Changed Data
 If the user leaves dashup before saving the changes, the old settings will be restored.
@@ -78,4 +77,5 @@ If enough time is left after having implemented all use cases, maybe a separatio
 layout settings could be implemented. 
 
 Furthermore an adaption of fonts by using predefined font types could be considered as well as an image upload instead 
-of providing an URL.
+of providing an URL. Previewing the image in the layout settings menu in order not to navigate back to the central 
+dashboard would also be a nice extension.
