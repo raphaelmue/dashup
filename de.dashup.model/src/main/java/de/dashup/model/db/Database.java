@@ -83,8 +83,9 @@ public class Database {
                     return TEST;
                 case "prod":
                     return PROD;
+                default:
+                    return null;
             }
-            return null;
         }
     }
 

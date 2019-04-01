@@ -115,8 +115,9 @@ you the ultimate tool to get back on track again.
 Dashup helps you to get through daily tasks easier by providing various widgets for typical private productivity usage 
 scenarios on a central platform. Design your platform according to individual needs, take use of a wide range of dashup-
 widgets from our store or create your own productivity widget and add external APIs to feed it with data to evaluate. 
-You can even publish your widget to a broad community. Dashup saves you from spending too much time on analyzing data or 
-using complex applications. You can take use of each widget restricted to the essential set of features on one central 
+This means dashup could as well be used as a central platform to consume or administrate own web services. You can even 
+publish your widget to a broad community. Dashup saves you from spending too much time on analyzing data or using 
+complex applications. You can take use of each widget restricted to the essential set of features on one central 
 platform, thus leading to more efficiency. Each widget will be displayed as its own panel according to global design 
 policies on the central dashboard. 
 
@@ -150,10 +151,11 @@ Each panel in a section contains a widget used for data visualization and user i
 your central dashboard by for instance changing the layout or the order of sections and panels on the dashboard. To 
 change the layout, navigate to the <i>Settings</i> menu. Changing the order of sections and panels can be done directly 
 in the central dashboard. Each widget in a panel is a web component and can itself be built with web components. For 
-a detailed specification for all available web components please see the extra <a href="../dashup_web_components">dashup 
-web components</a> specifications. Besides you can also manage you personal profile settings in the <i>Settings</i> menu 
-or navigate to the dashup marketplace by using the <i>Marketplace</i> menu. If users like to create and publish own 
-widgets to dashup, they can take use of dashup web components in the <i>Workbench</i>. 
+a detailed specification for all available web components please see the extra <a href="../ucs/widgets/components">
+dashup web components</a> specifications. Besides you can also manage you personal profile settings in the 
+<i>Settings</i> menu or navigate to the dashup marketplace by using the <i>Marketplace</i> menu in order to add new 
+widgets to your central dashboard. If users like to create and publish own widgets to dashup, they can take use of 
+dashup web components in the <i>Workbench</i>. 
 
 ### 3.2.2 Marketplace
 In the marketplace all available widgets are offered to you. You can simply search, rate and comment on widgets. To find 
@@ -190,12 +192,23 @@ These settings can be changed in the <i>Settings</i> menu.
 ### 3.2.5 Workbench
 As each user can create custom widgets, the extent of usage and functionality is up to the user himself. Note that users 
 can only take use of dashup web components to build own custom widgets. Any program logic must be hosted as an external 
-API offering RESTful services. A user (developer role) has the possibility to connect such an API to his self-developed 
-widget in order to fetch data to display on the widget or to run server-side program logic. Therefore information like 
-URL, parameters and credentials have to be entered by the user. Before the API can be added, testing the connection is 
-necessary. 
-(Use Case: <a href="../ucs/workbench/add_api/UCS_add_api.md">Add API</a>)
-After the user created his widget, he has the possibility to publish the widget to the dashup marketplace.
+API offering RESTful services. A user has the possibility to connect such an API to the provided dashup web components 
+in order to fetch data to display on the widget or to run server-side program logic. After the user created his widget, 
+he has the possibility to publish the widget to the dashup marketplace. Therefore he needs to provide several metadata 
+including widget name, short description, overview text, widget category and at least one tag as well as a username in 
+the account settings menu. Furthermore the user can add his own widget to his central dashboard independent from having 
+it published. If users wish to delete a custom widget, it gets deleted from the marketplace as well, if published.
+(Use Case: <a href="../ucs/workbench/UCS_workbench.md">Workbench</a>)
+
+### 3.2.6 Widgets
+Widgets describe small components, that represent the main use case of dashup. They encapsulate functionality in a small 
+unit, but are only responsible for data visualization and user interaction. Any logic related to data processing behind 
+a widget is outsourced to an external API. The API itself is hosted on external servers and is not part of the dashup 
+software. This idea makes it possible that users can create own widgets in dashup to connect to own business logic. With 
+a variety of <a href="../ucs/widgets/components">dashup web components</a> developing data visualization units or user 
+interaction interfaces has never been that easy. Furthermore the widgets themselves are built as web components making 
+them reusable and fast.
+(Use Case: <a href="../ucs/widgets/widget/UCS_widget.md">Widget</a>)
 
 ## 3.3 Usability
 Dashups goal is it to simplify the usage of complex applications by offering (custom) widgets, which restrict the 
@@ -290,7 +303,7 @@ Find the list of used developmental tools below:
 - Balsamiq: UI mockups
 
 ### 3.8.4 Architectural Constraints
-The project must be based on the MVC architecture. Therefore the Spring MVC framework will be in use.  Furthermore it 
+The project must be based on the MVC architecture. Therefore the Spring MVC framework will be in use. Furthermore it 
 should not be possible to upload executable code to dashup servers. 
 
 ## 3.9 Purchased Components
@@ -311,14 +324,15 @@ world wide web.
 
 ### 3.10.2 Software Interfaces
 The dashup application runs in a web browser. We will try to make it work in as many different web browsers as possible. 
-As dashup is published under the BSD 3-Clause license and open source, every web component of dashup can be cloned from the 
-GitHub repo. To see their interfaces have a look at their <a href="../dashup_web_components">specifications</a>.
+As dashup is published under the BSD 3-Clause license and open source, every web component of dashup can be cloned from 
+the GitHub repository. To see their interfaces have a look at their 
+<a href="../ucs/widgets/components">specifications</a>.
 
 ### 3.10.3 Communications Interfaces
 The web application should communicate with the Java backend and all embedded external APIs by a secured HTTP connection 
 on Port 443. Requests to external APIs should be asynchronous to increase performance. Each external API should be 
-designed according to the RESTful principles. Information on routing endpoints will be added to the specification 
-later on. For each request to the dashup backend the user must be authenticated.
+designed according to the RESTful principles. Information on internal endpoints for default dashup widgets will be added 
+to the specification later on. For each request to the dashup backend the user must be authenticated.
 
 ## 3.11 Licensing Requirements
 Dashup is published under the BSD 3-Clause lincense. BSD 3-Clause is a permissive license similar to the BSD 2-Clause 

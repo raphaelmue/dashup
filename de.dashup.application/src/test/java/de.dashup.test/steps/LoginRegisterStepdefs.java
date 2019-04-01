@@ -1,10 +1,10 @@
 package de.dashup.test.steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import de.dashup.application.local.format.I18N;
 import de.dashup.model.db.Database;
 import de.dashup.util.string.Hash;
 import org.junit.jupiter.api.Assertions;
@@ -67,7 +67,6 @@ public class LoginRegisterStepdefs {
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
         Assertions.assertEquals("active", parent.getAttribute("class"));
-        driver.quit();
     }
 
     @Then("^Login error message is displayed$")
@@ -77,7 +76,6 @@ public class LoginRegisterStepdefs {
         Assertions.assertNotNull(element);
         Assertions.assertEquals("Your credentials are invalid!", element.getText());
         Assertions.assertEquals("http://localhost:9004/login/#", driver.getCurrentUrl());
-        driver.quit();
     }
 
     //--------------- Navigation for registering ---------------\\
@@ -92,7 +90,6 @@ public class LoginRegisterStepdefs {
         WebDriver driver = GeneralStepdefs.getDriver();
         Assertions.assertEquals("http://localhost:9004/register", driver.getCurrentUrl());
         Assertions.assertNotNull(driver.findElement(By.id("text-field-register-email")));
-        driver.quit();
     }
 
     //--------------- Registering ---------------\\
@@ -136,6 +133,14 @@ public class LoginRegisterStepdefs {
         driver.findElement(By.id("text-field-register-repeat-password")).sendKeys(arg0);
     }
 
+    @Then("^Registration error message is displayed stating that password is invalid$")
+    public void registrationErrorMessageIsDisplayedStatingThatPasswordIsInvalid() {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        WebElement element = driver.findElement(By.className("toast"));
+        Assertions.assertNotNull(element);
+        Assertions.assertEquals(I18N.get("i18n.passwordLength"), element.getText());
+    }
+
     @Then("^Registration error message is displayed stating that e-mail is invalid$")
     public void registrationErrorMessageIsDisplayedStatingThatEMailIsInvalid() {
         WebDriver driver = GeneralStepdefs.getDriver();
@@ -143,7 +148,6 @@ public class LoginRegisterStepdefs {
         Assertions.assertNotNull(element);
         Assertions.assertEquals("The email is already registered.", element.getText());
         Assertions.assertEquals("http://localhost:9004/register/#", driver.getCurrentUrl());
-        driver.quit();
     }
 
     @Then("^Registration error message is displayed stating that passwords are not matching$")
@@ -153,7 +157,6 @@ public class LoginRegisterStepdefs {
         Assertions.assertNotNull(element);
         Assertions.assertEquals("Your passwords are not matching.", element.getText());
         Assertions.assertEquals("http://localhost:9004/register", driver.getCurrentUrl());
-        driver.quit();
     }
 
     @And("^User presses start button$")

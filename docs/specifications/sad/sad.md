@@ -1,4 +1,12 @@
 # Software Architecture Document
+============================================
+### Version 1.0
+
+# Revision history
+
+| Date       | Version | Description                                          | Author           |
+|------------|---------|------------------------------------------------------|------------------|
+| 15/11/2018 | 1.0     | Initial Documentation                                | Raphael Müßeler  |
 
 # Table of Contents
 - [Introduction](#1-introduction)

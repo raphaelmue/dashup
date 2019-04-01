@@ -1,4 +1,5 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="i18n" scope="session"/>
@@ -8,7 +9,7 @@
 <header class="develop-toolbar mdc-toolbar mdc-toolbar--platform">
     <nav>
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo" style="font-size: 20px;">D A S H U P</a>
+            <a href="${fn:escapeXml(pageContext.request.contextPath)}//" class="brand-logo" style="font-size: 20px;">D A S H U P</a>
         </div>
     </nav>
 </header>
@@ -16,7 +17,7 @@
     <div class="row">
         <div class="col m6 offset-m3 s10 offset-s1">
             <h3>
-                <a href="${pageContext.request.contextPath}/login" style="color: var(--color-black);">
+                <a href="${fn:escapeXml(pageContext.request.contextPath)}/login" style="color: var(--color-black);">
                     <i class="fas fa-arrow-left"></i>
                 </a>
                 <fmt:message key="i18n.registering"/>
@@ -83,12 +84,19 @@
                 name = $("#text-field-register-name").val()
             if (email !== "" && name !== "") {
                 if (password === repeatPassword && password !== "") {
-                    PostRequest.getInstance().make("handleRegisterUser", {
-                        email: $("#text-field-register-email").val(),
-                        password: password,
-                        repeatPassword: repeatPassword,
-                        userName: $("#text-field-register-name").val(),
-                    });
+                    if (password.length >= 8) {
+                        PostRequest.getInstance().make("handleRegisterUser", {
+                            email: $("#text-field-register-email").val(),
+                            password: password,
+                            repeatPassword: repeatPassword,
+                            userName: $("#text-field-register-name").val(),
+                        });
+                    } else {
+                        M.toast({
+                            html: "<fmt:message key="i18n.passwordLength" />",
+                            classes: "error"
+                        })
+                    }
                 } else if (password !== repeatPassword) {
                     M.toast({
                         html: "<fmt:message key="i18n.passwordsNotMatching"/>",

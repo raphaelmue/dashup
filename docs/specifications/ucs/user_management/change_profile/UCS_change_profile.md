@@ -10,7 +10,7 @@ dashup - Use Case Specification: Change Profile
 | 17/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
 | 17/03/2019 | 2.1     | Adapted process of setting a new password                              | Felix Hausberger |
 
-# Table of Contents
+# Table Of Contents
 
 - [Change Profile - Brief Description](#1-change-profile---brief-description) 
 - [Flow Of Events](#2-flow-of-events)
@@ -20,8 +20,8 @@ dashup - Use Case Specification: Change Profile
 - [Preconditions](#4-preconditions)
     - [System State](#41-system-state)
 - [Postconditions](#5-postconditions) 
-    - [Save changed data](#51-save-changed-data)
-    - [Discard changed data](#52-discard-changed-data)
+    - [Save Changed Data](#51-save-changed-data)
+    - [Discard Changed Data](#52-discard-changed-data)
 - [Extension Points](#6-extension-points)
 
 # 1. Change Profile - Brief Description
@@ -29,7 +29,7 @@ In the use case _edit profile_ users can adapt personal information like name, b
 and profile picture in the <i>Settings</i> menu. Furthermore the unique username, login credentials and language 
 settings are changeable. 
 
-# 2. Flow of Events
+# 2. Flow Of Events
 
 ## 2.1 Basic Flow
 
@@ -68,7 +68,7 @@ The user has to be signed in and must have navigated to the settings menu.
 After the user has changed the profile settings and pressed the confirm icon, the data has to be stored. This is 
 necessary to get a persistent change.
 
-## 5.2 Discard changed data
+## 5.2 Discard Changed Data
 If the user leaves dashup before saving the changes, the old settings will be restored.
 
 # 6. Extension Points
