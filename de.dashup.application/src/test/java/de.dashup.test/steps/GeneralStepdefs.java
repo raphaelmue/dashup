@@ -10,7 +10,6 @@ import org.openqa.selenium.WebDriver;
 
 @Ignore
 public class GeneralStepdefs extends SpringBootBase {
-
     private final static String LOGIN_URL = "http://localhost:9004/login";
 
     private static WebDriver driver;
@@ -30,6 +29,10 @@ public class GeneralStepdefs extends SpringBootBase {
 
     public static Database getDatabase() {
         return database;
+    }
+
+    public static String getLoginUrl() {
+        return LOGIN_URL;
     }
 
     @Given("^User is located on login page$")

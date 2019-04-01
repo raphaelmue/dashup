@@ -8,12 +8,11 @@ import de.dashup.application.local.format.I18N;
 import de.dashup.model.db.Database;
 import de.dashup.util.string.Hash;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Set;
 
 public class LoginRegisterStepdefs {
 
@@ -40,11 +39,16 @@ public class LoginRegisterStepdefs {
         driver.findElement(By.id("text-field-login-password")).sendKeys(arg0);
     }
 
-    @And("^User presses login button$")
-    public void userPressesLoginButton() {
+    @And("^User unchecks remember me option$")
+    public void userUnchecksRememberMeOption() {
         WebDriver driver = GeneralStepdefs.getDriver();
         //uncheck remember me box
         driver.findElement(By.id("label-remember-me-checkbox")).click();
+    }
+
+    @And("^User presses login button$")
+    public void userPressesLoginButton() {
+        WebDriver driver = GeneralStepdefs.getDriver();
         //click login button
         driver.findElement(By.id("btn-login-submit")).click();
     }
@@ -67,6 +71,15 @@ public class LoginRegisterStepdefs {
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
         Assertions.assertEquals("active", parent.getAttribute("class"));
+    }
+
+    @And("^User can close dashup and open it again without being logged out$")
+    public void userCanCloseDashupAndOpenItAgainWithoutBeingLoggedOut() {
+        WebDriver driver = GeneralStepdefs.getDriver();
+        ((JavascriptExecutor)driver).executeScript("window.open();");
+        Set<String> windows = driver.getWindowHandles();
+        driver.close();
+        Assertions.fail("TODO");
     }
 
     @Then("^Login error message is displayed$")
