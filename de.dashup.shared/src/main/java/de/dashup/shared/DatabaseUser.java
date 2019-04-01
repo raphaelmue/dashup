@@ -25,7 +25,7 @@ public class DatabaseUser implements Serializable, DatabaseObject {
         this.id = id;
     }
 
-    void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 

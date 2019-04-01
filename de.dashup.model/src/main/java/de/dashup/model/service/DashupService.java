@@ -234,8 +234,24 @@ public class DashupService {
             user.setPassword(newHashedPassword);
             user.setSalt(newSalt);
         } else {
-            throw new IllegalArgumentException("Passworts does not match");
+            throw new IllegalArgumentException("Passwords does not match");
         }
+    }
+
+    public void updateEmail(User user, String email) throws SQLException {
+        if (!Validator.validate(email, Validator.EMAIL_REGEX)) {
+            throw new IllegalArgumentException("Email is not valid.");
+        }
+
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", user.getId());
+
+        Map<String, Object> values = new HashMap<>();
+        values.put("email", email);
+
+        this.database.update(Database.Table.USERS, whereParameters, values);
+
+        user.setEmail(email);
     }
 
     public void updateNameAndSurname(User user, String newName, String newSurname) throws SQLException {

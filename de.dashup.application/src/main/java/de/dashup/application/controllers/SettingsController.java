@@ -32,6 +32,24 @@ public class SettingsController {
         });
     }
 
+    @RequestMapping("/changeEmail")
+    public String handleChangeEmail(@CookieValue(name = "token", required = false) String token,
+                                    @RequestParam(value = "email") String email,
+                                    HttpServletRequest request) throws SQLException {
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            try {
+                DashupService.getInstance().updateEmail(user, email);
+            } catch (IllegalArgumentException illegalArgumentException) {
+                return "redirect:/settings/#invalidEmail";
+            } catch (Exception exception) {
+                return "redirect:/settings/#generalError";
+            }
+            return "redirect:/settings/#changedEmail";
+        }
+        return "redirect:/login";
+    }
+
     @RequestMapping("/changeLanguage")
     public String handleChangeLanguage(@CookieValue(name = "token", required = false) String token,
                                        @RequestParam(value = "lang") String lang,
