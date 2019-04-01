@@ -175,7 +175,11 @@ public class ChangeLayoutStepdefs {
                 selectedTheme.click();
                 break;
             case "background":
-                //Not implemented yet
+                WebElement headerBackground = driver.findElement(By.id("header-layout"));
+                headerBackground.click();
+                Thread.sleep(1000);
+                WebElement backgroundInput = driver.findElement(By.id("text-field-background-image"));
+                backgroundInput.sendKeys(arg0);
                 break;
             default:
                 throw new IllegalArgumentException("The argument " + arg0 + " is not expected in this test!");
@@ -211,7 +215,12 @@ public class ChangeLayoutStepdefs {
                 this.themeOfDashupChangesTo(arg1);
                 break;
             case "background":
-                //Not implemented yet
+                driver.findElement(By.linkText("dashup")).click();
+                Thread.sleep(1000);
+                WebElement headTag = driver.findElement(By.tagName("head"));
+                WebElement styleTag = headTag.findElement(By.xpath(".//style"));
+                Thread.sleep(1000);
+                Assertions.assertTrue(styleTag.getAttribute("innerText").contains("url('')"));
                 break;
             default:
                 throw new IllegalArgumentException("The argument " + arg0 + " is not expected in this test!");
