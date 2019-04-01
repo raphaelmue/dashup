@@ -31,7 +31,7 @@ class DisplayComponent extends InputComponent {
      * Called when web component is shown on screen.
      */
     connectedCallback() {
-        this.setText();
+        super.connectedCallback();
     }
 
     get quantity() {

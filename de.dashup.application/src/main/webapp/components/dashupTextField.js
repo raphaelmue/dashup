@@ -20,7 +20,7 @@ class TextFieldComponent extends InputComponent {
             this.inputLabel.innerHTML = this.escapeHTML(this.getAttribute("label"));
         }
         if (this.hasAttribute("value")) {
-            this.input.innerHTML = this.escapeHTML(this.getAttribute("value"));
+            this.input.value = this.escapeHTML(this.getAttribute("value"));
         }
     }
 
@@ -29,7 +29,7 @@ class TextFieldComponent extends InputComponent {
      */
     connectedCallback() {
         // set text and label
-        this.setText();
+        super.connectedCallback();
         this.input.addEventListener("change", () => {
             this.value = this.input.value;
         });

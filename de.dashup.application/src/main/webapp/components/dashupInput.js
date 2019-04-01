@@ -27,6 +27,10 @@ class InputComponent extends DashupComponent {
         }
     }
 
+    connectedCallback() {
+        this.setText();
+    }
+
     /**
      * Implementation required
      */

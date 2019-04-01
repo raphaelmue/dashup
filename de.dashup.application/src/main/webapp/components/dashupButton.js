@@ -42,30 +42,28 @@ class ButtonComponent extends DashupComponent {
      * @private
      */
     _callAPI() {
-        let url = this._createURLWithParameters(),
-            that = this;
+        let url = this._createURLWithParameters();
         fetch(url).then(function (response) {
             return response.json();
-        }).then(function (response) {
-            that.getAttribute("consumers").split(" ").forEach(function (consumer) {
+        }).then((function (response) {
+            this.getAttribute("consumers").split(" ").forEach((function (consumer) {
                 let consumerElement;
                 if (consumer.split(".").length === 2) {
                     let consumerContainer = consumer.split(".")[0],
                         consumerId = consumer.split(".")[1];
 
-                    consumerElement = that.getRootNode().querySelector("#" + consumerContainer)
+                    consumerElement = this.getRootNode().querySelector("#" + consumerContainer)
                         .getShadowRoot().querySelector("#" + consumerId);
                 } else {
-                    consumerElement = that.getRootNode().querySelector("#" + consumer);
+                    consumerElement = this.getRootNode().querySelector("#" + consumer);
                 }
                 consumerElement.handleData(response);
-            });
-        });
+            }).bind(this));
+        }).bind(this));
     }
 
     _createURLWithParameters() {
-        let url,
-            that = this;
+        let url;
         if (this.hasAttribute("api-param")) {
             // append "?" if not exists
             url = this.api;
@@ -77,7 +75,7 @@ class ButtonComponent extends DashupComponent {
                     let parameterName = parameterIdPair.split(":")[0],
                         parameterId = parameterIdPair.split(":")[1];
 
-                    let parameterValue = that.getRootNode().querySelector("#" + parameterId).getAttribute("value");
+                    let parameterValue = this.getRootNode().querySelector("#" + parameterId).getAttribute("value");
                     if (parameterValue !== null) {
                         if (url.includes("?")) {
                             if (!(url.slice(-1) === ("?" || "&"))) {
@@ -88,7 +86,7 @@ class ButtonComponent extends DashupComponent {
                         }
                         url += parameterName + "=" + parameterValue;
                     }
-                });
+                }, this);
             }
         } else {
             url = this.api;
