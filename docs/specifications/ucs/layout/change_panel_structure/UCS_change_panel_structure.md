@@ -9,7 +9,7 @@ dashup - Use Case Specification: Layout - Change Panel Structure
 | 23/10/2018 | 1.0     | Initial ucs with description, activity diagram and screen flow diagram | Joshua Schulz    |
 | 17/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
 
-# Table of Contents
+# Table Of Contents
 
 - [Change Panel Structure - Brief Description](#1-change-panel-structure---brief-description) 
 - [Flow Of Events](#2-flow-of-events)
@@ -19,8 +19,8 @@ dashup - Use Case Specification: Layout - Change Panel Structure
 - [Preconditions](#4-preconditions)
     - [System State](#41-system-state)
 - [Postconditions](#5-postconditions) 
-    - [Save changed data](#51-save-changed-data)
-    - [Discard changed data](#52-discard-changed-data)
+    - [Save Changed Data](#51-save-changed-data)
+    - [Discard Changed Data](#52-discard-changed-data)
 - [Extension Points](#6-extension-points)
 
 # 1. Change Panel Structure - Brief Description
@@ -28,7 +28,7 @@ In the use case _change panel structure_ the platform should enable the user to 
 fill these sections with the desired panels. A rearrangement of sections as well as panels should be possible by drag 
 and drop on the central dashboard. Panels can be moved between sections and resized between small, medium or large size. 
 
-# 2. Flow of Events
+# 2. Flow Of Events
 
 ## 2.1 Basic Flow
 
@@ -68,11 +68,11 @@ The user has to be signed in and must have activated the edit mode.
 
 # 5. Postconditions
 
-## 5.1 Save changed data
+## 5.1 Save Changed Data
 After the user has personalized the central dashboard, the data has to be stored. This is necessary
 to get a persistent change. 
 
-## 5.2 Discard changed data
+## 5.2 Discard Changed Data
 If the user leaves dashup before saving the changes, the old settings will be restored.
 
 # 6. Extension Points

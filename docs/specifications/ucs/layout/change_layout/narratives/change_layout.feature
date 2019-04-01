@@ -4,7 +4,6 @@ Feature: Change Layout
   I want to customize the layout of dashup
   In order to design dashup the way I want
 
-
   Background: Authenticated
     Given User is located on login page
     When User submits e-mail and password
@@ -28,6 +27,7 @@ Feature: Change Layout
   Scenario Outline: Customize theming
     Given User is located on settings menu
     When User changes theme to "<themes>"
+    And User clicks on submit icon for layout settings
     Then Theme of dashup changes to "<themes>"
 
     Examples:
@@ -65,6 +65,7 @@ Feature: Change Layout
     Given User is located on settings menu
     When User provides the valid image URL "https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg"
     Then Picture with URL "https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg" is displayed as background image
+
 
   Scenario Outline: Undo changes
     Given User is located on settings menu

@@ -6,11 +6,11 @@ dashup - Use Case Specification: Login / Register
 
 | Date       | Version | Description                                                            | Author           |
 |------------|---------|------------------------------------------------------------------------|------------------|
-| 11/29/2018 | 1.0     | Initial ucs with description, activity diagram and screen flow diagram | Raphael Müßeler  |
+| 29/11/2018 | 1.0     | Initial ucs with description, activity diagram and screen flow diagram | Raphael Müßeler  |
 | 17/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
 | 26/03/2019 | 2.1     | Removed authentication e-mail                                          | Felix Hausberger |
 
-# Table of Contents
+# Table Of Contents
 
 - [Login / Register - Brief Description](#1-login--register---brief-description) 
 - [Flow Of Events](#2-flow-of-events)
@@ -18,21 +18,20 @@ dashup - Use Case Specification: Login / Register
     - [Alternative Flows](#22-alternative-flows)
 - [Special Requirements](#3-special-requirements)
 - [Preconditions](#4-preconditions)
-    - [Registered to log in](#41-registered-to-log-in)
+    - [Registered To Log In](#41-registered-to-log-in)
 - [Postconditions](#5-postconditions) 
     - [Save Changed Data](#51-save-changed-data) 
-    - [Navigated to central dashboard](#52-navigated-to-central-dashboard)
+    - [Navigated To Central Dashboard](#52-navigated-to-central-dashboard)
 - [Extension Points](#6-extension-points)
 
 # 1. Login / Register - Brief Description
-
 In the use case _login / register_ each user is referenced by a unique e-mail address. During registration users have to 
 provide a username (which is as well unique), e-mail address and password. The password has to be repeated correctly. To 
 log in users have to provide the password and e-mail address for their account and are directed to the central dashboard 
 if all credentials entered are correct. Browser cookies will store user sessions, making repeated login processes 
 redundant. 
 
-# 2. Flow of Events
+# 2. Flow Of Events
 
 ## 2.1 Basic Flow
 
@@ -64,7 +63,7 @@ information is not required during registration process.
 
 # 4. Preconditions
 
-## 4.1 Registered to log in
+## 4.1 Registered To Log In
 The user has to be registered before he can login in to dashup. 
 
 # 5. Postconditions
@@ -73,7 +72,7 @@ The user has to be registered before he can login in to dashup.
 After the user has submitted his account information, the information has to be stored. This is necessary
 to enable future logins. 
 
-## 5.2 Navigated to central dashboard
+## 5.2 Navigated To Central Dashboard
 After having registered or logged in to dashup the user should be automatically navigated to the central dashboard.
 
 # 6. Extension Points
