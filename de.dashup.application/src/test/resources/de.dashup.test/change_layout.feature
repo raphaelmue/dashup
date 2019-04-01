@@ -4,11 +4,10 @@ Feature: Change Layout
   I want to customize the layout of dashup
   In order to design dashup the way I want
 
-
-Background: Authenticated
-Given User is located on login page
-  When User submits e-mail and password
-  Then User is logged in
+  Background: Authenticated
+    Given User is located on login page
+    When User submits e-mail and password
+    Then User is logged in
 
   Scenario: Open settings menu
     Given User is located on central dashboard
@@ -28,15 +27,16 @@ Given User is located on login page
   Scenario Outline: Customize theming
     Given User is located on settings menu
     When User changes theme to "<themes>"
+    And User clicks on submit icon for layout settings
     Then Theme of dashup changes to "<themes>"
 
     Examples:
-    | themes        |
-    | Blue Sky      |
-    | Green Nature  |
-    | Red Love      |
-    | White Diamond |
-    | Black Night   |
+      | themes        |
+      | Blue Sky      |
+      | Green Nature  |
+      | Red Love      |
+      | White Diamond |
+      | Black Night   |
 
 #--------------- Not implemented yet ---------------#
 #  Scenario Outline: Customize font
@@ -45,26 +45,27 @@ Given User is located on login page
 #    Then Font of dashup changes to '<fonts>'
 
 #    Examples:
-#    | fonts        |
-#    | Roboto       |
-#    | Montserrat   |
-#    | Poppins      |
-#    | Lora         |
-#    | Sniglet      |
-#    | Inconsolata  |
-#    | Indie Flower |
-#    | Anton        |
-#    | Lobster      |
-#    | Pacifico     |
-#    | Cinzel       |
-#    | Fredoka One  |
-#    | Biblo        |
-#    | Orbitron     |
+#      | fonts        |
+#      | Roboto       |
+#      | Montserrat   |
+#      | Poppins      |
+#      | Lora         |
+#      | Sniglet      |
+#      | Inconsolata  |
+#      | Indie Flower |
+#      | Anton        |
+#      | Lobster      |
+#      | Pacifico     |
+#      | Cinzel       |
+#      | Fredoka One  |
+#      | Biblo        |
+#      | Orbitron     |
 
   Scenario: Set background image
     Given User is located on settings menu
     When User provides the valid image URL "https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg"
     Then Picture with URL "https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg" is displayed as background image
+
 
   Scenario Outline: Undo changes
     Given User is located on settings menu
@@ -73,6 +74,6 @@ Given User is located on login page
     Then Key "<settings>" will be restored to "<latestValue>"
 
     Examples:
-    | settings      | latestValue | newValue      |
-    | theme         | Blue Sky    | White Diamond |
-    | background    |             | https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg|
+      | settings      | latestValue | newValue      |
+      | theme         | Blue Sky    | White Diamond |
+      | background    |             | https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg|

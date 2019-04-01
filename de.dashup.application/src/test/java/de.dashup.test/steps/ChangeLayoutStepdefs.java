@@ -1,5 +1,6 @@
 package de.dashup.test.steps;
 
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -97,6 +98,11 @@ public class ChangeLayoutStepdefs {
         WebElement selectedTheme = input.findElement(By.xpath("//span[text()='" + arg0 + "']"));
         Thread.sleep(1000);
         selectedTheme.click();
+    }
+
+    @And("^User clicks on submit icon for layout settings$")
+    public void userClicksOnSubmitIconForLayoutSettings() throws InterruptedException {
+        WebDriver driver = GeneralStepdefs.getDriver();
         driver.findElement(By.id("save-layout-changes")).click();
         Thread.sleep(1000);
         WebElement toast = driver.findElement(By.className("toast"));
@@ -165,8 +171,10 @@ public class ChangeLayoutStepdefs {
         switch (arg0) {
             case "theme":
                 this.userChangesThemeTo(arg1);
+                this.userClicksOnSubmitIconForLayoutSettings();
                 WebElement header = driver.findElement(By.id("header-layout"));
                 header.click();
+                Thread.sleep(1000);
                 WebElement input = header.findElement(By.xpath("//input[@class=\"select-dropdown dropdown-trigger\"]"));
                 Thread.sleep(1000);
                 input.click();
