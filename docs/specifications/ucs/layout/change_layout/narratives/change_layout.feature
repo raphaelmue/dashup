@@ -6,8 +6,7 @@ Feature: Change Layout
 
 
   Background: Authenticated
-    Given User is registered for dashup
-    And User is located on login page
+    Given User is located on login page
     When User submits e-mail and password
     Then User is logged in
 
@@ -74,7 +73,6 @@ Feature: Change Layout
     Then Key "<settings>" will be restored to "<latestValue>"
 
     Examples:
-      | settings | latestValue | newValue      |
-  #--------------- Font not implemented yet ---------------#
-      | font     | Lora        | Inconsolata   |
-      | theme    | Blue Sky    | White Diamond |
+      | settings      | latestValue | newValue      |
+      | theme         | Blue Sky    | White Diamond |
+      | background    |             | https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg|
