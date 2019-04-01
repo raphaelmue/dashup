@@ -18,7 +18,7 @@
     <body>
         <jsp:include page="includes/header.jsp"/>
         <div class="container">
-            ${fn:escapeXml(content)}
+            ${content}
         </div>
 
         <a href="${pageContext.request.contextPath}/layoutMode/" class="btn-floating btn-large waves-effect waves-light"><i class="fas fa-edit"></i></a>
