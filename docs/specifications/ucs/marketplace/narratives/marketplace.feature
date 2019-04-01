@@ -15,9 +15,14 @@ Feature: Marketplace
     Then Marketplace menu opens up
     And Three sections "Recently uploaded", "Most popular" and "Best rating" are shown
 
-  Scenario: Navigate back to dashboard
+  Scenario: Navigate back to dashboard via dashboard icon
     Given User is located on marketplace menu
-    When User clicks on dashboard icon or navigates back over the navigation bar
+    When User clicks on dashboard icon
+    Then User will be directed back to central dashboard
+
+  Scenario: Navigate back to dashboard via navigation bar
+    Given User is located on marketplace menu
+    When User navigates back over the navigation bar
     Then User will be directed back to central dashboard
 
   Scenario Outline: Search widget
@@ -83,5 +88,5 @@ Feature: Marketplace
   Scenario: Add panel to dashup
     Given User is located on marketplace menu
     When User clicks on the add button
-    Then Widget will be added to a new section section of central dashboard at the top, named after the widget
+    Then Widget was added to a new section section of central dashboard at the top, named after the widget
     And Button to add widget is set to disabled in the marketplace

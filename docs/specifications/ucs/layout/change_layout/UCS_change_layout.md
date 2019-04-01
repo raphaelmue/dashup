@@ -10,7 +10,7 @@ dashup - Use Case Specification: Layout - Change Layout
 | 09/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
 | 26/03/2019 | 2.1     | Removed font customization and picture upload                          | Felix Hausberger |
 
-# Table of Contents
+# Table Of Contents
 
 - [Change Layout - Brief Description](#1-change-layout---brief-description) 
 - [Flow Of Events](#2-flow-of-events)
@@ -20,15 +20,15 @@ dashup - Use Case Specification: Layout - Change Layout
 - [Preconditions](#4-preconditions)
     - [System State](#41-system-state)
 - [Postconditions](#5-postconditions) 
-    - [Save changed data](#51-save-changed-data)
-    - [Discard changed data](#52-discard-changed-data)
+    - [Save Changed data](#51-save-changed-data)
+    - [Discard Changed Data](#52-discard-changed-data)
 - [Extension Points](#6-extension-points)
  
 # 1. Change Layout - Brief Description
 In the use case _change layout_ the user can change the layout dashup by choosing a theme and background image for the 
 central dashboard. These settings can be changed in the <i>Settings</i> menu.  
 
-# 2. Flow of Events
+# 2. Flow Of Events
 
 ## 2.1 Basic Flow
 
@@ -49,8 +49,7 @@ N/A
 All layout adaption must be compliant to our global design policies of using the new Google Material UI design. After 
 having changed a layout setting, the view should get rerendered, so that the user can have an impression of the new 
 layout. If the user likes the current status, he can activate the changes using the confirm icon or reset the changes 
-with the abandon icon. As the background image will only be set to the central dashboard, an image preview will be 
-rendered beneath the layout settings section.
+with the abandon icon.
 
 Following five themes are supported:
 - Blue Sky: Light and happy design in blue (default)
@@ -67,10 +66,10 @@ The user has to be signed in and must have navigated to the settings menu.
 #  5. Postconditions
 
 ## 5.1 Save Changed Data
-After the user has changed the layout settings and pressed the confirm icon, the data has to be stored. This is necessary
-to get a persistent change.
+After the user has changed the layout settings and pressed the confirm icon, the data has to be stored. This is 
+necessary to get a persistent change.
 
-## 5.2 Discard changed data
+## 5.2 Discard Changed Data
 If the user leaves dashup before saving the changes, the old settings will be restored.
 
 #  6. Extension Points
@@ -78,4 +77,5 @@ If enough time is left after having implemented all use cases, maybe a separatio
 layout settings could be implemented. 
 
 Furthermore an adaption of fonts by using predefined font types could be considered as well as an image upload instead 
-of providing an URL.
+of providing an URL. Previewing the image in the layout settings menu in order not to navigate back to the central 
+dashboard would also be a nice extension.

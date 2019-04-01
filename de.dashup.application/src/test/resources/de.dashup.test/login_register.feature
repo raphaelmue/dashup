@@ -4,9 +4,6 @@ Feature: Login / Register
   I want to login or register to dashup
   In order to use the dashup platform
 
-  Background: User is registered
-    Given User is registered for dashup
-
   Scenario: Successful login
     Given User is located on login page
     And User registered with e-mail "John.Doe@gmail.com" and password "password"
