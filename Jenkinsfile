@@ -16,14 +16,14 @@ pipeline {
         }
         stage('Unit testing') {
              steps {
-                sh 'mvn test --projects de.dashup.shared,de.dashup.util,de.dashup.model'
+                sh 'mvn test --projects de.dashup.shared,de.dashup.util,de.dashup.model -P codacy-coverage-report'
              }
         }
 
         stage('Testing in Chrome') {
             steps {
                 wrap([$class: 'Xvfb', additionalOptions: '', assignedLabels: '', autoDisplayName: true, debug: true, displayNameOffset: 0, installationName: 'Xvfb', parallelBuild: true, screen: '1024x758x24', timeout: 25]) {
-                    sh 'mvn -Dtesting=chrome test -pl de.dashup.application'
+                    sh 'mvn -Dtesting=chrome test -pl de.dashup.application -P codacy-coverage-report'
                 }
             }
         }

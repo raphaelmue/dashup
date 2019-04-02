@@ -76,4 +76,34 @@
             <version>20180813</version>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>codacy-coverage-report</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.gavinmogan</groupId>
+                        <artifactId>codacy-maven-plugin</artifactId>
+                        <version>1.0.3</version>
+                        <configuration>
+                            <apiToken>nC0ZOEc5FO4ZbfclS0fn</apiToken>
+                            <projectToken>f592e1c013d3405d9bbc773a4ffc8c95</projectToken>
+                            <coverageReportFile>${project.build.directory}/site/jacoco/jacoco.xml</coverageReportFile>
+                            <failOnMissingReportFile>false</failOnMissingReportFile>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>post-test</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>coverage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
