@@ -24,6 +24,15 @@ public class Panel extends DatabasePanel {
             return styleClass;
         }
 
+        public static Size getSizeByName(String name) {
+            for (Size size : values()) {
+                if (size.getName().equals(name)) {
+                    return size;
+                }
+            }
+            return null;
+        }
+
         @Override
         public String toString() {
             return name;
