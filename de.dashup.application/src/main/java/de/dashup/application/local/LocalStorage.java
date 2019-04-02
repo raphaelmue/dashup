@@ -33,7 +33,7 @@ public class LocalStorage {
 
     public User getUser(HttpServletRequest request, String token) throws SQLException {
         User user = (User) LocalStorage.getInstance().readObjectFromSession(request, "user");
-        if (user != null || token != null && !token.isEmpty()) {
+        if ((user != null || token != null && !token.isEmpty()) && (token != null && !token.isEmpty())) {
             user = DashupService.getInstance().getUserByToken(token);
             if (user != null) {
                 user.setSettings(DashupService.getInstance().getSettingsOfUser(user));
