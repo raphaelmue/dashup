@@ -152,9 +152,12 @@
                     <div class="col s4 m4">
                         <p><fmt:message key="i18n.language"/></p>
                     </div>
-                    <div class="col s8 m8">
-                        <p><a id="change-language-link" href="#dialog-change-language"><fmt:message
-                                key="i18n.changeLanguage"/></a></p>
+                    <div class="input-field col s8 m8" style="margin: 0">
+                        <select id="language-dropdown">
+                            <option value="en">English</option>
+                            <option value="de">Deutsch</option>
+                        </select>
+                        <label><fmt:message key="i18n.language"/></label>
                     </div>
                 </div>
             </div>
@@ -185,24 +188,6 @@
                 key="i18n.ok"/></a>
     </div>
 </div>
-<div id="dialog-change-language" class="modal">
-    <div class="modal-content">
-        <div class="row">
-            <h4><fmt:message key="i18n.selectLanguage"/></h4>
-            <div class="input-field col s12">
-                <select id="language-dropdown">
-                    <option value="en">English</option>
-                    <option value="de">German</option>
-                </select>
-                <label><fmt:message key="i18n.language"/></label>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <a id="btn-submit-change-language" class="modal-close waves-effect waves-green btn-flat"><fmt:message
-                key="i18n.ok"/></a>
-    </div>
-</div>
 </body>
 
 <script>
@@ -210,6 +195,7 @@
         $("#nav-item-settings").parent().addClass("active");
 
         $("#theme-dropdown option[value=${fn:escapeXml(theme)}]").attr("selected", "selected");
+        $("#language-dropdown option[value=${fn:escapeXml(language)}]").attr("selected", "selected");
         $('select').formSelect();
 
         let toastOptions = {};
@@ -298,9 +284,10 @@
             }
         });
 
-        let changeLanguageDialog = M.Modal.getInstance(document.getElementById("dialog-change-language"));
-        $('#change-language-link').on("click", function () {
-            changeLanguageDialog.open();
+        $("#language-dropdown").change(function () {
+            PostRequest.getInstance().make("settings/changeLanguage", {
+                lang: $("#language-dropdown").val()
+            });
         });
 
         let changePasswordDialog = M.Modal.getInstance(document.getElementById("dialog-change-password"));
@@ -316,11 +303,7 @@
             }
             window.location.reload(false);
         });
-        $('#btn-submit-change-language').on("click", function () {
-            PostRequest.getInstance().make("settings/changeLanguage", {
-                lang: $("#language-dropdown").val()
-            });
-        });
+
         $("#btn-submit-change-password").on("click", function () {
             let oldPassword = $("#change-password-old").val(),
                 newPassword = $("#change-password-new").val(),
