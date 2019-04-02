@@ -212,6 +212,12 @@
                     classes: "error"
                 };
                 break;
+            case "emailAlreadyInUse":
+                toastOptions = {
+                    html: "<fmt:message key="i18n.emailIsAlreadyRegistered" />",
+                    classes: "error"
+                };
+                break;
             case "changedPassword":
                 toastOptions = {
                     html: "<fmt:message key="i18n.successChangedPassword" />",

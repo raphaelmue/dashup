@@ -2,6 +2,7 @@ package de.dashup.model.service;
 
 import de.dashup.model.builder.PanelLoader;
 import de.dashup.model.db.Database;
+import de.dashup.model.exceptions.EmailAlreadyInUseException;
 import de.dashup.shared.*;
 import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
@@ -239,7 +240,7 @@ public class DashupService {
         }
     }
 
-    public void updateEmail(User user, String email) throws SQLException {
+    public void updateEmail(User user, String email) throws SQLException, EmailAlreadyInUseException {
         if (!Validator.validate(email, Validator.EMAIL_REGEX)) {
             throw new IllegalArgumentException("Email is not valid.");
         }
@@ -249,6 +250,11 @@ public class DashupService {
 
         Map<String, Object> values = new HashMap<>();
         values.put("email", email);
+
+        JSONArray result =this.database.get(Database.Table.USERS, values);
+        if (result.length() > 0) {
+            throw new EmailAlreadyInUseException(email);
+        }
 
         this.database.update(Database.Table.USERS, whereParameters, values);
 

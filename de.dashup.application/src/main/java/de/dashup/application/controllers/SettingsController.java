@@ -2,6 +2,7 @@ package de.dashup.application.controllers;
 
 import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
+import de.dashup.model.exceptions.EmailAlreadyInUseException;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.Settings;
 import de.dashup.shared.User;
@@ -42,6 +43,8 @@ public class SettingsController {
                 DashupService.getInstance().updateEmail(user, email);
             } catch (IllegalArgumentException illegalArgumentException) {
                 return "redirect:/settings/#invalidEmail";
+            } catch (EmailAlreadyInUseException emailAlreadyInUseException) {
+                return "redirect:/settings/#emailAlreadyInUse";
             } catch (Exception exception) {
                 return "redirect:/settings/#generalError";
             }
