@@ -22,14 +22,10 @@ public class EntryController {
     private final LocalStorage localStorage = LocalStorage.getInstance();
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(@RequestParam(name = "invalidCredentials", required = false, defaultValue = "false") boolean invalidCredentials,
-                        @RequestParam(name = "lang", required = false) Locale locale,
+    public String login(@RequestParam(name = "lang", required = false) Locale locale,
                         Model model, HttpServletRequest request) {
         ControllerHelper.setLocale(request, locale);
         model.addAttribute("theme", "blue-sky");
-        if (invalidCredentials) {
-            model.addAttribute("errorMessage", "<p>" + I18N.get("i18n.errorInvalidCredentials") + "</p>");
-        }
         return "login";
     }
 
