@@ -16,7 +16,7 @@ public class DashupSectionStructure {
         this.section_id = section_id;
     }
 
-    public String getSection_name() {
+    public String getSectionName() {
         return section_name;
     }
 

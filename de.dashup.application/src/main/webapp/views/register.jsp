@@ -60,7 +60,7 @@
     </div>
 </div>
 </body>
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
 
         let toastOptions = {};

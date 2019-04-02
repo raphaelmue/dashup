@@ -10,7 +10,7 @@
         <nav>
             <div class="nav-wrapper">
                 <div class="col s12">
-                    <a href="${pageContext.request.contextPath}/" class="breadcrumb">dashup</a>
+                    <a href="${fn:escapeXml(pageContext.request.contextPath)}/" class="breadcrumb">dashup</a>
                     <a href="#" class="breadcrumb"><fmt:message key="i18n.settings" /></a>
                 </div>
             </div>
@@ -187,7 +187,7 @@
         </div>
     </body>
 
-    <script>
+    <script type="text/javascript">
         $( document ).ready(function () {
             $("#nav-item-settings").parent().addClass("active");
 
