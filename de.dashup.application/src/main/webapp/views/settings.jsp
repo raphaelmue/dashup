@@ -79,20 +79,14 @@
             <div class="collapsible-body">
                 <form action="${pageContext.request.contextPath}/settings/changePersonalInfo" method="post">
                     <div class="row">
-                        <div class="col s4 m1">
-                            <p><fmt:message key="i18n.name"/></p>
-                        </div>
-                        <div class="input-field col s8 m4" style="margin-top: 0">
+                        <div class="input-field col s12 m6" style="margin-top: 0">
                             <input id="text-field-personal-info-name" name="name" type="text" class="validate"
                                    value="${fn:escapeXml(name)}"/>
                             <label for="text-field-personal-info-name"><fmt:message key="i18n.name"/></label>
                         </div>
-                        <div class="col s4 m1 offset-m1">
-                            <p><fmt:message key="i18n.surname"/></p>
-                        </div>
-                        <div class="input-field col s8 m4" style="margin-top: 0">
+                        <div class="input-field col s12 m6" style="margin-top: 0">
                             <input id="text-field-personal-info-surname" name="surname" type="text" class="validate"
-                                   value="${fn:escapeXml(pageContext.request.contextPath)}"/>
+                                   value="${fn:escapeXml(surname)}"/>
                             <label for="text-field-personal-info-surname"><fmt:message key="i18n.surname"/></label>
                         </div>
                     </div>
