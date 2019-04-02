@@ -6,7 +6,7 @@ public class DriverUtil {
     private static final String CHROME_DRIVER_LINUX = "/usr/bin/chromedriver";
     private static final String PATH_TO_CHROME_BINARY = "/etc/alternatives/google-chrome";
 
-    private static final String GECKO_DRIVER_WINDOWS = "./src/test/resources/de/dashup/test/chromedriver.exe";
+    private static final String GECKO_DRIVER_WINDOWS = "./src/test/resources/de/dashup/test/geckodriver.exe";
     private static final String GECKO_DRIVER_LINUX = "/usr/bin/geckodriver";
     private static final String PATH_TO_FIREFOX_BINARY = "/usr/bin/firefox";
 

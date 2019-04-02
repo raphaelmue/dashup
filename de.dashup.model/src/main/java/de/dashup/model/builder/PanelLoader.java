@@ -27,16 +27,18 @@ public class PanelLoader {
      * @param id panel id
      * @return content of panel
      */
-    public Panel loadPanel(int id) {
+    public Panel loadPanel(int id, Panel.Size size) {
+        if (size == null) {
+            throw new IllegalArgumentException("Size is not valid!");
+        }
+
         Panel panel;
         try {
             panel = DashupService.getInstance().getPanelById(id);
+            panel.setSize(size);
         } catch (SQLException e) {
             throw new IllegalArgumentException("There is no panel with id '" + id + "' in database!");
         }
-
-        // TODO: fetch size from database
-        panel.setSize(Panel.Size.MEDIUM);
 
         StringBuilder htmlContent = new StringBuilder();
         htmlContent.append("<div class=\"card col ")
