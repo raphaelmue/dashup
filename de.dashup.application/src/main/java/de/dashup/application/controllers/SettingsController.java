@@ -26,6 +26,7 @@ public class SettingsController {
                            HttpServletRequest request, Model model) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "settings", user -> {
             model.addAttribute("name", user.getName());
+            model.addAttribute("userName", user.getUserName());
             model.addAttribute("surname", user.getSurname());
             model.addAttribute("fullName", user.getFullName());
             model.addAttribute("email", user.getEmail());
@@ -49,6 +50,24 @@ public class SettingsController {
                 return "redirect:/settings/#generalError";
             }
             return "redirect:/settings/#changedEmail";
+        }
+        return "redirect:/login";
+    }
+
+    @RequestMapping("/changeUserName")
+    public String handleChangeUserName(@CookieValue(name = "token", required = false) String token,
+                                    @RequestParam(value = "userName") String userName,
+                                    HttpServletRequest request) throws SQLException {
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            try {
+                DashupService.getInstance().updateUserName(user, userName);
+            } catch (EmailAlreadyInUseException emailAlreadyInUseException) {
+                return "redirect:/settings/#userNameAlreadyInUse";
+            } catch (Exception exception) {
+                return "redirect:/settings/#generalError";
+            }
+            return "redirect:/settings/#changedUserName";
         }
         return "redirect:/login";
     }

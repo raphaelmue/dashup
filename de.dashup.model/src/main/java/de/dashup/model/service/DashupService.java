@@ -251,7 +251,7 @@ public class DashupService {
         Map<String, Object> values = new HashMap<>();
         values.put("email", email);
 
-        JSONArray result =this.database.get(Database.Table.USERS, values);
+        JSONArray result = this.database.get(Database.Table.USERS, values);
         if (result.length() > 0) {
             throw new EmailAlreadyInUseException(email);
         }
@@ -259,6 +259,23 @@ public class DashupService {
         this.database.update(Database.Table.USERS, whereParameters, values);
 
         user.setEmail(email);
+    }
+
+    public void updateUserName(User user, String userName) throws SQLException, EmailAlreadyInUseException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", user.getId());
+
+        Map<String, Object> values = new HashMap<>();
+        values.put("user_name", userName);
+
+        JSONArray result = this.database.get(Database.Table.USERS, values);
+        if (result.length() > 0) {
+            throw new EmailAlreadyInUseException(userName);
+        }
+
+        this.database.update(Database.Table.USERS, whereParameters, values);
+
+        user.setEmail(userName);
     }
 
     public void updateNameAndSurname(User user, String newName, String newSurname) throws SQLException {

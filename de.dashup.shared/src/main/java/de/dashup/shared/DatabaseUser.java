@@ -1,12 +1,17 @@
 package de.dashup.shared;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class DatabaseUser implements Serializable, DatabaseObject {
     private static final long serialVersionUID = -8352045621135035810L;
 
     private int id;
-    private String email, userName, name, surname, password, salt;
+    private String email;
+    @SerializedName("user_name")
+    private String userName;
+    private String name, surname, password, salt;
 
     public DatabaseUser() {
     }

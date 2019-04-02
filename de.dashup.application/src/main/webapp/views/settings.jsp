@@ -53,6 +53,35 @@
                                 </a>
                             </div>
                         </div>
+                        <div id="row-display-username" class="row">
+                            <div class="col s4 m4">
+                                <p><fmt:message key="i18n.userName"/></p>
+                            </div>
+                            <div class="col s4 m4">
+                                <p>${fn:escapeXml(userName)}</p>
+                            </div>
+                            <div class="col s4 m4">
+                                <p><a id="link-open-change-username" href="#"><fmt:message key="i18n.changeUsername"/></a></p>
+                            </div>
+                        </div>
+                        <div id="row-change-username" class="row" style="display: none;">
+                            <div class="col s4 m4">
+                                <p><fmt:message key="i18n.userName"/></p>
+                            </div>
+                            <div class="input-field col s4 m4" style="margin: 0">
+                                <input id="text-field-username" name="name" type="text" class="validate"
+                                       value="${fn:escapeXml(userName)}"/>
+                                <label for="text-field-email"><fmt:message key="i18n.userName"/></label>
+                            </div>
+                            <div class="col s4 m4">
+                                <a id="btn-cancel-change-username" class="waves-effect btn-flat">
+                                    <i class="fas fa-times" style="color: var(--color-error)"></i>
+                                </a>
+                                <a id="btn-change-username" class="waves-effect btn-flat">
+                                    <i class="fas fa-check" style="color: var(--color-success)"></i>
+                                </a>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col s4 m4">
                                 <p><fmt:message key="i18n.password"/></p>
@@ -218,6 +247,18 @@
                         classes: "error"
                     };
                     break;
+                case "changedUserName":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.successChangedUserName" />",
+                        classes: "success"
+                    };
+                    break;
+                case "userNameAlreadyInUse":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.errorUserNameIsAlreadyRegistered" />",
+                        classes: "error"
+                    };
+                    break;
                 case "changedPassword":
                     toastOptions = {
                         html: "<fmt:message key="i18n.successChangedPassword" />",
@@ -281,6 +322,30 @@
                 if (email !== "") {
                     PostRequest.getInstance().make("settings/changeEmail", {
                         email: email
+                    });
+                } else {
+                    M.toast({
+                        html: "<fmt:message key="i18n.missingPersonalInfo" />",
+                        classes: "error"
+                    });
+                }
+            });
+
+            $("#link-open-change-username").on("click", function () {
+                $("#row-change-username").css("display", "block");
+                $("#row-display-username").css("display", "none");
+            });
+
+            $("#btn-cancel-change-username").on("click", function () {
+                $("#row-change-username").css("display", "none");
+                $("#row-display-username").css("display", "block");
+            });
+
+            $("#btn-change-username").on("click", function () {
+                let userName = $("#text-field-username").val();
+                if (userName !== "") {
+                    PostRequest.getInstance().make("settings/changeUserName", {
+                        userName: userName
                     });
                 } else {
                     M.toast({
