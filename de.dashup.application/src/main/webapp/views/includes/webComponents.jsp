@@ -8,6 +8,7 @@
 
 <%-- include web components --%>
 <script type="text/javascript" src="../../components/dashupComponent.js"></script>
+<script type="text/javascript" src="../../components/dashupLayout.js"></script>
 <script type="text/javascript" src="../../components/dashupInput.js"></script>
 
 <script type="text/javascript" src="../../components/dashupButton.js"></script>

@@ -1,6 +1,6 @@
 const dashupGridLayout = document.currentScript.ownerDocument.querySelector("#dashup-grid-layout-template").content;
 
-class GridLayoutComponent extends DashupComponent {
+class GridLayoutComponent extends LayoutComponent {
 
     constructor() {
         super();
@@ -11,31 +11,26 @@ class GridLayoutComponent extends DashupComponent {
         this.gridLayout = this.shadowRoot.querySelector("#dashup-grid-layout");
     }
 
+    /**
+     * Returns all attributes, that this web component can have.
+     * @returns {string[]} array of attribute names
+     */
     static get observedAttributes() {
         return ["col-size"];
     }
 
+    /**
+     * Called when web component is shown on screen. Used for registering events.
+     **/
     connectedCallback() {
-        let that = this;
-        let index = 0;
-        let ids = [];
-        let observer = new MutationObserver(function (mutations) {
-            if (mutations.length > 0) {
-                mutations.forEach(function (mutation) {
-                    if (mutation.addedNodes.length && mutation.addedNodes[0].nodeType === 1 &&
-                        (!ids.includes(mutation.addedNodes[0].getAttribute("id")) || mutation.addedNodes[0].getAttribute("id") == null)) {
-                        let col = document.createElement("div");
-                        col.setAttribute("class", "col s" + that._getColSizeByIndex(index));
-                        col.appendChild(mutation.addedNodes[0]);
-                        that.gridLayout.appendChild(col);
-                        ids.push(mutation.addedNodes[0].getAttribute("id"));
-                        index++;
-                    }
-                });
-            }
-        });
+       super.connectedCallback();
+    }
 
-        observer.observe(this, {childList: true});
+    attachContent(mutation, index) {
+        let col = document.createElement("div");
+        col.setAttribute("class", "col s" + this._getColSizeByIndex(index));
+        col.appendChild(mutation.addedNodes[0]);
+        this.gridLayout.appendChild(col);
     }
 
     _getColSizeByIndex(index) {

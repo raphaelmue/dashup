@@ -4,6 +4,18 @@ class InputComponent extends DashupComponent {
         super();
     }
 
+    /**
+     * Returns all attributes, that this web component can have.
+     * @returns {string[]} array of attribute names
+     */
+    static get observedAttributes() {
+        return ["id", "label", "value"];
+    }
+
+    /**
+     * Handles data that is fetched from an api
+     * @param data json object to be filtered and displayed
+     */
     handleData(data) {
         if (this.hasAttribute("api-key")) {
             let keys = this.getAttribute("api-key").split(".");
@@ -23,25 +35,7 @@ class InputComponent extends DashupComponent {
             }
 
             this.setAttribute("value", data);
-            this.setText();
         }
-    }
-
-    connectedCallback() {
-        this.setText();
-    }
-
-    /**
-     * Implementation required
-     */
-    setText() { }
-
-    /**
-     * Returns all attributes, that this web component can have.
-     * @returns {string[]} array of attribute names
-     */
-    static get observedAttributes() {
-        return ["id", "label", "value"];
     }
 
     get id() {
