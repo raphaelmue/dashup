@@ -30,10 +30,8 @@ public class DashupApplication extends SpringBootServletInitializer implements W
         for (String arg : args) {
             if (arg.contains("--db-host=")) {
                 Database.setHost(arg.substring(10).equals("local"));
-            } else if (arg.contains("--database=")) {
-                if (Database.DatabaseName.getByShortCut(arg.substring(11)) != null) {
-                    databaseName = Database.DatabaseName.getByShortCut(arg.substring(11));
-                }
+            } else if (arg.contains("--database=") && Database.DatabaseName.getByShortCut(arg.substring(11)) != null) {
+                databaseName = Database.DatabaseName.getByShortCut(arg.substring(11));
             }
         }
 
