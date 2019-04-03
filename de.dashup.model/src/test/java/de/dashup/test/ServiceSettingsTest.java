@@ -131,6 +131,6 @@ public class ServiceSettingsTest {
         Map<String, String> result = dashupService.loadLayout(testUser);
         Assertions.assertEquals(testUser.getSettings().getLanguage().toLanguageTag(), result.get("language"));
         Assertions.assertEquals(testUser.getSettings().getTheme().getTechnicalName(), result.get("theme"));
-        Assertions.assertEquals("null", result.get("background_image"));
+        Assertions.assertEquals("", result.get("background_image"));
     }
 }
