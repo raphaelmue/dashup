@@ -76,6 +76,15 @@ public class LoginRegisterStepdefs {
         Assertions.assertEquals("active", parent.getAttribute("class"));
     }
 
+    @And("^User can close dashup and is not longer logged in$")
+    public void userCanCloseDashupAndIsNotLongerLoggedIn() {
+        //we just need to check for the token cookie here, if this is not present the user is logged out when closing
+        //the browser
+        WebDriver driver = GeneralStepdefs.getDriver();
+        Cookie token = driver.manage().getCookieNamed("token");
+        Assertions.assertNull(token);
+    }
+
     @And("^User can close dashup and open it again without being logged out$")
     public void userCanCloseDashupAndOpenItAgainWithoutBeingLoggedOut() throws IOException, SQLException {
         WebDriver driver = GeneralStepdefs.getDriver();
@@ -93,7 +102,7 @@ public class LoginRegisterStepdefs {
                                                             .getString("token"),token.getValue());
         driver.quit();
         WebDriver newWindowDriver = DriverUtil.setUpDriver();
-        //needed to set the cookie to the correct URL
+        //needed to set the cookie to the correct URL; we need to switch to IP here due to some validation issues in firefox
         Cookie cookie = new Cookie(token.getName(),token.getValue(),"127.0.0.1",token.getPath(),token.getExpiry(),token.isSecure(),token.isHttpOnly());
         newWindowDriver.get("http://127.0.0.1:9004/thisIsA404Page.txt");
         newWindowDriver.manage().addCookie(cookie);

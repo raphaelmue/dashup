@@ -13,6 +13,7 @@ Feature: Login / Register
     And User presses login button
     Then User is logged in
     And User was navigated to central dashboard
+    And User can close dashup and is not longer logged in
 
   Scenario: Successful login with remember me
     Given User is located on login page
