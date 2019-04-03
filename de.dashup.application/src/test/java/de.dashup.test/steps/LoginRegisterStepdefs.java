@@ -94,11 +94,12 @@ public class LoginRegisterStepdefs {
         driver.quit();
         WebDriver newWindowDriver = DriverUtil.setUpDriver();
         //needed to set the cookie to the correct URL
-        newWindowDriver.get("http://localhost:9004/thisIsA404Page");
-        newWindowDriver.manage().addCookie(token);
+        Cookie cookie = new Cookie(token.getName(),token.getValue(),"127.0.0.1",token.getPath(),token.getExpiry(),token.isSecure(),token.isHttpOnly());
+        newWindowDriver.get("http://127.0.0.1:9004/thisIsA404Page.txt");
+        newWindowDriver.manage().addCookie(cookie);
         //we expect that user is logged in directly
-        newWindowDriver.get("http://localhost:9004/");
-        Assertions.assertEquals("http://localhost:9004/", newWindowDriver.getCurrentUrl());
+        newWindowDriver.get("http://127.0.0.1:9004/");
+        Assertions.assertEquals("http://127.0.0.1:9004/", newWindowDriver.getCurrentUrl());
         WebElement element = newWindowDriver.findElement(By.id("nav-item-dashboard"));
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
