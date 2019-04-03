@@ -3,6 +3,7 @@ package de.dashup.shared;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class DatabaseUser implements Serializable, DatabaseObject {
     private static final long serialVersionUID = -8352045621135035810L;
@@ -12,6 +13,9 @@ public class DatabaseUser implements Serializable, DatabaseObject {
     @SerializedName("user_name")
     private String userName;
     private String name, surname, password, salt;
+    @SerializedName("birth_date")
+    private String birthDate;
+    private String company, bio;
 
     public DatabaseUser() {
     }
@@ -50,6 +54,26 @@ public class DatabaseUser implements Serializable, DatabaseObject {
         this.salt = salt;
     }
 
+    void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate.toString();
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public LocalDate getBirthDate() {
+        return LocalDate.parse(birthDate);
+    }
+
     @Override
     public int getId() {
         return id;
@@ -83,10 +107,15 @@ public class DatabaseUser implements Serializable, DatabaseObject {
         return userName;
     }
 
-    void setUserName(String userName) {
-        this.userName = userName;
+
+
+    public String getCompany() {
+        return company;
     }
 
+    public String getBio() {
+        return bio;
+    }
 
     @Override
     public String toString() {

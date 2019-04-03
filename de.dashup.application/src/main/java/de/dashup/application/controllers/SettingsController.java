@@ -30,6 +30,10 @@ public class SettingsController {
             model.addAttribute("surname", user.getSurname());
             model.addAttribute("fullName", user.getFullName());
             model.addAttribute("email", user.getEmail());
+            model.addAttribute("birthDate", user.getBirthDate());
+            model.addAttribute("company", user.getCompany());
+            model.addAttribute("bio", user.getBio());
+
             model.addAttribute("backgroundImage", user.getSettings().getBackgroundImage());
         });
     }

@@ -120,6 +120,26 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="input-field col s12 m6" style="margin-top: 0">
+                                    <input id="text-field-personal-info-birth-date" name="birthDate" type="text" class="datepicker"
+                                           value="${fn:escapeXml(birthDate)}"/>
+                                    <label for="text-field-personal-info-birth-date"><fmt:message key="i18n.birthDate"/></label>
+                                </div>
+                                <div class="input-field col s12 m6" style="margin-top: 0">
+                                    <input id="text-field-personal-info-company" name="company" type="text" class="validate"
+                                           value="${fn:escapeXml(company)}"/>
+                                    <label for="text-field-personal-info-company"><fmt:message key="i18n.company"/></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12 m12" style="margin-top: 0">
+                                    <textarea id="text-field-personal-info-bio" name="bio"  class="materialize-textarea">
+                                        ${fn:escapeXml(bio)}
+                                    </textarea>
+                                    <label for="text-field-personal-info-bio"><fmt:message key="i18n.bio"/></label>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <button class="btn waves-effect waves-light" type="submit" name="action">
                                     <fmt:message key="i18n.save"/>
                                     <i class="fas fa-check"></i>

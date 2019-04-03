@@ -30,6 +30,9 @@ public class User extends DatabaseUser {
             this.setEmail(((DatabaseUser) databaseObject).getEmail());
             this.setPassword(((DatabaseUser) databaseObject).getPassword());
             this.setSalt(((DatabaseUser) databaseObject).getSalt());
+            this.setBirthDate(((DatabaseUser) databaseObject).getBirthDate());
+            this.setCompany(((DatabaseUser) databaseObject).getCompany());
+            this.setBio(((DatabaseUser) databaseObject).getBio());
         }
         return this;
     }
