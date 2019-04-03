@@ -6,14 +6,11 @@ import de.dashup.model.db.Database;
 import de.dashup.test.steps.GeneralStepdefs;
 import de.dashup.util.string.Hash;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 public class CucumberHooks {
 
@@ -57,26 +54,7 @@ public class CucumberHooks {
 
     @Before(order = 2)
     public void doDriverSetup() throws IOException {
-        InputStream is = this.getClass().getResourceAsStream("../../../../my.properties");
-        Properties p = new Properties();
-        p.load(is);
-        String name = p.getProperty("test.browser");
-        WebDriver driver;
-        if (name != null) {
-            switch (name) {
-                case "chrome":
-                    driver = DriverUtil.setUpChromeDriver();
-                    break;
-                case "firefox":
-                    driver = DriverUtil.setUpFirefoxDriver();
-                    break;
-                default:
-                    throw new IllegalArgumentException("The argument " + name + " was read from properties, but is not expected!");
-            }
-        } else {
-            driver = DriverUtil.setUpChromeDriver();
-        }
-        GeneralStepdefs.setDriver(driver);
+        DriverUtil.setUpDriver();
     }
 
     @After(order = 1)

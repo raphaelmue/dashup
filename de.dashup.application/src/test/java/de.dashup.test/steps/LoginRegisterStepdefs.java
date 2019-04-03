@@ -6,11 +6,14 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import de.dashup.application.local.format.I18N;
 import de.dashup.model.db.Database;
+import de.dashup.test.utils.DriverUtil;
 import de.dashup.util.string.Hash;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -74,12 +77,32 @@ public class LoginRegisterStepdefs {
     }
 
     @And("^User can close dashup and open it again without being logged out$")
-    public void userCanCloseDashupAndOpenItAgainWithoutBeingLoggedOut() {
+    public void userCanCloseDashupAndOpenItAgainWithoutBeingLoggedOut() throws IOException, SQLException {
         WebDriver driver = GeneralStepdefs.getDriver();
-        ((JavascriptExecutor)driver).executeScript("window.open();");
-        Set<String> windows = driver.getWindowHandles();
-        driver.close();
-        Assertions.fail("TODO");
+        Database database = GeneralStepdefs.getDatabase();
+        //driver.quit() deletes all cookies so we need to carry our cookie to the next session manually
+        //we assert that the cookie is present and not expired so we can be sure that in a normal setup without webdriver
+        //this cookie will be there at next browser start up
+        Cookie token = driver.manage().getCookieNamed("token");
+        Assertions.assertNotNull(token);
+        Assertions.assertTrue(token.getExpiry().after(new Date()));
+        //we assert that the cookie value is correct and the same as the token on the DB
+        HashMap<String,Object> whereParams = new HashMap<>();
+        whereParams.put("user_id","1");
+        Assertions.assertEquals(database.get(Database.Table.USERS_TOKENS,whereParams).getJSONObject(0)
+                                                            .getString("token"),token.getValue());
+        driver.quit();
+        WebDriver newWindowDriver = DriverUtil.setUpDriver();
+        //needed to set the cookie to the correct URL
+        newWindowDriver.get("http://localhost:9004/thisIsA404Page");
+        newWindowDriver.manage().addCookie(token);
+        //we expect that user is logged in directly
+        newWindowDriver.get("http://localhost:9004/");
+        Assertions.assertEquals("http://localhost:9004/", newWindowDriver.getCurrentUrl());
+        WebElement element = newWindowDriver.findElement(By.id("nav-item-dashboard"));
+        Assertions.assertNotNull(element);
+        WebElement parent = element.findElement(By.xpath("./.."));
+        Assertions.assertEquals("active", parent.getAttribute("class"));
     }
 
     @Then("^Login error message is displayed$")

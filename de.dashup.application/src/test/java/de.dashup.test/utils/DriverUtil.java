@@ -1,5 +1,6 @@
 package de.dashup.test.utils;
 
+import de.dashup.test.steps.GeneralStepdefs;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -7,7 +8,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
- class DriverUtil {
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
+public class DriverUtil {
 
     private static final String CHROME_DRIVER_WINDOWS = "./src/test/resources/de/dashup/test/chromedriver.exe";
     private static final String CHROME_DRIVER_LINUX = "/usr/bin/chromedriver";
@@ -52,7 +57,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
         }
     }
 
-    static WebDriver setUpChromeDriver() {
+    private static WebDriver setUpChromeDriver() {
         final DesiredCapabilities desiredChromeCapabilities = DesiredCapabilities.chrome();
         final ChromeOptions chromeOptions = new ChromeOptions();
 
@@ -67,7 +72,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
         return returningDriver;
     }
 
-    static WebDriver setUpFirefoxDriver() {
+    private static WebDriver setUpFirefoxDriver() {
         final DesiredCapabilities desiredFirefoxCapabilities = DesiredCapabilities.firefox();
         final FirefoxOptions firefoxOptions = new FirefoxOptions();
 
@@ -80,5 +85,29 @@ import org.openqa.selenium.remote.DesiredCapabilities;
         WebDriver returningDriver = new FirefoxDriver(desiredFirefoxCapabilities);
         returningDriver.manage().window().maximize();
         return returningDriver;
+    }
+
+    public static WebDriver setUpDriver() throws IOException {
+        InputStream is = DriverUtil.class.getResourceAsStream("../../../../my.properties");
+        Properties p = new Properties();
+        p.load(is);
+        String name = p.getProperty("test.browser");
+        WebDriver driver;
+        if (name != null) {
+            switch (name) {
+                case "chrome":
+                    driver = DriverUtil.setUpChromeDriver();
+                    break;
+                case "firefox":
+                    driver = DriverUtil.setUpFirefoxDriver();
+                    break;
+                default:
+                    throw new IllegalArgumentException("The argument " + name + " was read from properties, but is not expected!");
+            }
+        } else {
+            driver = DriverUtil.setUpChromeDriver();
+        }
+        GeneralStepdefs.setDriver(driver);
+        return driver;
     }
 }
