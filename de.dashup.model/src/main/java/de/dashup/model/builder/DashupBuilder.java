@@ -26,45 +26,52 @@ public class DashupBuilder {
 
     public static String buildUsersPanelsLayoutMode(User user) {
         StringBuilder content = new StringBuilder();
-        content.append("<div id=\"drag-container-section\">");
+//        content.append("<div class=\"drag-drop-container\">");
         if (user.getSections() != null) {
-            for (Section s : user.getSections()) {
-                content.append("<div class=\"dashup-section\" id=\"s").append(s.getId()).append("\">")
-                        .append("<div><span id=\"h").append(s.getId())
-                        .append("\" class=\"handle\"><i class=\"fas fa-arrows-alt handle\"></i> </span><span><input id=\"i")
-                        .append(s.getId())
-                        .append("\" type=\"text\" name=\"txt\" value=\"")
-                        .append(s.getName())
-                        .append("\" onchange=\"inputChanged(this.value,")
-                        .append(s.getId())
-                        .append(")\"><button type=\"button\"  id=\"b")
-                        .append(s.getId())
-                        .append("\" onclick=\"onDelete('s")
-                        .append(s.getId())
-                        .append("')\" class=\"btn btn-danger\">Delete</button></span></div>")
-                        .append("<hr>")
-                        .append("<div class=\"drag-container\" id=\"drag-container")
-                        .append(s.getId()).append("\">");
+            for (Section section : user.getSections()) {
+                content.append("<div class=\"wrapper  col s12\">")
+                        .append("<h2>")
+                        .append("<span class=\"drag-drop-btn\"><i class=\"drag-drop-btn fas fa-grip-lines fa-2x\"></i></span>")
+                        .append(section.getName())
+                        .append("</h2>")
+                        .append("<div class=\"bloc col s12\">");
 
-                if (s.getPanels() != null) {
-                    for (Panel p : s.getPanels()) {
-                        content.append("<div id=\"");
-                        content.append(p.getId());
-                        content.append("\" class=\"dashup-panel\">");
-                        //.append(p.getName());
-                        content.append(p.getHtmlContent());
-                        content.append("</div>");
+//
+
+
+                if (section.getPanels() != null) {
+                    for (Panel panel : section.getPanels()) {
+//                        content.append("<div id=\"");
+//                        content.append(p.getId());
+//                        content.append("\" class=\"dashup-panel\">");
+//                        //.append(p.getName());
+//                        content.append(p.getHtmlContent());
+//                        content.append("</div>");
+                        String sizeStyleClass = panel.getSize().getStyleClass();
+                        String panelId = String.valueOf(panel.getId());
+                        content.append("<div class=\"bloc--inner ")
+                                .append(sizeStyleClass)
+                                .append("\"")
+                                .append("id=\"p")
+                                .append(panelId)
+                                .append("\">")
+                                .append("<h3>")
+                                .append(panel.getSize())
+                                .append("</h3>")
+                                .append("</div>");
                     }
                 }
 
-                content.append("<div class=\"clear-float\"></div>");
 
-                content.append("</div>");
 
-                content.append("</div>");
+//                content.append("</div>");
+
+                content.append("</div>")
+                        .append("</div>");
             }
         }
-        content.append("</div>");
-        return content.toString();
+//        content.append("</div>");
+        String htmlReturn = content.toString();
+        return htmlReturn;
     }
 }

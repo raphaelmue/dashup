@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="i18n"/>
 <html>
@@ -12,10 +13,11 @@
 
         .bloc {
             width: 400px;
-            height: 200px;
+            /*height: 100%;*/
             margin-bottom: 20px;
             padding: 20px;
             font-size: 0;
+            /*background: red;*/
         }
 
         .bloc--first {
@@ -29,7 +31,6 @@
         .bloc--inner {
             display: inline-block;
             width: calc((100% - 20px) / 2);
-            height: 100%;
             background: blue;
             margin-right: 20px;
         }
@@ -47,18 +48,19 @@
 
 
 
-        <div class="drag-drop-container">
-            <div class="bloc bloc--first">
-                <div class="bloc--inner"></div>
-            </div>
-            <div class="bloc bloc--second">
-                <div class="bloc--inner"></div>
-            </div>
+        <div class="drag-drop-container col s12" id="drag-drop-container">
+            <%--<div class="bloc bloc--first">--%>
+                <%--<div class="bloc--inner"></div>--%>
+            <%--</div>--%>
+            <%--<div class="bloc bloc--second">--%>
+                <%--<div class="bloc--inner"></div>--%>
+            <%--</div>--%>
+                ${content}
         </div>
 
 
-        <script src='https://rawgit.com/bevacqua/dragula/master/dist/dragula.min.js'></script>
-        <script src="../libraries/draganddrop.js"></script>
+
+
 
 
 
@@ -66,5 +68,12 @@
 
     </div>
 </div>
+
+<a href="javascript:saveChanges()" class="btn-floating btn-large waves-effect waves-light"><i class="fas fa-edit"></i></a>
+
+
+<script src='https://rawgit.com/bevacqua/dragula/master/dist/dragula.min.js'></script>
+<script src="../libraries/draganddrop.js"></script>
+
 </body>
 </html>
