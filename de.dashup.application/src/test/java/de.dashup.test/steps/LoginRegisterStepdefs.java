@@ -9,13 +9,15 @@ import de.dashup.model.db.Database;
 import de.dashup.test.utils.DriverUtil;
 import de.dashup.util.string.Hash;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Set;
 
 public class LoginRegisterStepdefs {
 
@@ -96,14 +98,14 @@ public class LoginRegisterStepdefs {
         Assertions.assertNotNull(token);
         Assertions.assertTrue(token.getExpiry().after(new Date()));
         //we assert that the cookie value is correct and the same as the token on the DB
-        HashMap<String,Object> whereParams = new HashMap<>();
-        whereParams.put("user_id","1");
-        Assertions.assertEquals(database.get(Database.Table.USERS_TOKENS,whereParams).getJSONObject(0)
-                                                            .getString("token"),token.getValue());
+        HashMap<String, Object> whereParams = new HashMap<>();
+        whereParams.put("user_id", "1");
+        Assertions.assertEquals(database.get(Database.Table.USERS_TOKENS, whereParams).getJSONObject(0)
+                .getString("token"), token.getValue());
         driver.quit();
         WebDriver newWindowDriver = DriverUtil.setUpDriver();
         //needed to set the cookie to the correct URL; we need to switch to IP here due to some validation issues in firefox
-        Cookie cookie = new Cookie(token.getName(),token.getValue(),"127.0.0.1",token.getPath(),token.getExpiry(),token.isSecure(),token.isHttpOnly());
+        Cookie cookie = new Cookie(token.getName(), token.getValue(), "127.0.0.1", token.getPath(), token.getExpiry(), token.isSecure(), token.isHttpOnly());
         newWindowDriver.get("http://127.0.0.1:9004/thisIsA404Page.txt");
         newWindowDriver.manage().addCookie(cookie);
         //we expect that user is logged in directly

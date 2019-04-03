@@ -41,7 +41,7 @@ public class DriverUtil {
         return "";
     }
 
-     private static String getPathToChromeBinary() {
+    private static String getPathToChromeBinary() {
         if (System.getProperty("os.name").toLowerCase().contains("linux")) {
             return PATH_TO_CHROME_BINARY;
         } else {
@@ -49,7 +49,7 @@ public class DriverUtil {
         }
     }
 
-    private  static String getPathToFirefoxBinary() {
+    private static String getPathToFirefoxBinary() {
         if (System.getProperty("os.name").toLowerCase().contains("linux")) {
             return PATH_TO_FIREFOX_BINARY;
         } else {

@@ -63,7 +63,7 @@ public class CucumberHooks {
     }
 
     @After(order = 2)
-    public void clearDatabase() throws SQLException{
+    public void clearDatabase() throws SQLException {
         GeneralStepdefs.getDatabase().clearDatabase();
     }
 }
