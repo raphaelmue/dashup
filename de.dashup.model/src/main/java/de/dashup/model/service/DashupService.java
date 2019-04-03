@@ -278,18 +278,18 @@ public class DashupService {
         user.setEmail(userName);
     }
 
-    public void updateNameAndSurname(User user, String newName, String newSurname) throws SQLException {
+    public void updatePersonalInformation(User user) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", user.getId());
 
         Map<String, Object> values = new HashMap<>();
-        values.put("name", newName);
-        values.put("surname", newSurname);
+        values.put("name", user.getName());
+        values.put("surname", user.getSurname());
+        values.put("birth_date", user.getBirthDate());
+        values.put("company", user.getCompany());
+        values.put("bio", user.getBio());
 
         this.database.update(Database.Table.USERS, whereParameters, values);
-
-        user.setName(newName);
-        user.setSurname(newSurname);
     }
 
     public void updateSettings(User user, boolean insert) throws SQLException {

@@ -6,7 +6,6 @@ $(document).ready(function () {
     $(".collapsible").collapsible();
     $("select").formSelect();
     $(".modal").modal();
-    $(".datepicker").datepicker();
 
 });
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Locale;
 
 @Controller
@@ -126,10 +127,18 @@ public class SettingsController {
     public String handlePersonalInfo(@CookieValue(name = "token", required = false) String token,
                                      @RequestParam("name") String name,
                                      @RequestParam("surname") String surname,
+                                     @RequestParam("birthDate") String birthDate,
+                                     @RequestParam("company") String company,
+                                     @RequestParam("bio") String bio,
                                      HttpServletRequest request) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            DashupService.getInstance().updateNameAndSurname(user, name, surname);
+            user.setName(name);
+            user.setSurname(surname);
+            user.setBirthDate(LocalDate.parse(birthDate));
+            user.setCompany(company);
+            user.setBio(bio);
+            DashupService.getInstance().updatePersonalInformation(user);
             return "redirect:/settings/#changedPersonalInfo";
         }
         return "redirect:/login";

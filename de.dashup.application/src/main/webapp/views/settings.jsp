@@ -133,9 +133,7 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 m12" style="margin-top: 0">
-                                    <textarea id="text-field-personal-info-bio" name="bio"  class="materialize-textarea">
-                                        ${fn:escapeXml(bio)}
-                                    </textarea>
+                                    <textarea id="text-field-personal-info-bio" name="bio" class="materialize-textarea">${fn:escapeXml(bio)}</textarea>
                                     <label for="text-field-personal-info-bio"><fmt:message key="i18n.bio"/></label>
                                 </div>
                             </div>
@@ -373,6 +371,13 @@
                         classes: "error"
                     });
                 }
+            });
+
+            $("#text-field-personal-info-birth-date").datepicker({
+                format: "yyyy-mm-dd",
+                yearRange: [1900, 2011],
+                defaultDate: new Date("${fn:escapeXml(birthDate)}"),
+                setDefaultDate: true
             });
 
             $("#language-dropdown").change(function () {

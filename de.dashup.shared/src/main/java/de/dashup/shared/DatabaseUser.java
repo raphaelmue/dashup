@@ -59,7 +59,9 @@ public class DatabaseUser implements Serializable, DatabaseObject {
     }
 
     public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate.toString();
+        if (birthDate != null) {
+            this.birthDate = birthDate.toString();
+        }
     }
 
     public void setCompany(String company) {
@@ -71,7 +73,10 @@ public class DatabaseUser implements Serializable, DatabaseObject {
     }
 
     public LocalDate getBirthDate() {
-        return LocalDate.parse(birthDate);
+        if (birthDate != null && !birthDate.isBlank()) {
+            return LocalDate.parse(birthDate);
+        }
+        return null;
     }
 
     @Override
