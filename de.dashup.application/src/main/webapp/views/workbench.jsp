@@ -1,5 +1,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <fmt:setLocale value="${param.lang}" scope="session" />
 <fmt:setBundle basename="i18n" />
@@ -13,7 +14,7 @@
             <ul>
                 <c:forEach items="${drafts}" var="draft">
                     <li>
-                        <a href="#" class="waves-effect">${draft}</a>
+                        <a href="./${fn:escapeXml(draft.id)}/" class="waves-effect <c:if test="${draft.id == currentDraft.id}">active</c:if>">${fn:escapeXml(draft.name)}</a>
                     </li>
                 </c:forEach>
             </ul>
@@ -21,31 +22,37 @@
         </aside>
         <main>
             <c:choose>
-                <c:when test="${currentDraft != null}">
-                    <ul class="tabs">
-                        <li class="tab"><a class="active" href="#code"><fmt:message key="i18n.code" /></a></li>
-                        <li class="tab"><a href="#basicInformation"><fmt:message key="i18n.basicInformation" /></a></li>
-                    </ul>
-                    <div id="code" class="col s12">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col s12 m6">
-                                    <h3 style="margin-bottom: 50px;"><fmt:message key="i18n.code" /></h3>
-                                    <div class="input-field">
-                                        <textarea id="textarea-code" class="materialize-textarea"></textarea>
-                                        <label for="textarea-code"><fmt:message key="i18n.code" /></label>
+                <c:when test="${fn:escapeXml(currentDraft.id) > 0}">
+                    <div class="row">
+                        <div class="col ">
+                            <ul class="tabs">
+                                <li class="tab"><a class="active" href="#code"><fmt:message key="i18n.code" /></a></li>
+                                <li class="tab"><a href="#basicInformation"><fmt:message key="i18n.basicInformation" /></a></li>
+                            </ul>
+                        </div>
+                        <div id="code" class="col s12">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col s12 m6">
+                                        <h3 style="margin-bottom: 50px;"><fmt:message key="i18n.code" /></h3>
+                                        <div class="input-field">
+                                            <textarea id="textarea-code" class="materialize-textarea">${fn:escapeXml(currentDraft.code)}</textarea>
+                                            <label for="textarea-code"><fmt:message key="i18n.code" /></label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col s12 m6">
-                                    <h3 style="margin-bottom: 50px;"><fmt:message key="i18n.preview" /></h3>
-                                    <div class="col card s12 m12" id="pre-view-container" ></div>
+                                    <div class="col s12 m6">
+                                        <h3 style="margin-bottom: 50px;"><fmt:message key="i18n.preview" /></h3>
+                                        <div class="col card s12 m12" >
+                                            <div class="card-content" id="pre-view-container">${currentDraft.code}</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="basicInformation" class="col s12">
-                        <div class="container">
-                            <h3><fmt:message key="i18n.basicInformation" /></h3>
+                        <div id="basicInformation" class="col s12">
+                            <div class="container">
+                                <h3><fmt:message key="i18n.basicInformation" /></h3>
+                            </div>
                         </div>
                     </div>
                 </c:when>

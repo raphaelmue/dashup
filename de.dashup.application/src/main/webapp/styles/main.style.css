@@ -33,6 +33,10 @@ aside ul li a {
     font-weight: 600;
 }
 
+aside ul li a.active {
+    background-color: var(--color-light-gray);
+}
+
 aside ul li a:hover {
     background-color: var(--color-light-gray);
 }

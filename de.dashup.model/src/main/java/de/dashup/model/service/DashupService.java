@@ -349,4 +349,15 @@ public class DashupService {
 
         this.database.insert(Database.Table.USER_SECTIONS, values);
     }
+
+    public void getUsersDrafts(User user) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("user_id", user.getId());
+
+        List<Draft> drafts = new ArrayList<>();
+        for (DatabaseObject databaseObject : this.database.getObject(Database.Table.USERS_DRAFTS, Draft.class, whereParameters)) {
+            drafts.add((Draft) databaseObject);
+        }
+        user.setDrafts(drafts);
+    }
 }
