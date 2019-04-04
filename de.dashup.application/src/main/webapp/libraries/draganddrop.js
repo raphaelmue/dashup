@@ -15,6 +15,13 @@
     dragula([].slice.apply(document.querySelectorAll('.bloc')), {
         direction: 'horizontal'
     });
+
+    let changePasswordDialog = M.Modal.getInstance(document.getElementById("dialog-change-password"));
+    $("#change-password-link").on("click", function () {
+        changePasswordDialog.open();
+    });
+
+
 })();
 
 function saveChanges()
@@ -31,6 +38,7 @@ function saveChanges()
     {
         let sectionName = sections[i]['children'][0]['innerText'];
         console.log(sectionName);
+        let sectionId = sections[i].id;
 
         let panels = sections[i]['children'][1]['children'];
         console.log(panels);
@@ -42,13 +50,22 @@ function saveChanges()
         for (let j = 0; j < panelsCount; j++)
         {
             console.log(panels[j].id);
-            panelStructure.push(panels[j].id);
+
+            let panel = {
+                panelId: panels[j].id,
+                panelSize: panels[j]['attributes']['size'].value,
+                panelState: panels[j]['attributes']['state'].value
+            };
+            panelStructure.push(panel);
         }
 
+        let sectionObject = {
+            sectionName : sectionName,
+            sectionId : sectionId,
+            panelStructure: panelStructure
+        }
 
-        let sectionLayout = {[sectionName]:panelStructure};
-
-        layout.push(sectionLayout);
+        layout.push(sectionObject);
 
 
 
