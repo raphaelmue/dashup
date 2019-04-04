@@ -3,6 +3,7 @@
     --color-warning: #ffc200;
     --color-error: #fc3b37;
     --color-black: rgba(0, 0, 0, 0.87);
+    --color-light-gray: #e0e0e0;
 }
 
 /*** MAIN ***/
@@ -98,7 +99,7 @@ button i.fas {
 }
 
 .toast.success:before {
-    content:"\f00c";
+    content: "\f00c";
 }
 
 .toast.warning {
@@ -106,7 +107,7 @@ button i.fas {
 }
 
 .toast.warning:before {
-    content:"\f12a";
+    content: "\f12a";
 }
 
 .toast.error {
@@ -114,5 +115,27 @@ button i.fas {
 }
 
 .toast.error:before {
-    content:"\f00d";
+    content: "\f00d";
+}
+
+/*** TABS ***/
+
+.tabs {
+    margin-top: 15px;
+}
+
+.tabs li.indicator {
+    background-color: var(--color-secondary);
+}
+
+.tabs li:active {
+    color: var(--color-secondary-light);
+}
+
+.tabs .tab a.active {
+    color: var(--color-secondary);
+}
+
+.tabs .tab a {
+    color: var(--color-secondary-light);
 }

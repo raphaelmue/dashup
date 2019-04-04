@@ -11,3 +11,32 @@ div.nav-wrapper {
     right: 20px;
     bottom: 20px;
 }
+
+aside {
+    position: fixed;
+    display: inline-block;
+    min-height: 100%;
+    width: 275px;
+    border-right: 1px solid #CCC;
+    padding: 20px 0;
+}
+
+aside h4 {
+    text-align: center;
+    margin: 25px 0 50px;
+}
+
+aside ul li a {
+    width: 100%;
+    padding: 15px 30px;
+    color: var(--color-black);
+    font-weight: 600;
+}
+
+aside ul li a:hover {
+    background-color: var(--color-light-gray);
+}
+
+aside + main {
+    padding-left: 275px;
+}
