@@ -4,33 +4,17 @@ export class DashupButton extends DashupComponent{
 
     render() {
         return html`
-            <button id="dashup-button" 
-                    class="btn waves-effect waves-light"
-                    @click="${this.callAPI}">
-            ${this.text}
+            <button id="dashup-button" class="btn waves-effect waves-light" @click="${this.callAPI}">
+                ${this.text}
             </button>
         `;
     }
 
-    /*
-    api: {
-        address: '...'
-        params: [
-            {
-                key: '...'
-                value: '...'
-            }
-        ]
-        consumers: [...]
-    }
-
-     */
-
     static get properties() {
         return {
-          text: {type: String},
-          api: {type: Object},
-          consumers: {type: Array}
+            text: {type: String},
+            api: {type: Object},
+            consumers: {type: Array, converter: (consumers) => {return consumers.split(" ")}}
         };
     }
 
@@ -41,14 +25,17 @@ export class DashupButton extends DashupComponent{
     }
 
     callAPI() {
-        let params = '?';
-        this.api.params.forEach((key) => {
-            params.append(key + '=' + this.api.params[key] + "&");
-        });
+        let params = "";
+        if(this.api.params){    //[{key: ..., value:...},...]
+            params = '?';
+            this.api.params.forEach((key) => {
+                params.append(key + '=' + this.api.params[key] + "&");
+            });
+        }
         let url = this.api.address + params;
         if(this.validateURL(url)){
-            fetch(url).then((reponse) => {
-                return repsonse.json();
+            fetch(url).then((response) => {
+                return response.json();
             }).then((json) => {
                 this.dispatchData(json);
             })
@@ -58,9 +45,10 @@ export class DashupButton extends DashupComponent{
     }
 
     dispatchData(data){
-        this.consumers.forEach((consumer) => {
+        this.consumers.forEach(((consumerName) => {
+            let consumer = this.getRootNode().querySelector("[name=" + consumerName + "]");
             consumer.handleData(data);
-        });
+        }).bind(this));
     }
 
     validateURL(url) {

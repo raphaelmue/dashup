@@ -8,14 +8,14 @@ export class DashupGridLayout extends DashupComponent{
                 ${this.elements.map((row) => html`
                     <div class="row">
                         ${row.map((element) => {
-                            let size = element.layout.size;
-                            let offset = element.layout.offset;
-                            return html`
+            let size = element.layout.size;
+            let offset = element.layout.offset;
+            return html`
                                 <div class="col s${size} m${size} l${size} xl${size} offset-s${offset} offset-m${offset} offset-l${offset} offset-xl${offset}">
                                     <slot name="${this.getSlotName(element)}"></slot>
                                 </div>
                             `
-                        })}
+        })}
                     </div>
                 `)}
             </div>

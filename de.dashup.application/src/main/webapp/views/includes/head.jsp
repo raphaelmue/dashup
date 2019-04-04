@@ -28,7 +28,17 @@
     <script type="text/javascript" src="../../libraries/classes/PostRequest.js"></script>
     <script type="text/javascript" src="../../libraries/index.js"></script>
 
-    <jsp:include page="webComponents.jsp" />
+    <%-- Web Components --%>
+    <script type="module">
+        import '../../components/dashup-component.js';
+        import '../../components/dashup-button.js'
+        import '../../components/dashup-text-input.js'
+        import '../../components/dashup-display.js'
+        import '../../components/dashup-grid-layout.js'
+
+        import '../../widgets/dashup-share-banner.js'
+    </script>
+
 
     <title>dashup</title>
 </head>

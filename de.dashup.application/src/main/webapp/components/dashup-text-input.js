@@ -4,14 +4,7 @@ export class DashupTextInput extends DashupComponent{
 
     render() {
         return html`
-            <div class="input-field" style="margin: 0">
-                <input name="dashup-input" type="text" class="input-css"
-                        placeholder="${this.placeholder}" 
-                        @change="${(evt) => {
-                            this.value = evt.target.value;
-                        }}"/>
-                <label for="dashup-input">${this.label}</label>
-            </div>
+            <input type="text" placeholder="${this.placeholder}" @change="${(evt) => { this.value = evt.target.value;}}"/>
         `;
     }
 
@@ -25,7 +18,9 @@ export class DashupTextInput extends DashupComponent{
 
     constructor() {
         super();
-        this.value = null;
+        this.label = "";
+        this.value = "";
+        this.placeholder = "Enter your text here..."
     }
 
 }

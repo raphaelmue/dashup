@@ -10,19 +10,27 @@ export class DashupDisplay extends DashupComponent{
 
     static get properties() {
         return {
+            displayedText: {type: String},
             data: {type: Object},
-            displayedText: {type: String}
+            path: {type: String}
         };
     }
 
     constructor() {
         super();
-        this.data = {};
         this.displayedText = "";
+        this.data = {};
+        this.path = "";
     }
 
     handleData(data) {
-
+        let value = data;
+        let path = this.path.split(" ");
+        for(let i = 0; i < path.length; i++) {
+            value = value[path[i]];
+        }
+        this.displayedText = value;
+        this.data = data;
     }
 
 }
