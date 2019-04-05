@@ -32,12 +32,13 @@ public class DashupBuilder {
                 content.append("<div class=\"wrapper  col s12\" id=\"s")
                         .append(section.getId())
                         .append("\">")
-                        .append("<h4>")
-                        .append("<span class=\"drag-drop-btn\"><i class=\"drag-drop-btn fas fa-grip-lines fa-xs\"></i></span>")
-                        .append("  ")
+                        .append("<div class=\"row\">")
+                        .append("<div class=\"drag-drop-btn col s6 valign-wrapper\"><i class=\"drag-drop-btn fas fa-grip-lines col s1\" style=\"margin:0\"></i>")
+                        .append(" <input class=\"col s4\" type=\"text\" style=\"margin:0\" value=\"")
                         .append(section.getName())
-                        .append(" <span><i class=\"fas fa-edit fa-xs\"></i></span>")
-                        .append("</h4>")
+                        .append("\" />")
+                        .append("<i class=\"section-minus fas fa-minus col s1\" style=\"margin:0\"></i></div>")
+                        .append("</div>")
                         .append("<div class=\"bloc col s12\">");
 
 //

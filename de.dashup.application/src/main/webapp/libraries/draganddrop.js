@@ -16,13 +16,26 @@
         direction: 'horizontal'
     });
 
-    let changePasswordDialog = M.Modal.getInstance(document.getElementById("dialog-change-password"));
-    $("#change-password-link").on("click", function () {
-        changePasswordDialog.open();
+
+    $(".section-minus").on("click", function (event) {
+        let sectionToDelete = event.currentTarget.parentNode.parentNode.parentNode;
+        let sectionId = sectionToDelete.id;
+
+        while(sectionToDelete.firstChild){
+            sectionToDelete.removeChild(sectionToDelete.firstChild);
+        }
+
+        addSectionToDeleteToList(sectionId);
+
     });
 
 
 })();
+
+function addSectionToDeleteToList(sectionToDeleteId)
+{
+
+}
 
 function saveChanges()
 {
