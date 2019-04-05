@@ -67,7 +67,7 @@
                             <goal>write-project-properties</goal>
                         </goals>
                         <configuration>
-                            <outputFile>${project.build.testOutputDirectory}/testing.properties</outputFile>
+                            <outputFile>${project.build.testOutputDirectory}/de/dashup/test/utils/testing.properties</outputFile>
                         </configuration>
                     </execution>
                 </executions>

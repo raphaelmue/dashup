@@ -88,7 +88,7 @@ public class DriverUtil {
     }
 
     public static WebDriver createDriverInstance() throws IOException {
-        InputStream is = DriverUtil.class.getResourceAsStream("../../../../my.properties");
+        InputStream is = DriverUtil.class.getResourceAsStream("./my.properties");
         Properties p = new Properties();
         p.load(is);
         String name = p.getProperty("test.browser");
@@ -102,7 +102,8 @@ public class DriverUtil {
                     driver = DriverUtil.createFirefoxDriverInstance();
                     break;
                 default:
-                    throw new IllegalArgumentException("The argument " + name + " was read from properties, but is not expected!");
+                    throw new IllegalArgumentException("The argument test.browser must not contain something different"+
+                                                        " from 'chrome' and 'firefox', but was '" + name + "'!");
             }
         } else {
             driver = DriverUtil.createChromeDriverInstance();
