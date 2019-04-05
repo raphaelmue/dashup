@@ -1,3 +1,5 @@
+let layout = [];
+
 (function() {
     dragula([document.querySelector('.drag-drop-container')], {
         moves: function(el, container, handle) {
@@ -19,27 +21,48 @@
 
     $(".section-minus").on("click", function (event) {
         let sectionToDelete = event.currentTarget.parentNode.parentNode.parentNode;
-        let sectionId = sectionToDelete.id;
+
+
+        addSectionToDeleteToList(sectionToDelete);
 
         while(sectionToDelete.firstChild){
             sectionToDelete.removeChild(sectionToDelete.firstChild);
         }
 
-        addSectionToDeleteToList(sectionId);
+        let sectionParent = sectionToDelete.parentNode;
+        console.log(sectionToDelete);
+        console.log(sectionParent);
+        sectionParent.removeChild(sectionToDelete);
+
+
 
     });
 
 
 })();
 
-function addSectionToDeleteToList(sectionToDeleteId)
+function addSectionToDeleteToList(sectionToDelete)
 {
+    let section = sectionToDelete.childNodes[1];
+    let panels = section.childNodes;
 
+    let panelStructure;
+    panelStructure = makePanelStructure(panels,true);
+
+    let sectionObject = {
+        sectionName : "",
+        sectionId : sectionToDelete.id,
+        panelStructure: panelStructure,
+        remove: true
+    };
+
+    layout.push(sectionObject);
 }
+
 
 function saveChanges()
 {
-    let layout = [];
+
     let dragDropContainer = document.getElementById('drag-drop-container');
 
     let sections = dragDropContainer.getElementsByClassName('wrapper');
@@ -54,29 +77,15 @@ function saveChanges()
         let sectionId = sections[i].id;
 
         let panels = sections[i]['children'][1]['children'];
-        console.log(panels);
 
-        let panelsCount = panels.length;
-
-        let panelStructure = [];
-
-        for (let j = 0; j < panelsCount; j++)
-        {
-            console.log(panels[j].id);
-
-            let panel = {
-                panelId: panels[j].id,
-                panelSize: panels[j]['attributes']['size'].value,
-                panelState: panels[j]['attributes']['state'].value
-            };
-            panelStructure.push(panel);
-        }
+        let panelStructure = makePanelStructure(panels,false);
 
         let sectionObject = {
             sectionName : sectionName,
             sectionId : sectionId,
-            panelStructure: panelStructure
-        }
+            panelStructure: panelStructure,
+            remove: false
+        };
 
         layout.push(sectionObject);
 
@@ -85,5 +94,26 @@ function saveChanges()
 
             }
     console.log(layout);
+}
+
+function makePanelStructure(panels, remove) {
+    let panelsCount = panels.length;
+
+    let panelStructure = [];
+
+    for (let j = 0; j < panelsCount; j++)
+    {
+        console.log(panels[j].id);
+
+        let panel = {
+            panelId: panels[j].id,
+            panelSize: panels[j]['attributes']['size'].value,
+            remove: remove
+        };
+        panelStructure.push(panel);
+    }
+
+    return panelStructure;
+
 }
 
