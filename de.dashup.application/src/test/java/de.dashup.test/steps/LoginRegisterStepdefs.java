@@ -23,25 +23,25 @@ public class LoginRegisterStepdefs {
 
     //--------------- Login ---------------\\
     @And("^User registered with e-mail \"([^\"]*)\" and password \"([^\"]*)\"$")
-    public void userRegisteredWithEMailAndPassword(String arg0, String arg1) throws Throwable {
+    public void userRegisteredWithEMailAndPassword(String mail, String password) throws Throwable {
         Database database = GeneralStepDefinitions.getDatabase();
         HashMap<String, Object> whereParams = new HashMap<>();
-        whereParams.put("email", arg0);
+        whereParams.put("email", mail);
         Assertions.assertEquals(1, database.get(Database.Table.USERS, whereParams).length());
-        Assertions.assertEquals(Hash.create(arg1, database.get(Database.Table.USERS, whereParams).getJSONObject(0).getString("salt")),
+        Assertions.assertEquals(Hash.create(password, database.get(Database.Table.USERS, whereParams).getJSONObject(0).getString("salt")),
                 database.get(Database.Table.USERS, whereParams).getJSONObject(0).getString("password"));
     }
 
     @When("^User enters \"([^\"]*)\" as e-mail$")
-    public void userEntersAsEMail(String arg0) {
+    public void userEntersAsEMail(String mail) {
         WebDriver driver = GeneralStepDefinitions.getDriver();
-        driver.findElement(By.id("text-field-login-email")).sendKeys(arg0);
+        driver.findElement(By.id("text-field-login-email")).sendKeys(mail);
     }
 
     @And("^User enters \"([^\"]*)\" as password$")
-    public void userEntersAsPassword(String arg0) {
+    public void userEntersAsPassword(String password) {
         WebDriver driver = GeneralStepDefinitions.getDriver();
-        driver.findElement(By.id("text-field-login-password")).sendKeys(arg0);
+        driver.findElement(By.id("text-field-login-password")).sendKeys(password);
     }
 
     @And("^User unchecks remember me option$")
@@ -151,34 +151,34 @@ public class LoginRegisterStepdefs {
     }
 
     @And("^E-mail \"([^\"]*)\" already exists$")
-    public void eMailAlreadyExists(String arg0) throws SQLException {
+    public void eMailAlreadyExists(String mail) throws SQLException {
         HashMap<String, Object> whereParams = new HashMap<>();
-        whereParams.put("email", arg0);
+        whereParams.put("email", mail);
         Assertions.assertEquals(1, GeneralStepDefinitions.getDatabase().get(Database.Table.USERS, whereParams).length());
     }
 
     @When("^User enters \"([^\"]*)\" as username$")
-    public void userEntersAsUsername(String arg0) {
+    public void userEntersAsUsername(String userName) {
         WebDriver driver = GeneralStepDefinitions.getDriver();
-        driver.findElement(By.id("text-field-register-name")).sendKeys(arg0);
+        driver.findElement(By.id("text-field-register-name")).sendKeys(userName);
     }
 
     @And("^User enters \"([^\"]*)\" as e-mail to registration formula$")
-    public void userEntersAsEMailToRegistrationFormula(String arg0) {
+    public void userEntersAsEMailToRegistrationFormula(String mail) {
         WebDriver driver = GeneralStepDefinitions.getDriver();
-        driver.findElement(By.id("text-field-register-email")).sendKeys(arg0);
+        driver.findElement(By.id("text-field-register-email")).sendKeys(mail);
     }
 
     @And("^User enters \"([^\"]*)\" as password to registration formula$")
-    public void userEntersAsPasswordToRegistrationFormula(String arg0) {
+    public void userEntersAsPasswordToRegistrationFormula(String password) {
         WebDriver driver = GeneralStepDefinitions.getDriver();
-        driver.findElement(By.id("text-field-register-password")).sendKeys(arg0);
+        driver.findElement(By.id("text-field-register-password")).sendKeys(password);
     }
 
     @And("^User repeats \"([^\"]*)\" as password$")
-    public void userRepeatsAsPassword(String arg0) {
+    public void userRepeatsAsPassword(String password) {
         WebDriver driver = GeneralStepDefinitions.getDriver();
-        driver.findElement(By.id("text-field-register-repeat-password")).sendKeys(arg0);
+        driver.findElement(By.id("text-field-register-repeat-password")).sendKeys(password);
     }
 
     @Then("^Registration error message is displayed stating that password is invalid$")
