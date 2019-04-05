@@ -12,14 +12,14 @@ import org.openqa.selenium.WebElement;
 
 
 @Ignore
-public class GeneralStepdefs extends SpringBootBase {
+public class GeneralStepDefinitions extends SpringBootBase {
     private final static String LOGIN_URL = "http://localhost:9004/login";
 
     private static WebDriver driver;
     private static Database database;
 
     public static void setDriver(WebDriver driver) {
-        GeneralStepdefs.driver = driver;
+        GeneralStepDefinitions.driver = driver;
     }
 
     public static WebDriver getDriver() {
@@ -27,7 +27,7 @@ public class GeneralStepdefs extends SpringBootBase {
     }
 
     public static void setDatabase(Database database) {
-        GeneralStepdefs.database = database;
+        GeneralStepDefinitions.database = database;
     }
 
     public static Database getDatabase() {

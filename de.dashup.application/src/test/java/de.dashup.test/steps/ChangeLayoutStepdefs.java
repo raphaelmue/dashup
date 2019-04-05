@@ -19,7 +19,7 @@ public class ChangeLayoutStepdefs {
     //--------------- Navigation ---------------\\
     @When("^User clicks on settings menu$")
     public void userClicksOnSettingsMenu() {
-        WebDriver driver = GeneralStepdefs.getDriver();
+        WebDriver driver = GeneralStepDefinitions.getDriver();
         WebDriverWait wait = new WebDriverWait(driver, 3);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nav-item-settings")));
         try {
@@ -34,7 +34,7 @@ public class ChangeLayoutStepdefs {
 
     @Then("^Settings menu opens up$")
     public void settingsMenuOpensUp() {
-        WebDriver driver = GeneralStepdefs.getDriver();
+        WebDriver driver = GeneralStepDefinitions.getDriver();
         Assertions.assertEquals("dashup", driver.getTitle());
         Assertions.assertEquals("http://localhost:9004/settings/", driver.getCurrentUrl());
         WebElement element = driver.findElement(By.id("nav-item-settings"));
@@ -46,7 +46,7 @@ public class ChangeLayoutStepdefs {
 
     @Given("^User is located on settings menu$")
     public void userIsLocatedOnSettingsMenu() {
-        WebDriver driver = GeneralStepdefs.getDriver();
+        WebDriver driver = GeneralStepDefinitions.getDriver();
         try {
             driver.findElement(By.id("li-for-nav-item-settings")).click();
         } catch (ElementNotInteractableException e) {
@@ -64,19 +64,19 @@ public class ChangeLayoutStepdefs {
 
     @When("^User clicks on dashboard icon$")
     public void userClicksOnDashboardIcon() {
-        WebDriver driver = GeneralStepdefs.getDriver();
+        WebDriver driver = GeneralStepDefinitions.getDriver();
         driver.findElement(By.className("brand-logo")).click();
     }
 
     @When("^User navigates back over the navigation bar$")
     public void userNavigatesBackOverTheNavigationBar() {
-        WebDriver driver = GeneralStepdefs.getDriver();
+        WebDriver driver = GeneralStepDefinitions.getDriver();
         driver.findElement(By.linkText("dashup")).click();
     }
 
     @Then("^User will be directed back to central dashboard$")
     public void userWillBeDirectedBackToCentralDashboard() {
-        WebDriver driver = GeneralStepdefs.getDriver();
+        WebDriver driver = GeneralStepDefinitions.getDriver();
         Assertions.assertEquals("dashup", driver.getTitle());
         Assertions.assertEquals("http://localhost:9004/", driver.getCurrentUrl());
         WebElement element = driver.findElement(By.id("nav-item-dashboard"));
@@ -89,7 +89,7 @@ public class ChangeLayoutStepdefs {
     //--------------- Themes ---------------\\
     @When("^User changes theme to \"([^\"]*)\"$")
     public void userChangesThemeTo(String arg0) throws InterruptedException {
-        WebDriver driver = GeneralStepdefs.getDriver();
+        WebDriver driver = GeneralStepDefinitions.getDriver();
         WebElement header = driver.findElement(By.id("header-layout"));
         header.click();
         WebElement input = header.findElement(By.xpath("//input[@class=\"select-dropdown dropdown-trigger\"]"));
@@ -102,7 +102,7 @@ public class ChangeLayoutStepdefs {
 
     @And("^User clicks on submit icon for layout settings$")
     public void userClicksOnSubmitIconForLayoutSettings() throws InterruptedException {
-        WebDriver driver = GeneralStepdefs.getDriver();
+        WebDriver driver = GeneralStepDefinitions.getDriver();
         driver.findElement(By.id("save-layout-changes")).click();
         Thread.sleep(1000);
         WebElement toast = driver.findElement(By.className("toast"));
@@ -113,7 +113,7 @@ public class ChangeLayoutStepdefs {
 
     @Then("^Theme of dashup changes to \"([^\"]*)\"$")
     public void themeOfDashupChangesTo(String arg0) {
-        WebDriver driver = GeneralStepdefs.getDriver();
+        WebDriver driver = GeneralStepDefinitions.getDriver();
         WebElement headTag = driver.findElement(By.tagName("head"));
         List<WebElement> links = headTag.findElements(By.xpath("//link[@rel=\"stylesheet\"]"));
         boolean found = false;
@@ -131,7 +131,7 @@ public class ChangeLayoutStepdefs {
     //--------------- Background ---------------\\
     @When("^User provides the valid image URL \"([^\"]*)\"$")
     public void userProvidesTheValidImageURL(String arg0) throws InterruptedException {
-        WebDriver driver = GeneralStepdefs.getDriver();
+        WebDriver driver = GeneralStepDefinitions.getDriver();
         WebElement header = driver.findElement(By.id("header-layout"));
         header.click();
         Thread.sleep(1000);
@@ -148,7 +148,7 @@ public class ChangeLayoutStepdefs {
 
     @Then("^Picture with URL \"([^\"]*)\" is displayed as background image$")
     public void pictureWithURLIsDisplayedAsBackgroundImage(String arg0) throws InterruptedException {
-        WebDriver driver = GeneralStepdefs.getDriver();
+        WebDriver driver = GeneralStepDefinitions.getDriver();
         Thread.sleep(1000);
         WebElement headTag = driver.findElement(By.tagName("head"));
         WebElement styleTag = headTag.findElement(By.xpath(".//style"));
@@ -160,7 +160,7 @@ public class ChangeLayoutStepdefs {
     //--------------- Undo ---------------\\
     @Given("^User has made a change, key \"([^\"]*)\" was changed from \"([^\"]*)\" to \"([^\"]*)\"$")
     public void userHasMadeAChangeKeyWasChangedFromTo(String arg0, String arg1, String arg2) throws Throwable {
-        WebDriver driver = GeneralStepdefs.getDriver();
+        WebDriver driver = GeneralStepDefinitions.getDriver();
         try {
             driver.findElement(By.id("li-for-nav-item-settings")).click();
         } catch (ElementNotInteractableException e) {
@@ -196,7 +196,7 @@ public class ChangeLayoutStepdefs {
 
     @When("^User clicks on abandon icon$")
     public void userClicksOnAbandonIcon() throws InterruptedException {
-        WebDriver driver = GeneralStepdefs.getDriver();
+        WebDriver driver = GeneralStepDefinitions.getDriver();
         driver.findElement(By.id("btn-undo-layout-changes")).click();
         Thread.sleep(1000);
         WebElement toast = driver.findElement(By.className("toast"));
@@ -207,7 +207,7 @@ public class ChangeLayoutStepdefs {
 
     @Then("^Key \"([^\"]*)\" will be restored to \"([^\"]*)\"$")
     public void keyWillBeRestoredTo(String arg0, String arg1) throws Throwable {
-        WebDriver driver = GeneralStepdefs.getDriver();
+        WebDriver driver = GeneralStepDefinitions.getDriver();
         switch (arg0) {
             case "theme":
                 Thread.sleep(1000);
