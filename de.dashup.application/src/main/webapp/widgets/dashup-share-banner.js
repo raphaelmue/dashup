@@ -1,12 +1,10 @@
 import {LitElement, html, css} from 'https://unpkg.com/lit-element@2.1.0/lit-element.js?module'
-
-export class DashupShareBanner extends LitElement {
+export class DashupShareBanner extends LitElement{
 
     render() {
         return html`
             <dashup-grid-layout>
                 <dashup-text-input name="code"
-                                   label='Share Code' 
                                    placeholder='Enter the share code here...' 
                                    value="${this.company}"
                                    layout='{"row": 1, "offset": 2, "size": 4}'> 
@@ -15,7 +13,7 @@ export class DashupShareBanner extends LitElement {
                                api="https://api.iextrading.com/1.0/stock/%code%/chart"
                                consumers="price development" 
                                producers="code"
-                               layout='{"row": 1, "offset": 1, "size": 2}'>
+                               layout='{"row": 1, "offset": 1, "size": 1}'>
                 </dashup-button>
                 <dashup-display name="development"
                                 label="Development" 
@@ -41,9 +39,8 @@ export class DashupShareBanner extends LitElement {
 
     constructor() {
         super();
-        this.company = "SAP";
+        this.company= "SAP";
     }
 
 }
-
-customElements.define("dashup-share-banner", DashupShareBanner);
+customElements.define("dashup-share-banner",DashupShareBanner);

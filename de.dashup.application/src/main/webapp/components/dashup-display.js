@@ -4,9 +4,12 @@ export class DashupDisplay extends DashupComponent{
 
     render() {
         return html`
-          <div class="collection">
-                <a class="collection-item">${this.label}<span class="badge">${this.displayedText} ${this.displayedText ? this.quantity : ""}</span></a>
-          </div>
+            <div class="collection">
+                <a class="collection-item">
+                ${this.label}
+                <span class="badge">${this.displayedText} ${this.displayedText ? this.quantity : ""}</span>
+                </a>
+            </div>
         `;
     }
 
@@ -19,11 +22,13 @@ export class DashupDisplay extends DashupComponent{
         };
     }
 
-    handleData(data) {
+    displayData(data) {
         let value = data;
-        let path = this.path.split(" ");
-        for(let i = 0; i < path.length; i++) {
-            value = value[path[i]];
+        if(this.path){
+            let path = this.path.split(" ");
+            for(let i = 0; i < path.length; i++) {
+                value = value[path[i]];
+            }
         }
         this.displayedText = value;
     }
