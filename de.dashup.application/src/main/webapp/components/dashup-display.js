@@ -4,23 +4,19 @@ export class DashupDisplay extends DashupComponent{
 
     render() {
         return html`
-            <span>${this.displayedText}</span>
+          <div class="collection">
+                <a class="collection-item">${this.label}<span class="badge">${this.displayedText} ${this.displayedText ? this.quantity : ""}</span></a>
+          </div>
         `;
     }
 
     static get properties() {
         return {
+            label: {type: String},
             displayedText: {type: String},
-            data: {type: Object},
+            quantity: {type: String},
             path: {type: String}
         };
-    }
-
-    constructor() {
-        super();
-        this.displayedText = "";
-        this.data = {};
-        this.path = "";
     }
 
     handleData(data) {
@@ -30,7 +26,6 @@ export class DashupDisplay extends DashupComponent{
             value = value[path[i]];
         }
         this.displayedText = value;
-        this.data = data;
     }
 
 }

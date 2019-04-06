@@ -4,44 +4,44 @@ export class DashupButton extends DashupComponent{
 
     render() {
         return html`
-            <button id="dashup-button" class="btn waves-effect waves-light" @click="${this.callAPI}">
+            <button class="btn waves-effect waves-light" @click="${this.callAPI}">
                 ${this.text}
             </button>
         `;
     }
 
+    // API change check: return !(new RegExp("\\b" + oldValue.replace(new RegExp("%.*?%", "g"), ".*") + "\\b").test(newValue));
+    // Returns true if only the placeholders where filled
     static get properties() {
         return {
             text: {type: String},
-            api: {type: Object},
-            consumers: {type: Array, converter: (consumers) => {return consumers.split(" ")}}
+            api: {type: String, hasChanged: () => {return false;}},
+            consumers: {type: Array, hasChanged: () => {return false;}, converter: (consumers) => {return consumers.split(" ")}},
+            producers: {type: Array, hasChanged: () => {return false;}, converter: (producers) => {return producers.split(" ")}}
         };
     }
 
-    constructor() {
-        super();
-        this.text = "Test";
-        this.api = {};
+    callAPI() {
+        let parameters = this.receiveData();
+        let url = this.api;
+        for (let name in parameters) {
+            url = url.replace(`%${name}%`, parameters[name]);
+        }
+
+        fetch(url).then((response) => {
+            return response.json();
+        }).then((json) => {
+            this.dispatchData(json);
+        })
     }
 
-    callAPI() {
-        let params = "";
-        if(this.api.params){    //[{key: ..., value:...},...]
-            params = '?';
-            this.api.params.forEach((key) => {
-                params.append(key + '=' + this.api.params[key] + "&");
-            });
-        }
-        let url = this.api.address + params;
-        if(this.validateURL(url)){
-            fetch(url).then((response) => {
-                return response.json();
-            }).then((json) => {
-                this.dispatchData(json);
-            })
-        } else {
-            console.log('No valid URL!');
-        }
+    receiveData() {
+        let parameters = {};
+        this.producers.forEach(((producerName) => {
+            let producer = this.getRootNode().querySelector("[name=" + producerName + "]");
+            parameters[producer.name] = producer.value;
+        }).bind(this));
+        return parameters;
     }
 
     dispatchData(data){
@@ -49,16 +49,6 @@ export class DashupButton extends DashupComponent{
             let consumer = this.getRootNode().querySelector("[name=" + consumerName + "]");
             consumer.handleData(data);
         }).bind(this));
-    }
-
-    validateURL(url) {
-        let pattern = new RegExp("^(https?:\\/\\/)?"+ // protocol
-            "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|"+ // domain id
-            "((\\d{1,3}\\.){3}\\d{1,3}))"+ // OR ip (v4) address
-            "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*"+ // port and path
-            "(\\?[;&a-z\\d%_.~+=-]*)?"+ // query string
-            "(\\#[-a-z\\d_]*)?$","i"); // fragment locator
-        return pattern.test(url);
     }
 
 }

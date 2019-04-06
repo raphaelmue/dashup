@@ -1,24 +1,33 @@
 import {LitElement, html, css} from 'https://unpkg.com/lit-element@2.1.0/lit-element.js?module'
-export class DashupShareBanner extends LitElement{
+
+export class DashupShareBanner extends LitElement {
 
     render() {
         return html`
             <dashup-grid-layout>
-                <dashup-text-input label='Share Code' 
+                <dashup-text-input name="code"
+                                   label='Share Code' 
                                    placeholder='Enter the share code here...' 
+                                   value="${this.company}"
                                    layout='{"row": 1, "offset": 2, "size": 4}'> 
                 </dashup-text-input>
-                <dashup-button api='{"address": "https://api.iextrading.com/1.0/stock/${this.company}/chart"}' 
+                <dashup-button text="Send"
+                               api="https://api.iextrading.com/1.0/stock/%code%/chart"
                                consumers="price development" 
+                               producers="code"
                                layout='{"row": 1, "offset": 1, "size": 2}'>
                 </dashup-button>
-                <dashup-display name="price" 
+                <dashup-display name="development"
+                                label="Development" 
+                                quantity="%" 
                                 path="22 changePercent"
                                 layout='{"row": 2, "offset": 2, "size": 3}'>              
                 </dashup-display>
-                <dashup-display name="development" 
+                <dashup-display name="price" 
+                                label="Share Value"
+                                quantity="$" 
                                 path="22 high"
-                                layout='{"row": 2, "offset": 1, "size": 3}'>
+                                layout='{"row": 2, "offset": 0, "size": 3}'>
                 </dashup-display>
             </dashup-grid-layout>
         `;
@@ -27,15 +36,14 @@ export class DashupShareBanner extends LitElement{
     static get properties() {
         return {
             company: {type: String, reflect: true},
-            development: {type: String, attribute: false},
-            price: {type: String, attribute: false}
         };
     }
 
     constructor() {
         super();
-        this.company= "SAP";
+        this.company = "SAP";
     }
 
 }
-customElements.define("dashup-share-banner",DashupShareBanner);
+
+customElements.define("dashup-share-banner", DashupShareBanner);
