@@ -2,6 +2,9 @@ package de.dashup.shared;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class Draft implements DatabaseObject {
     private int id;
     private String name;
@@ -53,12 +56,17 @@ public class Draft implements DatabaseObject {
         this.code = code;
     }
 
-    public String getCreationDate() {
-        return creationDate;
+    public LocalDate getCreationDate() {
+        try {
+            return LocalDate.parse(creationDate);
+        } catch (DateTimeParseException ignored) { }
+        return null;
     }
 
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
+    public void setCreationDate(LocalDate creationDate) {
+        if (creationDate != null) {
+            this.creationDate = creationDate.toString();
+        }
     }
 
     @Override

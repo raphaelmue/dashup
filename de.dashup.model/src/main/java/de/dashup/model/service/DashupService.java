@@ -350,6 +350,8 @@ public class DashupService {
         this.database.insert(Database.Table.USER_SECTIONS, values);
     }
 
+    // --- DRAFTS --- \\
+
     public void getUsersDrafts(User user) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
@@ -359,5 +361,21 @@ public class DashupService {
             drafts.add((Draft) databaseObject);
         }
         user.setDrafts(drafts);
+    }
+
+    public Draft createDraft(User user, String draftName) throws SQLException {
+        Map<String, Object> values = new HashMap<>();
+        values.put("user_id", user.getId());
+        values.put("name", draftName);
+        values.put("creation_date", LocalDate.now());
+
+        this.database.insert(Database.Table.USERS_DRAFTS, values);
+
+        Draft draft = new Draft();
+        draft.setId(this.database.getLatestId(Database.Table.USERS_DRAFTS));
+        draft.setName(draftName);
+        draft.setCreationDate(LocalDate.now());
+
+        return draft;
     }
 }

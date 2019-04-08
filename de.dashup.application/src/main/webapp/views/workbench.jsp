@@ -18,7 +18,7 @@
                     </li>
                 </c:forEach>
             </ul>
-            <a href="#" class="btn-floating btn-large waves-effect waves-light"><i class="fas fa-plus"></i></a>
+            <a id="btn-open-create-draft-dialog" href="#" class="btn-floating btn-large waves-effect waves-light"><i class="fas fa-plus"></i></a>
         </aside>
         <main>
             <c:choose>
@@ -68,6 +68,22 @@
             </c:choose>
         </main>
 
+        <div id="dialog-create-draft" class="modal">
+            <div class="modal-content">
+                <div class="row">
+                    <h4><fmt:message key="i18n.createDraft" /></h4>
+                    <div class="input-field col s12">
+                        <input id="text-field-draft-name" type="text" class="validate">
+                        <label for="text-field-draft-name"><fmt:message key="i18n.name" /></label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="btn-submit-create-draft" class="btn modal-close waves-effect waves-light"><fmt:message key="i18n.ok" /></a>
+                <a id="btn-cancel-create-draft" class="btn-flat modal-close waves-effect"><fmt:message key="i18n.cancel" /></a>
+            </div>
+        </div>
+
     </body>
     <script type="text/javascript">
         $( document ).ready(function () {
@@ -83,6 +99,25 @@
 
                 $("#pre-view-container").html($("#textarea-code").val());
             });
+
+            let createDraftDialog = M.Modal.getInstance(document.getElementById("dialog-create-draft"));
+            $("#btn-open-create-draft-dialog").on("click", function () {
+                createDraftDialog.open();
+            });
+
+            $("#btn-submit-create-draft").on("click", function () {
+                let draftName = $("#text-field-draft-name").val();
+                if (draftName !== null) {
+                    PostRequest.getInstance().make("workbench/createDraft", {
+                        draftName: draftName
+                    });
+                } else {
+                    M.toast({
+                        html: "<fmt:message key="i18n.errorFillInRequiredFields" />",
+                        classes: "error"
+                    })
+                }
+            })
         });
     </script>
 </html>
