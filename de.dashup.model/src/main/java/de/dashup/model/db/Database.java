@@ -63,7 +63,8 @@ public class Database {
     public enum DatabaseName {
         DEV("dashup_dev"),
         TEST("dashup_test"),
-        PROD("dashup_prod");
+        PROD("dashup_prod"),
+        JENKINS("dashup_jenkins");
 
         private final String name;
 
@@ -83,6 +84,8 @@ public class Database {
                     return TEST;
                 case "prod":
                     return PROD;
+                case "jenkins":
+                    return JENKINS;
                 default:
                     return null;
             }
