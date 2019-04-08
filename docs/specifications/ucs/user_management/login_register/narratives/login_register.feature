@@ -4,17 +4,26 @@ Feature: Login / Register
   I want to login or register to dashup
   In order to use the dashup platform
 
-  Background: User is registered
-    Given User is registered for dashup
+  Scenario: Successful login without remember me
+    Given User is located on login page
+    And User registered with e-mail "John.Doe@gmail.com" and password "password"
+    When User enters "John.Doe@gmail.com" as e-mail
+    And User enters "password" as password
+    And User unchecks remember me option
+    And User presses login button
+    Then User is logged in
+    And User was navigated to central dashboard
+    And User can close dashup and is not longer logged in
 
-  Scenario: Successful login
+  Scenario: Successful login with remember me
     Given User is located on login page
     And User registered with e-mail "John.Doe@gmail.com" and password "password"
     When User enters "John.Doe@gmail.com" as e-mail
     And User enters "password" as password
     And User presses login button
-    Then User is located on login page
+    Then User is logged in
     And User was navigated to central dashboard
+    And User can close dashup and open it again without being logged out
 
   Scenario: Failed login
     Given User is located on login page
@@ -39,7 +48,6 @@ Feature: Login / Register
     And User presses start button
     Then Registration error message is displayed stating that e-mail is invalid
 
-  #--Not implemented yet--
   Scenario: Failed registration due to an invalid password
     Given User is located on registration page
     When User enters "John Doe" as username
@@ -71,4 +79,3 @@ Feature: Login / Register
     #And User opens mail from dashup
     #And User clicks on confirmation link
     Then User was navigated to central dashboard
-

@@ -90,6 +90,16 @@ public class ServiceLoginRegisterTest {
         Assertions.assertEquals(user.getEmail(), userByToken.getEmail());
     }
 
+    //---------------Logout---------------\\
+    @Test
+    public void testDeleteToken() throws SQLException{
+        final String tokenToBeDeleted = "t8KJgrLLuP51Tilw6SiXjqoyM0EFX6OxrbTG5giYbXRPoJk1dUOoUHRHbx7lTPiD";
+
+        dashupService.deleteToken(tokenToBeDeleted);
+
+        Assertions.assertEquals(0, database.get(Database.Table.USERS_TOKENS, new HashMap<>()).length());
+    }
+
     //---------------Register---------------\\
     @Test
     public void testRegisterUser() throws SQLException {
