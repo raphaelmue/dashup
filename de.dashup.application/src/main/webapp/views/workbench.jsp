@@ -9,6 +9,21 @@
     <jsp:include page="includes/head.jsp" />
     <body>
         <jsp:include page="includes/header.jsp"/>
+        <nav>
+            <div class="nav-wrapper">
+                <div class="col s12">
+                    <a href="${fn:escapeXml(pageContext.request.contextPath)}/" class="breadcrumb">dashup</a>
+                    <a class="breadcrumb" href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/">
+                        <fmt:message key="i18n.workbench" />
+                    </a>
+                    <c:if test="${fn:escapeXml(currentDraft.id) > 0}">
+                        <a class="breadcrumb" href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/${fn:escapeXml(currentDraft.id)}">
+                            ${fn:escapeXml(currentDraft.name)}
+                        </a>
+                    </c:if>
+                </div>
+            </div>
+        </nav>
         <aside>
             <h4><fmt:message key="i18n.workbench" /></h4>
             <ul>
