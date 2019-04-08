@@ -7,6 +7,7 @@
 | Date       | Version | Description                                          | Author           |
 |------------|---------|------------------------------------------------------|------------------|
 | 15/11/2018 | 1.0     | Initial Documentation                                | Raphael Müßeler  |
+| 08/04/2018 | 2.0     | Reworked diagrams and small adjustments              | Raphael Müßeler  |
 
 # Table of Contents
 - [Introduction](#1-introduction)
@@ -76,7 +77,7 @@ Our project dashup uses the classic MVC structure as follows:
 ## 3. Architectural Goals and Constraints
 
 As our main technology we decided to use Spring MVC, which is a framework that takes not only care of the back-end but 
-also of the front-end. Besides is the Controller and Model language Java, so that we do not have to care about 
+also of the front-end. Besides the Controller and Model language is Java, so that we do not have to care about 
 serialization. 
 
 The main architectural goal of this project is portability, distribution and reuse. Since we want our users to customize 
@@ -152,10 +153,9 @@ Our data view is modelled as followed:
 
 <img src="./data_view.png" alt="Data View" />
 
-Note that the current database scheme looks a bit different. Here are the current
-tables, that we use in order to generate the main dashboard:
+Note that the current database scheme looks a bit different regarding the name of the tables and fields. Here are the current tables, that we use in order to generate the main dashboard:
 
-<img src="../../architectures/database_architecture/database_scheme.jpg" alt="Database Scheme" />
+<img src="../../architectures/database_architecture/database_scheme.png" alt="Database Scheme" />
 
 ## 10. Size and Performance
 
