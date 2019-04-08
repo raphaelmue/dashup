@@ -29,7 +29,7 @@
             <ul>
                 <c:forEach items="${drafts}" var="draft">
                     <li>
-                        <a href="./${fn:escapeXml(draft.id)}/" class="waves-effect <c:if test="${draft.id == currentDraft.id}">active</c:if>">${fn:escapeXml(draft.name)}</a>
+                        <a href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/${fn:escapeXml(draft.id)}/" class="waves-effect <c:if test="${draft.id == currentDraft.id}">active</c:if>">${fn:escapeXml(draft.name)}</a>
                     </li>
                 </c:forEach>
             </ul>
