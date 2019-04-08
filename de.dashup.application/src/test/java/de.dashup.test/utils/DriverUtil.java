@@ -12,9 +12,9 @@ public class DriverUtil {
 
     public static String getDriverPath(String profile) {
         if (System.getProperty("os.name").toLowerCase().contains("windows")) {
-            if (profile.equals("chrome")) {
+            if ("chrome".equals(profile)) {
                 return CHROME_DRIVER_WINDOWS;
-            } else if (profile.equals("firefox")) {
+            } else if ("firefox".equals(profile)) {
                 return GECKO_DRIVER_WINDOWS;
             }
         } else if (System.getProperty("os.name").toLowerCase().contains("linux")) {

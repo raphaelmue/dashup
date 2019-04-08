@@ -10,8 +10,8 @@
         <nav>
             <div class="nav-wrapper">
                 <div class="col s12">
-                    <a href="${pageContext.request.contextPath}/" class="breadcrumb">dashup</a>
-                    <a href="#" class="breadcrumb"><fmt:message key="i18n.settings"/></a>
+                    <a href="${fn:escapeXml(pageContext.request.contextPath)}/" class="breadcrumb">dashup</a>
+                    <a href="#" class="breadcrumb"><fmt:message key="i18n.settings" /></a>
                 </div>
             </div>
         </nav>
@@ -237,8 +237,8 @@
         </div>
     </body>
 
-    <script>
-        $(document).ready(function () {
+    <script type="text/javascript">
+        $( document ).ready(function () {
             $("#nav-item-settings").parent().addClass("active");
 
             $("#theme-dropdown option[value=${fn:escapeXml(theme)}]").attr("selected", "selected");
