@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 
-public class LoginRegisterStepdefs {
+public class LoginRegisterStepDefinitions {
 
     //--------------- Login ---------------\\
     @And("^User registered with e-mail \"([^\"]*)\" and password \"([^\"]*)\"$")
