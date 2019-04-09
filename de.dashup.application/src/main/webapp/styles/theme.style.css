@@ -50,9 +50,9 @@ body {
     background-color: var(--color-secondary-light);
 }
 
-button i.fas {
+.btn i.fas, .btn-flat i.fas {
     font-size: 15px;
-    margin-left: 3px;
+    margin-right: 5px;
 }
 
 .input-field {

@@ -139,9 +139,13 @@
                             </div>
                             <div class="row">
                                 <button id="btn-submit-personal-information" class="btn waves-effect waves-light" type="submit" name="action">
-                                    <fmt:message key="i18n.save"/>
                                     <i class="fas fa-check"></i>
+                                    <fmt:message key="i18n.save"/>
                                 </button>
+                                <a id="btn-undo-personal-information" class="btn-flat undo-button waves-effect">
+                                    <i class="fas fa-times"></i>
+                                    <fmt:message key="i18n.undo"/>
+                                </a>
                             </div>
                         </form>
                     </div>
@@ -176,18 +180,14 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col s2 m2">
-                                    <button id= "save-layout-changes" class="btn waves-effect waves-light" type="submit" name="action">
-                                        <i class="fas fa-check"></i>
-                                        <fmt:message key="i18n.save"/>
-                                    </button>
-                                </div>
-                                <div class="col s2 m2 offset-m1">
-                                    <a id="btn-undo-layout-changes" class="btn waves-effect waves-light">
-                                        <i class="fas fa-times"></i>
-                                        <fmt:message key="i18n.undo"/>
-                                    </a>
-                                </div>
+                                <button id= "save-layout-changes" class="btn waves-effect waves-light" type="submit" name="action">
+                                    <i class="fas fa-check"></i>
+                                    <fmt:message key="i18n.save"/>
+                                </button>
+                                <a id="btn-undo-layout-changes" class="btn-flat undo-button waves-effect">
+                                    <i class="fas fa-times"></i>
+                                    <fmt:message key="i18n.undo"/>
+                                </a>
                             </div>
                         </form>
                     </div>
@@ -391,7 +391,7 @@
                 changePasswordDialog.open();
             });
 
-            $('#btn-undo-layout-changes').on("click", function () {
+            $('.undo-button').on("click", function () {
                 if (window.location.href.slice(-1) === '#') {
                     window.location.href += 'undoComplete';
                 } else {
