@@ -10,6 +10,6 @@ then
 fi
 
 cd ./de.dashup.application
-mvn spring-boot:run &
+mvn spring-boot:run -Dspring-boot.run.arguments=--database=prod &
 
 echo 'Restarted dashup application successfully!'
