@@ -40,6 +40,11 @@ pipeline {
                 branch 'deployment'
             }
             steps {
+                script{
+                    withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
+                        sh "mvn spring-boot:run &"
+                    }
+                }
                 sh 'mvn spring-boot:run'
             }
         }
