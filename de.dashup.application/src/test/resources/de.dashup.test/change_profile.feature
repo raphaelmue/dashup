@@ -29,16 +29,16 @@ Feature: Change Profile
     When User clicks on edit icon for account information
     And Username "Jane Doe" is unique
     And User changes username to "Jane Doe"
-    And User clicks on submit icon for account information
+    And User submits new username
     Then Username changes to "Jane Doe"
 
-#  Scenario: Change e-mail
-#    Given User is located on settings menu
-#    When User clicks on edit icon for account information
-#    And User changes e-mail to 'Jane.Doe@gmail.com'
-#    And E-mail is unique
-#    And User clicks on submit icon for account information
-#    Then E-mail changes to 'Jane.Doe@gmail.com'
+  Scenario: Change e-mail
+    Given User is located on settings menu
+    When User clicks on edit icon for account information
+    And User changes e-mail to "Jane.Doe@gmail.com"
+    And E-mail "Jane.Doe@gmail.com" is unique
+    And User submits new e-mail
+    Then E-mail changes to "Jane.Doe@gmail.com"
 #
 #  Scenario: Change password
 #    Given User is located on settings menu

@@ -29,7 +29,7 @@
                                 <p><fmt:message key="i18n.emailAddress"/></p>
                             </div>
                             <div class="col s4 m4">
-                                <p>${fn:escapeXml(email)}</p>
+                                <p id="label-email">${fn:escapeXml(email)}</p>
                             </div>
                             <div class="col s4 m4">
                                 <p><a id="link-open-change-email" href="#"><fmt:message key="i18n.changeEmailAddress"/></a></p>

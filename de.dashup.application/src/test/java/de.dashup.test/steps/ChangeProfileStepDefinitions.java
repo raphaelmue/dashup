@@ -1,5 +1,6 @@
 package de.dashup.test.steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -39,7 +40,7 @@ public class ChangeProfileStepDefinitions {
         Assertions.assertEquals(0, GeneralStepDefinitions.getDatabase().get(Database.Table.USERS, whereParameters).length());
     }
 
-    @And("^User clicks on submit icon for account information$")
+    @And("^User submits new username$")
     public void userClicksOnSubmitIconForAccountInformation() throws InterruptedException {
         WebDriver driver = GeneralStepDefinitions.getDriver();
         driver.findElement(By.id("btn-change-username")).click();
@@ -56,6 +57,43 @@ public class ChangeProfileStepDefinitions {
         driver.findElement(By.id("header-account-management")).click();
         Thread.sleep(1000);
         Assertions.assertEquals(userName, driver.findElement(By.id("label-username")).getText());
+        driver.quit();
+    }
+
+    @And("^User changes e-mail to \"([^\"]*)\"$")
+    public void userChangesEMailTo(String email) throws InterruptedException {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        Thread.sleep(1000);
+        driver.findElement(By.id("link-open-change-email")).click();
+        WebElement userNameInput = driver.findElement(By.id("text-field-email"));
+        userNameInput.clear();
+        userNameInput.sendKeys(email);
+    }
+
+    @And("^E-mail \"([^\"]*)\" is unique$")
+    public void eMailIsUnique(String email) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("email", email);
+        Assertions.assertEquals(0, GeneralStepDefinitions.getDatabase().get(Database.Table.USERS, whereParameters).length());
+    }
+
+    @And("^User submits new e-mail$")
+    public void userSubmitsNewEMail() throws InterruptedException {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        driver.findElement(By.id("btn-change-email")).click();
+        Thread.sleep(1000);
+        WebElement toast = driver.findElement(By.className("toast"));
+        Assertions.assertNotNull(toast);
+        Assertions.assertEquals(I18N.get("i18n.successChangedEmail"), toast.getText());
+        Assertions.assertEquals("http://localhost:9004/settings/#", driver.getCurrentUrl());
+    }
+
+    @Then("^E-mail changes to \"([^\"]*)\"$")
+    public void eMailChangesTo(String email) throws InterruptedException {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        driver.findElement(By.id("header-account-management")).click();
+        Thread.sleep(1000);
+        Assertions.assertEquals(email, driver.findElement(By.id("label-email")).getText());
         driver.quit();
     }
 }
