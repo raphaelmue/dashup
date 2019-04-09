@@ -135,7 +135,9 @@ public class SettingsController {
         if (user != null) {
             user.setName(name);
             user.setSurname(surname);
-            user.setBirthDate(LocalDate.parse(birthDate));
+            if (birthDate != null && !birthDate.isBlank()) {
+                user.setBirthDate(LocalDate.parse(birthDate));
+            }
             user.setCompany(company);
             user.setBio(bio);
             DashupService.getInstance().updatePersonalInformation(user);

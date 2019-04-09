@@ -19,6 +19,8 @@ import java.util.Map;
 
 public class ChangeProfileStepDefinitions {
 
+    // --- Change user name --- \\
+
     @When("^User account information section$")
     public void userClicksOnAccountInformation() throws InterruptedException {
         WebDriver driver = GeneralStepDefinitions.getDriver();
@@ -62,6 +64,8 @@ public class ChangeProfileStepDefinitions {
         driver.quit();
     }
 
+    // --- Change email --- \\
+
     @And("^User changes e-mail to \"([^\"]*)\"$")
     public void userChangesEMailTo(String email) {
         WebDriver driver = GeneralStepDefinitions.getDriver();
@@ -97,6 +101,8 @@ public class ChangeProfileStepDefinitions {
         Assertions.assertEquals(email, driver.findElement(By.id("label-email")).getText());
         driver.quit();
     }
+
+    // --- Change password --- \\
 
     @When("^User clicks on change password$")
     public void userClicksOnChangePassword() throws InterruptedException {
@@ -143,6 +149,45 @@ public class ChangeProfileStepDefinitions {
         User user = (User) new User().fromDatabaseObject(GeneralStepDefinitions.getDatabase().getObject(Database.Table.USERS,
                 DatabaseUser.class, whereParameters).get(0));
         Assertions.assertEquals(Hash.create(password, user.getSalt()), user.getPassword());
+
+        driver.quit();
+    }
+
+    // --- Change first name --- \\
+
+    @When("^User clicks personal information section$")
+    public void userClicksPersonalInformationSection() throws InterruptedException {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        driver.findElement(By.id("header-personal-information")).click();
+        Thread.sleep(1000);
+    }
+
+    @And("^User changes first name to \"([^\"]*)\"$")
+    public void userChangesFirstNameTo(String firstName) {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        WebElement firstNameInput = driver.findElement(By.id("text-field-personal-info-name"));
+        firstNameInput.clear();
+        firstNameInput.sendKeys(firstName);
+    }
+
+    @And("^User clicks on submit icon for personal information$")
+    public void userClicksOnSubmitIconForPersonalInformation() throws InterruptedException {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        driver.findElement(By.id("btn-submit-personal-information")).click();
+        Thread.sleep(1000);
+        WebElement toast = driver.findElement(By.className("toast"));
+        Assertions.assertNotNull(toast);
+        Assertions.assertEquals(I18N.get("i18n.dataSuccessfullySaved"), toast.getText());
+        Assertions.assertEquals("http://localhost:9004/settings/#", driver.getCurrentUrl());
+    }
+
+    @Then("^First name changes to \"([^\"]*)\"$")
+    public void firstNameChangesTo(String firstName) throws InterruptedException {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        driver.findElement(By.id("header-personal-information")).click();
+        Thread.sleep(1000);
+        WebElement firstNameInput = driver.findElement(By.id("text-field-personal-info-name"));
+        Assertions.assertEquals(firstName, firstNameInput.getAttribute("value"));
 
         driver.quit();
     }

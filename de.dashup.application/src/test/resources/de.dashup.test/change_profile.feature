@@ -50,13 +50,13 @@ Feature: Change Profile
     And New password is longer than eight characters
     Then Password changes to "imthegreatest"
 
-#  Scenario: Change first name
-#    Given User is located on settings menu
-#    When User clicks on edit icon for personal information
-#    And User changes first name to 'Jane'
-#    And User clicks on submit icon for personal information
-#    Then First name changes to 'Jane'
-#
+  Scenario: Change first name
+    Given User is located on settings menu
+    When User clicks personal information section
+    And User changes first name to "Jane"
+    And User clicks on submit icon for personal information
+    Then First name changes to "Jane"
+
 #  Scenario: Change last name
 #    Given User is located on settings menu
 #    When User clicks on edit icon for personal information

@@ -138,7 +138,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <button class="btn waves-effect waves-light" type="submit" name="action">
+                                <button id="btn-submit-personal-information" class="btn waves-effect waves-light" type="submit" name="action">
                                     <fmt:message key="i18n.save"/>
                                     <i class="fas fa-check"></i>
                                 </button>
