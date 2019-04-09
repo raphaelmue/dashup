@@ -57,7 +57,7 @@ public class DashupBuilder {
                         String panelId = String.valueOf(panel.getId());
 
 
-                        content.append("<div class=\"bloc--inner ")
+                        content.append("<div class=\"bloc--inner col ")
                                 .append(sizeStyleClass)
                                 .append(" z-depth-1\"")
                                 .append("id=\"p")
@@ -66,9 +66,16 @@ public class DashupBuilder {
                                 .append("size=\"")
                                 .append(size)
                                 .append("\" state=\"default\">")
-                                .append("<h3>")
+                                .append("<div class=\"row\">")
+                                .append("<div class=\"col s11\">")
+                                .append("<h6>")
                                 .append(panel.getSize())
-                                .append("</h3>")
+                                .append("</h6>")
+                                .append("</div>")
+                                .append("<div class=\"col s1\">")
+                                .append("<a class='dropdown-trigger' href='#' data-target='dropdown1'><i class=\"fas fa-ellipsis-v\" style=\"padding-top:10px\"></i></a>")
+                                .append("</div>")
+                                .append("</div>")
                                 .append("</div>");
                     }
                 }

@@ -1,4 +1,5 @@
 let layout = [];
+let selectedPanel;
 
 (function() {
     dragula([document.querySelector('.drag-drop-container')], {
@@ -18,6 +19,13 @@ let layout = [];
         direction: 'horizontal'
     });
 
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        var instances = M.Dropdown.init(elems, null);
+
+
+    });
+
 
     $(".section-minus").on("click", function (event) {
         let sectionToDelete = event.currentTarget.parentNode.parentNode.parentNode;
@@ -33,6 +41,28 @@ let layout = [];
         console.log(sectionToDelete);
         console.log(sectionParent);
         sectionParent.removeChild(sectionToDelete);
+
+
+
+    });
+
+    $(".dropdown-trigger").on("click", function (event) {
+        let panel = event.currentTarget.parentNode.parentNode.parentNode;
+        selectedPanel = panel.id;
+        console.log(panel);
+        console.log("panel id: " + selectedPanel);
+    });
+
+    $("#delete").on("click", function () {
+        console.log("delete pressed");
+        let panelToDelete = document.getElementById(selectedPanel);
+        let panelToDeleteParent = panelToDelete.parentNode;
+
+        console.log(panelToDelete);
+
+        panelToDeleteParent.removeChild(panelToDelete);
+
+        console.log("to delete: " + selectedPanel);
 
 
 
@@ -103,7 +133,7 @@ function makePanelStructure(panels, remove) {
 
     for (let j = 0; j < panelsCount; j++)
     {
-        console.log(panels[j].id);
+        console.log(panelSize);
 
         let panel = {
             panelId: panels[j].id,
