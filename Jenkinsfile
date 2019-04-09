@@ -12,6 +12,7 @@ pipeline {
                 sh 'mkdir ./de.dashup.model/src/main/resources/de/dashup/model/db/config'
                 sh 'cp /var/lib/jenkins/workspace/dashup_database.conf ./de.dashup.model/src/main/resources/de/dashup/model/db/config/database.conf'
                 sh 'mvn clean install -DskipTests'
+                sh 'bash service/stop-application.sh'
             }
         }
         stage('Unit testing') {
