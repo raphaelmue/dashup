@@ -174,7 +174,7 @@ public class ChangeProfileStepDefinitions {
     public void userClicksOnSubmitIconForPersonalInformation() throws InterruptedException {
         WebDriver driver = GeneralStepDefinitions.getDriver();
         driver.findElement(By.id("btn-submit-personal-information")).click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         WebElement toast = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(toast);
         Assertions.assertEquals(I18N.get("i18n.successChangedPersonalInformation"), toast.getText());
