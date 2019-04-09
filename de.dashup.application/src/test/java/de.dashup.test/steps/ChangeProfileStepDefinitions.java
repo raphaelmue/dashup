@@ -192,8 +192,10 @@ public class ChangeProfileStepDefinitions {
         driver.quit();
     }
 
+    // --- Change last name --- \\
+
     @And("^User changes last name to \"([^\"]*)\"$")
-    public void userChangesLastNameTo(String lastName)  {
+    public void userChangesLastNameTo(String lastName) {
         WebDriver driver = GeneralStepDefinitions.getDriver();
         WebElement firstNameInput = driver.findElement(By.id("text-field-personal-info-surname"));
         firstNameInput.clear();
@@ -207,6 +209,48 @@ public class ChangeProfileStepDefinitions {
         Thread.sleep(1000);
         WebElement firstNameInput = driver.findElement(By.id("text-field-personal-info-surname"));
         Assertions.assertEquals(lastName, firstNameInput.getAttribute("value"));
+
+        driver.quit();
+    }
+
+    // --- Change company --- \\
+
+    @And("^User changes company to \"([^\"]*)\"$")
+    public void userChangesCompanyTo(String company) {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        WebElement firstNameInput = driver.findElement(By.id("text-field-personal-info-company"));
+        firstNameInput.clear();
+        firstNameInput.sendKeys(company);
+    }
+
+    @Then("^Company changes to \"([^\"]*)\"$")
+    public void companyChangesTo(String company) throws InterruptedException {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        driver.findElement(By.id("header-personal-information")).click();
+        Thread.sleep(1000);
+        WebElement firstNameInput = driver.findElement(By.id("text-field-personal-info-company"));
+        Assertions.assertEquals(company, firstNameInput.getAttribute("value"));
+
+        driver.quit();
+    }
+
+    // --- Change bio --- \\
+
+    @And("^User changes biography to \"([^\"]*)\"$")
+    public void userChangesBiographyTo(String bio) {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        WebElement firstNameInput = driver.findElement(By.id("text-field-personal-info-bio"));
+        firstNameInput.clear();
+        firstNameInput.sendKeys(bio);
+    }
+
+    @Then("^Biography changes to \"([^\"]*)\"$")
+    public void biographyChangesTo(String bio) throws InterruptedException {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        driver.findElement(By.id("header-personal-information")).click();
+        Thread.sleep(1000);
+        WebElement firstNameInput = driver.findElement(By.id("text-field-personal-info-bio"));
+        Assertions.assertEquals(bio, firstNameInput.getText());
 
         driver.quit();
     }

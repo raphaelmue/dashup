@@ -66,25 +66,25 @@ Feature: Change Profile
 
 #  Scenario: Change birthday
 #    Given User is located on settings menu
-#    When User clicks on edit icon for personal information
-#    And User changes birthday to '13.05.1994'
+#    When User clicks personal information section
+#    And User changes birthday to "13.05.1994"
 #    And User clicks on submit icon for personal information
-#    Then Birthday changes to '13.05.1994'
-#
-#  Scenario: Change company
-#    Given User is located on settings menu
-#    When User clicks on edit icon for personal information
-#    And User changes company to 'VMware Corporation'
-#    And User clicks on submit icon for personal information
-#    Then Company changes to 'VMware Corporation'
-#
-#  Scenario: Change biography
-#    Given User is located on settings menu
-#    When User clicks on edit icon for personal information
-#    And User changes biography to 'My cool biography'
-#    And User clicks on submit icon for personal information
-#    Then Biography changes to 'My cool biography'
-#
+#    Then Birthday changes to "13.05.1994"
+
+  Scenario: Change company
+    Given User is located on settings menu
+    When User clicks personal information section
+    And User changes company to "VMware Corporation"
+    And User clicks on submit icon for personal information
+    Then Company changes to "VMware Corporation"
+
+  Scenario: Change biography
+    Given User is located on settings menu
+    When User clicks personal information section
+    And User changes biography to "My cool biography"
+    And User clicks on submit icon for personal information
+    Then Biography changes to "My cool biography"
+
 #  Scenario: Change profile picture
 #    Given User is located on settings menu
 #    When User clicks on image upload
@@ -94,7 +94,7 @@ Feature: Change Profile
 #
 #  Scenario: Change language
 #    Given User is located on settings menu
-#    When User clicks on edit icon for other information
+#    When User clicks personal information section
 #    And User changes language to 'German'
 #    And User clicks on submit icon for other information
 #    Then Language changes to 'German'
