@@ -1,4 +1,4 @@
-import {LitElement, html, css} from 'https://unpkg.com/lit-element@2.1.0/lit-element.js?module';
+import {LitElement, html, css} from "https://unpkg.com/lit-element@2.1.0/lit-element.js?module";
 import {DashupComponent} from "./dashup-component.js";
 
 export class DashupList extends DashupComponent{
@@ -24,7 +24,7 @@ export class DashupList extends DashupComponent{
 
     static get properties() {
         return {
-            items: {type: Array},
+            items: {type: Array, attribute: false},
             selectedItems: {type: Array, attribute: false},
             selectable: {type: Boolean, reflect: true}
         };
@@ -36,10 +36,13 @@ export class DashupList extends DashupComponent{
     }
 
     handleData(data) {
-        switch(data.mode) {
-            case MessageBroker.MessageMode.DISPLAY: this.displayData(data.data); break;
-            case MessageBroker.MessageMode.ADD: this.addData(data.data); break;
-            case MessageBroker.MessageMode.DELETE: this.deleteData(data.data); break;
+        if(data.data){
+            switch(data.mode) {
+                case MessageBroker.MessageMode.DISPLAY: this.displayData(data.data); break;
+                case MessageBroker.MessageMode.ADD: this.addData(data.data); break;
+                case MessageBroker.MessageMode.DELETE: this.deleteData(data.data); break;
+            }
+            this.requestUpdate();
         }
     }
 
@@ -64,7 +67,7 @@ export class DashupList extends DashupComponent{
                 this.selectedItems.push(item.innerText);
             } else {
                 item.removeAttribute("selected");
-                this.selectedItems.splice(this.selectedItems.indexOf(item.innerText),1)
+                this.selectedItems.splice(this.selectedItems.indexOf(item.innerText),1);
             }
         }
     }

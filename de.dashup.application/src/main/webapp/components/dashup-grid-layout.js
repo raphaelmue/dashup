@@ -1,4 +1,4 @@
-import {LitElement, html, css} from 'https://unpkg.com/lit-element@2.1.0/lit-element.js?module'
+import {LitElement, html, css} from "https://unpkg.com/lit-element@2.1.0/lit-element.js?module";
 import {DashupComponent} from "./dashup-component.js";
 export class DashupGridLayout extends DashupComponent{
 
@@ -15,7 +15,7 @@ export class DashupGridLayout extends DashupComponent{
                                             offset-s${offset} offset-m${offset} offset-l${offset} offset-xl${offset}">
                                     <slot name="${this.getSlotName(element)}"></slot>
                                 </div>
-                            `
+                            `;
         })}
                     </div>
                 `)}
@@ -25,7 +25,7 @@ export class DashupGridLayout extends DashupComponent{
 
     static get properties() {
         return {
-            elements: {type: Array}
+            elements: {type: Array, hasChanged: () => {return false;}}
         };
     }
 

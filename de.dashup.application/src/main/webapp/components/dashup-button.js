@@ -1,4 +1,4 @@
-import {LitElement, html, css} from 'https://unpkg.com/lit-element@2.1.0/lit-element.js?module';
+import {LitElement, html, css} from "https://unpkg.com/lit-element@2.1.0/lit-element.js?module";
 import {DashupComponent} from "./dashup-component.js";
 
 export class DashupButton extends DashupComponent{
@@ -17,11 +17,10 @@ export class DashupButton extends DashupComponent{
             text: {type: String, reflect: true},
             disabled: {type: Boolean, reflect: true},
             mode: {type: String, hasChanged: () => {return false;}},
-            path: {type: String, hasChanged: () => {return false;}},
             api: {type: String, hasChanged: () => {return false;}},
-            params: {type: Array, hasChanged: () => {return false;}, converter: (params) => {return params.split(" ")}},
+            params: {type: Array, hasChanged: () => {return false;}, converter: (params) => {return params.split(" ");}},
             consumers: {type: Object, hasChanged: () => {return false;}},
-            producers: {type: Array, hasChanged: () => {return false;}, converter: (producers) => {return producers.split(" ")}},
+            producers: {type: Array, hasChanged: () => {return false;}, converter: (producers) => {return producers.split(" ");}},
         };
     }
 
@@ -39,7 +38,7 @@ export class DashupButton extends DashupComponent{
         if(this.api){
             apiData = await this.getAPIData();
         }
-        this.dispatchData({ ...producerData, ...apiData})
+        this.dispatchData({ ...producerData, ...apiData});
     }
 
     getProducerData() {
@@ -64,7 +63,7 @@ export class DashupButton extends DashupComponent{
             }).then((json) => {
                 resolve({apiData: json});
             })
-        })
+        });
     }
 
     dispatchData(data){
