@@ -39,7 +39,7 @@ pipeline {
                 branch 'deployment'
             }
             steps {
-                sh 'BUILD_ID=dontKillMe nohup bash service/start-application.sh &'
+                sh 'JENKINS_NODE_COOKIE=dontKillMe nohup bash service/start-application.sh &'
             }
         }
     }
