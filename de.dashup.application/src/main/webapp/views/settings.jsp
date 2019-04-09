@@ -303,7 +303,7 @@
                     break;
                 case "changedPersonalInfo":
                     toastOptions = {
-                        html: "<fmt:message key="i18n.dataSuccessfullySaved" />",
+                        html: "<fmt:message key="i18n.successChangedPersonalInformation" />",
                         classes: "success"
                     };
                     break;

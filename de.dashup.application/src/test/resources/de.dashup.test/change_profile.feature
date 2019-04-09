@@ -57,13 +57,13 @@ Feature: Change Profile
     And User clicks on submit icon for personal information
     Then First name changes to "Jane"
 
-#  Scenario: Change last name
-#    Given User is located on settings menu
-#    When User clicks on edit icon for personal information
-#    And User changes last name to 'Doe'
-#    And User clicks on submit icon for personal information
-#    Then Last name changes to 'Doe'
-#
+  Scenario: Change last name
+    Given User is located on settings menu
+    When User clicks personal information section
+    And User changes last name to "Doe"
+    And User clicks on submit icon for personal information
+    Then Last name changes to "Doe"
+
 #  Scenario: Change birthday
 #    Given User is located on settings menu
 #    When User clicks on edit icon for personal information

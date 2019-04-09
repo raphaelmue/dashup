@@ -177,7 +177,7 @@ public class ChangeProfileStepDefinitions {
         Thread.sleep(1000);
         WebElement toast = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(toast);
-        Assertions.assertEquals(I18N.get("i18n.dataSuccessfullySaved"), toast.getText());
+        Assertions.assertEquals(I18N.get("i18n.successChangedPersonalInformation"), toast.getText());
         Assertions.assertEquals("http://localhost:9004/settings/#", driver.getCurrentUrl());
     }
 
@@ -188,6 +188,25 @@ public class ChangeProfileStepDefinitions {
         Thread.sleep(1000);
         WebElement firstNameInput = driver.findElement(By.id("text-field-personal-info-name"));
         Assertions.assertEquals(firstName, firstNameInput.getAttribute("value"));
+
+        driver.quit();
+    }
+
+    @And("^User changes last name to \"([^\"]*)\"$")
+    public void userChangesLastNameTo(String lastName)  {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        WebElement firstNameInput = driver.findElement(By.id("text-field-personal-info-surname"));
+        firstNameInput.clear();
+        firstNameInput.sendKeys(lastName);
+    }
+
+    @Then("^Last name changes to \"([^\"]*)\"$")
+    public void lastNameChangesTo(String lastName) throws InterruptedException {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        driver.findElement(By.id("header-personal-information")).click();
+        Thread.sleep(1000);
+        WebElement firstNameInput = driver.findElement(By.id("text-field-personal-info-surname"));
+        Assertions.assertEquals(lastName, firstNameInput.getAttribute("value"));
 
         driver.quit();
     }
