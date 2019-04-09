@@ -39,12 +39,8 @@ pipeline {
                 branch 'deployment'
             }
             steps {
-                script{
-                    withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
-                        sh 'cd de.dashup.application/'
-                        sh 'nohup mvn spring-boot:run &'
-                    }
-                }
+                sh 'cd de.dashup.application/'
+                sh 'BUILD_ID=dontKillMe nohup mvn spring-boot:run &'
             }
         }
     }
