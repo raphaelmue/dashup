@@ -11,13 +11,13 @@ export class DashupList extends DashupComponent{
             }
             </style>
             <div class="collection">
-                ${this.items.length ? 
-                    this.items.map((item) => {
-                        return html`
+                ${this.items.length ?
+            this.items.map((item) => {
+                return html`
                             <a class="collection-item" @click="${this.selectEntry}">
                                 ${item}
-                            </a>`;}) : 
-                    html`<a class="collection-item">No elements in the list</a>`}
+                            </a>`;}) :
+            html`<a class="collection-item">No elements in the list</a>`}
             </div>
         `;
     }
@@ -25,31 +25,34 @@ export class DashupList extends DashupComponent{
     static get properties() {
         return {
             items: {type: Array},
-            path: {type: String},
-            selectable: {type: Boolean},
-            values: {type: Array, attribute: false}
+            selectedItems: {type: Array, attribute: false},
+            selectable: {type: Boolean, reflect: true}
         };
     }
     constructor() {
         super();
         this.items = [];
-        this.path = "";
-        this.values = [];
+        this.selectedItems = [];
+    }
+
+    handleData(data) {
+        switch(data.mode) {
+            case MessageBroker.MessageMode.DISPLAY: this.displayData(data.data); break;
+            case MessageBroker.MessageMode.ADD: this.addData(data.data); break;
+            case MessageBroker.MessageMode.DELETE: this.deleteData(data.data); break;
+        }
     }
 
     displayData(data) {
-        let value = data;
-        if(this.path){
-            let path = this.path.split(" ");
-            for(let i = 0; i < path.length; i++) {
-                value = value[path[i]];
-            }
-        }
-        this.items = Array.isArray(value) ? value : [...this.items, value];
+        this.items = Array.isArray(data) ? data : [data];
+    }
+
+    addData(data){
+        this.items = Array.isArray(data) ? [...this.items, ...data] : [...this.items, data];
     }
 
     deleteData(data){
-        this.items = this.items.filter((item) => !data[this.name].includes(item))  //quick and dirty, actually it should be done via API
+        this.items = this.items.filter((item) => Array.isArray(data) ? !data.includes(item) : item !== data);
     }
 
     selectEntry(evt){
@@ -58,16 +61,16 @@ export class DashupList extends DashupComponent{
             item.seletced = !item.seletced;
             if(item.seletced) {
                 item.setAttribute("selected","");
-                this.values.push(item.innerText);
+                this.selectedItems.push(item.innerText);
             } else {
                 item.removeAttribute("selected");
-                this.values.splice(this.values.indexOf(item.innerText),1)
+                this.selectedItems.splice(this.selectedItems.indexOf(item.innerText),1)
             }
         }
     }
 
     getValue(){
-        return this.values;
+        return this.selectedItems;
     }
 }
 customElements.define("dashup-list", DashupList);

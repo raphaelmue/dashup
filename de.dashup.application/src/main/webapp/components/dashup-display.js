@@ -17,20 +17,12 @@ export class DashupDisplay extends DashupComponent{
         return {
             label: {type: String},
             displayedText: {type: String},
-            quantity: {type: String},
-            path: {type: String}
+            quantity: {type: String}
         };
     }
 
-    displayData(data) {
-        let value = data;
-        if(this.path){
-            let path = this.path.split(" ");
-            for(let i = 0; i < path.length; i++) {
-                value = value[path[i]];
-            }
-        }
-        this.displayedText = value;
+    handleData(data) {
+        this.displayedText = data.data;
     }
 
 }

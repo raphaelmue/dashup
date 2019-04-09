@@ -1,8 +1,6 @@
 import {LitElement, html, css} from 'https://unpkg.com/lit-element@2.1.0/lit-element.js?module';
 import {DashupComponent} from "./dashup-component.js";
 
-const  ButtonModes = { DISPLAY: "display", DELETE: "delete" };
-
 export class DashupButton extends DashupComponent{
 
     render() {
@@ -16,39 +14,35 @@ export class DashupButton extends DashupComponent{
     // Returns true if only the placeholders where filled
     static get properties() {
         return {
-            text: {type: String},
+            text: {type: String, reflect: true},
+            disabled: {type: Boolean, reflect: true},
+            mode: {type: String, hasChanged: () => {return false;}},
+            path: {type: String, hasChanged: () => {return false;}},
             api: {type: String, hasChanged: () => {return false;}},
-            consumers: {type: Array, hasChanged: () => {return false;}, converter: (consumers) => {return consumers.split(" ")}},
+            params: {type: Array, hasChanged: () => {return false;}, converter: (params) => {return params.split(" ")}},
+            consumers: {type: Object, hasChanged: () => {return false;}},
             producers: {type: Array, hasChanged: () => {return false;}, converter: (producers) => {return producers.split(" ")}},
-            mode: {type: String},
-            disabled: {type: Boolean, reflect: true}
         };
     }
 
     constructor() {
         super();
-        this.mode = ButtonModes.DISPLAY;
+        this.mode = MessageBroker.MessageMode.DISPLAY;
     }
 
-    handleAction() {
-        let data = this.receiveData();
-        if(this.api){
-            let url = this.api;
-            for (let name in data) {
-                url = url.replace(`%${name}%`, data[name]);
-            }
-
-            fetch(url).then((response) => {
-                return response.json();
-            }).then((json) => {
-                this.dispatchData(json);
-            })
-        } else {
-            this.dispatchData(data);
+    async handleAction() {
+        let producerData = null;
+        let apiData = null;
+        if(this.producers) {
+            producerData = this.getProducerData();
         }
+        if(this.api){
+            apiData = await this.getAPIData();
+        }
+        this.dispatchData({ ...producerData, ...apiData})
     }
 
-    receiveData() {
+    getProducerData() {
         let data = {};
         this.producers.forEach(((producerName) => {
             let producer = this.getRootNode().querySelector("[name=" + producerName + "]");
@@ -57,18 +51,27 @@ export class DashupButton extends DashupComponent{
         return data;
     }
 
+    getAPIData() {
+        let url = this.api;
+        for (let param of this.params) {
+            let producer = this.getRootNode().querySelector("[name=" + param + "]");
+            url = url.replace(`%${producer.name}%`, producer.getValue());
+        }
+
+        return new Promise((resolve, reject) => {
+            fetch(url).then((response) => {
+                return response.json();
+            }).then((json) => {
+                resolve({apiData: json});
+            })
+        })
+    }
+
     dispatchData(data){
-        this.consumers.forEach(((consumerName) => {
-            let consumer = this.getRootNode().querySelector("[name=" + consumerName + "]");
-            switch(this.mode) {
-                case ButtonModes.DISPLAY:
-                    consumer.displayData(data);
-                    break;
-                case ButtonModes.DELETE :
-                    consumer.deleteData(data);
-                    break;
-            }
-        }).bind(this));
+        for(let consumer in this.consumers){
+            let consumerControl = this.getRootNode().querySelector("[name=" + consumer + "]");
+            consumerControl.handleData({data: MessageBroker.getDataFromPath(this.consumers[consumer], data), mode: this.mode});
+        }
     }
 
 }

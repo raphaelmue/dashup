@@ -18,10 +18,6 @@ export class DashupTextInput extends DashupComponent{
         };
     }
 
-    constructor() {
-        super();
-    }
-
     getValue() {
         let response = this.value ? this.value : null;
         this.value = String("");

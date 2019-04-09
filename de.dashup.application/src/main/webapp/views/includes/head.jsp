@@ -43,7 +43,7 @@
         import '../../widgets/dashup-share-banner.js'
         import '../../widgets/dashup-todo.js'
     </script>
-
+    <script type="text/javascript" src="../../components/message-broker.js"></script>
 
     <title>dashup</title>
 </head>

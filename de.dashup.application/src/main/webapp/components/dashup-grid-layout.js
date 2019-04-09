@@ -45,12 +45,11 @@ export class DashupGridLayout extends DashupComponent{
             this.elements[row].push(element);
         });
         this.requestUpdate();
-
     }
 
     getSlotName(element){
-        let layoutData = [element.layout.row, element.layout.offset, element.layout.size];
-        return layoutData.join("-");
+        let keyData = [element.name, element.layout.row, element.layout.offset, element.layout.size];
+        return keyData.join("-");
     }
 
 }
