@@ -1,6 +1,5 @@
 package de.dashup.test.steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -18,15 +17,15 @@ import java.util.Map;
 public class ChangeProfileStepDefinitions {
 
     @When("^User clicks on edit icon for account information$")
-    public void userClicksOnAccountInformation() {
+    public void userClicksOnAccountInformation() throws InterruptedException {
         WebDriver driver = GeneralStepDefinitions.getDriver();
         driver.findElement(By.id("header-account-management")).click();
+        Thread.sleep(1000);
     }
 
     @And("^User changes username to \"([^\"]*)\"$")
-    public void userChangesUsernameTo(String userName) throws InterruptedException {
+    public void userChangesUsernameTo(String userName) {
         WebDriver driver = GeneralStepDefinitions.getDriver();
-        Thread.sleep(1000);
         driver.findElement(By.id("link-open-change-username")).click();
         WebElement userNameInput = driver.findElement(By.id("text-field-username"));
         userNameInput.clear();
@@ -61,9 +60,8 @@ public class ChangeProfileStepDefinitions {
     }
 
     @And("^User changes e-mail to \"([^\"]*)\"$")
-    public void userChangesEMailTo(String email) throws InterruptedException {
+    public void userChangesEMailTo(String email) {
         WebDriver driver = GeneralStepDefinitions.getDriver();
-        Thread.sleep(1000);
         driver.findElement(By.id("link-open-change-email")).click();
         WebElement userNameInput = driver.findElement(By.id("text-field-email"));
         userNameInput.clear();
