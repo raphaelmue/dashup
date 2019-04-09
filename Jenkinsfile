@@ -42,7 +42,7 @@ pipeline {
                 script{
                     withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
                         sh 'cd de.dashup.application/'
-                        sh 'mvn spring-boot:run &'
+                        sh 'nohup mvn spring-boot:run &'
                     }
                 }
             }
