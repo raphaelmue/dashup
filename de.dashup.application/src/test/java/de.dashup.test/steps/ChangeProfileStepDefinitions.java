@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class ChangeProfileStepDefinitions {
 
-    @When("^User clicks on edit icon for account information$")
+    @When("^User account information section$")
     public void userClicksOnAccountInformation() throws InterruptedException {
         WebDriver driver = GeneralStepDefinitions.getDriver();
         driver.findElement(By.id("header-account-management")).click();

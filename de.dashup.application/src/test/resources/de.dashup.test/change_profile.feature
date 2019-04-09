@@ -26,7 +26,7 @@ Feature: Change Profile
 
   Scenario: Change username
     Given User is located on settings menu
-    When User clicks on edit icon for account information
+    When User account information section
     And Username "Jane Doe" is unique
     And User changes username to "Jane Doe"
     And User submits new username
@@ -34,7 +34,7 @@ Feature: Change Profile
 
   Scenario: Change e-mail
     Given User is located on settings menu
-    When User clicks on edit icon for account information
+    When User account information section
     And User changes e-mail to "Jane.Doe@gmail.com"
     And E-mail "Jane.Doe@gmail.com" is unique
     And User submits new e-mail
@@ -42,7 +42,7 @@ Feature: Change Profile
 
   Scenario: Change password
     Given User is located on settings menu
-    When User clicks on edit icon for account information
+    When User account information section
     And User clicks on change password
     And User enters correct old password
     And User changes password to "imthegreatest"
