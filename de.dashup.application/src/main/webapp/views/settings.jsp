@@ -58,7 +58,7 @@
                                 <p><fmt:message key="i18n.userName"/></p>
                             </div>
                             <div class="col s4 m4">
-                                <p>${fn:escapeXml(userName)}</p>
+                                <p id="label-username">${fn:escapeXml(userName)}</p>
                             </div>
                             <div class="col s4 m4">
                                 <p><a id="link-open-change-username" href="#"><fmt:message key="i18n.changeUsername"/></a></p>

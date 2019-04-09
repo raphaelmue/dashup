@@ -275,7 +275,7 @@ public class DashupService {
 
         this.database.update(Database.Table.USERS, whereParameters, values);
 
-        user.setEmail(userName);
+        user.setUserName(userName);
     }
 
     public void updatePersonalInformation(User user) throws SQLException {

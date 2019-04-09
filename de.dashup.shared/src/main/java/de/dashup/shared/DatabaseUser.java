@@ -54,7 +54,7 @@ public class DatabaseUser implements Serializable, DatabaseObject {
         this.salt = salt;
     }
 
-    void setUserName(String userName) {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
