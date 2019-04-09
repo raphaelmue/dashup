@@ -39,8 +39,7 @@ pipeline {
                 branch 'deployment'
             }
             steps {
-                sh 'cd de.dashup.application/'
-                sh 'BUILD_ID=dontKillMe nohup mvn spring-boot:run &'
+                sh 'BUILD_ID=dontKillMe nohup bash service/start-application.sh &'
             }
         }
     }
