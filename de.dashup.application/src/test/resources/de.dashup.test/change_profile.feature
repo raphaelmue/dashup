@@ -91,14 +91,13 @@ Feature: Change Profile
 #    And User uploads an image
 #    And User clicks on submit icon for personal information
 #    Then Profile picture has changed
-#
-#  Scenario: Change language
-#    Given User is located on settings menu
-#    When User clicks personal information section
-#    And User changes language to 'German'
-#    And User clicks on submit icon for other information
-#    Then Language changes to 'German'
-#
+
+  Scenario: Change language
+    Given User is located on settings menu
+    When User clicks others section
+    And User changes language to "Deutsch"
+    Then Language changes to "Deutsch"
+
 #  Scenario Outline: Undo changes
 #    Given User is located on settings menu
 #    When User clicks on edit icon for "<section>" information

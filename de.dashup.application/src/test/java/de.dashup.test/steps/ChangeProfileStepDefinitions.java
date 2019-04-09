@@ -16,6 +16,7 @@ import org.openqa.selenium.WebElement;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ChangeProfileStepDefinitions {
 
@@ -251,6 +252,46 @@ public class ChangeProfileStepDefinitions {
         Thread.sleep(1000);
         WebElement firstNameInput = driver.findElement(By.id("text-field-personal-info-bio"));
         Assertions.assertEquals(bio, firstNameInput.getText());
+
+        driver.quit();
+    }
+
+    // --- Change language --- \\
+
+    @When("^User clicks others section$")
+    public void userClicksOthersSection() throws InterruptedException {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        driver.findElement(By.id("header-other")).click();
+        Thread.sleep(1000);
+    }
+
+    @And("^User changes language to \"([^\"]*)\"$")
+    public void userChangesLanguageTo(String language) throws InterruptedException {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        WebElement container = driver.findElement(By.id("container-other"));
+        WebElement input = container.findElement(By.xpath(".//input[@class=\"select-dropdown dropdown-trigger\"]"));
+        Thread.sleep(1000);
+        input.click();
+        WebElement selectedLanguage = container.findElement(By.xpath(".//span[text()='" + language + "']"));
+        Thread.sleep(1000);
+        selectedLanguage.click();
+
+        I18N.setLanguage(I18N.Language.getLanguageByName(language));
+
+        Thread.sleep(2000);
+        WebElement toast = driver.findElement(By.className("toast"));
+        Assertions.assertNotNull(toast);
+        Assertions.assertEquals(I18N.get("i18n.successChangedLanguage"), toast.getText());
+        Assertions.assertEquals("http://localhost:9004/settings/#", driver.getCurrentUrl());
+    }
+
+    @Then("^Language changes to \"([^\"]*)\"$")
+    public void languageChangesTo(String language)  {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        WebElement input = driver.findElement(By.id("language-dropdown"));
+        Assertions.assertNotNull(I18N.Language.getLanguageByName(language));
+        Assertions.assertEquals(Objects.requireNonNull(I18N.Language.getLanguageByName(language)).getLocale().toLanguageTag(),
+                input.getAttribute("value"));
 
         driver.quit();
     }

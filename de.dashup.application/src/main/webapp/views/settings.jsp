@@ -194,7 +194,7 @@
                 </li>
                 <li>
                     <div id="header-other" class="collapsible-header"><i class="fas fa-cogs"></i><fmt:message key="i18n.other"/></div>
-                    <div class="collapsible-body">
+                    <div id="container-other" class="collapsible-body">
                         <div class="row">
                             <div class="col s4 m4">
                                 <p><fmt:message key="i18n.language"/></p>
