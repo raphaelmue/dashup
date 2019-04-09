@@ -5,6 +5,9 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import de.dashup.application.local.format.I18N;
 import de.dashup.model.db.Database;
+import de.dashup.shared.DatabaseUser;
+import de.dashup.shared.User;
+import de.dashup.util.string.Hash;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -92,6 +95,55 @@ public class ChangeProfileStepDefinitions {
         driver.findElement(By.id("header-account-management")).click();
         Thread.sleep(1000);
         Assertions.assertEquals(email, driver.findElement(By.id("label-email")).getText());
+        driver.quit();
+    }
+
+    @When("^User clicks on change password$")
+    public void userClicksOnChangePassword() throws InterruptedException {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        driver.findElement(By.id("change-password-link")).click();
+        Thread.sleep(1000);
+    }
+
+    @And("^User enters correct old password$")
+    public void userEntersCorrectOldPassword() {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        WebElement oldPasswordInput = driver.findElement(By.id("change-password-old"));
+        oldPasswordInput.sendKeys("password");
+    }
+
+    @And("^User changes password to \"([^\"]*)\"$")
+    public void userChangesPasswordTo(String password) {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        WebElement newPasswordInput = driver.findElement(By.id("change-password-new"));
+        newPasswordInput.sendKeys(password);
+    }
+
+    @And("^User repeats \"([^\"]*)\" in dialog as password$")
+    public void userRepeatsInDialogAsPassword(String password) {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        WebElement newPasswordRepeatInput = driver.findElement(By.id("change-password-new-repeat"));
+        newPasswordRepeatInput.sendKeys(password);
+    }
+
+    @And("^New password is longer than eight characters$")
+    public void newPasswordIsLongerThanEightCharacters() {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        WebElement newPasswordInput = driver.findElement(By.id("change-password-new"));
+        Assertions.assertTrue(newPasswordInput.getAttribute("value").length() >= 8);
+    }
+
+    @Then("^Password changes to \"([^\"]*)\"$")
+    public void passwordChangesTo(String password) throws SQLException {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        driver.findElement(By.id("btn-submit-change-password")).click();
+
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("email", "John.Doe@gmail.com");
+        User user = (User) new User().fromDatabaseObject(GeneralStepDefinitions.getDatabase().getObject(Database.Table.USERS,
+                DatabaseUser.class, whereParameters).get(0));
+        Assertions.assertEquals(Hash.create(password, user.getSalt()), user.getPassword());
+
         driver.quit();
     }
 }

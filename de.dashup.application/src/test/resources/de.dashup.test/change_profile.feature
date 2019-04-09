@@ -39,16 +39,17 @@ Feature: Change Profile
     And E-mail "Jane.Doe@gmail.com" is unique
     And User submits new e-mail
     Then E-mail changes to "Jane.Doe@gmail.com"
-#
-#  Scenario: Change password
-#    Given User is located on settings menu
-#    When User clicks on change password
-#    And User enters correct old password
-#    And User changes password to 'imthegreatest'
-#    And User repeates 'imthegreatest' as password
-#    And New password is longer than eight characters
-#    Then Password changes to 'imthegreatest'
-#
+
+  Scenario: Change password
+    Given User is located on settings menu
+    When User clicks on edit icon for account information
+    And User clicks on change password
+    And User enters correct old password
+    And User changes password to "imthegreatest"
+    And User repeats "imthegreatest" in dialog as password
+    And New password is longer than eight characters
+    Then Password changes to "imthegreatest"
+
 #  Scenario: Change first name
 #    Given User is located on settings menu
 #    When User clicks on edit icon for personal information
