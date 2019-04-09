@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>70449a19-cc53-4cb3-beb1-1e25d8375d13.SCHEMA:dashup_dev</OriginalElement>
+  <nodes>
+    <node x="152.49999999999994" y="308.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users_drafts</node>
+    <node x="4.68181818181813" y="540.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.ratings</node>
+    <node x="574.5" y="330.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users_settings</node>
+    <node x="10.499999999999943" y="341.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users_tokens</node>
+    <node x="363.5" y="308.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.panels</node>
+    <node x="794.5" y="341.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users_sections</node>
+    <node x="561.3484848484848" y="551.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.sections_panels</node>
+    <node x="279.0" y="0.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users</node>
+    <node x="979.5" y="363.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.tags</node>
+    <node x="954.25" y="584.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.panels_tags</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.ratings" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users">
+      <point x="-28.0" y="-80.0" />
+      <point x="32.68181818181813" y="520.0" />
+      <point x="0.0" y="520.0" />
+      <point x="0.0" y="268.0" />
+      <point x="291.41666666666663" y="268.0" />
+      <point x="-62.08333333333337" y="124.0" />
+    </edge>
+    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.panels_tags" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.panels">
+      <point x="-27.25" y="-36.0" />
+      <point x="981.5" y="510.0" />
+      <point x="522.6666666666666" y="510.0" />
+      <point x="63.66666666666663" y="91.0" />
+    </edge>
+    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.panels_tags" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.tags">
+      <point x="27.25" y="-36.0" />
+      <point x="0.0" y="36.0" />
+    </edge>
+    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.panels" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users">
+      <point x="0.0" y="-91.0" />
+      <point x="459.0" y="288.0" />
+      <point x="365.91666666666663" y="288.0" />
+      <point x="12.416666666666629" y="124.0" />
+    </edge>
+    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users_tokens" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users">
+      <point x="0.0" y="-58.0" />
+      <point x="71.49999999999994" y="278.0" />
+      <point x="316.25" y="278.0" />
+      <point x="-37.25" y="124.0" />
+    </edge>
+    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.ratings" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.panels">
+      <point x="28.0" y="-80.0" />
+      <point x="88.68181818181813" y="520.0" />
+      <point x="395.3333333333333" y="520.0" />
+      <point x="-63.66666666666666" y="91.0" />
+    </edge>
+    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users_sections" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users">
+      <point x="0.0" y="-58.0" />
+      <point x="877.0" y="268.0" />
+      <point x="415.58333333333326" y="268.0" />
+      <point x="62.08333333333326" y="124.0" />
+    </edge>
+    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.sections_panels" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.panels">
+      <point x="-41.75" y="-69.0" />
+      <point x="603.0984848484848" y="520.0" />
+      <point x="459.0" y="520.0" />
+      <point x="0.0" y="91.0" />
+    </edge>
+    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users_settings" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users">
+      <point x="0.0" y="-69.0" />
+      <point x="674.5" y="278.0" />
+      <point x="390.75" y="278.0" />
+      <point x="37.25" y="124.0" />
+    </edge>
+    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.sections_panels" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users_sections">
+      <point x="41.75" y="-69.0" />
+      <point x="686.5984848484848" y="520.0" />
+      <point x="877.0" y="520.0" />
+      <point x="0.0" y="58.0" />
+    </edge>
+    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users_drafts" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users">
+      <point x="0.0" y="-91.0" />
+      <point x="247.99999999999994" y="288.0" />
+      <point x="341.08333333333337" y="288.0" />
+      <point x="-12.416666666666629" y="124.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="546.5" y="350.0" />
+  <SelectedNodes>
+    <node>70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.ratings</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+  </Categories>
+</Diagram>
+

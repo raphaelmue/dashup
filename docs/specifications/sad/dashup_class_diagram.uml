@@ -1,206 +1,550 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>JAVA</ID>
-  <OriginalElement />
+  <OriginalElement>de.dashup.application.DashupApplication</OriginalElement>
   <nodes>
-    <node x="730.0969600340134" y="1078.0">de.dashup.model.service.DashupService</node>
-    <node x="0.0" y="1576.0">de.dashup.util.string.RandomString</node>
-    <node x="1265.9473001700678" y="1390.0">de.dashup.application.controllers.DashupController</node>
-    <node x="1274.4001275510202" y="668.0">de.dashup.shared.User</node>
-    <node x="834.9834608843535" y="212.0">de.dashup.shared.Panel</node>
-    <node x="36.98346088435346" y="190.0">de.dashup.model.db.Database.DatabaseName</node>
-    <node x="1207.9834608843535" y="135.0">de.dashup.shared.DatabaseUser</node>
-    <node x="883.0818877551019" y="0.0">de.dashup.shared.DatabaseObject</node>
-    <node x="0.0" y="1167.0">de.dashup.application.DashupApplication</node>
-    <node x="1723.3690476190473" y="624.0">de.dashup.application.local.LocalStorage</node>
-    <node x="662.9834608843535" y="157.0">de.dashup.model.db.Database.Table</node>
-    <node x="877.0" y="1576.0">de.dashup.application.controllers.ProfileController</node>
-    <node x="2012.216220238095" y="1178.0">de.dashup.application.controllers.ControllerHelper</node>
-    <node x="322.98346088435346" y="246.5">de.dashup.model.db.Converter</node>
-    <node x="301.0" y="1576.0">de.dashup.util.string.Hash</node>
-    <node x="1721.9473001700678" y="1412.0">de.dashup.application.controllers.EntryController</node>
-    <node x="211.8749999999999" y="470.0">de.dashup.model.db.Database</node>
-    <node x="555.0" y="1576.0">de.dashup.application.controllers.MarketplaceController</node>
+    <node x="3885.5354610484546" y="2652.0">de.dashup.shared.DashupSectionStructure</node>
+    <node x="1000.8276759607355" y="1581.5">de.dashup.model.builder.PanelLoader</node>
+    <node x="1427.4997467627406" y="464.0">de.dashup.shared.Settings.Theme</node>
+    <node x="1699.4997467627404" y="508.5">de.dashup.shared.Panel</node>
+    <node x="1528.833080096074" y="1016.0">de.dashup.shared.Settings</node>
+    <node x="2101.0729610484545" y="893.5">de.dashup.shared.DatabaseUser</node>
+    <node x="3633.0354610484546" y="2201.0">de.dashup.model.builder.DashupBuilder</node>
+    <node x="2990.5752976190474" y="2178.5">de.dashup.application.local.format.I18N</node>
+    <node x="2283.6354610484545" y="2585.0">de.dashup.application.local.LocalStorage</node>
+    <node x="815.8276759607356" y="1581.5">de.dashup.util.string.Hash</node>
+    <node x="392.8557696324133" y="564.5">de.dashup.model.db.Converter</node>
+    <node x="3184.212019632413" y="3107.0">de.dashup.application.controllers.LayoutModeController</node>
+    <node x="2856.212019632413" y="3140.5">de.dashup.application.controllers.MarketplaceController</node>
+    <node x="3903.462019632413" y="2201.0">de.dashup.shared.DashupPanelInformation</node>
+    <node x="3827.5354610484546" y="2904.0">de.dashup.shared.DashupPanelStructure</node>
+    <node x="2772.2252976190475" y="2904.5">de.dashup.application.controllers.util.ControllerHelper</node>
+    <node x="1184.8276759607356" y="1471.0">de.dashup.util.string.RandomString</node>
+    <node x="1119.1503654970752" y="1958.0">de.dashup.model.service.DashupService</node>
+    <node x="2444.1620196324134" y="3107.0">de.dashup.application.controllers.DashupController</node>
+    <node x="1308.0276759607355" y="165.0">de.dashup.shared.Panel.Size</node>
+    <node x="2331.8877976190474" y="1548.0">de.dashup.shared.User</node>
+    <node x="3002.8252976190474" y="2595.5">de.dashup.application.local.format.I18N.Language</node>
+    <node x="75.6503654970752" y="486.5">de.dashup.model.db.Database.DatabaseName</node>
+    <node x="1789.1247467627404" y="0.0">de.dashup.shared.DatabaseObject</node>
+    <node x="0.0" y="1571.0">de.dashup.application.DashupApplication</node>
+    <node x="601.8276759607356" y="1515.0">de.dashup.model.db.Database.Table</node>
+    <node x="2758.0752976190474" y="2685.0">de.dashup.application.controllers.util.ControllerAction</node>
+    <node x="1694.2883902464498" y="3096.0">de.dashup.application.controllers.EntryController</node>
+    <node x="1856.6057696324133" y="132.0">de.dashup.shared.DatabasePanel</node>
+    <node x="2468.0729610484545" y="982.5">de.dashup.shared.Section</node>
+    <node x="105.82767596073563" y="784.0">de.dashup.model.db.Database</node>
+    <node x="947.9503654970754" y="3096.5">de.dashup.application.controllers.SettingsController</node>
   </nodes>
   <notes />
   <edges>
+    <edge source="de.dashup.shared.Panel" target="de.dashup.shared.DatabasePanel">
+      <point x="82.25" y="-80.5" />
+      <point x="1946.2497467627404" y="444.0" />
+      <point x="1921.3557696324133" y="444.0" />
+      <point x="-64.75" y="136.0" />
+    </edge>
     <edge source="de.dashup.application.DashupApplication" target="de.dashup.model.db.Database">
-      <point x="98.25" y="-37.0" />
-      <point x="294.75" y="1058.0" />
-      <point x="298.3749999999999" y="1058.0" />
-      <point x="-173.0" y="269.0" />
+      <point x="87.25" y="-68.5" />
+      <point x="261.75" y="1451.0" />
+      <point x="153.32767596073563" y="1451.0" />
+      <point x="-190.0" y="278.5" />
+    </edge>
+    <edge source="de.dashup.shared.Panel.Size" target="de.dashup.shared.Panel">
+      <point x="74.80000000000018" y="103.0" />
+      <point x="1476.3276759607356" y="424.0" />
+      <point x="1836.583080096074" y="424.0" />
+      <point x="-27.416666666666515" y="-80.5" />
     </edge>
     <edge source="de.dashup.application.controllers.DashupController" target="de.dashup.model.service.DashupService">
-      <point x="-163.5" y="-70.5" />
-      <point x="1320.4473001700678" y="1370.0" />
-      <point x="807.0969600340134" y="1370.0" />
-      <point x="-77.0" y="126.0" />
+      <point x="-156.79999999999995" y="-58.0" />
+      <point x="2483.362019632413" y="3026.0" />
+      <point x="2273.1354610484545" y="3026.0" />
+      <point x="2273.1354610484545" y="2555.0" />
+      <point x="1273.1503654970752" y="2555.0" />
+      <point x="0.0" y="278.5" />
     </edge>
-    <edge source="de.dashup.application.controllers.EntryController" target="de.dashup.application.controllers.ControllerHelper">
-      <point x="102.79999999999995" y="-48.5" />
-      <point x="2081.747300170068" y="1370.0" />
-      <point x="2157.716220238095" y="1370.0" />
-      <point x="0.0" y="26.0" />
+    <edge source="de.dashup.application.controllers.LayoutModeController" target="de.dashup.model.service.DashupService">
+      <point x="-40.8125" y="-58.0" />
+      <point x="3469.899519632413" y="3066.0" />
+      <point x="3611.5354610484546" y="3066.0" />
+      <point x="3611.5354610484546" y="2535.0" />
+      <point x="1396.350365497075" y="2535.0" />
+      <point x="123.19999999999982" y="278.5" />
     </edge>
-    <edge source="de.dashup.application.controllers.ControllerHelper" target="de.dashup.application.local.LocalStorage">
-      <point x="0.0" y="-26.0" />
-      <point x="2157.716220238095" y="1048.0" />
-      <point x="1999.1690476190474" y="1048.0" />
-      <point x="78.80000000000007" y="115.0" />
+    <edge source="de.dashup.model.builder.DashupBuilder" target="de.dashup.shared.Section">
+      <point x="0.0" y="-35.5" />
+      <point x="3755.0354610484546" y="1938.0" />
+      <point x="3761.462019632413" y="1938.0" />
+      <point x="3761.462019632413" y="1361.0" />
+      <point x="2599.3229610484545" y="1361.0" />
+      <point x="56.25" y="80.0" />
+    </edge>
+    <edge source="de.dashup.model.builder.PanelLoader" target="de.dashup.model.service.DashupService">
+      <point x="54.333333333333485" y="58.0" />
+      <point x="1136.6610092940691" y="1868.0" />
+      <point x="1234.6503654970752" y="1868.0" />
+      <point x="-38.5" y="-278.5" />
     </edge>
     <edge source="de.dashup.model.db.Database" target="de.dashup.model.db.Database.DatabaseName">
-      <point x="-148.28571428571445" y="-269.0" />
-      <point x="323.08928571428544" y="440.0" />
-      <point x="203.2334608843537" y="440.0" />
-      <point x="33.25000000000023" y="82.5" />
+      <point x="-190.0" y="-278.5" />
+      <point x="153.32767596073563" y="764.0" />
+      <point x="166.4003654970752" y="764.0" />
+      <point x="-30.25" y="102.5" />
     </edge>
-    <edge source="de.dashup.model.db.Database" target="de.dashup.shared.DatabaseObject">
-      <point x="74.14285714285711" y="-269.0" />
-      <point x="545.517857142857" y="440.0" />
-      <point x="652.4834608843535" y="440.0" />
-      <point x="652.4834608843535" y="95.0" />
-      <point x="912.4985544217686" y="95.0" />
-      <point x="-147.08333333333337" y="37.5" />
+    <edge source="de.dashup.shared.Section" target="de.dashup.shared.DatabaseObject">
+      <point x="50.0" y="-80.0" />
+      <point x="2593.0729610484545" y="102.0" />
+      <point x="2047.6247467627404" y="102.0" />
+      <point x="94.0" y="36.0" />
     </edge>
-    <edge source="de.dashup.model.service.DashupService" target="de.dashup.shared.User">
-      <point x="134.75" y="-126.0" />
-      <point x="1018.8469600340134" y="1058.0" />
-      <point x="1406.7751275510202" y="1058.0" />
-      <point x="-44.125" y="71.0" />
+    <edge source="de.dashup.model.builder.PanelLoader" target="de.dashup.shared.Panel.Size">
+      <point x="-40.75" y="-58.0" />
+      <point x="1041.5776759607356" y="1421.0" />
+      <point x="1112.0776759607356" y="1421.0" />
+      <point x="1112.0776759607356" y="434.0" />
+      <point x="1326.7276759607353" y="434.0" />
+      <point x="-74.80000000000018" y="103.0" />
     </edge>
     <edge source="de.dashup.model.db.Database.DatabaseName" target="de.dashup.model.db.Database">
-      <point x="99.75000000000023" y="82.5" />
-      <point x="269.7334608843537" y="430.0" />
-      <point x="397.23214285714255" y="430.0" />
-      <point x="-74.14285714285734" y="-269.0" />
+      <point x="90.75" y="102.5" />
+      <point x="287.4003654970752" y="764.0" />
+      <point x="343.32767596073563" y="764.0" />
+      <point x="0.0" y="-278.5" />
+    </edge>
+    <edge source="de.dashup.application.controllers.LayoutModeController" target="de.dashup.application.local.LocalStorage">
+      <point x="-285.6875" y="-58.0" />
+      <point x="3225.024519632413" y="3026.0" />
+      <point x="2761.7252976190475" y="3026.0" />
+      <point x="2761.7252976190475" y="2884.0" />
+      <point x="2524.2604610484545" y="2884.0" />
+      <point x="65.625" y="124.5" />
     </edge>
     <edge source="de.dashup.application.controllers.DashupController" target="de.dashup.application.local.LocalStorage">
-      <point x="163.5" y="-70.5" />
-      <point x="1647.4473001700678" y="1370.0" />
-      <point x="1688.8815476190475" y="1370.0" />
-      <point x="1688.8815476190475" y="1058.0" />
-      <point x="1841.5690476190475" y="1058.0" />
-      <point x="-78.79999999999995" y="115.0" />
+      <point x="0.0" y="-58.0" />
+      <point x="2640.1620196324134" y="3006.0" />
+      <point x="2464.1354610484545" y="3006.0" />
+      <point x="2464.1354610484545" y="2884.0" />
+      <point x="2480.5104610484545" y="2884.0" />
+      <point x="21.875" y="124.5" />
     </edge>
     <edge source="de.dashup.model.service.DashupService" target="de.dashup.shared.DatabaseUser">
-      <point x="57.75" y="-126.0" />
-      <point x="941.8469600340134" y="1038.0" />
-      <point x="1250.0598001700678" y="1038.0" />
-      <point x="1250.0598001700678" y="450.0" />
-      <point x="1265.9834608843535" y="450.0" />
-      <point x="-116.0" y="137.5" />
+      <point x="100.09999999999991" y="-278.5" />
+      <point x="1373.250365497075" y="1888.0" />
+      <point x="1936.6057696324133" y="1888.0" />
+      <point x="1936.6057696324133" y="1441.0" />
+      <point x="2158.906294381788" y="1441.0" />
+      <point x="-115.66666666666674" y="169.0" />
     </edge>
-    <edge source="de.dashup.application.controllers.EntryController" target="de.dashup.shared.User">
-      <point x="-102.79999999999995" y="-48.5" />
-      <point x="1876.1473001700679" y="1350.0" />
-      <point x="1576.4473001700678" y="1350.0" />
-      <point x="1576.4473001700678" y="1058.0" />
-      <point x="1583.2751275510202" y="1058.0" />
-      <point x="132.375" y="71.0" />
+    <edge source="de.dashup.shared.User" target="de.dashup.shared.Settings">
+      <point x="-149.1875" y="-91.5" />
+      <point x="2353.2002976190474" y="1431.0" />
+      <point x="1623.9759372389308" y="1431.0" />
+      <point x="21.14285714285711" y="46.5" />
     </edge>
-    <edge source="de.dashup.shared.User" target="de.dashup.shared.DatabaseUser">
-      <point x="-117.66666666666663" y="-71.0" />
-      <point x="1333.2334608843535" y="450.0" />
-      <point x="1381.9834608843535" y="450.0" />
-      <point x="0.0" y="137.5" />
+    <edge source="de.dashup.application.local.LocalStorage" target="de.dashup.shared.User">
+      <point x="87.5" y="-124.5" />
+      <point x="2546.1354610484545" y="1938.0" />
+      <point x="2523.7002976190474" y="1938.0" />
+      <point x="21.3125" y="91.5" />
     </edge>
-    <edge source="de.dashup.model.service.DashupService" target="de.dashup.model.db.Database">
-      <point x="-96.25" y="-126.0" />
-      <point x="787.8469600340134" y="1048.0" />
-      <point x="644.3749999999999" y="1048.0" />
-      <point x="173.0" y="269.0" />
+    <edge source="de.dashup.model.service.DashupService" target="de.dashup.shared.Section">
+      <point x="115.5" y="-278.5" />
+      <point x="1388.6503654970752" y="1898.0" />
+      <point x="2106.0641029657468" y="1898.0" />
+      <point x="2106.0641029657468" y="1451.0" />
+      <point x="2486.8229610484545" y="1451.0" />
+      <point x="-56.25" y="80.0" />
     </edge>
     <edge source="de.dashup.shared.User" target="de.dashup.shared.DatabaseObject">
-      <point x="117.66666666666663" y="-71.0" />
-      <point x="1568.566794217687" y="450.0" />
-      <point x="1566.4834608843535" y="450.0" />
-      <point x="1566.4834608843535" y="105.0" />
-      <point x="1206.6652210884354" y="105.0" />
-      <point x="147.08333333333348" y="37.5" />
+      <point x="149.1875" y="-91.5" />
+      <point x="2651.5752976190474" y="1451.0" />
+      <point x="2628.5729610484545" y="1451.0" />
+      <point x="2628.5729610484545" y="92.0" />
+      <point x="2094.6247467627404" y="92.0" />
+      <point x="141.0" y="36.0" />
+    </edge>
+    <edge source="de.dashup.application.controllers.SettingsController" target="de.dashup.application.controllers.util.ControllerHelper">
+      <point x="173.1428571428571" y="-68.5" />
+      <point x="1323.0932226399325" y="3036.0" />
+      <point x="2822.0252976190473" y="3036.0" />
+      <point x="-199.20000000000005" y="35.5" />
+    </edge>
+    <edge source="de.dashup.application.controllers.util.ControllerHelper" target="de.dashup.application.controllers.util.ControllerAction">
+      <point x="-99.60000000000002" y="-35.5" />
+      <point x="2921.625297619047" y="2864.0" />
+      <point x="2826.0752976190474" y="2864.0" />
+      <point x="0.0" y="24.5" />
+    </edge>
+    <edge source="de.dashup.shared.DashupPanelStructure" target="de.dashup.shared.DashupSectionStructure">
+      <point x="-56.0" y="-36.0" />
+      <point x="3883.5354610484546" y="2884.0" />
+      <point x="3922.202127715121" y="2884.0" />
+      <point x="-73.33333333333348" y="57.5" />
     </edge>
     <edge source="de.dashup.model.service.DashupService" target="de.dashup.shared.DatabaseObject">
-      <point x="-19.25" y="-126.0" />
-      <point x="864.8469600340134" y="1028.0" />
-      <point x="824.4834608843535" y="1028.0" />
-      <point x="824.4834608843535" y="105.0" />
-      <point x="971.3318877551019" y="105.0" />
-      <point x="-88.25" y="37.5" />
+      <point x="-100.09999999999991" y="-278.5" />
+      <point x="1173.0503654970753" y="1908.0" />
+      <point x="805.3276759607356" y="1908.0" />
+      <point x="805.3276759607356" y="102.0" />
+      <point x="1859.6247467627404" y="102.0" />
+      <point x="-94.0" y="36.0" />
     </edge>
-    <edge source="de.dashup.model.db.Database" target="de.dashup.model.db.Converter">
-      <point x="0.0" y="-269.0" />
-      <point x="471.3749999999999" y="450.0" />
-      <point x="482.48346088435346" y="450.0" />
-      <point x="0.0" y="26.0" />
+    <edge source="de.dashup.application.controllers.LayoutModeController" target="de.dashup.shared.User">
+      <point x="40.8125" y="-58.0" />
+      <point x="3551.524519632413" y="3076.0" />
+      <point x="3622.5354610484546" y="3076.0" />
+      <point x="3622.5354610484546" y="1928.0" />
+      <point x="2608.9502976190474" y="1928.0" />
+      <point x="106.5625" y="91.5" />
     </edge>
-    <edge source="de.dashup.model.service.DashupService" target="de.dashup.model.db.Database.Table">
-      <point x="-57.75" y="-126.0" />
-      <point x="826.3469600340134" y="1038.0" />
-      <point x="759.5416666666665" y="1038.0" />
-      <point x="759.5416666666665" y="450.0" />
-      <point x="788.8167942176867" y="450.0" />
-      <point x="50.33333333333326" y="115.5" />
+    <edge source="de.dashup.application.local.format.I18N.Language" target="de.dashup.application.local.format.I18N">
+      <point x="-78.66666666666663" y="-114.0" />
+      <point x="3042.158630952381" y="2565.0" />
+      <point x="3056.5752976190474" y="2565.0" />
+      <point x="-22.0" y="58.0" />
     </edge>
-    <edge source="de.dashup.application.controllers.DashupController" target="de.dashup.shared.User">
-      <point x="-54.5" y="-70.5" />
-      <point x="1429.4473001700678" y="1370.0" />
-      <point x="1524.3469600340134" y="1370.0" />
-      <point x="1524.3469600340134" y="1058.0" />
-      <point x="1495.0251275510202" y="1058.0" />
-      <point x="44.125" y="71.0" />
+    <edge source="de.dashup.application.controllers.LayoutModeController" target="de.dashup.shared.DashupSectionStructure">
+      <point x="285.6875" y="-58.0" />
+      <point x="3796.399519632413" y="3076.0" />
+      <point x="4062.0354610484546" y="3076.0" />
+      <point x="4062.0354610484546" y="2884.0" />
+      <point x="4068.868794381788" y="2884.0" />
+      <point x="73.33333333333348" y="57.5" />
     </edge>
-    <edge source="de.dashup.application.controllers.EntryController" target="de.dashup.application.local.LocalStorage">
-      <point x="0.0" y="-48.5" />
-      <point x="1978.9473001700678" y="1370.0" />
-      <point x="2001.716220238095" y="1370.0" />
-      <point x="2001.716220238095" y="1058.0" />
-      <point x="1920.3690476190473" y="1058.0" />
-      <point x="0.0" y="115.0" />
+    <edge source="de.dashup.application.controllers.util.ControllerHelper" target="de.dashup.shared.User">
+      <point x="199.19999999999993" y="-35.5" />
+      <point x="3220.4252976190473" y="2884.0" />
+      <point x="3249.3252976190474" y="2884.0" />
+      <point x="3249.3252976190474" y="1938.0" />
+      <point x="2566.3252976190474" y="1938.0" />
+      <point x="63.9375" y="91.5" />
     </edge>
-    <edge source="de.dashup.model.db.Database.Table" target="de.dashup.model.db.Database">
-      <point x="0.0" y="115.5" />
-      <point x="738.4834608843535" y="450.0" />
-      <point x="693.8035714285712" y="450.0" />
-      <point x="222.42857142857133" y="-269.0" />
+    <edge source="de.dashup.shared.Section" target="de.dashup.shared.Panel">
+      <point x="-50.0" y="-80.0" />
+      <point x="2493.0729610484545" y="764.0" />
+      <point x="1891.416413429407" y="764.0" />
+      <point x="27.416666666666515" y="80.5" />
     </edge>
-    <edge source="de.dashup.shared.DatabaseUser" target="de.dashup.shared.DatabaseObject">
-      <point x="0.0" y="-137.5" />
-      <point x="1381.9834608843535" y="115.0" />
-      <point x="1147.831887755102" y="115.0" />
-      <point x="88.25" y="37.5" />
+    <edge source="de.dashup.model.builder.DashupBuilder" target="de.dashup.shared.Panel">
+      <point x="81.33333333333348" y="-35.5" />
+      <point x="3836.368794381788" y="1938.0" />
+      <point x="3772.462019632413" y="1938.0" />
+      <point x="3772.462019632413" y="744.0" />
+      <point x="2001.083080096074" y="744.0" />
+      <point x="137.08333333333348" y="80.5" />
     </edge>
-    <edge source="de.dashup.application.controllers.EntryController" target="de.dashup.model.service.DashupService">
-      <point x="-205.60000000000002" y="-48.5" />
-      <point x="1773.3473001700677" y="1360.0" />
-      <point x="961.0969600340134" y="1360.0" />
-      <point x="77.0" y="126.0" />
+    <edge source="de.dashup.model.service.DashupService" target="de.dashup.shared.Settings.Theme">
+      <point x="23.09999999999991" y="-278.5" />
+      <point x="1296.250365497075" y="1838.0" />
+      <point x="1518.333080096074" y="1838.0" />
+      <point x="1518.333080096074" y="754.0" />
+      <point x="1503.0997467627406" y="754.0" />
+      <point x="-50.40000000000009" y="125.0" />
     </edge>
-    <edge source="de.dashup.model.db.Database" target="de.dashup.model.db.Database.Table">
-      <point x="148.28571428571422" y="-269.0" />
-      <point x="619.6607142857141" y="450.0" />
-      <point x="688.1501275510202" y="450.0" />
-      <point x="-50.33333333333326" y="115.5" />
+    <edge source="de.dashup.application.controllers.SettingsController" target="de.dashup.shared.Settings">
+      <point x="-57.714285714285666" y="-68.5" />
+      <point x="1092.2360797827896" y="3056.0" />
+      <point x="772.3276759607356" y="3056.0" />
+      <point x="772.3276759607356" y="1441.0" />
+      <point x="1560.5473658103597" y="1441.0" />
+      <point x="-42.28571428571422" y="46.5" />
+    </edge>
+    <edge source="de.dashup.application.local.format.I18N" target="de.dashup.application.local.format.I18N.Language">
+      <point x="66.0" y="58.0" />
+      <point x="3144.5752976190474" y="2565.0" />
+      <point x="3199.491964285714" y="2565.0" />
+      <point x="78.66666666666652" y="-114.0" />
+    </edge>
+    <edge source="de.dashup.application.controllers.DashupController" target="de.dashup.model.builder.DashupBuilder">
+      <point x="156.79999999999995" y="-58.0" />
+      <point x="2796.962019632413" y="3076.0" />
+      <point x="3284.9752976190475" y="3076.0" />
+      <point x="3284.9752976190475" y="2565.0" />
+      <point x="3694.0354610484546" y="2565.0" />
+      <point x="-61.0" y="35.5" />
+    </edge>
+    <edge source="de.dashup.application.controllers.LayoutModeController" target="de.dashup.model.builder.DashupBuilder">
+      <point x="122.4375" y="-58.0" />
+      <point x="3633.149519632413" y="3056.0" />
+      <point x="3816.0354610484546" y="3056.0" />
+      <point x="61.0" y="35.5" />
+    </edge>
+    <edge source="de.dashup.application.local.LocalStorage" target="de.dashup.model.service.DashupService">
+      <point x="-87.5" y="-124.5" />
+      <point x="2371.1354610484545" y="2545.0" />
+      <point x="1334.750365497075" y="2545.0" />
+      <point x="61.59999999999991" y="278.5" />
+    </edge>
+    <edge source="de.dashup.application.controllers.SettingsController" target="de.dashup.shared.Settings.Theme">
+      <point x="-173.1428571428571" y="-68.5" />
+      <point x="976.8075083542183" y="3076.0" />
+      <point x="591.3276759607356" y="3076.0" />
+      <point x="591.3276759607356" y="754.0" />
+      <point x="1452.6997467627407" y="754.0" />
+      <point x="-100.79999999999995" y="125.0" />
     </edge>
     <edge source="de.dashup.model.service.DashupService" target="de.dashup.shared.Panel">
-      <point x="19.25" y="-126.0" />
-      <point x="903.3469600340134" y="1028.0" />
-      <point x="1011.4834608843535" y="1028.0" />
-      <point x="0.0" y="60.5" />
+      <point x="69.30000000000018" y="-278.5" />
+      <point x="1342.4503654970754" y="1868.0" />
+      <point x="1756.458080096074" y="1868.0" />
+      <point x="1756.458080096074" y="764.0" />
+      <point x="1781.7497467627404" y="764.0" />
+      <point x="-82.25" y="80.5" />
+    </edge>
+    <edge source="de.dashup.shared.User" target="de.dashup.shared.Section">
+      <point x="106.5625" y="-91.5" />
+      <point x="2608.9502976190474" y="1371.0" />
+      <point x="2561.8229610484545" y="1371.0" />
+      <point x="18.75" y="80.0" />
     </edge>
     <edge source="de.dashup.application.DashupApplication" target="de.dashup.model.db.Database.DatabaseName">
-      <point x="-98.25" y="-37.0" />
-      <point x="98.25" y="450.0" />
-      <point x="70.23346088435346" y="450.0" />
-      <point x="-99.75" y="82.5" />
+      <point x="-87.25" y="-68.5" />
+      <point x="87.25" y="1451.0" />
+      <point x="95.32767596073563" y="1451.0" />
+      <point x="95.32767596073563" y="764.0" />
+      <point x="105.9003654970752" y="764.0" />
+      <point x="-90.75" y="102.5" />
+    </edge>
+    <edge source="de.dashup.application.controllers.util.ControllerHelper" target="de.dashup.application.local.format.I18N">
+      <point x="0.0" y="-35.5" />
+      <point x="3021.2252976190475" y="2884.0" />
+      <point x="2992.3252976190474" y="2884.0" />
+      <point x="2992.3252976190474" y="2565.0" />
+      <point x="3012.5752976190474" y="2565.0" />
+      <point x="-66.0" y="58.0" />
+    </edge>
+    <edge source="de.dashup.shared.DatabasePanel" target="de.dashup.shared.DatabaseObject">
+      <point x="0.0" y="-136.0" />
+      <point x="1986.1057696324133" y="112.0" />
+      <point x="1953.6247467627404" y="112.0" />
+      <point x="0.0" y="36.0" />
+    </edge>
+    <edge source="de.dashup.model.service.DashupService" target="de.dashup.util.string.Hash">
+      <point x="-84.69999999999982" y="-278.5" />
+      <point x="1188.4503654970754" y="1898.0" />
+      <point x="898.3276759607356" y="1898.0" />
+      <point x="0.0" y="58.0" />
+    </edge>
+    <edge source="de.dashup.model.service.DashupService" target="de.dashup.util.string.RandomString">
+      <point x="-7.699999999999818" y="-278.5" />
+      <point x="1265.4503654970754" y="1848.0" />
+      <point x="1240.3276759607356" y="1848.0" />
+      <point x="-55.5" y="168.5" />
+    </edge>
+    <edge source="de.dashup.model.service.DashupService" target="de.dashup.model.builder.PanelLoader">
+      <point x="-53.90000000000009" y="-278.5" />
+      <point x="1219.250365497075" y="1878.0" />
+      <point x="1082.3276759607356" y="1878.0" />
+      <point x="0.0" y="58.0" />
+    </edge>
+    <edge source="de.dashup.shared.DashupSectionStructure" target="de.dashup.shared.DashupPanelInformation">
+      <point x="55.0" y="-57.5" />
+      <point x="4050.5354610484546" y="2565.0" />
+      <point x="4036.962019632413" y="2565.0" />
+      <point x="44.5" y="35.5" />
+    </edge>
+    <edge source="de.dashup.application.controllers.util.ControllerHelper" target="de.dashup.application.local.LocalStorage">
+      <point x="-199.20000000000005" y="-35.5" />
+      <point x="2822.0252976190473" y="2874.0" />
+      <point x="2568.0104610484545" y="2874.0" />
+      <point x="109.375" y="124.5" />
+    </edge>
+    <edge source="de.dashup.application.controllers.SettingsController" target="de.dashup.application.local.LocalStorage">
+      <point x="115.42857142857144" y="-68.5" />
+      <point x="1265.378936925647" y="3006.0" />
+      <point x="2031.2497467627404" y="3006.0" />
+      <point x="2031.2497467627404" y="2864.0" />
+      <point x="2305.5104610484545" y="2864.0" />
+      <point x="-153.125" y="124.5" />
+    </edge>
+    <edge source="de.dashup.shared.Settings.Theme" target="de.dashup.shared.Settings">
+      <point x="100.79999999999995" y="125.0" />
+      <point x="1654.2997467627406" y="754.0" />
+      <point x="1652.166413429407" y="754.0" />
+      <point x="49.33333333333326" y="-46.5" />
+    </edge>
+    <edge source="de.dashup.application.controllers.LayoutModeController" target="de.dashup.shared.DashupPanelStructure">
+      <point x="204.0625" y="-58.0" />
+      <point x="3714.774519632413" y="3066.0" />
+      <point x="3939.5354610484546" y="3066.0" />
+      <point x="0.0" y="36.0" />
+    </edge>
+    <edge source="de.dashup.application.controllers.DashupController" target="de.dashup.application.controllers.util.ControllerHelper">
+      <point x="78.40000000000009" y="-58.0" />
+      <point x="2718.5620196324135" y="3056.0" />
+      <point x="3021.2252976190475" y="3056.0" />
+      <point x="0.0" y="35.5" />
+    </edge>
+    <edge source="de.dashup.application.controllers.LayoutModeController" target="de.dashup.application.controllers.util.ControllerHelper">
+      <point x="-204.0625" y="-58.0" />
+      <point x="3306.649519632413" y="3016.0" />
+      <point x="3220.4252976190473" y="3016.0" />
+      <point x="199.20000000000005" y="35.5" />
+    </edge>
+    <edge source="de.dashup.model.db.Database" target="de.dashup.shared.DatabaseObject">
+      <point x="190.0" y="-278.5" />
+      <point x="533.3276759607356" y="744.0" />
+      <point x="678.3557696324133" y="744.0" />
+      <point x="678.3557696324133" y="92.0" />
+      <point x="1812.6247467627404" y="92.0" />
+      <point x="-141.0" y="36.0" />
+    </edge>
+    <edge source="de.dashup.shared.Panel" target="de.dashup.shared.Panel.Size">
+      <point x="-82.25" y="-80.5" />
+      <point x="1781.7497467627404" y="434.0" />
+      <point x="1438.9276759607355" y="434.0" />
+      <point x="37.40000000000009" y="103.0" />
+    </edge>
+    <edge source="de.dashup.model.service.DashupService" target="de.dashup.shared.User">
+      <point x="130.9000000000001" y="-278.5" />
+      <point x="1404.0503654970753" y="1908.0" />
+      <point x="2353.2002976190474" y="1908.0" />
+      <point x="-149.1875" y="91.5" />
+    </edge>
+    <edge source="de.dashup.model.service.DashupService" target="de.dashup.shared.Panel.Size">
+      <point x="-23.09999999999991" y="-278.5" />
+      <point x="1250.0503654970753" y="1858.0" />
+      <point x="1174.3276759607356" y="1858.0" />
+      <point x="1174.3276759607356" y="444.0" />
+      <point x="1364.1276759607354" y="444.0" />
+      <point x="-37.40000000000009" y="103.0" />
+    </edge>
+    <edge source="de.dashup.application.controllers.SettingsController" target="de.dashup.model.service.DashupService">
+      <point x="0.0" y="-68.5" />
+      <point x="-123.19999999999982" y="278.5" />
+    </edge>
+    <edge source="de.dashup.application.controllers.EntryController" target="de.dashup.shared.User">
+      <point x="-95.19999999999993" y="-69.0" />
+      <point x="1837.0883902464498" y="2996.0" />
+      <point x="2020.2497467627404" y="2996.0" />
+      <point x="2020.2497467627404" y="1938.0" />
+      <point x="2481.0752976190474" y="1938.0" />
+      <point x="-21.3125" y="91.5" />
+    </edge>
+    <edge source="de.dashup.shared.User" target="de.dashup.shared.DatabaseUser">
+      <point x="21.3125" y="-91.5" />
+      <point x="2523.7002976190474" y="1391.0" />
+      <point x="2390.239627715121" y="1391.0" />
+      <point x="115.66666666666674" y="169.0" />
+    </edge>
+    <edge source="de.dashup.model.service.DashupService" target="de.dashup.model.db.Database">
+      <point x="-130.9000000000001" y="-278.5" />
+      <point x="1142.250365497075" y="1928.0" />
+      <point x="783.3276759607356" y="1928.0" />
+      <point x="783.3276759607356" y="1421.0" />
+      <point x="438.32767596073563" y="1421.0" />
+      <point x="95.0" y="278.5" />
+    </edge>
+    <edge source="de.dashup.model.service.DashupService" target="de.dashup.shared.Settings">
+      <point x="38.5" y="-278.5" />
+      <point x="1311.6503654970752" y="1848.0" />
+      <point x="1560.583080096074" y="1848.0" />
+      <point x="1560.583080096074" y="1451.0" />
+      <point x="1581.6902229532166" y="1451.0" />
+      <point x="-21.14285714285711" y="46.5" />
+    </edge>
+    <edge source="de.dashup.model.builder.PanelLoader" target="de.dashup.shared.Panel">
+      <point x="40.75" y="-58.0" />
+      <point x="1123.0776759607356" y="764.0" />
+      <point x="1726.916413429407" y="764.0" />
+      <point x="-137.08333333333348" y="80.5" />
+    </edge>
+    <edge source="de.dashup.model.db.Database" target="de.dashup.model.db.Converter">
+      <point x="95.0" y="-278.5" />
+      <point x="438.32767596073563" y="734.0" />
+      <point x="530.3557696324133" y="734.0" />
+      <point x="0.0" y="24.5" />
+    </edge>
+    <edge source="de.dashup.model.service.DashupService" target="de.dashup.model.db.Database.Table">
+      <point x="-146.30000000000018" y="-278.5" />
+      <point x="1126.850365497075" y="1938.0" />
+      <point x="676.3276759607356" y="1938.0" />
+      <point x="0.0" y="124.5" />
+    </edge>
+    <edge source="de.dashup.application.controllers.EntryController" target="de.dashup.application.local.LocalStorage">
+      <point x="0.0" y="-69.0" />
+      <point x="1932.2883902464498" y="3016.0" />
+      <point x="2251.1354610484545" y="3016.0" />
+      <point x="2251.1354610484545" y="2874.0" />
+      <point x="2349.2604610484545" y="2874.0" />
+      <point x="-109.375" y="124.5" />
+    </edge>
+    <edge source="de.dashup.model.db.Database.Table" target="de.dashup.model.db.Database">
+      <point x="-37.25" y="-124.5" />
+      <point x="639.0776759607356" y="1441.0" />
+      <point x="248.32767596073563" y="1441.0" />
+      <point x="-95.0" y="278.5" />
+    </edge>
+    <edge source="de.dashup.shared.Settings" target="de.dashup.shared.Settings.Theme">
+      <point x="0.0" y="-46.5" />
+      <point x="1602.833080096074" y="754.0" />
+      <point x="1603.8997467627407" y="754.0" />
+      <point x="50.40000000000009" y="125.0" />
+    </edge>
+    <edge source="de.dashup.application.controllers.util.ControllerHelper" target="de.dashup.application.local.format.I18N.Language">
+      <point x="99.60000000000002" y="-35.5" />
+      <point x="0.0" y="114.0" />
+    </edge>
+    <edge source="de.dashup.shared.DatabaseUser" target="de.dashup.shared.DatabaseObject">
+      <point x="0.0" y="-169.0" />
+      <point x="2274.5729610484545" y="112.0" />
+      <point x="2000.6247467627404" y="112.0" />
+      <point x="47.0" y="36.0" />
+    </edge>
+    <edge source="de.dashup.application.controllers.EntryController" target="de.dashup.model.service.DashupService">
+      <point x="-190.39999999999986" y="-69.0" />
+      <point x="1741.88839024645" y="2996.0" />
+      <point x="1732.5026759607358" y="2996.0" />
+      <point x="1732.5026759607358" y="2565.0" />
+      <point x="1211.5503654970753" y="2565.0" />
+      <point x="-61.59999999999991" y="278.5" />
+    </edge>
+    <edge source="de.dashup.model.db.Database" target="de.dashup.model.db.Database.Table">
+      <point x="0.0" y="278.5" />
+      <point x="343.32767596073563" y="1431.0" />
+      <point x="713.5776759607356" y="1431.0" />
+      <point x="37.25" y="-124.5" />
+    </edge>
+    <edge source="de.dashup.application.controllers.MarketplaceController" target="de.dashup.application.controllers.util.ControllerHelper">
+      <point x="0.0" y="-24.5" />
+      <point x="3010.212019632413" y="3066.0" />
+      <point x="3120.8252976190474" y="3066.0" />
+      <point x="99.60000000000002" y="35.5" />
+    </edge>
+    <edge source="de.dashup.application.controllers.SettingsController" target="de.dashup.shared.User">
+      <point x="57.71428571428578" y="-68.5" />
+      <point x="1207.6646512113612" y="2996.0" />
+      <point x="1721.5026759607358" y="2996.0" />
+      <point x="1721.5026759607358" y="1928.0" />
+      <point x="2438.4502976190474" y="1928.0" />
+      <point x="-63.9375" y="91.5" />
     </edge>
     <edge source="de.dashup.shared.Panel" target="de.dashup.shared.DatabaseObject">
-      <point x="88.25" y="-60.5" />
-      <point x="1099.7334608843535" y="115.0" />
-      <point x="1088.9985544217686" y="115.0" />
-      <point x="29.416666666666742" y="37.5" />
+      <point x="27.416666666666515" y="-80.5" />
+      <point x="1891.416413429407" y="444.0" />
+      <point x="1846.1057696324133" y="444.0" />
+      <point x="1846.1057696324133" y="112.0" />
+      <point x="1906.6247467627404" y="112.0" />
+      <point x="-47.0" y="36.0" />
+    </edge>
+    <edge source="de.dashup.model.builder.DashupBuilder" target="de.dashup.shared.User">
+      <point x="-81.33333333333348" y="-35.5" />
+      <point x="3673.702127715121" y="1918.0" />
+      <point x="2651.5752976190474" y="1918.0" />
+      <point x="149.1875" y="91.5" />
+    </edge>
+    <edge source="de.dashup.application.controllers.EntryController" target="de.dashup.application.controllers.util.ControllerHelper">
+      <point x="190.4000000000001" y="-69.0" />
+      <point x="2122.6883902464497" y="3046.0" />
+      <point x="2921.625297619047" y="3046.0" />
+      <point x="-99.60000000000002" y="35.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.6420142421159715" x="807.7382639955342" y="908.5145302837301" />
-  <SelectedNodes />
+  <settings layout="Hierarchic Group" zoom="0.2" x="2009.6370274965257" y="1286.6813095383068" />
+  <SelectedNodes>
+    <node>de.dashup.application.DashupApplication</node>
+  </SelectedNodes>
   <Categories>
     <Category>Fields</Category>
     <Category>Constructors</Category>
