@@ -20,7 +20,6 @@ import java.util.List;
 public class ChangeLayoutStepdefs {
     @Autowired
     private SpringBootBase springBootBase;
-    private final String BASE_URL = "http://localhost:" + springBootBase.getPort();
 
     //--------------- Navigation ---------------\\
     @When("^User clicks on settings menu$")
@@ -40,6 +39,7 @@ public class ChangeLayoutStepdefs {
 
     @Then("^Settings menu opens up$")
     public void settingsMenuOpensUp() {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         Assertions.assertEquals("dashup", driver.getTitle());
         Assertions.assertEquals(BASE_URL + "/settings/", driver.getCurrentUrl());
@@ -52,6 +52,7 @@ public class ChangeLayoutStepdefs {
 
     @Given("^User is located on settings menu$")
     public void userIsLocatedOnSettingsMenu() {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         try {
             driver.findElement(By.id("li-for-nav-item-settings")).click();
@@ -82,6 +83,7 @@ public class ChangeLayoutStepdefs {
 
     @Then("^User will be directed back to central dashboard$")
     public void userWillBeDirectedBackToCentralDashboard() {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         Assertions.assertEquals("dashup", driver.getTitle());
         Assertions.assertEquals(BASE_URL + "/", driver.getCurrentUrl());
@@ -108,6 +110,7 @@ public class ChangeLayoutStepdefs {
 
     @And("^User clicks on submit icon for layout settings$")
     public void userClicksOnSubmitIconForLayoutSettings() throws InterruptedException {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         driver.findElement(By.id("save-layout-changes")).click();
         Thread.sleep(1000);
@@ -137,6 +140,7 @@ public class ChangeLayoutStepdefs {
     //--------------- Background ---------------\\
     @When("^User provides the valid image URL \"([^\"]*)\"$")
     public void userProvidesTheValidImageURL(String url) throws InterruptedException {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         WebElement header = driver.findElement(By.id("header-layout"));
         header.click();
@@ -202,6 +206,7 @@ public class ChangeLayoutStepdefs {
 
     @When("^User clicks on abandon icon$")
     public void userClicksOnAbandonIcon() throws InterruptedException {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         driver.findElement(By.id("btn-undo-layout-changes")).click();
         Thread.sleep(1000);

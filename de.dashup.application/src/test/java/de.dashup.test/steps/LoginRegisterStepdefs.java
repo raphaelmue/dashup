@@ -24,7 +24,7 @@ import java.util.HashMap;
 public class LoginRegisterStepdefs {
     @Autowired
     private SpringBootBase springBootBase;
-    private final String BASE_URL = "http://localhost:" + springBootBase.getPort();
+
 
     //--------------- Login ---------------\\
     @And("^User registered with e-mail \"([^\"]*)\" and password \"([^\"]*)\"$")
@@ -74,6 +74,7 @@ public class LoginRegisterStepdefs {
 
     @And("^User was navigated to central dashboard$")
     public void userWasNavigatedToCentralDashboard() {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         Assertions.assertEquals("dashup", driver.getTitle());
         Assertions.assertEquals(BASE_URL + "/", driver.getCurrentUrl());
@@ -124,6 +125,7 @@ public class LoginRegisterStepdefs {
 
     @Then("^Login error message is displayed$")
     public void loginErrorMessageIsDisplayed() {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         WebElement element = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(element);
@@ -140,6 +142,7 @@ public class LoginRegisterStepdefs {
 
     @Then("^User is navigated to registration page$")
     public void userIsNavigatedToRegistrationPage() {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         Assertions.assertEquals(BASE_URL + "/register", driver.getCurrentUrl());
         Assertions.assertNotNull(driver.findElement(By.id("text-field-register-email")));
@@ -148,6 +151,7 @@ public class LoginRegisterStepdefs {
     //--------------- Registering ---------------\\
     @Given("^User is located on registration page$")
     public void userIsLocatedOnRegistrationPage() {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         driver.get(BASE_URL + "/register");
         Assertions.assertEquals("dashup", driver.getTitle());
@@ -196,6 +200,7 @@ public class LoginRegisterStepdefs {
 
     @Then("^Registration error message is displayed stating that e-mail is invalid$")
     public void registrationErrorMessageIsDisplayedStatingThatEMailIsInvalid() throws InterruptedException {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         Thread.sleep(1000);
         WebElement element = driver.findElement(By.className("toast"));
@@ -206,6 +211,7 @@ public class LoginRegisterStepdefs {
 
     @Then("^Registration error message is displayed stating that passwords are not matching$")
     public void registrationErrorMessageIsDisplayedStatingThatPasswordsAreNotMatching() {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         WebElement element = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(element);
