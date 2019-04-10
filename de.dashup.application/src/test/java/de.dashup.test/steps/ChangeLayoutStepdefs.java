@@ -20,7 +20,8 @@ import java.util.List;
 public class ChangeLayoutStepdefs {
     @Autowired
     private SpringBootBase springBootBase;
-    
+    private final String BASE_URL = "http://localhost:" + springBootBase.getPort();
+
     //--------------- Navigation ---------------\\
     @When("^User clicks on settings menu$")
     public void userClicksOnSettingsMenu() {
@@ -41,7 +42,7 @@ public class ChangeLayoutStepdefs {
     public void settingsMenuOpensUp() {
         WebDriver driver = GeneralStepDefinitions.getDriver();
         Assertions.assertEquals("dashup", driver.getTitle());
-        Assertions.assertEquals("http://localhost:"+springBootBase.getPort()+"/settings/", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/settings/", driver.getCurrentUrl());
         WebElement element = driver.findElement(By.id("nav-item-settings"));
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
@@ -60,7 +61,7 @@ public class ChangeLayoutStepdefs {
             driver.findElement(By.id("li-for-nav-item-settings-sidenav")).click();
         }
         Assertions.assertEquals("dashup", driver.getTitle());
-        Assertions.assertEquals("http://localhost:"+springBootBase.getPort()+"/settings/", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/settings/", driver.getCurrentUrl());
         WebElement element = driver.findElement(By.id("nav-item-settings"));
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
@@ -83,7 +84,7 @@ public class ChangeLayoutStepdefs {
     public void userWillBeDirectedBackToCentralDashboard() {
         WebDriver driver = GeneralStepDefinitions.getDriver();
         Assertions.assertEquals("dashup", driver.getTitle());
-        Assertions.assertEquals("http://localhost:"+springBootBase.getPort()+"/", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/", driver.getCurrentUrl());
         WebElement element = driver.findElement(By.id("nav-item-dashboard"));
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
@@ -113,7 +114,7 @@ public class ChangeLayoutStepdefs {
         WebElement toast = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(toast);
         Assertions.assertEquals(I18N.get("i18n.successChangedLayout"), toast.getText());
-        Assertions.assertEquals("http://localhost:"+springBootBase.getPort()+"/settings/#", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/settings/#", driver.getCurrentUrl());
     }
 
     @Then("^Theme of dashup changes to \"([^\"]*)\"$")
@@ -147,7 +148,7 @@ public class ChangeLayoutStepdefs {
         WebElement toast = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(toast);
         Assertions.assertEquals(I18N.get("i18n.successChangedLayout"), toast.getText());
-        Assertions.assertEquals("http://localhost:"+springBootBase.getPort()+"/settings/#", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/settings/#", driver.getCurrentUrl());
         driver.findElement(By.linkText("dashup")).click();
     }
 
@@ -207,7 +208,7 @@ public class ChangeLayoutStepdefs {
         WebElement toast = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(toast);
         Assertions.assertEquals(I18N.get("i18n.undoComplete"), toast.getText());
-        Assertions.assertEquals("http://localhost:"+springBootBase.getPort()+"/settings/#", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/settings/#", driver.getCurrentUrl());
     }
 
     @Then("^Key \"([^\"]*)\" will be restored to \"([^\"]*)\"$")
