@@ -6,6 +6,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import de.dashup.application.local.format.I18N;
 import de.dashup.model.db.Database;
+import de.dashup.test.SpringBootBase;
 import de.dashup.test.utils.DriverUtil;
 import de.dashup.util.string.Hash;
 import org.junit.jupiter.api.Assertions;
@@ -13,6 +14,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -20,6 +22,9 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class LoginRegisterStepdefs {
+    @Autowired
+    private SpringBootBase springBootBase;
+
 
     //--------------- Login ---------------\\
     @And("^User registered with e-mail \"([^\"]*)\" and password \"([^\"]*)\"$")
@@ -69,9 +74,10 @@ public class LoginRegisterStepdefs {
 
     @And("^User was navigated to central dashboard$")
     public void userWasNavigatedToCentralDashboard() {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         Assertions.assertEquals("dashup", driver.getTitle());
-        Assertions.assertEquals("http://localhost:9004/", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/", driver.getCurrentUrl());
         WebElement element = driver.findElement(By.id("nav-item-dashboard"));
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
@@ -106,11 +112,11 @@ public class LoginRegisterStepdefs {
         WebDriver newWindowDriver = DriverUtil.createDriverInstance();
         //needed to set the cookie to the correct URL; we need to switch to IP here due to some validation issues in firefox
         Cookie cookie = new Cookie(token.getName(), token.getValue(), "127.0.0.1", token.getPath(), token.getExpiry(), token.isSecure(), token.isHttpOnly());
-        newWindowDriver.get("http://127.0.0.1:9004/thisIsA404Page.txt");
+        newWindowDriver.get("http://127.0.0.1:" + springBootBase.getPort() + "/thisIsA404Page.txt");
         newWindowDriver.manage().addCookie(cookie);
         //we expect that user is logged in directly
-        newWindowDriver.get("http://127.0.0.1:9004/");
-        Assertions.assertEquals("http://127.0.0.1:9004/", newWindowDriver.getCurrentUrl());
+        newWindowDriver.get("http://127.0.0.1:" + springBootBase.getPort() + "/");
+        Assertions.assertEquals("http://127.0.0.1:" + springBootBase.getPort() + "/", newWindowDriver.getCurrentUrl());
         WebElement element = newWindowDriver.findElement(By.id("nav-item-dashboard"));
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
@@ -119,11 +125,12 @@ public class LoginRegisterStepdefs {
 
     @Then("^Login error message is displayed$")
     public void loginErrorMessageIsDisplayed() {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         WebElement element = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(element);
         Assertions.assertEquals("Your credentials are invalid!", element.getText());
-        Assertions.assertEquals("http://localhost:9004/login/#", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/login/#", driver.getCurrentUrl());
     }
 
     //--------------- Navigation for registering ---------------\\
@@ -135,18 +142,20 @@ public class LoginRegisterStepdefs {
 
     @Then("^User is navigated to registration page$")
     public void userIsNavigatedToRegistrationPage() {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
-        Assertions.assertEquals("http://localhost:9004/register", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/register", driver.getCurrentUrl());
         Assertions.assertNotNull(driver.findElement(By.id("text-field-register-email")));
     }
 
     //--------------- Registering ---------------\\
     @Given("^User is located on registration page$")
     public void userIsLocatedOnRegistrationPage() {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
-        driver.get("http://localhost:9004/register");
+        driver.get(BASE_URL + "/register");
         Assertions.assertEquals("dashup", driver.getTitle());
-        Assertions.assertEquals("http://localhost:9004/register", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/register", driver.getCurrentUrl());
         Assertions.assertNotNull(driver.findElement(By.id("text-field-register-email")));
     }
 
@@ -191,21 +200,23 @@ public class LoginRegisterStepdefs {
 
     @Then("^Registration error message is displayed stating that e-mail is invalid$")
     public void registrationErrorMessageIsDisplayedStatingThatEMailIsInvalid() throws InterruptedException {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         Thread.sleep(1000);
         WebElement element = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(element);
         Assertions.assertEquals("The email is already registered.", element.getText());
-        Assertions.assertEquals("http://localhost:9004/register/#", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/register/#", driver.getCurrentUrl());
     }
 
     @Then("^Registration error message is displayed stating that passwords are not matching$")
     public void registrationErrorMessageIsDisplayedStatingThatPasswordsAreNotMatching() {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         WebElement element = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(element);
         Assertions.assertEquals("Your passwords are not matching.", element.getText());
-        Assertions.assertEquals("http://localhost:9004/register", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/register", driver.getCurrentUrl());
     }
 
     @And("^User presses start button$")
