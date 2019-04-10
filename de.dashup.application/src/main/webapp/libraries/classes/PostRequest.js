@@ -4,7 +4,6 @@ function PostRequest() {
 
 PostRequest.INSTANCE = null;
 PostRequest.URL_DEPLOY = "https://dashup.de/server/";
-PostRequest.URL_LOCAL = "http://localhost:9004/";
 
 PostRequest.URL = "";
 
