@@ -19,7 +19,7 @@ PostRequest.prototype = {
     constructor: PostRequest,
 
     setHost(local) {
-        PostRequest.URL = local ? PostRequest.URL_LOCAL : PostRequest.URL_DEPLOY;
+        PostRequest.URL = local ? (location.protocol + "//" + location.host + "/") : PostRequest.URL_DEPLOY;
     },
 
     /**
