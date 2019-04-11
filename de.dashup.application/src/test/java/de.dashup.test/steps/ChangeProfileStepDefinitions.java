@@ -7,11 +7,13 @@ import de.dashup.application.local.format.I18N;
 import de.dashup.model.db.Database;
 import de.dashup.shared.DatabaseUser;
 import de.dashup.shared.User;
+import de.dashup.test.SpringBootBase;
 import de.dashup.util.string.Hash;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -19,6 +21,9 @@ import java.util.Map;
 import java.util.Objects;
 
 public class ChangeProfileStepDefinitions {
+
+    @Autowired
+    private SpringBootBase springBootBase;
 
     // --- Change user name --- \\
 
@@ -53,7 +58,7 @@ public class ChangeProfileStepDefinitions {
         WebElement toast = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(toast);
         Assertions.assertEquals(I18N.get("i18n.successChangedUserName"), toast.getText());
-        Assertions.assertEquals("http://localhost:9004/settings/#", driver.getCurrentUrl());
+        Assertions.assertEquals("http://localhost:" + springBootBase.getPort() + "/settings/#", driver.getCurrentUrl());
     }
 
     @Then("^Username changes to \"([^\"]*)\"$")
@@ -91,7 +96,7 @@ public class ChangeProfileStepDefinitions {
         WebElement toast = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(toast);
         Assertions.assertEquals(I18N.get("i18n.successChangedEmail"), toast.getText());
-        Assertions.assertEquals("http://localhost:9004/settings/#", driver.getCurrentUrl());
+        Assertions.assertEquals("http://localhost:" + springBootBase.getPort() + "/settings/#", driver.getCurrentUrl());
     }
 
     @Then("^E-mail changes to \"([^\"]*)\"$")
@@ -179,7 +184,7 @@ public class ChangeProfileStepDefinitions {
         WebElement toast = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(toast);
         Assertions.assertEquals(I18N.get("i18n.successChangedPersonalInformation"), toast.getText());
-        Assertions.assertEquals("http://localhost:9004/settings/#", driver.getCurrentUrl());
+        Assertions.assertEquals("http://localhost:" + springBootBase.getPort() + "/settings/#", driver.getCurrentUrl());
     }
 
     @Then("^First name changes to \"([^\"]*)\"$")
@@ -282,7 +287,7 @@ public class ChangeProfileStepDefinitions {
         WebElement toast = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(toast);
         Assertions.assertEquals(I18N.get("i18n.successChangedLanguage"), toast.getText());
-        Assertions.assertEquals("http://localhost:9004/settings/#", driver.getCurrentUrl());
+        Assertions.assertEquals("http://localhost:" + springBootBase.getPort() + "/settings/#", driver.getCurrentUrl());
     }
 
     @Then("^Language changes to \"([^\"]*)\"$")
