@@ -9,5 +9,5 @@ import org.junit.runner.RunWith;
         plugin = {"pretty"},
         features = {"src/test/resources/de.dashup.test"}
 )
-public class RundashupTest {
+public class RunDashupTest {
 }
