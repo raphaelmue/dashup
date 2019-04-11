@@ -292,7 +292,7 @@ public class Database {
      * @throws SQLException thrown, when something went wrong executing the SQL statement
      */
     public void clearDatabase() throws SQLException {
-        if (DB_NAME == DatabaseName.TEST) {
+        if (DB_NAME == DatabaseName.TEST || DB_NAME == DatabaseName.JENKINS) {
             this.connection.prepareStatement("SET FOREIGN_KEY_CHECKS = 0").execute();
             for (Table table : Table.values()) {
                 this.connection.prepareStatement("TRUNCATE TABLE " + table.getTableName()).execute();

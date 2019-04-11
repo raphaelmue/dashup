@@ -12,15 +12,13 @@ import org.openqa.selenium.WebElement;
 
 
 @Ignore
-public class GeneralStepdefs extends SpringBootBase {
-
-    private final static String LOGIN_URL = "http://localhost:9004/login";
+public class GeneralStepDefinitions extends SpringBootBase {
 
     private static WebDriver driver;
     private static Database database;
 
     public static void setDriver(WebDriver driver) {
-        GeneralStepdefs.driver = driver;
+        GeneralStepDefinitions.driver = driver;
     }
 
     public static WebDriver getDriver() {
@@ -28,16 +26,22 @@ public class GeneralStepdefs extends SpringBootBase {
     }
 
     public static void setDatabase(Database database) {
-        GeneralStepdefs.database = database;
+        GeneralStepDefinitions.database = database;
     }
 
     public static Database getDatabase() {
         return database;
     }
 
+    public int getRandomPort(){
+        return getPort();
+    }
+
+
     @Given("^User is located on login page$")
     public void userIsLocatedOnLoginPage() {
-        driver.get(LOGIN_URL);
+        final String loginURL = "http://localhost:"+getPort()+"/login";
+        driver.get(loginURL);
         Assertions.assertEquals("dashup", driver.getTitle());
         Assertions.assertNotNull(driver.findElement(By.id("login-form")));
     }
@@ -55,7 +59,6 @@ public class GeneralStepdefs extends SpringBootBase {
     @Given("^User is located on central dashboard$")
     public void userIsLocatedOnCentralDashboard() {
         Assertions.assertEquals("dashup", driver.getTitle());
-        Assertions.assertEquals("http://localhost:9004/", driver.getCurrentUrl());
         WebElement element = driver.findElement(By.id("nav-item-dashboard"));
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
