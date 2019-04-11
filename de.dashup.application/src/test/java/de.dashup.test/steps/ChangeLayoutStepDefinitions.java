@@ -5,15 +5,20 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import de.dashup.application.local.format.I18N;
+import de.dashup.test.SpringBootBase;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class ChangeLayoutStepDefinitions {
+
+    @Autowired
+    private SpringBootBase springBootBase;
 
     //--------------- Themes ---------------\\
     @When("^User changes theme to \"([^\"]*)\"$")
@@ -31,13 +36,14 @@ public class ChangeLayoutStepDefinitions {
 
     @And("^User clicks on submit icon for layout settings$")
     public void userClicksOnSubmitIconForLayoutSettings() throws InterruptedException {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         driver.findElement(By.id("save-layout-changes")).click();
         Thread.sleep(1000);
         WebElement toast = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(toast);
         Assertions.assertEquals(I18N.get("i18n.successChangedLayout"), toast.getText());
-        Assertions.assertEquals("http://localhost:9004/settings/#", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/settings/#", driver.getCurrentUrl());
     }
 
     @Then("^Theme of dashup changes to \"([^\"]*)\"$")
@@ -60,6 +66,7 @@ public class ChangeLayoutStepDefinitions {
     //--------------- Background ---------------\\
     @When("^User provides the valid image URL \"([^\"]*)\"$")
     public void userProvidesTheValidImageURL(String url) throws InterruptedException {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         WebElement header = driver.findElement(By.id("header-layout"));
         header.click();
@@ -71,7 +78,7 @@ public class ChangeLayoutStepDefinitions {
         WebElement toast = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(toast);
         Assertions.assertEquals(I18N.get("i18n.successChangedLayout"), toast.getText());
-        Assertions.assertEquals("http://localhost:9004/settings/#", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/settings/#", driver.getCurrentUrl());
         driver.findElement(By.linkText("dashup")).click();
     }
 
@@ -125,13 +132,14 @@ public class ChangeLayoutStepDefinitions {
 
     @When("^User clicks on abandon icon$")
     public void userClicksOnAbandonIcon() throws InterruptedException {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         driver.findElement(By.id("btn-undo-layout-changes")).click();
         Thread.sleep(1000);
         WebElement toast = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(toast);
         Assertions.assertEquals(I18N.get("i18n.undoComplete"), toast.getText());
-        Assertions.assertEquals("http://localhost:9004/settings/#", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/settings/#", driver.getCurrentUrl());
     }
 
     @Then("^Key \"([^\"]*)\" will be restored to \"([^\"]*)\"$")
