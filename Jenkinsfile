@@ -19,7 +19,6 @@ pipeline {
                 sh 'mvn test --projects de.dashup.shared,de.dashup.util,de.dashup.model'
              }
         }
-
         stage('Testing in Chrome') {
             steps {
                 wrap([$class: 'Xvfb', additionalOptions: '', assignedLabels: '', autoDisplayName: true, debug: true, displayNameOffset: 0, installationName: 'Xvfb', parallelBuild: true, screen: '1024x758x24', timeout: 25]) {
@@ -40,7 +39,7 @@ pipeline {
                 branch 'deployment'
             }
             steps {
-                sh 'mvn spring-boot:run'
+                sh 'JENKINS_NODE_COOKIE=dontKillMe nohup bash service/restart-application.sh'
             }
         }
     }
