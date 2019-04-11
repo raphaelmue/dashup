@@ -39,7 +39,7 @@ pipeline {
                 branch 'deployment'
             }
             steps {
-                sh 'JENKINS_NODE_COOKIE=dontKillMe nohup bash service/restart-application.sh &'
+                sh 'JENKINS_NODE_COOKIE=dontKillMe nohup bash service/restart-application.sh'
             }
         }
     }
