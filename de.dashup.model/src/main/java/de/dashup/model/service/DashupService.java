@@ -378,4 +378,16 @@ public class DashupService {
 
         return draft;
     }
+
+    public void updateDraftInformation(Draft draft) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", draft.getId());
+
+        Map<String, Object> values = new HashMap<>();
+        values.put("name", draft.getName());
+        values.put("short_description", draft.getShortDescription());
+        values.put("description", draft.getDescription());
+
+        this.database.update(Database.Table.USERS_DRAFTS, whereParameters, values);
+    }
 }

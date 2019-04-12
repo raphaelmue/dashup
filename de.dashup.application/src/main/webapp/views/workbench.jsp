@@ -66,7 +66,44 @@
                         </div>
                         <div id="basicInformation" class="col s12">
                             <div class="container">
-                                <h3><fmt:message key="i18n.basicInformation" /></h3>
+                                <div class="row">
+                                    <h3><fmt:message key="i18n.basicInformation"/></h3>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12 m12">
+                                        <input id="text-field-draft-name" type="text" class="validate" name="draftName"
+                                               value="${fn:escapeXml(currentDraft.name)}"/>
+                                        <label for="text-field-draft-name"><fmt:message
+                                                key="i18n.draftName"/></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12 m12">
+                                        <textarea id="textarea-short-description" name="shortDescription"
+                                                  class="materialize-textarea">${fn:escapeXml(currentDraft.shortDescription)}</textarea>
+                                        <label for="textarea-short-description"><fmt:message
+                                                key="i18n.shortDescription"/></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12 m12">
+                                        <textarea id="textarea-description" name="description"
+                                                  class="materialize-textarea">${fn:escapeXml(currentDraft.description)}</textarea>
+                                        <label for="textarea-description"><fmt:message
+                                                key="i18n.description"/></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <button id="btn-save-draft-information" class="btn waves-effect waves-light"
+                                            type="submit">
+                                        <i class="fas fa-check"></i>
+                                        <fmt:message key="i18n.save"/>
+                                    </button>
+                                    <a id="btn-undo-draft-information" class="btn-flat waves-effect">
+                                        <i class="fas fa-times"></i>
+                                        <fmt:message key="i18n.undo"/>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -88,8 +125,8 @@
                 <div class="row">
                     <h4><fmt:message key="i18n.createDraft" /></h4>
                     <div class="input-field col s12">
-                        <input id="text-field-draft-name" type="text" class="validate">
-                        <label for="text-field-draft-name"><fmt:message key="i18n.name" /></label>
+                        <input id="text-field-new-draft-name" type="text" class="validate">
+                        <label for="text-field-draft-name"><fmt:message key="i18n.draftName" /></label>
                     </div>
                 </div>
             </div>
@@ -108,6 +145,22 @@
                 swipeable: true
             });
 
+            $(".carousel").css({ "height": ($("#basicInformation .container").height() + 55) + "px"});
+
+            let toastOptions = {};
+            switch (getAnchor()) {
+                case "changedInformation":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.dataSuccessfullySaved" />",
+                        classes: "success"
+                    };
+                    break;
+            }
+            if (getAnchor() !== null && getAnchor() !== "") {
+                M.toast(toastOptions);
+                clearAnchor()
+            }
+
             $("#textarea-code").bind('input propertychange', function() {
                 console.log("changed");
                 console.log($("#textarea-code").val());
@@ -121,7 +174,7 @@
             });
 
             $("#btn-submit-create-draft").on("click", function () {
-                let draftName = $("#text-field-draft-name").val();
+                let draftName = $("#text-field-new-draft-name").val();
                 if (draftName !== null) {
                     PostRequest.getInstance().make("workbench/createDraft", {
                         draftName: draftName
@@ -132,6 +185,14 @@
                         classes: "error"
                     })
                 }
+            });
+
+            $("#btn-save-draft-information").on("click", function() {
+                PostRequest.getInstance().make("/workbench/${fn:escapeXml(currentDraft.id)}/changeInformation", {
+                    draftName: $("#text-field-draft-name").val(),
+                    shortDescription: $("#textarea-short-description").val(),
+                    description: $("#textarea-description").val()
+                })
             })
         });
     </script>

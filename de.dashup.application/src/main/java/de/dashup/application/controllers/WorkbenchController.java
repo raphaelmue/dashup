@@ -7,10 +7,7 @@ import de.dashup.shared.Draft;
 import de.dashup.shared.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
@@ -26,6 +23,18 @@ public class WorkbenchController {
             DashupService.getInstance().getUsersDrafts(user);
             model.addAttribute("drafts", user.getDrafts());
         });
+    }
+
+    @RequestMapping("/createDraft")
+    public String createDraft(@CookieValue(name = "token", required = false) String token,
+                              HttpServletRequest request, Model model,
+                              @RequestParam(value = "draftName") String draftName) throws SQLException {
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            Draft draft = DashupService.getInstance().createDraft(user, draftName);
+            return "redirect:/workbench/" + draft.getId() + "/";
+        }
+        return "redirect:/login";
     }
 
     @RequestMapping("/{draftId}")
@@ -45,14 +54,22 @@ public class WorkbenchController {
         });
     }
 
-    @RequestMapping("/createDraft")
-    public String createDraft(@CookieValue(name = "token", required = false) String token,
-                              HttpServletRequest request, Model model,
-                              @RequestParam(value = "draftName") String draftName) throws SQLException {
+    @RequestMapping(value = "/{draftId}/changeInformation", method = RequestMethod.POST)
+    public String handleChangeDraftInformation(@CookieValue(name = "token", required = false) String token,
+                                               HttpServletRequest request,
+                                               @PathVariable(value = "draftId") int draftId,
+                                               @RequestParam(value = "draftName") String name,
+                                               @RequestParam(value = "shortDescription") String shortDescription,
+                                               @RequestParam(value = "description") String description) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            Draft draft = DashupService.getInstance().createDraft(user, draftName);
-            return "redirect:/workbench/" + draft.getId();
+            Draft draft = new Draft();
+            draft.setId(draftId);
+            draft.setName(name);
+            draft.setShortDescription(shortDescription);
+            draft.setDescription(description);
+            DashupService.getInstance().updateDraftInformation(draft);
+            return "redirect:/workbench/" + draftId + "/#changedInformation";
         }
         return "redirect:/login";
     }
