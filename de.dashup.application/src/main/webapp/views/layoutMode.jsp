@@ -56,8 +56,12 @@
     <li><a id="delete" href="#!">
         <i class="fas fa-trash-alt"></i>
     </a></li>
+    <li class="divider" tabindex="-1"></li>
     <li><a href="#!">
-        <i class="fas fa-expand"></i>
+        small
+    </a></li>
+    <li><a href="#!">
+        large
     </a></li>
 </ul>
 

@@ -1,15 +1,21 @@
-let layout = [];
+let sectionsToDelete = [];
+let panelsToDelete = [];
 let selectedPanel;
 
-(function() {
+(function () {
+    initializeDragAndDrop();
+    initializePanelDropdown();
+    initializeSectionDeleteClick();
+    initializePanelDeleteClick();
+})();
+
+function initializeDragAndDrop() {
     dragula([document.querySelector('.drag-drop-container')], {
-        moves: function(el, container, handle) {
+        moves: function (el, container, handle) {
 
             let draggedClass = handle.classList[0];
-            console.log(handle);
-            console.log(draggedClass);
-            if(draggedClass === 'drag-drop-btn')
-            {
+
+            if (draggedClass === 'drag-drop-btn') {
                 return !handle.classList.contains('bloc--inner');
             }
         }
@@ -18,132 +24,115 @@ let selectedPanel;
     dragula([].slice.apply(document.querySelectorAll('.bloc')), {
         direction: 'horizontal'
     });
+}
 
-    document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.dropdown-trigger');
-        var instances = M.Dropdown.init(elems, null);
-
-
-    });
-
-
-    $(".section-minus").on("click", function (event) {
-        let sectionToDelete = event.currentTarget.parentNode.parentNode.parentNode;
-
-
-        addSectionToDeleteToList(sectionToDelete);
-
-        while(sectionToDelete.firstChild){
-            sectionToDelete.removeChild(sectionToDelete.firstChild);
-        }
-
-        let sectionParent = sectionToDelete.parentNode;
-        console.log(sectionToDelete);
-        console.log(sectionParent);
-        sectionParent.removeChild(sectionToDelete);
-
-
-
+function initializePanelDropdown() {
+    document.addEventListener('DOMContentLoaded', function () {
+        let elems = document.querySelectorAll('.dropdown-trigger');
+        M.Dropdown.init(elems, null);
     });
 
     $(".dropdown-trigger").on("click", function (event) {
         let panel = event.currentTarget.parentNode.parentNode.parentNode;
         selectedPanel = panel.id;
-        console.log(panel);
-        console.log("panel id: " + selectedPanel);
     });
 
+}
+
+function initializeSectionDeleteClick() {
+    $(".section-minus").on("click", function (event) {
+        let sectionToDelete = event.currentTarget.parentNode.parentNode.parentNode;
+
+        addSectionToDeleteToList(sectionToDelete);
+
+        while (sectionToDelete.firstChild) {
+            sectionToDelete.removeChild(sectionToDelete.firstChild);
+        }
+
+        let sectionParent = sectionToDelete.parentNode;
+        sectionParent.removeChild(sectionToDelete);
+
+    });
+}
+
+function initializePanelDeleteClick() {
     $("#delete").on("click", function () {
         console.log("delete pressed");
         let panelToDelete = document.getElementById(selectedPanel);
         let panelToDeleteParent = panelToDelete.parentNode;
 
-        console.log(panelToDelete);
+        panelsToDelete.push(panelToDelete.id);
 
         panelToDeleteParent.removeChild(panelToDelete);
 
-        console.log("to delete: " + selectedPanel);
-
-
-
     });
+}
 
-
-})();
-
-function addSectionToDeleteToList(sectionToDelete)
-{
+function addSectionToDeleteToList(sectionToDelete) {
     let section = sectionToDelete.childNodes[1];
     let panels = section.childNodes;
 
     let panelStructure;
-    panelStructure = makePanelStructure(panels,true);
+    panelStructure = makePanelStructure(panels);
 
     let sectionObject = {
-        sectionName : "",
-        sectionId : sectionToDelete.id,
+        sectionName: "",
+        sectionId: sectionToDelete.id,
         panelStructure: panelStructure,
         remove: true
     };
 
-    layout.push(sectionObject);
+    sectionsToDelete.push(sectionObject);
 }
 
-
-function saveChanges()
-{
-
+function makeSectionPanelOrder() {
+    let sectionPanelOrder = [];
     let dragDropContainer = document.getElementById('drag-drop-container');
-
     let sections = dragDropContainer.getElementsByClassName('wrapper');
-    console.log(sections);
-
     let sectionsCount = sections.length;
 
-    for (let i = 0; i < sectionsCount; i++)
-    {
+    for (let i = 0; i < sectionsCount; i++) {
+
         let sectionName = sections[i]['children'][0]['innerText'];
-        console.log(sectionName);
         let sectionId = sections[i].id;
-
         let panels = sections[i]['children'][1]['children'];
-
-        let panelStructure = makePanelStructure(panels,false);
+        let panelStructure = makePanelStructure(panels);
 
         let sectionObject = {
-            sectionName : sectionName,
-            sectionId : sectionId,
+            sectionName: sectionName,
+            sectionId: sectionId,
             panelStructure: panelStructure,
-            remove: false
         };
 
-        layout.push(sectionObject);
+        sectionPanelOrder.push(sectionObject);
+    }
 
+    return sectionPanelOrder
+}
 
+function saveChanges() {
+    let sectionPanelOrder = makeSectionPanelOrder();
+    let layout = {
+        panelsToDelete: panelsToDelete,
+        sectionsToDelete: sectionsToDelete,
+        sectionPanelOrder: sectionPanelOrder
+    };
 
-
-            }
     console.log(layout);
 }
 
-function makePanelStructure(panels, remove) {
+function makePanelStructure(panels) {
     let panelsCount = panels.length;
-
     let panelStructure = [];
 
-    for (let j = 0; j < panelsCount; j++)
-    {
-        console.log(panelSize);
-
+    for (let j = 0; j < panelsCount; j++) {
         let panel = {
             panelId: panels[j].id,
             panelSize: panels[j]['attributes']['size'].value,
-            remove: remove
         };
         panelStructure.push(panel);
     }
 
     return panelStructure;
-
 }
 
