@@ -19,4 +19,10 @@ public class MarketplaceController {
             // tbd
         });
     }
+    @RequestMapping("/search")
+    public  String searchMarketplace(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException{
+        return ControllerHelper.defaultMapping(token, request, model, "marketplaceSearchResult", user -> {
+            // tbd
+        });
+    }
 }
