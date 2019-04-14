@@ -28,11 +28,11 @@
 </div>
 
 <div>
-    <a href="javascript:saveChanges()" class="btn-floating btn-large waves-effect waves-light">
-        <i class="far fa-check-circle"></i>
+    <a id="save-changes-button" href="#" class="btn-floating btn-large waves-effect waves-light">
+        <i class="fas fa-check"></i>
     </a>
     <a id="add-section-button" href="#" class="left-align btn-floating btn-large waves-effect waves-light" style="margin-bottom: 75px">
-        <i class="fas fa-grip-lines"></i>
+        <i class="fas fa-plus"></i>
     </a>
 
 </div>

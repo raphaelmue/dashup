@@ -10,6 +10,7 @@ let globalSectionCount;
     initializeSectionDeleteClick();
     initializePanelDeleteClick();
     initializeAddSectionButtonClick();
+    initializeSaveChangesButtonClick();
 
     globalSectionCount = 0;
 
@@ -49,29 +50,37 @@ function initializeSectionDeleteClick() {
     $(".section-minus").on("click", function (event) {
         let sectionToDelete = event.currentTarget.parentNode.parentNode.parentNode;
 
-        addSectionToDeleteToList(sectionToDelete);
+        if(sectionToDelete!=null)
+        {
+            addSectionToDeleteToList(sectionToDelete);
 
-        while (sectionToDelete.firstChild) {
-            sectionToDelete.removeChild(sectionToDelete.firstChild);
+            while (sectionToDelete.firstChild) {
+                sectionToDelete.removeChild(sectionToDelete.firstChild);
+            }
+
+            let sectionParent = sectionToDelete.parentNode;
+            sectionParent.removeChild(sectionToDelete);
         }
-
-        let sectionParent = sectionToDelete.parentNode;
-        sectionParent.removeChild(sectionToDelete);
 
     });
 }
 
 function initializeAddSectionButtonClick() {
-    $("#add-section-button").on("click", function (event) {
+    $("#add-section-button").on("click", function () {
         let sectionId = "n" + globalSectionCount;
        addNewSection(sectionId);
        initializeSectionDeleteClick();
     });
 }
 
+function initializeSaveChangesButtonClick() {
+    $("#save-changes-button").on("click", function () {
+        saveChanges();
+    });
+}
+
 function initializePanelDeleteClick() {
     $("#delete").on("click", function () {
-        console.log("delete pressed");
         let panelToDelete = document.getElementById(selectedPanel);
         let panelToDeleteParent = panelToDelete.parentNode;
 
@@ -87,7 +96,6 @@ function addNewSection(sectionId) {
     let dragAndDropContainer = document.getElementById('drag-drop-container');
 
     let wrapper = document.createElement("div");
-    wrapper
     wrapper.setAttribute("class","wrapper  col s12");
     wrapper.setAttribute("id",sectionId);
 
@@ -127,6 +135,7 @@ function addNewSection(sectionId) {
 }
 
 function addSectionToDeleteToList(sectionToDelete) {
+    console.log(sectionToDelete);
     let section = sectionToDelete.childNodes[1];
     let panels = section.childNodes;
 

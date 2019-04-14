@@ -39,7 +39,7 @@ public class LayoutModeController {
                                                     HttpServletRequest request) throws SQLException {
         ControllerHelper.setLocale(request, locale);
         User user = LocalStorage.getInstance().getUser(request, token);
-        ChangeHandler.getInstance(layoutModeStructure, user).processLayoutModeChanges();
+        //ChangeHandler.getInstance(layoutModeStructure, user).processLayoutModeChanges();
 
         JSONObject entity = new JSONObject();
         entity.put("message", "Success");
