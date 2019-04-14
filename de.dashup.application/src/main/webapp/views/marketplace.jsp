@@ -15,20 +15,132 @@
                 </div>
             </div>
         </nav>
-
-        <div class="row">
-            <div class="col m6 offset-m3 s10 offset-s1">
+        <div class="row" style="margin-top: 25px">
+            <div class="col m4 offset-m4 s8 offset-s1">
                 <div class="input-field">
                     <input id="text-field-login-email" name="email" type="text" class="validate">
                     <label for="text-field-login-email"><fmt:message key="i18n.enterSearchterm" /></label>
                 </div>
-             </div>
+            </div>
+            <div class="col m2 s2" style="margin-top: 18px">
+                <button id="btn_start_search_marketplace" class="btn waves-effect waves-light" name="search">
+                    <fmt:message key="i18n.go" />
+                </button>
+            </div>
         </div>
-
+        <div class="row">
+            <div class="col m6 offset-m3 s10 offset-s1">
+                <h3><fmt:message key="i18n.featured" /></h3>
+                <hr/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col m6 offset-m3 s10 offset-s1">
+                <div class="carousel carousel-slider center">
+                    <div class="carousel-item red white-text" href="#one!">
+                        <h2>First Panel</h2>
+                        <p class="white-text">This is your first panel</p>
+                    </div>
+                    <div class="carousel-item amber white-text" href="#two!">
+                        <h2>Second Panel</h2>
+                        <p class="white-text">This is your second panel</p>
+                    </div>
+                    <div class="carousel-item green white-text" href="#three!">
+                        <h2>Third Panel</h2>
+                        <p class="white-text">This is your third panel</p>
+                    </div>
+                    <div class="carousel-item blue white-text" href="#four!">
+                        <h2>Fourth Panel</h2>
+                        <p class="white-text">This is your fourth panel</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col m6 offset-m3 s10 offset-s1">
+                <h3><fmt:message key="i18n.mostPopular" /></h3>
+                <hr/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m3 offset-m3">
+                <div class="card horizontal">
+                    <div class="card-image">
+                        <img src="https://lorempixel.com/100/190/nature/6">
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p>I am a very simple card. I am good at containing small bits of information.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">This is a link</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m3">
+                <div class="card horizontal">
+                    <div class="card-image">
+                        <img src="https://lorempixel.com/100/190/nature/6">
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p>I am a very simple card. I am good at containing small bits of information.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">This is a link</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col m6 offset-m3 s10 offset-s1">
+                <h3><fmt:message key="i18n.bestRating" /></h3>
+                <hr/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m3 offset-m3">
+                <div class="card horizontal">
+                    <div class="card-image">
+                        <img src="https://lorempixel.com/100/190/nature/6">
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p>I am a very simple card. I am good at containing small bits of information.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">This is a link</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m3">
+                <div class="card horizontal">
+                    <div class="card-image">
+                        <img src="https://lorempixel.com/100/190/nature/6">
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p>I am a very simple card. I am good at containing small bits of information.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">This is a link</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
     <script>
         $( document ).ready(function () {
             $("#nav-item-marketplace").parent().addClass("active");
+            $('.carousel.carousel-slider').carousel({
+                fullWidth: true,
+                indicators: true
+            });
         });
+
     </script>
 </html>
