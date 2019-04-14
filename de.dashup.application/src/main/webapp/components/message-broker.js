@@ -1,4 +1,4 @@
-class MessageBroker {
+export class MessageBroker {
 
     static MessageMode = { DISPLAY: "display", ADD: "add", DELETE: "delete", SAVE: "save" };
 

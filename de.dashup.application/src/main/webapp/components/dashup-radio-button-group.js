@@ -4,7 +4,7 @@ export class DashupRadioButtonGroup extends DashupComponent{
 
     render() {
         return html`
-            ${this.elements.sort((firstElement, secondElement) => {return secondElement.group > firstElement.group}).map((element) => html`
+            ${this.elements.sort().map((element) => html`
                 <label>
                     <input class="with-gap" name="${element.group}" 
                            type="radio" @click="${() => this.value = `${element.value}`}" 

@@ -1,5 +1,6 @@
 import {LitElement, html, css} from "https://unpkg.com/lit-element@2.1.0/lit-element.js?module";
 import {DashupComponent} from "./dashup-component.js";
+import {MessageBroker} from "./message-broker.js"
 
 export class DashupButton extends DashupComponent{
 
@@ -62,14 +63,16 @@ export class DashupButton extends DashupComponent{
                 return response.json();
             }).then((json) => {
                 resolve({apiData: json});
-            })
+            }, () => reject());
         });
     }
 
     dispatchData(data){
         for(let consumer in this.consumers){
-            let consumerControl = this.getRootNode().querySelector("[name=" + consumer + "]");
-            consumerControl.handleData({data: MessageBroker.getDataFromPath(this.consumers[consumer], data), mode: this.mode});
+            if ({}.hasOwnProperty.call(this.consumers, consumer)) {
+                let consumerControl = this.getRootNode().querySelector("[name=" + consumer + "]");
+                consumerControl.handleData({data: MessageBroker.getDataFromPath(this.consumers[consumer], data), mode: this.mode});
+            }
         }
     }
 
