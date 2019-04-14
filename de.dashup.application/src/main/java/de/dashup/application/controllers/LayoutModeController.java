@@ -13,17 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.*;
 
 @Controller
 @RequestMapping("/layoutMode")
 public class LayoutModeController {
-
-    private final LocalStorage localStorage = LocalStorage.getInstance();
 
     @RequestMapping(value = "/")
     public String login(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
@@ -35,68 +31,20 @@ public class LayoutModeController {
         });
     }
 
-    @RequestMapping(value = "/confirmChanges", method = RequestMethod.POST)
-    @ResponseBody
-    public String confirm(@RequestBody DashupPanelStructure body, Model model, HttpServletRequest request) {
-        System.out.println(body);
-        return "layoutMode";
-    }
 
     @PostMapping(value = "/handleSaveChanges", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> handleSaveChanges(@CookieValue(name = "token", required = false) String token,
                                                     @RequestBody LayoutModeStructure layoutModeStructure,
-                                                        Locale locale,
-                                                        HttpServletRequest request) throws SQLException {
+                                                    Locale locale,
+                                                    HttpServletRequest request) throws SQLException {
         ControllerHelper.setLocale(request, locale);
         User user = LocalStorage.getInstance().getUser(request, token);
-        ChangeHandler.getInstance(layoutModeStructure,user).processLayoutModeChanges();
+        ChangeHandler.getInstance(layoutModeStructure, user).processLayoutModeChanges();
 
         JSONObject entity = new JSONObject();
         entity.put("message", "Success");
         return new ResponseEntity<>("{\"message\":\"success\"}", HttpStatus.OK);
 
-    }
-
-    @PostMapping(value = "/handleLayout", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody
-    ResponseEntity<Object> handleLayout(
-            @CookieValue(name = "token", required = false) String token,
-            @RequestBody DashupPanelStructure dps,
-            HttpServletRequest request, HttpServletResponse response, Model model) throws SQLException {
-        User user = (User) this.localStorage.readObjectFromSession(request, "user");
-        if (user == null) return new ResponseEntity(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
-
-        dps.getSections().sort(Comparator.comparingInt(DashupSectionStructure::getSectionOrder));
-        Iterator<DashupSectionStructure> iterator = dps.getSections().iterator();
-        DashupSectionStructure lastdss = null;
-        while (iterator.hasNext()) {
-            DashupSectionStructure dss = iterator.next();
-            if (dss.getSectionId().contains("sn")) {
-                if (lastdss == null) {
-                    DashupService.getInstance().addSection(user, dss.getSection_name(), -1, -1);
-                } else {
-                    DashupService.getInstance().addSection(user, dss.getSection_name(), Integer.valueOf(lastdss.getSectionId().substring(1)), -1);
-                }
-            } else {
-                if (dss.getSectionOrder() == -10) {
-                    DashupService.getInstance().deleteSection(user, Integer.valueOf(dss.getSectionId().substring(1)));
-                    iterator.remove();
-                } else {
-                    String section_name = dss.getSection_name();
-                    int section_id = Integer.valueOf(dss.getSectionId().substring(1));
-                    if (lastdss == null) {
-                        DashupService.getInstance().updateSection(user, section_name, section_id, -1, -1);
-                    } else {
-                        DashupService.getInstance().updateSection(user, section_name, section_id, Integer.valueOf(lastdss.getSectionId().substring(1)), -1);
-                    }
-                }
-            }
-            lastdss = dss;
-        }
-
-        JSONObject entity = new JSONObject();
-        entity.put("message", "Success");
-        return new ResponseEntity(entity, HttpStatus.OK);
     }
 }
 
