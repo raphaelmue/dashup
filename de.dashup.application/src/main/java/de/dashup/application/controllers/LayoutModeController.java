@@ -43,11 +43,13 @@ public class LayoutModeController {
     }
 
     @PostMapping(value = "/handleSaveChanges", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<String> handleSaveChanges(@RequestBody LayoutModeStructure layoutModeStructure,
+    public ResponseEntity<String> handleSaveChanges(@CookieValue(name = "token", required = false) String token,
+                                                    @RequestBody LayoutModeStructure layoutModeStructure,
                                                         Locale locale,
                                                         HttpServletRequest request) throws SQLException {
         ControllerHelper.setLocale(request, locale);
-        ChangeHandler.getInstance(layoutModeStructure).processLayoutModeChanges();
+        User user = LocalStorage.getInstance().getUser(request, token);
+        ChangeHandler.getInstance(layoutModeStructure,user).processLayoutModeChanges();
 
         JSONObject entity = new JSONObject();
         entity.put("message", "Success");
