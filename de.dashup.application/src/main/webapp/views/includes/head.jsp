@@ -29,22 +29,5 @@
     <script type="module" src="../../libraries/dashup-loader/dashup-loader.js"></script>
     <script type="text/javascript" src="../../libraries/index.js"></script>
 
-    <%-- Web Components --%>
-    <script type="module">
-        import '../../components/dashup-grid-layout.js'
-        import '../../components/dashup-component.js';
-        import '../../components/dashup-text-input.js'
-        import '../../components/dashup-checkbox.js'
-        import '../../components/dashup-radio-button.js'
-        import '../../components/dashup-radio-button-group.js'
-        import '../../components/dashup-switch.js'
-        import '../../components/dashup-button.js'
-        import '../../components/dashup-display.js'
-        import '../../components/dashup-list.js'
-        import '../../widgets/dashup-share-banner.js'
-        import '../../widgets/dashup-todo.js'
-    </script>
-    <script type="text/javascript" src="../../components/message-broker.js"></script>
-
     <title>dashup</title>
 </head>
