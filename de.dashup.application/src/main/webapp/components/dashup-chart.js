@@ -8,76 +8,71 @@ export class DashupChart extends DashupComponent{
         let maxValue = this.data.sort((element1, element2) => { return element2.value - element1.value})[0].value;
         let heightMap = new Map();
         this.data.forEach((element) => {
-           heightMap.set(element.category, {height: (element.value/maxValue)*100 + "%"})
+            heightMap.set(element.category, {height: (element.value/maxValue)*100 + "%"})
         });
         //can be enhanced with multiple bars per category later on
         return html`
             <style>
                ${this.data.map((element, index) => {
-                    return html`#q-graph #${element.category} {left: ${index * 150}px;}`})}
+            return html`#q-graph #${element.category} {left: ${index * (80/this.data.length)}%;}`
+        })}
+               
+               ${html`#q-graph tr, #q-graph th, #q-graph td {width: ${80/this.data.length}%}`}
             </style>
 
             <table id="q-graph">
-            <caption>${this.title}</caption>
-            <thead>
-            <tr>
-            <th></th>
-            <th class="category">${this.category}</th>
-            </tr>
-            </thead>
-            <tbody>
-            ${this.data.map(element => html`
-                <tr class="qtr" id="${element.category}">
-                <th scope="row">${element.category}</th>
-                <td class="category bar" style="${styleMap(heightMap.get(element.category))}"><p>${element.value}</p></td>
-                </tr>
-            `)}
-            </tbody>
+                <caption>${this.title}</caption>
+                <thead>
+                    <tr>
+                        <th class="category">${this.category}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${this.data.map(element => html`
+                        <tr class="qtr" id="${element.category}">
+                        <th scope="row">${element.category}</th>
+                        <td class="category bar" style="${styleMap(heightMap.get(element.category))}"><p>${element.value}</p></td>
+                        </tr>
+                    `)}
+                </tbody>
             </table>
-            
             <div id="ticks">
-            ${(() => {
-                let ticks = [];
-                for(let i = 1; i <= 5; i++){
-                    ticks.push(html`<div class="tick" style="height: 20%;"><p>${Math.ceil(maxValue/100)*100/5*i}</p></div>`);
-                }
-                return ticks.reverse();
-            })()}
+                ${(() => {
+            let ticks = [];
+            for(let i = 1; i <= 5; i++){
+                ticks.push(html`<div class="tick" style="height: 20%;"><p>${Math.ceil(maxValue/100)*100/5*i}</p></div>`);
+            }
+            return ticks.reverse();
+        })()}
             </div>
         `;
     }
 
     static get styles() {
         return css`
-            body, html {
-                height: 100%;
-            }
-            
-            body {
+            :host {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 font-family: "fira-sans-2", Verdana, sans-serif;
+                --height: 150px;
             }
             
             #q-graph {
                 display: block;
                 position: relative;
-                width: 600px;
-                height: 300px;
-                margin: 1.1em 0 0;
-                padding: 0;
+                width: 100%;
+                height: var(--height); 
                 background: transparent;
                 font-size: 11px;
             }
             
             #q-graph caption {
                 caption-side: top;
-                width: 600px;
+                width: 200%;
                 text-transform: uppercase;
-                letter-spacing: .5px;
-                top: -40px;
+                top: calc(var(--height)*-0.3);
                 position: relative;
                 z-index: 10; 
                 font-weight: bold;
@@ -86,9 +81,8 @@ export class DashupChart extends DashupComponent{
             #q-graph tr, #q-graph th, #q-graph td {
                 position: absolute;
                 bottom: 0;
-                width: 150px;
+                left: 40%;
                 z-index: 2;
-                margin: 0;
                 padding: 0;
                 text-align: center; 
             }
@@ -104,10 +98,10 @@ export class DashupChart extends DashupComponent{
             }
             
             #q-graph thead tr {
+                width: 0;
                 left: 100%;
                 top: 50%;
                 bottom: auto;
-                margin: -2.5em 0 0 5em;
             }
             
             #q-graph thead th {
@@ -116,22 +110,10 @@ export class DashupChart extends DashupComponent{
                 padding: 0.5em 1em;
             }
             
-            #q-graph thead th.sent {
-                top: 0;
-                left: 0;
-                line-height: 2;
-            }
-            
-            #q-graph thead th.paid {
-                top: 2.75em;
-                line-height: 2;
-                left: 0;
-            }
-            
             #q-graph tbody tr {
-                height: 296px;
-                padding-top: 2px;
+                height: var(--height); 
                 border-right: 1px dotted #C4C4C4;
+                border-bottom: 0px;
                 color: #AAA;
             }
                         
@@ -143,32 +125,31 @@ export class DashupChart extends DashupComponent{
             }
             
             #q-graph .bar {
-                width: 60px;
+                width: 25%;
                 border: 1px solid;
                 border-bottom: none;
                 color: #000;
             }
             
             #q-graph .bar p {
-                margin: 5px 0 0;
+                margin: 0 0 0 0;
                 padding: 0;
                 opacity: .4;
             }
             
             #q-graph .category {
-                left: 45px;
                 background-color: #39cccc;
                 border-color: transparent;
             }
             
             #ticks {
                 position: relative;
-                top: -305px;
+                top: calc(var(--height)*-1.025); 
                 left: 2px;
-                width: 596px;
-                height: 300px;
+                width: 100%;
+                height: var(--height); 
                 z-index: 1;
-                margin-bottom: -300px;
+                margin-bottom: calc(var(--height)*-1); 
                 font-size: 10px;
                 font-family: "fira-sans-2", Verdana, sans-serif;
             }
@@ -176,7 +157,7 @@ export class DashupChart extends DashupComponent{
             #ticks .tick {
                 position: relative;
                 border-bottom: 1px dotted #C4C4C4;
-                width: 600px;
+                width: 95%;
             }
             
             #ticks .tick p {
