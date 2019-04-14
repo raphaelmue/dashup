@@ -11,7 +11,7 @@ export class DashupComponent extends LitElement {
     constructor() {
         super();
         new CSSStyleSheet().replace("@import url('https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css')").then((sheet) => {
-            this.shadowRoot.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
+            this.shadowRoot.adoptedStyleSheets = [...this.shadowRoot.adoptedStyleSheets, sheet];
         });
     }
 
