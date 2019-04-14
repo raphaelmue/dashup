@@ -25,4 +25,10 @@ public class MarketplaceController {
             // tbd
         });
     }
+    @RequestMapping("/detailView")
+    public  String detailView(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException{
+        return ControllerHelper.defaultMapping(token, request, model, "panelDetailView", user -> {
+            // tbd
+        });
+    }
 }
