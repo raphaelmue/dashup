@@ -1,12 +1,18 @@
 let sectionsToDelete = [];
+let sectionsToAdd = [];
 let panelsToDelete = [];
 let selectedPanel;
+let globalSectionCount;
 
 (function () {
     initializeDragAndDrop();
     initializePanelDropdown();
     initializeSectionDeleteClick();
     initializePanelDeleteClick();
+    initializeAddSectionButtonClick();
+
+    globalSectionCount = 0;
+
 })();
 
 function initializeDragAndDrop() {
@@ -55,6 +61,14 @@ function initializeSectionDeleteClick() {
     });
 }
 
+function initializeAddSectionButtonClick() {
+    $("#add-section-button").on("click", function (event) {
+        let sectionId = "n" + globalSectionCount;
+       addNewSection(sectionId);
+       initializeSectionDeleteClick();
+    });
+}
+
 function initializePanelDeleteClick() {
     $("#delete").on("click", function () {
         console.log("delete pressed");
@@ -68,6 +82,50 @@ function initializePanelDeleteClick() {
     });
 }
 
+function addNewSection(sectionId) {
+
+    let dragAndDropContainer = document.getElementById('drag-drop-container');
+
+    let wrapper = document.createElement("div");
+    wrapper
+    wrapper.setAttribute("class","wrapper  col s12");
+    wrapper.setAttribute("id",sectionId);
+
+    let row = document.createElement("div");
+    row.setAttribute("class","row");
+
+    let sectionHeading = document.createElement("div");
+    sectionHeading.setAttribute("class","drag-drop-btn col s6 valign-wrapper");
+
+    let gripLineIcon = document.createElement("i");
+    gripLineIcon.setAttribute("class","drag-drop-btn fas fa-grip-lines col s1");
+    gripLineIcon.setAttribute("style","margin:0");
+
+    let inputField = document.createElement("input");
+    inputField.setAttribute("class","col s4");
+    inputField.setAttribute("type","text");
+    inputField.setAttribute("style","margin:0");
+    inputField.setAttribute("value","New Section");
+
+    let minusIcon = document.createElement("i");
+    minusIcon.setAttribute("class","section-minus fas fa-minus col s1");
+    minusIcon.setAttribute("style","margin:0");
+
+    let panelContainer = document.createElement("div");
+    panelContainer.setAttribute("class","bloc col s12");
+
+    sectionHeading.appendChild(gripLineIcon);
+    sectionHeading.appendChild(inputField);
+    sectionHeading.appendChild(minusIcon);
+
+    row.appendChild(sectionHeading);
+
+    wrapper.appendChild(row);
+    wrapper.appendChild(panelContainer);
+
+    dragAndDropContainer.appendChild(wrapper);
+}
+
 function addSectionToDeleteToList(sectionToDelete) {
     let section = sectionToDelete.childNodes[1];
     let panels = section.childNodes;
@@ -79,7 +137,6 @@ function addSectionToDeleteToList(sectionToDelete) {
         sectionName: "",
         sectionId: sectionToDelete.id,
         panelStructure: panelStructure,
-        remove: true
     };
 
     sectionsToDelete.push(sectionObject);
@@ -93,9 +150,9 @@ function makeSectionPanelOrder() {
 
     for (let i = 0; i < sectionsCount; i++) {
 
-        let sectionName = sections[i]['children'][0]['innerText'];
+        let sectionName = sections[i].children[0].children[0].children[1].value;
         let sectionId = sections[i].id;
-        let panels = sections[i]['children'][1]['children'];
+        let panels = sections[i].children[1].children;
         let panelStructure = makePanelStructure(panels);
 
         let sectionObject = {
@@ -108,17 +165,6 @@ function makeSectionPanelOrder() {
     }
 
     return sectionPanelOrder
-}
-
-function saveChanges() {
-    let sectionPanelOrder = makeSectionPanelOrder();
-    let layout = {
-        panelsToDelete: panelsToDelete,
-        sectionsToDelete: sectionsToDelete,
-        sectionPanelOrder: sectionPanelOrder
-    };
-
-    console.log(layout);
 }
 
 function makePanelStructure(panels) {
@@ -135,4 +181,41 @@ function makePanelStructure(panels) {
 
     return panelStructure;
 }
+
+function saveChanges() {
+    let sectionPanelOrder = makeSectionPanelOrder();
+    let layout = {
+        panelsToDelete: panelsToDelete,
+        sectionsToDelete: sectionsToDelete,
+        sectionPanelOrder: sectionPanelOrder
+    };
+
+    postChanges(layout);
+}
+
+function postChanges(data) {
+    let url = '/layoutMode/handleSaveChanges';
+
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response =>{
+        if(!response.ok)
+        {
+            throw new Error("error");
+        }
+        return response.json();
+
+    }).then(() => {
+        showSaveReponseSuccessMessageToast()
+    }).catch(() => {
+        showSaveResponseErrorMessageToast()
+    });
+
+}
+
+
 

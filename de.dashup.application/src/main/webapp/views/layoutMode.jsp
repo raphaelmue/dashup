@@ -7,17 +7,11 @@
 <jsp:include page="includes/head.jsp"/>
 <head>
     <link rel='stylesheet' href='https://rawgit.com/bevacqua/dragula/master/dist/dragula.min.css'>
-    <title>dashup - <fmt:message key="i18n.layoutMode" /></title>
+    <title>dashup</title>
     <style>
-
-
-
-
         .bloc--inner {
             display: inline-block;
         }
-
-
     </style>
 </head>
 <body>
@@ -26,47 +20,56 @@
     <div class="row">
         <h3><fmt:message key="i18n.layoutMode"/></h3>
 
-
-
         <div class="drag-drop-container col s12" id="drag-drop-container">
-            <%--<div class="bloc bloc--first">--%>
-                <%--<div class="bloc--inner"></div>--%>
-            <%--</div>--%>
-            <%--<div class="bloc bloc--second">--%>
-                <%--<div class="bloc--inner"></div>--%>
-            <%--</div>--%>
-                ${content}
+            ${content}
         </div>
-
-
-
-
-
-
-
-
 
     </div>
 </div>
 
-<a href="javascript:saveChanges()" class="btn-floating btn-large waves-effect waves-light"><i class="fas fa-edit"></i></a>
+<div>
+    <a href="javascript:saveChanges()" class="btn-floating btn-large waves-effect waves-light">
+        <i class="far fa-check-circle"></i>
+    </a>
+    <a id="add-section-button" href="#" class="left-align btn-floating btn-large waves-effect waves-light" style="margin-bottom: 75px">
+        <i class="fas fa-grip-lines"></i>
+    </a>
+
+</div>
+
 
 <!-- Dropdown Structure -->
 <ul id='dropdown1' class='dropdown-content'>
-    <li><a id="delete" href="#!">
+    <li><a id="delete" href="#">
         <i class="fas fa-trash-alt"></i>
     </a></li>
     <li class="divider" tabindex="-1"></li>
-    <li><a href="#!">
+    <li><a href="#">
         small
     </a></li>
-    <li><a href="#!">
+    <li><a href="#">
         large
     </a></li>
 </ul>
 
 <script src='https://rawgit.com/bevacqua/dragula/master/dist/dragula.min.js'></script>
 <script src="../libraries/draganddrop.js"></script>
+
+<script>
+    function showSaveReponseSuccessMessageToast() {
+        M.toast({
+            html: "<fmt:message key="i18n.successChangedLayout" />",
+            classes: "success"
+        });
+    }
+
+    function showSaveResponseErrorMessageToast() {
+        M.toast({
+            html: "Error",
+            classes: "error"
+        });
+    }
+</script>
 
 </body>
 </html>

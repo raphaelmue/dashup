@@ -3,10 +3,9 @@ package de.dashup.application.controllers;
 import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.model.builder.DashupBuilder;
+import de.dashup.model.layoutmode.ChangeHandler;
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.DashupPanelStructure;
-import de.dashup.shared.DashupSectionStructure;
-import de.dashup.shared.User;
+import de.dashup.shared.*;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,9 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/layoutMode")
@@ -35,11 +32,6 @@ public class LayoutModeController {
             model.addAttribute("name", user.getName());
             model.addAttribute("email", user.getEmail());
             model.addAttribute("content", DashupBuilder.buildUsersPanelsLayoutMode(user));
-
-            Map<String, String> layout = DashupService.getInstance().loadLayout(user);
-            for (Map.Entry<String, String> entry : layout.entrySet()) {
-                model.addAttribute(entry.getKey(), entry.getValue());
-            }
         });
     }
 
@@ -48,6 +40,19 @@ public class LayoutModeController {
     public String confirm(@RequestBody DashupPanelStructure body, Model model, HttpServletRequest request) {
         System.out.println(body);
         return "layoutMode";
+    }
+
+    @PostMapping(value = "/handleSaveChanges", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<String> handleSaveChanges(@RequestBody LayoutModeStructure layoutModeStructure,
+                                                        Locale locale,
+                                                        HttpServletRequest request) throws SQLException {
+        ControllerHelper.setLocale(request, locale);
+        ChangeHandler.getInstance(layoutModeStructure).processLayoutModeChanges();
+
+        JSONObject entity = new JSONObject();
+        entity.put("message", "Success");
+        return new ResponseEntity<>("{\"message\":\"success\"}", HttpStatus.OK);
+
     }
 
     @PostMapping(value = "/handleLayout", consumes = {MediaType.APPLICATION_JSON_VALUE})
