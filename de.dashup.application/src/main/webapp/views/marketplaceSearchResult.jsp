@@ -37,15 +37,30 @@
             <div class="col m6 offset-m3 s10 offset-s1">
                 <hr/>
                 <ul class="collection">
-                    <li class="collection-item avatar">
-                        <img src="https://openclipart.org/image/2400px/svg_to_png/282766/cloud-with-flat-base-CC0-by-Erland.png" alt="" class="circle">
-                        <span class="title">Weather Panel</span>
-                        <p>Here is the short description <br>
-                            And our rating
-                        </p>
-                        <a href="#!" class="secondary-content">Or our rating is here</a>
+                    <li class="collection-item" id="weather-panel">
+                        <div class="row">
+                            <div class="col m3 s3">
+                                <i class="fas fa-cloud fa-7x"></i>
+                            </div>
+                            <div class="col m4 s4">
+                                <h5>Weather Panel</h5>
+                                <div>This is the short description of this panel</div>
+                                <div style="margin-top: 5px">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="col m2 offset-m3" style="margin-top: 30px">
+                                <button id="add" class="btn waves-effect waves-light" type="submit" name="search">
+                                    <fmt:message key="i18n.add" />
+                                </button>
+                            </div>
+                        </div>
                     </li>
-                    <li class="collection-item avatar">
+                    <li class="collection-item">
                         <i class="material-icons circle">folder</i>
                         <span class="title">Title</span>
                         <p>First Line <br>
@@ -53,7 +68,7 @@
                         </p>
                         <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
                     </li>
-                    <li class="collection-item avatar">
+                    <li class="collection-item">
                         <i class="material-icons circle green">insert_chart</i>
                         <span class="title">Title</span>
                         <p>First Line <br>
@@ -61,7 +76,7 @@
                         </p>
                         <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
                     </li>
-                    <li class="collection-item avatar">
+                    <li class="collection-item">
                         <i class="material-icons circle red">play_arrow</i>
                         <span class="title">Title</span>
                         <p>First Line <br>
@@ -73,4 +88,16 @@
             </div>
         </div>
     </body>
+    <script>
+        $( document ).ready(function () {
+            $("#weather-panel").on("click", function () {
+                PostRequest.getInstance().make("/marketplace/detailView", {
+
+                });
+            });
+            $("#add").on("click", function () {
+
+            });
+        });
+    </script>
 </html>
