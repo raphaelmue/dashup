@@ -1,4 +1,4 @@
-import {LitElement, html, css} from "https://unpkg.com/lit-element@2.1.0/lit-element.js?module";
+import {html} from "https://unpkg.com/lit-element@2.1.0/lit-element.js?module";
 import {DashupComponent} from "./dashup-component.js";
 export class DashupCheckbox extends DashupComponent{
 

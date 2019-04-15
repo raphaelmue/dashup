@@ -1,4 +1,4 @@
-import {LitElement, html, css, unsafeCSS} from "https://unpkg.com/lit-element@2.1.0/lit-element.js?module";
+import {html, css} from "https://unpkg.com/lit-element@2.1.0/lit-element.js?module";
 import {styleMap} from "https://unpkg.com/lit-html@1.0.0/directives/style-map.js?module";
 import {DashupComponent} from "./dashup-component.js";
 export class DashupChart extends DashupComponent{
@@ -92,7 +92,7 @@ export class DashupChart extends DashupComponent{
             }
             
             #q-graph td:hover {
-                background-color: #4d4d4d;
+                background-color: rgb(38, 166, 180);
                 opacity: .9;
                 color: white;
             }
@@ -138,7 +138,7 @@ export class DashupChart extends DashupComponent{
             }
             
             #q-graph .category {
-                background-color: #39cccc;
+                background-color: rgb(38, 166, 154);
                 border-color: transparent;
             }
             

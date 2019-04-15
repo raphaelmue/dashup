@@ -1,4 +1,5 @@
-import {LitElement, html, css} from "https://unpkg.com/lit-element@2.1.0/lit-element.js?module";
+import {html} from "https://unpkg.com/lit-element@2.1.0/lit-element.js?module";
+import {classMap} from "https://unpkg.com/lit-html@1.0.0/directives/class-map.js?module";
 import {DashupComponent} from "./dashup-component.js";
 export class DashupGridLayout extends DashupComponent{
 
@@ -10,9 +11,20 @@ export class DashupGridLayout extends DashupComponent{
                         ${row.map((element) => {
             let size = element.layout.size;
             let offset = element.layout.offset;
+            let classes = {col: true};
+            let sizes=["s","m","l","xl"];
+            sizes.forEach((element) => {
+                if(size){
+                    classes[element + size] = true;
+                } else {
+                    classes[element + "4"] = true;
+                }
+                if(offset){
+                    classes["offset-" + element + offset] = true;
+                }
+            });
             return html`
-                                <div class="col s${size} m${size} l${size} xl${size} 
-                                            offset-s${offset} offset-m${offset} offset-l${offset} offset-xl${offset}">
+                                <div class="${classMap(classes)}">
                                     <slot name="${this.getSlotName(element)}"></slot>
                                 </div>
                             `;

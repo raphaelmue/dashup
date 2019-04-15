@@ -6,6 +6,7 @@
 <!doctype html>
 <html lang="en">
     <jsp:include page="includes/head.jsp" />
+    <jsp:include page="includes/dashup-components.jsp" />
     <style>
         body {
             background: url('${fn:escapeXml(backgroundImage)}') no-repeat center center fixed;

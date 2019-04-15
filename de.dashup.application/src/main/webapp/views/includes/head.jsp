@@ -26,7 +26,6 @@
 
     <%-- JavaScript Classes --%>
     <script type="text/javascript" src="../../libraries/classes/PostRequest.js"></script>
-    <script type="module" src="../../libraries/dashup-loader/dashup-loader.js"></script>
     <script type="text/javascript" src="../../libraries/index.js"></script>
 
     <title>dashup</title>
