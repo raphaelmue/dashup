@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 @Controller
@@ -27,7 +30,7 @@ public class WorkbenchController {
 
     @RequestMapping("/createDraft")
     public String createDraft(@CookieValue(name = "token", required = false) String token,
-                              HttpServletRequest request, Model model,
+                              HttpServletRequest request,
                               @RequestParam(value = "draftName") String draftName) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
@@ -70,6 +73,22 @@ public class WorkbenchController {
             draft.setDescription(description);
             DashupService.getInstance().updateDraftInformation(draft);
             return "redirect:/workbench/" + draftId + "/#changedInformation";
+        }
+        return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/{draftId}/changeCode", method = RequestMethod.POST)
+    public String handleChangeDraftCode(@CookieValue(name = "token", required = false) String token,
+                                        HttpServletRequest request,
+                                        @PathVariable(value = "draftId") int draftId,
+                                        @RequestParam(value = "code") String code) throws SQLException, UnsupportedEncodingException {
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            Draft draft = new Draft();
+            draft.setId(draftId);
+            draft.setCode(URLDecoder.decode(code, StandardCharsets.UTF_8.name()));
+            DashupService.getInstance().updateDraftInformation(draft);
+            return "redirect:/workbench/" + draftId + "/#changedCode";
         }
         return "redirect:/login";
     }

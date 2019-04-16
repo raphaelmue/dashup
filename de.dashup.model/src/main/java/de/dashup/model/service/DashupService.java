@@ -384,9 +384,18 @@ public class DashupService {
         whereParameters.put("id", draft.getId());
 
         Map<String, Object> values = new HashMap<>();
-        values.put("name", draft.getName());
-        values.put("short_description", draft.getShortDescription());
-        values.put("description", draft.getDescription());
+        if (draft.getName() != null) {
+            values.put("name", draft.getName());
+        }
+        if (draft.getCode() != null) {
+            values.put("code", draft.getCode());
+        }
+        if (draft.getShortDescription() != null) {
+            values.put("short_description", draft.getShortDescription());
+        }
+        if (draft.getDescription() != null) {
+            values.put("description", draft.getDescription());
+        }
 
         this.database.update(Database.Table.USERS_DRAFTS, whereParameters, values);
     }

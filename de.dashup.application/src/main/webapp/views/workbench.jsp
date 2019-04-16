@@ -48,6 +48,16 @@
                         <div id="code" class="col s12">
                             <div class="container">
                                 <div class="row">
+                                    <button id="btn-save-code" class="btn waves-effect waves-light">
+                                        <i class="fas fa-check"></i>
+                                        <fmt:message key="i18n.save"/>
+                                    </button>
+                                    <button id="btn-undo-code" class="btn-flat waves-effect">
+                                        <i class="fas fa-times"></i>
+                                        <fmt:message key="i18n.undo"/>
+                                    </button>
+                                </div>
+                                <div class="row">
                                     <div class="col s12 m6">
                                         <h3 style="margin-bottom: 50px;"><fmt:message key="i18n.code" /></h3>
                                         <div class="input-field">
@@ -155,6 +165,12 @@
                         classes: "success"
                     };
                     break;
+                case "changedCode":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.successChangedCode" />",
+                        classes: "success"
+                    };
+                    break;
             }
             if (getAnchor() !== null && getAnchor() !== "") {
                 M.toast(toastOptions);
@@ -162,9 +178,6 @@
             }
 
             $("#textarea-code").bind('input propertychange', function() {
-                console.log("changed");
-                console.log($("#textarea-code").val());
-
                 $("#pre-view-container").html($("#textarea-code").val());
             });
 
@@ -192,8 +205,14 @@
                     draftName: $("#text-field-draft-name").val(),
                     shortDescription: $("#textarea-short-description").val(),
                     description: $("#textarea-description").val()
-                })
-            })
+                });
+            });
+
+            $("#btn-save-code").on("click", function () {
+                PostRequest.getInstance().make("/workbench/${fn:escapeXml(currentDraft.id)}/changeCode", {
+                    code: encodeURIComponent($("#textarea-code").val())
+                });
+            });
         });
     </script>
 </html>
