@@ -64,12 +64,12 @@ Feature: Change Profile
     And User clicks on submit icon for personal information
     Then Last name changes to "Doe"
 
-#  Scenario: Change birthday
-#    Given User is located on settings menu
-#    When User clicks personal information section
-#    And User changes birthday to "13.05.1994"
-#    And User clicks on submit icon for personal information
-#    Then Birthday changes to "13.05.1994"
+  Scenario: Change birthday
+    Given User is located on settings menu
+    When User clicks personal information section
+    And User changes birthday to "1994-05-13"
+    And User clicks on submit icon for personal information
+    Then Birthday changes to "1994-05-13"
 
   Scenario: Change company
     Given User is located on settings menu

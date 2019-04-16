@@ -11,6 +11,7 @@ import de.dashup.test.SpringBootBase;
 import de.dashup.util.string.Hash;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -198,8 +199,8 @@ public class ChangeProfileStepDefinitions {
         driver.quit();
     }
 
-    // --- Change last name --- \\
 
+    // --- Change last name --- \\
     @And("^User changes last name to \"([^\"]*)\"$")
     public void userChangesLastNameTo(String lastName) {
         WebDriver driver = GeneralStepDefinitions.getDriver();
@@ -215,6 +216,25 @@ public class ChangeProfileStepDefinitions {
         Thread.sleep(1000);
         WebElement firstNameInput = driver.findElement(By.id("text-field-personal-info-surname"));
         Assertions.assertEquals(lastName, firstNameInput.getAttribute("value"));
+
+        driver.quit();
+    }
+
+    // --- Change birth date --- \\
+
+    @And("^User changes birthday to \"([^\"]*)\"$")
+    public void userChangesBirthdayTo(String birthDate) {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        WebElement birthDateInput = driver.findElement(By.id("text-field-personal-info-birth-date"));
+        jse.executeScript("arguments[0].setAttribute(\"value\", \"" + birthDate + "\");", birthDateInput);
+    }
+
+    @Then("^Birthday changes to \"([^\"]*)\"$")
+    public void birthdayChangesTo(String birthDate) {
+        WebDriver driver = GeneralStepDefinitions.getDriver();
+        WebElement birthDateInput = driver.findElement(By.id("text-field-personal-info-birth-date"));
+        Assertions.assertEquals(birthDate, birthDateInput.getAttribute("value"));
 
         driver.quit();
     }
