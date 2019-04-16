@@ -387,8 +387,14 @@ public class DashupService {
         if (draft.getName() != null) {
             values.put("name", draft.getName());
         }
-        if (draft.getCode() != null) {
-            values.put("code", draft.getCode());
+        if (draft.getCodeSmall() != null) {
+            values.put("code_small", draft.getCodeSmall());
+        }
+        if (draft.getCodeMedium() != null) {
+            values.put("code_medium", draft.getCodeMedium());
+        }
+        if (draft.getCodeLarge() != null) {
+            values.put("code_large", draft.getCodeLarge());
         }
         if (draft.getShortDescription() != null) {
             values.put("short_description", draft.getShortDescription());

@@ -81,12 +81,22 @@ public class WorkbenchController {
     public String handleChangeDraftCode(@CookieValue(name = "token", required = false) String token,
                                         HttpServletRequest request,
                                         @PathVariable(value = "draftId") int draftId,
-                                        @RequestParam(value = "code") String code) throws SQLException, UnsupportedEncodingException {
+                                        @RequestParam(value = "code_small", required = false) String codeSmall,
+                                        @RequestParam(value = "code_medium", required = false) String codeMedium,
+                                        @RequestParam(value = "code_large", required = false) String codeLarge) throws SQLException, UnsupportedEncodingException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             Draft draft = new Draft();
             draft.setId(draftId);
-            draft.setCode(URLDecoder.decode(code, StandardCharsets.UTF_8.name()));
+            if (codeSmall != null) {
+                draft.setCodeSmall(URLDecoder.decode(codeSmall, StandardCharsets.UTF_8.name()));
+            }
+            if (codeMedium != null) {
+                draft.setCodeMedium(URLDecoder.decode(codeMedium, StandardCharsets.UTF_8.name()));
+            }
+            if (codeLarge != null) {
+                draft.setCodeLarge(URLDecoder.decode(codeLarge, StandardCharsets.UTF_8.name()));
+            }
             DashupService.getInstance().updateDraftInformation(draft);
             return "redirect:/workbench/" + draftId + "/#changedCode";
         }

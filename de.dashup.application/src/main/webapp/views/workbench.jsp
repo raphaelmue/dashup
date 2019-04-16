@@ -41,34 +41,67 @@
                     <div class="row">
                         <div class="col ">
                             <ul class="tabs">
-                                <li class="tab"><a class="active" href="#code"><fmt:message key="i18n.code" /></a></li>
+                                <li class="tab"><a class="active" href="#codeSmall"><fmt:message key="i18n.codeSmall" /></a></li>
                                 <li class="tab"><a href="#basicInformation"><fmt:message key="i18n.basicInformation" /></a></li>
                             </ul>
                         </div>
-                        <div id="code" class="col s12">
+                        <div id="codeSmall" class="col s12">
                             <div class="container">
                                 <div class="row">
-                                    <button id="btn-save-code" class="btn waves-effect waves-light">
-                                        <i class="fas fa-check"></i>
-                                        <fmt:message key="i18n.save"/>
-                                    </button>
-                                    <button id="btn-undo-code" class="btn-flat waves-effect">
-                                        <i class="fas fa-times"></i>
-                                        <fmt:message key="i18n.undo"/>
-                                    </button>
+                                    <div class="col s12 m6">
+                                        <button id="btn-save-code" class="btn waves-effect waves-light">
+                                            <i class="fas fa-check"></i>
+                                            <fmt:message key="i18n.save"/>
+                                        </button>
+                                        <button id="btn-undo-code" class="btn-flat waves-effect">
+                                            <i class="fas fa-times"></i>
+                                            <fmt:message key="i18n.undo"/>
+                                        </button>
+                                    </div>
+                                    <div class="col s12 m6">
+                                        <button id="btn-publish-widget" class="btn waves-effect waves-light">
+                                            <i class="fas fa-baby-carriage"></i>
+                                            <fmt:message key="i18n.publish"/>
+                                        </button>
+                                        <button id="btn-add-widget" class="btn-flat waves-effect">
+                                            <i class="fas fa-plus"></i>
+                                            <fmt:message key="i18n.add"/>
+                                        </button>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col s12 m6">
-                                        <h3 style="margin-bottom: 50px;"><fmt:message key="i18n.code" /></h3>
-                                        <div class="input-field">
-                                            <textarea id="textarea-code" class="materialize-textarea">${fn:escapeXml(currentDraft.code)}</textarea>
-                                            <label for="textarea-code"><fmt:message key="i18n.code" /></label>
+                                        <h3 style="margin-bottom: 50px;"><fmt:message key="i18n.codeSmall" /></h3>
+                                        <div class="row">
+                                            <div class="col s12 m12 input-field">
+                                                <select name="size" id="size-dropdown">
+                                                    <option value="small" selected="selected"><fmt:message key="i18n.small" /></option>
+                                                    <option value="medium"><fmt:message key="i18n.medium" /></option>
+                                                    <option value="large"><fmt:message key="i18n.large" /></option>
+                                                </select>
+                                                <label><fmt:message key="i18n.size" /></label>
+                                            </div>
+                                            <div class="col s12 m12" id="code-container">
+                                                <div class="input-field">
+                                                    <textarea id="textarea-code-small" class="materialize-textarea">${fn:escapeXml(currentDraft.codeSmall)}</textarea>
+                                                    <label for="textarea-code-small"><fmt:message key="i18n.codeSmall" /></label>
+                                                </div>
+                                                <div class="input-field" style="display: none;">
+                                                    <textarea id="textarea-code-medium" class="materialize-textarea">${fn:escapeXml(currentDraft.codeMedium)}</textarea>
+                                                    <label for="textarea-code-medium"><fmt:message key="i18n.codeSmall" /></label>
+                                                </div>
+                                                <div class="input-field" style="display: none;">
+                                                    <textarea id="textarea-code-large" class="materialize-textarea">${fn:escapeXml(currentDraft.codeLarge)}</textarea>
+                                                    <label for="textarea-code-large"><fmt:message key="i18n.codeSmall" /></label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+
                                     <div class="col s12 m6">
                                         <h3 style="margin-bottom: 50px;"><fmt:message key="i18n.preview" /></h3>
                                         <div class="col card s12 m12" >
-                                            <div class="card-content" id="pre-view-container">${currentDraft.code}</div>
+                                            <div class="card-content" id="pre-view-container">${currentDraft.codeSmall}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -177,8 +210,21 @@
                 clearAnchor()
             }
 
-            $("#textarea-code").bind('input propertychange', function() {
-                $("#pre-view-container").html($("#textarea-code").val());
+            $("#size-dropdown").on("change", function () {
+                $("div#code-container div.input-field").css("display", "none");
+                $("#textarea-code-" + $(this).val()).parent().css("display", "block");
+            });
+
+            $("#textarea-code-small").bind('input propertychange', function() {
+                $("#pre-view-container").html($("#textarea-code-small").val());
+            });
+
+            $("#textarea-code-medium").bind('input propertychange', function() {
+                $("#pre-view-container").html($("#textarea-code-medium").val());
+            });
+
+            $("#textarea-code-large").bind('input propertychange', function() {
+                $("#pre-view-container").html($("#textarea-code-large").val());
             });
 
             let createDraftDialog = M.Modal.getInstance(document.getElementById("dialog-create-draft"));
@@ -209,9 +255,10 @@
             });
 
             $("#btn-save-code").on("click", function () {
-                PostRequest.getInstance().make("/workbench/${fn:escapeXml(currentDraft.id)}/changeCode", {
-                    code: encodeURIComponent($("#textarea-code").val())
-                });
+                let parameters = {},
+                    size = $("#size-dropdown").val();
+                parameters["code_" + size] = encodeURIComponent($("#textarea-code-" + size).val())
+                PostRequest.getInstance().make("/workbench/${fn:escapeXml(currentDraft.id)}/changeCode", parameters);
             });
         });
     </script>

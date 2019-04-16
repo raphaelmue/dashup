@@ -10,8 +10,13 @@ public class Draft implements DatabaseObject {
     private String name;
     @SerializedName("short_description")
     private String shortDescription;
-    private String Description;
-    private String code;
+    private String description;
+    @SerializedName("code_small")
+    private String codeSmall;
+    @SerializedName("code_medium")
+    private String codeMedium;
+    @SerializedName("code_large")
+    private String codeLarge;
     @SerializedName("creation_date")
     private String creationDate;
 
@@ -41,19 +46,35 @@ public class Draft implements DatabaseObject {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
-    public String getCode() {
-        return code;
+    public String getCodeSmall() {
+        return codeSmall;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setCodeSmall(String codeSmall) {
+        this.codeSmall = codeSmall;
+    }
+
+    public String getCodeMedium() {
+        return codeMedium;
+    }
+
+    public void setCodeMedium(String codeMedium) {
+        this.codeMedium = codeMedium;
+    }
+
+    public String getCodeLarge() {
+        return codeLarge;
+    }
+
+    public void setCodeLarge(String codeLarge) {
+        this.codeLarge = codeLarge;
     }
 
     public LocalDate getCreationDate() {
