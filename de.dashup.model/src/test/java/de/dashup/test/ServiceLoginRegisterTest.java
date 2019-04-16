@@ -20,7 +20,7 @@ public class ServiceLoginRegisterTest {
     //---------------Setup---------------\\
     @BeforeAll
     public static void setupEnvironment() throws SQLException {
-        database = UnitTestUtil.getDBInstance(false, Database.DatabaseName.TEST);
+        database = UnitTestUtil.getDBInstance();
         dashupService = UnitTestUtil.getServiceInstance();
     }
 
