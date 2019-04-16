@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<fmt:setLocale value="${param.lang}"/>
+<fmt:setLocale value="${param.lang}" scope="session"/>
 <fmt:setBundle basename="i18n"/>
 <html>
 <jsp:include page="includes/head.jsp"/>

@@ -79,13 +79,13 @@ public class DashupService {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
 
-        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USER_SECTIONS, Section.class, whereParameters);
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USER_SECTIONS, Section.class, whereParameters, "predecessor_id ASC");
         if (result != null) {
             for (DatabaseObject databaseObject : result) {
                 Section section = (Section) databaseObject;
                 Map<String, Object> innerWhereParameters = new HashMap<>();
                 innerWhereParameters.put("section_id", section.getId());
-                JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerWhereParameters);
+                JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerWhereParameters, "panel_predecessor ASC");
                 if (innerResult != null && innerResult.length() > 0) {
                     ArrayList<Panel> panels = new ArrayList<>();
                     for (int i = 0; i < innerResult.length(); i++) {
@@ -94,12 +94,12 @@ public class DashupService {
                         panel.setPredecessor(innerResult.getJSONObject(i).getInt("panel_predecessor"));
                         panels.add(panel);
                     }
-                    section.setPanels(this.orderPanels(panels));
+                    section.setPanels(panels);
                 }
                 sections.add(section);
             }
         }
-        user.setSections(this.orderSections(sections));
+        user.setSections(sections);
         return user;
     }
 
@@ -115,6 +115,7 @@ public class DashupService {
     }
 
     private ArrayList<Section> orderSections(ArrayList<Section> sections) {
+
         ArrayList<Section> result = new ArrayList<>();
         while (!sections.isEmpty()) {
             for (Section section : sections) {
@@ -310,7 +311,7 @@ public class DashupService {
         this.database.update(Database.Table.USERS_SETTINGS, whereParameter, values);
     }
 
-    public void updateSection(User user, String sectionName, int sectionId, int predecessor, int successor) throws SQLException {
+    public void updateSection(User user, String sectionName, int sectionId, int predecessor) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
         whereParameters.put("section_id", sectionId);
@@ -322,7 +323,6 @@ public class DashupService {
             values.put("section_name", sectionName);
         }
         values.put("predecessor_id", predecessor);
-        values.put("successor_id", successor);
 
         if (!values.isEmpty()) {
             this.database.update(Database.Table.USER_SECTIONS, whereParameters, values);
@@ -334,9 +334,18 @@ public class DashupService {
         whereParameters.put("section_id", section_id);
         whereParameters.put("user_id", user.getId());
         database.delete(Database.Table.USER_SECTIONS, whereParameters);
+
+        deletePanelsOfSection(section_id);
     }
 
-    public void addSection(User user, String sectionName, int predecessor, int successor) throws SQLException {
+    private void deletePanelsOfSection(int section_id) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("section_id", section_id);
+        database.delete(Database.Table.SECTIONS_PANELS, whereParameters);
+
+    }
+
+    public int addSection(User user, String sectionName, int order) throws SQLException,NumberFormatException {
         if (sectionName == null) {
             sectionName = "New Section";
         }
@@ -344,9 +353,83 @@ public class DashupService {
         Map<String, Object> values = new HashMap<>();
         values.put("section_name", sectionName);
         values.put("user_id", user.getId());
-        values.put("predecessor_id", predecessor);
-        values.put("successor_id", successor);
+        values.put("predecessor_id", order);
 
         this.database.insert(Database.Table.USER_SECTIONS, values);
+
+        JSONObject jsonObject  = this.database.get(Database.Table.USER_SECTIONS,values).getJSONObject(0);
+        int newSectionId = jsonObject.getInt("section_id");
+        return newSectionId;
+
+
+    }
+
+    public void addPanel(int section_id, int panel_id, int panel_predecessor, String size) throws SQLException {
+        Map<String, Object> values = new HashMap<>();
+        values.put("section_id", section_id);
+        values.put("panel_id", panel_id);
+        values.put("panel_predecessor", panel_predecessor);
+        values.put("size", size);
+
+        this.database.insert(Database.Table.SECTIONS_PANELS, values);
+
+    }
+
+    public void processLayoutModeChanges(LayoutModeStructure layoutModeStructure, User user) throws SQLException {
+        List<LayoutModeSection> sectionsToDelete = layoutModeStructure.getSectionsToDelete();
+        deleteSections(sectionsToDelete, user);
+
+        List<LayoutModeSection> sectionAndPanelOrder = layoutModeStructure.getSectionPanelOrder();
+        saveNewSectionAndPanelStructure(sectionAndPanelOrder, user);
+
+//        List<String> panelsToDelete = layoutModeStructure.getPanelsToDelete();
+//        deletePanels(panelsToDelete);
+    }
+
+    private void saveNewSectionAndPanelStructure(List<LayoutModeSection> sections, User user) throws NumberFormatException, SQLException {
+        for (int i = 0; i < sections.size(); i++) {
+
+            String sectionIdFrontend = sections.get(i).getSectionId();
+            String sectionName = sections.get(i).getSectionName();
+
+            int sectionId = convertId(sectionIdFrontend,"s");
+
+
+            if (sectionId == -1) {
+                sectionId = addSection(user, sectionName, i);
+
+            } else if (sectionId > -1) {
+                updateSection(user, sectionName, sectionId, i);
+                deletePanelsOfSection(sectionId);
+            }
+
+            List<LayoutModePanel> panels = sections.get(i).getPanelStructure();
+            for (int j = 0; j <panels.size() ; j++) {
+                String panelIdString = panels.get(j).getPanelId();
+                int panelId = convertId(panelIdString,"p");
+                String size = panels.get(j).getPanelSize();
+
+                addPanel(sectionId,panelId,j,size);
+            }
+        }
+    }
+
+    private void deleteSections(List<LayoutModeSection> sectionsToDelete, User user) throws SQLException {
+        for (LayoutModeSection section : sectionsToDelete) {
+
+            int sectionId = convertId(section.getSectionId(),"s");
+            deleteSection(user, sectionId);
+        }
+    }
+
+    private int convertId(String id, String expectedPrefix) {
+        String technicalId = id.substring(1);
+        String idPrefix = id.substring(0, 1);
+
+        if (idPrefix.equals(expectedPrefix)) {
+            return Integer.valueOf(technicalId);
+        }
+
+        return -1;
     }
 }

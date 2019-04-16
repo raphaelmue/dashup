@@ -1,9 +1,9 @@
 let sectionsToDelete = [];
-let sectionsToAdd = [];
 let panelsToDelete = [];
 let selectedPanel;
 let globalSectionCount;
-
+let section_container;
+let panel_container;
 (function () {
     initializeDragAndDrop();
     initializePanelDropdown();
@@ -17,7 +17,7 @@ let globalSectionCount;
 })();
 
 function initializeDragAndDrop() {
-    dragula([document.querySelector('.drag-drop-container')], {
+    section_container = dragula([document.querySelector('.drag-drop-container')], {
         moves: function (el, container, handle) {
 
             let draggedClass = handle.classList[0];
@@ -28,9 +28,10 @@ function initializeDragAndDrop() {
         }
     });
 
-    dragula([].slice.apply(document.querySelectorAll('.bloc')), {
+    panel_container = dragula([].slice.apply(document.querySelectorAll('.bloc')), {
         direction: 'horizontal'
     });
+
 }
 
 function initializePanelDropdown() {
@@ -50,8 +51,7 @@ function initializeSectionDeleteClick() {
     $(".section-minus").on("click", function (event) {
         let sectionToDelete = event.currentTarget.parentNode.parentNode.parentNode;
 
-        if(sectionToDelete!=null)
-        {
+        if (sectionToDelete != null) {
             addSectionToDeleteToList(sectionToDelete);
 
             while (sectionToDelete.firstChild) {
@@ -68,8 +68,25 @@ function initializeSectionDeleteClick() {
 function initializeAddSectionButtonClick() {
     $("#add-section-button").on("click", function () {
         let sectionId = "n" + globalSectionCount;
-       addNewSection(sectionId);
-       initializeSectionDeleteClick();
+        let panelContainerToAdd = addNewSection(sectionId);
+        panel_container.containers.push(panelContainerToAdd)
+
+        initializeSectionDeleteClick();
+
+
+        //
+        //  dragula({
+        //      isContainer: function (el) {
+        //          return el.classList.contains('.bloc');
+        //      }
+        //  });
+        //
+        //  dragula({
+        //      isContainer: function (el) {
+        //          return el.classList.contains('.drag-drop-container');
+        //      }
+        //  });
+
     });
 }
 
@@ -96,31 +113,31 @@ function addNewSection(sectionId) {
     let dragAndDropContainer = document.getElementById('drag-drop-container');
 
     let wrapper = document.createElement("div");
-    wrapper.setAttribute("class","wrapper  col s12");
-    wrapper.setAttribute("id",sectionId);
+    wrapper.setAttribute("class", "wrapper  col s12");
+    wrapper.setAttribute("id", sectionId);
 
     let row = document.createElement("div");
-    row.setAttribute("class","row");
+    row.setAttribute("class", "row");
 
     let sectionHeading = document.createElement("div");
-    sectionHeading.setAttribute("class","drag-drop-btn col s6 valign-wrapper");
+    sectionHeading.setAttribute("class", "drag-drop-btn col s6 valign-wrapper");
 
     let gripLineIcon = document.createElement("i");
-    gripLineIcon.setAttribute("class","drag-drop-btn fas fa-grip-lines col s1");
-    gripLineIcon.setAttribute("style","margin:0");
+    gripLineIcon.setAttribute("class", "drag-drop-btn fas fa-grip-lines col s1");
+    gripLineIcon.setAttribute("style", "margin:0");
 
     let inputField = document.createElement("input");
-    inputField.setAttribute("class","col s4");
-    inputField.setAttribute("type","text");
-    inputField.setAttribute("style","margin:0");
-    inputField.setAttribute("value","New Section");
+    inputField.setAttribute("class", "col s4");
+    inputField.setAttribute("type", "text");
+    inputField.setAttribute("style", "margin:0");
+    inputField.setAttribute("value", "New Section");
 
     let minusIcon = document.createElement("i");
-    minusIcon.setAttribute("class","section-minus fas fa-minus col s1");
-    minusIcon.setAttribute("style","margin:0");
+    minusIcon.setAttribute("class", "section-minus fas fa-minus col s1");
+    minusIcon.setAttribute("style", "margin:0");
 
     let panelContainer = document.createElement("div");
-    panelContainer.setAttribute("class","bloc col s12");
+    panelContainer.setAttribute("class", "bloc col s12");
 
     sectionHeading.appendChild(gripLineIcon);
     sectionHeading.appendChild(inputField);
@@ -132,23 +149,28 @@ function addNewSection(sectionId) {
     wrapper.appendChild(panelContainer);
 
     dragAndDropContainer.appendChild(wrapper);
+
+    return panelContainer;
 }
 
 function addSectionToDeleteToList(sectionToDelete) {
-    console.log(sectionToDelete);
     let section = sectionToDelete.childNodes[1];
     let panels = section.childNodes;
 
     let panelStructure;
     panelStructure = makePanelStructure(panels);
 
-    let sectionObject = {
-        sectionName: "",
-        sectionId: sectionToDelete.id,
-        panelStructure: panelStructure,
-    };
+    if (sectionsToDelete.id !== "n0") {
+        let sectionObject = {
+            sectionName: "",
+            sectionId: sectionToDelete.id,
+            panelStructure: panelStructure,
+        };
 
-    sectionsToDelete.push(sectionObject);
+        sectionsToDelete.push(sectionObject);
+    }
+
+
 }
 
 function makeSectionPanelOrder() {
@@ -211,9 +233,8 @@ function postChanges(data) {
         headers: {
             'Content-Type': 'application/json'
         }
-    }).then(response =>{
-        if(!response.ok)
-        {
+    }).then(response => {
+        if (!response.ok) {
             throw new Error("error");
         }
         return response.json();
