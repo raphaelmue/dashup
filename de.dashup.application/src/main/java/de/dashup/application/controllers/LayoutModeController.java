@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 import java.util.*;
@@ -30,7 +31,6 @@ public class LayoutModeController {
             model.addAttribute("content", DashupBuilder.buildUsersPanelsLayoutMode(user));
         });
     }
-
 
     @PostMapping(value = "/handleSaveChanges", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> handleSaveChanges(@CookieValue(name = "token", required = false) String token,

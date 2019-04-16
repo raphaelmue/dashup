@@ -10,10 +10,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 class UnitTestUtil {
-    static Database getDBInstance(boolean local, Database.DatabaseName name) throws SQLException {
-        Database.setHost(local);
-        Database.setDbName(name);
-        return Database.getInstance();
+    static Database getDBInstance() throws SQLException {
+        Database.setHost(false);
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            Database.setDbName(Database.DatabaseName.TEST);
+        } else {
+            Database.setDbName(Database.DatabaseName.JENKINS);
+        }        return Database.getInstance();
     }
 
     static DashupService getServiceInstance() {
@@ -50,5 +53,15 @@ class UnitTestUtil {
         testDataMap.put("theme", "blue-sky");
         testDataMap.put("language", "en");
         database.insert(Database.Table.USERS_SETTINGS, testDataMap);
+
+        Assertions.assertEquals(1, database.get(Database.Table.USERS_SETTINGS, new HashMap<>()).length());
+
+        testDataMap.clear();
+        testDataMap.put("token","t8KJgrLLuP51Tilw6SiXjqoyM0EFX6OxrbTG5giYbXRPoJk1dUOoUHRHbx7lTPiD");
+        testDataMap.put("user_id","2");
+        testDataMap.put("expire_date","2099-01-01");
+        database.insert(Database.Table.USERS_TOKENS, testDataMap);
+
+        Assertions.assertEquals(1, database.get(Database.Table.USERS_TOKENS, new HashMap<>()).length());
     }
 }

@@ -20,7 +20,7 @@ public class ServiceLoginRegisterTest {
     //---------------Setup---------------\\
     @BeforeAll
     public static void setupEnvironment() throws SQLException {
-        database = UnitTestUtil.getDBInstance(false, Database.DatabaseName.TEST);
+        database = UnitTestUtil.getDBInstance();
         dashupService = UnitTestUtil.getServiceInstance();
     }
 
@@ -88,6 +88,16 @@ public class ServiceLoginRegisterTest {
         Assertions.assertNotNull(userByToken, "Could not get correct user by token!");
         Assertions.assertEquals(user.getId(), userByToken.getId(), "Could not get correct user by token!");
         Assertions.assertEquals(user.getEmail(), userByToken.getEmail());
+    }
+
+    //---------------Logout---------------\\
+    @Test
+    public void testDeleteToken() throws SQLException{
+        final String tokenToBeDeleted = "t8KJgrLLuP51Tilw6SiXjqoyM0EFX6OxrbTG5giYbXRPoJk1dUOoUHRHbx7lTPiD";
+
+        dashupService.deleteToken(tokenToBeDeleted);
+
+        Assertions.assertEquals(0, database.get(Database.Table.USERS_TOKENS, new HashMap<>()).length());
     }
 
     //---------------Register---------------\\

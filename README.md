@@ -1,7 +1,7 @@
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f592e1c013d3405d9bbc773a4ffc8c95)](https://app.codacy.com/app/raphael_6/dashup?utm_source=github.com&utm_medium=referral&utm_content=raphaelmue/dashup&utm_campaign=Badge_Grade_Settings)
-
 <h1><img src="./images/logo/dashup_official_icon_small.png" alt="official logo" />ashup</h1>
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f592e1c013d3405d9bbc773a4ffc8c95)](https://app.codacy.com/app/raphael_6/dashup?utm_source=github.com&utm_medium=referral&utm_content=raphaelmue/dashup&utm_campaign=Badge_Grade_Settings)
 
 The dashup platform provides a quick overview over multiple widgets that can be used for productivity purposes. Its 
 intention is to standardize the usage of different widgets by defining a global design and functionality policy. 

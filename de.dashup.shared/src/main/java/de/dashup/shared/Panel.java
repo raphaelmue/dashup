@@ -24,6 +24,15 @@ public class Panel extends DatabasePanel {
             return styleClass;
         }
 
+        public static Size getSizeByName(String name) {
+            for (Size size : values()) {
+                if (size.getName().equals(name)) {
+                    return size;
+                }
+            }
+            return null;
+        }
+
         @Override
         public String toString() {
             return name;
@@ -32,12 +41,11 @@ public class Panel extends DatabasePanel {
 
     private String htmlContent;
     private Size size;
+    @SerializedName("panel_predecessor")
+    private int predecessor;
 
     public Panel() {
     }
-
-    @SerializedName("panel_predecessor")
-    private int predecessor;
 
     public Panel(int id, String name, String description, int numberOfDownloads, int averageRating,
                  int predecessor) {
