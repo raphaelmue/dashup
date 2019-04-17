@@ -38,40 +38,40 @@
         <main>
             <c:choose>
                 <c:when test="${fn:escapeXml(currentDraft.id) > 0}">
-                    <div class="row">
-                        <div class="col ">
-                            <ul class="tabs">
-                                <li class="tab"><a class="active" href="#codeSmall"><fmt:message key="i18n.codeSmall" /></a></li>
-                                <li class="tab"><a href="#basicInformation"><fmt:message key="i18n.basicInformation" /></a></li>
-                            </ul>
+                    <div class="container">
+                        <div class="row">
+                            <button id="btn-delete-draft" class="btn-flat waves-effect">
+                                <i class="fas fa-trash-alt"></i>
+                                <fmt:message key="i18n.delete"/>
+                            </button>
+                            <button id="btn-publish-widget" class="btn-flat waves-effect">
+                                <i class="fas fa-truck"></i>
+                                <fmt:message key="i18n.publish"/>
+                            </button>
+                            <button id="btn-add-widget" class="btn-flat waves-effect">
+                                <i class="fas fa-plus"></i>
+                                <fmt:message key="i18n.add"/>
+                            </button>
                         </div>
-                        <div id="codeSmall" class="col s12">
-                            <div class="container">
+                        <div class="row z-depth-1" style="margin: 0">
+                            <div class="col s12">
+                                <ul class="tabs" style="margin: 0">
+                                    <li class="tab"><a class="active" href="#code"><fmt:message key="i18n.code" /></a></li>
+                                    <li class="tab"><a href="#basicInformation"><fmt:message key="i18n.basicInformation" /></a></li>
+                                </ul>
+                            </div>
+                            <div id="code" class="col s12">
                                 <div class="row">
-                                    <div class="col s12 m6">
-                                        <button id="btn-save-code" class="btn waves-effect waves-light">
-                                            <i class="fas fa-check"></i>
-                                            <fmt:message key="i18n.save"/>
-                                        </button>
-                                        <button id="btn-undo-code" class="btn-flat waves-effect">
-                                            <i class="fas fa-times"></i>
-                                            <fmt:message key="i18n.undo"/>
-                                        </button>
-                                    </div>
-                                    <div class="col s12 m6">
-                                        <button id="btn-publish-widget" class="btn waves-effect waves-light">
-                                            <i class="fas fa-baby-carriage"></i>
-                                            <fmt:message key="i18n.publish"/>
-                                        </button>
-                                        <button id="btn-add-widget" class="btn-flat waves-effect">
-                                            <i class="fas fa-plus"></i>
-                                            <fmt:message key="i18n.add"/>
-                                        </button>
+                                    <div class="col s12 m12">
+                                        <h4 style="margin-bottom: 20px;"><fmt:message key="i18n.preview" /></h4>
+                                        <div class="col card m2 s6" style="float: none; margin: 0 auto;">
+                                            <div class="card-content" id="pre-view-container">${currentDraft.codeSmall}</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col s12 m6">
-                                        <h3 style="margin-bottom: 50px;"><fmt:message key="i18n.codeSmall" /></h3>
+                                    <div class="col s12 m12">
+                                        <h4 style="margin-bottom: 20px;"><fmt:message key="i18n.code" /></h4>
                                         <div class="row">
                                             <div class="col s12 m12 input-field">
                                                 <select name="size" id="size-dropdown">
@@ -84,33 +84,34 @@
                                             <div class="col s12 m12" id="code-container">
                                                 <div class="input-field">
                                                     <textarea id="textarea-code-small" class="materialize-textarea">${fn:escapeXml(currentDraft.codeSmall)}</textarea>
-                                                    <label for="textarea-code-small"><fmt:message key="i18n.codeSmall" /></label>
+                                                    <label for="textarea-code-small"><fmt:message key="i18n.code" /></label>
                                                 </div>
                                                 <div class="input-field" style="display: none;">
                                                     <textarea id="textarea-code-medium" class="materialize-textarea">${fn:escapeXml(currentDraft.codeMedium)}</textarea>
-                                                    <label for="textarea-code-medium"><fmt:message key="i18n.codeSmall" /></label>
+                                                    <label for="textarea-code-medium"><fmt:message key="i18n.code" /></label>
                                                 </div>
                                                 <div class="input-field" style="display: none;">
                                                     <textarea id="textarea-code-large" class="materialize-textarea">${fn:escapeXml(currentDraft.codeLarge)}</textarea>
-                                                    <label for="textarea-code-large"><fmt:message key="i18n.codeSmall" /></label>
+                                                    <label for="textarea-code-large"><fmt:message key="i18n.code" /></label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="col s12 m6">
-                                        <h3 style="margin-bottom: 50px;"><fmt:message key="i18n.preview" /></h3>
-                                        <div class="col card s12 m12" >
-                                            <div class="card-content" id="pre-view-container">${currentDraft.codeSmall}</div>
-                                        </div>
+                                    <div class="col s12 m12">
+                                        <button id="btn-save-code" class="btn waves-effect waves-light">
+                                            <i class="fas fa-check"></i>
+                                            <fmt:message key="i18n.save"/>
+                                        </button>
+                                        <button id="btn-undo-code" class="btn-flat waves-effect">
+                                            <i class="fas fa-times"></i>
+                                            <fmt:message key="i18n.undo"/>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div id="basicInformation" class="col s12">
-                            <div class="container">
+                            <div id="basicInformation" class="col s12">
                                 <div class="row">
-                                    <h3><fmt:message key="i18n.basicInformation"/></h3>
+                                    <h3 class="col"><fmt:message key="i18n.basicInformation"/></h3>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12 m12">
@@ -122,30 +123,32 @@
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12 m12">
-                                        <textarea id="textarea-short-description" name="shortDescription"
-                                                  class="materialize-textarea">${fn:escapeXml(currentDraft.shortDescription)}</textarea>
+                                            <textarea id="textarea-short-description" name="shortDescription"
+                                                      class="materialize-textarea">${fn:escapeXml(currentDraft.shortDescription)}</textarea>
                                         <label for="textarea-short-description"><fmt:message
                                                 key="i18n.shortDescription"/></label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12 m12">
-                                        <textarea id="textarea-description" name="description"
-                                                  class="materialize-textarea">${fn:escapeXml(currentDraft.description)}</textarea>
+                                            <textarea id="textarea-description" name="description"
+                                                      class="materialize-textarea">${fn:escapeXml(currentDraft.description)}</textarea>
                                         <label for="textarea-description"><fmt:message
                                                 key="i18n.description"/></label>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <button id="btn-save-draft-information" class="btn waves-effect waves-light"
-                                            type="submit">
-                                        <i class="fas fa-check"></i>
-                                        <fmt:message key="i18n.save"/>
-                                    </button>
-                                    <a id="btn-undo-draft-information" class="btn-flat waves-effect">
-                                        <i class="fas fa-times"></i>
-                                        <fmt:message key="i18n.undo"/>
-                                    </a>
+                                    <div class="col">
+                                        <button id="btn-save-draft-information" class="btn waves-effect waves-light"
+                                                type="submit">
+                                            <i class="fas fa-check"></i>
+                                            <fmt:message key="i18n.save"/>
+                                        </button>
+                                        <a id="btn-undo-draft-information" class="btn-flat waves-effect">
+                                            <i class="fas fa-times"></i>
+                                            <fmt:message key="i18n.undo"/>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -188,7 +191,7 @@
                 swipeable: true
             });
 
-            $(".carousel").css({ "height": ($("#basicInformation .container").height() + 55) + "px"});
+            $(".tabs-content").css({ "height": (window.innerHeight - $(".tabs-content").offset().top) + "px"});
 
             let toastOptions = {};
             switch (getAnchor()) {
@@ -212,19 +215,13 @@
 
             $("#size-dropdown").on("change", function () {
                 $("div#code-container div.input-field").css("display", "none");
-                $("#textarea-code-" + $(this).val()).parent().css("display", "block");
+                let textArea = $("#textarea-code-" + $(this).val());
+                textArea.parent().css("display", "block");
+                updatePreviewContainer(textArea.val(), textArea.attr("id"));
             });
 
-            $("#textarea-code-small").bind('input propertychange', function() {
-                $("#pre-view-container").html($("#textarea-code-small").val());
-            });
-
-            $("#textarea-code-medium").bind('input propertychange', function() {
-                $("#pre-view-container").html($("#textarea-code-medium").val());
-            });
-
-            $("#textarea-code-large").bind('input propertychange', function() {
-                $("#pre-view-container").html($("#textarea-code-large").val());
+            $("#textarea-code-small, #textarea-code-medium, #textarea-code-large").bind('input propertychange', function() {
+                updatePreviewContainer($(this).val(), $(this).attr("id"));
             });
 
             let createDraftDialog = M.Modal.getInstance(document.getElementById("dialog-create-draft"));
@@ -261,5 +258,25 @@
                 PostRequest.getInstance().make("/workbench/${fn:escapeXml(currentDraft.id)}/changeCode", parameters);
             });
         });
+
+        function updatePreviewContainer(html, id) {
+            let previewContainer = $("#pre-view-container");
+            previewContainer.html(html);
+
+            previewContainer.parent().removeClass();
+            previewContainer.parent().addClass("col card");
+            switch (id.substr(id.lastIndexOf("-") + 1)) {
+                case "small":
+                    previewContainer.parent().addClass("m2 s6");
+                    break;
+                case "medium":
+                    previewContainer.parent().addClass("m4 s12");
+                    break;
+                case "large":
+                    previewContainer.parent().addClass("m6 s12");
+                    break;
+            }
+
+        }
     </script>
 </html>

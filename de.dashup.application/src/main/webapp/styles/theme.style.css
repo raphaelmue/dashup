@@ -139,3 +139,7 @@ body {
 .tabs .tab a {
     color: var(--color-secondary-light);
 }
+
+.tabs-content {
+    overflow-y: scroll;
+}
