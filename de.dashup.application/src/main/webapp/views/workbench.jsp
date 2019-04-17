@@ -181,20 +181,31 @@
                 <a id="btn-cancel-create-draft" class="btn-flat modal-close waves-effect"><fmt:message key="i18n.cancel" /></a>
             </div>
         </div>
-
+        <div id="dialog-delete-draft" class="modal">
+            <div class="modal-content">
+                <div class="row">
+                    <h4><fmt:message key="i18n.deleteDraft" /></h4>
+                    <p><fmt:message key="i18n.confirmDeleteDraft" /></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="btn-submit-delete-draft" class="btn modal-close waves-effect waves-light"><fmt:message key="i18n.ok" /></a>
+                <a id="btn-cancel-delete-draft" class="btn-flat modal-close waves-effect"><fmt:message key="i18n.cancel" /></a>
+            </div>
+        </div>
     </body>
     <script type="text/javascript">
         $( document ).ready(function () {
             $("#nav-item-workbench").parent().addClass("active");
 
-            $(".tabs").tabs({
-                swipeable: true
-            });
-
-            $(".tabs-content").css({ "height": (window.innerHeight - $(".tabs-content").offset().top) + "px"});
-
             let toastOptions = {};
             switch (getAnchor()) {
+                case "deletedDraft":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.successDeletedDraft" />",
+                        classes: "success"
+                    };
+                    break;
                 case "changedInformation":
                     toastOptions = {
                         html: "<fmt:message key="i18n.dataSuccessfullySaved" />",
@@ -211,6 +222,14 @@
             if (getAnchor() !== null && getAnchor() !== "") {
                 M.toast(toastOptions);
                 clearAnchor()
+            }
+
+            $(".tabs").tabs({
+                swipeable: true
+            });
+
+            if ($(".tabs-content").length > 0) {
+                $(".tabs-content").css({ "height": (window.innerHeight - $(".tabs-content").offset().top) + "px"});
             }
 
             $("#size-dropdown").on("change", function () {
@@ -241,6 +260,15 @@
                         classes: "error"
                     })
                 }
+            });
+
+            let deleteDraftDialog = M.Modal.getInstance(document.getElementById("dialog-delete-draft"));
+            $("#btn-delete-draft").on("click", function () {
+                deleteDraftDialog.open();
+            });
+            
+            $("#btn-submit-delete-draft").on("click", function () {
+                PostRequest.getInstance().make("/workbench/${fn:escapeXml(currentDraft.id)}/deleteDraft", {});
             });
 
             $("#btn-save-draft-information").on("click", function() {

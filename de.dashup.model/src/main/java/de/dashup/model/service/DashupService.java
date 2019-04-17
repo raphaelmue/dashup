@@ -405,4 +405,11 @@ public class DashupService {
 
         this.database.update(Database.Table.USERS_DRAFTS, whereParameters, values);
     }
+
+    public void deleteDraft(int draftId) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", draftId);
+
+        this.database.delete(Database.Table.USERS_DRAFTS, whereParameters);
+    }
 }

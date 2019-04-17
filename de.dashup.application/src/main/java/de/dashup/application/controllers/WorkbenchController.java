@@ -57,6 +57,18 @@ public class WorkbenchController {
         });
     }
 
+    @RequestMapping(value = "/{draftId}/deleteDraft")
+    public String handleDeleteDraft(@CookieValue(name = "token", required = false) String token,
+                                    HttpServletRequest request,
+                                    @PathVariable(value = "draftId") int draftId) throws SQLException {
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            DashupService.getInstance().deleteDraft(draftId);
+            return "redirect:/workbench/#deletedDraft";
+        }
+        return "redirect:/login";
+    }
+
     @RequestMapping(value = "/{draftId}/changeInformation", method = RequestMethod.POST)
     public String handleChangeDraftInformation(@CookieValue(name = "token", required = false) String token,
                                                HttpServletRequest request,
