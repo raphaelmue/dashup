@@ -13,7 +13,6 @@ import org.openqa.selenium.WebElement;
 
 @Ignore
 public class GeneralStepDefinitions extends SpringBootBase {
-    private final static String LOGIN_URL = "http://localhost:9004/login";
 
     private static WebDriver driver;
     private static Database database;
@@ -34,13 +33,15 @@ public class GeneralStepDefinitions extends SpringBootBase {
         return database;
     }
 
-    public static String getLoginUrl() {
-        return LOGIN_URL;
+    public int getRandomPort(){
+        return getPort();
     }
+
 
     @Given("^User is located on login page$")
     public void userIsLocatedOnLoginPage() {
-        driver.get(LOGIN_URL);
+        final String loginURL = "http://localhost:"+getPort()+"/login";
+        driver.get(loginURL);
         Assertions.assertEquals("dashup", driver.getTitle());
         Assertions.assertNotNull(driver.findElement(By.id("login-form")));
     }
@@ -58,7 +59,6 @@ public class GeneralStepDefinitions extends SpringBootBase {
     @Given("^User is located on central dashboard$")
     public void userIsLocatedOnCentralDashboard() {
         Assertions.assertEquals("dashup", driver.getTitle());
-        Assertions.assertEquals("http://localhost:9004/", driver.getCurrentUrl());
         WebElement element = driver.findElement(By.id("nav-item-dashboard"));
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));

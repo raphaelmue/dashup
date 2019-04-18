@@ -5,6 +5,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import de.dashup.application.local.format.I18N;
+import de.dashup.test.SpringBootBase;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
@@ -12,10 +13,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class ChangeLayoutStepdefs {
+    @Autowired
+    private SpringBootBase springBootBase;
+
     //--------------- Navigation ---------------\\
     @When("^User clicks on settings menu$")
     public void userClicksOnSettingsMenu() {
@@ -34,9 +39,10 @@ public class ChangeLayoutStepdefs {
 
     @Then("^Settings menu opens up$")
     public void settingsMenuOpensUp() {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         Assertions.assertEquals("dashup", driver.getTitle());
-        Assertions.assertEquals("http://localhost:9004/settings/", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/settings/", driver.getCurrentUrl());
         WebElement element = driver.findElement(By.id("nav-item-settings"));
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
@@ -46,6 +52,7 @@ public class ChangeLayoutStepdefs {
 
     @Given("^User is located on settings menu$")
     public void userIsLocatedOnSettingsMenu() {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         try {
             driver.findElement(By.id("li-for-nav-item-settings")).click();
@@ -55,7 +62,7 @@ public class ChangeLayoutStepdefs {
             driver.findElement(By.id("li-for-nav-item-settings-sidenav")).click();
         }
         Assertions.assertEquals("dashup", driver.getTitle());
-        Assertions.assertEquals("http://localhost:9004/settings/", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/settings/", driver.getCurrentUrl());
         WebElement element = driver.findElement(By.id("nav-item-settings"));
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
@@ -76,9 +83,10 @@ public class ChangeLayoutStepdefs {
 
     @Then("^User will be directed back to central dashboard$")
     public void userWillBeDirectedBackToCentralDashboard() {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         Assertions.assertEquals("dashup", driver.getTitle());
-        Assertions.assertEquals("http://localhost:9004/", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/", driver.getCurrentUrl());
         WebElement element = driver.findElement(By.id("nav-item-dashboard"));
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
@@ -102,13 +110,14 @@ public class ChangeLayoutStepdefs {
 
     @And("^User clicks on submit icon for layout settings$")
     public void userClicksOnSubmitIconForLayoutSettings() throws InterruptedException {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         driver.findElement(By.id("save-layout-changes")).click();
         Thread.sleep(1000);
         WebElement toast = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(toast);
         Assertions.assertEquals(I18N.get("i18n.successChangedLayout"), toast.getText());
-        Assertions.assertEquals("http://localhost:9004/settings/#", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/settings/#", driver.getCurrentUrl());
     }
 
     @Then("^Theme of dashup changes to \"([^\"]*)\"$")
@@ -131,6 +140,7 @@ public class ChangeLayoutStepdefs {
     //--------------- Background ---------------\\
     @When("^User provides the valid image URL \"([^\"]*)\"$")
     public void userProvidesTheValidImageURL(String url) throws InterruptedException {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         WebElement header = driver.findElement(By.id("header-layout"));
         header.click();
@@ -142,7 +152,7 @@ public class ChangeLayoutStepdefs {
         WebElement toast = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(toast);
         Assertions.assertEquals(I18N.get("i18n.successChangedLayout"), toast.getText());
-        Assertions.assertEquals("http://localhost:9004/settings/#", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/settings/#", driver.getCurrentUrl());
         driver.findElement(By.linkText("dashup")).click();
     }
 
@@ -196,13 +206,14 @@ public class ChangeLayoutStepdefs {
 
     @When("^User clicks on abandon icon$")
     public void userClicksOnAbandonIcon() throws InterruptedException {
+        final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         driver.findElement(By.id("btn-undo-layout-changes")).click();
         Thread.sleep(1000);
         WebElement toast = driver.findElement(By.className("toast"));
         Assertions.assertNotNull(toast);
         Assertions.assertEquals(I18N.get("i18n.undoComplete"), toast.getText());
-        Assertions.assertEquals("http://localhost:9004/settings/#", driver.getCurrentUrl());
+        Assertions.assertEquals(BASE_URL + "/settings/#", driver.getCurrentUrl());
     }
 
     @Then("^Key \"([^\"]*)\" will be restored to \"([^\"]*)\"$")
