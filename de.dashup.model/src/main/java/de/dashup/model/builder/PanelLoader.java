@@ -12,8 +12,6 @@ public class PanelLoader {
 
     private static PanelLoader INSTANCE;
 
-    private static final String PANELS_LOCATION = "panels/";
-
     public static PanelLoader getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new PanelLoader();
@@ -21,21 +19,18 @@ public class PanelLoader {
         return INSTANCE;
     }
 
+
+
     /**
      * Loads a panel content from database by id
      *
      * @param id panel id
      * @return content of panel
      */
-    public Panel loadPanel(int id, Panel.Size size) {
-        if (size == null) {
-            throw new IllegalArgumentException("Size is not valid!");
-        }
-
+    public Panel loadPanel(int id) {
         Panel panel;
         try {
             panel = DashupService.getInstance().getPanelById(id);
-            panel.setSize(size);
         } catch (SQLException e) {
             throw new IllegalArgumentException("There is no panel with id '" + id + "' in database!");
         }

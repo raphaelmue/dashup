@@ -31,7 +31,7 @@ widgets reach from default widgets, that are natively available on the dashup pl
 were uploaded by users. A detailed view is given for each offered widget containing a description and comments about the 
 widget. Furthermore, similar widgets to the current inspected widget, that other users use as well in combination with 
 the current one, are displayed in a <i>similar</i> tab. As a developer it is possible to publish your own widgets to 
-the marketplace from the <i>Workbench</i>. The marketplace is as well the key entry point to add panels to the central 
+the marketplace from the <i>Workbench</i>. The marketplace is as well the key entry point to add panelswidgets to the central 
 dashboard.
 
 # 2. Flow Of Events

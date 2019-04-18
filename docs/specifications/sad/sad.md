@@ -86,9 +86,9 @@ their dashup as much as their want, everything has to be kept abstract and to be
 But of course, the dashup project should be safe as we are storing user sensitive data that should not fall into wrong 
 hands.
 
-Architectural constraints for this project might be the interaction with panels, since we do not allow the user to 
+Architectural constraints for this project might be the interaction with panelswidgets, since we do not allow the user to 
 upload executable code for security reasons. So the developer might be limited when it comes to the interaction of the 
-user with the developers panels. But we do accept this limitation, because of the security goal. 
+user with the developers panelswidgets. But we do accept this limitation, because of the security goal. 
 
 ## 4. Use-Case View
 

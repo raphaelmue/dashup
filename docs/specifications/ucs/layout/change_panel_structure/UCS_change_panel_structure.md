@@ -25,7 +25,7 @@ dashup - Use Case Specification: Layout - Change Panel Structure
 
 # 1. Change Panel Structure - Brief Description
 In the use case _change panel structure_ the platform should enable the user to create, modify and delete sections and 
-fill these sections with the desired panels. A rearrangement of sections as well as panels should be possible by drag 
+fill these sections with the desired panelspanels. A rearrangement of sections as well as panels should be possible by drag 
 and drop on the central dashboard. Panels can be moved between sections and resized between small, medium or large size. 
 
 # 2. Flow Of Events

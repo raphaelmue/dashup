@@ -40,7 +40,7 @@ public class Database {
         USERS("users"),
         USERS_TOKENS("users_tokens"),
         USERS_SETTINGS("users_settings"),
-        PANELS("panels"),
+        PANELS("widgets"),
         USER_SECTIONS("users_sections"),
         SECTIONS_PANELS("sections_panels");
 
