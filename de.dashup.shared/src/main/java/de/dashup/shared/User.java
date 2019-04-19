@@ -1,66 +1,48 @@
 package de.dashup.shared;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class User extends DatabaseUser {
+public class User {
+    private int id;
     private String token;
     private Settings settings;
-    private List<Section> sections;
+    private Layout layout;
 
-    public User() {
-        this.sections = new ArrayList<>();
-    }
-
-    public User(int id, String email, String userName, String name, String surname, String password, String salt, Settings settings) {
-        super(id, email, userName, name, surname, password, salt);
-
+    public User(int id, String token, Settings settings, Layout layout) {
+        this.id = id;
+        this.token = token;
         this.settings = settings;
-        this.sections = new ArrayList<>();
+        this.layout = layout;
     }
 
-    @Override
-    public DatabaseObject fromDatabaseObject(DatabaseObject databaseObject) {
-        if (databaseObject instanceof DatabaseUser) {
-            this.setId(databaseObject.getId());
-            this.setName(((DatabaseUser) databaseObject).getName());
-            this.setSurname(((DatabaseUser) databaseObject).getSurname());
-            this.setUserName(((DatabaseUser) databaseObject).getUserName());
-            this.setEmail(((DatabaseUser) databaseObject).getEmail());
-            this.setPassword(((DatabaseUser) databaseObject).getPassword());
-            this.setSalt(((DatabaseUser) databaseObject).getSalt());
-        }
-        return this;
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getToken() {
-        return token;
-    }
-
-    public Settings getSettings() {
-        if (settings == null) {
-            settings = new Settings();
-        }
-        return settings;
-    }
-
-    public List<Section> getSections() {
-        return sections;
+        return this.token;
     }
 
     public void setToken(String token) {
         this.token = token;
     }
 
+    public Settings getSettings() {
+        return this.settings;
+    }
+
     public void setSettings(Settings settings) {
         this.settings = settings;
     }
 
-    public void setSections(List<Section> sections) {
-        this.sections = sections;
+    public Layout getLayout() {
+        return this.layout;
     }
 
-    public String getUserName(){
-        return super.getUserName();
+    public void setLayout(Layout layout) {
+        this.layout = layout;
     }
+
 }

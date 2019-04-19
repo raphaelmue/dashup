@@ -1,7 +1,7 @@
 package de.dashup.model.builder;
 
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.Panel;
+import de.dashup.shared.DatabaseModels.DatabaseWidget;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,18 +19,10 @@ public class PanelLoader {
         return INSTANCE;
     }
 
-
-
-    /**
-     * Loads a panel content from database by id
-     *
-     * @param id panel id
-     * @return content of panel
-     */
-    public Panel loadPanel(int id) {
-        Panel panel;
+    public DatabaseWidget loadPanel(int id) {
+        DatabaseWidget widget;
         try {
-            panel = DashupService.getInstance().getPanelById(id);
+            widget = DashupService.getInstance().getPanelById(id);
         } catch (SQLException e) {
             throw new IllegalArgumentException("There is no panel with id '" + id + "' in database!");
         }

@@ -1,52 +1,51 @@
 package de.dashup.shared;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
-public class Section implements DatabaseObject {
-    @SerializedName("section_id")
-    private int sectionID;
-    private String section_name;
-    @SerializedName("predecessor_id")
-    private int predecessorID;
-    private List<Panel> panels;
+public class Section{
 
-    public Section() {
+    private int id;
+    private String name;
+    private Section predecessor;
+    private List<Widget> widgets;
+
+    public Section(int id, String name, Section predecessor, List<Widget> widgets) {
+        this.id = id;
+        this.name = name;
+        this.predecessor = predecessor;
+        this.widgets = widgets;
     }
 
-    public Section(int sectionId, String sectionName, int predecessorID) {
-        this.sectionID = sectionId;
-        this.section_name = sectionName;
-        this.predecessorID = predecessorID;
+    public int getID() {
+        return this.id;
     }
 
     public void setId(int id) {
-        this.sectionID = id;
-    }
-
-    public void setName(String name) {
-        this.section_name = name;
-    }
-
-    public void setPanels(List<Panel> panels) {
-        this.panels = panels;
+        this.id = id;
     }
 
     public String getName() {
-        return section_name;
+        return this.name;
     }
 
-    public List<Panel> getPanels() {
-        return panels;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getPredecessor() {
-        return predecessorID;
+    public Section getPredecessor() {
+        return this.predecessor;
     }
 
-    @Override
-    public int getId() {
-        return sectionID;
+    public void setPredecessor(Section predecessor) {
+        this.predecessor = predecessor;
     }
+
+    public List<Widget> getWidgets() {
+        return this.widgets;
+    }
+
+    public void setWidgets(List<Widget> widgets) {
+        this.widgets = widgets;
+    }
+
 }

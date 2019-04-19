@@ -1,60 +1,21 @@
 package de.dashup.shared;
 
-class Layout {
+import java.util.List;
 
-    private String backgroundColor;
-    private String backgroundImage;
-    private String headingSize;
-    private String headingColor;
-    private String fontHeading;
-    private String fontText;
+public class Layout {
 
-    public String getBackgroundColor() {
-        return backgroundColor;
+    private List<Section> sections;
+
+    public Layout(List<Section> sections){
+        this.sections = sections;
     }
 
-    public void setBackgroundColor(String backgroundColor) {
-        this.backgroundColor = backgroundColor;
+    public List<Section> getSections() {
+        return this.sections;
     }
 
-    public String getBackgroundImage() {
-        return backgroundImage;
-    }
-
-    public void setBackgroundImage(String backgroundImage) {
-        this.backgroundImage = backgroundImage;
-    }
-
-    public String getHeadingSize() {
-        return headingSize;
-    }
-
-    public void setHeadingSize(String headingSize) {
-        this.headingSize = headingSize;
-    }
-
-    public String getHeadingColor() {
-        return headingColor;
-    }
-
-    public void setHeadingColor(String headingColor) {
-        this.headingColor = headingColor;
-    }
-
-    public String getFontHeading() {
-        return fontHeading;
-    }
-
-    public void setFontHeading(String fontHeading) {
-        this.fontHeading = fontHeading;
-    }
-
-    public String getFontText() {
-        return fontText;
-    }
-
-    public void setFontText(String fontText) {
-        this.fontText = fontText;
+    public void setSections(List<Section> sections) {
+        this.sections = sections;
     }
 
 }

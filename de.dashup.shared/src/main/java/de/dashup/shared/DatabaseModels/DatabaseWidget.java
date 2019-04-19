@@ -1,8 +1,9 @@
-package de.dashup.shared;
+package de.dashup.shared.DatabaseModels;
 
 import com.google.gson.annotations.SerializedName;
+import de.dashup.shared.Enums.Size;
 
-public class DatabaseWidget implements DatabaseObject {
+public class DatabaseWidget extends DatabaseObject{
 
     private int id;
     private String name;
@@ -47,8 +48,44 @@ public class DatabaseWidget implements DatabaseObject {
         this.htmlLarge = htmlLarge;
     }
 
-    public int getId() {
-        return id;
+    public int getID() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public String getOverviewText() {
+        return this.overviewText;
+    }
+
+    public String getCategory() {
+        return this.category;
+    }
+
+    public int getPublisherID() {
+        return this.publisherID;
+    }
+
+    public int getPublicationDate() {
+        return this.publicationDate;
+    }
+
+    public String getHtmlSmall() {
+        return this.htmlSmall;
+    }
+
+    public String getHtmlMedium() {
+        return this.htmlMedium;
+    }
+
+    public String getHtmlLarge() {
+        return this.htmlLarge;
     }
 
 }

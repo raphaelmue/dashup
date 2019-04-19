@@ -2,7 +2,7 @@ package de.dashup.test;
 
 import de.dashup.model.db.Database;
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.DatabaseObject;
+import de.dashup.shared.DatabaseModels.DatabaseObject;
 import de.dashup.shared.Settings;
 import de.dashup.shared.User;
 import de.dashup.util.string.Hash;

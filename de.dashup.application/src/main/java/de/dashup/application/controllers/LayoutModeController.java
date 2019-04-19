@@ -4,8 +4,6 @@ import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.model.builder.DashupBuilder;
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.DashupPanelStructure;
-import de.dashup.shared.DashupSectionStructure;
 import de.dashup.shared.User;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -45,7 +43,7 @@ public class LayoutModeController {
 
     @RequestMapping(value = "/confirmChanges", method = RequestMethod.POST)
     @ResponseBody
-    public String confirm(@RequestBody DashupPanelStructure body, Model model, HttpServletRequest request) {
+    public String confirm(@RequestBody DashboardStructure body, Model model, HttpServletRequest request) {
         System.out.println(body);
         return "layoutMode";
     }
@@ -54,16 +52,16 @@ public class LayoutModeController {
     public @ResponseBody
     ResponseEntity<Object> handleLayout(
             @CookieValue(name = "token", required = false) String token,
-            @RequestBody DashupPanelStructure dps,
+            @RequestBody DashboardStructure dps,
             HttpServletRequest request, HttpServletResponse response, Model model) throws SQLException {
         User user = (User) this.localStorage.readObjectFromSession(request, "user");
         if (user == null) return new ResponseEntity(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
 
-        dps.getSections().sort(Comparator.comparingInt(DashupSectionStructure::getSectionOrder));
-        Iterator<DashupSectionStructure> iterator = dps.getSections().iterator();
-        DashupSectionStructure lastdss = null;
+        dps.getSections().sort(Comparator.comparingInt(SectionStructure::getSectionOrder));
+        Iterator<SectionStructure> iterator = dps.getSections().iterator();
+        SectionStructure lastdss = null;
         while (iterator.hasNext()) {
-            DashupSectionStructure dss = iterator.next();
+            SectionStructure dss = iterator.next();
             if (dss.getSectionId().contains("sn")) {
                 if (lastdss == null) {
                     DashupService.getInstance().addSection(user, dss.getSectionName(), -1, -1);

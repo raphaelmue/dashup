@@ -1,4 +1,4 @@
-package de.dashup.shared;
+package de.dashup.shared.Enums;
 
 public enum Size {
     SMALL("small", "s4 m4 l4 xl4"),
@@ -12,14 +12,6 @@ public enum Size {
         this.styleClass = styleClass;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getStyleClass() {
-        return styleClass;
-    }
-
     public static Size getSizeByName(String name) {
         for (Size size : values()) {
             if (size.getName().equals(name)) {
@@ -29,8 +21,17 @@ public enum Size {
         return null;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getStyleClass() {
+        return styleClass;
+    }
+
     @Override
     public String toString() {
         return name;
     }
+
 }

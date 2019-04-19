@@ -3,7 +3,7 @@ package de.dashup.model.db;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
-import de.dashup.shared.DatabaseObject;
+import de.dashup.shared.DatabaseModels.DatabaseObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -37,12 +37,15 @@ public class Database {
     private static Database INSTANCE = null;
 
     public enum Table {
+        RATINGS("ratings"),
+        SECTION_WIDGETS("section_widgets"),
+        SECTIONS("section"),
+        SETTINGS("settings"),
+        TAGS("tags"),
+        TOKENS("tokens"),
         USERS("users"),
-        USERS_TOKENS("users_tokens"),
-        USERS_SETTINGS("users_settings"),
-        PANELS("widgets"),
-        USER_SECTIONS("users_sections"),
-        SECTIONS_PANELS("sections_panels");
+        WIDGET_TAGS("widget_tags"),
+        WIDGETS("widgets");
 
         private final String tableName;
 
@@ -170,7 +173,7 @@ public class Database {
      * @return Object with fetched data
      * @throws SQLException thrown, when something went wrong executing the SQL statement
      */
-    public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters,
+    public List<DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters,
                                                     String orderByClause) throws SQLException, JsonParseException {
         Gson gson = new GsonBuilder().create();
         JSONArray jsonArray = this.get(table, whereParameters, orderByClause);
@@ -185,7 +188,7 @@ public class Database {
     /**
      * @see Database#getObject(Table, Type, Map, String)
      */
-    public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters) throws SQLException, JsonParseException {
+    public List<DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters) throws SQLException, JsonParseException {
         return this.getObject(table, resultType, whereParameters, null);
     }
 

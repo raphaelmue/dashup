@@ -1,8 +1,10 @@
 package de.dashup.model.service;
 
-import de.dashup.model.builder.PanelLoader;
 import de.dashup.model.db.Database;
 import de.dashup.shared.*;
+import de.dashup.shared.DatabaseModels.*;
+import de.dashup.shared.Enums.Size;
+import de.dashup.shared.Enums.Theme;
 import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
 import org.json.JSONArray;
@@ -13,11 +15,13 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DashupService {
 
     private Database database;
-    private final PanelLoader panelLoader;
+    private Map<Integer,User> users;
     private final RandomString randomString = new RandomString();
 
     private static DashupService INSTANCE;
@@ -30,77 +34,107 @@ public class DashupService {
     }
 
     private DashupService() {
+        this.users = new HashMap<>();
         try {
             this.database = Database.getInstance();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        this.panelLoader = PanelLoader.getInstance();
     }
 
-    /**
-     * Checks the credentials when logging in.
-     *
-     * @param email      email of user
-     * @param password   password in plain text
-     * @param rememberMe stores a token, so that the user does not have to login each time, if true
-     * @return User object, if credentials are correct, else null.
-     */
     public User checkCredentials(String email, String password, boolean rememberMe) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("email", email);
+        List<DatabaseObject> result;
 
-        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters);
-        if (result != null && result.size() == 1) {
-            User user = (User) new User().fromDatabaseObject(result.get(0));
-            user = this.getSectionsAndPanels(user);
+        whereParameters.put("email", email);
+        result = this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters);
+        whereParameters.clear();
+
+        if (result.size() == 1) {
+            DatabaseUser user = (DatabaseUser) result.get(0);
+
+            whereParameters.put("user_id", user.getID());
+            result = this.database.getObject(Database.Table.SECTIONS, DatabaseSection.class, whereParameters);
+            whereParameters.clear();
+
+            Map<Integer, Object> remainingSections = new HashMap<>();
+            Map<Integer, Object> remainingWidgets = new HashMap<>();
+            List<Section> sections = new ArrayList<>();
+            DatabaseSection currentSection = null;
+            DatabaseSectionWidgets currentSectionWidget = null;
+
+            for(DatabaseObject object: result){
+                DatabaseSection section = (DatabaseSection) object;
+                if(section.getPredecessorID() == null){
+                    currentSection = section;
+                }
+                remainingSections.put(section.getID(), section);
+            }
+
+            while(remainingSections.size() > 0){
+                whereParameters.put("section_id", currentSection.getID());
+                result = this.database.getObject(Database.Table.SECTION_WIDGETS, DatabaseSectionWidgets.class, whereParameters);
+                whereParameters.clear();
+
+                for(DatabaseObject object: result){
+                    DatabaseSectionWidgets sectionWidget = (DatabaseSectionWidgets) object;
+                    if(sectionWidget.getPredecessorID() == null){
+                        currentSectionWidget = sectionWidget;
+                    }
+                    remainingWidgets.put(sectionWidget.getID(), sectionWidget);
+                }
+
+                List<Widget> widgets = new ArrayList<>();
+                while(remainingWidgets.size() > 0){
+                    whereParameters.put("id", currentSectionWidget.getPanelID());
+                    result = this.database.getObject(Database.Table.WIDGETS, DatabaseWidget.class, whereParameters);
+                    whereParameters.clear();
+
+                    DatabaseWidget widget = (DatabaseWidget) result.get(0);
+                    Size size = Size.getSizeByName(currentSectionWidget.getSize());
+                    String htmlContent;
+                    switch(size){
+                        case SMALL: htmlContent = widget.getHtmlSmall();
+                        case MEDIUM: htmlContent = widget.getHtmlMedium();
+                        case LARGE: htmlContent = widget.getHtmlLarge();
+                        default: htmlContent = "";
+                    }
+                    Widget predecessor = (Widget) remainingWidgets.get(currentSectionWidget.getPredecessorID());
+                    widgets.add(new Widget(widget.getID(), size, htmlContent, predecessor));
+                    currentSectionWidget = (DatabaseSectionWidgets) remainingWidgets.get(widget.getID());
+                    remainingWidgets.remove(widget.getID());
+                }
+                Section predecessor = (Section) remainingSections.get(currentSection.getPredecessorID());
+                sections.add(new Section(currentSection.getID(), currentSection.getName(), predecessor, widgets));
+                currentSection = (DatabaseSection) remainingSections.get(currentSection.getID());
+                remainingSections.remove(currentSection.getID());
+            }
+
             String hashedPassword = Hash.create(password, user.getSalt());
             if (hashedPassword.equals(user.getPassword())) {
-                user.setSettings(this.getSettingsOfUser(user));
+
+                whereParameters.put("id", user.getID());
+                result = this.database.getObject(Database.Table.SETTINGS, DatabaseSetting.class, whereParameters);
+                whereParameters.clear();
+
+                DatabaseSetting setting = (DatabaseSetting) result.get(0);
+                Locale language = Locale.forLanguageTag(setting.getLanguage().isEmpty() ? "en" : setting.getLanguage());
+                Theme theme = Theme.getThemeByName(setting.getTheme());
+                Settings settings = new Settings(language, theme, setting.getBackgroundImage());
+                String token = null;
                 if (rememberMe) {
-                    String token = this.randomString.nextString(64);
-                    user.setToken(token);
+                    token = this.randomString.nextString(64);
                     HashMap<String, Object> values = new HashMap<>();
-                    values.put("user_id", user.getId());
+                    values.put("user_id", user.getID());
                     values.put("token", token);
-                    values.put("expire_date", LocalDate.now().plusMonths(1));
-                    this.database.insert(Database.Table.USERS_TOKENS, values);
+                    values.put("expiry_date", LocalDate.now().plusMonths(1));
+                    this.database.insert(Database.Table.TOKENS, values);
                 }
-                return user;
+                return new User(user.getID(), token, settings, new Layout(sections));
             }
         }
 
         return null;
-    }
-
-    public User getSectionsAndPanels(User user) throws SQLException {
-        ArrayList<Section> sections = new ArrayList<>();
-
-        Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("user_id", user.getId());
-
-        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USER_SECTIONS, Section.class, whereParameters);
-        if (result != null) {
-            for (DatabaseObject databaseObject : result) {
-                Section section = (Section) databaseObject;
-                Map<String, Object> innerWhereParameters = new HashMap<>();
-                innerWhereParameters.put("section_id", section.getId());
-                JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerWhereParameters);
-                if (innerResult != null && innerResult.length() > 0) {
-                    ArrayList<Panel> panels = new ArrayList<>();
-                    for (int i = 0; i < innerResult.length(); i++) {
-                        Panel panel = panelLoader.loadPanel(innerResult.getJSONObject(i).getInt("panel_id"),
-                                Panel.Size.getSizeByName(innerResult.getJSONObject(i).getString("size")));
-                        panel.setPredecessor(innerResult.getJSONObject(i).getInt("panel_predecessor"));
-                        panels.add(panel);
-                    }
-                    section.setPanels(this.orderPanels(panels));
-                }
-                sections.add(section);
-            }
-        }
-        user.setSections(this.orderSections(sections));
-        return user;
     }
 
     public Panel getPanelById(int id) throws SQLException {
