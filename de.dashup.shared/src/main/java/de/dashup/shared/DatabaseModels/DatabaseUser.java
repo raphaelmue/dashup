@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class DatabaseUser extends DatabaseObject {
 
-    private int id;
+    private Integer id;
     private String email;
     private String username;
     private String name;
@@ -16,7 +16,7 @@ public class DatabaseUser extends DatabaseObject {
     private String salt;
 
 
-    public DatabaseUser(int id, String email, String username, String name, String surname, Date birthdate,
+    public DatabaseUser(Integer id, String email, String username, String name, String surname, Date birthdate,
                         String company, String biography, String password, String salt) {
         this.id = id;
         this.email = email;
@@ -30,7 +30,7 @@ public class DatabaseUser extends DatabaseObject {
         this.salt = salt;
     }
 
-    public int getID() {
+    public Integer getID() {
         return id;
     }
 

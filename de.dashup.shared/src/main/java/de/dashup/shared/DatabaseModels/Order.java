@@ -2,7 +2,7 @@ package de.dashup.shared.DatabaseModels;
 
 public interface Order {
 
-    int getID();
+    Integer getID();
 
     Integer getPredecessorID();
 

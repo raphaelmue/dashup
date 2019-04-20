@@ -4,19 +4,19 @@ import java.util.List;
 
 public class Section{
 
-    private int id;
+    private Integer id;
     private String name;
     private Section predecessor;
     private List<Widget> widgets;
 
-    public Section(int id, String name, Section predecessor, List<Widget> widgets) {
+    public Section(Integer id, String name, Section predecessor, List<Widget> widgets) {
         this.id = id;
         this.name = name;
         this.predecessor = predecessor;
         this.widgets = widgets;
     }
 
-    public int getID() {
+    public Integer getID() {
         return this.id;
     }
 

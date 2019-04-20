@@ -4,15 +4,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class DatabaseSetting extends DatabaseObject{
 
-    private int id;
+    private Integer id;
     @SerializedName("user_id")
-    private int userID;
+    private Integer userID;
     @SerializedName("background_image")
     private String backgroundImage;
     private String theme;
     private String language;
 
-    public DatabaseSetting(int id, int userID, String backgroundImage, String theme, String language) {
+    public DatabaseSetting(Integer id, Integer userID, String backgroundImage, String theme, String language) {
         this.id = id;
         this.userID = userID;
         this.backgroundImage = backgroundImage;
@@ -20,11 +20,11 @@ public class DatabaseSetting extends DatabaseObject{
         this.language = language;
     }
 
-    public int getID() {
+    public Integer getID() {
         return id;
     }
 
-    public int getUserID() {
+    public Integer getUserID() {
         return userID;
     }
 

@@ -5,25 +5,25 @@ import com.google.gson.annotations.SerializedName;
 public class DatabaseSection extends DatabaseObject implements Order{
 
     @SerializedName("section_id")
-    private int sectionID;
+    private Integer sectionID;
     @SerializedName("user_id")
-    private int userID;
+    private Integer userID;
     @SerializedName("predecessor_id")
     private Integer predecessorID;
     private String name;
 
-    public DatabaseSection(int sectionID, int userID, Integer predecessorID, String name) {
+    public DatabaseSection(Integer sectionID, Integer userID, Integer predecessorID, String name) {
         this.sectionID = sectionID;
         this.userID = userID;
         this.predecessorID = predecessorID;
         this.name = name;
     }
 
-    public int getID() {
+    public Integer getID() {
         return this.sectionID;
     }
 
-    public int getUserID() {
+    public Integer getUserID() {
         return this.userID;
     }
 

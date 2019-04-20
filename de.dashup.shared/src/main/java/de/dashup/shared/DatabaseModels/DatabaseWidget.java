@@ -5,16 +5,16 @@ import de.dashup.shared.Enums.Size;
 
 public class DatabaseWidget extends DatabaseObject{
 
-    private int id;
+    private Integer id;
     private String name;
     private String description;
     @SerializedName("overview_text")
     private String overviewText;
     private String category;
     @SerializedName("publisher_id")
-    private int publisherID;
+    private Integer publisherID;
     @SerializedName("publication_date")
-    private int publicationDate;
+    private Integer publicationDate;
     @SerializedName("html_small")
     private String htmlSmall;
     @SerializedName("html_medium")
@@ -22,7 +22,7 @@ public class DatabaseWidget extends DatabaseObject{
     @SerializedName("html_large")
     private String htmlLarge;
 
-    public DatabaseWidget(int id, String name, String description, String overviewText, String category,
+    public DatabaseWidget(Integer id, String name, String description, String overviewText, String category,
                           String htmlSmall, String htmlMedium, String htmlLarge) {
         this.id = id;
         this.name = name;
@@ -34,8 +34,8 @@ public class DatabaseWidget extends DatabaseObject{
         this.htmlLarge = htmlLarge;
     }
 
-    public DatabaseWidget(int id, String name, String description, String overviewText, String category,
-                          int publisherID, int publicationDate, String htmlSmall, String htmlMedium, String htmlLarge) {
+    public DatabaseWidget(Integer id, String name, String description, String overviewText, String category,
+                          Integer publisherID, Integer publicationDate, String htmlSmall, String htmlMedium, String htmlLarge) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -48,7 +48,7 @@ public class DatabaseWidget extends DatabaseObject{
         this.htmlLarge = htmlLarge;
     }
 
-    public int getID() {
+    public Integer getID() {
         return this.id;
     }
 
@@ -68,11 +68,11 @@ public class DatabaseWidget extends DatabaseObject{
         return this.category;
     }
 
-    public int getPublisherID() {
+    public Integer getPublisherID() {
         return this.publisherID;
     }
 
-    public int getPublicationDate() {
+    public Integer getPublicationDate() {
         return this.publicationDate;
     }
 

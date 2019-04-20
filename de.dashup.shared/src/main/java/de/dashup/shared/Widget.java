@@ -4,19 +4,19 @@ import de.dashup.shared.Enums.Size;
 
 public class Widget{
 
-    private int id;
+    private Integer id;
     private Size size;
     private String htmlContent;
     private Widget predecessor;
 
-    public Widget(int id, Size size, String htmlContent, Widget predecessor) {
+    public Widget(Integer id, Size size, String htmlContent, Widget predecessor) {
         this.id = id;
         this.size = size;
         this.htmlContent = htmlContent;
         this.predecessor = predecessor;
     }
 
-    public int getID() {
+    public Integer getID() {
         return this.id;
     }
 

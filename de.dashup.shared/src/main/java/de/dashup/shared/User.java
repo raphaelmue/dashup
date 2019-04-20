@@ -1,19 +1,19 @@
 package de.dashup.shared;
 
 public class User {
-    private int id;
+    private Integer id;
     private String token;
     private Settings settings;
     private Layout layout;
 
-    public User(int id, String token, Settings settings, Layout layout) {
+    public User(Integer id, String token, Settings settings, Layout layout) {
         this.id = id;
         this.token = token;
         this.settings = settings;
         this.layout = layout;
     }
 
-    public int getId() {
+    public Integer getID() {
         return this.id;
     }
 

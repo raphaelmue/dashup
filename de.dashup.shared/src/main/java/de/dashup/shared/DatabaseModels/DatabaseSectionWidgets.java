@@ -4,16 +4,16 @@ import com.google.gson.annotations.SerializedName;
 
 public class DatabaseSectionWidgets extends DatabaseObject implements Order{
 
-    private int id;
+    private Integer id;
     @SerializedName("section_id")
-    private int sectionID;
+    private Integer sectionID;
     @SerializedName("panel_id")
-    private int panelID;
+    private Integer panelID;
     @SerializedName("predecessor_id")
     private Integer predecessorID;
     private String size;
 
-    public DatabaseSectionWidgets(int id, int sectionID, int panelID, Integer predecessorID, String size) {
+    public DatabaseSectionWidgets(Integer id, Integer sectionID, Integer panelID, Integer predecessorID, String size) {
         this.id = id;
         this.sectionID = sectionID;
         this.panelID = panelID;
@@ -21,15 +21,15 @@ public class DatabaseSectionWidgets extends DatabaseObject implements Order{
         this.size = size;
     }
 
-    public int getID() {
+    public Integer getID() {
         return id;
     }
 
-    public int getSectionID() {
+    public Integer getSectionID() {
         return sectionID;
     }
 
-    public int getPanelID() {
+    public Integer getPanelID() {
         return panelID;
     }
 
