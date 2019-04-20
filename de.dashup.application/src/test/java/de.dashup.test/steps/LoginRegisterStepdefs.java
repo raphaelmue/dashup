@@ -106,7 +106,7 @@ public class LoginRegisterStepdefs {
         //we assert that the cookie value is correct and the same as the token on the DB
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("user_id", "1");
-        Assertions.assertEquals(database.get(Database.Table.USERS_TOKENS, whereParams).getJSONObject(0)
+        Assertions.assertEquals(database.get(Database.Table.TOKENS, whereParams).getJSONObject(0)
                 .getString("token"), token.getValue());
         driver.quit();
         WebDriver newWindowDriver = DriverUtil.createDriverInstance();

@@ -65,8 +65,8 @@ public class DatabaseUnitTest {
         //delete users settings, without this deletion of user will fail due to foreign key constraints
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("user_id", "1");
-        database.delete(Database.Table.USERS_SETTINGS, whereParams);
-        Assertions.assertEquals(0, database.get(Database.Table.USERS_SETTINGS, whereParams).length());
+        database.delete(Database.Table.SETTINGS, whereParams);
+        Assertions.assertEquals(0, database.get(Database.Table.SETTINGS, whereParams).length());
         //delete User
         whereParams.clear();
         whereParams.put("id", "1");
@@ -110,18 +110,18 @@ public class DatabaseUnitTest {
     public void testGetObject() throws SQLException {
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("id", "1");
-        List<? extends DatabaseObject> result = database.getObject(Database.Table.USERS, DatabaseUser.class, whereParams);
+        List<DatabaseObject> result = database.getObject(Database.Table.USERS, DatabaseUser.class, whereParams);
         Assertions.assertEquals(1, result.size());
-        User user = (User) new User().fromDatabaseObject(result.get(0));
-        Assertions.assertEquals(1, user.getId());
+        DatabaseUser user = (DatabaseUser) result.get(0);
+        Assertions.assertEquals(1, user.getID().intValue());
     }
 
     @Test
     public void testGetObjectWithOrderBy() throws SQLException {
-        List<? extends DatabaseObject> result = database.getObject(Database.Table.USERS, DatabaseUser.class, new HashMap<>(), "id DESC");
+        List<DatabaseObject> result = database.getObject(Database.Table.USERS, DatabaseUser.class, new HashMap<>(), "id DESC");
         Assertions.assertEquals(2, result.size());
-        User user = (User) new User().fromDatabaseObject(result.get(0));
-        Assertions.assertEquals(2, user.getId());
+        DatabaseUser user = (DatabaseUser) result.get(0);
+        Assertions.assertEquals(2, user.getID().intValue());
     }
 
     @Test

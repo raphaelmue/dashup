@@ -1,21 +1,25 @@
 package de.dashup.model.builder;
 
-import de.dashup.shared.Panel;
 import de.dashup.shared.Section;
 import de.dashup.shared.User;
+import de.dashup.shared.Widget;
+
+import java.util.List;
 
 public class DashupBuilder {
 
     public static String buildUsersPanels(User user) {
         StringBuilder content = new StringBuilder();
-        if (user.getSections() != null) {
-            for (Section section : user.getSections()) {
+        List<Section> sections = user.getLayout().getSections();
+        if (sections.size() > 0) {
+            for (Section section : sections) {
+                List<Widget> widgets = section.getWidgets();
                 content.append("<div class=\"row\"><h3 class=\"sectionHeading\">")
                         .append(section.getName())
                         .append("</h3><hr/><div>");
-                if (section.getPanels() != null) {
-                    for (Panel panel : section.getPanels()) {
-                        content.append(panel.getHtmlContent());
+                if (widgets.size() > 0) {
+                    for (Widget widget: widgets) {
+                        content.append(widget.getHtmlContent());
                     }
                 }
                 content.append("<div class=\"clear-float\"></div></div></div>");
@@ -27,40 +31,38 @@ public class DashupBuilder {
     public static String buildUsersPanelsLayoutMode(User user) {
         StringBuilder content = new StringBuilder();
         content.append("<div id=\"drag-container-section\">");
-        if (user.getSections() != null) {
-            for (Section s : user.getSections()) {
-                content.append("<div class=\"dashup-section\" id=\"s").append(s.getId()).append("\">")
-                        .append("<div><span id=\"h").append(s.getId())
+        List<Section> sections = user.getLayout().getSections();
+        if (sections.size() >= 0) {
+            for (Section section: sections) {
+                content.append("<div class=\"dashup-section\" id=\"s").append(section.getID()).append("\">")
+                        .append("<div><span id=\"h").append(section.getID())
                         .append("\" class=\"handle\"><i class=\"fas fa-arrows-alt handle\"></i> </span><span><input id=\"i")
-                        .append(s.getId())
+                        .append(section.getID())
                         .append("\" type=\"text\" name=\"txt\" value=\"")
-                        .append(s.getName())
+                        .append(section.getName())
                         .append("\" onchange=\"inputChanged(this.value,")
-                        .append(s.getId())
+                        .append(section.getID())
                         .append(")\"><button type=\"button\"  id=\"b")
-                        .append(s.getId())
+                        .append(section.getID())
                         .append("\" onclick=\"onDelete('s")
-                        .append(s.getId())
+                        .append(section.getID())
                         .append("')\" class=\"btn btn-danger\">Delete</button></span></div>")
                         .append("<hr>")
                         .append("<div class=\"drag-container\" id=\"drag-container")
-                        .append(s.getId()).append("\">");
-
-                if (s.getPanels() != null) {
-                    for (Panel p : s.getPanels()) {
+                        .append(section.getID()).append("\">");
+                List<Widget> widgets = section.getWidgets();
+                if (widgets.size() >= 0) {
+                    for (Widget widget : widgets) {
                         content.append("<div id=\"");
-                        content.append(p.getId());
+                        content.append(widget.getID());
                         content.append("\" class=\"dashup-panel\">");
-                        //.append(p.getName());
-                        content.append(p.getHtmlContent());
+                        content.append(widget.getHtmlContent());
                         content.append("</div>");
                     }
                 }
 
                 content.append("<div class=\"clear-float\"></div>");
-
                 content.append("</div>");
-
                 content.append("</div>");
             }
         }

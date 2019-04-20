@@ -4,6 +4,8 @@ import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.model.builder.DashupBuilder;
 import de.dashup.model.service.DashupService;
+import de.dashup.shared.DatabaseModels.DatabaseUser;
+import de.dashup.shared.Layout;
 import de.dashup.shared.User;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -28,22 +30,19 @@ public class LayoutModeController {
 
     @RequestMapping(value = "/")
     public String login(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
-        return ControllerHelper.defaultMapping(token, request, model, "layoutMode", user -> {
-            DashupService.getInstance().getSectionsAndPanels(user);
-            model.addAttribute("name", user.getName());
-            model.addAttribute("email", user.getEmail());
+        return ControllerHelper.defaultMapping(token, request, model, "layoutMode", databaseUser -> {
+            User user = DashupService.getInstance().getUserById(databaseUser.getID());
+            model.addAttribute("name", databaseUser.getName());
+            model.addAttribute("email", databaseUser.getEmail());
             model.addAttribute("content", DashupBuilder.buildUsersPanelsLayoutMode(user));
 
-            Map<String, String> layout = DashupService.getInstance().loadLayout(user);
-            for (Map.Entry<String, String> entry : layout.entrySet()) {
-                model.addAttribute(entry.getKey(), entry.getValue());
-            }
+            model.addAttribute("background_image", user.getSettings().getBackgroundImage());
         });
     }
 
     @RequestMapping(value = "/confirmChanges", method = RequestMethod.POST)
     @ResponseBody
-    public String confirm(@RequestBody DashboardStructure body, Model model, HttpServletRequest request) {
+    public String confirm(@RequestBody Layout body, Model model, HttpServletRequest request) {
         System.out.println(body);
         return "layoutMode";
     }
@@ -52,38 +51,14 @@ public class LayoutModeController {
     public @ResponseBody
     ResponseEntity<Object> handleLayout(
             @CookieValue(name = "token", required = false) String token,
-            @RequestBody DashboardStructure dps,
+            @RequestBody Layout layout,
             HttpServletRequest request, HttpServletResponse response, Model model) throws SQLException {
         User user = (User) this.localStorage.readObjectFromSession(request, "user");
-        if (user == null) return new ResponseEntity(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
-
-        dps.getSections().sort(Comparator.comparingInt(SectionStructure::getSectionOrder));
-        Iterator<SectionStructure> iterator = dps.getSections().iterator();
-        SectionStructure lastdss = null;
-        while (iterator.hasNext()) {
-            SectionStructure dss = iterator.next();
-            if (dss.getSectionId().contains("sn")) {
-                if (lastdss == null) {
-                    DashupService.getInstance().addSection(user, dss.getSectionName(), -1, -1);
-                } else {
-                    DashupService.getInstance().addSection(user, dss.getSectionName(), Integer.valueOf(lastdss.getSectionId().substring(1)), -1);
-                }
-            } else {
-                if (dss.getSectionOrder() == -10) {
-                    DashupService.getInstance().deleteSection(user, Integer.valueOf(dss.getSectionId().substring(1)));
-                    iterator.remove();
-                } else {
-                    String section_name = dss.getSectionName();
-                    int section_id = Integer.valueOf(dss.getSectionId().substring(1));
-                    if (lastdss == null) {
-                        DashupService.getInstance().updateSection(user, section_name, section_id, -1, -1);
-                    } else {
-                        DashupService.getInstance().updateSection(user, section_name, section_id, Integer.valueOf(lastdss.getSectionId().substring(1)), -1);
-                    }
-                }
-            }
-            lastdss = dss;
+        if (user == null){
+            return new ResponseEntity(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
         }
+
+        //To be implemented according to new data model
 
         JSONObject entity = new JSONObject();
         entity.put("message", "Success");

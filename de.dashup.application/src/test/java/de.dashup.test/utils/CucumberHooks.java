@@ -52,7 +52,7 @@ public class CucumberHooks {
         testDataMap.put("user_id", "1");
         testDataMap.put("theme", "blue-sky");
         testDataMap.put("language", "en");
-        database.insert(Database.Table.USERS_SETTINGS, testDataMap);
+        database.insert(Database.Table.SETTINGS, testDataMap);
         GeneralStepDefinitions.setDatabase(database);
     }
 

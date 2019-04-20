@@ -1,6 +1,7 @@
 package de.dashup.application.local;
 
 import de.dashup.model.service.DashupService;
+import de.dashup.shared.DatabaseModels.DatabaseUser;
 import de.dashup.shared.User;
 
 import javax.servlet.http.Cookie;
@@ -31,13 +32,10 @@ public class LocalStorage {
         request.getSession().setAttribute(key, object);
     }
 
-    public User getUser(HttpServletRequest request, String token) throws SQLException {
-        User user = (User) LocalStorage.getInstance().readObjectFromSession(request, "user");
+    public DatabaseUser getUser(HttpServletRequest request, String token) throws SQLException {
+        DatabaseUser user = (DatabaseUser) LocalStorage.getInstance().readObjectFromSession(request, "user");
         if ((user != null || token != null && !token.isEmpty()) && (token != null && !token.isEmpty())) {
-            user = DashupService.getInstance().getUserByToken(token);
-            if (user != null) {
-                user.setSettings(DashupService.getInstance().getSettingsOfUser(user));
-            }
+            user = DashupService.getInstance().getDatabaseUserByToken(token);
         }
         return user;
     }

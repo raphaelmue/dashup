@@ -2,6 +2,8 @@ package de.dashup.application.controllers.util;
 
 import de.dashup.application.local.LocalStorage;
 import de.dashup.application.local.format.I18N;
+import de.dashup.model.service.DashupService;
+import de.dashup.shared.DatabaseModels.DatabaseUser;
 import de.dashup.shared.User;
 import org.springframework.ui.Model;
 
@@ -11,12 +13,15 @@ import java.util.Locale;
 
 public class ControllerHelper {
 
-    public static String defaultMapping(String token, HttpServletRequest request, Model model, String viewName, ControllerAction<User> action) throws SQLException {
-        User user = LocalStorage.getInstance().getUser(request, token);
-        if (user != null) {
+    public static String defaultMapping(String token, HttpServletRequest request, Model model, String viewName, ControllerAction<DatabaseUser> action) throws SQLException {
+        DatabaseUser databaseUser = LocalStorage.getInstance().getUser(request, token);
+        User user = DashupService.getInstance().getUserById(databaseUser.getID());
+
+        if (databaseUser != null) {
             model.addAttribute("language", user.getSettings().getLanguage().getDisplayLanguage());
-            model.addAttribute("theme", user.getSettings().getTheme().getTechnicalName());
-            action.action(user);
+            model.addAttribute("theme", user.getSettings().getTheme().getName());
+            model.addAttribute("background_image",  user.getSettings().getBackgroundImage());
+            action.action(databaseUser);
             return viewName;
         }
         return "redirect:/login";

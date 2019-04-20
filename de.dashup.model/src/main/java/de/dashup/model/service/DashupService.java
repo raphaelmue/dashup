@@ -7,8 +7,6 @@ import de.dashup.shared.Enums.Size;
 import de.dashup.shared.Enums.Theme;
 import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -147,7 +145,7 @@ public class DashupService {
         }
     }
 
-    public User checkCredentials(String email, String password, boolean rememberMe) throws SQLException {
+    public DatabaseUser checkCredentials(String email, String password, boolean rememberMe) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("email", email);
         List<DatabaseObject> result = this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters);
@@ -155,14 +153,19 @@ public class DashupService {
             DatabaseUser user = (DatabaseUser) result.get(0);
             String hashedPassword = Hash.create(password, user.getSalt());
             if (hashedPassword.equals(user.getPassword())) {
-                return this.loadUser(user, rememberMe);
+               this.loadUser(user, rememberMe);
+               return user;
             }
             return null;
-        }
+    }
         return null;
     }
 
-    public DatabaseUser getUserByToken(String token) throws SQLException {
+    public User getUserById(Integer id){
+        return users.get(id);
+    }
+
+    public DatabaseUser getDatabaseUserByToken(String token) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("token", token);
         List<DatabaseObject> result = this.database.getObject(Database.Table.TOKENS, DatabaseUser.class, whereParameters);
@@ -172,6 +175,15 @@ public class DashupService {
             whereParameters.put("id", databaseToken.getUserID());
             DatabaseUser databaseUser = (DatabaseUser) (this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters)).get(0);
             return databaseUser;
+        }
+        return null;
+    }
+
+    public User getUserByToken(String token) throws SQLException {
+        for (Map.Entry<Integer, User> entry : users.entrySet()) {
+            if(entry.getValue().getToken().equals(token)){
+                return entry.getValue();
+            }
         }
         return null;
     }

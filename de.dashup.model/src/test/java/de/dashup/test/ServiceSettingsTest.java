@@ -3,6 +3,9 @@ package de.dashup.test;
 import de.dashup.model.db.Database;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.DatabaseModels.DatabaseObject;
+import de.dashup.shared.DatabaseModels.DatabaseSetting;
+import de.dashup.shared.DatabaseModels.DatabaseUser;
+import de.dashup.shared.Enums.Theme;
 import de.dashup.shared.Settings;
 import de.dashup.shared.User;
 import de.dashup.util.string.Hash;
@@ -28,6 +31,7 @@ public class ServiceSettingsTest {
 
     private static Database database;
     private static DashupService dashupService;
+    private DatabaseUser testDatabaseUser;
     private User testUser;
 
     @BeforeAll
@@ -39,16 +43,14 @@ public class ServiceSettingsTest {
     @BeforeEach
     public void cleanDB() throws SQLException {
         UnitTestUtil.setUpTestDataset(database);
-        testUser = new User(1, USER_EMAIL, USER_USERNAME, "", "", USER_HASHED_PASSWORD, USER_SALT, new Settings());
+        testDatabaseUser = dashupService.checkCredentials(USER_EMAIL, USER_PASSWORD, false);
+        testUser = dashupService.getUserById(testDatabaseUser.getID());
     }
 
     @Test
     public void testGetSettings() throws SQLException {
-        Settings settings = dashupService.getSettingsOfUser(testUser);
+        Settings settings = testUser.getSettings();
         Assertions.assertNotNull(settings);
-        Assertions.assertEquals(testUser.getSettings().getTheme().getName(), settings.getTheme().getName());
-        Assertions.assertEquals(testUser.getSettings().getLanguage(), settings.getLanguage());
-        Assertions.assertEquals("", settings.getBackgroundImage());
     }
 
     @Test
@@ -57,13 +59,12 @@ public class ServiceSettingsTest {
         final String invalidPassword = "invalid";
 
         //test if everything works fine with valid credentials
-        dashupService.updatePassword(testUser, USER_PASSWORD, newPassword);
+        dashupService.updatePassword(testDatabaseUser, USER_PASSWORD, newPassword);
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("email", USER_EMAIL);
-        List<? extends DatabaseObject> result = database.getObject(Database.Table.USERS, User.class, whereParams);
+        List<DatabaseObject> result = database.getObject(Database.Table.USERS, User.class, whereParams);
         Assertions.assertEquals(1, result.size());
-        User databaseUser = new User();
-        databaseUser.fromDatabaseObject(result.get(0));
+        DatabaseUser databaseUser = (DatabaseUser) result.get(0);
         Assertions.assertFalse(databaseUser.getSalt().isEmpty());
         Assertions.assertFalse(databaseUser.getPassword().isEmpty());
         Assertions.assertNotEquals(USER_SALT, databaseUser.getSalt());
@@ -72,7 +73,7 @@ public class ServiceSettingsTest {
 
         //test if exception is thrown when entering wrong old password
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> dashupService.updatePassword(testUser, invalidPassword, newPassword));
+                () -> dashupService.updatePassword(testDatabaseUser, invalidPassword, newPassword));
     }
 
     @Test
@@ -81,12 +82,12 @@ public class ServiceSettingsTest {
         final String invalidURL = "null";
 
         //test update w/o insert
-        testUser.getSettings().setTheme(Settings.Theme.GREEN_NATURE);
+        testUser.getSettings().setTheme(Theme.GREEN_NATURE);
         testUser.getSettings().setBackgroundImage(backgroundURL);
 
-        dashupService.updateSettings(testUser, false);
+        dashupService.updateSettings(testUser);
 
-        Settings updatedSettings = dashupService.getSettingsOfUser(testUser);
+        Settings updatedSettings = testUser.getSettings();
 
         Assertions.assertEquals(testUser.getSettings().getBackgroundImage(), updatedSettings.getBackgroundImage());
         Assertions.assertEquals(testUser.getSettings().getTheme(), updatedSettings.getTheme());
@@ -95,42 +96,29 @@ public class ServiceSettingsTest {
 
         //test update w/o insert and invalid URL
         testUser.getSettings().setBackgroundImage(invalidURL);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> dashupService.updateSettings(testUser, false));
-
-        //test update with insert
-        //prep=delete settings for user with id 2 to be able to insert again
-        HashMap<String, Object> whereParams = new HashMap<>();
-        whereParams.put("user_id", 2);
-        database.delete(Database.Table.USERS_SETTINGS, whereParams);
-        //new insert
-        testUser = new User(2, USER_EMAIL, USER_USERNAME, "", "", USER_HASHED_PASSWORD, USER_SALT, new Settings());
-        dashupService.updateSettings(testUser, true);
-
-        JSONArray result = database.get(Database.Table.USERS_SETTINGS, whereParams);
-        Assertions.assertEquals(1, result.length());
-        Assertions.assertEquals(testUser.getSettings().getBackgroundImage(),
-                result.getJSONObject(0).getString("background_image"));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> dashupService.updateSettings(testUser));
     }
 
     @Test
     public void testUpdateLanguage() throws SQLException {
-        //execute method
         testUser.getSettings().setLanguage(new Locale("de"));
         dashupService.updateLanguage(testUser);
-        //assert result
+
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("user_id", 1);
-        JSONArray result = database.get(Database.Table.USERS_SETTINGS, whereParams);
-        Assertions.assertEquals(1, result.length());
-        Assertions.assertEquals(testUser.getSettings().getLanguage().toLanguageTag(),
-                result.getJSONObject(0).getString("language"));
+        List<DatabaseObject> result = database.getObject(Database.Table.SETTINGS, DatabaseSetting.class, whereParams);
+        Assertions.assertEquals(1, result.size());
+        Assertions.assertEquals(testUser.getSettings().getLanguage().toLanguageTag(), ((DatabaseSetting) result.get(0)).getLanguage());
     }
 
     @Test
     public void testLoadLayout() throws SQLException {
-        Map<String, String> result = dashupService.loadLayout(testUser);
-        Assertions.assertEquals(testUser.getSettings().getLanguage().toLanguageTag(), result.get("language"));
-        Assertions.assertEquals(testUser.getSettings().getTheme().getTechnicalName(), result.get("theme"));
-        Assertions.assertEquals("null", result.get("background_image"));
+        HashMap<String, Object> whereParams = new HashMap<>();
+        whereParams.put("user_id", 1);
+        List<DatabaseObject> result = database.getObject(Database.Table.SETTINGS, DatabaseSetting.class, whereParams);
+        DatabaseSetting setting = (DatabaseSetting) result.get(0);
+        Assertions.assertEquals(testUser.getSettings().getLanguage().toLanguageTag(), setting.getLanguage());
+        Assertions.assertEquals(testUser.getSettings().getTheme().getName(), setting.getTheme());
+        Assertions.assertEquals("null", setting.getBackgroundImage());
     }
 }

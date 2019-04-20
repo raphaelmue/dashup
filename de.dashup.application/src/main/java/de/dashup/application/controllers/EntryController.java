@@ -3,6 +3,7 @@ package de.dashup.application.controllers;
 import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.model.service.DashupService;
+import de.dashup.shared.DatabaseModels.DatabaseUser;
 import de.dashup.shared.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,12 +34,13 @@ public class EntryController {
                               @RequestParam(name = "password") String password,
                               @RequestParam(name = "rememberMe", defaultValue = "false") boolean rememberMe,
                               HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        User user = DashupService.getInstance().checkCredentials(email, password, rememberMe);
+        DatabaseUser databaseUser = DashupService.getInstance().checkCredentials(email, password, rememberMe);
+        User user = DashupService.getInstance().getUserById(databaseUser.getID());
         if (user != null) {
             if (rememberMe) {
                 this.localStorage.writeCookie(response, "token", user.getToken());
             }
-            this.localStorage.writeObjectToSession(request, "user", user);
+            this.localStorage.writeObjectToSession(request, "user", databaseUser);
             if (user.getSettings() != null) {
                 this.localStorage.writeCookie(response, "org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE",
                         user.getSettings().getLanguage().toLanguageTag());
@@ -61,9 +63,8 @@ public class EntryController {
                                      @RequestParam(name = "lang", required = false) Locale locale,
                                      HttpServletRequest request) throws SQLException {
         ControllerHelper.setLocale(request, locale);
-        User user = DashupService.getInstance().registerUser(email, userName, password);
+        DatabaseUser user = DashupService.getInstance().registerUser(email, userName, password);
         if (user != null) {
-            DashupService.getInstance().updateSettings(user, true);
             this.localStorage.writeObjectToSession(request, "user", user);
             return "redirect:/";
         }
