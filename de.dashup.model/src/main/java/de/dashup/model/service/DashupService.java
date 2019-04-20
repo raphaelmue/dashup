@@ -49,7 +49,7 @@ public class DashupService {
     public DatabaseUser getUserByToken(String token) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("token", token);
-        List<DatabaseObject> result = this.database.getObject(Database.Table.TOKENS, DatabaseUser.class, whereParameters);
+        List<DatabaseObject> result = this.database.getObject(Database.Table.TOKENS, DatabaseToken.class, whereParameters);
         whereParameters.clear();
         if (result.size() >= 1) {
             DatabaseToken databaseToken = (DatabaseToken) result.get(0);
@@ -64,8 +64,11 @@ public class DashupService {
         return null;
     }
 
-    public DatabaseToken getTokenByUser(DatabaseUser user){
-        return null;
+    public DatabaseToken getTokenByUser(DatabaseUser user) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("user_id", user.getID());
+        List<DatabaseObject> result = this.database.getObject(Database.Table.TOKENS, DatabaseToken.class, whereParameters);
+        return (DatabaseToken) result.get(result.size() - 1);
     }
 
     public DatabaseUser checkCredentials(String email, String password, boolean rememberMe) throws SQLException {
@@ -134,28 +137,31 @@ public class DashupService {
             }
 
             while(widgets.size() < amountWidgets){
-                whereParameters.put("id", currentSectionWidget.getPanelID());
+                whereParameters.put("id", currentSectionWidget.getWidgetID());
                 result = this.database.getObject(Database.Table.WIDGETS, DatabaseWidget.class, whereParameters);
                 whereParameters.clear();
 
-                DatabaseWidget widget = (DatabaseWidget) result.get(0);
+                DatabaseWidget databaseWidget = (DatabaseWidget) result.get(0);
                 Size size = Size.getSizeByName(currentSectionWidget.getSize());
-                String htmlContent;
+                String htmlContent = "";
                 switch(size){
-                    case SMALL: htmlContent = widget.getHtmlSmall();
-                    case MEDIUM: htmlContent = widget.getHtmlMedium();
-                    case LARGE: htmlContent = widget.getHtmlLarge();
-                    default: htmlContent = "";
+                    case SMALL: htmlContent = databaseWidget.getHtmlSmall(); break;
+                    case MEDIUM: htmlContent = databaseWidget.getHtmlMedium(); break;
+                    case LARGE: htmlContent = databaseWidget.getHtmlLarge(); break;
                 }
                 Widget predecessor = (Widget) widgetsByID.get(currentSectionWidget.getPredecessorID());
-                widgets.add(new Widget(widget.getID(), size, htmlContent, predecessor));
-                currentSectionWidget = (DatabaseSectionWidgets) widgetsByPredecessorID.get(widget.getID());
+                Widget widget = new Widget(databaseWidget.getID(), size, htmlContent, predecessor);
+                widgets.add(widget);
+                widgetsByID.put(currentSectionWidget.getID(), widget);
+                currentSectionWidget = (DatabaseSectionWidgets) widgetsByPredecessorID.get(currentSectionWidget.getID());
             }
 
             Section predecessor = (Section) sectionsByID.get(currentSection.getPredecessorID());
-            sections.add(new Section(currentSection.getID(), currentSection.getName(), predecessor, widgets));
+            Section section = new Section(currentSection.getID(), currentSection.getName(), predecessor, widgets);
+            sections.add(section);
+            sectionsByID.put(currentSection.getID(), section);
             currentSection = (DatabaseSection) sectionsByPredecessorID.get(currentSection.getID());
-            widgets.clear();
+            widgets = new ArrayList<>();
         }
         return new Layout(user, sections);
     }
@@ -178,12 +184,12 @@ public class DashupService {
 
             Map<String, Object> values = new HashMap<>();
             values.put("email", email);
-            values.put("user_name", username);
+            values.put("username", username);
             values.put("password", hashedPassword);
             values.put("salt", salt);
             this.database.insert(Database.Table.USERS, values);
 
-            whereParameters.put("user_id", this.database.getLatestId(Database.Table.USERS));
+            whereParameters.put("id", this.database.getLatestId(Database.Table.USERS));
             return (DatabaseUser) (this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters)).get(0);
         }
         return null;
@@ -219,12 +225,12 @@ public class DashupService {
     }
 
     public void updateSettings(DatabaseUser user, String backgroundImage, String theme, String language) throws SQLException {
-        if (!user.getBackgroundImage().isEmpty() && !URL.isValidURL(user.getBackgroundImage())) {
+        if (!backgroundImage.isEmpty() && !URL.isValidURL(backgroundImage)) {
             throw new IllegalArgumentException("URL is not valid.");
         }
 
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("user_id", user.getID());
+        whereParameters.put("id", user.getID());
 
         Map<String, Object> values = new HashMap<>();
         values.put("background_image", backgroundImage);

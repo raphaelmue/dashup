@@ -39,10 +39,7 @@ public class EntryController {
                 this.localStorage.writeCookie(response, "token", DashupService.getInstance().getTokenByUser(user).getToken());
             }
             this.localStorage.writeObjectToSession(request, "user", user);
-            if (user.getLanguage() != null) {
-                this.localStorage.writeCookie(response, "org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE",
-                        user.getLanguage());
-            }
+            this.localStorage.writeCookie(response, "org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE", user.getLanguage());
             return "redirect:/";
         } else {
             return "redirect:/login/#invalidCredentials";

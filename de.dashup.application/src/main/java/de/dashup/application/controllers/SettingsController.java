@@ -24,10 +24,10 @@ public class SettingsController {
     public String settings(@CookieValue(name = "token", required = false) String token,
                            HttpServletRequest request, Model model) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "settings", user -> {
+            model.addAttribute("email", user.getEmail());
             model.addAttribute("name", user.getName());
             model.addAttribute("surname", user.getSurname());
-            model.addAttribute("fullName", user.getSurname() + " " + user.getName());
-            model.addAttribute("email", user.getEmail());
+            model.addAttribute("backgroundImage", user.getBackgroundImage());
         });
     }
 

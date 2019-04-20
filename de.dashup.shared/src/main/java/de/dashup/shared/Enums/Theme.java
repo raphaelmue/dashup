@@ -2,16 +2,18 @@ package de.dashup.shared.Enums;
 
 public enum Theme {
 
-    BLUE_SKY("Blue Sky"),
-    GREEN_NATURE("Green Nature"),
-    RED_LOVE("Red Love"),
-    WHITE_DIAMOND("White Diamond"),
-    BLACK_NIGHT("Black Night");
+    BLUE_SKY("Blue Sky","blue-sky"),
+    GREEN_NATURE("Green Nature", "green-nature"),
+    RED_LOVE("Red Love", "red-love"),
+    WHITE_DIAMOND("White Diamond", "white-diamond"),
+    BLACK_NIGHT("Black Night", "black-night");
 
     private final String name;
+    private final String technicalName;
 
-    Theme( String name) {
+    Theme(String name, String technicalName) {
         this.name = name;
+        this.technicalName = technicalName;
     }
 
     public static Theme getThemeByName(String name) {
@@ -24,11 +26,15 @@ public enum Theme {
     }
 
     public String getName() {
-        return name;
+        return this.name;
+    }
+
+    public String getTechnicalName() {
+        return this.technicalName;
     }
 
     public String toString() {
-        return name;
+        return this.name;
     }
 
 }

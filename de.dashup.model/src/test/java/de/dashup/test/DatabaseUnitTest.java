@@ -36,7 +36,7 @@ public class DatabaseUnitTest {
 
         Map<String, Object> testDataMap = new HashMap<>();
         testDataMap.put("email", "testInsert@test.com");
-        testDataMap.put("user_name", "test");
+        testDataMap.put("username", "test");
         testDataMap.put("name", "Insert");
         testDataMap.put("surname", "Test");
         testDataMap.put("password", hashedPassword);
@@ -46,7 +46,7 @@ public class DatabaseUnitTest {
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("id", "3");
         JSONArray result = database.get(Database.Table.USERS, whereParams);
-        Assertions.assertEquals("test", result.getJSONObject(0).getString("user_name"));
+        Assertions.assertEquals("test", result.getJSONObject(0).getString("username"));
         Assertions.assertEquals(hashedPassword, result.getJSONObject(0).getString("password"));
         Assertions.assertEquals("testInsert@test.com", result.getJSONObject(0).getString("email"));
         Assertions.assertEquals("Test", result.getJSONObject(0).getString("surname"));

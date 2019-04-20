@@ -30,7 +30,7 @@ class UnitTestUtil {
 
         Map<String, Object> testDataMap = new HashMap<>();
         testDataMap.put("email", "nobody@test.com");
-        testDataMap.put("user_name", "NobodyTest");
+        testDataMap.put("username", "NobodyTest");
         testDataMap.put("name", "Nobody");
         testDataMap.put("surname", "Test");
         testDataMap.put("password", hashedPassword);
@@ -39,7 +39,7 @@ class UnitTestUtil {
 
         testDataMap.clear();
         testDataMap.put("email", "second@test.com");
-        testDataMap.put("user_name", "SecondTest");
+        testDataMap.put("username", "SecondTest");
         testDataMap.put("name", "Second");
         testDataMap.put("surname", "Test");
         testDataMap.put("password", hashedPassword);
@@ -51,7 +51,7 @@ class UnitTestUtil {
         testDataMap.clear();
         testDataMap.put("token","t8KJgrLLuP51Tilw6SiXjqoyM0EFX6OxrbTG5giYbXRPoJk1dUOoUHRHbx7lTPiD");
         testDataMap.put("user_id","2");
-        testDataMap.put("expire_date","2099-01-01");
+        testDataMap.put("expiry_date","2099-01-01");
         database.insert(Database.Table.TOKENS, testDataMap);
 
         Assertions.assertEquals(1, database.get(Database.Table.TOKENS, new HashMap<>()).length());

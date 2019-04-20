@@ -1,8 +1,6 @@
 package de.dashup.model.db;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParseException;
+import com.google.gson.*;
 import de.dashup.shared.DatabaseModels.DatabaseObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,10 +10,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 import java.util.Map;
+
 
 public class Database {
 
@@ -34,7 +37,7 @@ public class Database {
     public enum Table {
         RATINGS("ratings"),
         SECTION_WIDGETS("section_widgets"),
-        SECTIONS("section"),
+        SECTIONS("sections"),
         TAGS("tags"),
         TOKENS("tokens"),
         USERS("users"),
@@ -169,7 +172,27 @@ public class Database {
      */
     public List<DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters,
                                                     String orderByClause) throws SQLException, JsonParseException {
-        Gson gson = new GsonBuilder().create();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Date.class,
+                    (JsonDeserializer)(JsonElement json, Type typeOfT, JsonDeserializationContext context) -> {
+                        DateFormat format = new SimpleDateFormat("DD-MM-YYYY");
+                        try{
+                            String dateString = json.getAsString();
+                            return dateString.equals("null") ? new Date() : format.parse(dateString);
+                        } catch(ParseException ex) {
+                            throw new JsonParseException("Date is not in the right format");
+                        }
+                    })
+                .registerTypeAdapter(Integer.class,
+                        (JsonDeserializer)(JsonElement json, Type typeOfT, JsonDeserializationContext context) -> {
+                            try{
+                                String idString = json.getAsString();
+                                return idString.equals("null") ? null : new Integer(idString);
+                            } catch(NumberFormatException ex) {
+                                throw new JsonParseException("ID is not in the right format");
+                            }
+                        })
+                .create();
         JSONArray jsonArray = this.get(table, whereParameters, orderByClause);
         List<DatabaseObject> result = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -336,7 +359,7 @@ public class Database {
     private PreparedStatement preparedStatement(PreparedStatement statement, Map<String, Object> values, int index) throws SQLException {
         for (Map.Entry<String, Object> entry : values.entrySet()) {
             if (entry.getValue() instanceof LocalDate) {
-                statement.setObject(index, Date.valueOf((LocalDate) entry.getValue()).toString());
+                statement.setObject(index, java.sql.Date.valueOf((LocalDate) entry.getValue()).toString());
             } else {
                 statement.setObject(index, entry.getValue());
             }

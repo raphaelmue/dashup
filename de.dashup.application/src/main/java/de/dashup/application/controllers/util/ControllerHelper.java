@@ -4,6 +4,7 @@ import de.dashup.application.local.LocalStorage;
 import de.dashup.application.local.format.I18N;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.DatabaseModels.DatabaseUser;
+import de.dashup.shared.Enums.Theme;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,12 +15,11 @@ public class ControllerHelper {
 
     public static String defaultMapping(String token, HttpServletRequest request, Model model, String viewName, ControllerAction<DatabaseUser> action) throws SQLException {
         DatabaseUser databaseUser = LocalStorage.getInstance().getUser(request, token);
-        DatabaseUser user = DashupService.getInstance().getUserById(databaseUser.getID());
-
         if (databaseUser != null) {
+            DatabaseUser user = DashupService.getInstance().getUserById(databaseUser.getID());
             model.addAttribute("language", user.getLanguage());
-            model.addAttribute("theme", user.getTheme());
-            model.addAttribute("background_image",  user.getBackgroundImage());
+            model.addAttribute("theme", Theme.getThemeByName(user.getTheme()).getTechnicalName());
+            model.addAttribute("backgroundImage", user.getBackgroundImage());
             action.action(databaseUser);
             return viewName;
         }

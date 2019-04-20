@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="input-field col s8 m4" style="margin-top: 0">
                                     <input id="text-field-personal-info-surname" name="surname" type="text" class="validate"
-                                           value="${fn:escapeXml(pageContext.request.contextPath)}" />
+                                           value="${fn:escapeXml(surname)}" />
                                     <label for="text-field-personal-info-surname"><fmt:message key="i18n.surname" /></label>
                                 </div>
                             </div>
@@ -94,11 +94,11 @@
                                 </div>
                                 <div class="input-field col s8 m8">
                                     <select name="theme" id="theme-dropdown">
-                                        <option value="blue-sky">Blue Sky</option>
-                                        <option value="green-nature">Green Nature</option>
-                                        <option value="red-love">Red Love</option>
-                                        <option value="white-diamond">White Diamond</option>
-                                        <option value="black-night">Black Night</option>
+                                        <option value="Blue Sky">Blue Sky</option>
+                                        <option value="Green Nature">Green Nature</option>
+                                        <option value="Red Love">Red Love</option>
+                                        <option value="White Diamond">White Diamond</option>
+                                        <option value="Black Night">Black Night</option>
                                     </select>
                                     <label><fmt:message key="i18n.theme" /></label>
                                 </div>
