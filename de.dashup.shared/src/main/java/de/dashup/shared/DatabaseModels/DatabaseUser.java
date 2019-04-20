@@ -1,5 +1,7 @@
 package de.dashup.shared.DatabaseModels;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public class DatabaseUser extends DatabaseObject {
@@ -14,20 +16,28 @@ public class DatabaseUser extends DatabaseObject {
     private String biography;
     private String password;
     private String salt;
+    @SerializedName("background_image")
+    private String backgroundImage;
+    private String theme;
+    private String language;
 
 
-    public DatabaseUser(Integer id, String email, String username, String name, String surname, Date birthdate,
-                        String company, String biography, String password, String salt) {
+    public DatabaseUser(Integer id, String email, String username, String password, String salt, String name, 
+                        String surname, Date birthdate, String company, String biography, String backgroundImage, 
+                        String theme, String language) {
         this.id = id;
         this.email = email;
         this.username = username;
+        this.password = password;
+        this.salt = salt;
         this.name = name;
         this.surname = surname;
         this.birthdate = birthdate;
         this.company = company;
         this.biography = biography;
-        this.password = password;
-        this.salt = salt;
+        this.backgroundImage = backgroundImage;
+        this.theme = theme;
+        this.language = language;
     }
 
     public Integer getID() {
@@ -40,6 +50,14 @@ public class DatabaseUser extends DatabaseObject {
 
     public String getUsername() {
         return this.username;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public String getSalt() {
+        return this.salt;
     }
 
     public String getName() {
@@ -62,12 +80,16 @@ public class DatabaseUser extends DatabaseObject {
         return this.biography;
     }
 
-    public String getPassword() {
-        return this.password;
+    public String getBackgroundImage() {
+        return this.backgroundImage;
     }
 
-    public String getSalt() {
-        return this.salt;
+    public String getTheme() {
+        return this.theme;
     }
 
+    public String getLanguage() {
+        return this.language;
+    }
+    
 }

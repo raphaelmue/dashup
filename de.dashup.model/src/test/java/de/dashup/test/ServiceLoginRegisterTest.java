@@ -3,7 +3,6 @@ package de.dashup.test;
 import de.dashup.model.db.Database;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.DatabaseModels.DatabaseUser;
-import de.dashup.shared.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,13 +35,12 @@ public class ServiceLoginRegisterTest {
         final String correctMail = "nobody@test.com";
         final String correctPassword = "password";
 
-        DatabaseUser databaseUser = dashupService.checkCredentials(correctMail, correctPassword, false);
-        User user = dashupService.getUserById(databaseUser.getID());
-        Assertions.assertNotNull(databaseUser, "Could not get user with correct credentials!");
-        Assertions.assertEquals(correctMail, databaseUser.getEmail(), "User information are incorrect!");
-        Assertions.assertNull(user.getToken(), "User has token even if rememberMe is false!");
+        DatabaseUser user = dashupService.checkCredentials(correctMail, correctPassword, false);
+        Assertions.assertNotNull(user, "Could not get user with correct credentials!");
+        Assertions.assertEquals(correctMail, user.getEmail(), "User information are incorrect!");
+
         HashMap<String, Object> whereParams = new HashMap<>();
-        whereParams.put("user_id", databaseUser.getID());
+        whereParams.put("user_id", user.getID());
         Assertions.assertEquals(0, database.get(Database.Table.TOKENS, whereParams).length(),
                 "Database contains token even if rememberMe is false!");
     }
@@ -53,10 +51,9 @@ public class ServiceLoginRegisterTest {
         final String correctPassword = "password";
 
         DatabaseUser databaseUser = dashupService.checkCredentials(correctMail, correctPassword, true);
-        User user = dashupService.getUserById(databaseUser.getID());
         Assertions.assertNotNull(databaseUser, "Could not get user with correct credentials!");
         Assertions.assertEquals(correctMail, databaseUser.getEmail(), "User information are incorrect!");
-        Assertions.assertNotNull(user.getToken(), "No token is generated when rememberMe is true!");
+
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("user_id", databaseUser.getID());
         Assertions.assertEquals(1, database.get(Database.Table.TOKENS, whereParams).length(),
@@ -76,20 +73,6 @@ public class ServiceLoginRegisterTest {
         Assertions.assertNull(databaseUser);
         databaseUser = dashupService.checkCredentials("", "", false);
         Assertions.assertNull(databaseUser);
-    }
-
-    @Test
-    public void testGetUserByToken() throws SQLException {
-        final String mailToLogin = "nobody@test.com";
-        final String passwordToLogin = "password";
-
-        //this is working, otherwise testLoginWithRememberMe() would fail
-        DatabaseUser databaseUser = dashupService.checkCredentials(mailToLogin, passwordToLogin, true);
-        User user = dashupService.getUserById(databaseUser.getID());
-
-        DatabaseUser userByToken = dashupService.getDatabaseUserByToken(user.getToken());
-        Assertions.assertNotNull(userByToken, "Could not get correct user by token!");
-        Assertions.assertEquals(databaseUser.getID(), userByToken.getID(), "Could not get correct user by token!");
     }
 
     //---------------Logout---------------\\

@@ -17,11 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * This class provides a persistent connection a MySQL Database via JDBC.
- *
- * @author Raphael Müßeler
- */
 public class Database {
 
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -40,7 +35,6 @@ public class Database {
         RATINGS("ratings"),
         SECTION_WIDGETS("section_widgets"),
         SECTIONS("section"),
-        SETTINGS("settings"),
         TAGS("tags"),
         TOKENS("tokens"),
         USERS("users"),

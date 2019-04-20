@@ -1,16 +1,18 @@
 package de.dashup.model.builder;
 
+import de.dashup.model.service.DashupService;
+import de.dashup.shared.DatabaseModels.DatabaseUser;
 import de.dashup.shared.Section;
-import de.dashup.shared.User;
 import de.dashup.shared.Widget;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class DashupBuilder {
 
-    public static String buildUsersPanels(User user) {
+    public static String buildUsersPanels(DatabaseUser user) throws SQLException {
         StringBuilder content = new StringBuilder();
-        List<Section> sections = user.getLayout().getSections();
+        List<Section> sections = DashupService.getInstance().loadUserLayout(user).getSections();
         if (sections.size() > 0) {
             for (Section section : sections) {
                 List<Widget> widgets = section.getWidgets();
@@ -28,10 +30,10 @@ public class DashupBuilder {
         return content.toString();
     }
 
-    public static String buildUsersPanelsLayoutMode(User user) {
+    public static String buildUsersPanelsLayoutMode(DatabaseUser user) throws SQLException {
         StringBuilder content = new StringBuilder();
         content.append("<div id=\"drag-container-section\">");
-        List<Section> sections = user.getLayout().getSections();
+        List<Section> sections = DashupService.getInstance().loadUserLayout(user).getSections();
         if (sections.size() >= 0) {
             for (Section section: sections) {
                 content.append("<div class=\"dashup-section\" id=\"s").append(section.getID()).append("\">")

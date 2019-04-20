@@ -4,7 +4,7 @@ import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.model.builder.DashupBuilder;
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.User;
+import de.dashup.shared.DatabaseModels.DatabaseUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/")
@@ -22,7 +21,7 @@ public class DashupController {
     @RequestMapping("/")
     public String main(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "index", databaseUser -> {
-            User user = DashupService.getInstance().getUserById(databaseUser.getID());
+            DatabaseUser user = DashupService.getInstance().getUserById(databaseUser.getID());
             model.addAttribute("name", databaseUser.getName());
             model.addAttribute("email", databaseUser.getEmail());
             model.addAttribute("content", DashupBuilder.buildUsersPanels(user));

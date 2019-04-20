@@ -6,7 +6,6 @@ import de.dashup.model.builder.DashupBuilder;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.DatabaseModels.DatabaseUser;
 import de.dashup.shared.Layout;
-import de.dashup.shared.User;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,9 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/layoutMode")
@@ -31,12 +27,12 @@ public class LayoutModeController {
     @RequestMapping(value = "/")
     public String login(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "layoutMode", databaseUser -> {
-            User user = DashupService.getInstance().getUserById(databaseUser.getID());
+            DatabaseUser user = DashupService.getInstance().getUserById(databaseUser.getID());
             model.addAttribute("name", databaseUser.getName());
             model.addAttribute("email", databaseUser.getEmail());
             model.addAttribute("content", DashupBuilder.buildUsersPanelsLayoutMode(user));
 
-            model.addAttribute("background_image", user.getSettings().getBackgroundImage());
+            model.addAttribute("background_image", user.getBackgroundImage());
         });
     }
 
@@ -53,7 +49,7 @@ public class LayoutModeController {
             @CookieValue(name = "token", required = false) String token,
             @RequestBody Layout layout,
             HttpServletRequest request, HttpServletResponse response, Model model) throws SQLException {
-        User user = (User) this.localStorage.readObjectFromSession(request, "user");
+        DatabaseUser user = (DatabaseUser) this.localStorage.readObjectFromSession(request, "user");
         if (user == null){
             return new ResponseEntity(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
         }

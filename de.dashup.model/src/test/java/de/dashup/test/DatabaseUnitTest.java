@@ -3,7 +3,6 @@ package de.dashup.test;
 import de.dashup.model.db.Database;
 import de.dashup.shared.DatabaseModels.DatabaseObject;
 import de.dashup.shared.DatabaseModels.DatabaseUser;
-import de.dashup.shared.User;
 import de.dashup.util.string.Hash;
 import org.json.JSONArray;
 import org.junit.jupiter.api.Assertions;
@@ -62,13 +61,7 @@ public class DatabaseUnitTest {
 
     @Test
     public void testDelete() throws SQLException {
-        //delete users settings, without this deletion of user will fail due to foreign key constraints
         HashMap<String, Object> whereParams = new HashMap<>();
-        whereParams.put("user_id", "1");
-        database.delete(Database.Table.SETTINGS, whereParams);
-        Assertions.assertEquals(0, database.get(Database.Table.SETTINGS, whereParams).length());
-        //delete User
-        whereParams.clear();
         whereParams.put("id", "1");
         database.delete(Database.Table.USERS, whereParams);
         Assertions.assertEquals(0, database.get(Database.Table.USERS, whereParams).length());

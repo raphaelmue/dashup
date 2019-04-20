@@ -2,7 +2,6 @@ package de.dashup.application.local;
 
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.DatabaseModels.DatabaseUser;
-import de.dashup.shared.User;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +34,7 @@ public class LocalStorage {
     public DatabaseUser getUser(HttpServletRequest request, String token) throws SQLException {
         DatabaseUser user = (DatabaseUser) LocalStorage.getInstance().readObjectFromSession(request, "user");
         if ((user != null || token != null && !token.isEmpty()) && (token != null && !token.isEmpty())) {
-            user = DashupService.getInstance().getDatabaseUserByToken(token);
+            user = DashupService.getInstance().getUserByToken(token);
         }
         return user;
     }

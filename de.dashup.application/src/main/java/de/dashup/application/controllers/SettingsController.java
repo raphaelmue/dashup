@@ -5,8 +5,6 @@ import de.dashup.application.local.LocalStorage;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.DatabaseModels.DatabaseUser;
 import de.dashup.shared.Enums.Theme;
-import de.dashup.shared.Settings;
-import de.dashup.shared.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -37,13 +35,13 @@ public class SettingsController {
     public String handleChangeLanguage(@CookieValue(name = "token", required = false) String token,
                                        @RequestParam(value = "lang") String lang,
                                        HttpServletRequest request) throws SQLException {
-        DatabaseUser databaseUser = LocalStorage.getInstance().getUser(request, token);
-        User user = DashupService.getInstance().getUserById(databaseUser.getID());
+        DatabaseUser user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            user.getSettings().setLanguage(Locale.forLanguageTag(lang));
-            DashupService.getInstance().updateLanguage(user);
+            DashupService.getInstance().updateSettings(user, user.getBackgroundImage(), user.getTheme(), Locale.forLanguageTag(lang).toLanguageTag());
+            return "redirect:/settings/#changedLanguage";
         }
-        return "redirect:/settings/#changedLanguage";
+        return "redirect:/login";
+
     }
 
     @RequestMapping("/changePassword")
@@ -68,12 +66,9 @@ public class SettingsController {
                                @RequestParam("theme") String theme,
                                @RequestParam("backgroundImage") String backgroundImage,
                                HttpServletRequest request) throws SQLException {
-        DatabaseUser databaseUser = LocalStorage.getInstance().getUser(request, token);
-        User user = DashupService.getInstance().getUserById(databaseUser.getID());
+        DatabaseUser user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            user.getSettings().setTheme(Theme.getThemeByName(theme));
-            user.getSettings().setBackgroundImage(backgroundImage);
-            DashupService.getInstance().updateSettings(user);
+            DashupService.getInstance().updateSettings(user, backgroundImage, theme, user.getLanguage());
             return "redirect:/settings/#changedLayout";
         }
         return "redirect:/login";
@@ -84,9 +79,8 @@ public class SettingsController {
                                      @RequestParam("name") String name,
                                      @RequestParam("surname") String surname,
                                      HttpServletRequest request) throws SQLException {
-        DatabaseUser databaseUser = LocalStorage.getInstance().getUser(request, token);
-        User user = DashupService.getInstance().getUserById(databaseUser.getID());
-        if (databaseUser != null) {
+        DatabaseUser user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
             DashupService.getInstance().updateNameAndSurname(user, name, surname);
             return "redirect:/settings/#changedPersonalInfo";
         }

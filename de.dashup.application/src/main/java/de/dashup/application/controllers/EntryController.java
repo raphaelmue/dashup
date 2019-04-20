@@ -4,7 +4,6 @@ import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.DatabaseModels.DatabaseUser;
-import de.dashup.shared.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,16 +33,15 @@ public class EntryController {
                               @RequestParam(name = "password") String password,
                               @RequestParam(name = "rememberMe", defaultValue = "false") boolean rememberMe,
                               HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        DatabaseUser databaseUser = DashupService.getInstance().checkCredentials(email, password, rememberMe);
-        User user = DashupService.getInstance().getUserById(databaseUser.getID());
+        DatabaseUser user = DashupService.getInstance().checkCredentials(email, password, rememberMe);
         if (user != null) {
             if (rememberMe) {
-                this.localStorage.writeCookie(response, "token", user.getToken());
+                this.localStorage.writeCookie(response, "token", DashupService.getInstance().getTokenByUser(user).getToken());
             }
-            this.localStorage.writeObjectToSession(request, "user", databaseUser);
-            if (user.getSettings() != null) {
+            this.localStorage.writeObjectToSession(request, "user", user);
+            if (user.getLanguage() != null) {
                 this.localStorage.writeCookie(response, "org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE",
-                        user.getSettings().getLanguage().toLanguageTag());
+                        user.getLanguage());
             }
             return "redirect:/";
         } else {

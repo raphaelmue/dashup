@@ -4,12 +4,10 @@ import de.dashup.model.db.Database;
 import de.dashup.shared.*;
 import de.dashup.shared.DatabaseModels.*;
 import de.dashup.shared.Enums.Size;
-import de.dashup.shared.Enums.Theme;
 import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
+import de.dashup.util.string.URL;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
@@ -17,7 +15,6 @@ import java.util.*;
 public class DashupService {
 
     private Database database;
-    private Map<Integer, User> users;
     private final RandomString randomString;
 
     private static DashupService INSTANCE;
@@ -30,7 +27,6 @@ public class DashupService {
     }
 
     private DashupService() {
-        this.users = new HashMap<>();
         this.randomString = new RandomString();
         try {
             this.database = Database.getInstance();
@@ -39,7 +35,63 @@ public class DashupService {
         }
     }
 
-    private Layout loadUserLayout(Integer userID) throws SQLException {
+    public DatabaseUser getUserById(Integer id) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", id.intValue());
+        List<DatabaseObject> result = this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters);
+        if (result.size() == 1) {
+            DatabaseUser user = (DatabaseUser) result.get(0);
+            return user;
+        }
+        return null;
+    }
+
+    public DatabaseUser getUserByToken(String token) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("token", token);
+        List<DatabaseObject> result = this.database.getObject(Database.Table.TOKENS, DatabaseUser.class, whereParameters);
+        whereParameters.clear();
+        if (result.size() >= 1) {
+            DatabaseToken databaseToken = (DatabaseToken) result.get(0);
+            whereParameters.put("id", databaseToken.getUserID());
+            result = this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters);
+            if (result.size() == 1) {
+                DatabaseUser user = (DatabaseUser) result.get(0);
+                return user;
+            }
+            return null;
+        }
+        return null;
+    }
+
+    public DatabaseToken getTokenByUser(DatabaseUser user){
+        return null;
+    }
+
+    public DatabaseUser checkCredentials(String email, String password, boolean rememberMe) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("email", email);
+        List<DatabaseObject> result = this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters);
+        if (result.size() == 1) {
+            DatabaseUser user = (DatabaseUser) result.get(0);
+            String hashedPassword = Hash.create(password, user.getSalt());
+            if (hashedPassword.equals(user.getPassword())) {
+                if (rememberMe) {
+                    String token = this.randomString.nextString(64);
+                    HashMap<String, Object> values = new HashMap<>();
+                    values.put("user_id", user.getID());
+                    values.put("token", token);
+                    values.put("expiry_date", LocalDate.now().plusMonths(1));
+                    this.database.insert(Database.Table.TOKENS, values);
+                }
+                return user;
+            }
+            return null;
+    }
+        return null;
+    }
+
+    public Layout loadUserLayout(DatabaseUser user) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         Map<Integer, Object> sectionsByID = new HashMap<>();
         Map<Integer, Object> sectionsByPredecessorID = new HashMap<>();
@@ -50,7 +102,7 @@ public class DashupService {
         DatabaseSection currentSection = null;
         DatabaseSectionWidgets currentSectionWidget = null;
 
-        whereParameters.put("user_id", userID);
+        whereParameters.put("user_id", user.getID());
         List<DatabaseObject> result = this.database.getObject(Database.Table.SECTIONS, DatabaseSection.class, whereParameters);
         int amountSections = result.size();
         whereParameters.clear();
@@ -105,87 +157,7 @@ public class DashupService {
             currentSection = (DatabaseSection) sectionsByPredecessorID.get(currentSection.getID());
             widgets.clear();
         }
-        return new Layout(sections);
-    }
-
-    private Settings loadUserSettings(Integer userID) throws SQLException {
-        Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("id", userID);
-        List<DatabaseObject> result = this.database.getObject(Database.Table.SETTINGS, DatabaseSetting.class, whereParameters);
-
-        DatabaseSetting setting = (DatabaseSetting) result.get(0);
-        Locale language = Locale.forLanguageTag(setting.getLanguage().isEmpty() ? "en" : setting.getLanguage());
-        Theme theme = Theme.getThemeByName(setting.getTheme());
-        return new Settings(language, theme, setting.getBackgroundImage());
-    }
-
-    private User loadUser(DatabaseUser databaseUser, boolean rememberMe) throws SQLException {
-        String token;
-        if (rememberMe) {
-            token = this.randomString.nextString(64);
-            HashMap<String, Object> values = new HashMap<>();
-            values.put("user_id", databaseUser.getID());
-            values.put("token", token);
-            values.put("expiry_date", LocalDate.now().plusMonths(1));
-            this.database.insert(Database.Table.TOKENS, values);
-        } else {
-            token = null;
-        }
-        User user = new User(databaseUser.getID(), token, this.loadUserSettings(databaseUser.getID()), this.loadUserLayout(databaseUser.getID()));
-        this.users.put(user.getID(), user);
-        return user;
-    }
-
-    private boolean isValidURL(String urlStr) {
-        try {
-            new URL(urlStr);
-            return true;
-        } catch (MalformedURLException e) {
-            return false;
-        }
-    }
-
-    public DatabaseUser checkCredentials(String email, String password, boolean rememberMe) throws SQLException {
-        Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("email", email);
-        List<DatabaseObject> result = this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters);
-        if (result.size() == 1) {
-            DatabaseUser user = (DatabaseUser) result.get(0);
-            String hashedPassword = Hash.create(password, user.getSalt());
-            if (hashedPassword.equals(user.getPassword())) {
-               this.loadUser(user, rememberMe);
-               return user;
-            }
-            return null;
-    }
-        return null;
-    }
-
-    public User getUserById(Integer id){
-        return users.get(id);
-    }
-
-    public DatabaseUser getDatabaseUserByToken(String token) throws SQLException {
-        Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("token", token);
-        List<DatabaseObject> result = this.database.getObject(Database.Table.TOKENS, DatabaseUser.class, whereParameters);
-        whereParameters.clear();
-        if (result.size() >= 1) {
-            DatabaseToken databaseToken = (DatabaseToken) result.get(0);
-            whereParameters.put("id", databaseToken.getUserID());
-            DatabaseUser databaseUser = (DatabaseUser) (this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters)).get(0);
-            return databaseUser;
-        }
-        return null;
-    }
-
-    public User getUserByToken(String token) throws SQLException {
-        for (Map.Entry<Integer, User> entry : users.entrySet()) {
-            if(entry.getValue().getToken().equals(token)){
-                return entry.getValue();
-            }
-        }
-        return null;
+        return new Layout(user, sections);
     }
 
     public void deleteToken(String token) throws SQLException {
@@ -210,19 +182,10 @@ public class DashupService {
             values.put("password", hashedPassword);
             values.put("salt", salt);
             this.database.insert(Database.Table.USERS, values);
-            values.clear();
 
-            int userID = this.database.getLatestId(Database.Table.USERS);
-            values.put("user_id", userID);
-            values.put("theme", Theme.BLACK_NIGHT.getName());
-            values.put("language", "en");
-            this.database.insert(Database.Table.SETTINGS, values);
-
-            whereParameters.put("user_id", userID);
-
+            whereParameters.put("user_id", this.database.getLatestId(Database.Table.USERS));
             return (DatabaseUser) (this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters)).get(0);
         }
-
         return null;
     }
 
@@ -244,7 +207,7 @@ public class DashupService {
         }
     }
 
-    public void updateNameAndSurname(User user, String newName, String newSurname) throws SQLException {
+    public void updateNameAndSurname(DatabaseUser user, String newName, String newSurname) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", user.getID());
 
@@ -255,8 +218,8 @@ public class DashupService {
         this.database.update(Database.Table.USERS, whereParameters, values);
     }
 
-    public void updateSettings(User user) throws SQLException {
-        if (!user.getSettings().getBackgroundImage().isEmpty() && !isValidURL(user.getSettings().getBackgroundImage())) {
+    public void updateSettings(DatabaseUser user, String backgroundImage, String theme, String language) throws SQLException {
+        if (!user.getBackgroundImage().isEmpty() && !URL.isValidURL(user.getBackgroundImage())) {
             throw new IllegalArgumentException("URL is not valid.");
         }
 
@@ -264,25 +227,14 @@ public class DashupService {
         whereParameters.put("user_id", user.getID());
 
         Map<String, Object> values = new HashMap<>();
-        values.put("user_id", user.getID());
-        values.put("background_image", user.getSettings().getBackgroundImage());
-        values.put("theme", user.getSettings().getTheme().getName());
-        values.put("language", user.getSettings().getLanguage().toLanguageTag());
+        values.put("background_image", backgroundImage);
+        values.put("theme", theme);
+        values.put("language", language);
 
-        this.database.update(Database.Table.SETTINGS, whereParameters, values);
+        this.database.update(Database.Table.USERS, whereParameters, values);
     }
 
-    public void updateLanguage(User user) throws SQLException {
-        Map<String, Object> whereParameter = new HashMap<>();
-        whereParameter.put("user_id", user.getID());
-
-        Map<String, Object> values = new HashMap<>();
-        values.put("language", user.getSettings().getLanguage().toLanguageTag());
-
-        this.database.update(Database.Table.SETTINGS, whereParameter, values);
-    }
-
-    public void updateSection(User user, String name, Integer sectionID, Integer predecessorID) throws SQLException {
+    public void updateSection(DatabaseUser user, String name, Integer sectionID, Integer predecessorID) throws SQLException {
         Map<String, Object> whereParameter = new HashMap<>();
         whereParameter.put("id", sectionID.intValue());
 
@@ -304,7 +256,7 @@ public class DashupService {
         database.delete(Database.Table.SECTION_WIDGETS, whereParameters);
     }
 
-    public void addSection(User user, String name, Integer predecessorID) throws SQLException {
+    public void addSection(DatabaseUser user, String name, Integer predecessorID) throws SQLException {
         if (name == null) {
             name = "New Section";
         }
