@@ -21,7 +21,9 @@ public class DashupBuilder {
                         .append("</h3><hr/><div>");
                 if (widgets.size() > 0) {
                     for (Widget widget: widgets) {
+                        content.append("<div style=\"border-radius: 16px; border: 1px solid #ccc;\">");
                         content.append(widget.getHtmlContent());
+                        content.append("</div>");
                     }
                 }
                 content.append("<div class=\"clear-float\"></div></div></div>");
