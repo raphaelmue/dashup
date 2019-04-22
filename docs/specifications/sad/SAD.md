@@ -1,13 +1,13 @@
 # Software Architecture Document
-============================================
-### Version 1.0
+================================
+### Version 2.0
 
 # Revision history
 
 | Date       | Version | Description                                          | Author           |
 |------------|---------|------------------------------------------------------|------------------|
 | 15/11/2018 | 1.0     | Initial Documentation                                | Raphael Müßeler  |
-| 08/04/2018 | 2.0     | Reworked diagrams and small adjustments              | Raphael Müßeler  |
+| 08/04/2019 | 2.0     | Reworked diagrams and small adjustments              | Raphael Müßeler  |
 
 # Table of Contents
 - [Introduction](#1-introduction)
@@ -60,35 +60,35 @@ well as the structure of classes.
 
 ### 1.4 References
 
-| Title                                                              | Date       | Publishing organization   |
-| -------------------------------------------------------------------|:----------:| ------------------------- |
+| Title                             | Date       | Publishing organization   |
+| --------------------------------- | ---------- | ------------------------- |
 
 ### 1.5 Overview
 
-This document contains the Architectural Representation, Goals and Constraints as well as the Logical, Deployment, 
-Implementation and Data Views.
+This document contains the architectural representation, goals and constraints as well as logical, deployment, 
+implementation and data views.
 
 ## 2. Architectural Representation
 
 Our project dashup uses the classic MVC structure as follows:
 
-<img src="./architectural_representation.png" alt="MVC diagram" />
+<img src="./img/architectural_representation.png" alt="MVC diagram" />
 
-## 3. Architectural Goals and Constraints
+## 3. Architectural Goals And Constraints
 
-As our main technology we decided to use Spring MVC, which is a framework that takes not only care of the back-end but 
-also of the front-end. Besides the Controller and Model language is Java, so that we do not have to care about 
+As our main technology we decided to use Spring MVC, which is a framework that takes not only care of the backend but 
+also of the frontend. Besides the controller and model language is Java, so that we do not have to care about 
 serialization. 
 
 The main architectural goal of this project is portability, distribution and reuse. Since we want our users to customize 
-their dashup as much as their want, everything has to be kept abstract and to be made for reuse. 
+their dashup in any way they want, everything has to be kept abstract and must be made for reuse. 
 
 But of course, the dashup project should be safe as we are storing user sensitive data that should not fall into wrong 
 hands.
 
-Architectural constraints for this project might be the interaction with panels, since we do not allow the user to 
+Architectural constraints for this project might be the interaction with widgets, since we do not allow the user to 
 upload executable code for security reasons. So the developer might be limited when it comes to the interaction of the 
-user with the developers panels. But we do accept this limitation, because of the security goal. 
+user with the developers widgets. But we do accept this limitation, because of the security goal. 
 
 ## 4. Use-Case View
 
@@ -102,7 +102,7 @@ This is our overall use-case diagram:
 
 We split our architecture according to the MVC architecture as follows:
 
-<img src="./dashup_class_diagram_mvc.png" alt="Logical View"/>
+<img src="./img/dashup_class_diagram_mvc.png" alt="Logical View"/>
 
 We are working with maven modules, because it allows us to modularize the project better. We defined our module 
 structure as follows:
@@ -117,7 +117,7 @@ structure as follows:
 
 For this maven module structure has the following dependency graph:
 
-<img src="./dashup_module_dependencies.png" alt="Maven Module Dependency Graph" /> 
+<img src="./img/dashup_module_dependencies.png" alt="Maven Module Dependency Graph" /> 
 
 ### 5.2 Architecturally Significant Design Packages
 
@@ -126,7 +126,7 @@ the Spring MVC framework is realized. However, the module `de.dashup.model` is o
 cannot directly access the database. This is all handled by the class `DashupService` which represents the interface 
 between Controllers and Models. 
 
-The module `de.dashup.shared` contains all classes that find use in the Controllers as well as in the Model. Same 
+The module `de.dashup.shared` contains all classes that find use in the controllers as well as in the model. Same 
 applies for the module `de.dashup.util`, except that it contains only utility classes, where as `de.dashup.shared` 
 compromises the whole modeling.
 
@@ -138,7 +138,7 @@ n/a
 
 This is our deployment view:
 
-<img src="./deployment_view.png" alt="Deployment View" />
+<img src="./img/deployment_view.png" alt="Deployment View" />
 
 We only have one instance of an application server due to lack of capacity. The database is running as well on the 
 server due to the same reason.
@@ -151,11 +151,12 @@ n/a
 
 Our data view is modelled as followed:
 
-<img src="./data_view.png" alt="Data View" />
+<img src="./img/data_view.png" alt="Data View" />
 
-Note that the current database scheme looks a bit different regarding the name of the tables and fields. Here are the current tables, that we use in order to generate the main dashboard:
+Note that the current database scheme looks a bit different regarding the name of the tables and fields. Here are the 
+current tables, that we use in order to generate the main dashboard:
 
-<img src="../../architectures/database_architecture/database_scheme.png" alt="Database Scheme" />
+<img src="./img/database_scheme.png" alt="Database Scheme" />
 
 ## 10. Size and Performance
 
@@ -164,4 +165,5 @@ n/a
 ## 11. Quality/Metrics
 
 To ensure a high quality we are using Jenkins as an continuous integration tools. It automatically builds, tests and 
-deploys the application, if the respective previous step has not failed. This happens periodically and when changes are pushed to a branch. 
+deploys the application, if the respective previous step has not failed. This happens periodically and when changes are 
+pushed to a branch. 
