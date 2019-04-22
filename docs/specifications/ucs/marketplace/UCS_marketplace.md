@@ -1,6 +1,6 @@
 dashup - Use Case Specification: Marketplace
 ============================================
-### Version 2.0
+### Version 2.1
 
 # Revision History
 
@@ -8,6 +8,7 @@ dashup - Use Case Specification: Marketplace
 |------------|---------|------------------------------------------------------------------------|------------------|
 | 28/10/2018 | 1.0     | Initial UCS with description, activity diagram and screen flow diagram | Felix Hausberger |
 | 26/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
+| 22/04/2019 | 2.1     | Added function points estimation                                       | Felix Hausberger |
 
 # Table Of Contents
 
@@ -23,6 +24,7 @@ dashup - Use Case Specification: Marketplace
 - [Postconditions](#5-postconditions)
     - [Save Changed Data](#51-save-changed-data)
 - [Extension Points](#6-extension-points)
+- [Function Points](#7-function-points)
    
 # 1. Marketplace - Brief Description
 The use case _marketplace_ offers all available widgets to you. You can simply search, rate and comment on widgets. To 
@@ -100,3 +102,16 @@ persistent change.
 # 6. Extension Points
 If enough time is left after having implemented all use cases, a feature to contact publishers or users of a widget 
 could be implemented. Furthermore showing statistics of own published widgets could be another extension point.
+
+# 7. Function Points
+
+<img src="./function_points/marketplace.png" alt="function points estimation" />
+<br />
+
+| Measurement Parameter         | DET | RET | FTR |
+|-------------------------------|-----|-----|-----|
+| Number of user input          | 12  | 5   | 1   |
+| Number of user outputs        | 16  | 5   | 1   |
+| Number of user inquiries      | 18  | 5   | 1   |
+| Number of files               | 18  | 5   | 1   |
+| Number of external interfaces | 0   | 0   | 0   |

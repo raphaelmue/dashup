@@ -1,12 +1,13 @@
 dashup - Use Case Specification: Workbench
 ============================================
-### Version 1.0
+### Version 1.1
 
 # Revision History
 
 | Date       | Version | Description                                                            | Author           |
 |------------|---------|------------------------------------------------------------------------|------------------|
 | 30/03/2018 | 1.0     | Initial ucs with description, activity diagram and screen flow diagram | Felix Hausberger |
+| 22/04/2019 | 1.1     | Added function points estimation                                       | Felix Hausberger |
 
 # Table Of Contents
 
@@ -18,6 +19,7 @@ dashup - Use Case Specification: Workbench
 - [Preconditions](#4-preconditions)
 - [Postconditions](#5-postconditions) 
 - [Extension Points](#6-extension-points)
+- [Function Points](#7-function-points)
 
 # 1. Workbench - Brief Description
 In the use case _workbench_ each user can create custom widgets, the extent of usage and functionality is up to the user 
@@ -89,3 +91,16 @@ a widget or to add it to the central dashboard.
 # 6. Extension Points
 If enough time is left after having implemented all use cases, implementing a syntax and sematics check for the editor 
 panel could be considered.
+
+# 7. Function Points
+
+<img src="./function_points/workbench.png" alt="function points estimation" />
+<br />
+
+| Measurement Parameter         | DET | RET | FTR |
+|-------------------------------|-----|-----|-----|
+| Number of user input          | 10  | 3   | 1   |
+| Number of user outputs        | 3   | 1   | 0   |
+| Number of user inquiries      | 12  | 3   | 1   |
+| Number of files               | 12  | 3   | 1   |
+| Number of external interfaces | 0   | 0   | 0   |
