@@ -104,7 +104,7 @@ exceed five for ease of use purposes.
 | Measurement Parameter         | DET | RET | FTR |
 |-------------------------------|-----|-----|-----|
 | Number of user input          | 3   | 1   | 1   |
-| Number of user outputs        | 3   | 1   | 0   |
+| Number of user outputs        | 3   | 1   | 1   |
 | Number of user inquiries      | 3   | 1   | 1   |
 | Number of files               | 5   | 1   | 1   |
 | Number of external interfaces | 5   | 1   | 0   |

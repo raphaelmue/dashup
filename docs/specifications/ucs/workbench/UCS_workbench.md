@@ -100,7 +100,7 @@ panel could be considered.
 | Measurement Parameter         | DET | RET | FTR |
 |-------------------------------|-----|-----|-----|
 | Number of user input          | 10  | 3   | 1   |
-| Number of user outputs        | 3   | 1   | 0   |
+| Number of user outputs        | 3   | 1   | 1   |
 | Number of user inquiries      | 12  | 3   | 1   |
 | Number of files               | 12  | 3   | 1   |
 | Number of external interfaces | 0   | 0   | 0   |
