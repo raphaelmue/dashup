@@ -19,7 +19,6 @@
 - [Architectural Representation](#2-architectural-representation)
 - [Architectural Goals and Constraints](#3-architectural-goals-and-constraints)
 - [Use-Case View](#4-use-case-view)
-    - [Use-Case Realizations](#41-use-case-realizations)
 - [Logical View](#5-logical-view)
     - [Overview](#51-overview)
     - [Architecturally Significant Design Packages](#52-architecturally-significant-design-packages)
@@ -30,7 +29,7 @@
     - [Layers](#82-layers)
 - [Data View](#9-data-view)
 - [Size and Performance](#10-size-and-performance)
-- [Quality](#11-quality)
+- [Quality/Metrics](#11-qualitymetrics)
 
 ## 1. Introduction
 
