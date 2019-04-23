@@ -97,16 +97,3 @@ Feature: Change Profile
     When User clicks others section
     And User changes language to "Deutsch"
     Then Language changes to "Deutsch"
-
-#  Scenario Outline: Undo changes
-#    Given User is located on settings menu
-#    When User clicks on edit icon for "<section>" information
-#    And User changed key "<settings>" from "<latestValue>" to "<newValue>"
-#    When User clicks on abandon icon
-#    Then Key "<settings>" will be restored to "<latestValue>"
-#
-#    Examples:
-#    | section | settings | latestValue | newValue      |
-#    | personal| company  | Google LLC  | Facebook Inc. |
-#    | account | username | John Doe    | Mr. T         |
-#    | other   | language | German      | English       |
