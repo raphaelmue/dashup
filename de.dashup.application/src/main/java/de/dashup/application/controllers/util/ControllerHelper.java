@@ -3,8 +3,8 @@ package de.dashup.application.controllers.util;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.application.local.format.I18N;
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.DatabaseModels.DatabaseUser;
-import de.dashup.shared.Enums.Theme;
+import de.dashup.shared.models.DatabaseUser;
+import de.dashup.shared.enums.Theme;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;

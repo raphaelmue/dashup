@@ -1,4 +1,4 @@
-package de.dashup.shared.Enums;
+package de.dashup.shared.enums;
 
 public enum Theme {
 

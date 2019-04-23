@@ -2,8 +2,8 @@ package de.dashup.model.service;
 
 import de.dashup.model.db.Database;
 import de.dashup.shared.*;
-import de.dashup.shared.DatabaseModels.*;
-import de.dashup.shared.Enums.Size;
+import de.dashup.shared.models.*;
+import de.dashup.shared.enums.Size;
 import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
 import de.dashup.util.string.URL;
@@ -148,6 +148,7 @@ public class DashupService {
                     case SMALL: htmlContent = databaseWidget.getHtmlSmall(); break;
                     case MEDIUM: htmlContent = databaseWidget.getHtmlMedium(); break;
                     case LARGE: htmlContent = databaseWidget.getHtmlLarge(); break;
+                    default: htmlContent = databaseWidget.getHtmlLarge(); break;
                 }
                 Widget predecessor = (Widget) widgetsByID.get(currentSectionWidget.getPredecessorID());
                 Widget widget = new Widget(databaseWidget.getID(), size, htmlContent, predecessor);

@@ -1,6 +1,6 @@
 package de.dashup.shared;
 
-import de.dashup.shared.Enums.Size;
+import de.dashup.shared.enums.Size;
 
 public class Widget{
 

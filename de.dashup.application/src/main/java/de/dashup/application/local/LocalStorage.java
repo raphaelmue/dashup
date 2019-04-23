@@ -1,7 +1,7 @@
 package de.dashup.application.local;
 
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.DatabaseModels.DatabaseUser;
+import de.dashup.shared.models.DatabaseUser;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

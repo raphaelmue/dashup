@@ -1,6 +1,6 @@
 package de.dashup.shared;
 
-import de.dashup.shared.DatabaseModels.DatabaseUser;
+import de.dashup.shared.models.DatabaseUser;
 
 import java.util.List;
 

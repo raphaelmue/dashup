@@ -4,7 +4,7 @@ import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.model.builder.DashupBuilder;
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.DatabaseModels.DatabaseUser;
+import de.dashup.shared.models.DatabaseUser;
 import de.dashup.shared.Layout;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;

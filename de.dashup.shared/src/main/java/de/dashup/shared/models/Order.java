@@ -1,4 +1,4 @@
-package de.dashup.shared.DatabaseModels;
+package de.dashup.shared.models;
 
 public interface Order {
 

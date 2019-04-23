@@ -1,7 +1,7 @@
 package de.dashup.model.db;
 
 import com.google.gson.*;
-import de.dashup.shared.DatabaseModels.DatabaseObject;
+import de.dashup.shared.models.DatabaseObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -178,7 +178,7 @@ public class Database {
                         DateFormat format = new SimpleDateFormat("DD-MM-YYYY");
                         try{
                             String dateString = json.getAsString();
-                            return dateString.equals("null") ? new Date() : format.parse(dateString);
+                            return "null".equals(dateString) ? new Date() : format.parse(dateString);
                         } catch(ParseException ex) {
                             throw new JsonParseException("Date is not in the right format");
                         }
@@ -187,7 +187,7 @@ public class Database {
                         (JsonDeserializer)(JsonElement json, Type typeOfT, JsonDeserializationContext context) -> {
                             try{
                                 String idString = json.getAsString();
-                                return idString.equals("null") ? null : new Integer(idString);
+                                return "null".equals(idString) ? null : new Integer(idString);
                             } catch(NumberFormatException ex) {
                                 throw new JsonParseException("ID is not in the right format");
                             }

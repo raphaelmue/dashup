@@ -2,9 +2,9 @@ package de.dashup.test;
 
 import de.dashup.model.db.Database;
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.DatabaseModels.DatabaseObject;
-import de.dashup.shared.DatabaseModels.DatabaseUser;
-import de.dashup.shared.Enums.Theme;
+import de.dashup.shared.models.DatabaseObject;
+import de.dashup.shared.models.DatabaseUser;
+import de.dashup.shared.enums.Theme;
 import de.dashup.util.string.Hash;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 @SuppressWarnings("WeakerAccess")
 public class ServiceSettingsTest {

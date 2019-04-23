@@ -1,7 +1,7 @@
 package de.dashup.model.builder;
 
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.DatabaseModels.DatabaseUser;
+import de.dashup.shared.models.DatabaseUser;
 import de.dashup.shared.Section;
 import de.dashup.shared.Widget;
 

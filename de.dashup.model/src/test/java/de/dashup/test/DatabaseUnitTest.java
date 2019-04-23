@@ -1,8 +1,8 @@
 package de.dashup.test;
 
 import de.dashup.model.db.Database;
-import de.dashup.shared.DatabaseModels.DatabaseObject;
-import de.dashup.shared.DatabaseModels.DatabaseUser;
+import de.dashup.shared.models.DatabaseObject;
+import de.dashup.shared.models.DatabaseUser;
 import de.dashup.util.string.Hash;
 import org.json.JSONArray;
 import org.junit.jupiter.api.Assertions;
