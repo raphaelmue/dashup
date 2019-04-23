@@ -3,12 +3,13 @@ package de.dashup.shared;
 import com.google.gson.annotations.SerializedName;
 
 public class DatabasePanel implements DatabaseObject {
+    private int id;
+    private String name;
+    private String description;
     @SerializedName("number_of_downloads")
     private int numberOfDownloads;
     @SerializedName("average_rating")
     private int averageRating;
-    private int id;
-    private String name, description;
 
     DatabasePanel() {
     }
@@ -27,11 +28,11 @@ public class DatabasePanel implements DatabaseObject {
         return id;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 

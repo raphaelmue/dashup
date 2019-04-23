@@ -25,6 +25,7 @@ public class WorkbenchController {
         return ControllerHelper.defaultMapping(token, request, model, "workbench", user -> {
             DashupService.getInstance().getUsersDrafts(user);
             model.addAttribute("drafts", user.getDrafts());
+            model.addAttribute("publishedWidgets", DashupService.getInstance().getUsersWidgets(user));
         });
     }
 
@@ -35,18 +36,19 @@ public class WorkbenchController {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             Draft draft = DashupService.getInstance().createDraft(user, draftName);
-            return "redirect:/workbench/" + draft.getId() + "/";
+            return "redirect:/workbench/draft/" + draft.getId();
         }
         return "redirect:/login";
     }
 
-    @RequestMapping("/{draftId}")
+    @RequestMapping("/draft/{draftId}")
     public String workbenchDraft(@CookieValue(name = "token", required = false) String token,
                                  HttpServletRequest request, Model model,
                                  @PathVariable(value = "draftId") int draftId) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "workbench", user -> {
             DashupService.getInstance().getUsersDrafts(user);
             model.addAttribute("drafts", user.getDrafts());
+            model.addAttribute("publishedWidgets", DashupService.getInstance().getUsersWidgets(user));
 
             for (Draft draft : user.getDrafts()) {
                 if (draft.getId() == draftId) {
@@ -57,7 +59,7 @@ public class WorkbenchController {
         });
     }
 
-    @RequestMapping(value = "/{draftId}/deleteDraft")
+    @RequestMapping(value = "/draft/{draftId}/deleteDraft")
     public String handleDeleteDraft(@CookieValue(name = "token", required = false) String token,
                                     HttpServletRequest request,
                                     @PathVariable(value = "draftId") int draftId) throws SQLException {
@@ -69,7 +71,7 @@ public class WorkbenchController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/{draftId}/changeInformation", method = RequestMethod.POST)
+    @RequestMapping(value = "/draft/{draftId}/changeInformation", method = RequestMethod.POST)
     public String handleChangeDraftInformation(@CookieValue(name = "token", required = false) String token,
                                                HttpServletRequest request,
                                                @PathVariable(value = "draftId") int draftId,
@@ -84,12 +86,12 @@ public class WorkbenchController {
             draft.setShortDescription(shortDescription);
             draft.setDescription(description);
             DashupService.getInstance().updateDraftInformation(draft);
-            return "redirect:/workbench/" + draftId + "/#changedInformation";
+            return "redirect:/workbench/draft/" + draftId + "#changedInformation";
         }
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/{draftId}/changeCode", method = RequestMethod.POST)
+    @RequestMapping(value = "/draft/{draftId}/changeCode", method = RequestMethod.POST)
     public String handleChangeDraftCode(@CookieValue(name = "token", required = false) String token,
                                         HttpServletRequest request,
                                         @PathVariable(value = "draftId") int draftId,
@@ -110,7 +112,7 @@ public class WorkbenchController {
                 draft.setCodeLarge(URLDecoder.decode(codeLarge, StandardCharsets.UTF_8.name()));
             }
             DashupService.getInstance().updateDraftInformation(draft);
-            return "redirect:/workbench/" + draftId + "/#changedCode";
+            return "redirect:/workbench/draft/" + draftId + "#changedCode";
         }
         return "redirect:/login";
     }

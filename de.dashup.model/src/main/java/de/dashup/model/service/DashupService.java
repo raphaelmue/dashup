@@ -412,4 +412,17 @@ public class DashupService {
 
         this.database.delete(Database.Table.USERS_DRAFTS, whereParameters);
     }
+
+    // --- WIDGETS --- \\
+
+    public List<Panel> getUsersWidgets(User user) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("user_id", user.getId());
+
+        List<Panel> widgets = new ArrayList<>();
+        for (DatabaseObject databaseObject : this.database.getObject(Database.Table.PANELS, DatabasePanel.class, whereParameters)) {
+            widgets.add((Panel) new Panel().fromDatabaseObject(databaseObject));
+        }
+        return widgets;
+    }
 }

@@ -17,7 +17,7 @@
                         <fmt:message key="i18n.workbench" />
                     </a>
                     <c:if test="${fn:escapeXml(currentDraft.id) > 0}">
-                        <a class="breadcrumb" href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/${fn:escapeXml(currentDraft.id)}">
+                        <a class="breadcrumb" href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/draft/${fn:escapeXml(currentDraft.id)}">
                             ${fn:escapeXml(currentDraft.name)}
                         </a>
                     </c:if>
@@ -26,13 +26,28 @@
         </nav>
         <aside>
             <h4><fmt:message key="i18n.workbench" /></h4>
-            <ul>
-                <c:forEach items="${drafts}" var="draft">
-                    <li>
-                        <a href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/${fn:escapeXml(draft.id)}/" class="waves-effect <c:if test="${draft.id == currentDraft.id}">active</c:if>">${fn:escapeXml(draft.name)}</a>
-                    </li>
-                </c:forEach>
-            </ul>
+            <hr />
+            <div class="row">
+                <h6 class="sub-title"><fmt:message key="i18n.drafts" /></h6>
+                <ul>
+                    <c:forEach items="${drafts}" var="draft">
+                        <li>
+                            <a href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/draft/${fn:escapeXml(draft.id)}" class="waves-effect <c:if test="${draft.id == currentDraft.id}">active</c:if>">${fn:escapeXml(draft.name)}</a>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+            <hr />
+            <div class="row">
+                <h6 class="sub-title"><fmt:message key="i18n.publishedWidgets" /></h6>
+                <ul>
+                    <c:forEach items="${publishedWidgets}" var="widget">
+                        <li>
+                            <a href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/published/${fn:escapeXml(widget.id)}" class="waves-effect">${fn:escapeXml(widget.name)}</a>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
             <a id="btn-open-create-draft-dialog" href="#" class="btn-floating btn-large waves-effect waves-light"><i class="fas fa-plus"></i></a>
         </aside>
         <main>
@@ -268,11 +283,11 @@
             });
             
             $("#btn-submit-delete-draft").on("click", function () {
-                PostRequest.getInstance().make("/workbench/${fn:escapeXml(currentDraft.id)}/deleteDraft", {});
+                PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(currentDraft.id)}/deleteDraft", {});
             });
 
             $("#btn-save-draft-information").on("click", function() {
-                PostRequest.getInstance().make("/workbench/${fn:escapeXml(currentDraft.id)}/changeInformation", {
+                PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(currentDraft.id)}/changeInformation", {
                     draftName: $("#text-field-draft-name").val(),
                     shortDescription: $("#textarea-short-description").val(),
                     description: $("#textarea-description").val()
@@ -283,7 +298,7 @@
                 let parameters = {},
                     size = $("#size-dropdown").val();
                 parameters["code_" + size] = encodeURIComponent($("#textarea-code-" + size).val())
-                PostRequest.getInstance().make("/workbench/${fn:escapeXml(currentDraft.id)}/changeCode", parameters);
+                PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(currentDraft.id)}/changeCode", parameters);
             });
         });
 
