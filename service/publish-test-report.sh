@@ -7,7 +7,7 @@ chmod +x codacy-coverage-reporter
 echo "Downloaded coverage reporter successfully!"
 
 for i in MODULES; do
-    if [[ -f "${MODULES[$i]}" ]]; then
+    if [[ -f "de.dashup.${MODULES[$i]}/target/site/jacoco/jacoco.xml" ]]; then
         echo "Report file for module ${MODULES[$i]} was found! Publishing report ..."
         ./codacy-coverage-reporter report -l Java -r de.dashup.${MODULES[$i]}/target/site/jacoco/jacoco.xml
         echo "Published report file \"de.dashup.${MODULES[$i]}/target/site/jacoco/jacoco.xml\" successfully!"
