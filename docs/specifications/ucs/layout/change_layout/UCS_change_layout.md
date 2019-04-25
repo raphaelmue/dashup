@@ -1,6 +1,6 @@
 dashup - Use Case Specification: Layout - Change Layout
 ============================================
-### Version 2.1
+### Version 2.2
 
 # Revision History
 
@@ -9,6 +9,7 @@ dashup - Use Case Specification: Layout - Change Layout
 | 28/10/2018 | 1.0     | Initial ucs with description, activity diagram and screen flow diagram | Joshua Schulz    |
 | 09/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
 | 26/03/2019 | 2.1     | Removed font customization and picture upload                          | Felix Hausberger |
+| 22/04/2019 | 2.2     | Added function points estimation                                       | Felix Hausberger |
 
 # Table Of Contents
 
@@ -23,6 +24,7 @@ dashup - Use Case Specification: Layout - Change Layout
     - [Save Changed data](#51-save-changed-data)
     - [Discard Changed Data](#52-discard-changed-data)
 - [Extension Points](#6-extension-points)
+- [Function Points](#7-function-points)
  
 # 1. Change Layout - Brief Description
 In the use case _change layout_ the user can change the layout dashup by choosing a theme and background image for the 
@@ -79,3 +81,16 @@ layout settings could be implemented.
 Furthermore an adaption of fonts by using predefined font types could be considered as well as an image upload instead 
 of providing an URL. Previewing the image in the layout settings menu in order not to navigate back to the central 
 dashboard would also be a nice extension.
+
+# 7. Function Points
+
+<img src="./function_points/change_layout.png" alt="function points estimation" />
+<br />
+
+| Measurement Parameter         | DET | RET | FTR |
+|-------------------------------|-----|-----|-----|
+| Number of user input          | 2   | 1   | 1   |
+| Number of user outputs        | 0   | 0   | 0   |
+| Number of user inquiries      | 2   | 1   | 1   |
+| Number of files               | 2   | 1   | 1   |
+| Number of external interfaces | 0   | 0   | 0   |

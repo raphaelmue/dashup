@@ -22,7 +22,7 @@ public class DatabaseUnitTest {
 
     @BeforeAll
     public static void createDatabaseConnection() throws SQLException {
-        database = UnitTestUtil.getDBInstance(false, Database.DatabaseName.TEST);
+        database = UnitTestUtil.getDBInstance();
     }
 
     @BeforeEach

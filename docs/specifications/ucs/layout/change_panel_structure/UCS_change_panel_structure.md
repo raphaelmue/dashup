@@ -1,6 +1,6 @@
 dashup - Use Case Specification: Layout - Change Panel Structure
 ============================================
-### Version 1.0
+### Version 2.1
 
 # Revision History
 
@@ -8,6 +8,7 @@ dashup - Use Case Specification: Layout - Change Panel Structure
 |------------|---------|------------------------------------------------------------------------|------------------|
 | 23/10/2018 | 1.0     | Initial ucs with description, activity diagram and screen flow diagram | Joshua Schulz    |
 | 17/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
+| 22/04/2019 | 2.1     | Added function points estimation                                       | Felix Hausberger |
 
 # Table Of Contents
 
@@ -22,6 +23,7 @@ dashup - Use Case Specification: Layout - Change Panel Structure
     - [Save Changed Data](#51-save-changed-data)
     - [Discard Changed Data](#52-discard-changed-data)
 - [Extension Points](#6-extension-points)
+- [Function Points](#7-function-points)
 
 # 1. Change Panel Structure - Brief Description
 In the use case _change panel structure_ the platform should enable the user to create, modify and delete sections and 
@@ -78,3 +80,16 @@ If the user leaves dashup before saving the changes, the old settings will be re
 # 6. Extension Points
 If enough time is left after having implemented all use cases, maybe renaming single panels could be considered to be 
 implemented as well.
+
+# 7. Function Points
+
+<img src="./function_points/change_panel_structure.png" alt="function points estimation" />
+<br />
+
+| Measurement Parameter         | DET | RET | FTR |
+|-------------------------------|-----|-----|-----|
+| Number of user input          | 9   | 3   | 1   |
+| Number of user outputs        | 0   | 0   | 0   |
+| Number of user inquiries      | 9   | 3   | 1   |
+| Number of files               | 11  | 3   | 1   |
+| Number of external interfaces | 0   | 0   | 0   |

@@ -1,6 +1,6 @@
 dashup - Use Case Specification: Change Profile
 ============================================
-### Version 2.1
+### Version 2.2
 
 # Revision History
 
@@ -9,6 +9,7 @@ dashup - Use Case Specification: Change Profile
 | 30/11/2018 | 1.0     | Added ucs and mockups                                                  | Joshua Schulz    |
 | 17/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
 | 17/03/2019 | 2.1     | Adapted process of setting a new password                              | Felix Hausberger |
+| 22/04/2019 | 2.2     | Added function points estimation                                       | Felix Hausberger |
 
 # Table Of Contents
 
@@ -23,6 +24,7 @@ dashup - Use Case Specification: Change Profile
     - [Save Changed Data](#51-save-changed-data)
     - [Discard Changed Data](#52-discard-changed-data)
 - [Extension Points](#6-extension-points)
+- [Function Points](#7-function-points)
 
 # 1. Change Profile - Brief Description
 In the use case _edit profile_ users can adapt personal information like name, birthday, company or a short biography 
@@ -39,9 +41,9 @@ settings are changeable.
 ### 2.1.2 Mock-Up
 <img src="./mockups/account_information.png" alt="account information" />
 <br />
-<img src="./mockups/account_information.png" alt="account information" />
-<br />
 <img src="./mockups/change_password.png" alt="change password" />
+<br />
+<img src="./mockups/personal_information.png" alt="personal information" />
 <br />
 <img src="./mockups/other.png" alt="other" />
 <br />
@@ -74,3 +76,16 @@ If the user leaves dashup before saving the changes, the old settings will be re
 # 6. Extension Points
 If enough time is left after having implemented all use cases, maybe a possibility to add references to social media 
 accounts could be added.
+
+# 7. Function Points
+
+<img src="./function_points/change_profile.png" alt="function points estimation" />
+<br />
+
+| Measurement Parameter         | DET | RET | FTR |
+|-------------------------------|-----|-----|-----|
+| Number of user input          | 10  | 1   | 1   |
+| Number of user outputs        | 0   | 0   | 0   |
+| Number of user inquiries      | 10  | 1   | 1   |
+| Number of files               | 10  | 1   | 1   |
+| Number of external interfaces | 0   | 0   | 0   |

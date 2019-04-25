@@ -23,7 +23,7 @@
 
         <a href="${pageContext.request.contextPath}/layoutMode/" class="btn-floating btn-large waves-effect waves-light"><i class="fas fa-edit"></i></a>
 
-        <script>
+        <script type="text/javascript">
             $( document ).ready(function () {
                 $("#nav-item-dashboard").parent().addClass("active");
             });

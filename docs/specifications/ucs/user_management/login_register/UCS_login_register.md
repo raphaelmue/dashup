@@ -1,6 +1,6 @@
 dashup - Use Case Specification: Login / Register
 ============================================
-### Version 2.1
+### Version 2.2
 
 # Revision History
 
@@ -9,6 +9,7 @@ dashup - Use Case Specification: Login / Register
 | 29/11/2018 | 1.0     | Initial ucs with description, activity diagram and screen flow diagram | Raphael Müßeler  |
 | 17/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
 | 26/03/2019 | 2.1     | Removed authentication e-mail                                          | Felix Hausberger |
+| 22/04/2019 | 2.2     | Added function points estimation                                       | Felix Hausberger |
 
 # Table Of Contents
 
@@ -23,6 +24,7 @@ dashup - Use Case Specification: Login / Register
     - [Save Changed Data](#51-save-changed-data) 
     - [Navigated To Central Dashboard](#52-navigated-to-central-dashboard)
 - [Extension Points](#6-extension-points)
+- [Function Points](#7-function-points)
 
 # 1. Login / Register - Brief Description
 In the use case _login / register_ each user is referenced by a unique e-mail address. During registration users have to 
@@ -82,3 +84,16 @@ be considered.
 
 Furthermore, an additional authetication method by sending a registration e-mail containing a registration link is 
 possible.
+
+# 7. Function Points
+
+<img src="./function_points/login_register.png" alt="function points estimation" />
+<br />
+
+| Measurement Parameter         | DET | RET | FTR |
+|-------------------------------|-----|-----|-----|
+| Number of user input          | 4   | 1   | 1   |
+| Number of user outputs        | 0   | 0   | 0   |
+| Number of user inquiries      | 4   | 1   | 1   |
+| Number of files               | 4   | 1   | 1   |
+| Number of external interfaces | 0   | 0   | 0   |

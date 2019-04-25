@@ -56,7 +56,7 @@
         </div>
     </body>
 
-    <script>
+    <script type="text/javascript">
         let toastOptions = {};
         switch (getAnchor()) {
             case "invalidCredentials":
