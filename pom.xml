@@ -8,6 +8,23 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
+    <modules>
+        <module>de.dashup.application</module>
+        <module>de.dashup.model</module>
+        <module>de.dashup.shared</module>
+        <module>de.dashup.util</module>
+    </modules>
+
+    <properties>
+        <java.version>11</java.version>
+
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+
+        <jacoco.reportPath>${project.basedir}/../build/jacoco/jacoco.exec</jacoco.reportPath>
+
+    </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -28,23 +45,13 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <append>true</append>
+                    <destFile>${jacoco.reportPath}</destFile>
+                </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <modules>
-        <module>de.dashup.application</module>
-        <module>de.dashup.model</module>
-        <module>de.dashup.shared</module>
-        <module>de.dashup.util</module>
-    </modules>
-
-    <properties>
-        <java.version>11</java.version>
-
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -76,34 +83,4 @@
             <version>20180813</version>
         </dependency>
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>codacy-coverage-report</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.gavinmogan</groupId>
-                        <artifactId>codacy-maven-plugin</artifactId>
-                        <version>1.0.3</version>
-                        <configuration>
-                            <apiToken>nC0ZOEc5FO4ZbfclS0fn</apiToken>
-                            <projectToken>f592e1c013d3405d9bbc773a4ffc8c95</projectToken>
-                            <coverageReportFile>${project.build.directory}/site/jacoco/jacoco.xml</coverageReportFile>
-                            <failOnMissingReportFile>false</failOnMissingReportFile>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>post-test</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>coverage</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
