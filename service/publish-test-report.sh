@@ -1,13 +1,20 @@
 #!/bin/bash
 
-REPORT_FILE="build/jacoco/jacoco.exec"
+MODULES=( "application" "model" "shared" "util" )
 
-if [[ -f "$REPORT_FILE" ]]; then
-    echo "Report file was found! Publishing report ..."
-    curl -Ls -o codacy-coverage-reporter "$(curl -Ls https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | jq -r '.assets | map({name, browser_download_url} | select(.name | contains("codacy-coverage-reporter-linux"))) | .[0].browser_download_url')"
-    chmod +x codacy-coverage-reporter
-    ./codacy-coverage-reporter report -l Java -r ${REPORT_FILE}
-    echo "Published report file successfully!"
-else
-    echo "No report file was found!"
-fi
+curl -Ls -o codacy-coverage-reporter "$(curl -Ls https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | jq -r '.assets | map({name, browser_download_url} | select(.name | contains("codacy-coverage-reporter-linux"))) | .[0].browser_download_url')"
+chmod +x codacy-coverage-reporter
+echo "Downloaded coverage reporter successfully!"
+
+for i in MODULES; do
+    if [[ -f "${MODULES[$i]}" ]]; then
+        echo "Report file for module ${MODULES[$i]} was found! Publishing report ..."
+        ./codacy-coverage-reporter report -l Java -r de.dashup.${MODULES[$i]}/target/site/jacoco/jacoco.xml
+        echo "Published report file \"de.dashup.${MODULES[$i]}/target/site/jacoco/jacoco.xml\" successfully!"
+    else
+        echo "No report file for module ${MODULES[$i]} was found!"
+    fi
+done
+
+./codacy-coverage-reporter final
+echo "Finished publishing reports"
