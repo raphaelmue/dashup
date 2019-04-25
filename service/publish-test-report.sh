@@ -11,7 +11,7 @@ for module in "${MODULES[@]}"
 do
     if [[ -f "de.dashup.${module}/target/site/jacoco/jacoco.xml" ]]; then
         echo "Report file for module ${module} was found! Publishing report ..."
-        ./codacy-coverage-reporter report -l Java -r de.dashup.${module}/target/site/jacoco/jacoco.xml
+        ./codacy-coverage-reporter report -l Java -r de.dashup.${module}/target/site/jacoco/jacoco.xml --partial
         echo "Published report file \"de.dashup.${module}/target/site/jacoco/jacoco.xml\" successfully!"
     else
         echo "No report file for module ${module} was found!"
