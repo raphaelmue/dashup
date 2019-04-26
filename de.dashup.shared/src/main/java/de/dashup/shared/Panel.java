@@ -60,6 +60,9 @@ public class Panel extends DatabasePanel {
             this.setId(databaseObject.getId());
             this.setName(((DatabasePanel) databaseObject).getName());
             this.setDescription(((DatabasePanel) databaseObject).getDescription());
+            this.setAverageRating(((DatabasePanel) databaseObject).getAverageRating());
+            this.setNumberOfRatings(((DatabasePanel) databaseObject).getNumberOfRatings());
+            this.setShortDescription(((DatabasePanel) databaseObject).getShortDescription());
         }
         return this;
     }

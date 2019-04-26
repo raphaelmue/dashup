@@ -8,7 +8,7 @@ public class DatabasePanel implements DatabaseObject {
     @SerializedName("short_description")
     private String shortDescription;
     @SerializedName("avg_of_ratings")
-    private double averageRating;
+    private int averageRating;
     @SerializedName("number_of_ratings")
     private int numberOfRatings;
     private int id;
@@ -67,11 +67,11 @@ public class DatabasePanel implements DatabaseObject {
         this.numberOfRatings = numberOfRatings;
     }
 
-    public double getAverageRating() {
+    public int getAverageRating() {
         return averageRating;
     }
 
-    public void setAverageRating(double averageRating) {
+    public void setAverageRating(int averageRating) {
         this.averageRating = averageRating;
     }
 }
