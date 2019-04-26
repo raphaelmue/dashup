@@ -183,7 +183,7 @@ For our application we are using Jenkins as CI tool. On the one hand Jenkins per
 
 | CI Service | Badge |
 | ---------- | ----- |
-| Jenkins    |       |
+| Jenkins    | [![Build Status](http://jenkins.raphael-muesseler.de/buildStatus/icon?job=dashup%2Fmaster)](http://jenkins.raphael-muesseler.de/job/dashup/job/master/) |
 
 The following image shows how the tests are running with JUnit Jupiter in IntelliJ, whereas the second image shows build process in Jenkins.
 
