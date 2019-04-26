@@ -1,6 +1,5 @@
 package de.dashup.model.service;
 
-import de.dashup.model.builder.PanelLoader;
 import de.dashup.model.db.Database;
 import de.dashup.shared.*;
 import de.dashup.util.string.Hash;
@@ -17,7 +16,6 @@ import java.util.*;
 public class DashupService {
 
     private Database database;
-    private final PanelLoader panelLoader;
     private final RandomString randomString = new RandomString();
 
     private static DashupService INSTANCE;
@@ -35,7 +33,6 @@ public class DashupService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        this.panelLoader = PanelLoader.getInstance();
     }
 
     /**
@@ -87,14 +84,14 @@ public class DashupService {
                 innerWhereParameters.put("section_id", section.getId());
                 JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerWhereParameters);
                 if (innerResult != null && innerResult.length() > 0) {
-                    ArrayList<Panel> panels = new ArrayList<>();
+                    ArrayList<Widget> widgets = new ArrayList<>();
                     for (int i = 0; i < innerResult.length(); i++) {
-                        Panel panel = panelLoader.loadPanel(innerResult.getJSONObject(i).getInt("panel_id"),
-                                Panel.Size.getSizeByName(innerResult.getJSONObject(i).getString("size")));
-                        panel.setPredecessor(innerResult.getJSONObject(i).getInt("panel_predecessor"));
-                        panels.add(panel);
+                        Widget widget = this.getPanelById(innerResult.getJSONObject(i).getInt("panel_id"));
+                        widget.setSize(Widget.Size.getSizeByName(innerResult.getJSONObject(i).getString("size")));
+                        widget.setPredecessor(innerResult.getJSONObject(i).getInt("panel_predecessor"));
+                        widgets.add(widget);
                     }
-                    section.setPanels(this.orderPanels(panels));
+                    section.setWidgets(this.orderPanels(widgets));
                 }
                 sections.add(section);
             }
@@ -103,13 +100,13 @@ public class DashupService {
         return user;
     }
 
-    public Panel getPanelById(int id) throws SQLException {
+    public Widget getPanelById(int id) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", id);
 
-        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, Panel.class, whereParameters);
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, Widget.class, whereParameters);
         if (result != null && result.size() == 1) {
-            return (Panel) new Panel().fromDatabaseObject(result.get(0));
+            return (Widget) new Widget().fromDatabaseObject(result.get(0));
         }
         return null;
     }
@@ -132,17 +129,17 @@ public class DashupService {
         return result;
     }
 
-    private ArrayList<Panel> orderPanels(ArrayList<Panel> panels) {
-        ArrayList<Panel> result = new ArrayList<>();
-        while (!panels.isEmpty()) {
-            for (Panel panel : panels) {
-                if (result.isEmpty() && panel.getPredecessor() == -1) {
-                    result.add(panel);
-                    panels.remove(panel);
+    private ArrayList<Widget> orderPanels(ArrayList<Widget> widgets) {
+        ArrayList<Widget> result = new ArrayList<>();
+        while (!widgets.isEmpty()) {
+            for (Widget widget : widgets) {
+                if (result.isEmpty() && widget.getPredecessor() == -1) {
+                    result.add(widget);
+                    widgets.remove(widget);
                     break;
-                } else if (!result.isEmpty() && panel.getPredecessor() == result.get(result.size() - 1).getId()) {
-                    result.add(panel);
-                    panels.remove(panel);
+                } else if (!result.isEmpty() && widget.getPredecessor() == result.get(result.size() - 1).getId()) {
+                    result.add(widget);
+                    widgets.remove(widget);
                     break;
                 }
             }
