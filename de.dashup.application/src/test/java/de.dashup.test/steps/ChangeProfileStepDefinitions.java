@@ -116,11 +116,11 @@ public class ChangeProfileStepDefinitions {
         Thread.sleep(1000);
     }
 
-    @And("^User enters correct old password$")
-    public void userEntersCorrectOldPassword() {
+    @And("^User enters correct old password \"([^\"]*)\"$")
+    public void userEntersCorrectOldPassword(String oldPassword) {
         WebDriver driver = GeneralStepDefinitions.getDriver();
         WebElement oldPasswordInput = driver.findElement(By.id("change-password-old"));
-        oldPasswordInput.sendKeys("password");
+        oldPasswordInput.sendKeys(oldPassword);
     }
 
     @And("^User changes password to \"([^\"]*)\"$")

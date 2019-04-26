@@ -44,7 +44,7 @@ Feature: Change Profile
     Given User is located on settings menu
     When User clicks account information section
     And User clicks on change password
-    And User enters correct old password
+    And User enters correct old password "password"
     And User changes password to "imthegreatest"
     And User repeats "imthegreatest" in dialog as password
     And New password is longer than eight characters
