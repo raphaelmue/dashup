@@ -45,7 +45,8 @@ public class SettingsController {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             try {
-                DashupService.getInstance().updateEmail(user, email);
+                user.setEmail(email);
+                DashupService.getInstance().updateEmail(user);
             } catch (IllegalArgumentException illegalArgumentException) {
                 return "redirect:/settings/#invalidEmail";
             } catch (EmailAlreadyInUseException emailAlreadyInUseException) {
@@ -65,7 +66,8 @@ public class SettingsController {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             try {
-                DashupService.getInstance().updateUserName(user, userName);
+                user.setUserName(userName);
+                DashupService.getInstance().updateUserName(user);
             } catch (EmailAlreadyInUseException emailAlreadyInUseException) {
                 return "redirect:/settings/#userNameAlreadyInUse";
             } catch (Exception exception) {

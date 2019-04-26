@@ -240,8 +240,8 @@ public class DashupService {
         }
     }
 
-    public void updateEmail(User user, String email) throws SQLException, EmailAlreadyInUseException {
-        if (!Validator.validate(email, Validator.EMAIL_REGEX)) {
+    public void updateEmail(User user) throws SQLException, EmailAlreadyInUseException {
+        if (!Validator.validate(user.getEmail(), Validator.EMAIL_REGEX)) {
             throw new IllegalArgumentException("Email is not valid.");
         }
 
@@ -249,33 +249,31 @@ public class DashupService {
         whereParameters.put("id", user.getId());
 
         Map<String, Object> values = new HashMap<>();
-        values.put("email", email);
+        values.put("email", user.getEmail());
 
         JSONArray result = this.database.get(Database.Table.USERS, values);
         if (result.length() > 0) {
-            throw new EmailAlreadyInUseException(email);
+            throw new EmailAlreadyInUseException(user.getEmail());
         }
 
         this.database.update(Database.Table.USERS, whereParameters, values);
 
-        user.setEmail(email);
+        user.setEmail(user.getEmail());
     }
 
-    public void updateUserName(User user, String userName) throws SQLException, EmailAlreadyInUseException {
+    public void updateUserName(User user) throws SQLException, EmailAlreadyInUseException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", user.getId());
 
         Map<String, Object> values = new HashMap<>();
-        values.put("user_name", userName);
+        values.put("user_name", user.getUserName());
 
         JSONArray result = this.database.get(Database.Table.USERS, values);
         if (result.length() > 0) {
-            throw new EmailAlreadyInUseException(userName);
+            throw new EmailAlreadyInUseException(user.getUserName());
         }
 
         this.database.update(Database.Table.USERS, whereParameters, values);
-
-        user.setUserName(userName);
     }
 
     public void updatePersonalInformation(User user) throws SQLException {
