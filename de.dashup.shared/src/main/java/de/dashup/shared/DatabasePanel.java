@@ -5,8 +5,12 @@ import com.google.gson.annotations.SerializedName;
 public class DatabasePanel implements DatabaseObject {
     @SerializedName("number_of_downloads")
     private int numberOfDownloads;
-    @SerializedName("average_rating")
-    private int averageRating;
+    @SerializedName("short_description")
+    private String shortDescription;
+    @SerializedName("avg_of_ratings")
+    private double averageRating;
+    @SerializedName("number_of_ratings")
+    private int numberOfRatings;
     private int id;
     private String name, description;
 
@@ -27,7 +31,7 @@ public class DatabasePanel implements DatabaseObject {
         return id;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
@@ -39,11 +43,35 @@ public class DatabasePanel implements DatabaseObject {
         this.id = id;
     }
 
-    void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
     void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public int getNumberOfRatings() {
+        return numberOfRatings;
+    }
+
+    public void setNumberOfRatings(int numberOfRatings) {
+        this.numberOfRatings = numberOfRatings;
+    }
+
+    public double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(double averageRating) {
+        this.averageRating = averageRating;
     }
 }
