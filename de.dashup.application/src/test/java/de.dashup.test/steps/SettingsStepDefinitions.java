@@ -44,7 +44,6 @@ public class SettingsStepDefinitions {
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
         Assertions.assertEquals("active", parent.getAttribute("class"));
-        driver.quit();
     }
 
     @Given("^User is located on settings menu$")
@@ -88,7 +87,6 @@ public class SettingsStepDefinitions {
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
         Assertions.assertEquals("active", parent.getAttribute("class"));
-        driver.quit();
     }
 
 }

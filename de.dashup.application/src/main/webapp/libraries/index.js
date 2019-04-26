@@ -2,11 +2,9 @@ $(document).ready(function () {
     PostRequest.getInstance().setHost(true);
 
     $(".sidenav").sidenav();
-
     $(".collapsible").collapsible();
     $("select").formSelect();
     $(".modal").modal();
-
 });
 
 function getAnchor() {

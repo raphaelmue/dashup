@@ -112,8 +112,6 @@ public class DatabaseUser implements Serializable, DatabaseObject {
         return userName;
     }
 
-
-
     public String getCompany() {
         return company;
     }

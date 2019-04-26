@@ -34,7 +34,6 @@ public class SettingsController {
             model.addAttribute("birthDate", user.getBirthDate());
             model.addAttribute("company", user.getCompany());
             model.addAttribute("bio", user.getBio());
-
             model.addAttribute("backgroundImage", user.getSettings().getBackgroundImage());
         });
     }

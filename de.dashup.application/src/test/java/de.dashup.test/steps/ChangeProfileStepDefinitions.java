@@ -28,7 +28,7 @@ public class ChangeProfileStepDefinitions {
 
     // --- Change user name --- \\
 
-    @When("^User account information section$")
+    @When("^User clicks account information section$")
     public void userClicksOnAccountInformation() throws InterruptedException {
         WebDriver driver = GeneralStepDefinitions.getDriver();
         driver.findElement(By.id("header-account-management")).click();
@@ -68,7 +68,6 @@ public class ChangeProfileStepDefinitions {
         driver.findElement(By.id("header-account-management")).click();
         Thread.sleep(1000);
         Assertions.assertEquals(userName, driver.findElement(By.id("label-username")).getText());
-        driver.quit();
     }
 
     // --- Change email --- \\
@@ -106,7 +105,6 @@ public class ChangeProfileStepDefinitions {
         driver.findElement(By.id("header-account-management")).click();
         Thread.sleep(1000);
         Assertions.assertEquals(email, driver.findElement(By.id("label-email")).getText());
-        driver.quit();
     }
 
     // --- Change password --- \\
@@ -156,8 +154,6 @@ public class ChangeProfileStepDefinitions {
         User user = (User) new User().fromDatabaseObject(GeneralStepDefinitions.getDatabase().getObject(Database.Table.USERS,
                 DatabaseUser.class, whereParameters).get(0));
         Assertions.assertEquals(Hash.create(password, user.getSalt()), user.getPassword());
-
-        driver.quit();
     }
 
     // --- Change first name --- \\
@@ -195,8 +191,6 @@ public class ChangeProfileStepDefinitions {
         Thread.sleep(1000);
         WebElement firstNameInput = driver.findElement(By.id("text-field-personal-info-name"));
         Assertions.assertEquals(firstName, firstNameInput.getAttribute("value"));
-
-        driver.quit();
     }
 
 
@@ -216,8 +210,6 @@ public class ChangeProfileStepDefinitions {
         Thread.sleep(1000);
         WebElement firstNameInput = driver.findElement(By.id("text-field-personal-info-surname"));
         Assertions.assertEquals(lastName, firstNameInput.getAttribute("value"));
-
-        driver.quit();
     }
 
     // --- Change birth date --- \\
@@ -235,8 +227,6 @@ public class ChangeProfileStepDefinitions {
         WebDriver driver = GeneralStepDefinitions.getDriver();
         WebElement birthDateInput = driver.findElement(By.id("text-field-personal-info-birth-date"));
         Assertions.assertEquals(birthDate, birthDateInput.getAttribute("value"));
-
-        driver.quit();
     }
 
     // --- Change company --- \\
@@ -256,8 +246,6 @@ public class ChangeProfileStepDefinitions {
         Thread.sleep(1000);
         WebElement firstNameInput = driver.findElement(By.id("text-field-personal-info-company"));
         Assertions.assertEquals(company, firstNameInput.getAttribute("value"));
-
-        driver.quit();
     }
 
     // --- Change bio --- \\
@@ -277,8 +265,6 @@ public class ChangeProfileStepDefinitions {
         Thread.sleep(1000);
         WebElement firstNameInput = driver.findElement(By.id("text-field-personal-info-bio"));
         Assertions.assertEquals(bio, firstNameInput.getText());
-
-        driver.quit();
     }
 
     // --- Change language --- \\
@@ -317,7 +303,5 @@ public class ChangeProfileStepDefinitions {
         Assertions.assertNotNull(I18N.Language.getLanguageByName(language));
         Assertions.assertEquals(Objects.requireNonNull(I18N.Language.getLanguageByName(language)).getLocale().toLanguageTag(),
                 input.getAttribute("value"));
-
-        driver.quit();
     }
 }

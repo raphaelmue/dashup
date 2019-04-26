@@ -60,7 +60,6 @@ public class ChangeLayoutStepDefinitions {
         if (!found) {
             Assertions.fail("Current stylesheet does not match selected theme!");
         }
-        driver.quit();
     }
 
     //--------------- Background ---------------\\
@@ -90,7 +89,6 @@ public class ChangeLayoutStepDefinitions {
         WebElement styleTag = headTag.findElement(By.xpath(".//style"));
         Thread.sleep(1000);
         Assertions.assertTrue(styleTag.getAttribute("innerText").contains(url));
-        driver.quit();
     }
 
     //--------------- Undo ---------------\\
@@ -170,6 +168,5 @@ public class ChangeLayoutStepDefinitions {
             default:
                 throw new IllegalArgumentException("The argument " + setting + " is not expected in this test!");
         }
-        driver.quit();
     }
 }

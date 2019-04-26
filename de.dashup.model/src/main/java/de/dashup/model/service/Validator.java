@@ -6,7 +6,9 @@ import java.util.regex.Pattern;
 class Validator {
     static final String EMAIL_REGEX = "^[\\w-+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
 
-    static boolean validate(String string, String pattern) {
+
+    static boolean validate(String string, @SuppressWarnings("SameParameterValue") String pattern) {
+        // this class will be extended, so that the warning "Parameter is always the same" will disappear.
         return validate(string, Pattern.compile(pattern, Pattern.CASE_INSENSITIVE));
     }
 
