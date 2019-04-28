@@ -1,6 +1,6 @@
 import {DashupComponent} from "./dashup-component.js";
 
-export class DashupRadioButtonGroup extends DashupComponent{
+export class DashupRadioButtonGroup extends DashupComponent {
 
     render() {
         return this.html`
@@ -40,4 +40,5 @@ export class DashupRadioButtonGroup extends DashupComponent{
     }
 
 }
-customElements.define("dashup-radio-button-group",DashupRadioButtonGroup);
+
+customElements.define("dashup-radio-button-group", DashupRadioButtonGroup);

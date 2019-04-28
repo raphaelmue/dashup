@@ -1,11 +1,13 @@
 import {DashupComponent} from "./dashup-component.js";
 
-export class DashupTextInput extends DashupComponent{
+export class DashupTextInput extends DashupComponent {
 
     render() {
         return DashupComponent.html`
             <input type="text" placeholder="${this.placeholder}" 
-                   .value="${this.value ? this.value : ""}" @change="${(evt) => { this.value = evt.target.value;}}" 
+                   .value="${this.value ? this.value : ""}" @change="${(evt) => {
+            this.value = evt.target.value;
+        }}" 
                    ?disabled="${this.disabled}"/>
         `;
     }
@@ -21,11 +23,12 @@ export class DashupTextInput extends DashupComponent{
 
     getValue() {
         let value = this.value;
-        if(this.clear){
+        if (this.clear) {
             this.value = null;
         }
         return value;
     }
 
 }
+
 customElements.define("dashup-text-input", DashupTextInput);

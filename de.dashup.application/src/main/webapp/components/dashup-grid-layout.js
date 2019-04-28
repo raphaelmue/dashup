@@ -1,6 +1,6 @@
 import {DashupComponent} from "./dashup-component.js";
 
-export class DashupGridLayout extends DashupComponent{
+export class DashupGridLayout extends DashupComponent {
 
     render() {
         return DashupComponent.html`
@@ -11,14 +11,14 @@ export class DashupGridLayout extends DashupComponent{
                             let size = element.layout.size;
                             let offset = element.layout.offset;
                             let classes = {col: true};
-                            let sizes=["s","m","l","xl"];
+                            let sizes = ["s", "m", "l", "xl"];
                             sizes.forEach((element) => {
-                                if(size){
+                                if (size) {
                                     classes[element + size] = true;
                                 } else {
                                     classes[element + "4"] = true;
                                 }
-                                if(offset){
+                                if (offset) {
                                     classes["offset-" + element + offset] = true;
                                 }
                             });
@@ -27,7 +27,7 @@ export class DashupGridLayout extends DashupComponent{
                                     <slot name="${this.getSlotName(element)}"></slot>
                                 </div>
                             `;
-                        })}
+        })}
                     </div>
                 `)}
             </div>
@@ -36,7 +36,11 @@ export class DashupGridLayout extends DashupComponent{
 
     static get properties() {
         return {
-            elements: {type: Array, hasChanged: () => {return false;}}
+            elements: {
+                type: Array, hasChanged: () => {
+                    return false;
+                }
+            }
         };
     }
 
@@ -49,7 +53,7 @@ export class DashupGridLayout extends DashupComponent{
     firstUpdated() {
         Array.from(this.children).map((element) => {
             let row = element.layout.row;
-            if(!this.elements[row]){
+            if (!this.elements[row]) {
                 this.elements[row] = [];
             }
             element.setAttribute("slot", this.getSlotName(element));
@@ -58,10 +62,11 @@ export class DashupGridLayout extends DashupComponent{
         this.requestUpdate();
     }
 
-    getSlotName(element){
+    getSlotName(element) {
         let keyData = [element.name, element.layout.row, element.layout.offset, element.layout.size];
         return keyData.join("-");
     }
 
 }
-customElements.define("dashup-grid-layout",DashupGridLayout);
+
+customElements.define("dashup-grid-layout", DashupGridLayout);

@@ -28,5 +28,7 @@
                 $("#nav-item-dashboard").parent().addClass("active");
             });
         </script>
+
+        <jsp:include page="includes/webComponents.jsp" />
     </body>
 </html>

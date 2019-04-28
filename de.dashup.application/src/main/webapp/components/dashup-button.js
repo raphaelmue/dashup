@@ -1,7 +1,7 @@
 import {DashupComponent} from "./dashup-component.js";
 import {MessageBroker} from "./message-broker.js";
 
-export class DashupButton extends DashupComponent{
+export class DashupButton extends DashupComponent {
 
     render() {
         return DashupComponent.html`
@@ -16,11 +16,35 @@ export class DashupButton extends DashupComponent{
         return {
             text: {type: String, reflect: true},
             disabled: {type: Boolean, reflect: true},
-            mode: {type: String, hasChanged: () => {return false;}},
-            api: {type: String, hasChanged: () => {return false;}},
-            params: {type: Array, hasChanged: () => {return false;}, converter: (params) => {return params.split(" ");}},
-            consumers: {type: Object, hasChanged: () => {return false;}},
-            producers: {type: Array, hasChanged: () => {return false;}, converter: (producers) => {return producers.split(" ");}},
+            mode: {
+                type: String, hasChanged: () => {
+                    return false;
+                }
+            },
+            api: {
+                type: String, hasChanged: () => {
+                    return false;
+                }
+            },
+            params: {
+                type: Array, hasChanged: () => {
+                    return false;
+                }, converter: (params) => {
+                    return params.split(" ");
+                }
+            },
+            consumers: {
+                type: Object, hasChanged: () => {
+                    return false;
+                }
+            },
+            producers: {
+                type: Array, hasChanged: () => {
+                    return false;
+                }, converter: (producers) => {
+                    return producers.split(" ");
+                }
+            },
         };
     }
 
@@ -33,13 +57,13 @@ export class DashupButton extends DashupComponent{
     async handleAction() {
         let producerData = null;
         let apiData = null;
-        if(this.producers) {
+        if (this.producers) {
             producerData = this.getProducerData();
         }
-        if(this.api){
+        if (this.api) {
             apiData = await this.getAPIData();
         }
-        this.dispatchData({ ...producerData, ...apiData});
+        this.dispatchData({...producerData, ...apiData});
     }
 
     getProducerData() {
@@ -67,14 +91,18 @@ export class DashupButton extends DashupComponent{
         });
     }
 
-    dispatchData(data){
-        for(let consumer in this.consumers){
+    dispatchData(data) {
+        for (let consumer in this.consumers) {
             if ({}.hasOwnProperty.call(this.consumers, consumer)) {
                 let consumerControl = this.getRootNode().querySelector("[name=" + consumer + "]");
-                consumerControl.handleData({data: MessageBroker.getDataFromPath(this.consumers[consumer], data), mode: this.mode});
+                consumerControl.handleData({
+                    data: MessageBroker.getDataFromPath(this.consumers[consumer], data),
+                    mode: this.mode
+                });
             }
         }
     }
 
 }
-customElements.define("dashup-button",DashupButton);
+
+customElements.define("dashup-button", DashupButton);

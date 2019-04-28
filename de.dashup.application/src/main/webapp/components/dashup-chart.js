@@ -1,22 +1,24 @@
 import {DashupComponent} from "./dashup-component.js";
 
-export class DashupChart extends DashupComponent{
+export class DashupChart extends DashupComponent {
 
     render() {
 
-        let maxValue = this.data.sort((element1, element2) => { return element2.value - element1.value})[0].value;
+        let maxValue = this.data.sort((element1, element2) => {
+            return element2.value - element1.value
+        })[0].value;
         let heightMap = new Map();
         this.data.forEach((element) => {
-           heightMap.set(element.category, {height: (element.value/maxValue)*100 + "%"})
+            heightMap.set(element.category, {height: (element.value / maxValue) * 100 + "%"})
         });
         //can be enhanced with multiple bars per category later on
         return DashupComponent.html`
             <style>
                ${this.data.map((element, index) => {
-                    return DashupComponent.html`#q-graph #${element.category} {left: ${index * (80/this.data.length)}%;}`
-               })}
+                    return DashupComponent.html`#q-graph #${element.category} {left: ${index * (80 / this.data.length)}%;}`
+                })}
                
-               ${DashupComponent.html`#q-graph tr, #q-graph th, #q-graph td {width: ${80/this.data.length}%}`}
+               ${DashupComponent.html`#q-graph tr, #q-graph th, #q-graph td {width: ${80 / this.data.length}%}`}
             </style>
 
             <table id="q-graph">
@@ -37,12 +39,12 @@ export class DashupChart extends DashupComponent{
             </table>
             <div id="ticks">
                 ${(() => {
-                    let ticks = [];
-                    for(let i = 1; i <= 5; i++){
-                        ticks.push(DashupComponent.html`<div class="tick" style="height: 20%;"><p>${Math.ceil(maxValue/100)*100/5*i}</p></div>`);
-                    }
-                    return ticks.reverse();
-                })()}
+            let ticks = [];
+            for (let i = 1; i <= 5; i++) {
+                ticks.push(DashupComponent.html`<div class="tick" style="height: 20%;"><p>${Math.ceil(maxValue / 100) * 100 / 5 * i}</p></div>`);
+            }
+            return ticks.reverse();
+        })()}
             </div>
         `;
     }
@@ -177,4 +179,5 @@ export class DashupChart extends DashupComponent{
     }
 
 }
+
 customElements.define("dashup-chart", DashupChart);

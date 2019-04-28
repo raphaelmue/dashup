@@ -1,6 +1,6 @@
 import {DashupComponent} from "./dashup-component.js";
 
-export class DashupDisplay extends DashupComponent{
+export class DashupDisplay extends DashupComponent {
 
     render() {
         return DashupComponent.html`
@@ -26,4 +26,5 @@ export class DashupDisplay extends DashupComponent{
     }
 
 }
-customElements.define("dashup-display",DashupDisplay);
+
+customElements.define("dashup-display", DashupDisplay);

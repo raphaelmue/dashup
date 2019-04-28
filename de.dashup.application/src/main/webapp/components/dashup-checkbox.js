@@ -1,6 +1,6 @@
 import {DashupComponent} from "./dashup-component.js";
 
-export class DashupCheckbox extends DashupComponent{
+export class DashupCheckbox extends DashupComponent {
 
     render() {
         return DashupComponent.html`
@@ -24,4 +24,5 @@ export class DashupCheckbox extends DashupComponent{
     }
 
 }
+
 customElements.define("dashup-checkbox", DashupCheckbox);

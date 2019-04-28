@@ -1,6 +1,6 @@
 import {DashupComponent} from "./dashup-component.js";
 
-export class DashupRadioButton extends DashupComponent{
+export class DashupRadioButton extends DashupComponent {
 
     static get properties() {
         return {
@@ -16,4 +16,5 @@ export class DashupRadioButton extends DashupComponent{
     }
 
 }
+
 customElements.define("dashup-radio-button", DashupRadioButton);
