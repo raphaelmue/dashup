@@ -1,11 +1,10 @@
-import {html} from "https://unpkg.com/lit-element@2.1.0/lit-element.js?module";
 import {DashupComponent} from "./dashup-component.js";
 import {MessageBroker} from "./message-broker.js";
 
 export class DashupButton extends DashupComponent{
 
     render() {
-        return html`
+        return DashupComponent.html`
             <button class="btn waves-effect waves-light" @click="${this.handleAction}" 
                     ?disabled="${this.disabled}">${this.text}</button>
         `;

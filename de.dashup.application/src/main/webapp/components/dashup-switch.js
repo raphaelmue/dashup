@@ -1,9 +1,9 @@
-import {html} from "https://unpkg.com/lit-element@2.1.0/lit-element.js?module";
 import {DashupComponent} from "./dashup-component.js";
+
 export class DashupSwitch extends DashupComponent{
 
     render() {
-        return html`
+        return DashupComponent.html`
             <div class="switch">
                 <label>
                     ${this.valueLeft}

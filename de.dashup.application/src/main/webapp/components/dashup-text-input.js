@@ -1,9 +1,9 @@
-import {html} from "https://unpkg.com/lit-element@2.1.0/lit-element.js?module";
 import {DashupComponent} from "./dashup-component.js";
+
 export class DashupTextInput extends DashupComponent{
 
     render() {
-        return html`
+        return DashupComponent.html`
             <input type="text" placeholder="${this.placeholder}" 
                    .value="${this.value ? this.value : ""}" @change="${(evt) => { this.value = evt.target.value;}}" 
                    ?disabled="${this.disabled}"/>
@@ -14,12 +14,17 @@ export class DashupTextInput extends DashupComponent{
         return {
             value: {type: String, reflect: true},
             placeholder: {type: String},
-            disabled: {type: Boolean, reflect: true}
+            disabled: {type: Boolean, reflect: true},
+            clear: {type: Boolean, reflect: true}
         };
     }
 
     getValue() {
-        return this.value ? this.value : null;
+        let value = this.value;
+        if(this.clear){
+            this.value = null;
+        }
+        return value;
     }
 
 }

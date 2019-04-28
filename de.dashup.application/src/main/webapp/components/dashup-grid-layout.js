@@ -1,12 +1,11 @@
-import {html} from "https://unpkg.com/lit-element@2.1.0/lit-element.js?module";
-import {classMap} from "https://unpkg.com/lit-html@1.0.0/directives/class-map.js?module";
 import {DashupComponent} from "./dashup-component.js";
+
 export class DashupGridLayout extends DashupComponent{
 
     render() {
-        return html`
+        return DashupComponent.html`
             <div class="container">
-                ${this.elements.map((row) => html`
+                ${this.elements.map((row) => DashupComponent.html`
                     <div class="row">
                         ${row.map((element) => {
                             let size = element.layout.size;
@@ -23,8 +22,8 @@ export class DashupGridLayout extends DashupComponent{
                                     classes["offset-" + element + offset] = true;
                                 }
                             });
-                            return html`
-                                <div class="${classMap(classes)}">
+                            return DashupComponent.html`
+                                <div class="${DashupComponent.classMap(classes)}">
                                     <slot name="${this.getSlotName(element)}"></slot>
                                 </div>
                             `;
@@ -51,7 +50,7 @@ export class DashupGridLayout extends DashupComponent{
         Array.from(this.children).map((element) => {
             let row = element.layout.row;
             if(!this.elements[row]){
-                this.elements[row] = new Array();
+                this.elements[row] = [];
             }
             element.setAttribute("slot", this.getSlotName(element));
             this.elements[row].push(element);

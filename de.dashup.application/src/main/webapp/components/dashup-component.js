@@ -1,5 +1,13 @@
-import {LitElement} from "https://unpkg.com/lit-element@2.1.0/lit-element.js?module";
+import {LitElement, html, css} from "https://unpkg.com/lit-element@2.1.0/lit-element.js?module";
+import {styleMap} from "https://unpkg.com/lit-html@1.0.0/directives/style-map.js?module";
+import {classMap} from "https://unpkg.com/lit-html@1.0.0/directives/class-map.js?module";
+
 export class DashupComponent extends LitElement {
+
+    static html = html;
+    static css = css;
+    static styleMap = styleMap;
+    static classMap = classMap;
 
     static get properties() {
         return {

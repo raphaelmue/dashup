@@ -1,6 +1,5 @@
-import {html, css} from "https://unpkg.com/lit-element@2.1.0/lit-element.js?module";
-import {styleMap} from "https://unpkg.com/lit-html@1.0.0/directives/style-map.js?module";
 import {DashupComponent} from "./dashup-component.js";
+
 export class DashupChart extends DashupComponent{
 
     render() {
@@ -11,13 +10,13 @@ export class DashupChart extends DashupComponent{
            heightMap.set(element.category, {height: (element.value/maxValue)*100 + "%"})
         });
         //can be enhanced with multiple bars per category later on
-        return html`
+        return DashupComponent.html`
             <style>
                ${this.data.map((element, index) => {
-                    return html`#q-graph #${element.category} {left: ${index * (80/this.data.length)}%;}`
+                    return DashupComponent.html`#q-graph #${element.category} {left: ${index * (80/this.data.length)}%;}`
                })}
                
-               ${html`#q-graph tr, #q-graph th, #q-graph td {width: ${80/this.data.length}%}`}
+               ${DashupComponent.html`#q-graph tr, #q-graph th, #q-graph td {width: ${80/this.data.length}%}`}
             </style>
 
             <table id="q-graph">
@@ -28,10 +27,10 @@ export class DashupChart extends DashupComponent{
                     </tr>
                 </thead>
                 <tbody>
-                    ${this.data.map(element => html`
+                    ${this.data.map(element => DashupComponent.html`
                         <tr class="qtr" id="${element.category}">
                         <th scope="row">${element.category}</th>
-                        <td class="category bar" style="${styleMap(heightMap.get(element.category))}"><p>${element.value}</p></td>
+                        <td class="category bar" style="${DashupComponent.styleMap(heightMap.get(element.category))}"><p>${element.value}</p></td>
                         </tr>
                     `)}
                 </tbody>
@@ -40,7 +39,7 @@ export class DashupChart extends DashupComponent{
                 ${(() => {
                     let ticks = [];
                     for(let i = 1; i <= 5; i++){
-                        ticks.push(html`<div class="tick" style="height: 20%;"><p>${Math.ceil(maxValue/100)*100/5*i}</p></div>`);
+                        ticks.push(DashupComponent.html`<div class="tick" style="height: 20%;"><p>${Math.ceil(maxValue/100)*100/5*i}</p></div>`);
                     }
                     return ticks.reverse();
                 })()}
@@ -49,7 +48,7 @@ export class DashupChart extends DashupComponent{
     }
 
     static get styles() {
-        return css`
+        return DashupComponent.css`
             :host {
                 display: flex;
                 flex-direction: column;

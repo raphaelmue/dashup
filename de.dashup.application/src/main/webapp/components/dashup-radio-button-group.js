@@ -1,10 +1,10 @@
-import {html} from "https://unpkg.com/lit-element@2.1.0/lit-element.js?module";
 import {DashupComponent} from "./dashup-component.js";
+
 export class DashupRadioButtonGroup extends DashupComponent{
 
     render() {
-        return html`
-            ${this.elements.sort().map((element) => html`
+        return this.html`
+            ${this.elements.sort().map((element) => DashupComponent.html`
                 <label>
                     <input class="with-gap" name="${element.group}" 
                            type="radio" @click="${() => this.value = `${element.value}`}" 
