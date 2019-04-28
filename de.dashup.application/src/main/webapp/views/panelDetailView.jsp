@@ -100,7 +100,43 @@
                         </div>
                     </div>
                 </div>
-                <div id="ratings-tab" class="col s12">Ratings</div>
+                <div id="ratings-tab" class="col s12">
+                    <ul class="collection">
+                        <c:forEach items="${ratings}" var="rating">
+                            <li class="collection-item">
+                                <div class="row" style="margin-bottom: 0px">
+                                    <div class="col m4">
+                                        <h5>${fn:escapeXml(rating.title)}</h5>
+                                    </div>
+                                    <div class="col m2 offset-m6">
+                                        <div class="star-rating" style="font-size: 25px; margin-top: 1px">
+                                            <div class="back-stars">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <div class="front-stars" style="width:  ${fn:escapeXml(rating.rating)}%">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="font-size: 15px; margin-left: 3px">
+                                    By ${fn:escapeXml(rating.userName)} ${fn:escapeXml(rating.userSurname)}, Last changed on ${fn:escapeXml(rating.changeDate)}
+                                </div>
+                                <div class="row">
+                                        ${fn:escapeXml(rating.text)}
+                                </div>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
                 <div id="similar-tab" class="col s12">Similar</div>
             </div>
         </div>

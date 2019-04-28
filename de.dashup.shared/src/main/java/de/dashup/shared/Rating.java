@@ -11,10 +11,13 @@ public class Rating implements DatabaseObject {
     private int rating;
     private String title;
     private String text;
+    @SerializedName("changed_on")
+    private String changeDate;
     @SerializedName("name")
     private String userName;
     @SerializedName("surname")
     private String userSurname;
+
 
     public void setId(int id) {
         this.id = id;
@@ -79,5 +82,13 @@ public class Rating implements DatabaseObject {
     @Override
     public int getId() {
         return id;
+    }
+
+    public String getChangeDate() {
+        return changeDate;
+    }
+
+    public void setChangeDate(String changeDate) {
+        this.changeDate = changeDate;
     }
 }

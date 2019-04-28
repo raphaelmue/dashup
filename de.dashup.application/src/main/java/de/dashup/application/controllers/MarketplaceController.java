@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.Max;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -38,6 +39,7 @@ public class MarketplaceController {
             model.addAttribute(panel);
             model.addAttribute("tags",DashupService.getInstance().getTagsByPanelId(1));
             model.addAttribute("ratings", DashupService.getInstance().getRatingsByPanelID(1));
+            ArrayList<Rating> list= DashupService.getInstance().getRatingsByPanelID(1);
         });
     }
 }
