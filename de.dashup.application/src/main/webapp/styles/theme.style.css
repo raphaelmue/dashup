@@ -64,6 +64,10 @@ button i.fas {
     color: var(--color-primary);
 }
 
+input[type=text]:not(.browser-default) {
+    border-bottom-color: var(--color-primary) !important;
+}
+
 .input-field > label,
 .input-field input[type=text]:not(.browser-default):focus:not([readonly]) + label,
 .input-field input[type=password]:not(.browser-default):focus:not([readonly]) + label {
@@ -75,13 +79,38 @@ button i.fas {
     border-bottom: 1px solid var(--color-primary);
 }
 
-[type="checkbox"].filled-in:checked + span:not(.lever):after {
+[type=checkbox].filled-in:checked + span:not(.lever):after {
     border: 2px solid var(--color-primary);
     background-color: var(--color-primary);
 }
 
 .dropdown-content.select-dropdown li span {
     color: var(--color-primary);
+}
+
+/*** COLLECTIONS ***/
+
+.collection {
+    border-color: var(--color-primary) !important;
+}
+
+.collection {
+    background-color:var(--color-background-font) !important;
+}
+
+.collection a.collection-item {
+    color: var(--color-primary) !important;
+}
+
+span.badge {
+    color: var(--color-font) !important;
+}
+
+/*** CHARTS ***/
+
+.category {
+    background-color: var(--color-primary) !important;
+    color: var(--color-background-font) !important;
 }
 
 /*** TOAST ***/
@@ -98,7 +127,7 @@ button i.fas {
 }
 
 .toast.success:before {
-    content:"\f00c";
+    content: "\f00c";
 }
 
 .toast.warning {
@@ -106,7 +135,7 @@ button i.fas {
 }
 
 .toast.warning:before {
-    content:"\f12a";
+    content: "\f12a";
 }
 
 .toast.error {
@@ -114,5 +143,5 @@ button i.fas {
 }
 
 .toast.error:before {
-    content:"\f00d";
+    content: "\f00d";
 }

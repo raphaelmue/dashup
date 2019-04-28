@@ -3,7 +3,7 @@ import {DashupComponent} from "./dashup-component.js";
 export class DashupRadioButtonGroup extends DashupComponent {
 
     render() {
-        return this.html`
+        return DashupComponent.html`
             ${this.elements.sort().map((element) => DashupComponent.html`
                 <label>
                     <input class="with-gap" name="${element.group}" 

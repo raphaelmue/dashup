@@ -1,50 +1,10 @@
-body {
-    background-image: url("/resources/images/background/background.jpg");
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+.card {
+    margin: 1em 2em;
+    background-color: rgba(256,256,256,0.85);
+    border: solid 1px;
+    border-radius: 10px;
 }
-#content {
-    color: white;
-    margin-right:15%;
-    padding:1px 16px;
-}
-.menubar {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 15%;
-    background-color: rgba(256,256,256,0.6);
-    position: fixed;
-    height: 90%;
-    overflow: auto;
-    right: 0;
-}
-.panel{
-    width: 200px ;
-    height: 200px;
-    border: solid 2px;
-    display: inline-block;
-    background-color: rgba(256,256,256,0.6);
-    border-radius: 25px;
-}
-#header {
-    text-align: center;
-    color: white;
-    font-size: 20px;
-}
-#footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    height: 2%;
-    text-align: center;
-    color: white;
-}
-.menubar li a {
-    color: #000000;
-    display: block;
-    padding: 8px 16px;
-    text-decoration: none;
+
+.card .card-content {
+    padding: 24px 0;
 }

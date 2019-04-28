@@ -13,6 +13,14 @@ export class DashupDisplay extends DashupComponent {
         `;
     }
 
+    static get styles() {
+        return DashupComponent.css`
+            .collection :hover{
+                background-color: rgb(255, 255, 255) !important;
+            }
+        `;
+    }
+
     static get properties() {
         return {
             label: {type: String},

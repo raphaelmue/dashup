@@ -10,8 +10,6 @@ export class DashupButton extends DashupComponent {
         `;
     }
 
-    // API change check: return !(new RegExp("\\b" + oldValue.replace(new RegExp("%.*?%", "g"), ".*") + "\\b").test(newValue));
-    // Returns true if only the placeholders where filled
     static get properties() {
         return {
             text: {type: String, reflect: true},
