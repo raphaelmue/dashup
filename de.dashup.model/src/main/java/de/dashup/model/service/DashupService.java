@@ -114,6 +114,7 @@ public class DashupService {
         return null;
     }
 
+    //-------------- Marketplace --------------\\
     public ArrayList<String> getTagsByPanelId(int panelId) throws SQLException {
         Map<String,Object> whereParameters = new HashMap<>();
         Map<String,String> onParameters = new HashMap<>();
@@ -123,6 +124,20 @@ public class DashupService {
         JSONArray databaseResult = this.database.get(Database.Table.PANELS_TAGS,Database.Table.TAGS,onParameters,whereParameters);
         for (int i = 0; i < databaseResult.length(); i++) {
             returningValue.add(databaseResult.getJSONObject(i).getString("text"));
+        }
+        return returningValue;
+    }
+
+    public ArrayList<Rating> getRatingsByPanelID(int panelId) throws SQLException {
+        ArrayList<Rating> returningValue = new ArrayList<>();
+        Map<String,String> onParameters = new HashMap<>();
+        Map<String,Object> whereParameters = new HashMap<>();
+        onParameters.put("user_id","id");
+        whereParameters.put("panel_id",panelId);
+        List<? extends DatabaseObject> databaseResult = database.getObject(Database.Table.RATINGS,Database.Table.USERS,Rating.class,onParameters,whereParameters);
+        for (DatabaseObject databaseObject : databaseResult) {
+            Rating rating = (Rating) databaseObject;
+            returningValue.add(rating);
         }
         return returningValue;
     }

@@ -172,8 +172,24 @@ public class Database {
      */
     public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters,
                                                     String orderByClause) throws SQLException, JsonParseException {
+        return this.getObject(table,null,resultType,null,whereParameters,orderByClause);
+    }
+
+    /**
+     * @see Database#getObject(Table, Type, Map, String)
+     */
+    public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters) throws SQLException, JsonParseException {
+        return this.getObject(table, resultType, whereParameters, null);
+    }
+
+    public List<? extends  DatabaseObject> getObject(Table table, Table joinOn,Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters, String orderByClause) throws SQLException,JsonParseException {
         Gson gson = new GsonBuilder().create();
-        JSONArray jsonArray = this.get(table, whereParameters, orderByClause);
+        JSONArray jsonArray;
+        if(joinOn == null && onParameters == null) {
+            jsonArray = this.get(table, whereParameters, orderByClause);
+        }else{
+            jsonArray = this.get(table,joinOn,onParameters,whereParameters,orderByClause);
+        }
         List<DatabaseObject> result = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -182,11 +198,8 @@ public class Database {
         return result;
     }
 
-    /**
-     * @see Database#getObject(Table, Type, Map, String)
-     */
-    public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters) throws SQLException, JsonParseException {
-        return this.getObject(table, resultType, whereParameters, null);
+    public List<? extends  DatabaseObject> getObject(Table table, Table joinOn,Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters) throws SQLException,JsonParseException {
+        return getObject(table,joinOn,resultType,onParameters,whereParameters,null);
     }
 
     /**
@@ -208,7 +221,7 @@ public class Database {
      * @param whereParameters parameters that are used in the where clause to select data
      * @return result of the database query
      */
-    public JSONArray get(Table table, Table joinOn, Map<String, String> onParameters, Map<String, Object> whereParameters) throws SQLException {
+    public JSONArray get(Table table, Table joinOn, Map<String, String> onParameters, Map<String, Object> whereParameters,String orderByClause) throws SQLException {
         PreparedStatement statement;
         StringBuilder query = new StringBuilder("SELECT * FROM " + table.getTableName() + " INNER JOIN " + joinOn.getTableName() +
                 " ON ");
@@ -216,6 +229,7 @@ public class Database {
             query.append(table.getTableName()).append(".").append(entry.getKey()).append(" = ").append(joinOn.getTableName()).append(".").append(entry.getValue());
         }
         query.append(this.getClause(whereParameters, "WHERE", " AND "));
+        query.append(this.getOrderByClause(orderByClause));
 
         statement = connection.prepareStatement(query.toString());
         this.preparedStatement(statement, whereParameters);
@@ -223,6 +237,10 @@ public class Database {
         // execute query
         ResultSet result = statement.executeQuery();
         return Converter.convertResultSetIntoJSON(result);
+    }
+
+    public JSONArray get(Table table, Table joinOn, Map<String, String> onParameters, Map<String, Object> whereParameters) throws SQLException {
+        return get(table,joinOn,onParameters,whereParameters,null);
     }
 
     /**

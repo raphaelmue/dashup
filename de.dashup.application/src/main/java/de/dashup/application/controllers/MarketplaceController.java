@@ -1,8 +1,10 @@
 package de.dashup.application.controllers;
 
 import de.dashup.application.controllers.util.ControllerHelper;
+import de.dashup.model.db.Database;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.Panel;
+import de.dashup.shared.Rating;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -35,6 +37,7 @@ public class MarketplaceController {
             Panel panel = DashupService.getInstance().getPanelById(1);
             model.addAttribute(panel);
             model.addAttribute("tags",DashupService.getInstance().getTagsByPanelId(1));
+            model.addAttribute("ratings", DashupService.getInstance().getRatingsByPanelID(1));
         });
     }
 }
