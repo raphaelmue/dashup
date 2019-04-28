@@ -236,7 +236,7 @@ public class DashupService {
             user.setPassword(newHashedPassword);
             user.setSalt(newSalt);
         } else {
-            throw new IllegalArgumentException("Passwords does not match");
+            throw new IllegalArgumentException("Passwords do not match");
         }
     }
 
