@@ -286,6 +286,7 @@ public class ChangeProfileStepDefinitions {
         WebElement selectedLanguage = container.findElement(By.xpath(".//span[text()='" + language + "']"));
         Thread.sleep(1000);
         selectedLanguage.click();
+        driver.findElement(By.id("btn-save-other")).click();
 
         I18N.setLanguage(I18N.Language.getLanguageByName(language));
 

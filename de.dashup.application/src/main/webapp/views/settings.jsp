@@ -207,6 +207,16 @@
                                 <label><fmt:message key="i18n.language"/></label>
                             </div>
                         </div>
+                        <div class="row">
+                            <button id= "btn-save-other" class="btn waves-effect waves-light" type="submit" name="action">
+                                <i class="fas fa-check"></i>
+                                <fmt:message key="i18n.save"/>
+                            </button>
+                            <a id="btn-undo-other" class="btn-flat undo-button waves-effect">
+                                <i class="fas fa-times"></i>
+                                <fmt:message key="i18n.undo"/>
+                            </a>
+                        </div>
                     </div>
                 </li>
             </ul>
@@ -380,7 +390,7 @@
                 setDefaultDate: true
             });
 
-            $("#language-dropdown").change(function () {
+            $("#btn-save-other").on("click", function () {
                 PostRequest.getInstance().make("settings/changeLanguage", {
                     lang: $("#language-dropdown").val()
                 });
@@ -389,15 +399,6 @@
             let changePasswordDialog = M.Modal.getInstance(document.getElementById("dialog-change-password"));
             $("#change-password-link").on("click", function () {
                 changePasswordDialog.open();
-            });
-
-            $('.undo-button').on("click", function () {
-                if (window.location.href.slice(-1) === '#') {
-                    window.location.href += 'undoComplete';
-                } else {
-                    window.location.href += '#undoComplete';
-                }
-                window.location.reload(false);
             });
 
             $("#btn-submit-change-password").on("click", function () {
