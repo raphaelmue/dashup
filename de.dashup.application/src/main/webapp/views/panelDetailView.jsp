@@ -137,11 +137,12 @@
                         </c:forEach>
                     </ul>
                 </div>
-                <div id="similar-tab" class="col s12">Similar</div>
+                <div id="similar-tab" class="col s12">
+
+                </div>
             </div>
         </div>
     </body>
-    <link rel="stylesheet" href="../styles/marketplace.style.css"/>
     <script>
         $(document).ready(function () {
             $('.tabs').tabs();
