@@ -53,7 +53,7 @@ export class DashupList extends DashupComponent{
 
     selectEntry(evt){
         if(this.selectable){
-            let item = this.items.filter((item) => item.content == evt.target.innerText)[0];
+            let item = this.items.filter((item) => item.content === evt.target.innerText)[0];
             item.selected = !item.selected;
             this.requestUpdate();
         }
