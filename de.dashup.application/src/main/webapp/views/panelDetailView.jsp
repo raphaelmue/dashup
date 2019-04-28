@@ -1,5 +1,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <fmt:setLocale value="${param.lang}" scope="session"/>
 <fmt:setBundle basename="i18n"/>
@@ -74,16 +75,28 @@
                         <div class="col m8">
                             ${fn:escapeXml(panel.description)}
                         </div>
-                        <div class="col m4" style="border-left: 2px solid var(--color-primary); padding-left: 20px;">
-                            <div class="row">
-                                <h4><fmt:message key="i18n.additionalInformation"/></h4>
-                            </div>
-                            <div class="row">
-                                <fmt:message key="i18n.dateOfPublication"/>: ${fn:escapeXml(panel.publicationDate)}
-                            </div>
-                            <div class="row">
-
-                            </div>
+                        <div class="col m4">
+                            <blockquote style="color: var(--color-primary)">
+                                <div class="row">
+                                    <h4><fmt:message key="i18n.additionalInformation"/></h4>
+                                </div>
+                                <div class="row">
+                                    <b><fmt:message key="i18n.dateOfPublication"/></b>
+                                </div>
+                                <div class="row">
+                                    ${fn:escapeXml(panel.publicationDate)}
+                                </div>
+                                <div class="row">
+                                    <b><fmt:message key="i18n.tags"/></b>
+                                </div>
+                                <div class="row">
+                                    <c:forEach items="${fn:escapeXml(tags)}" var="tag">
+                                        <div class="chip">
+                                                ${fn:escapeXml(tag)}
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </blockquote>
                         </div>
                     </div>
                 </div>
@@ -96,6 +109,7 @@
     <script>
         $(document).ready(function () {
             $('.tabs').tabs();
+            $('.chips').chips();
         });
 
     </script>

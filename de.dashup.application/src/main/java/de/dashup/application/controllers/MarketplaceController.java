@@ -33,9 +33,8 @@ public class MarketplaceController {
     public  String detailView(@CookieValue(name = "token", required = false) String token, @RequestParam(name = "panel_id") String panelID, Model model, HttpServletRequest request) throws SQLException{
         return ControllerHelper.defaultMapping(token, request, model, "panelDetailView", user -> {
             Panel panel = DashupService.getInstance().getPanelById(1);
-            ArrayList<String> tags = DashupService.getInstance().getTagsByPanelId(1);
             model.addAttribute(panel);
-            model.addAttribute(tags);
+            model.addAttribute("tags",DashupService.getInstance().getTagsByPanelId(1));
         });
     }
 }

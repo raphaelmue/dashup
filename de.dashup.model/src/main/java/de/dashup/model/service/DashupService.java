@@ -116,7 +116,7 @@ public class DashupService {
 
     public ArrayList<String> getTagsByPanelId(int panelId) throws SQLException {
         Map<String,Object> whereParameters = new HashMap<>();
-        Map<String,Object> onParameters = new HashMap<>();
+        Map<String,String> onParameters = new HashMap<>();
         ArrayList<String> returningValue = new ArrayList<>();
         whereParameters.put("panel_id",panelId);
         onParameters.put("tag_id","id");
