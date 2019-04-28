@@ -114,6 +114,12 @@ public class DashupService {
         return null;
     }
 
+    public ArrayList<String> getTokensByPanelId(int panelId) throws SQLException {
+        Map<String,Object> whereParameter = new HashMap<>();
+        whereParameter.put("panel_id",panelId);
+        return null;
+    }
+
     private ArrayList<Section> orderSections(ArrayList<Section> sections) {
         ArrayList<Section> result = new ArrayList<>();
         while (!sections.isEmpty()) {

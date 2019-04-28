@@ -69,7 +69,24 @@
                     <li class="tab col s3"><a href="#ratings-tab">Ratings</a></li>
                     <li class="tab col s3"><a href="#similar-tab">Similar</a></li>
                 </ul>
-                <div id="overview-tab" class="col s12">Overview</div>
+                <div id="overview-tab" class="col s12">
+                    <div class="row">
+                        <div class="col m8">
+                            ${fn:escapeXml(panel.description)}
+                        </div>
+                        <div class="col m4" style="border-left: 2px solid var(--color-primary); padding-left: 20px;">
+                            <div class="row">
+                                <h4><fmt:message key="i18n.additionalInformation"/></h4>
+                            </div>
+                            <div class="row">
+                                <fmt:message key="i18n.dateOfPublication"/>: ${fn:escapeXml(panel.publicationDate)}
+                            </div>
+                            <div class="row">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div id="ratings-tab" class="col s12">Ratings</div>
                 <div id="similar-tab" class="col s12">Similar</div>
             </div>

@@ -2,6 +2,8 @@ package de.dashup.shared;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDate;
+
 public class DatabasePanel implements DatabaseObject {
     @SerializedName("number_of_downloads")
     private int numberOfDownloads;
@@ -11,6 +13,8 @@ public class DatabasePanel implements DatabaseObject {
     private int averageRating;
     @SerializedName("number_of_ratings")
     private int numberOfRatings;
+    @SerializedName("publication_date")
+    private String publicationDate;
     private int id;
     private String name, description;
 
@@ -35,7 +39,7 @@ public class DatabasePanel implements DatabaseObject {
         return name;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -73,5 +77,18 @@ public class DatabasePanel implements DatabaseObject {
 
     public void setAverageRating(int averageRating) {
         this.averageRating = averageRating;
+    }
+
+    public LocalDate getPublicationDate() {
+        if (publicationDate!=null && !publicationDate.isBlank()) {
+            return LocalDate.parse(publicationDate);
+        }
+        return null;
+    }
+
+    public void setPublicationDate(LocalDate publicationDate) {
+        if (publicationDate != null) {
+            this.publicationDate = publicationDate.toString();
+        }
     }
 }
