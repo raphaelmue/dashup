@@ -91,8 +91,7 @@
     <script>
         $( document ).ready(function () {
             $("#weather-panel").on("click", function () {
-                PostRequest.getInstance().make("marketplace/detailView", {
-                    panel_id: 1,
+                PostRequest.getInstance().make("marketplace/detailView/1", {
                 });
             });
             $("#add").on("click", function () {

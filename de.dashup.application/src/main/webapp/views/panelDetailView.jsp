@@ -89,13 +89,15 @@
                                 <div class="row">
                                     <b><fmt:message key="i18n.tags"/></b>
                                 </div>
-                                <div class="row">
-                                    <c:forEach items="${fn:escapeXml(tags)}" var="tag">
-                                        <div class="chip">
-                                                ${fn:escapeXml(tag)}
-                                        </div>
-                                    </c:forEach>
-                                </div>
+                                <c:if test="${fn:length(tags) > 0}">
+                                    <div class="row">
+                                        <c:forEach items="${fn:escapeXml(tags)}" var="tag">
+                                            <div class="chip">
+                                                    ${fn:escapeXml(tag)}
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </c:if>
                             </blockquote>
                         </div>
                     </div>
