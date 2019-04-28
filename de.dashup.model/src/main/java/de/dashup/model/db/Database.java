@@ -42,7 +42,10 @@ public class Database {
         USERS_SETTINGS("users_settings"),
         PANELS("panels"),
         USER_SECTIONS("users_sections"),
-        SECTIONS_PANELS("sections_panels");
+        SECTIONS_PANELS("sections_panels"),
+        TAGS("tags"),
+        RATINGS("ratings"),
+        PANELS_TAGS("panels_tags");
 
         private final String tableName;
 
@@ -196,6 +199,23 @@ public class Database {
      */
     public JSONArray get(Table table, Map<String, Object> whereParameters) throws SQLException {
         return this.get(table, whereParameters, null);
+    }
+
+    public JSONArray get(Table table, Table joinOn, Map<String, Object> onParameters, Map<String, Object> whereParameters) throws SQLException {
+        PreparedStatement statement;
+        String query = "SELECT * FROM " + table.getTableName() + " INNER JOIN " + joinOn.getTableName() +
+                " ON ";
+        for (Map.Entry<String, Object> entry : onParameters.entrySet()) {
+            query += table.getTableName() + "." + entry.getKey() + " = " + joinOn.getTableName() + "." +entry.getValue();
+        }
+        query += this.getClause(whereParameters, "WHERE", " AND ");
+
+        statement = connection.prepareStatement(query);
+        this.preparedStatement(statement, whereParameters);
+
+        // execute query
+        ResultSet result = statement.executeQuery();
+        return Converter.convertResultSetIntoJSON(result);
     }
 
     /**

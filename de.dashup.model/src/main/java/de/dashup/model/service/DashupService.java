@@ -114,6 +114,19 @@ public class DashupService {
         return null;
     }
 
+    public ArrayList<String> getTagsByPanelId(int panelId) throws SQLException {
+        Map<String,Object> whereParameters = new HashMap<>();
+        Map<String,Object> onParameters = new HashMap<>();
+        ArrayList<String> returningValue = new ArrayList<>();
+        whereParameters.put("panel_id",panelId);
+        onParameters.put("tag_id","id");
+        JSONArray databaseResult = this.database.get(Database.Table.PANELS_TAGS,Database.Table.TAGS,onParameters,whereParameters);
+        for (int i = 0; i < databaseResult.length(); i++) {
+            returningValue.add(databaseResult.getJSONObject(i).getString("text"));
+        }
+        return returningValue;
+    }
+
     private ArrayList<Section> orderSections(ArrayList<Section> sections) {
         ArrayList<Section> result = new ArrayList<>();
         while (!sections.isEmpty()) {
