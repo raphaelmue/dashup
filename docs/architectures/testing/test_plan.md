@@ -217,7 +217,7 @@ hand Jenkins executes unit and integration tests.
 
 | CI Service | Badge |
 | ---------- | ----- |
-| Jenkins    | build |
+| Jenkins    | [![Build Status](http://jenkins.raphael-muesseler.de/buildStatus/icon?job=dashup%2Fmaster)](http://jenkins.raphael-muesseler.de/job/dashup/job/master/) |
 
 The following image shows how the tests are running with JUnit Jupiter in IntelliJ, whereas the second image shows build 
 process in Jenkins.
