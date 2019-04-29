@@ -330,12 +330,11 @@ public class DashupService {
     }
 
     public void deleteSection(User user, int section_id) throws SQLException {
+        deletePanelsOfSection(section_id);
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("section_id", section_id);
         whereParameters.put("user_id", user.getId());
         database.delete(Database.Table.USER_SECTIONS, whereParameters);
-
-        deletePanelsOfSection(section_id);
     }
 
     private void deletePanelsOfSection(int section_id) throws SQLException {

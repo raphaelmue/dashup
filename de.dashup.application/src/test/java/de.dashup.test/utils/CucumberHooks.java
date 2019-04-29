@@ -53,6 +53,44 @@ public class CucumberHooks {
         testDataMap.put("theme", "blue-sky");
         testDataMap.put("language", "en");
         database.insert(Database.Table.USERS_SETTINGS, testDataMap);
+
+
+        testDataMap.clear();
+        testDataMap.put("user_id", 1);
+        testDataMap.put("section_name", "section1");
+        testDataMap.put("predecessor_id", 0);
+
+        database.insert(Database.Table.USER_SECTIONS, testDataMap);
+
+        testDataMap.clear();
+        testDataMap.put("user_id", 1);
+        testDataMap.put("section_name", "section2");
+        testDataMap.put("predecessor_id", 1);
+        database.insert(Database.Table.USER_SECTIONS, testDataMap);
+
+        testDataMap.clear();
+        testDataMap.put("user_id",1);
+        testDataMap.put("name","panel2");
+        testDataMap.put("short_description","test panel 2");
+        testDataMap.put("descriptions","long description 2");
+        testDataMap.put("publication_date","2019-03-19");
+        testDataMap.put("visibility",0);
+        database.insert(Database.Table.PANELS,testDataMap);
+
+        testDataMap.clear();
+        testDataMap.put("section_id",1);
+        testDataMap.put("panel_id",1);
+        testDataMap.put("panel_predecessor",0);
+        testDataMap.put("size","medium");
+        database.insert(Database.Table.SECTIONS_PANELS,testDataMap);
+
+        testDataMap.clear();
+        testDataMap.put("section_id",1);
+        testDataMap.put("panel_id",1);
+        testDataMap.put("panel_predecessor",1);
+        testDataMap.put("size","medium");
+        database.insert(Database.Table.SECTIONS_PANELS,testDataMap);
+
         GeneralStepDefinitions.setDatabase(database);
     }
 

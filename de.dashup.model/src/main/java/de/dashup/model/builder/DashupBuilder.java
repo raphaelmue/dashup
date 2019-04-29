@@ -26,7 +26,6 @@ public class DashupBuilder {
 
     public static String buildUsersPanelsLayoutMode(User user) {
         StringBuilder content = new StringBuilder();
-//        content.append("<div class=\"drag-drop-container\">");
         if (user.getSections() != null) {
             for (Section section : user.getSections()) {
                 content.append("<div class=\"wrapper  col s12\" id=\"s")
@@ -41,17 +40,8 @@ public class DashupBuilder {
                         .append("</div>")
                         .append("<div class=\"bloc col s12\">");
 
-//
-
-
                 if (section.getPanels() != null) {
                     for (Panel panel : section.getPanels()) {
-//                        content.append("<div id=\"");
-//                        content.append(p.getId());
-//                        content.append("\" class=\"dashup-panel\">");
-//                        //.append(p.getName());
-//                        content.append(p.getHtmlContent());
-//                        content.append("</div>");
                         String sizeStyleClass = panel.getSize().getStyleClass();
                         String size = panel.getSize().getName();
                         String panelId = String.valueOf(panel.getId());
@@ -79,17 +69,10 @@ public class DashupBuilder {
                                 .append("</div>");
                     }
                 }
-
-
-
-//                content.append("</div>");
-
                 content.append("</div>")
                         .append("</div>");
             }
         }
-//        content.append("</div>");
-        String htmlReturn = content.toString();
-        return htmlReturn;
+        return content.toString();
     }
 }

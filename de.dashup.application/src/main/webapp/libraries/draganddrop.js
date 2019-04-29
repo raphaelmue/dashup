@@ -69,24 +69,8 @@ function initializeAddSectionButtonClick() {
     $("#add-section-button").on("click", function () {
         let sectionId = "n" + globalSectionCount;
         let panelContainerToAdd = addNewSection(sectionId);
-        panel_container.containers.push(panelContainerToAdd)
-
+        panel_container.containers.push(panelContainerToAdd);
         initializeSectionDeleteClick();
-
-
-        //
-        //  dragula({
-        //      isContainer: function (el) {
-        //          return el.classList.contains('.bloc');
-        //      }
-        //  });
-        //
-        //  dragula({
-        //      isContainer: function (el) {
-        //          return el.classList.contains('.drag-drop-container');
-        //      }
-        //  });
-
     });
 }
 
@@ -170,7 +154,6 @@ function addSectionToDeleteToList(sectionToDelete) {
         sectionsToDelete.push(sectionObject);
     }
 
-
 }
 
 function makeSectionPanelOrder() {
@@ -246,6 +229,3 @@ function postChanges(data) {
     });
 
 }
-
-
-
