@@ -6,13 +6,13 @@ $(document).ready(function () {
     $("select").formSelect();
     $(".modal").modal();
 
-    let undoBtn = $('.undo-button');
+    let undoBtn = $(".undo-button");
     if (undoBtn.length > 0) {
         undoBtn.on("click", function () {
-            if (window.location.href.slice(-1) === '#') {
-                window.location.href += 'undoComplete';
+            if (window.location.href.slice(-1) === "#") {
+                window.location.href += "undoComplete";
             } else {
-                window.location.href += '#undoComplete';
+                window.location.href += "#undoComplete";
             }
             window.location.reload(false);
         });
