@@ -3,7 +3,7 @@ package de.dashup.test.utils;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import de.dashup.model.db.Database;
-import de.dashup.test.steps.GeneralStepdefs;
+import de.dashup.test.steps.GeneralStepDefinitions;
 import de.dashup.util.string.Hash;
 import org.junit.jupiter.api.Assertions;
 
@@ -18,7 +18,11 @@ public class CucumberHooks {
     public void doDatabaseSetup() throws SQLException {
         //change param of setHost to true if you need to test on local DB
         Database.setHost(false);
-        Database.setDbName(Database.DatabaseName.TEST);
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            Database.setDbName(Database.DatabaseName.TEST);
+        } else {
+            Database.setDbName(Database.DatabaseName.JENKINS);
+        }
         Database database = Database.getInstance();
         database.clearDatabase();
         String salt = "VQoX3kxwjX3gOOY1Jixk)Dc$0y$e4B!9";
@@ -49,21 +53,21 @@ public class CucumberHooks {
         testDataMap.put("theme", "blue-sky");
         testDataMap.put("language", "en");
         database.insert(Database.Table.USERS_SETTINGS, testDataMap);
-        GeneralStepdefs.setDatabase(database);
+        GeneralStepDefinitions.setDatabase(database);
     }
 
     @Before(order = 2)
     public void doDriverSetup() throws IOException {
-        DriverUtil.setUpDriver();
+        DriverUtil.createDriverInstance();
     }
 
     @After(order = 1)
     public void doTearDown() {
-        GeneralStepdefs.getDriver().quit();
+        GeneralStepDefinitions.getDriver().quit();
     }
 
     @After(order = 2)
     public void clearDatabase() throws SQLException {
-        GeneralStepdefs.getDatabase().clearDatabase();
+        GeneralStepDefinitions.getDatabase().clearDatabase();
     }
 }

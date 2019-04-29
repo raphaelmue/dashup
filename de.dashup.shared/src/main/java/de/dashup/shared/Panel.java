@@ -41,12 +41,11 @@ public class Panel extends DatabasePanel {
 
     private String htmlContent;
     private Size size;
+    @SerializedName("panel_predecessor")
+    private int predecessor;
 
     public Panel() {
     }
-
-    @SerializedName("panel_predecessor")
-    private int predecessor;
 
     public Panel(int id, String name, String description, int numberOfDownloads, int averageRating,
                  int predecessor) {

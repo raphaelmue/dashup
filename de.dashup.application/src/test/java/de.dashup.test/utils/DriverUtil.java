@@ -1,6 +1,6 @@
 package de.dashup.test.utils;
 
-import de.dashup.test.steps.GeneralStepdefs;
+import de.dashup.test.steps.GeneralStepDefinitions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -24,9 +24,9 @@ public class DriverUtil {
 
     private static String getDriverPath(String profile) {
         if (System.getProperty("os.name").toLowerCase().contains("windows")) {
-            if (profile.equals("chrome")) {
+            if ("chrome".equals(profile)) {
                 return CHROME_DRIVER_WINDOWS;
-            } else if (profile.equals("firefox")) {
+            } else if ("firefox".equals(profile)) {
                 return GECKO_DRIVER_WINDOWS;
             }
         } else if (System.getProperty("os.name").toLowerCase().contains("linux")) {
@@ -57,7 +57,7 @@ public class DriverUtil {
         }
     }
 
-    private static WebDriver setUpChromeDriver() {
+    private static WebDriver createChromeDriverInstance() {
         final DesiredCapabilities desiredChromeCapabilities = DesiredCapabilities.chrome();
         final ChromeOptions chromeOptions = new ChromeOptions();
 
@@ -72,7 +72,7 @@ public class DriverUtil {
         return returningDriver;
     }
 
-    private static WebDriver setUpFirefoxDriver() {
+    private static WebDriver createFirefoxDriverInstance() {
         final DesiredCapabilities desiredFirefoxCapabilities = DesiredCapabilities.firefox();
         final FirefoxOptions firefoxOptions = new FirefoxOptions();
 
@@ -87,8 +87,8 @@ public class DriverUtil {
         return returningDriver;
     }
 
-    public static WebDriver setUpDriver() throws IOException {
-        InputStream is = DriverUtil.class.getResourceAsStream("../../../../my.properties");
+    public static WebDriver createDriverInstance() throws IOException {
+        InputStream is = DriverUtil.class.getResourceAsStream("./testing.properties");
         Properties p = new Properties();
         p.load(is);
         String name = p.getProperty("test.browser");
@@ -96,18 +96,19 @@ public class DriverUtil {
         if (name != null) {
             switch (name) {
                 case "chrome":
-                    driver = DriverUtil.setUpChromeDriver();
+                    driver = DriverUtil.createChromeDriverInstance();
                     break;
                 case "firefox":
-                    driver = DriverUtil.setUpFirefoxDriver();
+                    driver = DriverUtil.createFirefoxDriverInstance();
                     break;
                 default:
-                    throw new IllegalArgumentException("The argument " + name + " was read from properties, but is not expected!");
+                    throw new IllegalArgumentException("The argument test.browser must not contain something different"+
+                                                        " from 'chrome' and 'firefox', but was '" + name + "'!");
             }
         } else {
-            driver = DriverUtil.setUpChromeDriver();
+            driver = DriverUtil.createChromeDriverInstance();
         }
-        GeneralStepdefs.setDriver(driver);
+        GeneralStepDefinitions.setDriver(driver);
         return driver;
     }
 }

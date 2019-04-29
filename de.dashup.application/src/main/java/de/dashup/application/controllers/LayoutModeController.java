@@ -66,16 +66,16 @@ public class LayoutModeController {
             DashupSectionStructure dss = iterator.next();
             if (dss.getSectionId().contains("sn")) {
                 if (lastdss == null) {
-                    DashupService.getInstance().addSection(user, dss.getSection_name(), -1, -1);
+                    DashupService.getInstance().addSection(user, dss.getSectionName(), -1, -1);
                 } else {
-                    DashupService.getInstance().addSection(user, dss.getSection_name(), Integer.valueOf(lastdss.getSectionId().substring(1)), -1);
+                    DashupService.getInstance().addSection(user, dss.getSectionName(), Integer.valueOf(lastdss.getSectionId().substring(1)), -1);
                 }
             } else {
                 if (dss.getSectionOrder() == -10) {
                     DashupService.getInstance().deleteSection(user, Integer.valueOf(dss.getSectionId().substring(1)));
                     iterator.remove();
                 } else {
-                    String section_name = dss.getSection_name();
+                    String section_name = dss.getSectionName();
                     int section_id = Integer.valueOf(dss.getSectionId().substring(1));
                     if (lastdss == null) {
                         DashupService.getInstance().updateSection(user, section_name, section_id, -1, -1);

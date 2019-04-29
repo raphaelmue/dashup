@@ -129,7 +129,7 @@
             </div>
         </div>
     </body>
-    <script>
+    <script type="text/javascript">
         $( document ).ready(function () {
             $("#nav-item-marketplace").parent().addClass("active");
             $('.carousel.carousel-slider').carousel({

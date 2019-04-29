@@ -10,10 +10,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 class UnitTestUtil {
-    static Database getDBInstance(boolean local, Database.DatabaseName name) throws SQLException {
-        Database.setHost(local);
-        Database.setDbName(name);
-        return Database.getInstance();
+    static Database getDBInstance() throws SQLException {
+        Database.setHost(false);
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            Database.setDbName(Database.DatabaseName.TEST);
+        } else {
+            Database.setDbName(Database.DatabaseName.JENKINS);
+        }        return Database.getInstance();
     }
 
     static DashupService getServiceInstance() {

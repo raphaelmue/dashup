@@ -78,6 +78,7 @@ web application on modern browsers.
 | MTTR         | Mean Time To Recover                |
 | MVC          | Model View Controller               |
 | HTTP         | Hypertext Transfer Protocol         |
+| CI           | Continuous Integration              |
 
 ## 1.4 References
 
@@ -134,14 +135,13 @@ dependencies within the project scope. Furthermore, non-functional requirements 
 # 3 Specific Requirements
 
 ## 3.1 System Architecture
-
-## 3.1.1 Class Diagram
-
-<img src="../../architectures/application_architecture/class_diagram.jpg" alt="Class Diagram" />
-
-## 3.1.2 Database Scheme
-
-<img src="../../architectures/database_architecture/database_structure.png" alt="Database Scheme" />
+The system should always obey the the model view controller design pattern. Therefore it is built with the Spring MVC 
+framework whereas as a frontend technology different libraries of the Polymer project will be integrated. As the 
+database management system MariaDB as the open source MySQL spin-off will be used. CI pipelines will be created in 
+Jenkins. For testing purposes Selenium and JUnit test will guarantee the promised standard of the dashup software. Of 
+course, the whole system architecture will be split into a development, testing and production environment. For further 
+information regarding the system architecture please refer to the 
+<a href="../sad/SAD.md">software architecture document</a>.
 
 ## 3.2 Functionality
 

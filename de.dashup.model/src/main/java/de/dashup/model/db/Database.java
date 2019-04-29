@@ -66,7 +66,8 @@ public class Database {
     public enum DatabaseName {
         DEV("dashup_dev"),
         TEST("dashup_test"),
-        PROD("dashup_prod");
+        PROD("dashup_prod"),
+        JENKINS("dashup_jenkins");
 
         private final String name;
 
@@ -86,6 +87,8 @@ public class Database {
                     return TEST;
                 case "prod":
                     return PROD;
+                case "jenkins":
+                    return JENKINS;
                 default:
                     return null;
             }
@@ -336,7 +339,7 @@ public class Database {
      * @throws SQLException thrown, when something went wrong executing the SQL statement
      */
     public void clearDatabase() throws SQLException {
-        if (DB_NAME == DatabaseName.TEST) {
+        if (DB_NAME == DatabaseName.TEST || DB_NAME == DatabaseName.JENKINS) {
             this.connection.prepareStatement("SET FOREIGN_KEY_CHECKS = 0").execute();
             for (Table table : Table.values()) {
                 this.connection.prepareStatement("TRUNCATE TABLE " + table.getTableName()).execute();

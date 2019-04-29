@@ -7,12 +7,13 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes ={DashupApplication.class}, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(classes ={DashupApplication.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public abstract class SpringBootBase {
+
     @LocalServerPort
-    protected int port;
+    int randomServerPort;
 
     public int getPort() {
-        return port;
+        return randomServerPort;
     }
 }
