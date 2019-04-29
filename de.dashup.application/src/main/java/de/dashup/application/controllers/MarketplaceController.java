@@ -24,7 +24,7 @@ public class MarketplaceController {
     @RequestMapping("/")
     public String marketplace(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "marketplace", user -> {
-            // tbd
+            model.addAttribute("bestRated",DashupService.getInstance().getBestRatedPanels());
         });
     }
     @RequestMapping("/search")

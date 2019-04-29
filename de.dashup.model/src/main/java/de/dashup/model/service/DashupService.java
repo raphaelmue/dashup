@@ -142,6 +142,36 @@ public class DashupService {
         return returningValue;
     }
 
+    public ArrayList<Panel> getBestRatedPanels() throws SQLException{
+        ArrayList<Panel> returningValue = new ArrayList<>();
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, Panel.class, new HashMap<>(),"avg_of_ratings DESC");
+        if (result != null && result.size()>=4) {
+            for (int i = 0; i < 4; i++) {
+                Panel panel = (Panel) new Panel().fromDatabaseObject(result.get(i));
+                panel.setShortDescription(this.shortenShortDescOfPanel(panel.getShortDescription()));
+                returningValue.add(panel);
+            }
+        }else {
+            for (DatabaseObject databaseObject : result) {
+                Panel panel = (Panel) new Panel().fromDatabaseObject(databaseObject);
+                panel.setShortDescription(this.shortenShortDescOfPanel(panel.getShortDescription()));
+                returningValue.add(panel);
+            }
+        }
+        return returningValue;
+    }
+
+    private String shortenShortDescOfPanel(String shortDescr){
+        if (shortDescr.length()>=100){
+            for (int charPosition = 99; charPosition>0;charPosition--){
+                if (shortDescr.charAt(charPosition)== ' '){
+                    return shortDescr.substring(0,charPosition) + "...";
+                }
+            }
+        }
+        return shortDescr;
+    }
+
     private ArrayList<Section> orderSections(ArrayList<Section> sections) {
         ArrayList<Section> result = new ArrayList<>();
         while (!sections.isEmpty()) {
