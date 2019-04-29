@@ -114,43 +114,6 @@ public class DashupService {
         return null;
     }
 
-    private ArrayList<Section> orderSections(ArrayList<Section> sections) {
-
-        ArrayList<Section> result = new ArrayList<>();
-        while (!sections.isEmpty()) {
-            for (Section section : sections) {
-                if (result.isEmpty() && section.getPredecessor() == -1) {
-                    result.add(section);
-                    sections.remove(section);
-                    break;
-                } else if (!result.isEmpty() && section.getPredecessor() == result.get(result.size() - 1).getId()) {
-                    result.add(section);
-                    sections.remove(section);
-                    break;
-                }
-            }
-        }
-        return result;
-    }
-
-    private ArrayList<Panel> orderPanels(ArrayList<Panel> panels) {
-        ArrayList<Panel> result = new ArrayList<>();
-        while (!panels.isEmpty()) {
-            for (Panel panel : panels) {
-                if (result.isEmpty() && panel.getPredecessor() == -1) {
-                    result.add(panel);
-                    panels.remove(panel);
-                    break;
-                } else if (!result.isEmpty() && panel.getPredecessor() == result.get(result.size() - 1).getId()) {
-                    result.add(panel);
-                    panels.remove(panel);
-                    break;
-                }
-            }
-        }
-        return result;
-    }
-
     public User getUserByToken(String token) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("token", token);
@@ -291,9 +254,7 @@ public class DashupService {
 
         Map<String, String> result = new HashMap<>();
         Set<String> iterSet = jsonObject.keySet();
-        Iterator<String> iter = iterSet.iterator();
-        while (iter.hasNext()) {
-            String key = iter.next();
+        for (String key : iterSet) {
             result.put(key, jsonObject.get(key).toString());
         }
         result.remove("id");
@@ -311,7 +272,7 @@ public class DashupService {
         this.database.update(Database.Table.USERS_SETTINGS, whereParameter, values);
     }
 
-    public void updateSection(User user, String sectionName, int sectionId, int predecessor) throws SQLException {
+    private void updateSection(User user, String sectionName, int sectionId, int predecessor) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
         whereParameters.put("section_id", sectionId);
@@ -329,7 +290,7 @@ public class DashupService {
         }
     }
 
-    public void deleteSection(User user, int section_id) throws SQLException {
+    private void deleteSection(User user, int section_id) throws SQLException {
         deletePanelsOfSection(section_id);
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("section_id", section_id);
@@ -344,7 +305,7 @@ public class DashupService {
 
     }
 
-    public int addSection(User user, String sectionName, int order) throws SQLException,NumberFormatException {
+    private int addSection(User user, String sectionName, int order) throws SQLException, NumberFormatException {
         if (sectionName == null) {
             sectionName = "New Section";
         }
@@ -356,14 +317,12 @@ public class DashupService {
 
         this.database.insert(Database.Table.USER_SECTIONS, values);
 
-        JSONObject jsonObject  = this.database.get(Database.Table.USER_SECTIONS,values).getJSONObject(0);
-        int newSectionId = jsonObject.getInt("section_id");
-        return newSectionId;
-
+        JSONObject jsonObject = this.database.get(Database.Table.USER_SECTIONS, values).getJSONObject(0);
+        return jsonObject.getInt("section_id");
 
     }
 
-    public void addPanel(int section_id, int panel_id, int panel_predecessor, String size) throws SQLException {
+    private void addPanel(int section_id, int panel_id, int panel_predecessor, String size) throws SQLException {
         Map<String, Object> values = new HashMap<>();
         values.put("section_id", section_id);
         values.put("panel_id", panel_id);
@@ -380,9 +339,6 @@ public class DashupService {
 
         List<LayoutModeSection> sectionAndPanelOrder = layoutModeStructure.getSectionPanelOrder();
         saveNewSectionAndPanelStructure(sectionAndPanelOrder, user);
-
-//        List<String> panelsToDelete = layoutModeStructure.getPanelsToDelete();
-//        deletePanels(panelsToDelete);
     }
 
     private void saveNewSectionAndPanelStructure(List<LayoutModeSection> sections, User user) throws NumberFormatException, SQLException {
@@ -391,7 +347,7 @@ public class DashupService {
             String sectionIdFrontend = sections.get(i).getSectionId();
             String sectionName = sections.get(i).getSectionName();
 
-            int sectionId = convertId(sectionIdFrontend,"s");
+            int sectionId = convertId(sectionIdFrontend, "s");
 
 
             if (sectionId == -1) {
@@ -403,12 +359,12 @@ public class DashupService {
             }
 
             List<LayoutModePanel> panels = sections.get(i).getPanelStructure();
-            for (int j = 0; j <panels.size() ; j++) {
+            for (int j = 0; j < panels.size(); j++) {
                 String panelIdString = panels.get(j).getPanelId();
-                int panelId = convertId(panelIdString,"p");
+                int panelId = convertId(panelIdString, "p");
                 String size = panels.get(j).getPanelSize();
 
-                addPanel(sectionId,panelId,j,size);
+                addPanel(sectionId, panelId, j, size);
             }
         }
     }
@@ -416,7 +372,7 @@ public class DashupService {
     private void deleteSections(List<LayoutModeSection> sectionsToDelete, User user) throws SQLException {
         for (LayoutModeSection section : sectionsToDelete) {
 
-            int sectionId = convertId(section.getSectionId(),"s");
+            int sectionId = convertId(section.getSectionId(), "s");
             deleteSection(user, sectionId);
         }
     }

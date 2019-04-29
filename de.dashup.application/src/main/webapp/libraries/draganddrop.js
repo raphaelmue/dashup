@@ -1,5 +1,4 @@
 let sectionsToDelete = [];
-let panelsToDelete = [];
 let selectedPanel;
 let globalSectionCount;
 let section_container;
@@ -84,8 +83,6 @@ function initializePanelDeleteClick() {
     $("#delete").on("click", function () {
         let panelToDelete = document.getElementById(selectedPanel);
         let panelToDeleteParent = panelToDelete.parentNode;
-
-        panelsToDelete.push(panelToDelete.id);
 
         panelToDeleteParent.removeChild(panelToDelete);
 
@@ -199,7 +196,6 @@ function makePanelStructure(panels) {
 function saveChanges() {
     let sectionPanelOrder = makeSectionPanelOrder();
     let layout = {
-        panelsToDelete: panelsToDelete,
         sectionsToDelete: sectionsToDelete,
         sectionPanelOrder: sectionPanelOrder
     };

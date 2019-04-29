@@ -18,15 +18,7 @@ public class LayoutModePanel {
         return panelId;
     }
 
-    public void setPanelId(String panelId) {
-        this.panelId = panelId;
-    }
-
     public String getPanelSize() {
         return panelSize;
-    }
-
-    public void setPanelSize(String panelSize) {
-        this.panelSize = panelSize;
     }
 }

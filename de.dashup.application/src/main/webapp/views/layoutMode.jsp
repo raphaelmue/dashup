@@ -48,6 +48,9 @@
         small
     </a></li>
     <li><a href="#">
+        medium
+    </a></li>
+    <li><a href="#">
         large
     </a></li>
 </ul>

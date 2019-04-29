@@ -2,7 +2,10 @@ package de.dashup.test;
 
 import de.dashup.model.db.Database;
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.*;
+import de.dashup.shared.LayoutModePanel;
+import de.dashup.shared.LayoutModeSection;
+import de.dashup.shared.LayoutModeStructure;
+import de.dashup.shared.User;
 import de.dashup.util.string.Hash;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -47,14 +50,13 @@ class LayoutModeTest {
         List<LayoutModeSection> sectionPanelOrder = new ArrayList<>();
         List<LayoutModePanel> layoutModePanels = new ArrayList<>();
         List<LayoutModeSection> sectionsToDelete = new ArrayList<>();
-        List<String> panelsToDelete = new ArrayList<>();
 
         LayoutModeSection layoutModeSection1 = new LayoutModeSection("s1", "section1", layoutModePanels);
         LayoutModeSection layoutModeSection2 = new LayoutModeSection("s2", "section2", layoutModePanels);
         sectionPanelOrder.add(layoutModeSection1);
         sectionPanelOrder.add(layoutModeSection2);
 
-        LayoutModeStructure layoutModeStructure = new LayoutModeStructure(panelsToDelete, sectionPanelOrder, sectionsToDelete);
+        LayoutModeStructure layoutModeStructure = new LayoutModeStructure(sectionPanelOrder, sectionsToDelete);
         dashupService.processLayoutModeChanges(layoutModeStructure, user);
 
         Map<String, Object> whereParameters = new HashMap<>();
@@ -69,14 +71,13 @@ class LayoutModeTest {
         List<LayoutModeSection> sectionPanelOrder = new ArrayList<>();
         List<LayoutModePanel> layoutModePanels = new ArrayList<>();
         List<LayoutModeSection> sectionsToDelete = new ArrayList<>();
-        List<String> panelsToDelete = new ArrayList<>();
 
         LayoutModeSection layoutModeSection1 = new LayoutModeSection("s1", "section1", layoutModePanels);
         LayoutModeSection layoutModeSection2 = new LayoutModeSection("s2", "section renamed", layoutModePanels);
         sectionPanelOrder.add(layoutModeSection1);
         sectionPanelOrder.add(layoutModeSection2);
 
-        LayoutModeStructure layoutModeStructure = new LayoutModeStructure(panelsToDelete, sectionPanelOrder, sectionsToDelete);
+        LayoutModeStructure layoutModeStructure = new LayoutModeStructure(sectionPanelOrder, sectionsToDelete);
         dashupService.processLayoutModeChanges(layoutModeStructure, user);
 
         Map<String, Object> whereParameters = new HashMap<>();
@@ -101,8 +102,6 @@ class LayoutModeTest {
         List<LayoutModePanel> layoutModePanels2 = new ArrayList<>();
         List<LayoutModeSection> sectionPanelOrder = new ArrayList<>();
         List<LayoutModeSection> sectionsToDelete = new ArrayList<>();
-        List<String> panelsToDelete = new ArrayList<>();
-
 
         LayoutModePanel layoutModePanel1 = new LayoutModePanel("p1", "medium");
         LayoutModePanel layoutModePanel2 = new LayoutModePanel("p2", "medium");
@@ -116,7 +115,7 @@ class LayoutModeTest {
         sectionPanelOrder.add(layoutModeSection1);
         sectionPanelOrder.add(layoutModeSection2);
 
-        LayoutModeStructure layoutModeStructure = new LayoutModeStructure(panelsToDelete, sectionPanelOrder, sectionsToDelete);
+        LayoutModeStructure layoutModeStructure = new LayoutModeStructure(sectionPanelOrder, sectionsToDelete);
         dashupService.processLayoutModeChanges(layoutModeStructure, user);
 
         Map<String, Object> whereParameters = new HashMap<>();
@@ -136,7 +135,6 @@ class LayoutModeTest {
 
         List<LayoutModeSection> sectionPanelOrder = new ArrayList<>();
         List<LayoutModeSection> sectionsToDelete = new ArrayList<>();
-        List<String> panelsToDelete = new ArrayList<>();
 
         LayoutModeSection layoutModeSection1 = new LayoutModeSection("s1", "section1", null);
         LayoutModeSection layoutModeSection2 = new LayoutModeSection("s2", "section2", null);
@@ -144,7 +142,7 @@ class LayoutModeTest {
         sectionsToDelete.add(layoutModeSection1);
         sectionsToDelete.add(layoutModeSection2);
 
-        LayoutModeStructure layoutModeStructure = new LayoutModeStructure(panelsToDelete, sectionPanelOrder, sectionsToDelete);
+        LayoutModeStructure layoutModeStructure = new LayoutModeStructure(sectionPanelOrder, sectionsToDelete);
         dashupService.processLayoutModeChanges(layoutModeStructure, user);
 
         Map<String, Object> whereParameters = new HashMap<>();

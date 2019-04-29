@@ -4,8 +4,6 @@ import de.dashup.model.db.Database;
 import de.dashup.model.service.DashupService;
 import de.dashup.util.string.Hash;
 import org.junit.jupiter.api.Assertions;
-
-import javax.xml.crypto.Data;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -69,13 +67,13 @@ class UnitTestUtil {
 
     static void setUpTestDashup(Database database) throws SQLException {
 
-        /**
-         * The following test dashboard structure will be generated
-         * -section1-
-         * .panel1
-         * .panel2
-         * -section2-
-         * #empty#
+        /*
+          The following test dashboard structure will be generated
+          -section1-
+          .panel1
+          .panel2
+          -section2-
+          #empty#
         */
 
         Map<String, Object> testData = new HashMap<>();
