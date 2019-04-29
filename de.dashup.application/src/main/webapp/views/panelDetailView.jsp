@@ -56,8 +56,8 @@
                     </div>
                 </div>
                 <div class="col m2" style="margin-top: 40px">
-                    <button id="btn_start_search_marketplace" class="btn waves-effect waves-light" type="submit"
-                                name="search">
+                    <button id="btn-add-panel-to-dashup" class="btn waves-effect waves-light" type="submit"
+                                name="add">
                             <fmt:message key="i18n.add"/>
                     </button>
                 </div>
@@ -91,7 +91,7 @@
                                 </div>
                                 <c:if test="${fn:length(tags) > 0}">
                                     <div class="row">
-                                        <c:forEach items="${fn:escapeXml(tags)}" var="tag">
+                                        <c:forEach items="${tags}" var="tag">
                                             <div class="chip">
                                                     ${fn:escapeXml(tag)}
                                             </div>
@@ -111,7 +111,7 @@
                                         <h5>${fn:escapeXml(rating.title)}</h5>
                                     </div>
                                     <div class="col m2 offset-m6">
-                                        <div class="star-rating" style="font-size: 25px; margin-top: 1px">
+                                        <div class="star-rating" style="font-size: 25px; margin-top: 15px">
                                             <div class="back-stars">
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -132,7 +132,7 @@
                                 <div class="row" style="font-size: 15px; margin-left: 3px">
                                     By ${fn:escapeXml(rating.userName)} ${fn:escapeXml(rating.userSurname)}, Last changed on ${fn:escapeXml(rating.changeDate)}
                                 </div>
-                                <div class="row">
+                                <div class="row" style="margin-left: 3px">
                                         ${fn:escapeXml(rating.text)}
                                 </div>
                             </li>
@@ -144,11 +144,35 @@
                 </div>
             </div>
         </div>
+        <div id="dialog-add-panel-to-dashup" class="modal">
+            <div class="modal-content">
+                <div class="row">
+                    <h4><fmt:message key="i18n.addPanelToDashup" /></h4>
+                    <div class="input-field col s12">
+                        <select id="language-dropdown">
+                            <option value="default"><fmt:message key="i18n.newSection" /></option>
+                            <c:forEach items="${sections}" var="section">
+                                <option value="${fn:escapeXml(section.id)}">${fn:escapeXml(section.name)}</option>
+                            </c:forEach>
+                        </select>
+                        <label><fmt:message key="i18n.sections" /></label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="btn-submit-section-to-add-to" class="modal-close waves-effect waves-green btn-flat"><fmt:message key="i18n.ok" /></a>
+            </div>
+        </div>
     </body>
     <script>
         $(document).ready(function () {
             $('.tabs').tabs();
             $('.chips').chips();
+            let chooseSectionToAddToDialog = M.Modal.getInstance(document.getElementById("dialog-add-panel-to-dashup"));
+            $('#btn-add-panel-to-dashup').on("click", function () {
+                chooseSectionToAddToDialog.open();
+            });
+
         });
 
     </script>
