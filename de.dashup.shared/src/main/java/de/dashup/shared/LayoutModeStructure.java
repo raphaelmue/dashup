@@ -4,7 +4,6 @@ import java.util.List;
 
 public class LayoutModeStructure {
 
-    private List<String> panelsToDelete;
     private List<LayoutModeSection> sectionPanelOrder;
     private List<LayoutModeSection> sectionsToDelete;
 
