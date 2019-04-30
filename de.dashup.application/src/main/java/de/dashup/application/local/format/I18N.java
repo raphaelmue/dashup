@@ -13,7 +13,7 @@ public final class I18N {
 
     public enum Language implements Serializable {
         ENGLISH("English", Locale.ENGLISH),
-        GERMAN("German", Locale.GERMAN);
+        GERMAN("Deutsch", Locale.GERMAN);
 
         private static final long serialVersionUID = -2204664357700920467L;
 
@@ -29,13 +29,22 @@ public final class I18N {
             return name;
         }
 
-        Locale getLocale() {
+        public Locale getLocale() {
             return locale;
         }
 
         public static Language getLanguageByLocale(Locale locale) {
             for (Language language : values()) {
                 if (language.getLocale().equals(locale)) {
+                    return language;
+                }
+            }
+            return null;
+        }
+
+        public static Language getLanguageByName(String name) {
+            for (Language language : values()) {
+                if (language.getName().equals(name)) {
                     return language;
                 }
             }
