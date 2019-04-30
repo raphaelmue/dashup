@@ -27,7 +27,7 @@ class LayoutModeTest {
     private static User user;
 
     @BeforeAll
-    static void createDatabaseConnection() throws SQLException {
+    static void initializeConnections() throws SQLException {
         database = UnitTestUtil.getDBInstance();
         dashupService = DashupService.getInstance();
 

@@ -306,12 +306,10 @@ public class DashupService {
     }
 
     private int addSection(User user, String sectionName, int order) throws SQLException, NumberFormatException {
-        if (sectionName == null) {
-            sectionName = "New Section";
-        }
 
         Map<String, Object> values = new HashMap<>();
-        values.put("section_name", sectionName);
+
+        values.put("section_name", Objects.requireNonNullElse(sectionName, "New Section"));
         values.put("user_id", user.getId());
         values.put("predecessor_id", order);
 

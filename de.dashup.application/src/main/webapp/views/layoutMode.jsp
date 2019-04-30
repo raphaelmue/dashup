@@ -16,6 +16,14 @@
 </head>
 <body>
 <jsp:include page="includes/header.jsp"/>
+<nav>
+    <div class="nav-wrapper">
+        <div class="col s12">
+            <a href="${pageContext.request.contextPath}/" class="breadcrumb">dashup</a>
+            <a href="#" class="breadcrumb"><fmt:message key="i18n.layoutMode" /></a>
+        </div>
+    </div>
+</nav>
 <div class="container">
     <div class="row">
         <h3><fmt:message key="i18n.layoutMode"/></h3>
@@ -37,8 +45,6 @@
 
 </div>
 
-
-<!-- Dropdown Structure -->
 <ul id='dropdown1' class='dropdown-content'>
     <li><a id="delete" href="#">
         <i class="fas fa-trash-alt"></i>

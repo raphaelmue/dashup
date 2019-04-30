@@ -4,6 +4,73 @@ let globalSectionCount;
 let sectionContainer;
 let panelContainer;
 
+(function () {
+    sectionContainer = dragula([document.querySelector(".drag-drop-container")], {
+        moves: function (el, container, handle) {
+
+            let draggedClass = handle.classList[0];
+
+            if (draggedClass === "drag-drop-btn") {
+                return !handle.classList.contains("bloc--inner");
+            }
+        }
+    });
+
+    panelContainer = dragula([].slice.apply(document.querySelectorAll(".bloc")), {
+        direction: "horizontal"
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let elems = document.querySelectorAll(".dropdown-trigger");
+        M.Dropdown.init(elems, null);
+    });
+
+    $(".dropdown-trigger").on("click", function (event) {
+        let panel = event.currentTarget.parentNode.parentNode.parentNode;
+        selectedPanel = panel.id;
+    });
+
+    $("#delete").on("click", function () {
+        let panelToDelete = document.getElementById(selectedPanel);
+        let panelToDeleteParent = panelToDelete.parentNode;
+
+        panelToDeleteParent.removeChild(panelToDelete);
+
+    });
+
+    $("#add-section-button").on("click", function () {
+        let sectionId = "n" + globalSectionCount;
+        let panelContainerToAdd = addNewSection(sectionId);
+        panelContainer.containers.push(panelContainerToAdd);
+        initializeSectionDeleteClick();
+    });
+
+
+    $("#save-changes-button").on("click", function () {
+        saveChanges();
+    });
+
+    initializeSectionDeleteClick();
+
+    globalSectionCount = 0;
+
+})();
+
+function makePanelStructure(panels) {
+    let panelsCount = panels.length;
+    let panelStructure = [];
+
+    for (let j = 0; j < panelsCount; j++) {
+        let panel = {
+            panelId: panels[j].id,
+            panelSize: panels[j]["attributes"]["size"].value,
+        };
+        panelStructure.push(panel);
+    }
+
+    return panelStructure;
+}
+
 function addNewSection(sectionId) {
 
     let dragAndDropContainer = document.getElementById("drag-drop-container");
@@ -68,117 +135,6 @@ function addSectionToDeleteToList(sectionToDelete) {
 
 }
 
-function saveChanges() {
-    let sectionPanelOrder = makeSectionPanelOrder();
-    let layout = {
-        sectionsToDelete,
-        sectionPanelOrder
-    };
-
-    postChanges(layout);
-}
-
-function makePanelStructure(panels) {
-    let panelsCount = panels.length;
-    let panelStructure = [];
-
-    for (let j = 0; j < panelsCount; j++) {
-        let panel = {
-            panelId: panels[j].id,
-            panelSize: panels[j]["attributes"]["size"].value,
-        };
-        panelStructure.push(panel);
-    }
-
-    return panelStructure;
-}
-
-function initializeDragAndDrop() {
-    sectionContainer = dragula([document.querySelector(".drag-drop-container")], {
-        moves: function (el, container, handle) {
-
-            let draggedClass = handle.classList[0];
-
-            if (draggedClass === "drag-drop-btn") {
-                return !handle.classList.contains("bloc--inner");
-            }
-        }
-    });
-
-    panelContainer = dragula([].slice.apply(document.querySelectorAll(".bloc")), {
-        direction: "horizontal"
-    });
-
-}
-
-function initializePanelDropdown() {
-    document.addEventListener("DOMContentLoaded", function () {
-        let elems = document.querySelectorAll(".dropdown-trigger");
-        M.Dropdown.init(elems, null);
-    });
-
-    $(".dropdown-trigger").on("click", function (event) {
-        let panel = event.currentTarget.parentNode.parentNode.parentNode;
-        selectedPanel = panel.id;
-    });
-
-}
-
-function initializeSectionDeleteClick() {
-    $(".section-minus").on("click", function (event) {
-        let sectionToDelete = event.currentTarget.parentNode.parentNode.parentNode;
-
-        if (sectionToDelete != null) {
-            addSectionToDeleteToList(sectionToDelete);
-
-            while (sectionToDelete.firstChild) {
-                sectionToDelete.removeChild(sectionToDelete.firstChild);
-            }
-
-            let sectionParent = sectionToDelete.parentNode;
-            sectionParent.removeChild(sectionToDelete);
-        }
-
-    });
-}
-
-function initializeAddSectionButtonClick() {
-    $("#add-section-button").on("click", function () {
-        let sectionId = "n" + globalSectionCount;
-        let panelContainerToAdd = addNewSection(sectionId);
-        panelContainer.containers.push(panelContainerToAdd);
-        initializeSectionDeleteClick();
-    });
-}
-
-function initializeSaveChangesButtonClick() {
-    $("#save-changes-button").on("click", function () {
-        saveChanges();
-    });
-}
-
-function initializePanelDeleteClick() {
-    $("#delete").on("click", function () {
-        let panelToDelete = document.getElementById(selectedPanel);
-        let panelToDeleteParent = panelToDelete.parentNode;
-
-        panelToDeleteParent.removeChild(panelToDelete);
-
-    });
-}
-
-$(document).ready(function () {
-    initializeDragAndDrop();
-    initializePanelDropdown();
-    initializeSectionDeleteClick();
-    initializePanelDeleteClick();
-    initializeAddSectionButtonClick();
-    initializeSaveChangesButtonClick();
-
-    globalSectionCount = 0;
-
-})();
-
 function makeSectionPanelOrder() {
     let sectionPanelOrder = [];
     let dragDropContainer = document.getElementById("drag-drop-container");
@@ -204,6 +160,24 @@ function makeSectionPanelOrder() {
     return sectionPanelOrder;
 }
 
+function initializeSectionDeleteClick() {
+    $(".section-minus").on("click", function (event) {
+        let sectionToDelete = event.currentTarget.parentNode.parentNode.parentNode;
+
+        if (sectionToDelete != null) {
+            addSectionToDeleteToList(sectionToDelete);
+
+            while (sectionToDelete.firstChild) {
+                sectionToDelete.removeChild(sectionToDelete.firstChild);
+            }
+
+            let sectionParent = sectionToDelete.parentNode;
+            sectionParent.removeChild(sectionToDelete);
+        }
+
+    });
+}
+
 function postChanges(data) {
     let url = "/layoutMode/handleSaveChanges";
 
@@ -225,4 +199,14 @@ function postChanges(data) {
         showSaveResponseErrorMessageToast();
     });
 
+}
+
+function saveChanges() {
+    let sectionPanelOrder = makeSectionPanelOrder();
+    let layout = {
+        sectionsToDelete,
+        sectionPanelOrder
+    };
+
+    postChanges(layout);
 }
