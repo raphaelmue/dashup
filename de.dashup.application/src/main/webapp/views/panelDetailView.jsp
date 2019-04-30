@@ -103,41 +103,54 @@
                     </div>
                 </div>
                 <div id="ratings-tab" class="col s12">
-                    <ul class="collection">
-                        <c:forEach items="${ratings}" var="rating">
-                            <li class="collection-item">
-                                <div class="row" style="margin-bottom: 0px">
-                                    <div class="col m4">
-                                        <h5>${fn:escapeXml(rating.title)}</h5>
-                                    </div>
-                                    <div class="col m2 offset-m6">
-                                        <div class="star-rating" style="font-size: 25px; margin-top: 15px">
-                                            <div class="back-stars">
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <div class="front-stars" style="width:  ${fn:escapeXml(rating.rating)}%">
+                    <div class="row">
+                        <div class="col m8">
+                            Maybe we want to sort the comments here?
+                        </div>
+                        <div class="col m2 offset-m2">
+                            <button id="btn-add-comment" class="btn waves-effect waves-light" type="submit"
+                                    name="comment">
+                                <fmt:message key="i18n.addComment"/>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <ul class="collection">
+                            <c:forEach items="${ratings}" var="rating">
+                                <li class="collection-item">
+                                    <div class="row" style="margin-bottom: 0px">
+                                        <div class="col m4">
+                                            <h5>${fn:escapeXml(rating.title)}</h5>
+                                        </div>
+                                        <div class="col m2 offset-m6">
+                                            <div class="star-rating" style="font-size: 25px; margin-top: 15px">
+                                                <div class="back-stars">
                                                     <i class="fa fa-star" aria-hidden="true"></i>
                                                     <i class="fa fa-star" aria-hidden="true"></i>
                                                     <i class="fa fa-star" aria-hidden="true"></i>
                                                     <i class="fa fa-star" aria-hidden="true"></i>
                                                     <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <div class="front-stars" style="width:  ${fn:escapeXml(rating.rating)}%">
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row" style="font-size: 15px; margin-left: 3px">
-                                    By ${fn:escapeXml(rating.userName)} ${fn:escapeXml(rating.userSurname)}, Last changed on ${fn:escapeXml(rating.changeDate)}
-                                </div>
-                                <div class="row" style="margin-left: 3px">
-                                        ${fn:escapeXml(rating.text)}
-                                </div>
-                            </li>
-                        </c:forEach>
-                    </ul>
+                                    <div class="row" style="font-size: 15px; margin-left: 3px">
+                                        By ${fn:escapeXml(rating.userName)} ${fn:escapeXml(rating.userSurname)}, Last changed on ${fn:escapeXml(rating.changeDate)}
+                                    </div>
+                                    <div class="row" style="margin-left: 3px">
+                                            ${fn:escapeXml(rating.text)}
+                                    </div>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
                 </div>
                 <div id="similar-tab" class="col s12">
 
@@ -163,16 +176,69 @@
                 <a id="btn-submit-section-to-add-to" class="modal-close waves-effect waves-green btn-flat"><fmt:message key="i18n.ok" /></a>
             </div>
         </div>
+        <div id="dialog-add-comment" class="modal">
+            <div class="modal-content">
+                <div class="row">
+                    <h4><fmt:message key="i18n.addComment" /></h4>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m12" style="margin-top: 0">
+                        <textarea id="text-field-add-new-comment" name="newComment" class="materialize-textarea"></textarea>
+                        <label for="text-field-add-new-comment"><fmt:message key="i18n.newComment"/></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="star-rating">
+                        <div id="star-rating-new-comment" class="back-stars">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <div id="star-rating-new-comment-front" class="front-stars" style="width: 0">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="btn-submit-comment" class="modal-close waves-effect waves-green btn-flat"><fmt:message key="i18n.ok" /></a>
+            </div>
+        </div>
     </body>
     <script>
         $(document).ready(function () {
+            var starsAreMovable = true;
             $('.tabs').tabs();
             $('.chips').chips();
+
             let chooseSectionToAddToDialog = M.Modal.getInstance(document.getElementById("dialog-add-panel-to-dashup"));
             $('#btn-add-panel-to-dashup').on("click", function () {
                 chooseSectionToAddToDialog.open();
             });
 
+            let addCommentForPanelDialog = M.Modal.getInstance(document.getElementById("dialog-add-comment"));
+            $('#btn-add-comment').on("click", function () {
+                addCommentForPanelDialog.open();
+            });
+
+            $('#star-rating-new-comment').on('mousemove', function(e){
+                if (starsAreMovable) {
+                    let offset = $('#star-rating-new-comment').offset();
+                    let x = (e.pageX - offset.left) / $('#star-rating-new-comment').width() * 100;
+
+                    $('#star-rating-new-comment-front').css('width', x + '%');
+                }
+            });
+
+            $('#star-rating-new-comment').on('click',function () {
+                starsAreMovable = !starsAreMovable;
+            });
         });
 
     </script>
