@@ -2,6 +2,7 @@ package de.dashup.model.service;
 
 import de.dashup.model.builder.PanelLoader;
 import de.dashup.model.db.Database;
+import de.dashup.model.exceptions.EmailAlreadyInUseException;
 import de.dashup.shared.*;
 import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
@@ -293,22 +294,58 @@ public class DashupService {
             user.setPassword(newHashedPassword);
             user.setSalt(newSalt);
         } else {
-            throw new IllegalArgumentException("Passworts does not match");
+            throw new IllegalArgumentException("Passwords do not match");
         }
     }
 
-    public void updateNameAndSurname(User user, String newName, String newSurname) throws SQLException {
+    public void updateEmail(User user) throws SQLException, EmailAlreadyInUseException {
+        if (!Validator.validate(user.getEmail(), Validator.EMAIL_REGEX)) {
+            throw new IllegalArgumentException("Email is not valid.");
+        }
+
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", user.getId());
 
         Map<String, Object> values = new HashMap<>();
-        values.put("name", newName);
-        values.put("surname", newSurname);
+        values.put("email", user.getEmail());
+
+        JSONArray result = this.database.get(Database.Table.USERS, values);
+        if (result.length() > 0) {
+            throw new EmailAlreadyInUseException(user.getEmail());
+        }
 
         this.database.update(Database.Table.USERS, whereParameters, values);
 
-        user.setName(newName);
-        user.setSurname(newSurname);
+        user.setEmail(user.getEmail());
+    }
+
+    public void updateUserName(User user) throws SQLException, EmailAlreadyInUseException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", user.getId());
+
+        Map<String, Object> values = new HashMap<>();
+        values.put("user_name", user.getUserName());
+
+        JSONArray result = this.database.get(Database.Table.USERS, values);
+        if (result.length() > 0) {
+            throw new EmailAlreadyInUseException(user.getUserName());
+        }
+
+        this.database.update(Database.Table.USERS, whereParameters, values);
+    }
+
+    public void updatePersonalInformation(User user) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", user.getId());
+
+        Map<String, Object> values = new HashMap<>();
+        values.put("name", user.getName());
+        values.put("surname", user.getSurname());
+        values.put("birth_date", user.getBirthDate());
+        values.put("company", user.getCompany());
+        values.put("bio", user.getBio());
+
+        this.database.update(Database.Table.USERS, whereParameters, values);
     }
 
     public void updateSettings(User user, boolean insert) throws SQLException {
