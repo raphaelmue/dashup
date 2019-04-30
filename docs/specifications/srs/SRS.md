@@ -85,7 +85,7 @@ web application on modern browsers.
 | Reference                                                                             | Date       |
 |---------------------------------------------------------------------------------------|------------|
 | <a href="https://dashup2k18.wordpress.com/">Dashup Blog</a>                           | 21/10/2018 |
-| <a href="https://github.com/raphaelmue/dashup"> GitHub Repository</a>                 | 21/10/2018 |
+| <a href="https://github.com/raphaelmue/dashup">GitHub Repository</a>                  | 21/10/2018 |
 | <a href="https://youtrack.dashup.de/issues">YouTrack</a>                              | 21/10/2018 |
 | <a href="http://jenkins.raphael-muesseler.de/job/dashup">Jenkins</a>                  | 21/10/2018 |
 
