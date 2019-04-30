@@ -261,7 +261,7 @@ repository. This helps a lot, when implementing tests and new features.
 
 Furthermore, after each commit, all tests will be executed. 
 
-##9 Environmental Needs
+## 9 Environmental Needs
 
 ### 9.1 Base System Hardware
 
