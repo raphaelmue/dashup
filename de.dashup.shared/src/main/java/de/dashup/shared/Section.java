@@ -10,7 +10,7 @@ public class Section implements DatabaseObject {
     private String section_name;
     @SerializedName("predecessor_id")
     private int predecessorID;
-    private List<Panel> panels;
+    private List<Widget> widgets;
 
     public Section() {
     }
@@ -29,16 +29,16 @@ public class Section implements DatabaseObject {
         this.section_name = name;
     }
 
-    public void setPanels(List<Panel> panels) {
-        this.panels = panels;
+    public void setWidgets(List<Widget> widgets) {
+        this.widgets = widgets;
     }
 
     public String getName() {
         return section_name;
     }
 
-    public List<Panel> getPanels() {
-        return panels;
+    public List<Widget> getWidgets() {
+        return widgets;
     }
 
     public int getPredecessor() {
