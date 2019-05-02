@@ -85,7 +85,7 @@ web application on modern browsers.
 | Reference                                                                             | Date       |
 |---------------------------------------------------------------------------------------|------------|
 | <a href="https://dashup2k18.wordpress.com/">Dashup Blog</a>                           | 21/10/2018 |
-| <a href="https://github.com/raphaelmue/dashup"> GitHub Repository</a>                 | 21/10/2018 |
+| <a href="https://github.com/raphaelmue/dashup">GitHub Repository</a>                  | 21/10/2018 |
 | <a href="https://youtrack.dashup.de/issues">YouTrack</a>                              | 21/10/2018 |
 | <a href="http://jenkins.raphael-muesseler.de/job/dashup">Jenkins</a>                  | 21/10/2018 |
 
@@ -141,7 +141,7 @@ database management system MariaDB as the open source MySQL spin-off will be use
 Jenkins. For testing purposes Selenium and JUnit test will guarantee the promised standard of the dashup software. Of 
 course, the whole system architecture will be split into a development, testing and production environment. For further 
 information regarding the system architecture please refer to the 
-<a href="../sad/sad.md">software architecture document</a>.
+<a href="../sad/SAD.md">software architecture document</a>.
 
 ## 3.2 Functionality
 

@@ -21,10 +21,10 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 
-public class LoginRegisterStepdefs {
+public class LoginRegisterStepDefinitions {
+
     @Autowired
     private SpringBootBase springBootBase;
-
 
     //--------------- Login ---------------\\
     @And("^User registered with e-mail \"([^\"]*)\" and password \"([^\"]*)\"$")

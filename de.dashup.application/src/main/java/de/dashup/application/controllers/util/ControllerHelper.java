@@ -14,7 +14,7 @@ public class ControllerHelper {
     public static String defaultMapping(String token, HttpServletRequest request, Model model, String viewName, ControllerAction<User> action) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            model.addAttribute("language", user.getSettings().getLanguage().getDisplayLanguage());
+            model.addAttribute("language", user.getSettings().getLanguage().toLanguageTag());
             model.addAttribute("theme", user.getSettings().getTheme().getTechnicalName());
             action.action(user);
             return viewName;

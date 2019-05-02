@@ -24,7 +24,7 @@ class Converter {
                 Object columnValue = resultSet.getObject(i + 1);
                 // if value in DB is null, then we set it to default value
                 if (columnValue == null) {
-                    columnValue = "null";
+                    columnValue = "";
                 }
                 /* Next if block is a hack. In case when in db we have values like price and price1 there's a bug in jdbc -
                  * both this names are getting stored as price in ResulSet. Therefore when we store second column value,

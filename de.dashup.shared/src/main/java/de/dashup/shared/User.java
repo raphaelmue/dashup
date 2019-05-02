@@ -25,11 +25,15 @@ public class User extends DatabaseUser {
         if (databaseObject instanceof DatabaseUser) {
             this.setId(databaseObject.getId());
             this.setName(((DatabaseUser) databaseObject).getName());
+            this.setUserName(((DatabaseUser) databaseObject).getUserName());
             this.setSurname(((DatabaseUser) databaseObject).getSurname());
             this.setUserName(((DatabaseUser) databaseObject).getUserName());
             this.setEmail(((DatabaseUser) databaseObject).getEmail());
             this.setPassword(((DatabaseUser) databaseObject).getPassword());
             this.setSalt(((DatabaseUser) databaseObject).getSalt());
+            this.setBirthDate(((DatabaseUser) databaseObject).getBirthDate());
+            this.setCompany(((DatabaseUser) databaseObject).getCompany());
+            this.setBio(((DatabaseUser) databaseObject).getBio());
         }
         return this;
     }
