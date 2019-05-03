@@ -1,6 +1,6 @@
 dashup - Use Case Specification: Widget
 ============================================
-### Version 2.0
+### Version 2.1
 
 # Revision History
 
@@ -8,6 +8,7 @@ dashup - Use Case Specification: Widget
 |------------|---------|------------------------------------------------------------------------|------------------|
 | 09/12/2018 | 1.0     | Initial UCS with description, activity diagram and screen flow diagram | Felix Hausberger |
 | 30/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
+| 22/04/2019 | 2.1     | Added function points estimation                                       | Felix Hausberger |
 
 # Table of Contents
 
@@ -21,6 +22,7 @@ dashup - Use Case Specification: Widget
     - [Widget Build Correctly](#42-widget-build-correctly)
 - [Postconditions](#5-postconditions) 
 - [Extension Points](#6-extension-points)
+- [Function Points](#7-function-points)
  
 # 1. Widget - Brief Description
 Widgets describe small components, that represent the main use case of dashup. They encapsulate functionality in a small 
@@ -90,3 +92,19 @@ N/A
 
 #  6. Extension Points
 N/A
+
+# 7. Function Points
+
+<img src="./function_points/widget.png" alt="function points estimation" />
+<br />
+
+Be aware that the information on the amount of user input, output and inquiries are just average values. They should not 
+exceed five for ease of use purposes.
+
+| Measurement Parameter         | DET | RET | FTR |
+|-------------------------------|-----|-----|-----|
+| Number of user input          | 3   | 1   | 1   |
+| Number of user outputs        | 3   | 1   | 1   |
+| Number of user inquiries      | 3   | 1   | 1   |
+| Number of files               | 5   | 1   | 1   |
+| Number of external interfaces | 5   | 1   | 0   |

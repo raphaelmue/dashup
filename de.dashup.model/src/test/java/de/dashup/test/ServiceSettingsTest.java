@@ -1,11 +1,13 @@
 package de.dashup.test;
 
 import de.dashup.model.db.Database;
+import de.dashup.model.exceptions.EmailAlreadyInUseException;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.DatabaseObject;
 import de.dashup.shared.Settings;
 import de.dashup.shared.User;
 import de.dashup.util.string.Hash;
+import de.dashup.util.string.RandomString;
 import org.json.JSONArray;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -76,6 +79,62 @@ public class ServiceSettingsTest {
     }
 
     @Test
+    public void testUpdateEmail() throws SQLException, EmailAlreadyInUseException {
+        Assertions.assertThrows(EmailAlreadyInUseException.class,
+                () -> DashupService.getInstance().updateEmail(testUser));
+
+        final RandomString randomString = new RandomString();
+        testUser.setEmail(randomString.nextString(12));
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> DashupService.getInstance().updateEmail(testUser));
+
+        testUser.setEmail("anothertest@test.com");
+        DashupService.getInstance().updateEmail(testUser);
+
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", testUser.getId());
+        User assertUser = (User) new User().fromDatabaseObject(database.getObject(Database.Table.USERS, User.class, whereParameters).get(0));
+        Assertions.assertEquals(testUser.getEmail(), assertUser.getEmail());
+    }
+
+    @Test
+    public void testUpdateUsername() throws SQLException, EmailAlreadyInUseException {
+        Assertions.assertThrows(EmailAlreadyInUseException.class,
+                () -> DashupService.getInstance().updateUserName(testUser));
+
+        final RandomString randomString = new RandomString();
+        testUser.setUserName(randomString.nextString(12));
+
+        DashupService.getInstance().updateUserName(testUser);
+
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", testUser.getId());
+        User assertUser = (User) new User().fromDatabaseObject(database.getObject(Database.Table.USERS, User.class, whereParameters).get(0));
+        Assertions.assertEquals(testUser.getUserName(), assertUser.getUserName());
+    }
+
+    @Test
+    public void testUpdatePersonalInformation() throws SQLException {
+        final RandomString randomString = new RandomString();
+        testUser.setName(randomString.nextString(12));
+        testUser.setSurname(randomString.nextString(8));
+        testUser.setBirthDate(LocalDate.now());
+        testUser.setCompany(randomString.nextString(16));
+        testUser.setBio(randomString.nextString(128));
+
+        DashupService.getInstance().updatePersonalInformation(testUser);
+
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", testUser.getId());
+        User assertUser = (User) new User().fromDatabaseObject(database.getObject(Database.Table.USERS, User.class, whereParameters).get(0));
+        Assertions.assertEquals(testUser.getName(), assertUser.getName());
+        Assertions.assertEquals(testUser.getSurname(), assertUser.getSurname());
+        Assertions.assertEquals(testUser.getBirthDate(), assertUser.getBirthDate());
+        Assertions.assertEquals(testUser.getCompany(), assertUser.getCompany());
+        Assertions.assertEquals(testUser.getBio(), assertUser.getBio());
+    }
+
+    @Test
     public void testUpdateSettings() throws SQLException {
         final String backgroundURL = "https://images.pexels.com/photos/556416/pexels-photo-556416.jpeg";
         final String invalidURL = "null";
@@ -131,6 +190,6 @@ public class ServiceSettingsTest {
         Map<String, String> result = dashupService.loadLayout(testUser);
         Assertions.assertEquals(testUser.getSettings().getLanguage().toLanguageTag(), result.get("language"));
         Assertions.assertEquals(testUser.getSettings().getTheme().getTechnicalName(), result.get("theme"));
-        Assertions.assertEquals("null", result.get("background_image"));
+        Assertions.assertEquals("", result.get("background_image"));
     }
 }
