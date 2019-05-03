@@ -180,19 +180,9 @@ the user input is handled correctly.
 | Success Criteria       | Tests must pass and coverage must be higher than threshold. |
 | Special Considerations | Running UI tests headless on a CI server without an UI.     |
 
-#### 5.1.3 Integration Testing
+#### 5.1.3 Performance Profiling
 
-Before being able to merge one branch to another, our CI server runs automated integration tests by looking for a stable 
-built process.
-
-|                        | Description                                                        |
-| ---------------------- | ------------------------------------------------------------------ |
-| Technique Objective    | Ensuring that the integration of software units works as expected. |
-| Technique              | Verifying that the expected result and no error occurs.            |
-| Oracles                | Test logs, console printing, code coverage                         |
-| Required Tools         | CI/CD pipeline in Jenkins                                          |
-| Success Criteria       | Tests must pass and built process must be successful.              |
-| Special Considerations | -                                                                  |
+Performance is not being tested at the moment.
 
 ## 6 Entry and Exit Criteria
 
@@ -261,7 +251,7 @@ repository. This helps a lot, when implementing tests and new features.
 
 Furthermore, after each commit, all tests will be executed. 
 
-##9 Environmental Needs
+## 9 Environmental Needs
 
 ### 9.1 Base System Hardware
 
