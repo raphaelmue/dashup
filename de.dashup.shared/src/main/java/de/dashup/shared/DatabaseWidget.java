@@ -18,12 +18,14 @@ public class DatabaseWidget implements DatabaseObject {
     private boolean isVisible;
     @SerializedName("number_of_downloads")
     private int numberOfDownloads;
-    @SerializedName("average_rating")
+    @SerializedName("avg_of_ratings")
     private int averageRating;
     @SerializedName("number_of_ratings")
     private int numberOfRatings;
     @SerializedName("publication_date")
     private String publicationDate;
+    @SerializedName("short_description")
+    private String shortDescription;
 
     DatabaseWidget() {
     }
@@ -44,11 +46,11 @@ public class DatabaseWidget implements DatabaseObject {
         return id;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -131,5 +133,13 @@ public class DatabaseWidget implements DatabaseObject {
         if (publicationDate != null) {
             this.publicationDate = publicationDate.toString();
         }
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 }

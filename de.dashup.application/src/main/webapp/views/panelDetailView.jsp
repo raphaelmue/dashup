@@ -14,7 +14,7 @@
                 <div class="col s12">
                     <a href="${pageContext.request.contextPath}/" class="breadcrumb">dashup</a>
                     <a href="/marketplace/" class="breadcrumb"><fmt:message key="i18n.marketplace"/></a>
-                    <a href="/marketplace/" class="breadcrumb">${fn:escapeXml(panel.name)}</a>
+                    <a href="/marketplace/" class="breadcrumb">${fn:escapeXml(widget.name)}</a>
                 </div>
             </div>
         </nav>
@@ -26,12 +26,12 @@
                 <div class="col m7">
                     <div class="row">
                         <div class="col m12">
-                            <h2>${fn:escapeXml(panel.name)}</h2>
+                            <h2>${fn:escapeXml(widget.name)}</h2>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col m12">
-                            ${fn:escapeXml(panel.shortDescription)}
+                            ${fn:escapeXml(widget.shortDescription)}
                         </div>
                     </div>
                     <div class="row">
@@ -43,7 +43,7 @@
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                     <i class="fa fa-star" aria-hidden="true"></i>
-                                    <div class="front-stars" style="width:  ${fn:escapeXml(panel.averageRating)}%">
+                                    <div class="front-stars" style="width:  ${fn:escapeXml(widget.averageRating)}%">
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -73,7 +73,7 @@
                 <div id="overview-tab" class="col s12">
                     <div class="row">
                         <div class="col m8">
-                            ${fn:escapeXml(panel.description)}
+                            ${fn:escapeXml(widget.description)}
                         </div>
                         <div class="col m4">
                             <blockquote style="color: var(--color-primary)">
@@ -84,7 +84,7 @@
                                     <b><fmt:message key="i18n.dateOfPublication"/></b>
                                 </div>
                                 <div class="row">
-                                    ${fn:escapeXml(panel.publicationDate)}
+                                    ${fn:escapeXml(widget.publicationDate)}
                                 </div>
                                 <div class="row">
                                     <b><fmt:message key="i18n.tags"/></b>

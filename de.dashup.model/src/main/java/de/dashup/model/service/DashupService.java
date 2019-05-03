@@ -105,7 +105,7 @@ public class DashupService {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", id);
 
-        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, Widget.class, whereParameters);
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters);
         if (result != null && result.size() == 1) {
             return (Widget) new Widget().fromDatabaseObject(result.get(0));
         }
@@ -126,12 +126,12 @@ public class DashupService {
         return returningValue;
     }
 
-    public ArrayList<Rating> getRatingsByPanelID(int panelId) throws SQLException {
+    public ArrayList<Rating> getRatingsByWidgetID(int widgetId) throws SQLException {
         ArrayList<Rating> returningValue = new ArrayList<>();
         Map<String,String> onParameters = new HashMap<>();
         Map<String,Object> whereParameters = new HashMap<>();
         onParameters.put("user_id","id");
-        whereParameters.put("panel_id",panelId);
+        whereParameters.put("panel_id",widgetId);
         List<? extends DatabaseObject> databaseResult = database.getObject(Database.Table.RATINGS,Database.Table.USERS,Rating.class,onParameters,whereParameters);
         for (DatabaseObject databaseObject : databaseResult) {
             Rating rating = (Rating) databaseObject;
@@ -140,20 +140,20 @@ public class DashupService {
         return returningValue;
     }
 
-    public ArrayList<Panel> getBestRatedPanels() throws SQLException{
-        ArrayList<Panel> returningValue = new ArrayList<>();
-        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, Panel.class, new HashMap<>(),"avg_of_ratings DESC");
+    public ArrayList<Widget> getBestRatedWidgets() throws SQLException{
+        ArrayList<Widget> returningValue = new ArrayList<>();
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, new HashMap<>(),"avg_of_ratings DESC");
         if (result != null && result.size()>=4) {
             for (int i = 0; i < 4; i++) {
-                Panel panel = (Panel) new Panel().fromDatabaseObject(result.get(i));
-                panel.setShortDescription(this.shortenShortDescOfPanel(panel.getShortDescription()));
-                returningValue.add(panel);
+                Widget widget = (Widget) new Widget().fromDatabaseObject(result.get(i));
+                widget.setShortDescription(this.shortenShortDescOfPanel(widget.getShortDescription()));
+                returningValue.add(widget);
             }
         }else {
             for (DatabaseObject databaseObject : result) {
-                Panel panel = (Panel) new Panel().fromDatabaseObject(databaseObject);
-                panel.setShortDescription(this.shortenShortDescOfPanel(panel.getShortDescription()));
-                returningValue.add(panel);
+                Widget widget = (Widget) new Widget().fromDatabaseObject(databaseObject);
+                widget.setShortDescription(this.shortenShortDescOfPanel(widget.getShortDescription()));
+                returningValue.add(widget);
             }
         }
         return returningValue;

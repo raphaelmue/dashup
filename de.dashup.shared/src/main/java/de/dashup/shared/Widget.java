@@ -64,6 +64,7 @@ public class Widget extends DatabaseWidget {
             this.setAverageRating(((DatabaseWidget) databaseObject).getAverageRating());
             this.setNumberOfRatings(((DatabaseWidget) databaseObject).getNumberOfRatings());
             this.setPublicationDate(((DatabaseWidget) databaseObject).getPublicationDate());
+            this.setShortDescription(((DatabaseWidget) databaseObject).getShortDescription());
         }
         return this;
     }
