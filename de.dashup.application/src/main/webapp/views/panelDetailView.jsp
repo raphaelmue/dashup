@@ -183,26 +183,42 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m12" style="margin-top: 0">
+                        <input id="text-field-title-new-rating" name="title" type="text" class="validate"/>
+                        <label for="text-field-title-new-rating"><fmt:message key="i18n.title"/></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m12" style="margin-top: 0">
                         <textarea id="text-field-add-new-comment" name="newComment" class="materialize-textarea"></textarea>
                         <label for="text-field-add-new-comment"><fmt:message key="i18n.newComment"/></label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="star-rating">
-                        <div id="star-rating-new-comment" class="back-stars">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <div id="star-rating-new-comment-front" class="front-stars" style="width: 0">
+                    <div class="col m3">
+                        <div class="star-rating" style="margin-top: 10px">
+                            <div id="star-rating-new-comment" class="back-stars">
                                 <i class="fa fa-star" aria-hidden="true"></i>
                                 <i class="fa fa-star" aria-hidden="true"></i>
                                 <i class="fa fa-star" aria-hidden="true"></i>
                                 <i class="fa fa-star" aria-hidden="true"></i>
                                 <i class="fa fa-star" aria-hidden="true"></i>
+                                <div id="star-rating-new-comment-front" class="front-stars" style="width: 0">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m2" style="margin-top: 10px; font-size: 16px">
+                        <p>
+                            <fmt:message key="i18n.yourRating"/>:
+                            <span id="label-percentage-value-new-rating" style="color: var(--color-dark-gray)">0%</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -233,6 +249,7 @@
                     let x = (e.pageX - offset.left) / $('#star-rating-new-comment').width() * 100;
 
                     $('#star-rating-new-comment-front').css('width', x + '%');
+                    $('#label-percentage-value-new-rating').html(Math.round(x)+'%');
                 }
             });
 
