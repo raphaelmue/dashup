@@ -208,6 +208,18 @@
                 <a id="btn-cancel-delete-draft" class="btn-flat modal-close waves-effect"><fmt:message key="i18n.cancel" /></a>
             </div>
         </div>
+        <div id="dialog-publish-draft" class="modal">
+            <div class="modal-content">
+                <div class="row">
+                    <h4><fmt:message key="i18n.publish" /></h4>
+                    <p><fmt:message key="i18n.confirmPublishDraft" /></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="btn-submit-publish-draft" class="btn modal-close waves-effect waves-light"><fmt:message key="i18n.ok" /></a>
+                <a id="btn-cancel-publish-draft" class="btn-flat modal-close waves-effect"><fmt:message key="i18n.cancel" /></a>
+            </div>
+        </div>
     </body>
     <script type="text/javascript">
         $( document ).ready(function () {
@@ -294,7 +306,12 @@
                 PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(currentDraft.id)}/deleteDraft", {});
             });
 
+            let publishDraftDialog = M.Modal.getInstance(document.getElementById("dialog-publish-draft"));
             $("#btn-publish-widget").on("click", function () {
+                publishDraftDialog.open();
+            });
+
+            $("#btn-submit-publish-draft").on("click", function () {
                 PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(currentDraft.id)}/publishDraft", {})
             });
 
