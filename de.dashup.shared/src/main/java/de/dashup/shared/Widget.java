@@ -53,14 +53,16 @@ public class Widget extends DatabaseWidget {
     }
 
     @Override
-    public DatabaseObject fromDatabaseObject(DatabaseObject databaseObject) {
+    public Widget fromDatabaseObject(DatabaseObject databaseObject) {
         if (databaseObject instanceof DatabaseWidget) {
             this.setId(databaseObject.getId());
             this.setName(((DatabaseWidget) databaseObject).getName());
             this.setDescription(((DatabaseWidget) databaseObject).getDescription());
+            this.setShortDescription(((DatabaseWidget) databaseObject).getShortDescription());
             this.setCodeSmall(((DatabaseWidget) databaseObject).getCodeSmall());
             this.setCodeMedium(((DatabaseWidget) databaseObject).getCodeMedium());
             this.setCodeLarge(((DatabaseWidget) databaseObject).getCodeLarge());
+            this.setVisible(((DatabaseWidget) databaseObject).isVisible());
         }
         return this;
     }

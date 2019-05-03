@@ -389,10 +389,11 @@ public class DashupService {
     public void getUsersDrafts(User user) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
+        whereParameters.put("visibility", false);
 
         List<Draft> drafts = new ArrayList<>();
-        for (DatabaseObject databaseObject : this.database.getObject(Database.Table.USERS_DRAFTS, Draft.class, whereParameters)) {
-            drafts.add((Draft) databaseObject);
+        for (DatabaseObject databaseObject : this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters)) {
+            drafts.add(new Draft().fromDatabaseObject(databaseObject));
         }
         user.setDrafts(drafts);
     }
@@ -401,14 +402,13 @@ public class DashupService {
         Map<String, Object> values = new HashMap<>();
         values.put("user_id", user.getId());
         values.put("name", draftName);
-        values.put("creation_date", LocalDate.now());
+        values.put("visibility", false);
 
-        this.database.insert(Database.Table.USERS_DRAFTS, values);
+        this.database.insert(Database.Table.PANELS, values);
 
         Draft draft = new Draft();
-        draft.setId(this.database.getLatestId(Database.Table.USERS_DRAFTS));
+        draft.setId(this.database.getLatestId(Database.Table.PANELS));
         draft.setName(draftName);
-        draft.setCreationDate(LocalDate.now());
 
         return draft;
     }
@@ -434,17 +434,17 @@ public class DashupService {
             values.put("short_description", draft.getShortDescription());
         }
         if (draft.getDescription() != null) {
-            values.put("description", draft.getDescription());
+            values.put("descriptions", draft.getDescription());
         }
 
-        this.database.update(Database.Table.USERS_DRAFTS, whereParameters, values);
+        this.database.update(Database.Table.PANELS, whereParameters, values);
     }
 
     public void deleteDraft(int draftId) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", draftId);
 
-        this.database.delete(Database.Table.USERS_DRAFTS, whereParameters);
+        this.database.delete(Database.Table.PANELS, whereParameters);
     }
 
     // --- WIDGETS --- \\
@@ -452,10 +452,11 @@ public class DashupService {
     public List<Widget> getUsersWidgets(User user) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
+        whereParameters.put("visibility", true);
 
         List<Widget> widgets = new ArrayList<>();
         for (DatabaseObject databaseObject : this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters)) {
-            widgets.add((Widget) new Widget().fromDatabaseObject(databaseObject));
+            widgets.add(new Widget().fromDatabaseObject(databaseObject));
         }
         return widgets;
     }

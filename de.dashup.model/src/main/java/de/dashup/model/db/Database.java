@@ -42,8 +42,7 @@ public class Database {
         USERS_SETTINGS("users_settings"),
         PANELS("panels"),
         USER_SECTIONS("users_sections"),
-        SECTIONS_PANELS("sections_panels"),
-        USERS_DRAFTS("users_drafts");
+        SECTIONS_PANELS("sections_panels");
 
         private final String tableName;
 
@@ -341,6 +340,8 @@ public class Database {
         for (Map.Entry<String, Object> entry : values.entrySet()) {
             if (entry.getValue() instanceof LocalDate) {
                 statement.setObject(index, Date.valueOf((LocalDate) entry.getValue()).toString());
+            } else if (entry.getValue() instanceof Boolean) {
+                statement.setObject(index, (boolean) entry.getValue() ? 1 : 0);
             } else {
                 statement.setObject(index, entry.getValue());
             }

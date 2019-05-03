@@ -223,7 +223,7 @@
                     break;
                 case "changedInformation":
                     toastOptions = {
-                        html: "<fmt:message key="i18n.dataSuccessfullySaved" />",
+                        html: "<fmt:message key="i18n.successChangedInformation" />",
                         classes: "success"
                     };
                     break;

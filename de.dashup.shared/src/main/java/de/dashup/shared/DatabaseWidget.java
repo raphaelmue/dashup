@@ -2,10 +2,17 @@ package de.dashup.shared;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDate;
+
 public class DatabaseWidget implements DatabaseObject {
     private int id;
     private String name;
+    @SerializedName("descriptions")
     private String description;
+    @SerializedName("short_description")
+    private String shortDescription;
+    @SerializedName("publication_date")
+    private String publicationDate;
     @SerializedName("code_small")
     private String codeSmall;
     @SerializedName("code_medium")
@@ -36,12 +43,23 @@ public class DatabaseWidget implements DatabaseObject {
         return id;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public LocalDate getPublicationDate() {
+        if (this.publicationDate != null) {
+            return LocalDate.parse(publicationDate);
+        }
+        return null;
     }
 
     public String getCodeSmall() {
@@ -68,27 +86,37 @@ public class DatabaseWidget implements DatabaseObject {
         return averageRating;
     }
 
-    void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    void setCodeSmall(String codeSmall) {
+    public void setPublicationDate(LocalDate publicationDate) {
+        if (publicationDate != null) {
+            this.publicationDate = publicationDate.toString();
+        }
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public void setCodeSmall(String codeSmall) {
         this.codeSmall = codeSmall;
     }
 
-    void setCodeMedium(String codeMedium) {
+    public void setCodeMedium(String codeMedium) {
         this.codeMedium = codeMedium;
     }
 
-    void setCodeLarge(String codeLarge) {
+    public void setCodeLarge(String codeLarge) {
         this.codeLarge = codeLarge;
     }
 
