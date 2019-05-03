@@ -117,7 +117,7 @@
                                             <i class="fas fa-check"></i>
                                             <fmt:message key="i18n.save"/>
                                         </button>
-                                        <button id="btn-undo-code" class="btn-flat waves-effect">
+                                        <button id="btn-undo-code" class="btn-flat undo-button waves-effect">
                                             <i class="fas fa-times"></i>
                                             <fmt:message key="i18n.undo"/>
                                         </button>
@@ -139,7 +139,7 @@
                                 <div class="row">
                                     <div class="input-field col s12 m12">
                                             <textarea id="textarea-short-description" name="shortDescription"
-                                                      class="materialize-textarea">${fn:escapeXml(currentDraft.shortDescription)}</textarea>
+                                                      class="materialize-textarea" data-length="256">${fn:escapeXml(currentDraft.shortDescription)}</textarea>
                                         <label for="textarea-short-description"><fmt:message
                                                 key="i18n.shortDescription"/></label>
                                     </div>
@@ -159,7 +159,7 @@
                                             <i class="fas fa-check"></i>
                                             <fmt:message key="i18n.save"/>
                                         </button>
-                                        <a id="btn-undo-draft-information" class="btn-flat waves-effect">
+                                        <a id="btn-undo-draft-information" class="btn-flat undo-button waves-effect">
                                             <i class="fas fa-times"></i>
                                             <fmt:message key="i18n.undo"/>
                                         </a>
@@ -244,6 +244,8 @@
                 M.toast(toastOptions);
                 clearAnchor()
             }
+
+            $("#textarea-short-description").characterCounter();
 
             $(".tabs").tabs({
                 swipeable: true
