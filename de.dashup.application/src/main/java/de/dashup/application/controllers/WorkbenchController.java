@@ -116,4 +116,20 @@ public class WorkbenchController {
         }
         return "redirect:/login";
     }
+
+    @RequestMapping(value = "/draft/{draftId}/publishDraft")
+    public String handlePublishDraft(@CookieValue(name = "token", required = false) String token,
+                                        HttpServletRequest request,
+                                        @PathVariable(value = "draftId") int draftId) throws SQLException {
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            try {
+                DashupService.getInstance().publishDraft(draftId);
+            } catch (IllegalArgumentException e) {
+                return "redirect:/workbench/draft/" + draftId + "#draftNotValid";
+            }
+            return "redirect:/workbench/#publishedDraft";
+        }
+        return "redirect:/login";
+    }
 }

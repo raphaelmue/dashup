@@ -233,6 +233,12 @@
                         classes: "success"
                     };
                     break;
+                case "draftNotValid":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.warningDraftNotValid" />",
+                        classes: "warning"
+                    };
+                    break;
             }
             if (getAnchor() !== null && getAnchor() !== "") {
                 M.toast(toastOptions);
@@ -284,6 +290,10 @@
             
             $("#btn-submit-delete-draft").on("click", function () {
                 PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(currentDraft.id)}/deleteDraft", {});
+            });
+
+            $("#btn-publish-widget").on("click", function () {
+                PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(currentDraft.id)}/publishDraft", {})
             });
 
             $("#btn-save-draft-information").on("click", function() {

@@ -447,6 +447,25 @@ public class DashupService {
         this.database.delete(Database.Table.PANELS, whereParameters);
     }
 
+    public void publishDraft(int draftId) throws SQLException, IllegalArgumentException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", draftId);
+
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters);
+        if (result != null && result.size() > 0) {
+            Draft draft = new Draft().fromDatabaseObject(result.get(0));
+            if (!draft.isValid()) {
+                throw new IllegalArgumentException("Draft is not valid");
+            }
+
+            Map<String, Object> values = new HashMap<>();
+            values.put("visibility", true);
+            values.put("publication_date", LocalDate.now());
+
+            this.database.update(Database.Table.PANELS, whereParameters, values);
+        }
+    }
+
     // --- WIDGETS --- \\
 
     public List<Widget> getUsersWidgets(User user) throws SQLException {
