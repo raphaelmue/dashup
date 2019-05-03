@@ -93,18 +93,28 @@ class UnitTestUtil {
         testData.put("user_id",1);
         testData.put("name","panel1");
         testData.put("short_description","test panel 1");
-        testData.put("descriptions","long description 1");
+        testData.put("description","long description 1");
         testData.put("publication_date","2019-03-19");
         testData.put("visibility",0);
+        testData.put("number_of_ratings",10);
+        testData.put("avg_of_ratings",75);
+        testData.put("code_small","<h1>Widget 1</h1>");
+        testData.put("code_medium","<h1>Widget 1</h1>");
+        testData.put("code_large","<h1>Widget 1</h1>");
         database.insert(Database.Table.PANELS,testData);
 
         testData.clear();
         testData.put("user_id",1);
         testData.put("name","panel2");
         testData.put("short_description","test panel 2");
-        testData.put("descriptions","long description 2");
+        testData.put("description","long description 2");
         testData.put("publication_date","2019-03-19");
         testData.put("visibility",0);
+        testData.put("number_of_ratings",1);
+        testData.put("avg_of_ratings",50);
+        testData.put("code_small","<h1>Widget 2</h1>");
+        testData.put("code_medium","<h1>Widget 2</h1>");
+        testData.put("code_large","<h1>Widget 2</h1>");
         database.insert(Database.Table.PANELS,testData);
 
         testData.clear();

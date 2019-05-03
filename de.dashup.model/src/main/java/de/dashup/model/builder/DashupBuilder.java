@@ -1,6 +1,6 @@
 package de.dashup.model.builder;
 
-import de.dashup.shared.Panel;
+import de.dashup.shared.Widget;
 import de.dashup.shared.Section;
 import de.dashup.shared.User;
 
@@ -13,9 +13,9 @@ public class DashupBuilder {
                 content.append("<div class=\"row\"><h3 class=\"sectionHeading\">")
                         .append(section.getName())
                         .append("</h3><hr/><div>");
-                if (section.getPanels() != null) {
-                    for (Panel panel : section.getPanels()) {
-                        content.append(panel.getHtmlContent());
+                if (section.getWidgets() != null) {
+                    for (Widget widget : section.getWidgets()) {
+                        content.append(widget.getCodeWithWrapper());
                     }
                 }
                 content.append("<div class=\"clear-float\"></div></div></div>");
@@ -40,11 +40,11 @@ public class DashupBuilder {
                         .append("</div>")
                         .append("<div class=\"bloc col s12\">");
 
-                if (section.getPanels() != null) {
-                    for (Panel panel : section.getPanels()) {
-                        String sizeStyleClass = panel.getSize().getStyleClass();
-                        String size = panel.getSize().getName();
-                        String panelId = String.valueOf(panel.getId());
+                if (section.getWidgets() != null) {
+                    for (Widget widget : section.getWidgets()) {
+                        String sizeStyleClass = widget.getSize().getStyleClass();
+                        String size = widget.getSize().getName();
+                        String panelId = String.valueOf(widget.getId());
 
 
                         content.append("<div class=\"bloc--inner col ")
@@ -59,7 +59,7 @@ public class DashupBuilder {
                                 .append("<div class=\"row\">")
                                 .append("<div class=\"col s11\">")
                                 .append("<h6>")
-                                .append(panel.getSize())
+                                .append(widget.getSize())
                                 .append("</h6>")
                                 .append("</div>")
                                 .append("<div class=\"col s1\">")
