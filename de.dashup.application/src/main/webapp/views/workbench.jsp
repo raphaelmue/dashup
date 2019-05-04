@@ -79,19 +79,16 @@
                                 <div class="row">
                                     <div class="col s12 m12">
                                         <div class="row">
-                                            <div class="col s6 m6">
+                                            <div class="col s12 m6">
                                                 <h4 style="margin-bottom: 20px;"><fmt:message key="i18n.preview" /></h4>
-
                                             </div>
-                                            <div class="col s6 m2 offset-m4">
-                                                <div class="col s12 m12 input-field">
-                                                    <select name="size" id="size-dropdown">
-                                                        <option value="small" selected="selected"><fmt:message key="i18n.small" /></option>
-                                                        <option value="medium"><fmt:message key="i18n.medium" /></option>
-                                                        <option value="large"><fmt:message key="i18n.large" /></option>
-                                                    </select>
-                                                    <label><fmt:message key="i18n.size" /></label>
-                                                </div>
+                                            <div class="col s12 m6 input-field right-align">
+                                                <select name="size" id="size-dropdown">
+                                                    <option value="small" selected="selected"><fmt:message key="i18n.small" /></option>
+                                                    <option value="medium"><fmt:message key="i18n.medium" /></option>
+                                                    <option value="large"><fmt:message key="i18n.large" /></option>
+                                                </select>
+                                                <label><fmt:message key="i18n.size" /></label>
                                             </div>
                                         </div>
                                         <div class="row">
