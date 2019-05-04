@@ -178,7 +178,7 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <div style="text-align: center; margin: 30% auto">
+                    <div style="text-align: center; margin: 20% auto 0%;">
                         <h5 style="text-align: center;">
                             <i style="font-size: 50px; margin-bottom: 20px;" class="fas fa-drafting-compass"></i>
                             <br />
