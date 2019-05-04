@@ -16,9 +16,9 @@
                     <a class="breadcrumb" href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/">
                         <fmt:message key="i18n.workbench" />
                     </a>
-                    <c:if test="${fn:escapeXml(currentDraft.id) > 0}">
-                        <a class="breadcrumb" href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/draft/${fn:escapeXml(currentDraft.id)}">
-                            ${fn:escapeXml(currentDraft.name)}
+                    <c:if test="${fn:escapeXml(current.id) > 0}">
+                        <a class="breadcrumb" href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/draft/${fn:escapeXml(current.id)}">
+                            ${fn:escapeXml(current.name)}
                         </a>
                     </c:if>
                 </div>
@@ -32,7 +32,7 @@
                 <ul>
                     <c:forEach items="${drafts}" var="draft">
                         <li>
-                            <a href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/draft/${fn:escapeXml(draft.id)}" class="waves-effect <c:if test="${draft.id == currentDraft.id}">active</c:if>">${fn:escapeXml(draft.name)}</a>
+                            <a href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/draft/${fn:escapeXml(draft.id)}" class="waves-effect <c:if test="${draft.id == current.id}">active</c:if>">${fn:escapeXml(draft.name)}</a>
                         </li>
                     </c:forEach>
                 </ul>
@@ -43,7 +43,7 @@
                 <ul>
                     <c:forEach items="${publishedWidgets}" var="widget">
                         <li>
-                            <a href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/published/${fn:escapeXml(widget.id)}" class="waves-effect">${fn:escapeXml(widget.name)}</a>
+                            <a href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/published/${fn:escapeXml(widget.id)}" class="waves-effect <c:if test="${widget.id == current.id}">active</c:if>">${fn:escapeXml(widget.name)}</a>
                         </li>
                     </c:forEach>
                 </ul>
@@ -52,7 +52,7 @@
         </aside>
         <main>
             <c:choose>
-                <c:when test="${fn:escapeXml(currentDraft.id) > 0}">
+                <c:when test="${fn:escapeXml(current.id) > 0}">
                     <div class="container">
                         <div class="row">
                             <button id="btn-delete-draft" class="btn-flat waves-effect">
@@ -78,51 +78,62 @@
                             <div id="code" class="col s12">
                                 <div class="row">
                                     <div class="col s12 m12">
-                                        <h4 style="margin-bottom: 20px;"><fmt:message key="i18n.preview" /></h4>
-                                        <div class="col card m2 s6" style="float: none; margin: 0 auto;">
-                                            <div class="card-content" id="pre-view-container">${currentDraft.codeSmall}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col s12 m12">
-                                        <h4 style="margin-bottom: 20px;"><fmt:message key="i18n.code" /></h4>
                                         <div class="row">
-                                            <div class="col s12 m12 input-field">
-                                                <select name="size" id="size-dropdown">
-                                                    <option value="small" selected="selected"><fmt:message key="i18n.small" /></option>
-                                                    <option value="medium"><fmt:message key="i18n.medium" /></option>
-                                                    <option value="large"><fmt:message key="i18n.large" /></option>
-                                                </select>
-                                                <label><fmt:message key="i18n.size" /></label>
+                                            <div class="col s6 m6">
+                                                <h4 style="margin-bottom: 20px;"><fmt:message key="i18n.preview" /></h4>
+
                                             </div>
-                                            <div class="col s12 m12" id="code-container">
-                                                <div class="input-field">
-                                                    <textarea id="textarea-code-small" class="materialize-textarea">${fn:escapeXml(currentDraft.codeSmall)}</textarea>
-                                                    <label for="textarea-code-small"><fmt:message key="i18n.code" /></label>
-                                                </div>
-                                                <div class="input-field" style="display: none;">
-                                                    <textarea id="textarea-code-medium" class="materialize-textarea">${fn:escapeXml(currentDraft.codeMedium)}</textarea>
-                                                    <label for="textarea-code-medium"><fmt:message key="i18n.code" /></label>
-                                                </div>
-                                                <div class="input-field" style="display: none;">
-                                                    <textarea id="textarea-code-large" class="materialize-textarea">${fn:escapeXml(currentDraft.codeLarge)}</textarea>
-                                                    <label for="textarea-code-large"><fmt:message key="i18n.code" /></label>
+                                            <div class="col s6 m2 offset-m4">
+                                                <div class="col s12 m12 input-field">
+                                                    <select name="size" id="size-dropdown">
+                                                        <option value="small" selected="selected"><fmt:message key="i18n.small" /></option>
+                                                        <option value="medium"><fmt:message key="i18n.medium" /></option>
+                                                        <option value="large"><fmt:message key="i18n.large" /></option>
+                                                    </select>
+                                                    <label><fmt:message key="i18n.size" /></label>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col s12 m12">
-                                        <button id="btn-save-code" class="btn waves-effect waves-light">
-                                            <i class="fas fa-check"></i>
-                                            <fmt:message key="i18n.save"/>
-                                        </button>
-                                        <button id="btn-undo-code" class="btn-flat undo-button waves-effect">
-                                            <i class="fas fa-times"></i>
-                                            <fmt:message key="i18n.undo"/>
-                                        </button>
+                                        <div class="row">
+                                            <div class="col card m2 s6" style="float: none; margin: 0 auto;">
+                                                <div class="card-content" id="pre-view-container">${current.codeSmall}</div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <c:if test="${current.isVisible == false}">
+                                    <div class="row">
+                                        <div class="col s12 m12">
+                                            <h4 style="margin-bottom: 20px;"><fmt:message key="i18n.code" /></h4>
+                                            <div class="row">
+                                                <div class="col s12 m12" id="code-container">
+                                                    <div class="input-field">
+                                                        <textarea id="textarea-code-small" class="materialize-textarea">${fn:escapeXml(current.codeSmall)}</textarea>
+                                                        <label for="textarea-code-small"><fmt:message key="i18n.code" /></label>
+                                                    </div>
+                                                    <div class="input-field" style="display: none;">
+                                                        <textarea id="textarea-code-medium" class="materialize-textarea">${fn:escapeXml(current.codeMedium)}</textarea>
+                                                        <label for="textarea-code-medium"><fmt:message key="i18n.code" /></label>
+                                                    </div>
+                                                    <div class="input-field" style="display: none;">
+                                                        <textarea id="textarea-code-large" class="materialize-textarea">${fn:escapeXml(current.codeLarge)}</textarea>
+                                                        <label for="textarea-code-large"><fmt:message key="i18n.code" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col s12 m12">
+                                            <button id="btn-save-code" class="btn waves-effect waves-light">
+                                                <i class="fas fa-check"></i>
+                                                <fmt:message key="i18n.save"/>
+                                            </button>
+                                            <button id="btn-undo-code" class="btn-flat undo-button waves-effect">
+                                                <i class="fas fa-times"></i>
+                                                <fmt:message key="i18n.undo"/>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </c:if>
                             </div>
                             <div id="basicInformation" class="col s12">
                                 <div class="row">
@@ -131,7 +142,7 @@
                                 <div class="row">
                                     <div class="input-field col s12 m12">
                                         <input id="text-field-draft-name" type="text" class="validate" name="draftName"
-                                               value="${fn:escapeXml(currentDraft.name)}"/>
+                                               value="${fn:escapeXml(current.name)}"/>
                                         <label for="text-field-draft-name"><fmt:message
                                                 key="i18n.draftName"/></label>
                                     </div>
@@ -139,7 +150,7 @@
                                 <div class="row">
                                     <div class="input-field col s12 m12">
                                             <textarea id="textarea-short-description" name="shortDescription"
-                                                      class="materialize-textarea" data-length="256">${fn:escapeXml(currentDraft.shortDescription)}</textarea>
+                                                      class="materialize-textarea" data-length="256">${fn:escapeXml(current.shortDescription)}</textarea>
                                         <label for="textarea-short-description"><fmt:message
                                                 key="i18n.shortDescription"/></label>
                                     </div>
@@ -147,7 +158,7 @@
                                 <div class="row">
                                     <div class="input-field col s12 m12">
                                             <textarea id="textarea-description" name="description"
-                                                      class="materialize-textarea">${fn:escapeXml(currentDraft.description)}</textarea>
+                                                      class="materialize-textarea">${fn:escapeXml(current.description)}</textarea>
                                         <label for="textarea-description"><fmt:message
                                                 key="i18n.description"/></label>
                                     </div>
@@ -271,11 +282,12 @@
                 $("div#code-container div.input-field").css("display", "none");
                 let textArea = $("#textarea-code-" + $(this).val());
                 textArea.parent().css("display", "block");
-                updatePreviewContainer(textArea.val(), textArea.attr("id"));
+                updatePreviewContainer(textArea.val(), $(this).val());
             });
 
             $("#textarea-code-small, #textarea-code-medium, #textarea-code-large").bind('input propertychange', function() {
-                updatePreviewContainer($(this).val(), $(this).attr("id"));
+                updatePreviewContainer($(this).val(),
+                    $(this).attr("id").substr($(this).attr("id").lastIndexOf("-") + 1));
             });
 
             let createDraftDialog = M.Modal.getInstance(document.getElementById("dialog-create-draft"));
@@ -301,9 +313,9 @@
             $("#btn-delete-draft").on("click", function () {
                 deleteDraftDialog.open();
             });
-            
+
             $("#btn-submit-delete-draft").on("click", function () {
-                PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(currentDraft.id)}/deleteDraft", {});
+                PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(current.id)}/deleteDraft", {});
             });
 
             let publishDraftDialog = M.Modal.getInstance(document.getElementById("dialog-publish-draft"));
@@ -312,11 +324,11 @@
             });
 
             $("#btn-submit-publish-draft").on("click", function () {
-                PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(currentDraft.id)}/publishDraft", {})
+                PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(current.id)}/publishDraft", {})
             });
 
             $("#btn-save-draft-information").on("click", function() {
-                PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(currentDraft.id)}/changeInformation", {
+                PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(current.id)}/changeInformation", {
                     draftName: $("#text-field-draft-name").val(),
                     shortDescription: $("#textarea-short-description").val(),
                     description: $("#textarea-description").val()
@@ -327,17 +339,17 @@
                 let parameters = {},
                     size = $("#size-dropdown").val();
                 parameters["code_" + size] = encodeURIComponent($("#textarea-code-" + size).val())
-                PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(currentDraft.id)}/changeCode", parameters);
+                PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(current.id)}/changeCode", parameters);
             });
         });
 
-        function updatePreviewContainer(html, id) {
+        function updatePreviewContainer(html, size) {
             let previewContainer = $("#pre-view-container");
             previewContainer.html(html);
 
             previewContainer.parent().removeClass();
             previewContainer.parent().addClass("col card");
-            switch (id.substr(id.lastIndexOf("-") + 1)) {
+            switch (size) {
                 case "small":
                     previewContainer.parent().addClass("m2 s6");
                     break;

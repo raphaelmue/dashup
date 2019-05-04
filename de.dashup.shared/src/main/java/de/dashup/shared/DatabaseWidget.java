@@ -74,7 +74,7 @@ public class DatabaseWidget implements DatabaseObject {
         return codeLarge;
     }
 
-    public boolean isVisible() {
+    public boolean getIsVisible() {
         return isVisible;
     }
 

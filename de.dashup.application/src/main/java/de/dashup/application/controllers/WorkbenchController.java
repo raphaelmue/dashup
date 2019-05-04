@@ -5,6 +5,7 @@ import de.dashup.application.local.LocalStorage;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.Draft;
 import de.dashup.shared.User;
+import de.dashup.shared.Widget;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/workbench")
@@ -52,8 +54,27 @@ public class WorkbenchController {
 
             for (Draft draft : user.getDrafts()) {
                 if (draft.getId() == draftId) {
-                    model.addAttribute("currentDraft", draft);
-                    model.addAttribute("code", draft);
+                    model.addAttribute("current", draft);
+                    break;
+                }
+            }
+        });
+    }
+
+    @RequestMapping("/published/{publishedWidgetId}")
+    public String workbenchPublished(@CookieValue(name = "token", required = false) String token,
+                                     HttpServletRequest request, Model model,
+                                     @PathVariable(value = "publishedWidgetId") int publishedWidgetId) throws SQLException {
+        return ControllerHelper.defaultMapping(token, request, model, "workbench", user -> {
+            DashupService.getInstance().getUsersDrafts(user);
+            model.addAttribute("drafts", user.getDrafts());
+            List<Widget> publishedWidgets = DashupService.getInstance().getUsersWidgets(user);
+            model.addAttribute("publishedWidgets", publishedWidgets);
+
+            for (Widget widget : publishedWidgets) {
+                if (widget.getId() == publishedWidgetId) {
+                    model.addAttribute("current", widget);
+                    break;
                 }
             }
         });
@@ -119,8 +140,8 @@ public class WorkbenchController {
 
     @RequestMapping(value = "/draft/{draftId}/publishDraft")
     public String handlePublishDraft(@CookieValue(name = "token", required = false) String token,
-                                        HttpServletRequest request,
-                                        @PathVariable(value = "draftId") int draftId) throws SQLException {
+                                     HttpServletRequest request,
+                                     @PathVariable(value = "draftId") int draftId) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             try {

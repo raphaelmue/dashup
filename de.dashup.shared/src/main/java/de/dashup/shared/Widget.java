@@ -62,7 +62,7 @@ public class Widget extends DatabaseWidget {
             this.setCodeSmall(((DatabaseWidget) databaseObject).getCodeSmall());
             this.setCodeMedium(((DatabaseWidget) databaseObject).getCodeMedium());
             this.setCodeLarge(((DatabaseWidget) databaseObject).getCodeLarge());
-            this.setVisible(((DatabaseWidget) databaseObject).isVisible());
+            this.setVisible(((DatabaseWidget) databaseObject).getIsVisible());
         }
         return this;
     }

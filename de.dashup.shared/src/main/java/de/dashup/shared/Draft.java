@@ -2,8 +2,8 @@ package de.dashup.shared;
 
 public class Draft extends Widget {
     @Override
-    public boolean isVisible() {
-        return true;
+    public boolean getIsVisible() {
+        return false;
     }
 
     /**
