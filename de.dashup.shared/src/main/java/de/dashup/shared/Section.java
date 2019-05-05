@@ -8,17 +8,17 @@ public class Section implements DatabaseObject,Comparable<Section> {
     @SerializedName("section_id")
     private int sectionID;
     private String section_name;
-    @SerializedName("predecessor_id")
-    private int predecessorID;
+    @SerializedName("section_index")
+    private int index;
     private List<Widget> widgets;
 
     public Section() {
     }
 
-    public Section(int sectionId, String sectionName, int predecessorID) {
+    public Section(int sectionId, String sectionName, int index) {
         this.sectionID = sectionId;
         this.section_name = sectionName;
-        this.predecessorID = predecessorID;
+        this.index = index;
     }
 
     public void setId(int id) {
@@ -41,8 +41,8 @@ public class Section implements DatabaseObject,Comparable<Section> {
         return widgets;
     }
 
-    public int getPredecessor() {
-        return predecessorID;
+    public int getIndex() {
+        return index;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class Section implements DatabaseObject,Comparable<Section> {
 
     @Override
     public int compareTo(Section sectionToCompare) {
-        if(predecessorID > sectionToCompare.getPredecessor()){
+        if(index > sectionToCompare.getIndex()){
             return 1;
         }
         return -1;

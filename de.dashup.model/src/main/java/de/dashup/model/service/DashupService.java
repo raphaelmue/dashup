@@ -77,19 +77,19 @@ public class DashupService {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
 
-        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USER_SECTIONS, Section.class, whereParameters, "predecessor_id");
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USER_SECTIONS, Section.class, whereParameters, "section_index");
         if (result != null) {
             for (DatabaseObject databaseObject : result) {
                 Section section = (Section) databaseObject;
                 Map<String, Object> innerWhereParameters = new HashMap<>();
                 innerWhereParameters.put("section_id", section.getId());
-                JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerWhereParameters, "panel_predecessor");
+                JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerWhereParameters, "widget_index");
                 if (innerResult != null && innerResult.length() > 0) {
                     List<Widget> widgets = new ArrayList<>();
                     for (int i = 0; i < innerResult.length(); i++) {
                         Widget widget = this.getPanelById(innerResult.getJSONObject(i).getInt("panel_id"));
                         widget.setSize(Widget.Size.getSizeByName(innerResult.getJSONObject(i).getString("size")));
-                        widget.setPredecessor(innerResult.getJSONObject(i).getInt("panel_predecessor"));
+                        widget.setIndex(innerResult.getJSONObject(i).getInt("widget_index"));
                         widgets.add(widget);
                     }
                     Collections.sort(widgets);
@@ -112,42 +112,6 @@ public class DashupService {
             return (Widget) new Widget().fromDatabaseObject(result.get(0));
         }
         return null;
-    }
-
-    private ArrayList<Section> orderSections(ArrayList<Section> sections) {
-        ArrayList<Section> result = new ArrayList<>();
-        while (!sections.isEmpty()) {
-            for (Section section : sections) {
-                if (result.isEmpty() && section.getPredecessor() == -1) {
-                    result.add(section);
-                    sections.remove(section);
-                    break;
-                } else if (!result.isEmpty() && section.getPredecessor() == result.get(result.size() - 1).getId()) {
-                    result.add(section);
-                    sections.remove(section);
-                    break;
-                }
-            }
-        }
-        return result;
-    }
-
-    private ArrayList<Widget> orderPanels(ArrayList<Widget> widgets) {
-        ArrayList<Widget> result = new ArrayList<>();
-        while (!widgets.isEmpty()) {
-            for (Widget widget : widgets) {
-                if (result.isEmpty() && widget.getPredecessor() == -1) {
-                    result.add(widget);
-                    widgets.remove(widget);
-                    break;
-                } else if (!result.isEmpty() && widget.getPredecessor() == result.get(result.size() - 1).getId()) {
-                    result.add(widget);
-                    widgets.remove(widget);
-                    break;
-                }
-            }
-        }
-        return result;
     }
 
     public User getUserByToken(String token) throws SQLException {
@@ -351,7 +315,7 @@ public class DashupService {
 
         Map<String, Object> values = new HashMap<>();
         values.put("section_name", section.getName());
-        values.put("predecessor_id", section.getPredecessor());
+        values.put("section_index", section.getIndex());
 
         this.database.update(Database.Table.USER_SECTIONS, whereParameters, values);
     }
@@ -376,7 +340,7 @@ public class DashupService {
 
         values.put("section_name", Objects.requireNonNullElse(section.getName(), "New Section"));
         values.put("user_id", user.getId());
-        values.put("predecessor_id", section.getPredecessor());
+        values.put("section_index", section.getIndex());
 
         this.database.insert(Database.Table.USER_SECTIONS, values);
 
@@ -387,7 +351,7 @@ public class DashupService {
         Map<String, Object> values = new HashMap<>();
         values.put("section_id", section.getId());
         values.put("panel_id", widget.getId());
-        values.put("panel_predecessor", widget.getPredecessor());
+        values.put("widget_index", widget.getIndex());
         values.put("size", size);
 
         this.database.insert(Database.Table.SECTIONS_PANELS, values);

@@ -59,7 +59,7 @@ public class DashupBuilder {
                                 .append("<div class=\"row\">")
                                 .append("<div class=\"col s11\">")
                                 .append("<h6 class=\"center-align\">")
-                                .append(widget.getSize())
+                                .append(widget.getName())
                                 .append("</h6>")
                                 .append("</div>")
                                 .append("<div class=\"col s1\">")

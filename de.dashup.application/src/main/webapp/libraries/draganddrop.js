@@ -38,6 +38,7 @@ let panelContainer;
 
     });
 
+
     $("#add-section-button").on("click", function () {
         let sectionId = "n" + globalSectionCount;
         let panelContainerToAdd = addNewSection(sectionId);

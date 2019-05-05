@@ -50,13 +50,13 @@
         <i class="fas fa-trash-alt"></i>
     </a></li>
     <li class="divider" tabindex="-1"></li>
-    <li><a href="#">
+    <li class="size" id="widget-size-small"><a href="#">
         small
     </a></li>
-    <li><a href="#">
+    <li class="size" id="widget-size-medium"><a href="#">
         medium
     </a></li>
-    <li><a href="#">
+    <li class="size" id="widget-size-large"><a href="#">
         large
     </a></li>
 </ul>
@@ -65,6 +65,26 @@
 <script src="../libraries/draganddrop.js"></script>
 
 <script>
+
+    $(".size").on("click", function (event) {
+        let widgetToResize = document.getElementById(selectedPanel);
+
+        let newSize = event["currentTarget"].id;
+        if(newSize === "widget-size-small"){
+            widgetToResize.setAttribute("class","bloc--inner col z-depth-1 " + "${small}");
+            widgetToResize.setAttribute("size","small");
+        }
+        else if(newSize === "widget-size-medium"){
+            widgetToResize.setAttribute("class","bloc--inner col z-depth-1 " + "${medium}");
+            widgetToResize.setAttribute("size","medium");
+
+        }
+        else if(newSize === "widget-size-large"){
+            widgetToResize.setAttribute("class","bloc--inner col z-depth-1 " + "${large}");
+            widgetToResize.setAttribute("size","large");
+        }
+    });
+
     function showSaveReponseSuccessMessageToast() {
         M.toast({
             html: "<fmt:message key="i18n.successChangedLayout" />",

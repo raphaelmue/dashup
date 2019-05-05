@@ -36,7 +36,7 @@ public abstract class DatabaseWidget implements DatabaseObject {
         return id;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
