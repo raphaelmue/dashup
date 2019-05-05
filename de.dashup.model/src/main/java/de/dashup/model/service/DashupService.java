@@ -338,13 +338,14 @@ public class DashupService {
 
         Map<String, Object> values = new HashMap<>();
 
-        values.put("section_name", Objects.requireNonNullElse(section.getName(), "New Section"));
+        values.put("section_name", Objects.requireNonNullElse(section.getName(), "-"));
         values.put("user_id", user.getId());
         values.put("section_index", section.getIndex());
 
         this.database.insert(Database.Table.USER_SECTIONS, values);
 
-        return database.getLatestId(Database.Table.USER_SECTIONS);
+        JSONObject jsonObject = this.database.get(Database.Table.USER_SECTIONS, values).getJSONObject(0);
+        return jsonObject.getInt("section_id");
     }
 
     private void addWidgetToSection(Widget widget,  Section section, String size) throws SQLException {

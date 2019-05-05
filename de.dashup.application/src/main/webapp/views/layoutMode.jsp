@@ -19,7 +19,7 @@
 <nav>
     <div class="nav-wrapper">
         <div class="col s12">
-            <a href="${pageContext.request.contextPath}/" class="breadcrumb">dashup</a>
+            <a href="${fn:escapeXml(pageContext.request.contextPath)}/" class="breadcrumb">dashup</a>
             <a href="#" class="breadcrumb"><fmt:message key="i18n.layoutMode" /></a>
         </div>
     </div>
@@ -62,28 +62,207 @@
 </ul>
 
 <script src='https://rawgit.com/bevacqua/dragula/master/dist/dragula.min.js'></script>
-<script src="../libraries/draganddrop.js"></script>
 
 <script>
 
-    $(".size").on("click", function (event) {
-        let widgetToResize = document.getElementById(selectedPanel);
+    let sectionsToDelete = [];
+    let selectedWidget;
+    let globalSectionCount;
+    let sectionContainer;
+    let widgetContainer;
 
-        let newSize = event["currentTarget"].id;
-        if(newSize === "widget-size-small"){
-            widgetToResize.setAttribute("class","bloc--inner col z-depth-1 " + "${small}");
-            widgetToResize.setAttribute("size","small");
-        }
-        else if(newSize === "widget-size-medium"){
-            widgetToResize.setAttribute("class","bloc--inner col z-depth-1 " + "${medium}");
-            widgetToResize.setAttribute("size","medium");
+    (function () {
+        sectionContainer = dragula([document.querySelector(".drag-drop-container")], {
+            moves: function (el, container, handle) {
 
+                let draggedClass = handle.classList[0];
+
+                if (draggedClass === "drag-drop-btn") {
+                    return !handle.classList.contains("bloc--inner");
+                }
+            }
+        });
+
+        widgetContainer = dragula([].slice.apply(document.querySelectorAll(".bloc")), {
+            direction: "horizontal"
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let elems = document.querySelectorAll(".dropdown-trigger");
+            M.Dropdown.init(elems, null);
+        });
+
+        $(".dropdown-trigger").on("click", function (event) {
+            let widget = event.currentTarget.parentNode.parentNode.parentNode;
+            selectedWidget = widget.id;
+        });
+
+        $("#delete").on("click", function () {
+            let widgetToDelete = document.getElementById(selectedWidget);
+            let widgetToDeleteParent = widgetToDelete.parentNode;
+
+            widgetToDeleteParent.removeChild(widgetToDelete);
+
+        });
+
+        $(".size").on("click", function (event) {
+            let widgetToResize = document.getElementById(selectedWidget);
+
+            let newSize = event["currentTarget"].id;
+            if(newSize === "widget-size-small"){
+                widgetToResize.setAttribute("class","bloc--inner col z-depth-1 " + "${small}");
+                widgetToResize.setAttribute("size","small");
+            } else if(newSize === "widget-size-medium"){
+                widgetToResize.setAttribute("class","bloc--inner col z-depth-1 " + "${medium}");
+                widgetToResize.setAttribute("size","medium");
+
+            } else if(newSize === "widget-size-large"){
+                widgetToResize.setAttribute("class","bloc--inner col z-depth-1 " + "${large}");
+                widgetToResize.setAttribute("size","large");
+            }
+        });
+
+        $("#add-section-button").on("click", function () {
+            let sectionId = "n" + globalSectionCount;
+            let widgetContainerToAdd = addNewSection(sectionId);
+            widgetContainer.containers.push(widgetContainerToAdd);
+            initializeSectionDeleteClick();
+        });
+
+
+        $("#save-changes-button").on("click", function () {
+            saveChanges();
+        });
+
+        initializeSectionDeleteClick();
+
+        globalSectionCount = 0;
+
+    })();
+
+    function makeWidgetStructure(widgets) {
+        let widgetsCount = widgets.length;
+        let widgetStructure = [];
+
+        for (let j = 0; j < widgetsCount; j++) {
+            let widget = {
+                widgetId: widgets[j].id,
+                widgetSize: widgets[j]["attributes"]["size"].value,
+                order: j
+            };
+            widgetStructure.push(widget);
         }
-        else if(newSize === "widget-size-large"){
-            widgetToResize.setAttribute("class","bloc--inner col z-depth-1 " + "${large}");
-            widgetToResize.setAttribute("size","large");
+
+        return widgetStructure;
+    }
+
+    function addNewSection(sectionId) {
+
+        let dragAndDropContainer = document.getElementById("drag-drop-container");
+
+        let wrapper = document.createElement("div");
+        wrapper.setAttribute("class", "wrapper  col s12");
+        wrapper.setAttribute("id", sectionId);
+
+        let row = document.createElement("div");
+        row.setAttribute("class", "row");
+
+        let sectionHeading = document.createElement("div");
+        sectionHeading.setAttribute("class", "drag-drop-btn col s6 valign-wrapper");
+
+        let gripLineIcon = document.createElement("i");
+        gripLineIcon.setAttribute("class", "drag-drop-btn fas fa-grip-lines col s1");
+        gripLineIcon.setAttribute("style", "margin:0");
+
+        let inputField = document.createElement("input");
+        inputField.setAttribute("class", "col s4");
+        inputField.setAttribute("type", "text");
+        inputField.setAttribute("style", "margin:0");
+        inputField.setAttribute("value", "New Section");
+
+        let minusIcon = document.createElement("i");
+        minusIcon.setAttribute("class", "section-minus fas fa-minus col s1");
+        minusIcon.setAttribute("style", "margin:0");
+
+        let widgetContainer = document.createElement("div");
+        widgetContainer.setAttribute("class", "bloc col s12");
+
+        sectionHeading.appendChild(gripLineIcon);
+        sectionHeading.appendChild(inputField);
+        sectionHeading.appendChild(minusIcon);
+
+        row.appendChild(sectionHeading);
+
+        wrapper.appendChild(row);
+        wrapper.appendChild(widgetContainer);
+
+        dragAndDropContainer.appendChild(wrapper);
+
+        return widgetContainer;
+    }
+
+    function addSectionToDeleteToList(sectionToDelete) {
+        let section = sectionToDelete.childNodes[1];
+        let widgets = section.childNodes;
+
+        let layoutModeWidgets;
+        layoutModeWidgets = makeWidgetStructure(widgets);
+
+        if (sectionsToDelete.id !== "n0") {
+            let sectionObject = {
+                sectionName: "",
+                sectionId: sectionToDelete.id,
+                layoutModeWidgets
+            };
+
+            sectionsToDelete.push(sectionObject);
         }
-    });
+
+    }
+
+    function makeSectionWidgetOrder() {
+        let sectionWidgetOrder = [];
+        let dragDropContainer = document.getElementById("drag-drop-container");
+        let sections = dragDropContainer.getElementsByClassName("wrapper");
+        let sectionsCount = sections.length;
+
+        for (let i = 0; i < sectionsCount; i++) {
+
+            let sectionName = sections[i].children[0].children[0].children[1].value;
+            let sectionId = sections[i].id;
+            let widgets = sections[i].children[1].children;
+            let layoutModeWidgets = makeWidgetStructure(widgets);
+
+            let sectionObject = {
+                sectionName,
+                sectionId,
+                layoutModeWidgets,
+                order: i
+            };
+
+            sectionWidgetOrder.push(sectionObject);
+        }
+
+        return sectionWidgetOrder;
+    }
+
+    function initializeSectionDeleteClick() {
+        $(".section-minus").on("click", function (event) {
+            let sectionToDelete = event.currentTarget.parentNode.parentNode.parentNode;
+
+            if (sectionToDelete != null) {
+                addSectionToDeleteToList(sectionToDelete);
+
+                while (sectionToDelete.firstChild) {
+                    sectionToDelete.removeChild(sectionToDelete.firstChild);
+                }
+
+                let sectionParent = sectionToDelete.parentNode;
+                sectionParent.removeChild(sectionToDelete);
+            }
+
+        });
+    }
 
     function showSaveReponseSuccessMessageToast() {
         M.toast({
@@ -97,6 +276,39 @@
             html: "Error",
             classes: "error"
         });
+    }
+
+    function postChanges(data) {
+        let url = "/layoutMode/handleSaveChanges";
+
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((response) => {
+            if (!response.ok) {
+                throw new Error("error");
+            }
+            return response.json();
+
+        }).then(() => {
+            showSaveReponseSuccessMessageToast();
+        }).catch(() => {
+            showSaveResponseErrorMessageToast();
+        });
+
+    }
+
+    function saveChanges() {
+        let sectionWidgetOrder = makeSectionWidgetOrder();
+        let layout = {
+            sectionsToDelete,
+            sectionWidgetOrder
+        };
+
+        postChanges(layout);
     }
 </script>
 
