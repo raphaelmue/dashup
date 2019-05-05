@@ -9,4 +9,5 @@ import "../../components/dashup-button.js";
 import "../../components/dashup-display.js";
 import "../../components/dashup-list.js";
 import "../../components/dashup-chart.js";
+import "../../components/dashup-clock.js";
 import "../../components/message-broker.js";

@@ -24,7 +24,7 @@ export class DashupGridLayout extends DashupComponent {
                             });
                             return DashupComponent.html`
                                 <div class="${DashupComponent.classMap(classes)}">
-                                    <slot name="${this.getSlotName(element)}"></slot>
+                                    <slot name="${DashupGridLayout.getSlotName(element)}"></slot>
                                 </div>
                             `;
         })}
@@ -56,13 +56,13 @@ export class DashupGridLayout extends DashupComponent {
             if (!this.elements[row]) {
                 this.elements[row] = [];
             }
-            element.setAttribute("slot", this.getSlotName(element));
+            element.setAttribute("slot", DashupGridLayout.getSlotName(element));
             this.elements[row].push(element);
         });
         this.requestUpdate();
     }
 
-    getSlotName(element) {
+    static getSlotName(element) {
         let keyData = [element.name, element.layout.row, element.layout.offset, element.layout.size];
         return keyData.join("-");
     }

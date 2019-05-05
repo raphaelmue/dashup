@@ -13,6 +13,8 @@ export class DashupChart extends DashupComponent {
         this.data.forEach((element) => {
             heightMap.set(element.category, {height: (element.value / maxValue) * 100 + "%"})
         });
+        let caption = {left: (55 - 7.5 * this.data.length) + "%"};
+
         //can be enhanced with multiple bars per category later on
         return DashupComponent.html`
             <style>
@@ -22,7 +24,7 @@ export class DashupChart extends DashupComponent {
                         left: ${index * (100 / this.data.length)}%;
                         width: ${100 / this.data.length}%;
                     }`
-                })},
+                })}
             </style>
 
             <table id="q-graph">
@@ -30,7 +32,7 @@ export class DashupChart extends DashupComponent {
                 <tbody>
                     ${this.data.map(element => DashupComponent.html`
                         <tr class="qtr" id="${element.category}">
-                        <th scope="row">${element.category}</th>
+                        <th scope="row" style="${DashupComponent.styleMap(caption)}">${element.category}</th>
                         <td class="category bar" style="${DashupComponent.styleMap(heightMap.get(element.category))}"><p>${element.value}</p></td>
                         </tr>
                     `)}
@@ -40,7 +42,7 @@ export class DashupChart extends DashupComponent {
                 ${(() => {
                     let ticks = [];
                     for (let i = 1; i <= 5; i++) {
-                        ticks.push(DashupComponent.html`<div class="tick" style="height: 20.5%;"><p>${Math.ceil(maxValue / 100) * 100 / 5 * i}</p></div>`);
+                        ticks.push(DashupComponent.html`<div class="tick" style="height: 20.5%;"><p>${Math.ceil(maxValue / 5) * i}</p></div>`);
                     }
                     return ticks.reverse();
                 })()}
@@ -70,9 +72,10 @@ export class DashupChart extends DashupComponent {
             
             #q-graph caption {
                 caption-side: top;
-                width: 100%;
+                left: 100%;
+                width: 200%;
                 text-transform: uppercase;
-                top: calc(var(--height)*-0.3);
+                top: calc(var(--height)*-0.15);
                 position: relative;
                 z-index: 10; 
                 font-weight: bold;
@@ -81,10 +84,13 @@ export class DashupChart extends DashupComponent {
             #q-graph tr, #q-graph th, #q-graph td {
                 position: absolute;
                 bottom: 0;
-                left: 40%;
                 z-index: 2;
                 padding: 0;
                 text-align: center; 
+            }
+            
+            #q-graph tr, #q-graph td {
+                left: 40%;
             }
             
             #q-graph td {
@@ -176,7 +182,7 @@ export class DashupChart extends DashupComponent {
             switch(data.mode){
                 case MessageBroker.MessageMode.ADD:
                     let position = -1;
-                    let category = this.data.find((element, index) => {
+                    this.data.find((element, index) => {
                         if(element.category === values[1]){
                             position = index;
                             return true;
