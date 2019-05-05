@@ -121,14 +121,14 @@ function addSectionToDeleteToList(sectionToDelete) {
     let section = sectionToDelete.childNodes[1];
     let panels = section.childNodes;
 
-    let widgetStructure;
-    widgetStructure = makeWidgetStructure(panels);
+    let layoutModeWidgets;
+    layoutModeWidgets = makeWidgetStructure(panels);
 
     if (sectionsToDelete.id !== "n0") {
         let sectionObject = {
             sectionName: "",
             sectionId: sectionToDelete.id,
-            widgetStructure
+            layoutModeWidgets
         };
 
         sectionsToDelete.push(sectionObject);
@@ -147,12 +147,12 @@ function makeSectionWidgetOrder() {
         let sectionName = sections[i].children[0].children[0].children[1].value;
         let sectionId = sections[i].id;
         let widgets = sections[i].children[1].children;
-        let widgetStructure = makeWidgetStructure(widgets);
+        let layoutModeWidgets = makeWidgetStructure(widgets);
 
         let sectionObject = {
             sectionName,
             sectionId,
-            widgetStructure,
+            layoutModeWidgets,
             order:i
         };
 

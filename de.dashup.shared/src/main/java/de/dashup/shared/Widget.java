@@ -2,7 +2,7 @@ package de.dashup.shared;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Widget extends DatabaseWidget {
+public class Widget extends DatabaseWidget implements Comparable<Widget>{
 
     public enum Size {
         SMALL("small", "m2 s6"),
@@ -105,4 +105,15 @@ public class Widget extends DatabaseWidget {
     public void setPredecessor(int predecessor) {
         this.predecessor = predecessor;
     }
+
+
+    @Override
+    public int compareTo(Widget widgetToCompare) {
+
+        if(predecessor > widgetToCompare.getPredecessor()){
+            return 1;
+        }
+        return -1;
+    }
+
 }

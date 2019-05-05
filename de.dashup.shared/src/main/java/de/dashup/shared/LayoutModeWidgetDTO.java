@@ -30,7 +30,7 @@ public class LayoutModeWidgetDTO implements DataTransferObject {
     }
 
     @Override
-    public DatabaseObject toDataTransferObject() {
+    public Widget toDataTransferObject() {
 
         String widgetFrontendId = widgetId.substring(1);
         int widgetTechnicalId = Integer.valueOf(widgetFrontendId);

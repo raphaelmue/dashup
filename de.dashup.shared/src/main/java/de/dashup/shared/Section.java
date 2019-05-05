@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Section implements DatabaseObject {
+public class Section implements DatabaseObject,Comparable<Section> {
     @SerializedName("section_id")
     private int sectionID;
     private String section_name;
@@ -48,5 +48,13 @@ public class Section implements DatabaseObject {
     @Override
     public int getId() {
         return sectionID;
+    }
+
+    @Override
+    public int compareTo(Section sectionToCompare) {
+        if(predecessorID > sectionToCompare.getPredecessor()){
+            return 1;
+        }
+        return -1;
     }
 }

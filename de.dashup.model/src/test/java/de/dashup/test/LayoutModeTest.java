@@ -19,14 +19,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class LayoutModeTest {
+@SuppressWarnings("WeakerAccess")
+public class LayoutModeTest {
 
     private static Database database;
     private static DashupService dashupService;
     private static User user;
 
     @BeforeAll
-    static void initializeConnections() throws SQLException {
+    public static void initializeConnections() throws SQLException {
         database = UnitTestUtil.getDBInstance();
         dashupService = DashupService.getInstance();
 
@@ -38,12 +39,12 @@ class LayoutModeTest {
     }
 
     @BeforeEach
-    void cleanDB() throws SQLException {
+    public void cleanDB() throws SQLException {
         UnitTestUtil.setUpTestDataset(database);
     }
 
     @Test
-    void deleteAllPanelsTest() throws SQLException {
+    public void deleteAllPanelsTest() throws SQLException {
 
         List<LayoutModeSectionDTO> sectionPanelOrder = new ArrayList<>();
         List<LayoutModeWidgetDTO> layoutModeWidgetDTOS = new ArrayList<>();
@@ -65,7 +66,7 @@ class LayoutModeTest {
     }
 
     @Test
-    void renameSectionTest() throws SQLException {
+    public void renameSectionTest() throws SQLException {
         List<LayoutModeSectionDTO> sectionPanelOrder = new ArrayList<>();
         List<LayoutModeWidgetDTO> layoutModeWidgetDTOS = new ArrayList<>();
         List<LayoutModeSectionDTO> sectionsToDelete = new ArrayList<>();
@@ -94,7 +95,7 @@ class LayoutModeTest {
     }
 
     @Test
-    void movePanelTest() throws SQLException {
+    public void movePanelTest() throws SQLException {
 
         List<LayoutModeWidgetDTO> layoutModePanels1 = new ArrayList<>();
         List<LayoutModeWidgetDTO> layoutModePanels2 = new ArrayList<>();
@@ -129,7 +130,7 @@ class LayoutModeTest {
     }
 
     @Test
-    void deleteSections() throws SQLException{
+    public void deleteSections() throws SQLException{
 
         List<LayoutModeSectionDTO> sectionPanelOrder = new ArrayList<>();
         List<LayoutModeSectionDTO> sectionsToDelete = new ArrayList<>();

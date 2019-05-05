@@ -7,6 +7,7 @@ import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -76,13 +77,13 @@ public class DashupService {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
 
-        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USER_SECTIONS, Section.class, whereParameters, "predecessor_id ASC");
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USER_SECTIONS, Section.class, whereParameters, "predecessor_id");
         if (result != null) {
             for (DatabaseObject databaseObject : result) {
                 Section section = (Section) databaseObject;
                 Map<String, Object> innerWhereParameters = new HashMap<>();
                 innerWhereParameters.put("section_id", section.getId());
-                JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerWhereParameters, "panel_predecessor ASC");
+                JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerWhereParameters, "panel_predecessor");
                 if (innerResult != null && innerResult.length() > 0) {
                     List<Widget> widgets = new ArrayList<>();
                     for (int i = 0; i < innerResult.length(); i++) {
@@ -91,11 +92,13 @@ public class DashupService {
                         widget.setPredecessor(innerResult.getJSONObject(i).getInt("panel_predecessor"));
                         widgets.add(widget);
                     }
+                    Collections.sort(widgets);
                     section.setWidgets(widgets);
                 }
                 sections.add(section);
             }
         }
+        Collections.sort(sections);
         user.setSections(sections);
         return user;
     }
@@ -377,9 +380,7 @@ public class DashupService {
 
         this.database.insert(Database.Table.USER_SECTIONS, values);
 
-        JSONObject jsonObject = this.database.get(Database.Table.USER_SECTIONS, values).getJSONObject(0);
-        return jsonObject.getInt("section_id");
-
+        return database.getLatestId(Database.Table.USER_SECTIONS);
     }
 
     private void addWidgetToSection(Widget widget,  Section section, String size) throws SQLException {
@@ -416,9 +417,9 @@ public class DashupService {
                 deleteWidgetsOfSection(sectionToProcess);
             }
 
-            List<LayoutModeWidgetDTO> layoutModeWidgetsDTO = section.getWidgetStructure();
+            List<LayoutModeWidgetDTO> layoutModeWidgetsDTO = section.getLayoutModeWidgets();
             for (LayoutModeWidgetDTO widgetDTO : layoutModeWidgetsDTO) {
-                Widget widget = (Widget) widgetDTO.toDataTransferObject();
+                Widget widget = widgetDTO.toDataTransferObject();
                 addWidgetToSection(widget,sectionToProcess,widgetDTO.getWidgetSize());
             }
         }
