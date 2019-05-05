@@ -26,8 +26,8 @@ public class LayoutModeStepdefs {
         Assertions.assertEquals("dashup", driver.getTitle());
     }
 
-    @When("^User clicks on edit icon$")
-    public void userClicksOnEditIcon()
+    @When("^User clicks on layout icon$")
+    public void userClicksOnLayoutIcon()
     {
         WebDriver driver = GeneralStepDefinitions.getDriver();
         driver.findElement(By.id("enter-layout-mode")).click();
