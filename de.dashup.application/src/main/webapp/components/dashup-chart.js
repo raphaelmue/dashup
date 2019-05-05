@@ -17,19 +17,16 @@ export class DashupChart extends DashupComponent {
         return DashupComponent.html`
             <style>
                ${this.data.map((element, index) => {
-            return DashupComponent.html`#q-graph #${element.category} {left: ${index * (80 / this.data.length)}%;}`
-        })},
-               
-               ${DashupComponent.html`#q-graph tr, #q-graph th, #q-graph td {width: ${80 / this.data.length}%}`}
+                return DashupComponent.html`
+                    #q-graph #${element.category} {
+                        left: ${index * (100 / this.data.length)}%;
+                        width: ${100 / this.data.length}%;
+                    }`
+                })},
             </style>
 
             <table id="q-graph">
                 <caption>${this.title}</caption>
-                <thead>
-                    <tr>
-                        <th class="category">${this.category}</th>
-                    </tr>
-                </thead>
                 <tbody>
                     ${this.data.map(element => DashupComponent.html`
                         <tr class="qtr" id="${element.category}">
@@ -43,7 +40,7 @@ export class DashupChart extends DashupComponent {
                 ${(() => {
                     let ticks = [];
                     for (let i = 1; i <= 5; i++) {
-                        ticks.push(DashupComponent.html`<div class="tick" style="height: 20%;"><p>${Math.ceil(maxValue / 100) * 100 / 5 * i}</p></div>`);
+                        ticks.push(DashupComponent.html`<div class="tick" style="height: 20.5%;"><p>${Math.ceil(maxValue / 100) * 100 / 5 * i}</p></div>`);
                     }
                     return ticks.reverse();
                 })()}
@@ -73,7 +70,7 @@ export class DashupChart extends DashupComponent {
             
             #q-graph caption {
                 caption-side: top;
-                width: 200%;
+                width: 100%;
                 text-transform: uppercase;
                 top: calc(var(--height)*-0.3);
                 position: relative;
@@ -92,25 +89,18 @@ export class DashupChart extends DashupComponent {
             
             #q-graph td {
                 transition: all .3s ease;
+                
+                  &:hover {
+                    background-color: desaturate(#85144b, 100);
+                    opacity: .9;
+                    color: white;
+                  }
             }
             
             #q-graph td:hover {
                 background-color: rgb(38, 166, 180);
                 opacity: .9;
                 color: white;
-            }
-            
-            #q-graph thead tr {
-                width: 0;
-                left: 100%;
-                top: 50%;
-                bottom: auto;
-            }
-            
-            #q-graph thead th {
-                width: 7.5em;
-                height: auto ;
-                padding: 0.5em 1em;
             }
             
             #q-graph tbody tr {
@@ -138,12 +128,7 @@ export class DashupChart extends DashupComponent {
                 margin: 0 0 0 0;
                 padding: 0;
                 opacity: .4;
-            }
-            
-            #q-graph .category {
-                background-color: rgb(38, 166, 154);
-                border-color: transparent;
-            }
+            }  
             
             #ticks {
                 position: relative;
