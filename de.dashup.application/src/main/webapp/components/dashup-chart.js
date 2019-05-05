@@ -171,7 +171,36 @@ export class DashupChart extends DashupComponent {
     }
 
     handleData(data) {
-        //TODO
+        let values = Object.values(data.data);
+        if (values.length > 0) {
+            switch(data.mode){
+                case MessageBroker.MessageMode.ADD:
+                    let position = -1;
+                    let category = this.data.find((element, index) => {
+                        if(element.category === values[1]){
+                            position = index;
+                            return true;
+                        }
+                        return false;
+                    });
+                    if(position >= 0){
+                        this.data[position] = {"category": values[1], "value": Number(this.data[position].value) + Number(values[0])}
+                    } else {
+                        this.data.push({"category": values[1], "value": values[0]});
+                    }
+                     break;
+                case MessageBroker.MessageMode.DELETE:
+                    for(let element of values){
+                        this.data.splice(this.data.indexOf({"category": element[1], "value": element[0]}), 1);
+                    }
+                    break;
+            }
+            this.requestUpdate();
+        }
+    }
+
+    getValue(){
+        return this.data;
     }
 
 }

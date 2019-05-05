@@ -14,6 +14,7 @@ export class DashupButton extends DashupComponent {
         return {
             text: {type: String, reflect: true},
             disabled: {type: Boolean, reflect: true},
+            handleOnStart: {type: Boolean, reflect: true},
             mode: {
                 type: String, hasChanged: () => {
                     return false;
@@ -49,7 +50,11 @@ export class DashupButton extends DashupComponent {
     constructor() {
         super();
         this.mode = MessageBroker.MessageMode.DISPLAY;
-        document.addEventListener("DOMContentLoaded", this.handleAction.bind(this));
+        document.addEventListener("DOMContentLoaded", (() => {
+            if(this.handleOnStart) {
+                this.handleAction();
+            }
+        }).bind(this));
     }
 
     async handleAction() {

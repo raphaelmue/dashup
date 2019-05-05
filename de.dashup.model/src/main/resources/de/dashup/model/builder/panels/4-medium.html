@@ -5,7 +5,7 @@
                   layout='{"row": 1, "offset": 0, "size": 12}'>
     </dashup-chart>
     <dashup-text-input name="amount"
-                       placeholder='Enter price here...'
+                       placeholder="Enter price here..."
                        layout='{"row": 2, "offset": 0, "size": 4}'>
     </dashup-text-input>
     <dashup-radio-button-group name="category"
@@ -15,7 +15,8 @@
                              selected>
         </dashup-radio-button>
         <dashup-radio-button group="category"
-                             value="Whiskey">
+                             value="Whiskey"
+                             checked>
         </dashup-radio-button>
         <dashup-radio-button group="category"
                              value="Kubanische">
@@ -25,6 +26,18 @@
                    mode="add"
                    consumers='{"chart": ""}'
                    producers="amount category"
-                   layout='{"row": 3, "offset": 0, "size": 12}'>
+                   layout='{"row": 3, "offset": 0, "size": 3}'>
+    </dashup-button>
+    <dashup-button text="Delete"
+                   mode="delete"
+                   consumers='{"chart": "chart"}'
+                   producers="chart"
+                   layout='{"row": 3, "offset": 1, "size": 3}'>
+    </dashup-button>
+    <dashup-button text="Save"
+                   mode="save"
+                   producers="chart"
+                   layout='{"row": 2, "offset": 2, "size": 3}'
+                   disabled>
     </dashup-button>
 </dashup-grid-layout>
