@@ -2,22 +2,27 @@ package de.dashup.shared;
 
 import java.util.List;
 
-public class LayoutModeSection implements DataTransferObject{
+@SuppressWarnings("unused")
+public class LayoutModeSectionDTO implements DataTransferObject{
 
     private String sectionName;
     private String sectionId;
-    private List<LayoutModePanel> panelStructure;
+    private List<LayoutModeWidgetDTO> widgetStructure;
     private int order;
 
-    public LayoutModeSection() {
+    public LayoutModeSectionDTO() {
         super();
     }
 
-    public LayoutModeSection(String sectionId, String sectionName, List<LayoutModePanel> panelStructure, int order) {
+    public LayoutModeSectionDTO(String sectionId, String sectionName, List<LayoutModeWidgetDTO> widgetStructure, int order) {
         this.sectionName = sectionName;
         this.sectionId = sectionId;
-        this.panelStructure = panelStructure;
+        this.widgetStructure = widgetStructure;
         this.order = order;
+    }
+
+    public List<LayoutModeWidgetDTO> getWidgetStructure() {
+        return widgetStructure;
     }
 
     public String getSectionName() {
@@ -28,8 +33,8 @@ public class LayoutModeSection implements DataTransferObject{
         return sectionId;
     }
 
-    public List<LayoutModePanel> getPanelStructure() {
-        return panelStructure;
+    public int getOrder() {
+        return order;
     }
 
     @Override
@@ -41,10 +46,7 @@ public class LayoutModeSection implements DataTransferObject{
     public boolean isNewSection()
     {
         String sectionIdPrefix = sectionId.substring(0, 1);
-        if(sectionIdPrefix.equals("n")){
-            return true;
-        }
+        return sectionIdPrefix.equals("n");
 
-        return false;
     }
 }

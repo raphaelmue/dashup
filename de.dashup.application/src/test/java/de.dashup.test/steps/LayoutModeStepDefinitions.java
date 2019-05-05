@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 
-public class LayoutModeStepdefs {
+public class LayoutModeStepDefinitions {
     @Autowired
     private SpringBootBase springBootBase;
 
@@ -38,6 +38,13 @@ public class LayoutModeStepdefs {
         final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         Assertions.assertEquals(BASE_URL + "/layoutMode/", driver.getCurrentUrl());
+
+        WebElement sectionElement = driver.findElement(By.id("s1"));
+        Assertions.assertNotNull(sectionElement);
+
+        List<WebElement> wrapperElements = driver.findElements(By.className("wrapper"));
+        Assertions.assertEquals(2, wrapperElements.size());
+
     }
 
 

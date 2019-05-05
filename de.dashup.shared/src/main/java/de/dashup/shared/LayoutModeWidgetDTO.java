@@ -1,33 +1,38 @@
 package de.dashup.shared;
 
-public class LayoutModePanel implements DataTransferObject {
+@SuppressWarnings("unused")
+public class LayoutModeWidgetDTO implements DataTransferObject {
 
-    private String panelId;
-    private String panelSize;
+    private String widgetId;
+    private String widgetSize;
     private int order;
 
-    public LayoutModePanel() {
+    public LayoutModeWidgetDTO() {
         super();
     }
 
-    public LayoutModePanel(String panelId, String panelSize, int order) {
-        this.panelId = panelId;
-        this.panelSize = panelSize;
+    public LayoutModeWidgetDTO(String widgetId, String widgetSize, int order) {
+        this.widgetId = widgetId;
+        this.widgetSize = widgetSize;
         this.order = order;
     }
 
-    public String getPanelId() {
-        return panelId;
+    public String getWidgetSize() {
+        return widgetSize;
     }
 
-    public String getPanelSize() {
-        return panelSize;
+    public String getWidgetId() {
+        return widgetId;
+    }
+
+    public int getOrder() {
+        return order;
     }
 
     @Override
     public DatabaseObject toDataTransferObject() {
 
-        String widgetFrontendId = panelId.substring(1);
+        String widgetFrontendId = widgetId.substring(1);
         int widgetTechnicalId = Integer.valueOf(widgetFrontendId);
         return new Widget(widgetTechnicalId,"","",0,0,order);
 

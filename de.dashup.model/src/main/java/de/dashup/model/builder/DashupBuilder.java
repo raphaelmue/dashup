@@ -58,7 +58,7 @@ public class DashupBuilder {
                                 .append("\" state=\"default\">")
                                 .append("<div class=\"row\">")
                                 .append("<div class=\"col s11\">")
-                                .append("<h6>")
+                                .append("<h6 class=\"center-align\">")
                                 .append(widget.getSize())
                                 .append("</h6>")
                                 .append("</div>")

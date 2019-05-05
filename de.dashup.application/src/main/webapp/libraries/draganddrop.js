@@ -56,14 +56,15 @@ let panelContainer;
 
 })();
 
-function makePanelStructure(panels) {
+function makeWidgetStructure(panels) {
     let panelsCount = panels.length;
     let panelStructure = [];
 
     for (let j = 0; j < panelsCount; j++) {
         let panel = {
-            panelId: panels[j].id,
-            panelSize: panels[j]["attributes"]["size"].value,
+            widgetId: panels[j].id,
+            widgetSize: panels[j]["attributes"]["size"].value,
+            order:j
         };
         panelStructure.push(panel);
     }
@@ -120,14 +121,14 @@ function addSectionToDeleteToList(sectionToDelete) {
     let section = sectionToDelete.childNodes[1];
     let panels = section.childNodes;
 
-    let panelStructure;
-    panelStructure = makePanelStructure(panels);
+    let widgetStructure;
+    widgetStructure = makeWidgetStructure(panels);
 
     if (sectionsToDelete.id !== "n0") {
         let sectionObject = {
             sectionName: "",
             sectionId: sectionToDelete.id,
-            panelStructure,
+            widgetStructure
         };
 
         sectionsToDelete.push(sectionObject);
@@ -135,8 +136,8 @@ function addSectionToDeleteToList(sectionToDelete) {
 
 }
 
-function makeSectionPanelOrder() {
-    let sectionPanelOrder = [];
+function makeSectionWidgetOrder() {
+    let sectionWidgetOrder = [];
     let dragDropContainer = document.getElementById("drag-drop-container");
     let sections = dragDropContainer.getElementsByClassName("wrapper");
     let sectionsCount = sections.length;
@@ -145,19 +146,20 @@ function makeSectionPanelOrder() {
 
         let sectionName = sections[i].children[0].children[0].children[1].value;
         let sectionId = sections[i].id;
-        let panels = sections[i].children[1].children;
-        let panelStructure = makePanelStructure(panels);
+        let widgets = sections[i].children[1].children;
+        let widgetStructure = makeWidgetStructure(widgets);
 
         let sectionObject = {
             sectionName,
             sectionId,
-            panelStructure,
+            widgetStructure,
+            order:i
         };
 
-        sectionPanelOrder.push(sectionObject);
+        sectionWidgetOrder.push(sectionObject);
     }
 
-    return sectionPanelOrder;
+    return sectionWidgetOrder;
 }
 
 function initializeSectionDeleteClick() {
@@ -202,10 +204,10 @@ function postChanges(data) {
 }
 
 function saveChanges() {
-    let sectionPanelOrder = makeSectionPanelOrder();
+    let sectionWidgetOrder = makeSectionWidgetOrder();
     let layout = {
         sectionsToDelete,
-        sectionPanelOrder
+        sectionWidgetOrder
     };
 
     postChanges(layout);

@@ -2,26 +2,27 @@ package de.dashup.shared;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class LayoutModeStructure {
 
-    private List<LayoutModeSection> sectionPanelOrder;
-    private List<LayoutModeSection> sectionsToDelete;
+    private List<LayoutModeSectionDTO> sectionWidgetOrder;
+    private List<LayoutModeSectionDTO> sectionsToDelete;
 
 
     public LayoutModeStructure() {
         super();
     }
 
-    public LayoutModeStructure(List<LayoutModeSection> sectionPanelOrder, List<LayoutModeSection> sectionsToDelete) {
-        this.sectionPanelOrder = sectionPanelOrder;
+    public LayoutModeStructure(List<LayoutModeSectionDTO> sectionWidgetOrder, List<LayoutModeSectionDTO> sectionsToDelete) {
+        this.sectionWidgetOrder = sectionWidgetOrder;
         this.sectionsToDelete = sectionsToDelete;
     }
 
-    public List<LayoutModeSection> getSectionPanelOrder() {
-        return sectionPanelOrder;
+    public List<LayoutModeSectionDTO> getSectionWidgetOrder() {
+        return sectionWidgetOrder;
     }
 
-    public List<LayoutModeSection> getSectionsToDelete() {
+    public List<LayoutModeSectionDTO> getSectionsToDelete() {
         return sectionsToDelete;
     }
 

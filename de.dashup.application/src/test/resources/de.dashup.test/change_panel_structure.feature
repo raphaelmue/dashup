@@ -11,7 +11,7 @@ Feature: Change Panel Structure
 
     Scenario: Enable edit mode
       Given User is located on the central dashboard
-      When User clicks on edit icon
+      When User clicks on layout icon
       Then Central dashboard can now be edited
 
     Scenario: Add section

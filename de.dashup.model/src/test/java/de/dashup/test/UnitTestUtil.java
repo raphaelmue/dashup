@@ -4,6 +4,7 @@ import de.dashup.model.db.Database;
 import de.dashup.model.service.DashupService;
 import de.dashup.util.string.Hash;
 import org.junit.jupiter.api.Assertions;
+
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -63,9 +64,6 @@ class UnitTestUtil {
         database.insert(Database.Table.USERS_TOKENS, testDataMap);
 
         Assertions.assertEquals(1, database.get(Database.Table.USERS_TOKENS, new HashMap<>()).length());
-    }
-
-    static void setUpTestDashup(Database database) throws SQLException {
 
         /*
           The following test dashboard structure will be generated
@@ -76,59 +74,67 @@ class UnitTestUtil {
           #empty#
         */
 
-        Map<String, Object> testData = new HashMap<>();
-        testData.put("user_id", 1);
-        testData.put("section_name", "section1");
-        testData.put("predecessor_id", 0);
+        testDataMap.clear();
+        testDataMap.put("user_id", 1);
+        testDataMap.put("section_name", "section1");
+        testDataMap.put("predecessor_id", 0);
+        database.insert(Database.Table.USER_SECTIONS, testDataMap);
 
-        database.insert(Database.Table.USER_SECTIONS, testData);
+        testDataMap.clear();
+        testDataMap.put("user_id", 1);
+        testDataMap.put("section_name", "section2");
+        testDataMap.put("predecessor_id", 1);
+        database.insert(Database.Table.USER_SECTIONS, testDataMap);
 
-        testData.clear();
-        testData.put("user_id", 1);
-        testData.put("section_name", "section2");
-        testData.put("predecessor_id", 1);
-        database.insert(Database.Table.USER_SECTIONS, testData);
+        Assertions.assertEquals(2, database.get(Database.Table.USER_SECTIONS, new HashMap<>()).length());
 
-        testData.clear();
-        testData.put("user_id",1);
-        testData.put("name","panel1");
-        testData.put("short_description","test panel 1");
-        testData.put("description","long description 1");
-        testData.put("publication_date","2019-03-19");
-        testData.put("visibility",0);
-        testData.put("number_of_ratings",10);
-        testData.put("avg_of_ratings",75);
-        testData.put("code_small","<h1>Widget 1</h1>");
-        testData.put("code_medium","<h1>Widget 1</h1>");
-        testData.put("code_large","<h1>Widget 1</h1>");
-        database.insert(Database.Table.PANELS,testData);
+        testDataMap.clear();
+        testDataMap.put("user_id", 1);
+        testDataMap.put("name", "panel1");
+        testDataMap.put("short_description", "test panel 1");
+        testDataMap.put("description", "long description 1");
+        testDataMap.put("publication_date", "2019-03-19");
+        testDataMap.put("visibility", 0);
+        testDataMap.put("number_of_ratings", 10);
+        testDataMap.put("avg_of_ratings", 75);
+        testDataMap.put("code_small", "<h1>Widget 1</h1>");
+        testDataMap.put("code_medium", "<h1>Widget 1</h1>");
+        testDataMap.put("code_large", "<h1>Widget 1</h1>");
+        database.insert(Database.Table.PANELS, testDataMap);
 
-        testData.clear();
-        testData.put("user_id",1);
-        testData.put("name","panel2");
-        testData.put("short_description","test panel 2");
-        testData.put("description","long description 2");
-        testData.put("publication_date","2019-03-19");
-        testData.put("visibility",0);
-        testData.put("number_of_ratings",1);
-        testData.put("avg_of_ratings",50);
-        testData.put("code_small","<h1>Widget 2</h1>");
-        testData.put("code_medium","<h1>Widget 2</h1>");
-        testData.put("code_large","<h1>Widget 2</h1>");
-        database.insert(Database.Table.PANELS,testData);
+        testDataMap.clear();
+        testDataMap.put("user_id", 1);
+        testDataMap.put("name", "panel2");
+        testDataMap.put("short_description", "test panel 2");
+        testDataMap.put("description", "long description 2");
+        testDataMap.put("publication_date", "2019-03-19");
+        testDataMap.put("visibility", 0);
+        testDataMap.put("number_of_ratings", 1);
+        testDataMap.put("avg_of_ratings", 50);
+        testDataMap.put("code_small", "<h1>Widget 2</h1>");
+        testDataMap.put("code_medium", "<h1>Widget 2</h1>");
+        testDataMap.put("code_large", "<h1>Widget 2</h1>");
+        database.insert(Database.Table.PANELS, testDataMap);
 
-        testData.clear();
-        testData.put("section_id",1);
-        testData.put("panel_id",1);
-        testData.put("panel_predecessor",0);
-        testData.put("size","medium");
-        database.insert(Database.Table.SECTIONS_PANELS,testData);
+        Assertions.assertEquals(2, database.get(Database.Table.PANELS, new HashMap<>()).length());
 
-        testData.clear();
-        testData.put("section_id",1);
-        testData.put("panel_id",2);
-        testData.put("panel_predecessor",1);
-        testData.put("size","medium");
-        database.insert(Database.Table.SECTIONS_PANELS,testData);
+        testDataMap.clear();
+        testDataMap.put("section_id", 1);
+        testDataMap.put("panel_id", 1);
+        testDataMap.put("panel_predecessor", 0);
+        testDataMap.put("size", "medium");
+        database.insert(Database.Table.SECTIONS_PANELS, testDataMap);
+
+        testDataMap.clear();
+        testDataMap.put("section_id", 1);
+        testDataMap.put("panel_id", 2);
+        testDataMap.put("panel_predecessor", 1);
+        testDataMap.put("size", "medium");
+        database.insert(Database.Table.SECTIONS_PANELS, testDataMap);
+
+        Assertions.assertEquals(2, database.get(Database.Table.SECTIONS_PANELS, new HashMap<>()).length());
+
     }
+
+
 }
