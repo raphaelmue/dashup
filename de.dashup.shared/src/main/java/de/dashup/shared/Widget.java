@@ -2,7 +2,7 @@ package de.dashup.shared;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Panel extends DatabasePanel {
+public class Widget extends DatabaseWidget {
 
     public enum Size {
         SMALL("small", "m2 s6"),
@@ -39,26 +39,28 @@ public class Panel extends DatabasePanel {
         }
     }
 
-    private String htmlContent;
     private Size size;
     @SerializedName("panel_predecessor")
     private int predecessor;
 
-    public Panel() {
+    public Widget() {
     }
 
-    public Panel(int id, String name, String description, int numberOfDownloads, int averageRating,
-                 int predecessor) {
+    public Widget(int id, String name, String description, int numberOfDownloads, int averageRating,
+                  int predecessor) {
         super(id, name, description, numberOfDownloads, averageRating);
         this.predecessor = predecessor;
     }
 
     @Override
     public DatabaseObject fromDatabaseObject(DatabaseObject databaseObject) {
-        if (databaseObject instanceof DatabasePanel) {
+        if (databaseObject instanceof DatabaseWidget) {
             this.setId(databaseObject.getId());
-            this.setName(((DatabasePanel) databaseObject).getName());
-            this.setDescription(((DatabasePanel) databaseObject).getDescription());
+            this.setName(((DatabaseWidget) databaseObject).getName());
+            this.setDescription(((DatabaseWidget) databaseObject).getDescription());
+            this.setCodeSmall(((DatabaseWidget) databaseObject).getCodeSmall());
+            this.setCodeMedium(((DatabaseWidget) databaseObject).getCodeMedium());
+            this.setCodeLarge(((DatabaseWidget) databaseObject).getCodeLarge());
         }
         return this;
     }
@@ -71,16 +73,33 @@ public class Panel extends DatabasePanel {
         return predecessor;
     }
 
-    public String getHtmlContent() {
-        return htmlContent;
+    public String getCode() {
+        return this.getCode(this.size);
+    }
+
+    public String getCode(Size size) {
+        switch (size) {
+            case SMALL:
+                return this.getCodeSmall();
+            case MEDIUM:
+                return this.getCodeMedium();
+            case LARGE:
+                return this.getCodeLarge();
+            default:
+                throw new IllegalArgumentException("No size is defined");
+        }
+    }
+
+    public String getCodeWithWrapper() {
+        return "<div class=\"card col " + this.size.getStyleClass() + "\">" +
+                    "<div class=\"card-content\">" +
+                        this.getCode() +
+                    "</div>" +
+                "</div>";
     }
 
     public void setSize(Size size) {
         this.size = size;
-    }
-
-    public void setHtmlContent(String htmlContent) {
-        this.htmlContent = htmlContent;
     }
 
     public void setPredecessor(int predecessor) {
