@@ -124,6 +124,7 @@
 
         $("#add-section-button").on("click", function () {
             let sectionId = "n" + globalSectionCount;
+            globalSectionCount++;
             let widgetContainerToAdd = addNewSection(sectionId);
             widgetContainer.containers.push(widgetContainerToAdd);
             initializeSectionDeleteClick();
@@ -207,8 +208,9 @@
 
         let layoutModeWidgets;
         layoutModeWidgets = makeWidgetStructure(widgets);
+        let sectionIdPrefix = sectionToDelete.id.substr(0, 1);
 
-        if (sectionsToDelete.id !== "n0") {
+        if (sectionIdPrefix !== "n") {
             let sectionObject = {
                 sectionName: "",
                 sectionId: sectionToDelete.id,
@@ -264,13 +266,6 @@
         });
     }
 
-    function showSaveReponseSuccessMessageToast() {
-        M.toast({
-            html: "<fmt:message key="i18n.successChangedLayout" />",
-            classes: "success"
-        });
-    }
-
     function showSaveResponseErrorMessageToast() {
         M.toast({
             html: "Error",
@@ -294,7 +289,7 @@
             return response.json();
 
         }).then(() => {
-            showSaveReponseSuccessMessageToast();
+            window.location.href = "../";
         }).catch(() => {
             showSaveResponseErrorMessageToast();
         });

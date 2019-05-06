@@ -373,11 +373,10 @@ public class DashupService {
 
             Section sectionToProcess = section.toDataTransferObject();
 
-            if(section.isNewSection()){
-                int newSectionId = addNewSection(user,sectionToProcess);
+            if (section.isNewSection()) {
+                int newSectionId = addNewSection(user, sectionToProcess);
                 sectionToProcess.setId(newSectionId);
-            }
-            else{
+            } else {
                 updateSection(user, sectionToProcess);
                 deleteWidgetsOfSection(sectionToProcess);
             }
@@ -385,8 +384,9 @@ public class DashupService {
             List<LayoutModeWidgetDTO> layoutModeWidgetsDTO = section.getLayoutModeWidgets();
             for (LayoutModeWidgetDTO widgetDTO : layoutModeWidgetsDTO) {
                 Widget widget = widgetDTO.toDataTransferObject();
-                addWidgetToSection(widget,sectionToProcess,widgetDTO.getWidgetSize());
+                addWidgetToSection(widget, sectionToProcess, widgetDTO.getWidgetSize());
             }
         }
+
     }
 }

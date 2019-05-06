@@ -2,9 +2,9 @@ package de.dashup.test;
 
 import de.dashup.model.db.Database;
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.LayoutModeWidgetDTO;
 import de.dashup.shared.LayoutModeSectionDTO;
 import de.dashup.shared.LayoutModeStructure;
+import de.dashup.shared.LayoutModeWidgetDTO;
 import de.dashup.shared.User;
 import de.dashup.util.string.Hash;
 import org.json.JSONArray;
@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
