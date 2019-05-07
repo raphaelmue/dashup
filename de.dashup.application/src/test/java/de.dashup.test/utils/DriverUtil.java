@@ -88,10 +88,10 @@ public class DriverUtil {
     }
 
     public static WebDriver createDriverInstance() throws IOException {
-        InputStream is = DriverUtil.class.getResourceAsStream("./testing.properties");
+        InputStream is = DriverUtil.class.getResourceAsStream("/testing.properties");
         Properties p = new Properties();
         p.load(is);
-        String name = p.getProperty("test.browser");
+        String name = p.getProperty("project.testing.browser");
         WebDriver driver;
         if (name != null) {
             switch (name) {

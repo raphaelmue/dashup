@@ -6,10 +6,7 @@ import de.dashup.shared.DatabaseUser;
 import de.dashup.shared.User;
 import de.dashup.util.string.Hash;
 import org.json.JSONArray;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -17,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("WeakerAccess")
+@Tag("unit")
 public class DatabaseUnitTest {
     private static Database database;
 
