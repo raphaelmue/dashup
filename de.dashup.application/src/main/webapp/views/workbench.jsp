@@ -273,6 +273,12 @@
                         classes: "warning"
                     };
                     break;
+                case "draftCodeNotValid":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.warningDraftCodeNotValid" />",
+                        classes: "warning"
+                    };
+                    break;
                 case "publishedDraft":
                     toastOptions = {
                         html: "<fmt:message key="i18n.successPublishedDraft" />"

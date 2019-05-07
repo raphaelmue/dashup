@@ -37,8 +37,8 @@ public class Widget extends DatabaseWidget {
         public String toString() {
             return name;
         }
-    }
 
+    }
     public enum Category {
         PRODUCTIVITY("productivity"),
         LIFESTYLE("lifestyle"),
@@ -64,12 +64,12 @@ public class Widget extends DatabaseWidget {
             }
             return null;
         }
-    }
 
+    }
     private Size size;
+
     @SerializedName("panel_predecessor")
     private int predecessor;
-
     public Widget() {
     }
 
@@ -115,6 +115,22 @@ public class Widget extends DatabaseWidget {
                 return this.getCodeMedium();
             case LARGE:
                 return this.getCodeLarge();
+            default:
+                throw new IllegalArgumentException("No size is defined");
+        }
+    }
+
+    public void setCode(String code, Size size) {
+        switch (size) {
+            case SMALL:
+                this.setCodeSmall(code);
+                break;
+            case MEDIUM:
+                this.setCodeMedium(code);
+                break;
+            case LARGE:
+                this.setCodeLarge(code);
+                break;
             default:
                 throw new IllegalArgumentException("No size is defined");
         }

@@ -2,6 +2,8 @@ package de.dashup.application.controllers;
 
 import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
+import de.dashup.model.exceptions.InvalidCodeException;
+import de.dashup.model.exceptions.MissingInformationException;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.Draft;
 import de.dashup.shared.User;
@@ -204,8 +206,10 @@ public class WorkbenchController {
         if (user != null) {
             try {
                 DashupService.getInstance().publishDraft(draftId);
-            } catch (IllegalArgumentException e) {
+            } catch (MissingInformationException e) {
                 return "redirect:/workbench/draft/" + draftId + "#draftNotValid";
+            } catch (InvalidCodeException e) {
+                return "redirect:/workbench/draft/" + draftId + "#draftCodeNotValid";
             }
             return "redirect:/workbench/#publishedDraft";
         }
