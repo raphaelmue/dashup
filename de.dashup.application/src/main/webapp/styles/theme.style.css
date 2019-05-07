@@ -59,10 +59,6 @@ body {
     margin-right: 5px;
 }
 
-.dropdown-content {
-    color: var(--color-primary) !important;
-}
-
 .input-field {
     padding: 0;
     color: var(--color-primary);
