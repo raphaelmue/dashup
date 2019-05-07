@@ -9,21 +9,25 @@ Feature: Change Layout
     When User submits e-mail and password
     Then User is logged in
 
+  @EndToEnd @Smoke
   Scenario: Open settings menu
     Given User is located on central dashboard
     When User clicks on settings menu
     Then Settings menu opens up
 
+  @EndToEnd
   Scenario: Navigate back to dashboard via dashboard icon
     Given User is located on settings menu
     When User clicks on dashboard icon
     Then User will be directed back to central dashboard
 
+  @EndToEnd
   Scenario: Navigate back to dashboard via navigation bar
     Given User is located on settings menu
     When User navigates back over the navigation bar
     Then User will be directed back to central dashboard
 
+  @EndToEnd
   Scenario Outline: Customize theming
     Given User is located on settings menu
     When User changes theme to "<themes>"
@@ -61,12 +65,14 @@ Feature: Change Layout
 #      | Biblo        |
 #      | Orbitron     |
 
+  @EndToEnd
   Scenario: Set background image
     Given User is located on settings menu
     When User provides the valid image URL "https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg"
     Then Picture with URL "https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg" is displayed as background image
 
 
+  @EndToEnd
   Scenario Outline: Undo changes
     Given User is located on settings menu
     And   User has made a change, key "<settings>" was changed from "<latestValue>" to "<newValue>"

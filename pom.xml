@@ -22,9 +22,10 @@
         <maven.compiler.target>11</maven.compiler.target>
 
         <project.testing.localhost>false</project.testing.localhost>
-        <project.testing.tags>unit, integration</project.testing.tags>
+        <project.testing.tags/>
         <project.testing.skipTags>skip</project.testing.skipTags>
         <project.testing.browser>chrome</project.testing.browser>
+        <project.testing.argLine/>
     </properties>
 
     <profiles>
@@ -42,6 +43,14 @@
             </properties>
         </profile>
         <profile>
+            <id>smoke-tests</id>
+            <properties>
+                <project.testing.tags/>
+                <project.testing.skipTags>skip</project.testing.skipTags>
+                <argLine>-Dcucumber.options='--tags @Smoke'</argLine>
+            </properties>
+        </profile>
+        <profile>
             <id>local-testing</id>
             <properties>
                 <project.testing.localhost>true</project.testing.localhost>
@@ -53,7 +62,6 @@
                 <project.testing.browser>chrome</project.testing.browser>
             </properties>
         </profile>
-
         <profile>
             <id>firefox-testing</id>
             <properties>
@@ -86,7 +94,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.0</version>
+                <version>2.22.1</version>
                 <configuration>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     <excludedGroups>${project.testing.skipTags}</excludedGroups>
@@ -96,15 +104,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.0.0-M3</version>
+                <version>2.22.1</version>
                 <executions>
                     <execution>
                         <id>integration-testing</id>
                         <goals>
                             <goal>integration-test</goal>
+                            <goal>verify</goal>
                         </goals>
                         <configuration>
-                            <groups>integration</groups>
+                            <groups>smoke, integration</groups>
                         </configuration>
                     </execution>
                 </executions>
@@ -132,13 +141,13 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>2.3.1</version>
+            <version>4.2.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
-            <version>2.3.1</version>
+            <version>4.2.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>
