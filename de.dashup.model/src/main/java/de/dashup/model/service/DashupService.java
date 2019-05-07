@@ -413,28 +413,28 @@ public class DashupService {
         return draft;
     }
 
-    public void updateDraftInformation(Draft draft) throws SQLException {
+    public void updateWidgetInformation(Widget widget) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("id", draft.getId());
+        whereParameters.put("id", widget.getId());
 
         Map<String, Object> values = new HashMap<>();
-        if (draft.getName() != null) {
-            values.put("name", draft.getName());
+        if (widget.getName() != null) {
+            values.put("name", widget.getName());
         }
-        if (draft.getCodeSmall() != null) {
-            values.put("code_small", draft.getCodeSmall());
+        if (widget.getCodeSmall() != null) {
+            values.put("code_small", widget.getCodeSmall());
         }
-        if (draft.getCodeMedium() != null) {
-            values.put("code_medium", draft.getCodeMedium());
+        if (widget.getCodeMedium() != null) {
+            values.put("code_medium", widget.getCodeMedium());
         }
-        if (draft.getCodeLarge() != null) {
-            values.put("code_large", draft.getCodeLarge());
+        if (widget.getCodeLarge() != null) {
+            values.put("code_large", widget.getCodeLarge());
         }
-        if (draft.getShortDescription() != null) {
-            values.put("short_description", draft.getShortDescription());
+        if (widget.getShortDescription() != null) {
+            values.put("short_description", widget.getShortDescription());
         }
-        if (draft.getDescription() != null) {
-            values.put("descriptions", draft.getDescription());
+        if (widget.getDescription() != null) {
+            values.put("descriptions", widget.getDescription());
         }
 
         this.database.update(Database.Table.PANELS, whereParameters, values);

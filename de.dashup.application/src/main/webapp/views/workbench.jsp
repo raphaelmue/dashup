@@ -59,10 +59,12 @@
                                 <i class="fas fa-trash-alt"></i>
                                 <fmt:message key="i18n.delete"/>
                             </button>
-                            <button id="btn-publish-widget" class="btn-flat waves-effect">
-                                <i class="fas fa-truck"></i>
-                                <fmt:message key="i18n.publish"/>
-                            </button>
+                            <c:if test="${current.isVisible == false}">
+                                <button id="btn-publish-widget" class="btn-flat waves-effect">
+                                    <i class="fas fa-truck"></i>
+                                    <fmt:message key="i18n.publish"/>
+                                </button>
+                            </c:if>
                             <button id="btn-add-widget" class="btn-flat waves-effect">
                                 <i class="fas fa-plus"></i>
                                 <fmt:message key="i18n.add"/>
@@ -98,39 +100,37 @@
                                         </div>
                                     </div>
                                 </div>
-                                <c:if test="${current.isVisible == false}">
-                                    <div class="row">
-                                        <div class="col s12 m12">
-                                            <h4 style="margin-bottom: 20px;"><fmt:message key="i18n.code" /></h4>
-                                            <div class="row">
-                                                <div class="col s12 m12" id="code-container">
-                                                    <div class="input-field">
-                                                        <textarea id="textarea-code-small" class="materialize-textarea">${fn:escapeXml(current.codeSmall)}</textarea>
-                                                        <label for="textarea-code-small"><fmt:message key="i18n.code" /></label>
-                                                    </div>
-                                                    <div class="input-field" style="display: none;">
-                                                        <textarea id="textarea-code-medium" class="materialize-textarea">${fn:escapeXml(current.codeMedium)}</textarea>
-                                                        <label for="textarea-code-medium"><fmt:message key="i18n.code" /></label>
-                                                    </div>
-                                                    <div class="input-field" style="display: none;">
-                                                        <textarea id="textarea-code-large" class="materialize-textarea">${fn:escapeXml(current.codeLarge)}</textarea>
-                                                        <label for="textarea-code-large"><fmt:message key="i18n.code" /></label>
-                                                    </div>
+                                <div class="row">
+                                    <div class="col s12 m12">
+                                        <h4 style="margin-bottom: 20px;"><fmt:message key="i18n.code" /></h4>
+                                        <div class="row">
+                                            <div class="col s12 m12" id="code-container">
+                                                <div class="input-field">
+                                                    <textarea id="textarea-code-small" class="materialize-textarea">${fn:escapeXml(current.codeSmall)}</textarea>
+                                                    <label for="textarea-code-small"><fmt:message key="i18n.code" /></label>
+                                                </div>
+                                                <div class="input-field" style="display: none;">
+                                                    <textarea id="textarea-code-medium" class="materialize-textarea">${fn:escapeXml(current.codeMedium)}</textarea>
+                                                    <label for="textarea-code-medium"><fmt:message key="i18n.code" /></label>
+                                                </div>
+                                                <div class="input-field" style="display: none;">
+                                                    <textarea id="textarea-code-large" class="materialize-textarea">${fn:escapeXml(current.codeLarge)}</textarea>
+                                                    <label for="textarea-code-large"><fmt:message key="i18n.code" /></label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col s12 m12">
-                                            <button id="btn-save-code" class="btn waves-effect waves-light">
-                                                <i class="fas fa-check"></i>
-                                                <fmt:message key="i18n.save"/>
-                                            </button>
-                                            <button id="btn-undo-code" class="btn-flat undo-button waves-effect">
-                                                <i class="fas fa-times"></i>
-                                                <fmt:message key="i18n.undo"/>
-                                            </button>
-                                        </div>
                                     </div>
-                                </c:if>
+                                    <div class="col s12 m12">
+                                        <button id="btn-save-code" class="btn waves-effect waves-light">
+                                            <i class="fas fa-check"></i>
+                                            <fmt:message key="i18n.save"/>
+                                        </button>
+                                        <button id="btn-undo-code" class="btn-flat undo-button waves-effect">
+                                            <i class="fas fa-times"></i>
+                                            <fmt:message key="i18n.undo"/>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                             <div id="basicInformation" class="col s12">
                                 <div class="row">
@@ -259,11 +259,18 @@
                         classes: "warning"
                     };
                     break;
+                case "publishedDraft":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.successPublishedDraft" />"
+                    }
+                    break;
             }
             if (getAnchor() !== null && getAnchor() !== "") {
                 M.toast(toastOptions);
                 clearAnchor()
             }
+
+            let isPublished = document.URL.includes("published") ? "published" : "draft";
 
             $("#textarea-short-description").characterCounter();
 
@@ -312,7 +319,7 @@
             });
 
             $("#btn-submit-delete-draft").on("click", function () {
-                PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(current.id)}/deleteDraft", {});
+                PostRequest.getInstance().make("/workbench/" + isPublished + "/${fn:escapeXml(current.id)}/deleteDraft", {});
             });
 
             let publishDraftDialog = M.Modal.getInstance(document.getElementById("dialog-publish-draft"));
@@ -325,7 +332,7 @@
             });
 
             $("#btn-save-draft-information").on("click", function() {
-                PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(current.id)}/changeInformation", {
+                PostRequest.getInstance().make("/workbench/" + isPublished + "/${fn:escapeXml(current.id)}/changeInformation", {
                     draftName: $("#text-field-draft-name").val(),
                     shortDescription: $("#textarea-short-description").val(),
                     description: $("#textarea-description").val()
@@ -336,7 +343,7 @@
                 let parameters = {},
                     size = $("#size-dropdown").val();
                 parameters["code_" + size] = encodeURIComponent($("#textarea-code-" + size).val())
-                PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(current.id)}/changeCode", parameters);
+                PostRequest.getInstance().make("/workbench/" + isPublished + "/${fn:escapeXml(current.id)}/changeCode", parameters);
             });
         });
 

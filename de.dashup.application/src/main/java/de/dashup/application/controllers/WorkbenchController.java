@@ -92,6 +92,18 @@ public class WorkbenchController {
         return "redirect:/login";
     }
 
+    @RequestMapping(value = "/published/{publishedId}/deleteDraft")
+    public String handleDeleteWidget(@CookieValue(name = "token", required = false) String token,
+                                    HttpServletRequest request,
+                                    @PathVariable(value = "publishedId") int publishedId) throws SQLException {
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            DashupService.getInstance().deleteDraft(publishedId);
+            return "redirect:/workbench/#deletedWidget";
+        }
+        return "redirect:/login";
+    }
+
     @RequestMapping(value = "/draft/{draftId}/changeInformation", method = RequestMethod.POST)
     public String handleChangeDraftInformation(@CookieValue(name = "token", required = false) String token,
                                                HttpServletRequest request,
@@ -106,8 +118,28 @@ public class WorkbenchController {
             draft.setName(name);
             draft.setShortDescription(shortDescription);
             draft.setDescription(description);
-            DashupService.getInstance().updateDraftInformation(draft);
+            DashupService.getInstance().updateWidgetInformation(draft);
             return "redirect:/workbench/draft/" + draftId + "#changedInformation";
+        }
+        return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/published/{publishedId}/changeInformation", method = RequestMethod.POST)
+    public String handleChangeWidgetInformation(@CookieValue(name = "token", required = false) String token,
+                                                HttpServletRequest request,
+                                                @PathVariable(value = "publishedId") int publishedId,
+                                                @RequestParam(value = "draftName") String name,
+                                                @RequestParam(value = "shortDescription") String shortDescription,
+                                                @RequestParam(value = "description") String description) throws SQLException {
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            Widget Widget = new Widget();
+            Widget.setId(publishedId);
+            Widget.setName(name);
+            Widget.setShortDescription(shortDescription);
+            Widget.setDescription(description);
+            DashupService.getInstance().updateWidgetInformation(Widget);
+            return "redirect:/workbench/published/" + publishedId + "#changedInformation";
         }
         return "redirect:/login";
     }
@@ -122,20 +154,40 @@ public class WorkbenchController {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             Draft draft = new Draft();
-            draft.setId(draftId);
-            if (codeSmall != null) {
-                draft.setCodeSmall(URLDecoder.decode(codeSmall, StandardCharsets.UTF_8.name()));
-            }
-            if (codeMedium != null) {
-                draft.setCodeMedium(URLDecoder.decode(codeMedium, StandardCharsets.UTF_8.name()));
-            }
-            if (codeLarge != null) {
-                draft.setCodeLarge(URLDecoder.decode(codeLarge, StandardCharsets.UTF_8.name()));
-            }
-            DashupService.getInstance().updateDraftInformation(draft);
+            updateCode(draftId, codeSmall, codeMedium, codeLarge, draft);
             return "redirect:/workbench/draft/" + draftId + "#changedCode";
         }
         return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/published/{publishedId}/changeCode", method = RequestMethod.POST)
+    public String handleChangeWidgetCode(@CookieValue(name = "token", required = false) String token,
+                                        HttpServletRequest request,
+                                        @PathVariable(value = "publishedId") int publishedId,
+                                        @RequestParam(value = "code_small", required = false) String codeSmall,
+                                        @RequestParam(value = "code_medium", required = false) String codeMedium,
+                                        @RequestParam(value = "code_large", required = false) String codeLarge) throws SQLException, UnsupportedEncodingException {
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            Widget widget = new Widget();
+            updateCode(publishedId, codeSmall, codeMedium, codeLarge, widget);
+            return "redirect:/workbench/published/" + publishedId + "#changedCode";
+        }
+        return "redirect:/login";
+    }
+
+    private void updateCode(int id, String codeSmall, String codeMedium, String codeLarge, Widget widget) throws UnsupportedEncodingException, SQLException {
+        widget.setId(id);
+        if (codeSmall != null) {
+            widget.setCodeSmall(URLDecoder.decode(codeSmall, StandardCharsets.UTF_8.name()));
+        }
+        if (codeMedium != null) {
+            widget.setCodeMedium(URLDecoder.decode(codeMedium, StandardCharsets.UTF_8.name()));
+        }
+        if (codeLarge != null) {
+            widget.setCodeLarge(URLDecoder.decode(codeLarge, StandardCharsets.UTF_8.name()));
+        }
+        DashupService.getInstance().updateWidgetInformation(widget);
     }
 
     @RequestMapping(value = "/draft/{draftId}/publishDraft")
