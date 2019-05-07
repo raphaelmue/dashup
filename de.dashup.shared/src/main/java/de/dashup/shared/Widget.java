@@ -39,6 +39,33 @@ public class Widget extends DatabaseWidget {
         }
     }
 
+    public enum Category {
+        PRODUCTIVITY("productivity"),
+        LIFESTYLE("lifestyle"),
+        TIME("time"),
+        FINANCE("finance"),
+        PLANNING("planning");
+
+        private final String name;
+
+        Category(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public static Category getCategoryByName(String name) {
+            for (Category category : values()) {
+                if (category.getName().equals(name)) {
+                    return category;
+                }
+            }
+            return null;
+        }
+    }
+
     private Size size;
     @SerializedName("panel_predecessor")
     private int predecessor;
@@ -63,6 +90,7 @@ public class Widget extends DatabaseWidget {
             this.setCodeMedium(((DatabaseWidget) databaseObject).getCodeMedium());
             this.setCodeLarge(((DatabaseWidget) databaseObject).getCodeLarge());
             this.setVisible(((DatabaseWidget) databaseObject).getIsVisible());
+            this.setCategory(((DatabaseWidget) databaseObject).getCategory());
         }
         return this;
     }
@@ -106,5 +134,13 @@ public class Widget extends DatabaseWidget {
 
     public void setPredecessor(int predecessor) {
         this.predecessor = predecessor;
+    }
+
+    public Category getCategoryObject() {
+        return Category.getCategoryByName(this.getCategory());
+    }
+
+    public void setCategory(Category category) {
+        this.setCategory(category.getName());
     }
 }

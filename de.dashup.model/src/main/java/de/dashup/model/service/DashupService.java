@@ -436,6 +436,9 @@ public class DashupService {
         if (widget.getDescription() != null) {
             values.put("descriptions", widget.getDescription());
         }
+        if (widget.getCategoryObject() != null) {
+            values.put("category", widget.getCategory());
+        }
 
         this.database.update(Database.Table.PANELS, whereParameters, values);
     }

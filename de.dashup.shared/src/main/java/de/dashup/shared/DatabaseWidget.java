@@ -21,6 +21,7 @@ public class DatabaseWidget implements DatabaseObject {
     private String codeLarge;
     @SerializedName("visibility")
     private boolean isVisible;
+    private String category;
     @SerializedName("number_of_downloads")
     private int numberOfDownloads;
     @SerializedName("average_rating")
@@ -78,6 +79,10 @@ public class DatabaseWidget implements DatabaseObject {
         return isVisible;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
     public int getNumberOfDownloads() {
         return numberOfDownloads;
     }
@@ -122,6 +127,10 @@ public class DatabaseWidget implements DatabaseObject {
 
     public void setVisible(boolean visible) {
         isVisible = visible;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public void setNumberOfDownloads(int numberOfDownloads) {

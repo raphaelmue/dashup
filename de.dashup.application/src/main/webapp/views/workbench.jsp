@@ -146,7 +146,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12 m12">
-                                            <textarea id="textarea-short-description" name="shortDescription"
+                                        <textarea id="textarea-short-description" name="shortDescription"
                                                       class="materialize-textarea" data-length="256">${fn:escapeXml(current.shortDescription)}</textarea>
                                         <label for="textarea-short-description"><fmt:message
                                                 key="i18n.shortDescription"/></label>
@@ -154,10 +154,21 @@
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12 m12">
-                                            <textarea id="textarea-description" name="description"
+                                        <textarea id="textarea-description" name="description"
                                                       class="materialize-textarea">${fn:escapeXml(current.description)}</textarea>
                                         <label for="textarea-description"><fmt:message
                                                 key="i18n.description"/></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12 m12">
+                                        <select name="size" id="category-dropdown">
+                                            <option value="" disabled selected><fmt:message key="i18n.selectCategory" /></option>
+                                            <c:forEach items="${categories}" var="category">
+                                                <option value="${category.name}" <c:if test="${current.category eq category.name}">selected</c:if>><fmt:message key="i18n.${category.name}" /></option>
+                                            </c:forEach>
+                                        </select>
+                                        <label><fmt:message key="i18n.category" /></label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -262,7 +273,7 @@
                 case "publishedDraft":
                     toastOptions = {
                         html: "<fmt:message key="i18n.successPublishedDraft" />"
-                    }
+                    };
                     break;
             }
             if (getAnchor() !== null && getAnchor() !== "") {
@@ -333,6 +344,7 @@
 
             $("#btn-save-draft-information").on("click", function() {
                 PostRequest.getInstance().make("/workbench/" + isPublished + "/${fn:escapeXml(current.id)}/changeInformation", {
+                    category: $("#category-dropdown").val(),
                     draftName: $("#text-field-draft-name").val(),
                     shortDescription: $("#textarea-short-description").val(),
                     description: $("#textarea-description").val()

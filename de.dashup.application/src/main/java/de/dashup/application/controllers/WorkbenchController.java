@@ -51,6 +51,7 @@ public class WorkbenchController {
             DashupService.getInstance().getUsersDrafts(user);
             model.addAttribute("drafts", user.getDrafts());
             model.addAttribute("publishedWidgets", DashupService.getInstance().getUsersWidgets(user));
+            model.addAttribute("categories", Widget.Category.values());
 
             for (Draft draft : user.getDrafts()) {
                 if (draft.getId() == draftId) {
@@ -70,6 +71,7 @@ public class WorkbenchController {
             model.addAttribute("drafts", user.getDrafts());
             List<Widget> publishedWidgets = DashupService.getInstance().getUsersWidgets(user);
             model.addAttribute("publishedWidgets", publishedWidgets);
+            model.addAttribute("categories", Widget.Category.values());
 
             for (Widget widget : publishedWidgets) {
                 if (widget.getId() == publishedWidgetId) {
@@ -110,7 +112,8 @@ public class WorkbenchController {
                                                @PathVariable(value = "draftId") int draftId,
                                                @RequestParam(value = "draftName") String name,
                                                @RequestParam(value = "shortDescription") String shortDescription,
-                                               @RequestParam(value = "description") String description) throws SQLException {
+                                               @RequestParam(value = "description") String description,
+                                               @RequestParam(value = "category") String category) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             Draft draft = new Draft();
@@ -118,6 +121,7 @@ public class WorkbenchController {
             draft.setName(name);
             draft.setShortDescription(shortDescription);
             draft.setDescription(description);
+            draft.setCategory(category);
             DashupService.getInstance().updateWidgetInformation(draft);
             return "redirect:/workbench/draft/" + draftId + "#changedInformation";
         }
@@ -130,15 +134,17 @@ public class WorkbenchController {
                                                 @PathVariable(value = "publishedId") int publishedId,
                                                 @RequestParam(value = "draftName") String name,
                                                 @RequestParam(value = "shortDescription") String shortDescription,
-                                                @RequestParam(value = "description") String description) throws SQLException {
+                                                @RequestParam(value = "description") String description,
+                                                @RequestParam(value = "category") String category) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            Widget Widget = new Widget();
-            Widget.setId(publishedId);
-            Widget.setName(name);
-            Widget.setShortDescription(shortDescription);
-            Widget.setDescription(description);
-            DashupService.getInstance().updateWidgetInformation(Widget);
+            Widget widget = new Widget();
+            widget.setId(publishedId);
+            widget.setName(name);
+            widget.setShortDescription(shortDescription);
+            widget.setDescription(description);
+            widget.setCategory(category);
+            DashupService.getInstance().updateWidgetInformation(widget);
             return "redirect:/workbench/published/" + publishedId + "#changedInformation";
         }
         return "redirect:/login";
