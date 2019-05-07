@@ -3,17 +3,16 @@ package de.dashup.shared;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class LayoutModeStructure {
+public class LayoutModeStructureDTO {
 
     private List<LayoutModeSectionDTO> sectionWidgetOrder;
     private List<LayoutModeSectionDTO> sectionsToDelete;
 
-
-    public LayoutModeStructure() {
+    public LayoutModeStructureDTO() {
         super();
     }
 
-    public LayoutModeStructure(List<LayoutModeSectionDTO> sectionWidgetOrder, List<LayoutModeSectionDTO> sectionsToDelete) {
+    public LayoutModeStructureDTO(List<LayoutModeSectionDTO> sectionWidgetOrder, List<LayoutModeSectionDTO> sectionsToDelete) {
         this.sectionWidgetOrder = sectionWidgetOrder;
         this.sectionsToDelete = sectionsToDelete;
     }
@@ -25,6 +24,5 @@ public class LayoutModeStructure {
     public List<LayoutModeSectionDTO> getSectionsToDelete() {
         return sectionsToDelete;
     }
-
 
 }

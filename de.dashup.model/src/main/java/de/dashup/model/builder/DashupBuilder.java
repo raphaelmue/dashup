@@ -32,7 +32,7 @@ public class DashupBuilder {
                         .append(section.getId())
                         .append("\">")
                         .append("<div class=\"row\">")
-                        .append("<div class=\"drag-drop-btn col s6 valign-wrapper\"><i class=\"drag-drop-btn fas fa-grip-lines col s1\" style=\"margin:0\"></i>")
+                        .append("<div class=\"drag-drop-btn col s6 valign-wrapper input-field\"><i class=\"drag-drop-btn fas fa-grip-lines col s1\" style=\"margin:0\"></i>")
                         .append(" <input class=\"col s4\" type=\"text\" style=\"margin:0\" value=\"")
                         .append(section.getName())
                         .append("\" />")
@@ -46,7 +46,6 @@ public class DashupBuilder {
                         String size = widget.getSize().getName();
                         String panelId = String.valueOf(widget.getId());
 
-
                         content.append("<div class=\"bloc--inner col ")
                                 .append(sizeStyleClass)
                                 .append(" z-depth-1\"")
@@ -57,13 +56,11 @@ public class DashupBuilder {
                                 .append(size)
                                 .append("\" state=\"default\">")
                                 .append("<div class=\"row\">")
-                                .append("<div class=\"col s11\">")
+                                .append("<div class=\"col s12 widget-content\">")
+                                .append("<a class='dropdown-trigger' href='#' data-target='dropdown1'><i class=\"colored-text fas fa-ellipsis-v\"></i></a>")
                                 .append("<h6 class=\"center-align\">")
                                 .append(widget.getName())
                                 .append("</h6>")
-                                .append("</div>")
-                                .append("<div class=\"col s1\">")
-                                .append("<a class='dropdown-trigger' href='#' data-target='dropdown1'><i class=\"fas fa-ellipsis-v\" style=\"padding-top:10px\"></i></a>")
                                 .append("</div>")
                                 .append("</div>")
                                 .append("</div>");

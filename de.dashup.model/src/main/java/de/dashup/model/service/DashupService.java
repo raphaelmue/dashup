@@ -82,7 +82,7 @@ public class DashupService {
             for (DatabaseObject databaseObject : result) {
                 Section section = (Section) databaseObject;
                 Map<String, Object> innerWhereParameters = new HashMap<>();
-                innerWhereParameters.put("section_id", section.getId());
+                innerWhereParameters.put("id", section.getId());
                 JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerWhereParameters, "widget_index");
                 if (innerResult != null && innerResult.length() > 0) {
                     List<Widget> widgets = new ArrayList<>();
@@ -311,7 +311,7 @@ public class DashupService {
     private void updateSection(User user, Section section) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
-        whereParameters.put("section_id", section.getId());
+        whereParameters.put("id", section.getId());
 
         Map<String, Object> values = new HashMap<>();
         values.put("section_name", section.getName());
@@ -322,14 +322,14 @@ public class DashupService {
 
     private void deleteSection(User user, Section section) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("section_id", section.getId());
+        whereParameters.put("id", section.getId());
         whereParameters.put("user_id", user.getId());
         database.delete(Database.Table.USER_SECTIONS, whereParameters);
     }
 
     private void deleteWidgetsOfSection(Section section) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("section_id", section.getId());
+        whereParameters.put("id", section.getId());
         database.delete(Database.Table.SECTIONS_PANELS, whereParameters);
 
     }
@@ -344,13 +344,12 @@ public class DashupService {
 
         this.database.insert(Database.Table.USER_SECTIONS, values);
 
-        JSONObject jsonObject = this.database.get(Database.Table.USER_SECTIONS, values).getJSONObject(0);
-        return jsonObject.getInt("section_id");
+        return database.getLatestId(Database.Table.USER_SECTIONS);
     }
 
     private void addWidgetToSection(Widget widget,  Section section, String size) throws SQLException {
         Map<String, Object> values = new HashMap<>();
-        values.put("section_id", section.getId());
+        values.put("id", section.getId());
         values.put("panel_id", widget.getId());
         values.put("widget_index", widget.getIndex());
         values.put("size", size);
@@ -358,8 +357,8 @@ public class DashupService {
         this.database.insert(Database.Table.SECTIONS_PANELS, values);
     }
 
-    public void processLayoutModeChanges(LayoutModeStructure layoutModeStructure, User user) throws SQLException {
-        List<LayoutModeSectionDTO> sectionsToDelete = layoutModeStructure.getSectionsToDelete();
+    public void processLayoutModeChanges(LayoutModeStructureDTO layoutModeStructureDTO, User user) throws SQLException {
+        List<LayoutModeSectionDTO> sectionsToDelete = layoutModeStructureDTO.getSectionsToDelete();
 
         for (LayoutModeSectionDTO section : sectionsToDelete) {
             Section sectionToDelete = section.toDataTransferObject();
@@ -367,13 +366,14 @@ public class DashupService {
             deleteSection(user, sectionToDelete);
         }
 
-        List<LayoutModeSectionDTO> sectionAndWidgetOrder = layoutModeStructure.getSectionWidgetOrder();
+        List<LayoutModeSectionDTO> sectionAndWidgetIndex = layoutModeStructureDTO.getSectionWidgetOrder();
+        int sectionIndex = 0;
 
-        for (LayoutModeSectionDTO section : sectionAndWidgetOrder) {
+        for (LayoutModeSectionDTO sectionDTO : sectionAndWidgetIndex) {
+            sectionDTO.setIndex(sectionIndex);
+            Section sectionToProcess = sectionDTO.toDataTransferObject();
 
-            Section sectionToProcess = section.toDataTransferObject();
-
-            if (section.isNewSection()) {
+            if (sectionDTO.isNewSection()) {
                 int newSectionId = addNewSection(user, sectionToProcess);
                 sectionToProcess.setId(newSectionId);
             } else {
@@ -381,12 +381,15 @@ public class DashupService {
                 deleteWidgetsOfSection(sectionToProcess);
             }
 
-            List<LayoutModeWidgetDTO> layoutModeWidgetsDTO = section.getLayoutModeWidgets();
+            List<LayoutModeWidgetDTO> layoutModeWidgetsDTO = sectionDTO.getLayoutModeWidgets();
+            int widgetIndex = 0;
             for (LayoutModeWidgetDTO widgetDTO : layoutModeWidgetsDTO) {
+                widgetDTO.setIndex(widgetIndex);
                 Widget widget = widgetDTO.toDataTransferObject();
                 addWidgetToSection(widget, sectionToProcess, widgetDTO.getWidgetSize());
+                widgetIndex++;
             }
+            sectionIndex++;
         }
-
     }
 }

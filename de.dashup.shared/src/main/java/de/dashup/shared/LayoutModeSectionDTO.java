@@ -9,17 +9,16 @@ public class LayoutModeSectionDTO implements DataTransferObject{
     private String sectionName;
     private String sectionId;
     private List<LayoutModeWidgetDTO> layoutModeWidgets;
-    private int order;
+    private int index;
 
     public LayoutModeSectionDTO() {
         super();
     }
 
-    public LayoutModeSectionDTO(String sectionId, String sectionName, List<LayoutModeWidgetDTO> layoutModeWidgets, int order) {
+    public LayoutModeSectionDTO(String sectionId, String sectionName, List<LayoutModeWidgetDTO> layoutModeWidgets) {
         this.sectionName = sectionName;
         this.sectionId = sectionId;
         this.layoutModeWidgets = layoutModeWidgets;
-        this.order = order;
     }
 
     public List<Widget> getWidgets() {
@@ -43,14 +42,18 @@ public class LayoutModeSectionDTO implements DataTransferObject{
         return sectionId;
     }
 
-    public int getOrder() {
-        return order;
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     @Override
     public Section toDataTransferObject() {
         int sectionTechnicalId = Integer.valueOf(sectionId.substring(1));
-        return new Section(sectionTechnicalId,sectionName,order);
+        return new Section(sectionTechnicalId, sectionName, index);
     }
 
     public boolean isNewSection()

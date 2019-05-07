@@ -5,16 +5,15 @@ public class LayoutModeWidgetDTO implements DataTransferObject {
 
     private String widgetId;
     private String widgetSize;
-    private int order;
+    private int index;
 
     public LayoutModeWidgetDTO() {
         super();
     }
 
-    public LayoutModeWidgetDTO(String widgetId, String widgetSize, int order) {
+    public LayoutModeWidgetDTO(String widgetId, String widgetSize) {
         this.widgetId = widgetId;
         this.widgetSize = widgetSize;
-        this.order = order;
     }
 
     public String getWidgetSize() {
@@ -25,8 +24,12 @@ public class LayoutModeWidgetDTO implements DataTransferObject {
         return widgetId;
     }
 
-    public int getOrder() {
-        return order;
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     @Override
@@ -34,7 +37,7 @@ public class LayoutModeWidgetDTO implements DataTransferObject {
 
         String widgetFrontendId = widgetId.substring(1);
         int widgetTechnicalId = Integer.valueOf(widgetFrontendId);
-        return new Widget(widgetTechnicalId,"","",0,0,order);
+        return new Widget(widgetTechnicalId, "", "", 0, 0, index);
 
     }
 }

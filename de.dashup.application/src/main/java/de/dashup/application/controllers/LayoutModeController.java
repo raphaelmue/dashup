@@ -4,7 +4,7 @@ import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.model.builder.DashupBuilder;
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.LayoutModeStructure;
+import de.dashup.shared.LayoutModeStructureDTO;
 import de.dashup.shared.User;
 import de.dashup.shared.Widget;
 import org.json.JSONObject;
@@ -41,12 +41,12 @@ public class LayoutModeController {
 
     @PostMapping(value = "/handleSaveChanges", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> handleSaveChanges(@CookieValue(name = "token", required = false) String token,
-                                                    @RequestBody LayoutModeStructure layoutModeStructure,
+                                                    @RequestBody LayoutModeStructureDTO layoutModeStructureDTO,
                                                     Locale locale,
                                                     HttpServletRequest request) throws SQLException {
         ControllerHelper.setLocale(request, locale);
         User user = LocalStorage.getInstance().getUser(request, token);
-        DashupService.getInstance().processLayoutModeChanges(layoutModeStructure, user);
+        DashupService.getInstance().processLayoutModeChanges(layoutModeStructureDTO, user);
 
         JSONObject entity = new JSONObject();
         entity.put("message", "Success");

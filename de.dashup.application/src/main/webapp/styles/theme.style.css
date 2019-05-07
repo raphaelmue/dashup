@@ -11,6 +11,10 @@ body {
     background-color: var(--color-background);
 }
 
+.colored-text {
+    color: var(--color-primary);
+}
+
 /*** HEADER ***/
 
 .nav-wrapper {
@@ -53,6 +57,10 @@ body {
 .btn i.fas, .btn-flat i.fas {
     font-size: 15px;
     margin-right: 5px;
+}
+
+.dropdown-content {
+    color: var(--color-primary) !important;
 }
 
 .input-field {

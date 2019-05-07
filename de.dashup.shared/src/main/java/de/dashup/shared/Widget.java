@@ -106,14 +106,9 @@ public class Widget extends DatabaseWidget implements Comparable<Widget>{
         this.index = index;
     }
 
-
     @Override
     public int compareTo(Widget widgetToCompare) {
-
-        if(index > widgetToCompare.getIndex()){
-            return 1;
-        }
-        return -1;
+        return Integer.compare(this.getIndex(), widgetToCompare.getIndex());
     }
 
 }

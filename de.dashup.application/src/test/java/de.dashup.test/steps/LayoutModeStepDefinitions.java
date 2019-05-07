@@ -33,8 +33,8 @@ public class LayoutModeStepDefinitions {
         driver.findElement(By.id("enter-layout-mode")).click();
     }
 
-    @Then("^Central dashboard can now be edited$")
-    public void centralDashboardCanNowBeEdited() {
+    @Then("^Dashboard can now be edited$")
+    public void dashboardCanNowBeEdited() {
         final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         Assertions.assertEquals(BASE_URL + "/layoutMode/", driver.getCurrentUrl());

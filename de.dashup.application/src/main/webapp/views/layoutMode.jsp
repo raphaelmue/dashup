@@ -12,6 +12,23 @@
         .bloc--inner {
             display: inline-block;
         }
+
+        .dropdown-trigger {
+            float: right;
+            padding-top: 5px;
+        }
+
+        .widget-content {
+            padding: 5px;
+        }
+
+        #add-section-button {
+            margin-bottom: 150px;
+        }
+
+        #cancel-button {
+            margin-bottom: 75px;
+        }
     </style>
 </head>
 <body>
@@ -39,7 +56,11 @@
     <a id="save-changes-button" href="#" class="btn-floating btn-large waves-effect waves-light">
         <i class="fas fa-check"></i>
     </a>
-    <a id="add-section-button" href="#" class="left-align btn-floating btn-large waves-effect waves-light" style="margin-bottom: 75px">
+    <a id="cancel-button" href="#" class="left-align btn-floating btn-large waves-effect waves-light"
+       style="margin-bottom: 75px">
+        <i class="fas fa-times"></i>
+    </a>
+    <a id="add-section-button" href="#" class="left-align btn-floating btn-large waves-effect waves-light" style="">
         <i class="fas fa-plus"></i>
     </a>
 
@@ -47,19 +68,33 @@
 
 <ul id='dropdown1' class='dropdown-content'>
     <li><a id="delete" href="#">
-        <i class="fas fa-trash-alt"></i>
+        <i class="colored-text fas fa-trash-alt"></i>
     </a></li>
     <li class="divider" tabindex="-1"></li>
     <li class="size" id="widget-size-small"><a href="#">
-        small
+        <span class="colored-text">small</span>
     </a></li>
     <li class="size" id="widget-size-medium"><a href="#">
-        medium
+        <span class="colored-text">medium</span>
     </a></li>
     <li class="size" id="widget-size-large"><a href="#">
-        large
+        <span class="colored-text">large</span>
     </a></li>
 </ul>
+
+<template id="new-section-row">
+    <div class="row">
+        <div class="drag-drop-btn col s6 valign-wrapper">
+            <i class="drag-drop-btn fas fa-grip-lines col s1" style="margin:0"></i>
+            <input class="col s4" type="text" style="margin:0" value=<fmt:message key="i18n.newSection"/>>
+            <i class="section-minus fas fa-minus col s1" style="margin:0"></i>
+        </div>
+    </div>
+</template>
+
+<template id="widget-container">
+    <div class="bloc col s12"></div>
+</template>
 
 <script src='https://rawgit.com/bevacqua/dragula/master/dist/dragula.min.js'></script>
 
@@ -135,6 +170,10 @@
             saveChanges();
         });
 
+        $("#cancel-button").on("click", function () {
+            window.location.href = "../";
+        });
+
         initializeSectionDeleteClick();
 
         globalSectionCount = 0;
@@ -149,7 +188,6 @@
             let widget = {
                 widgetId: widgets[j].id,
                 widgetSize: widgets[j]["attributes"]["size"].value,
-                order: j
             };
             widgetStructure.push(widget);
         }
@@ -159,42 +197,19 @@
 
     function addNewSection(sectionId) {
 
+        let newSectionRowTemplate = document.querySelector("#new-section-row");
+        let newSectionRow = document.importNode(newSectionRowTemplate.content, true);
+
+        let widgetContainerTemplate = document.querySelector("#widget-container");
+        let widgetContainer = document.importNode(widgetContainerTemplate.content, true);
+
         let dragAndDropContainer = document.getElementById("drag-drop-container");
 
         let wrapper = document.createElement("div");
         wrapper.setAttribute("class", "wrapper  col s12");
         wrapper.setAttribute("id", sectionId);
 
-        let row = document.createElement("div");
-        row.setAttribute("class", "row");
-
-        let sectionHeading = document.createElement("div");
-        sectionHeading.setAttribute("class", "drag-drop-btn col s6 valign-wrapper");
-
-        let gripLineIcon = document.createElement("i");
-        gripLineIcon.setAttribute("class", "drag-drop-btn fas fa-grip-lines col s1");
-        gripLineIcon.setAttribute("style", "margin:0");
-
-        let inputField = document.createElement("input");
-        inputField.setAttribute("class", "col s4");
-        inputField.setAttribute("type", "text");
-        inputField.setAttribute("style", "margin:0");
-        inputField.setAttribute("value", "New Section");
-
-        let minusIcon = document.createElement("i");
-        minusIcon.setAttribute("class", "section-minus fas fa-minus col s1");
-        minusIcon.setAttribute("style", "margin:0");
-
-        let widgetContainer = document.createElement("div");
-        widgetContainer.setAttribute("class", "bloc col s12");
-
-        sectionHeading.appendChild(gripLineIcon);
-        sectionHeading.appendChild(inputField);
-        sectionHeading.appendChild(minusIcon);
-
-        row.appendChild(sectionHeading);
-
-        wrapper.appendChild(row);
+        wrapper.appendChild(newSectionRow);
         wrapper.appendChild(widgetContainer);
 
         dragAndDropContainer.appendChild(wrapper);
@@ -203,23 +218,16 @@
     }
 
     function addSectionToDeleteToList(sectionToDelete) {
-        let section = sectionToDelete.childNodes[1];
-        let widgets = section.childNodes;
-
-        let layoutModeWidgets;
-        layoutModeWidgets = makeWidgetStructure(widgets);
         let sectionIdPrefix = sectionToDelete.id.substr(0, 1);
 
         if (sectionIdPrefix !== "n") {
             let sectionObject = {
                 sectionName: "",
                 sectionId: sectionToDelete.id,
-                layoutModeWidgets
             };
 
             sectionsToDelete.push(sectionObject);
         }
-
     }
 
     function makeSectionWidgetOrder() {
@@ -232,6 +240,7 @@
 
             let sectionName = sections[i].children[0].children[0].children[1].value;
             let sectionId = sections[i].id;
+
             let widgets = sections[i].children[1].children;
             let layoutModeWidgets = makeWidgetStructure(widgets);
 
@@ -239,7 +248,6 @@
                 sectionName,
                 sectionId,
                 layoutModeWidgets,
-                order: i
             };
 
             sectionWidgetOrder.push(sectionObject);

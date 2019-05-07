@@ -3,7 +3,7 @@ package de.dashup.test;
 import de.dashup.model.db.Database;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.LayoutModeSectionDTO;
-import de.dashup.shared.LayoutModeStructure;
+import de.dashup.shared.LayoutModeStructureDTO;
 import de.dashup.shared.LayoutModeWidgetDTO;
 import de.dashup.shared.User;
 import de.dashup.util.string.Hash;
@@ -51,13 +51,13 @@ public class LayoutModeTest {
         List<LayoutModeWidgetDTO> layoutModeWidgetDTOS = new ArrayList<>();
         List<LayoutModeSectionDTO> sectionsToDelete = new ArrayList<>();
 
-        LayoutModeSectionDTO layoutModeSectionDTO1 = new LayoutModeSectionDTO("s1", "section1", layoutModeWidgetDTOS,1);
-        LayoutModeSectionDTO layoutModeSectionDTO2 = new LayoutModeSectionDTO("s2", "section2", layoutModeWidgetDTOS,2);
+        LayoutModeSectionDTO layoutModeSectionDTO1 = new LayoutModeSectionDTO("s1", "section1", layoutModeWidgetDTOS);
+        LayoutModeSectionDTO layoutModeSectionDTO2 = new LayoutModeSectionDTO("s2", "section2", layoutModeWidgetDTOS);
         sectionPanelOrder.add(layoutModeSectionDTO1);
         sectionPanelOrder.add(layoutModeSectionDTO2);
 
-        LayoutModeStructure layoutModeStructure = new LayoutModeStructure(sectionPanelOrder, sectionsToDelete);
-        dashupService.processLayoutModeChanges(layoutModeStructure, user);
+        LayoutModeStructureDTO layoutModeStructureDTO = new LayoutModeStructureDTO(sectionPanelOrder, sectionsToDelete);
+        dashupService.processLayoutModeChanges(layoutModeStructureDTO, user);
 
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("section_id", 1);
@@ -72,13 +72,13 @@ public class LayoutModeTest {
         List<LayoutModeWidgetDTO> layoutModeWidgetDTOS = new ArrayList<>();
         List<LayoutModeSectionDTO> sectionsToDelete = new ArrayList<>();
 
-        LayoutModeSectionDTO layoutModeSectionDTO1 = new LayoutModeSectionDTO("s1", "section1", layoutModeWidgetDTOS,1);
-        LayoutModeSectionDTO layoutModeSectionDTO2 = new LayoutModeSectionDTO("s2", "section renamed", layoutModeWidgetDTOS,2);
+        LayoutModeSectionDTO layoutModeSectionDTO1 = new LayoutModeSectionDTO("s1", "section1", layoutModeWidgetDTOS);
+        LayoutModeSectionDTO layoutModeSectionDTO2 = new LayoutModeSectionDTO("s2", "section renamed", layoutModeWidgetDTOS);
         sectionPanelOrder.add(layoutModeSectionDTO1);
         sectionPanelOrder.add(layoutModeSectionDTO2);
 
-        LayoutModeStructure layoutModeStructure = new LayoutModeStructure(sectionPanelOrder, sectionsToDelete);
-        dashupService.processLayoutModeChanges(layoutModeStructure, user);
+        LayoutModeStructureDTO layoutModeStructureDTO = new LayoutModeStructureDTO(sectionPanelOrder, sectionsToDelete);
+        dashupService.processLayoutModeChanges(layoutModeStructureDTO, user);
 
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("section_id", 1);
@@ -103,20 +103,20 @@ public class LayoutModeTest {
         List<LayoutModeSectionDTO> sectionPanelOrder = new ArrayList<>();
         List<LayoutModeSectionDTO> sectionsToDelete = new ArrayList<>();
 
-        LayoutModeWidgetDTO layoutModeWidgetDTO1 = new LayoutModeWidgetDTO("p1", "medium",1);
-        LayoutModeWidgetDTO layoutModeWidgetDTO2 = new LayoutModeWidgetDTO("p2", "medium",2);
+        LayoutModeWidgetDTO layoutModeWidgetDTO1 = new LayoutModeWidgetDTO("p1", "medium");
+        LayoutModeWidgetDTO layoutModeWidgetDTO2 = new LayoutModeWidgetDTO("p2", "medium");
 
         layoutModePanels1.add(layoutModeWidgetDTO1);
         layoutModePanels2.add(layoutModeWidgetDTO2);
 
-        LayoutModeSectionDTO layoutModeSectionDTO1 = new LayoutModeSectionDTO("s1", "section1", layoutModePanels1,1);
-        LayoutModeSectionDTO layoutModeSectionDTO2 = new LayoutModeSectionDTO("s2", "section2", layoutModePanels2,2);
+        LayoutModeSectionDTO layoutModeSectionDTO1 = new LayoutModeSectionDTO("s1", "section1", layoutModePanels1);
+        LayoutModeSectionDTO layoutModeSectionDTO2 = new LayoutModeSectionDTO("s2", "section2", layoutModePanels2);
 
         sectionPanelOrder.add(layoutModeSectionDTO1);
         sectionPanelOrder.add(layoutModeSectionDTO2);
 
-        LayoutModeStructure layoutModeStructure = new LayoutModeStructure(sectionPanelOrder, sectionsToDelete);
-        dashupService.processLayoutModeChanges(layoutModeStructure, user);
+        LayoutModeStructureDTO layoutModeStructureDTO = new LayoutModeStructureDTO(sectionPanelOrder, sectionsToDelete);
+        dashupService.processLayoutModeChanges(layoutModeStructureDTO, user);
 
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("section_id", 1);
@@ -136,14 +136,14 @@ public class LayoutModeTest {
         List<LayoutModeSectionDTO> sectionPanelOrder = new ArrayList<>();
         List<LayoutModeSectionDTO> sectionsToDelete = new ArrayList<>();
 
-        LayoutModeSectionDTO layoutModeSectionDTO1 = new LayoutModeSectionDTO("s1", "section1", null,1);
-        LayoutModeSectionDTO layoutModeSectionDTO2 = new LayoutModeSectionDTO("s2", "section2", null,2);
+        LayoutModeSectionDTO layoutModeSectionDTO1 = new LayoutModeSectionDTO("s1", "section1", null);
+        LayoutModeSectionDTO layoutModeSectionDTO2 = new LayoutModeSectionDTO("s2", "section2", null);
 
         sectionsToDelete.add(layoutModeSectionDTO1);
         sectionsToDelete.add(layoutModeSectionDTO2);
 
-        LayoutModeStructure layoutModeStructure = new LayoutModeStructure(sectionPanelOrder, sectionsToDelete);
-        dashupService.processLayoutModeChanges(layoutModeStructure, user);
+        LayoutModeStructureDTO layoutModeStructureDTO = new LayoutModeStructureDTO(sectionPanelOrder, sectionsToDelete);
+        dashupService.processLayoutModeChanges(layoutModeStructureDTO, user);
 
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", 1);

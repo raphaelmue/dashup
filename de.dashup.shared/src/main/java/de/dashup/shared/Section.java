@@ -5,8 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Section implements DatabaseObject,Comparable<Section> {
-    @SerializedName("section_id")
-    private int sectionID;
+    @SerializedName("id")
+    private int id;
     private String section_name;
     @SerializedName("section_index")
     private int index;
@@ -16,13 +16,13 @@ public class Section implements DatabaseObject,Comparable<Section> {
     }
 
     public Section(int sectionId, String sectionName, int index) {
-        this.sectionID = sectionId;
+        this.id = sectionId;
         this.section_name = sectionName;
         this.index = index;
     }
 
     public void setId(int id) {
-        this.sectionID = id;
+        this.id = id;
     }
 
     public void setName(String name) {
@@ -47,14 +47,11 @@ public class Section implements DatabaseObject,Comparable<Section> {
 
     @Override
     public int getId() {
-        return sectionID;
+        return id;
     }
 
     @Override
     public int compareTo(Section sectionToCompare) {
-        if(index > sectionToCompare.getIndex()){
-            return 1;
-        }
-        return -1;
+        return Integer.compare(this.getIndex(), sectionToCompare.getIndex());
     }
 }
