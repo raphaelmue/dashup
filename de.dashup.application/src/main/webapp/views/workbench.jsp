@@ -161,7 +161,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="input-field col s12 m12">
+                                    <div class="input-field col s12 m6">
                                         <select name="size" id="category-dropdown">
                                             <option value="" disabled selected><fmt:message key="i18n.selectCategory" /></option>
                                             <c:forEach items="${categories}" var="category">
@@ -169,6 +169,9 @@
                                             </c:forEach>
                                         </select>
                                         <label><fmt:message key="i18n.category" /></label>
+                                    </div>
+                                    <div class="col s12 m6">
+                                        <div id="chips-tags" class="chips chips-autocomplete"></div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -287,6 +290,22 @@
 
             $(".tabs").tabs({
                 swipeable: true
+            });
+
+            $("#chips-tags").chips({
+                autocompleteOptions: {
+                    data: {
+                        'Apple': null,
+                        'Microsoft': null,
+                        'Google': null
+                    },
+                    limit: Infinity,
+                    minLength: 1
+                },
+                placeholder: "<fmt:message key="i18n.enterTags" />",
+                onChipAdd: function () {
+                    $(".material-icons.close").addClass("fas fa-times").html("");
+                }
             });
 
             if ($(".tabs-content").length > 0) {
