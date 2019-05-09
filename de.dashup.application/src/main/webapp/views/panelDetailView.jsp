@@ -229,7 +229,8 @@
     </body>
     <script>
         $(document).ready(function () {
-            var starsAreMovable = true;
+            let starsAreMovable = true;
+            let currentRatingPercentage = 0;
             $('.tabs').tabs();
             $('.chips').chips();
 
@@ -246,15 +247,27 @@
             $('#star-rating-new-comment').on('mousemove', function(e){
                 if (starsAreMovable) {
                     let offset = $('#star-rating-new-comment').offset();
-                    let x = (e.pageX - offset.left) / $('#star-rating-new-comment').width() * 100;
+                    currentRatingPercentage = (e.pageX - offset.left) / $('#star-rating-new-comment').width() * 100;
 
-                    $('#star-rating-new-comment-front').css('width', x + '%');
-                    $('#label-percentage-value-new-rating').html(Math.round(x)+'%');
+                    $('#star-rating-new-comment-front').css('width', currentRatingPercentage + '%');
+                    $('#label-percentage-value-new-rating').html(Math.round(currentRatingPercentage)+'%');
                 }
             });
 
             $('#star-rating-new-comment').on('click',function () {
                 starsAreMovable = !starsAreMovable;
+            });
+
+            $('#btn-submit-comment').on('click',function () {
+                let title = $('#text-field-title-new-rating').val();
+                let text = $('#text-field-add-new-comment').val();
+                if (title !== '' && text !== '') {
+                    PostRequest.getInstance().make("marketplace/detailView/${fn:escapeXml(widget.id)}/addRating", {
+                        title: title,
+                        text: text,
+                        rating: Math.round(currentRatingPercentage),
+                    });
+                }
             });
         });
 

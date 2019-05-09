@@ -170,6 +170,10 @@ public class DashupService {
         return shortDescr;
     }
 
+    public boolean addRating(User user, String title, String text, int rating, int widgetId){
+        return true;
+    }
+
     private ArrayList<Section> orderSections(ArrayList<Section> sections) {
         ArrayList<Section> result = new ArrayList<>();
         while (!sections.isEmpty()) {
