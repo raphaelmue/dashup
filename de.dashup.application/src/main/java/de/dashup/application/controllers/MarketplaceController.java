@@ -53,8 +53,12 @@ public class MarketplaceController {
                             @RequestParam("rating") int rating) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            boolean success = DashupService.getInstance()
-            return "redirect:/marketplace/detailView/"+widgetID+"#addedRating";
+            boolean success = DashupService.getInstance().addRating(user,title,text,rating,widgetID);
+            if (success) {
+                return "redirect:/marketplace/detailView/" + widgetID + "#addedRating";
+            }else{
+                return "redirect:/marketplace/detailView/" + widgetID + "#faieldToAddRating";
+            }
         }
         return "redirect:/login";
     }

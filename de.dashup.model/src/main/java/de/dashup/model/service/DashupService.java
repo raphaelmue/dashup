@@ -171,6 +171,18 @@ public class DashupService {
     }
 
     public boolean addRating(User user, String title, String text, int rating, int widgetId){
+        Map<String,Object> insertValue = new HashMap<>();
+        insertValue.put("user_id",user.getId());
+        insertValue.put("panel_id",widgetId);
+        insertValue.put("rating",rating);
+        insertValue.put("title",title);
+        insertValue.put("text", text);
+        insertValue.put("changed_on", new Date());
+        try {
+            database.insert(Database.Table.RATINGS,insertValue);
+        }catch (SQLException e){
+            return false;
+        }
         return true;
     }
 
