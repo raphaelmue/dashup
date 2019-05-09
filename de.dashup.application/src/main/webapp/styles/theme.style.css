@@ -11,6 +11,10 @@ body {
     background-color: var(--color-background);
 }
 
+.colored-text {
+    color: var(--color-primary);
+}
+
 /*** HEADER ***/
 
 .nav-wrapper {

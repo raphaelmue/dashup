@@ -1,8 +1,8 @@
 package de.dashup.model.builder;
 
-import de.dashup.shared.Widget;
 import de.dashup.shared.Section;
 import de.dashup.shared.User;
+import de.dashup.shared.Widget;
 
 public class DashupBuilder {
 
@@ -26,45 +26,50 @@ public class DashupBuilder {
 
     public static String buildUsersPanelsLayoutMode(User user) {
         StringBuilder content = new StringBuilder();
-        content.append("<div id=\"drag-container-section\">");
         if (user.getSections() != null) {
-            for (Section s : user.getSections()) {
-                content.append("<div class=\"dashup-section\" id=\"s").append(s.getId()).append("\">")
-                        .append("<div><span id=\"h").append(s.getId())
-                        .append("\" class=\"handle\"><i class=\"fas fa-arrows-alt handle\"></i> </span><span><input id=\"i")
-                        .append(s.getId())
-                        .append("\" type=\"text\" name=\"txt\" value=\"")
-                        .append(s.getName())
-                        .append("\" onchange=\"inputChanged(this.value,")
-                        .append(s.getId())
-                        .append(")\"><button type=\"button\"  id=\"b")
-                        .append(s.getId())
-                        .append("\" onclick=\"onDelete('s")
-                        .append(s.getId())
-                        .append("')\" class=\"btn btn-danger\">Delete</button></span></div>")
-                        .append("<hr>")
-                        .append("<div class=\"drag-container\" id=\"drag-container")
-                        .append(s.getId()).append("\">");
+            for (Section section : user.getSections()) {
+                content.append("<div class=\"wrapper  col s12\" id=\"s")
+                        .append(section.getId())
+                        .append("\">")
+                        .append("<div class=\"row\">")
+                        .append("<div class=\"drag-drop-btn col s6 valign-wrapper input-field\"><i class=\"drag-drop-btn fas fa-grip-lines col s1\" style=\"margin:0\"></i>")
+                        .append(" <input class=\"col s4\" type=\"text\" style=\"margin:0\" value=\"")
+                        .append(section.getName())
+                        .append("\" />")
+                        .append("<i class=\"section-minus fas fa-minus col s1\" style=\"margin:0\"></i></div>")
+                        .append("</div>")
+                        .append("<div class=\"bloc col s12\">");
 
-                if (s.getWidgets() != null) {
-                    for (Widget p : s.getWidgets()) {
-                        content.append("<div id=\"");
-                        content.append(p.getId());
-                        content.append("\" class=\"dashup-panel\">");
-                        //.append(p.getName());
-                        content.append(p.getCode());
-                        content.append("</div>");
+                if (section.getWidgets() != null) {
+                    for (Widget widget : section.getWidgets()) {
+                        String sizeStyleClass = widget.getSize().getStyleClass();
+                        String size = widget.getSize().getName();
+                        String panelId = String.valueOf(widget.getId());
+
+                        content.append("<div class=\"bloc--inner col ")
+                                .append(sizeStyleClass)
+                                .append(" z-depth-1\"")
+                                .append("id=\"p")
+                                .append(panelId)
+                                .append("\"")
+                                .append("size=\"")
+                                .append(size)
+                                .append("\" state=\"default\">")
+                                .append("<div class=\"row\">")
+                                .append("<div class=\"col s12 widget-content\">")
+                                .append("<a class='dropdown-trigger' href='#' data-target='dropdown1'><i class=\"colored-text fas fa-ellipsis-v\"></i></a>")
+                                .append("<h6 class=\"center-align\">")
+                                .append(widget.getName())
+                                .append("</h6>")
+                                .append("</div>")
+                                .append("</div>")
+                                .append("</div>");
                     }
                 }
-
-                content.append("<div class=\"clear-float\"></div>");
-
-                content.append("</div>");
-
-                content.append("</div>");
+                content.append("</div>")
+                        .append("</div>");
             }
         }
-        content.append("</div>");
         return content.toString();
     }
 }
