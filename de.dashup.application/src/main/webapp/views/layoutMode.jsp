@@ -86,7 +86,7 @@
     <div class="row">
         <div class="drag-drop-btn col s6 valign-wrapper">
             <i class="drag-drop-btn fas fa-grip-lines col s1" style="margin:0"></i>
-            <input class="col s4" type="text" style="margin:0" value=<fmt:message key="i18n.newSection"/>>
+            <input class="col s4" type="text" style="margin:0" value="<fmt:message key="i18n.newSection"/>">
             <i class="section-minus fas fa-minus col s1" style="margin:0"></i>
         </div>
     </div>
