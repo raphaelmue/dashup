@@ -229,6 +229,34 @@
     </body>
     <script>
         $(document).ready(function () {
+            //anchor handling
+            let toastOptions = {}
+            //needed cause tabs are working with anchor too and if this anchor is removed tabs will stop working
+            let foreignAnchor = false;
+            switch (getAnchor()) {
+                case "addedRating":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.addedRating" />",
+                        classes: "success"
+                    };
+                    break;
+                case "failedToAddRating":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.failedToAddRating" />",
+                        classes: "error"
+                    };
+                    break;
+                default:
+                    foreignAnchor=true;
+                    break;
+                    }
+
+                    if (getAnchor() !== null && getAnchor() !== "" && !foreignAnchor) {
+                        M.toast(toastOptions);
+                        clearAnchor()
+                    }
+
+            //Init
             let starsAreMovable = true;
             let currentRatingPercentage = 0;
             $('.tabs').tabs();
@@ -244,6 +272,7 @@
                 addCommentForPanelDialog.open();
             });
 
+            //star rating for new comment
             $('#star-rating-new-comment').on('mousemove', function(e){
                 if (starsAreMovable) {
                     let offset = $('#star-rating-new-comment').offset();
