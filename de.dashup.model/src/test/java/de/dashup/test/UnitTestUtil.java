@@ -77,13 +77,13 @@ class UnitTestUtil {
         testDataMap.clear();
         testDataMap.put("user_id", 1);
         testDataMap.put("section_name", "section1");
-        testDataMap.put("predecessor_id", 0);
+        testDataMap.put("section_index", 0);
         database.insert(Database.Table.USER_SECTIONS, testDataMap);
 
         testDataMap.clear();
         testDataMap.put("user_id", 1);
         testDataMap.put("section_name", "section2");
-        testDataMap.put("predecessor_id", 1);
+        testDataMap.put("section_index", 1);
         database.insert(Database.Table.USER_SECTIONS, testDataMap);
 
         Assertions.assertEquals(2, database.get(Database.Table.USER_SECTIONS, new HashMap<>()).length());
@@ -119,16 +119,16 @@ class UnitTestUtil {
         Assertions.assertEquals(2, database.get(Database.Table.PANELS, new HashMap<>()).length());
 
         testDataMap.clear();
-        testDataMap.put("section_id", 1);
+        testDataMap.put("id", 1);
         testDataMap.put("panel_id", 1);
-        testDataMap.put("panel_predecessor", 0);
+        testDataMap.put("widget_index", 0);
         testDataMap.put("size", "medium");
         database.insert(Database.Table.SECTIONS_PANELS, testDataMap);
 
         testDataMap.clear();
-        testDataMap.put("section_id", 1);
+        testDataMap.put("id", 1);
         testDataMap.put("panel_id", 2);
-        testDataMap.put("panel_predecessor", 1);
+        testDataMap.put("widget_index", 1);
         testDataMap.put("size", "medium");
         database.insert(Database.Table.SECTIONS_PANELS, testDataMap);
 
