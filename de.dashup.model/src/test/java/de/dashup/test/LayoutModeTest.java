@@ -60,7 +60,7 @@ public class LayoutModeTest {
         dashupService.processLayoutModeChanges(layoutModeStructureDTO, user);
 
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("section_id", 1);
+        whereParameters.put("id", 1);
 
         JSONArray jsonObject = database.get(Database.Table.SECTIONS_PANELS, whereParameters);
         Assertions.assertTrue(jsonObject.isEmpty());
@@ -81,14 +81,14 @@ public class LayoutModeTest {
         dashupService.processLayoutModeChanges(layoutModeStructureDTO, user);
 
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("section_id", 1);
+        whereParameters.put("id", 1);
 
         JSONObject jsonObject = database.get(Database.Table.USER_SECTIONS, whereParameters).getJSONObject(0);
         String sectionName = jsonObject.getString("section_name");
         Assertions.assertEquals("section1",sectionName);
 
         whereParameters.clear();
-        whereParameters.put("section_id", 2);
+        whereParameters.put("id", 2);
         jsonObject = database.get(Database.Table.USER_SECTIONS, whereParameters).getJSONObject(0);
         sectionName = jsonObject.getString("section_name");
         Assertions.assertEquals("section renamed",sectionName);
@@ -119,13 +119,13 @@ public class LayoutModeTest {
         dashupService.processLayoutModeChanges(layoutModeStructureDTO, user);
 
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("section_id", 1);
+        whereParameters.put("id", 1);
 
         JSONObject jsonObject = database.get(Database.Table.SECTIONS_PANELS, whereParameters).getJSONObject(0);
         Assertions.assertEquals(1, jsonObject.getInt("panel_id"));
 
         whereParameters.clear();
-        whereParameters.put("section_id", 2);
+        whereParameters.put("id", 2);
         jsonObject = database.get(Database.Table.SECTIONS_PANELS, whereParameters).getJSONObject(0);
         Assertions.assertEquals(2, jsonObject.getInt("panel_id"));
     }
