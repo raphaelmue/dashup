@@ -186,6 +186,10 @@ public class DashupService {
         return true;
     }
 
+    public boolean addWidget(User user, int widgetId, int sectionId){
+        return true;
+    }
+
     private ArrayList<Section> orderSections(ArrayList<Section> sections) {
         ArrayList<Section> result = new ArrayList<>();
         while (!sections.isEmpty()) {

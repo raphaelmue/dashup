@@ -119,7 +119,7 @@
                                         ${fn:escapeXml(panel.shortDescription)}
                                     </div>
                                     <div class="card-action">
-                                        <a href="/marketplace/detailView/${panel.id}">Show me more...</a>
+                                        <a href="/marketplace/detailView/${panel.id}"><fmt:message key="i18n.showMore" /></a>
                                     </div>
                                 </div>
                             </div>

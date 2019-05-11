@@ -47,17 +47,34 @@ public class MarketplaceController {
 
     @RequestMapping("/detailView/{widgetId}/addRating")
     public String addRating(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request,
-                            @PathVariable(value = "widgetId") int widgetID,
+                            @PathVariable(value = "widgetId") int widgetId,
                             @RequestParam("title") String title,
                             @RequestParam("text") String text,
                             @RequestParam("rating") int rating) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            boolean success = DashupService.getInstance().addRating(user,title,text,rating,widgetID);
+            boolean success = DashupService.getInstance().addRating(user,title,text,rating,widgetId);
             if (success) {
-                return "redirect:/marketplace/detailView/" + widgetID + "#addedRating";
+                return "redirect:/marketplace/detailView/" + widgetId + "#addedRating";
             }else{
-                return "redirect:/marketplace/detailView/" + widgetID + "#faieldToAddRating";
+                return "redirect:/marketplace/detailView/" + widgetId + "#faieldToAddRating";
+            }
+        }
+        return "redirect:/login";
+    }
+
+    @RequestMapping("/detailView/{widgetId}/addWidget")
+    public String addWidget(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request,
+                            @PathVariable(value = "widgetId") int widgetId,
+                            @RequestParam("sectionId") int sectionId) throws SQLException{
+
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            boolean success = DashupService.getInstance().addWidget(user, widgetId,sectionId);
+            if (success) {
+                return "redirect:/marketplace/detailView/" + widgetId + "#addedWidget";
+            }else{
+                return "redirect:/marketplace/detailView/" + widgetId + "#faieldToAddWidget";
             }
         }
         return "redirect:/login";
