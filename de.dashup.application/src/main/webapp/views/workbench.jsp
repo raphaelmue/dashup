@@ -243,6 +243,7 @@
             </div>
         </div>
     </body>
+    <jsp:include page="includes/webComponents.jsp" />
     <script type="text/javascript">
         const tags = [
             <c:forEach items="${tags}" var="tag">
@@ -436,6 +437,7 @@
             });
             return result;
         }
+
         function isTagNameValid(tagName) {
             let result = false;
             tags.forEach(function (tag) {
