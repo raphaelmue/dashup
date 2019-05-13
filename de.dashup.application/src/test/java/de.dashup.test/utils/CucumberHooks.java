@@ -19,10 +19,10 @@ public class CucumberHooks {
     @Before(order = 1)
     public void doDatabaseSetup() throws SQLException, IOException {
         //change param of setHost to true if you need to test on local DB
-        InputStream is = DriverUtil.class.getResourceAsStream("/testing.properties");
-        Properties p = new Properties();
-        p.load(is);
-        Database.setHost(Boolean.valueOf(p.getProperty("project.testing.localhost")));
+        InputStream inputStream = DriverUtil.class.getResourceAsStream("/testing.properties");
+        Properties properties = new Properties();
+        properties.load(inputStream);
+        Database.setHost(Boolean.valueOf(properties.getProperty("project.testing.localhost")));
         if (System.getProperty("os.name").toLowerCase().contains("windows")) {
             Database.setDbName(Database.DatabaseName.TEST);
         } else {
