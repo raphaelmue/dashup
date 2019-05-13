@@ -336,8 +336,7 @@ public class DashupService {
 
     }
 
-    private int addNewSection(User user, Section section) throws SQLException, NumberFormatException {
-
+    public int addNewSection(User user, Section section) throws SQLException, NumberFormatException {
         Map<String, Object> values = new HashMap<>();
 
         values.put("section_name", Objects.requireNonNullElse(section.getName(), "-"));
@@ -349,7 +348,7 @@ public class DashupService {
         return database.getLatestId(Database.Table.USER_SECTIONS);
     }
 
-    private void addWidgetToSection(Widget widget, Section section, String size) throws SQLException {
+    public void addWidgetToSection(Widget widget, Section section, String size) throws SQLException {
         Map<String, Object> values = new HashMap<>();
         values.put("id", section.getId());
         values.put("panel_id", widget.getId());

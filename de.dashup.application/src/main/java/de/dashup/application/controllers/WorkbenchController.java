@@ -5,10 +5,7 @@ import de.dashup.application.local.LocalStorage;
 import de.dashup.model.exceptions.InvalidCodeException;
 import de.dashup.model.exceptions.MissingInformationException;
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.Draft;
-import de.dashup.shared.Tag;
-import de.dashup.shared.User;
-import de.dashup.shared.Widget;
+import de.dashup.shared.*;
 import org.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,6 +54,8 @@ public class WorkbenchController {
             model.addAttribute("publishedWidgets", DashupService.getInstance().getUsersWidgets(user));
             model.addAttribute("categories", Widget.Category.values());
             model.addAttribute("tags", DashupService.getInstance().getAllTags());
+            DashupService.getInstance().getSectionsAndPanels(user);
+            model.addAttribute("sections", user.getSections());
 
             for (Draft draft : user.getDrafts()) {
                 if (draft.getId() == draftId) {
@@ -80,6 +79,8 @@ public class WorkbenchController {
             model.addAttribute("publishedWidgets", publishedWidgets);
             model.addAttribute("categories", Widget.Category.values());
             model.addAttribute("tags", DashupService.getInstance().getAllTags());
+            DashupService.getInstance().getSectionsAndPanels(user);
+            model.addAttribute("sections", user.getSections());
 
 
             for (Widget widget : publishedWidgets) {
@@ -129,18 +130,7 @@ public class WorkbenchController {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             Draft draft = new Draft();
-            draft.setId(draftId);
-            draft.setName(name);
-            draft.setShortDescription(shortDescription);
-            draft.setDescription(description);
-            draft.setCategory(category);
-
-            JSONArray json = new JSONArray(URLDecoder.decode(tagsJSON, StandardCharsets.UTF_8.name()));
-            for (int i = 0; i < json.length(); i++) {
-                draft.getTags().add(new Tag(json.getJSONObject(i).getInt("id"), json.getJSONObject(i).getString("name")));
-            }
-
-            DashupService.getInstance().updateWidgetInformation(draft);
+            updateInformation(draft, draftId, name, shortDescription, description, category, tagsJSON);
             return "redirect:/workbench/draft/" + draftId + "#changedInformation";
         }
         return "redirect:/login";
@@ -158,21 +148,25 @@ public class WorkbenchController {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             Widget widget = new Widget();
-            widget.setId(publishedId);
-            widget.setName(name);
-            widget.setShortDescription(shortDescription);
-            widget.setDescription(description);
-            widget.setCategory(category);
-
-            JSONArray json = new JSONArray(URLDecoder.decode(tagsJSON, StandardCharsets.UTF_8.name()));
-            for (int i = 0; i < json.length(); i++) {
-                widget.getTags().add(new Tag(json.getJSONObject(i).getInt("id"), json.getJSONObject(i).getString("name")));
-            }
-
-            DashupService.getInstance().updateWidgetInformation(widget);
+            updateInformation(widget, publishedId, name, shortDescription, description, category, tagsJSON);
             return "redirect:/workbench/published/" + publishedId + "#changedInformation";
         }
         return "redirect:/login";
+    }
+
+    private void updateInformation(Widget widget, int publishedId, String name, String shortDescription, String description, String category, String tagsJSON) throws UnsupportedEncodingException, SQLException {
+        widget.setId(publishedId);
+        widget.setName(name);
+        widget.setShortDescription(shortDescription);
+        widget.setDescription(description);
+        widget.setCategory(category);
+
+        JSONArray json = new JSONArray(URLDecoder.decode(tagsJSON, StandardCharsets.UTF_8.name()));
+        for (int i = 0; i < json.length(); i++) {
+            widget.getTags().add(new Tag(json.getJSONObject(i).getInt("id"), json.getJSONObject(i).getString("name")));
+        }
+
+        DashupService.getInstance().updateWidgetInformation(widget);
     }
 
     @RequestMapping(value = "/draft/{draftId}/changeCode", method = RequestMethod.POST)
@@ -221,7 +215,50 @@ public class WorkbenchController {
         DashupService.getInstance().updateWidgetInformation(widget);
     }
 
-    @RequestMapping(value = "/draft/{draftId}/publishDraft")
+    @RequestMapping(value = "/draft/{draftId}/addDraft")
+    public String handleAddDraft(@CookieValue(name = "token", required = false) String token,
+                                 HttpServletRequest request,
+                                 @PathVariable(value = "draftId") int draftId,
+                                 @RequestParam(value = "sectionId") int sectionId,
+                                 @RequestParam(value = "size") String size) throws SQLException {
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            addWidgetToDashup(user, draftId, sectionId, size);
+            return "redirect:/workbench/draft/" + draftId + "#addedWidget";
+        }
+        return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/published/{publishedId}/addDraft")
+    public String handleAddWidget(@CookieValue(name = "token", required = false) String token,
+                                 HttpServletRequest request,
+                                 @PathVariable(value = "publishedId") int publishedId,
+                                 @RequestParam(value = "sectionId") int sectionId,
+                                 @RequestParam(value = "size") String size) throws SQLException {
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            addWidgetToDashup(user, publishedId, sectionId, size);
+            return "redirect:/workbench/published/" + publishedId + "#addedWidget";
+        }
+        return "redirect:/login";
+    }
+
+    private void addWidgetToDashup(User user, int publishedId, int sectionId, String size) throws SQLException {
+        Section section;
+        if (sectionId == -1) {
+            DashupService.getInstance().getSectionsAndPanels(user);
+            section = new Section(-1, null, user.getSections().size());
+            section.setId(DashupService.getInstance().addNewSection(user, section));
+        } else {
+            section = new Section();
+            section.setId(sectionId);
+        }
+        Widget draft = new Draft();
+        draft.setId(publishedId);
+        DashupService.getInstance().addWidgetToSection(draft, section, size);
+    }
+
+    @RequestMapping(value = "/draft/{draftId}/publishDraft", method = RequestMethod.POST)
     public String handlePublishDraft(@CookieValue(name = "token", required = false) String token,
                                      HttpServletRequest request,
                                      @PathVariable(value = "draftId") int draftId) throws SQLException {

@@ -203,6 +203,34 @@
             </c:choose>
         </main>
 
+        <div id="dialog-add-widget-to-dashup" class="modal">
+            <div class="modal-content">
+                <div class="row">
+                    <h4><fmt:message key="i18n.addWidgetToDashup" /></h4>
+                    <div class="input-field col s12 m6">
+                        <select id="section-dropdown">
+                            <option value="-1"><fmt:message key="i18n.newSection" /></option>
+                            <c:forEach items="${sections}" var="section">
+                                <option value="${fn:escapeXml(section.id)}">${fn:escapeXml(section.name)}</option>
+                            </c:forEach>
+                        </select>
+                        <label><fmt:message key="i18n.sections" /></label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <select name="size" id="add-widget-size-dropdown">
+                            <option value="small" selected="selected"><fmt:message key="i18n.small" /></option>
+                            <option value="medium"><fmt:message key="i18n.medium" /></option>
+                            <option value="large"><fmt:message key="i18n.large" /></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="btn-submit-add-draft" class="btn modal-close waves-effect waves-light"><fmt:message key="i18n.ok" /></a>
+                <a id="btn-cancel-add-draft" class="btn-flat modal-close waves-effect"><fmt:message key="i18n.cancel" /></a>
+
+            </div>
+        </div>
         <div id="dialog-create-draft" class="modal">
             <div class="modal-content">
                 <div class="row">
@@ -286,9 +314,16 @@
                         classes: "warning"
                     };
                     break;
+                case "addedWidget":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.successAddedWidget" />",
+                        classes: "success"
+                    };
+                    break;
                 case "publishedDraft":
                     toastOptions = {
-                        html: "<fmt:message key="i18n.successPublishedDraft" />"
+                        html: "<fmt:message key="i18n.successPublishedDraft" />",
+                        classes: "success"
                     };
                     break;
             }
@@ -383,6 +418,18 @@
 
             $("#btn-submit-publish-draft").on("click", function () {
                 PostRequest.getInstance().make("workbench/draft/${fn:escapeXml(current.id)}/publishDraft", {})
+            });
+
+            let addDraftDialog = M.Modal.getInstance(document.getElementById("dialog-add-widget-to-dashup"));
+            $("#btn-add-widget").on("click", function () {
+                addDraftDialog.open();
+            });
+
+            $("#btn-submit-add-draft").on("click", function () {
+                PostRequest.getInstance().make("workbench/" + isPublished + "/${fn:escapeXml(current.id)}/addDraft", {
+                    sectionId: $("#section-dropdown").val(),
+                    size: $("#add-widget-size-dropdown").val()
+                });
             });
 
             $("#btn-save-draft-information").on("click", function () {
