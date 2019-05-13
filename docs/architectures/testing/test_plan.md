@@ -7,7 +7,7 @@
 | Date       | Version | Description                                          | Author           |
 |------------|---------|------------------------------------------------------|------------------|
 | 25/04/2019 | 1.0     | Initial Documentation                                | Raphael Müßeler  |
-| 07/05/2019 | 2.0     | Addition of new test type                            | Raphael Müßeler
+| 07/05/2019 | 2.0     | Addition of new test type                            | Raphael Müßeler  |
 
 # Table of Contents
 
