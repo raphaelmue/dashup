@@ -25,35 +25,36 @@
             </div>
         </nav>
         <aside>
-            <h4><fmt:message key="i18n.workbench" /></h4>
-            <hr />
-            <div class="row">
-                <h6 class="sub-title"><fmt:message key="i18n.drafts" /></h6>
-                <ul>
-                    <c:forEach items="${drafts}" var="draft">
-                        <li>
-                            <a href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/draft/${fn:escapeXml(draft.id)}" class="waves-effect <c:if test="${draft.id == current.id}">active</c:if>">${fn:escapeXml(draft.name)}</a>
-                        </li>
-                    </c:forEach>
-                </ul>
+            <div>
+                <h4><fmt:message key="i18n.workbench" /></h4>
+                <hr />
+                <div class="row">
+                    <h6 class="sub-title"><fmt:message key="i18n.drafts" /></h6>
+                    <ul>
+                        <c:forEach items="${drafts}" var="draft">
+                            <li>
+                                <a href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/draft/${fn:escapeXml(draft.id)}" class="waves-effect <c:if test="${draft.id == current.id}">active</c:if>">${fn:escapeXml(draft.name)}</a>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+                <hr />
+                <div class="row">
+                    <h6 class="sub-title"><fmt:message key="i18n.publishedWidgets" /></h6>
+                    <ul>
+                        <c:forEach items="${publishedWidgets}" var="widget">
+                            <li>
+                                <a href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/published/${fn:escapeXml(widget.id)}" class="waves-effect <c:if test="${widget.id == current.id}">active</c:if>">${fn:escapeXml(widget.name)}</a>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
             </div>
-            <hr />
-            <div class="row">
-                <h6 class="sub-title"><fmt:message key="i18n.publishedWidgets" /></h6>
-                <ul>
-                    <c:forEach items="${publishedWidgets}" var="widget">
-                        <li>
-                            <a href="${fn:escapeXml(pageContext.request.contextPath)}/workbench/published/${fn:escapeXml(widget.id)}" class="waves-effect <c:if test="${widget.id == current.id}">active</c:if>">${fn:escapeXml(widget.name)}</a>
-                        </li>
-                    </c:forEach>
-                </ul>
-            </div>
-            <a id="btn-open-create-draft-dialog" href="#" class="btn-floating btn-large waves-effect waves-light"><i class="fas fa-plus"></i></a>
         </aside>
-        <main>
+        <main class="container">
             <c:choose>
                 <c:when test="${fn:escapeXml(current.id) > 0}">
-                    <div class="container">
+                    <div class="container" style="width: 90%; margin-top: 0">
                         <div class="row">
                             <button id="btn-delete-draft" class="btn-flat waves-effect">
                                 <i class="fas fa-trash-alt"></i>
@@ -202,6 +203,9 @@
                 </c:otherwise>
             </c:choose>
         </main>
+        <div style="clear:both"></div>
+
+        <a id="btn-open-create-draft-dialog" href="#" class="btn-floating btn-large waves-effect waves-light"><i class="fas fa-plus"></i></a>
 
         <div id="dialog-add-widget-to-dashup" class="modal">
             <div class="modal-content">
@@ -331,6 +335,8 @@
                 M.toast(toastOptions);
                 clearAnchor()
             }
+
+            $("aside").css("height", window.innerHeight + "px")
 
             let isPublished = document.URL.includes("published") ? "published" : "draft";
 

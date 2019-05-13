@@ -143,9 +143,11 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
     }
 
     public String getCodeWithWrapper() {
-        return "<div class=\"card col " + this.size.getStyleClass() + "\">" +
+        return "<div class=\"col " + this.size.getStyleClass() + "\">" +
+                "<div class=\"widget card\">" +
                 "<div class=\"card-content\">" +
                 this.getCode() +
+                "</div>" +
                 "</div>" +
                 "</div>";
     }
