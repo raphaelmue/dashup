@@ -10,7 +10,7 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
     public enum Size {
         SMALL("small", "m2 s6"),
         MEDIUM("medium", "m4 s12"),
-        LARGE("large", "m6 s12");
+        LARGE("large", "m5 s12");
 
         private final String name, styleClass;
 
