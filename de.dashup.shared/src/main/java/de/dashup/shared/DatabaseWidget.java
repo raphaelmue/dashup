@@ -2,7 +2,7 @@ package de.dashup.shared;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DatabaseWidget implements DatabaseObject {
+public abstract class DatabaseWidget implements DatabaseObject {
     private int id;
     private String name;
     private String description;
@@ -36,7 +36,7 @@ public class DatabaseWidget implements DatabaseObject {
         return id;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
@@ -103,4 +103,5 @@ public class DatabaseWidget implements DatabaseObject {
     public void setAverageRating(int averageRating) {
         this.averageRating = averageRating;
     }
+
 }

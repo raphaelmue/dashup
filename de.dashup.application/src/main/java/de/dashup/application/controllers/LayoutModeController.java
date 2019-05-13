@@ -4,29 +4,27 @@ import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.model.builder.DashupBuilder;
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.DashupPanelStructure;
-import de.dashup.shared.DashupSectionStructure;
+import de.dashup.shared.LayoutModeStructureDTO;
 import de.dashup.shared.User;
+import de.dashup.shared.Widget;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/layoutMode")
 public class LayoutModeController {
-
-    private final LocalStorage localStorage = LocalStorage.getInstance();
 
     @RequestMapping(value = "/")
     public String login(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
@@ -35,61 +33,25 @@ public class LayoutModeController {
             model.addAttribute("name", user.getName());
             model.addAttribute("email", user.getEmail());
             model.addAttribute("content", DashupBuilder.buildUsersPanelsLayoutMode(user));
-
-            Map<String, String> layout = DashupService.getInstance().loadLayout(user);
-            for (Map.Entry<String, String> entry : layout.entrySet()) {
-                model.addAttribute(entry.getKey(), entry.getValue());
-            }
+            model.addAttribute("small", Widget.Size.SMALL.getStyleClass());
+            model.addAttribute("medium",  Widget.Size.MEDIUM.getStyleClass());
+            model.addAttribute("large",  Widget.Size.LARGE.getStyleClass());
         });
     }
 
-    @RequestMapping(value = "/confirmChanges", method = RequestMethod.POST)
-    @ResponseBody
-    public String confirm(@RequestBody DashupPanelStructure body, Model model, HttpServletRequest request) {
-        System.out.println(body);
-        return "layoutMode";
-    }
-
-    @PostMapping(value = "/handleLayout", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody
-    ResponseEntity<Object> handleLayout(
-            @CookieValue(name = "token", required = false) String token,
-            @RequestBody DashupPanelStructure dps,
-            HttpServletRequest request, HttpServletResponse response, Model model) throws SQLException {
-        User user = (User) this.localStorage.readObjectFromSession(request, "user");
-        if (user == null) return new ResponseEntity(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
-
-        dps.getSections().sort(Comparator.comparingInt(DashupSectionStructure::getSectionOrder));
-        Iterator<DashupSectionStructure> iterator = dps.getSections().iterator();
-        DashupSectionStructure lastdss = null;
-        while (iterator.hasNext()) {
-            DashupSectionStructure dss = iterator.next();
-            if (dss.getSectionId().contains("sn")) {
-                if (lastdss == null) {
-                    DashupService.getInstance().addSection(user, dss.getSectionName(), -1, -1);
-                } else {
-                    DashupService.getInstance().addSection(user, dss.getSectionName(), Integer.valueOf(lastdss.getSectionId().substring(1)), -1);
-                }
-            } else {
-                if (dss.getSectionOrder() == -10) {
-                    DashupService.getInstance().deleteSection(user, Integer.valueOf(dss.getSectionId().substring(1)));
-                    iterator.remove();
-                } else {
-                    String section_name = dss.getSectionName();
-                    int section_id = Integer.valueOf(dss.getSectionId().substring(1));
-                    if (lastdss == null) {
-                        DashupService.getInstance().updateSection(user, section_name, section_id, -1, -1);
-                    } else {
-                        DashupService.getInstance().updateSection(user, section_name, section_id, Integer.valueOf(lastdss.getSectionId().substring(1)), -1);
-                    }
-                }
-            }
-            lastdss = dss;
-        }
+    @PostMapping(value = "/handleSaveChanges", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<String> handleSaveChanges(@CookieValue(name = "token", required = false) String token,
+                                                    @RequestBody LayoutModeStructureDTO layoutModeStructureDTO,
+                                                    Locale locale,
+                                                    HttpServletRequest request) throws SQLException {
+        ControllerHelper.setLocale(request, locale);
+        User user = LocalStorage.getInstance().getUser(request, token);
+        DashupService.getInstance().processLayoutModeChanges(layoutModeStructureDTO, user);
 
         JSONObject entity = new JSONObject();
         entity.put("message", "Success");
-        return new ResponseEntity(entity, HttpStatus.OK);
+        return new ResponseEntity<>("{\"message\":\"success\"}", HttpStatus.OK);
+
     }
 }
 
