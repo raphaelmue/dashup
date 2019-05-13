@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDate;
 
-public class DatabaseWidget implements DatabaseObject {
+public abstract class DatabaseWidget implements DatabaseObject {
     private int id;
     private String name;
     @SerializedName("descriptions")
@@ -140,4 +140,5 @@ public class DatabaseWidget implements DatabaseObject {
     public void setAverageRating(int averageRating) {
         this.averageRating = averageRating;
     }
+
 }
