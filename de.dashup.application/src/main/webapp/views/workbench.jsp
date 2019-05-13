@@ -244,6 +244,12 @@
         </div>
     </body>
     <script type="text/javascript">
+        const tags = [
+            <c:forEach items="${tags}" var="tag">
+            {name: "${tag.text}", id: ${tag.id}},
+            </c:forEach>
+        ];
+
         $( document ).ready(function () {
             $("#nav-item-workbench").parent().addClass("active");
 
@@ -295,14 +301,8 @@
             $("#textarea-short-description").characterCounter();
 
             $(".tabs").tabs({
-                swipeable: true
+                swipeable: false
             });
-
-            var tags = [
-                <c:forEach items="${tags}" var="tag">
-                    {name: "${tag.text}", id: ${tag.id}},
-                </c:forEach>
-            ];
 
             let tagsChips = M.Chips.init(document.getElementById("chips-tags"), {
                 autocompleteOptions: {
@@ -315,8 +315,12 @@
                     minLength: 1
                 },
                 placeholder: "<fmt:message key="i18n.enterTags" />",
-                onChipAdd: function () {
-                    replaceCloseIconOfTags();
+                onChipAdd: function (element, chip) {
+                    if (isTagNameValid($(chip).text().substr(0, $(chip).text().length - 5)) !== false) {
+                        replaceCloseIconOfTags();
+                        return true;
+                    }
+                    $(chip).remove();
                 },
                 data: [
                     <c:forEach items="${currentTags}" var="tag">
@@ -425,11 +429,19 @@
         function parseTags(tags, editedTags) {
             let result = [];
             editedTags.forEach(function (chipTag) {
-                tags.forEach(function (tag) {
-                    if (tag.name === chipTag.tag) {
-                        result.push(tag);
-                    }
-                });
+                let tag = isTagNameValid(chipTag.tag)
+                if (tag !== false) {
+                    result.push(tag);
+                }
+            });
+            return result;
+        }
+        function isTagNameValid(tagName) {
+            let result = false;
+            tags.forEach(function (tag) {
+                if (tag.name === tagName) {
+                    result = tag;
+                }
             });
             return result;
         }
