@@ -22,7 +22,7 @@
             ${content}
         </div>
 
-        <a href="${pageContext.request.contextPath}/layoutMode/" class="btn-floating btn-large waves-effect waves-light"><i class="fas fa-edit"></i></a>
+        <a href="${pageContext.request.contextPath}/layoutMode/" id="enter-layout-mode" class="btn-floating btn-large waves-effect waves-light"><i class="fas fa-edit"></i></a>
 
         <script type="text/javascript">
             $( document ).ready(function () {

@@ -2,7 +2,7 @@ package de.dashup.shared;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Widget extends DatabaseWidget {
+public class Widget extends DatabaseWidget implements Comparable<Widget>{
 
     public enum Size {
         SMALL("small", "m2 s6"),
@@ -40,16 +40,16 @@ public class Widget extends DatabaseWidget {
     }
 
     private Size size;
-    @SerializedName("panel_predecessor")
-    private int predecessor;
+    @SerializedName("widget_index")
+    private int index;
 
     public Widget() {
     }
 
     public Widget(int id, String name, String description, int numberOfDownloads, int averageRating,
-                  int predecessor) {
+                  int index) {
         super(id, name, description, numberOfDownloads, averageRating);
-        this.predecessor = predecessor;
+        this.index = index;
     }
 
     @Override
@@ -69,8 +69,8 @@ public class Widget extends DatabaseWidget {
         return size;
     }
 
-    public int getPredecessor() {
-        return predecessor;
+    public int getIndex() {
+        return index;
     }
 
     public String getCode() {
@@ -102,7 +102,13 @@ public class Widget extends DatabaseWidget {
         this.size = size;
     }
 
-    public void setPredecessor(int predecessor) {
-        this.predecessor = predecessor;
+    public void setIndex(int index) {
+        this.index = index;
     }
+
+    @Override
+    public int compareTo(Widget widgetToCompare) {
+        return Integer.compare(this.getIndex(), widgetToCompare.getIndex());
+    }
+
 }
