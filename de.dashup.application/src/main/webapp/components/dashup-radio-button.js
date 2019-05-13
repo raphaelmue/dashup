@@ -12,7 +12,10 @@ export class DashupRadioButton extends DashupComponent {
     }
 
     getValue() {
-        return this.checked ? this.value : null;
+        if(this.checked){
+            return this.value
+        }
+        return null;
     }
 
 }

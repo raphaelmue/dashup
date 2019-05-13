@@ -25,7 +25,10 @@ export class DashupSwitch extends DashupComponent {
     }
 
     getValue() {
-        return this.active ? this.valueRight : this.valueLeft;
+        if(this.active){
+            return this.valueRight;
+        }
+        return this.valueLeft;
     }
 
 }
