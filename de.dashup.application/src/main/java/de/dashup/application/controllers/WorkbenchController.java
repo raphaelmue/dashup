@@ -153,7 +153,8 @@ public class WorkbenchController {
                                                 @RequestParam(value = "draftName") String name,
                                                 @RequestParam(value = "shortDescription") String shortDescription,
                                                 @RequestParam(value = "description") String description,
-                                                @RequestParam(value = "category") String category) throws SQLException {
+                                                @RequestParam(value = "category") String category,
+                                                @RequestParam(value = "tags") String tagsJSON) throws SQLException, UnsupportedEncodingException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             Widget widget = new Widget();
@@ -162,6 +163,12 @@ public class WorkbenchController {
             widget.setShortDescription(shortDescription);
             widget.setDescription(description);
             widget.setCategory(category);
+
+            JSONArray json = new JSONArray(URLDecoder.decode(tagsJSON, StandardCharsets.UTF_8.name()));
+            for (int i = 0; i < json.length(); i++) {
+                widget.getTags().add(new Tag(json.getJSONObject(i).getInt("id"), json.getJSONObject(i).getString("name")));
+            }
+
             DashupService.getInstance().updateWidgetInformation(widget);
             return "redirect:/workbench/published/" + publishedId + "#changedInformation";
         }
