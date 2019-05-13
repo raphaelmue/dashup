@@ -2,6 +2,9 @@ package de.dashup.shared;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Widget extends DatabaseWidget implements Comparable<Widget> {
 
     public enum Size {
@@ -71,6 +74,7 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
     private Size size;
     @SerializedName("widget_index")
     private int index;
+    private final Set<Tag> tags = new HashSet<>();
 
     public Widget() {
     }
@@ -160,6 +164,10 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
 
     public void setCategory(Category category) {
         this.setCategory(category.getName());
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
     }
 
     @Override

@@ -298,24 +298,37 @@
                 swipeable: true
             });
 
-            $("#chips-tags").chips({
+            var tags = [
+                <c:forEach items="${tags}" var="tag">
+                    {name: "${tag.text}", id: ${tag.id}},
+                </c:forEach>
+            ];
+
+            let tagsChips = M.Chips.init(document.getElementById("chips-tags"), {
                 autocompleteOptions: {
                     data: {
-                        'Apple': null,
-                        'Microsoft': null,
-                        'Google': null
+                        <c:forEach items="${tags}" var="tag">
+                            "${tag.text}": null,
+                        </c:forEach>
                     },
                     limit: Infinity,
                     minLength: 1
                 },
                 placeholder: "<fmt:message key="i18n.enterTags" />",
                 onChipAdd: function () {
-                    $(".material-icons.close").addClass("fas fa-times").html("");
-                }
+                    replaceCloseIconOfTags();
+                },
+                data: [
+                    <c:forEach items="${currentTags}" var="tag">
+                    {tag: "${tag}"},
+                    </c:forEach>
+                ]
             });
 
+            replaceCloseIconOfTags();
+
             if ($(".tabs-content").length > 0) {
-                $(".tabs-content").css({ "height": (window.innerHeight - $(".tabs-content").offset().top) + "px"});
+                $(".tabs-content").css({"height": (window.innerHeight - $(".tabs-content").offset().top) + "px"});
             }
 
             $("#size-dropdown").on("change", function () {
@@ -325,7 +338,7 @@
                 updatePreviewContainer(textArea.val(), $(this).val());
             });
 
-            $("#textarea-code-small, #textarea-code-medium, #textarea-code-large").bind('input propertychange', function() {
+            $("#textarea-code-small, #textarea-code-medium, #textarea-code-large").bind('input propertychange', function () {
                 updatePreviewContainer($(this).val(),
                     $(this).attr("id").substr($(this).attr("id").lastIndexOf("-") + 1));
             });
@@ -355,7 +368,7 @@
             });
 
             $("#btn-submit-delete-draft").on("click", function () {
-                PostRequest.getInstance().make("/workbench/" + isPublished + "/${fn:escapeXml(current.id)}/deleteDraft", {});
+                PostRequest.getInstance().make("workbench/" + isPublished + "/${fn:escapeXml(current.id)}/deleteDraft", {});
             });
 
             let publishDraftDialog = M.Modal.getInstance(document.getElementById("dialog-publish-draft"));
@@ -364,15 +377,16 @@
             });
 
             $("#btn-submit-publish-draft").on("click", function () {
-                PostRequest.getInstance().make("/workbench/draft/${fn:escapeXml(current.id)}/publishDraft", {})
+                PostRequest.getInstance().make("workbench/draft/${fn:escapeXml(current.id)}/publishDraft", {})
             });
 
-            $("#btn-save-draft-information").on("click", function() {
-                PostRequest.getInstance().make("/workbench/" + isPublished + "/${fn:escapeXml(current.id)}/changeInformation", {
+            $("#btn-save-draft-information").on("click", function () {
+                PostRequest.getInstance().make("workbench/" + isPublished + "/${fn:escapeXml(current.id)}/changeInformation", {
                     category: $("#category-dropdown").val(),
                     draftName: $("#text-field-draft-name").val(),
                     shortDescription: $("#textarea-short-description").val(),
-                    description: $("#textarea-description").val()
+                    description: $("#textarea-description").val(),
+                    tags: encodeURIComponent(JSON.stringify(parseTags(tags, tagsChips.getData())))
                 });
             });
 
@@ -402,6 +416,22 @@
                     break;
             }
 
+        }
+
+        function replaceCloseIconOfTags() {
+            $(".material-icons.close").addClass("fas fa-times").html("");
+        }
+
+        function parseTags(tags, editedTags) {
+            let result = [];
+            editedTags.forEach(function (chipTag) {
+                tags.forEach(function (tag) {
+                    if (tag.name === chipTag.tag) {
+                        result.push(tag);
+                    }
+                });
+            });
+            return result;
         }
     </script>
 </html>

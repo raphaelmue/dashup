@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDate;
 
-public abstract class DatabaseWidget implements DatabaseObject {
+public class DatabaseWidget implements DatabaseObject {
     private int id;
     private String name;
     @SerializedName("descriptions")

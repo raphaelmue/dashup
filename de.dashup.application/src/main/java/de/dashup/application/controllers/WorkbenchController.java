@@ -6,8 +6,10 @@ import de.dashup.model.exceptions.InvalidCodeException;
 import de.dashup.model.exceptions.MissingInformationException;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.Draft;
+import de.dashup.shared.Tag;
 import de.dashup.shared.User;
 import de.dashup.shared.Widget;
+import org.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -54,10 +56,13 @@ public class WorkbenchController {
             model.addAttribute("drafts", user.getDrafts());
             model.addAttribute("publishedWidgets", DashupService.getInstance().getUsersWidgets(user));
             model.addAttribute("categories", Widget.Category.values());
+            model.addAttribute("tags", DashupService.getInstance().getAllTags());
 
             for (Draft draft : user.getDrafts()) {
                 if (draft.getId() == draftId) {
                     model.addAttribute("current", draft);
+                    DashupService.getInstance().getTagsByWidget(draft);
+                    model.addAttribute("currentTags", draft.getTags());
                     break;
                 }
             }
@@ -74,10 +79,14 @@ public class WorkbenchController {
             List<Widget> publishedWidgets = DashupService.getInstance().getUsersWidgets(user);
             model.addAttribute("publishedWidgets", publishedWidgets);
             model.addAttribute("categories", Widget.Category.values());
+            model.addAttribute("tags", DashupService.getInstance().getAllTags());
+
 
             for (Widget widget : publishedWidgets) {
                 if (widget.getId() == publishedWidgetId) {
                     model.addAttribute("current", widget);
+                    DashupService.getInstance().getTagsByWidget(widget);
+                    model.addAttribute("currentTags", widget.getTags());
                     break;
                 }
             }
@@ -98,8 +107,8 @@ public class WorkbenchController {
 
     @RequestMapping(value = "/published/{publishedId}/deleteDraft")
     public String handleDeleteWidget(@CookieValue(name = "token", required = false) String token,
-                                    HttpServletRequest request,
-                                    @PathVariable(value = "publishedId") int publishedId) throws SQLException {
+                                     HttpServletRequest request,
+                                     @PathVariable(value = "publishedId") int publishedId) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             DashupService.getInstance().deleteDraft(publishedId);
@@ -115,7 +124,8 @@ public class WorkbenchController {
                                                @RequestParam(value = "draftName") String name,
                                                @RequestParam(value = "shortDescription") String shortDescription,
                                                @RequestParam(value = "description") String description,
-                                               @RequestParam(value = "category") String category) throws SQLException {
+                                               @RequestParam(value = "category") String category,
+                                               @RequestParam(value = "tags") String tagsJSON) throws SQLException, UnsupportedEncodingException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             Draft draft = new Draft();
@@ -124,6 +134,12 @@ public class WorkbenchController {
             draft.setShortDescription(shortDescription);
             draft.setDescription(description);
             draft.setCategory(category);
+
+            JSONArray json = new JSONArray(URLDecoder.decode(tagsJSON, StandardCharsets.UTF_8.name()));
+            for (int i = 0; i < json.length(); i++) {
+                draft.getTags().add(new Tag(json.getJSONObject(i).getInt("id"), json.getJSONObject(i).getString("name")));
+            }
+
             DashupService.getInstance().updateWidgetInformation(draft);
             return "redirect:/workbench/draft/" + draftId + "#changedInformation";
         }
@@ -170,11 +186,11 @@ public class WorkbenchController {
 
     @RequestMapping(value = "/published/{publishedId}/changeCode", method = RequestMethod.POST)
     public String handleChangeWidgetCode(@CookieValue(name = "token", required = false) String token,
-                                        HttpServletRequest request,
-                                        @PathVariable(value = "publishedId") int publishedId,
-                                        @RequestParam(value = "code_small", required = false) String codeSmall,
-                                        @RequestParam(value = "code_medium", required = false) String codeMedium,
-                                        @RequestParam(value = "code_large", required = false) String codeLarge) throws SQLException, UnsupportedEncodingException {
+                                         HttpServletRequest request,
+                                         @PathVariable(value = "publishedId") int publishedId,
+                                         @RequestParam(value = "code_small", required = false) String codeSmall,
+                                         @RequestParam(value = "code_medium", required = false) String codeMedium,
+                                         @RequestParam(value = "code_large", required = false) String codeLarge) throws SQLException, UnsupportedEncodingException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             Widget widget = new Widget();

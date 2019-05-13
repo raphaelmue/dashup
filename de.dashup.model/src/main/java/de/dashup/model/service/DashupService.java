@@ -111,22 +111,9 @@ public class DashupService {
 
         List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, Widget.class, whereParameters);
         if (result != null && result.size() == 1) {
-            return (Widget) new Widget().fromDatabaseObject(result.get(0));
+            return new Widget().fromDatabaseObject(result.get(0));
         }
         return null;
-    }
-
-    public ArrayList<String> getTagsByPanelId(int panelId) throws SQLException {
-        Map<String,Object> whereParameters = new HashMap<>();
-        Map<String,Object> onParameters = new HashMap<>();
-        ArrayList<String> returningValue = new ArrayList<>();
-        whereParameters.put("panel_id",panelId);
-        onParameters.put("tag_id","id");
-        JSONArray databaseResult = this.database.get(Database.Table.PANELS_TAGS,Database.Table.TAGS,onParameters,whereParameters);
-        for (int i = 0; i < databaseResult.length(); i++) {
-            returningValue.add(databaseResult.getJSONObject(i).getString("text"));
-        }
-        return returningValue;
     }
 
     public User getUserByToken(String token) throws SQLException {
@@ -362,7 +349,7 @@ public class DashupService {
         return database.getLatestId(Database.Table.USER_SECTIONS);
     }
 
-    private void addWidgetToSection(Widget widget,  Section section, String size) throws SQLException {
+    private void addWidgetToSection(Widget widget, Section section, String size) throws SQLException {
         Map<String, Object> values = new HashMap<>();
         values.put("id", section.getId());
         values.put("panel_id", widget.getId());
@@ -465,6 +452,10 @@ public class DashupService {
         }
 
         this.database.update(Database.Table.PANELS, whereParameters, values);
+
+        if (widget.getTags().size() > 0) {
+            this.updateWidgetTags(widget, widget.getTags());
+        }
     }
 
     public void deleteDraft(int draftId) throws SQLException {
@@ -504,8 +495,8 @@ public class DashupService {
         }
     }
 
-    // --- WIDGETS --- \\
 
+    // --- WIDGETS --- \\
     public List<Widget> getUsersWidgets(User user) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
@@ -516,5 +507,58 @@ public class DashupService {
             widgets.add(new Widget().fromDatabaseObject(databaseObject));
         }
         return widgets;
+    }
+
+
+    // --- TAGS --- \\
+    public List<Tag> getAllTags() throws SQLException {
+        List<Tag> tags = new ArrayList<>();
+        JSONArray result = this.database.get(Database.Table.TAGS, new HashMap<>());
+        for (int i = 0; i < result.length(); i++) {
+            tags.add(new Tag(result.getJSONObject(i).getInt("id"), result.getJSONObject(i).getString("text")));
+        }
+        return tags;
+    }
+
+    public void getTagsByWidget(Widget widget) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        Map<String, Object> onParameters = new HashMap<>();
+        whereParameters.put("panel_id", widget.getId());
+        onParameters.put("tag_id", "id");
+        JSONArray result = this.database.get(Database.Table.PANELS_TAGS, Database.Table.TAGS, onParameters, whereParameters);
+        for (int i = 0; i < result.length(); i++) {
+            widget.getTags().add(new Tag(result.getJSONObject(i).getInt("id"),
+                    result.getJSONObject(i).getString("text")));
+        }
+    }
+
+    private void updateWidgetTags(Widget widget, final Set<Tag> tags) throws SQLException {
+        final Set<Tag> newTags = new HashSet<>(tags);
+        widget.getTags().clear();
+        this.getTagsByWidget(widget);
+
+        Set<Tag> tagsToDelete = new HashSet<>();
+
+        Iterator<Tag> iterator = newTags.iterator();
+        while (iterator.hasNext()) {
+            Tag tag = iterator.next();
+            if (!widget.getTags().contains(tag)) {
+                Map<String, Object> values = new HashMap<>();
+                values.put("panel_id", widget.getId());
+                values.put("tag_id", tag.getId());
+                this.database.insert(Database.Table.PANELS_TAGS, values);
+            }
+            tagsToDelete.add(tag);
+        }
+        newTags.removeAll(tagsToDelete);
+        widget.getTags().removeAll(tagsToDelete);
+        if (widget.getTags().size() > 0) {
+            for (Tag tag : widget.getTags()) {
+                Map<String, Object> whereParameters = new HashMap<>();
+                whereParameters.put("panel_id", widget.getId());
+                whereParameters.put("tag_id", tag.getId());
+                this.database.delete(Database.Table.PANELS_TAGS, whereParameters);
+            }
+        }
     }
 }
