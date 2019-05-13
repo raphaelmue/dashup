@@ -1,5 +1,5 @@
 import {DashupComponent} from "./dashup-component.js";
-import {MessageBroker} from "./message-broker.js";
+import {MessageBroker} from "../libraries/components/message-broker.js";
 
 export class DashupChart extends DashupComponent {
 

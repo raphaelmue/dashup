@@ -19,6 +19,4 @@
             $("#nav-item-marketplace").parent().addClass("active");
         });
     </script>
-
-    <jsp:include page="includes/webComponents.jsp" />
 </html>

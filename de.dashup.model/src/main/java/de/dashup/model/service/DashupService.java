@@ -90,6 +90,18 @@ public class DashupService {
                         Widget widget = this.getPanelById(innerResult.getJSONObject(i).getInt("panel_id"));
                         widget.setSize(Widget.Size.getSizeByName(innerResult.getJSONObject(i).getString("size")));
                         widget.setIndex(innerResult.getJSONObject(i).getInt("widget_index"));
+
+                        Map<String, Object> componentDependenciesWhereParameters = new HashMap<>();
+                        componentDependenciesWhereParameters.put("panel_id", widget.getId());
+                        JSONArray componentDependencies = this.database.get(Database.Table.PANELS_COMPONENTS, componentDependenciesWhereParameters);
+
+                        Map<String, Object> componentsWhereParameters = new HashMap<>();
+                        for (int j = 0; j < componentDependencies.length(); j++) {
+                            componentsWhereParameters.put("id", componentDependencies.getJSONObject(j).getInt("component_id"));
+                            JSONArray components = this.database.get(Database.Table.COMPONENTS, componentsWhereParameters);
+                            widget.addComponent(components.getJSONObject(0).getString("name"));
+                        }
+
                         widgets.add(widget);
                     }
                     Collections.sort(widgets);

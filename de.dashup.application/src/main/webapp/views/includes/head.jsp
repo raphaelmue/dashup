@@ -28,5 +28,11 @@
     <script type="text/javascript" src="../../libraries/classes/PostRequest.js"></script>
     <script type="text/javascript" src="../../libraries/index.js"></script>
 
+    <script type="module">
+        import "../../libraries/components/message-broker.js";
+        import "../../components/dashup-component.js";
+        ${components}
+    </script>
+
     <title>dashup</title>
 </head>

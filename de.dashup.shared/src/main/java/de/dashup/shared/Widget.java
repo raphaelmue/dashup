@@ -2,6 +2,9 @@ package de.dashup.shared;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Widget extends DatabaseWidget implements Comparable<Widget>{
 
     public enum Size {
@@ -42,6 +45,7 @@ public class Widget extends DatabaseWidget implements Comparable<Widget>{
     private Size size;
     @SerializedName("widget_index")
     private int index;
+    private List<String> component = new ArrayList<>();
 
     public Widget() {
     }
@@ -109,6 +113,16 @@ public class Widget extends DatabaseWidget implements Comparable<Widget>{
     @Override
     public int compareTo(Widget widgetToCompare) {
         return Integer.compare(this.getIndex(), widgetToCompare.getIndex());
+    }
+
+    public void addComponent(String component){
+        if(!this.component.contains(component)){
+            this.component.add(component);
+        }
+    }
+
+    public List<String> getComponents(){
+        return this.component;
     }
 
 }

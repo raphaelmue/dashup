@@ -4,7 +4,35 @@ import de.dashup.shared.Section;
 import de.dashup.shared.User;
 import de.dashup.shared.Widget;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DashupBuilder {
+
+    public static String buildComponentsDependencies(User user) {
+        StringBuilder content = new StringBuilder();
+        List<String> dependencies = new ArrayList<String>();
+        if (user.getSections() != null) {
+            for (Section section : user.getSections()) {
+                if (section.getWidgets() != null) {
+                    for (Widget widget : section.getWidgets()) {
+                        if (widget.getComponents() != null) {
+                            for (String component : widget.getComponents()) {
+                                if(!dependencies.contains(component)){
+                                    dependencies.add(component);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for (String dependency : dependencies){
+            content.append("import \"../../components/" + dependency + ".js\";");
+            content.append(System.lineSeparator());
+        }
+        return content.toString();
+    }
 
     public static String buildUsersPanels(User user) {
         StringBuilder content = new StringBuilder();

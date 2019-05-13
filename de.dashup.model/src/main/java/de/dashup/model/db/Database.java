@@ -42,7 +42,9 @@ public class Database {
         USERS_SETTINGS("users_settings"),
         PANELS("panels"),
         USER_SECTIONS("users_sections"),
-        SECTIONS_PANELS("sections_panels");
+        SECTIONS_PANELS("sections_panels"),
+        COMPONENTS("components"),
+        PANELS_COMPONENTS("panels_components");
 
         private final String tableName;
 

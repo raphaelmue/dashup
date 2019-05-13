@@ -32,6 +32,7 @@ public class DashupController {
 
             DashupService.getInstance().getSectionsAndPanels(user);
             model.addAttribute("content", DashupBuilder.buildUsersPanels(user));
+            model.addAttribute("components", DashupBuilder.buildComponentsDependencies(user));
         });
     }
 
