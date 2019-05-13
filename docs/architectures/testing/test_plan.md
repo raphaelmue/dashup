@@ -1,57 +1,57 @@
 # Dashup - Test Plan
 ====================
-### Version 1.0
+### Version 2.0
 
 # Revision history
 
 | Date       | Version | Description                                          | Author           |
 |------------|---------|------------------------------------------------------|------------------|
 | 25/04/2019 | 1.0     | Initial Documentation                                | Raphael Müßeler  |
+| 07/05/2019 | 2.0     | Addition of new test type                            | Raphael Müßeler  |
 
 # Table of Contents
 
-- Introduction
-    - Purpose
-    - Scope
-    - Intended Audience
-    - Document Terminology and Acronyms
-    - References
-- Evaluation Mission and Test Motivation
-    - Background
-    - Evaluation Mission
-    - Test Motivators
-- Target Test Items
-- Outline of Planned Tests
-    - Outline of Test Inclusions
-    - Outline of other candidates for Potential Inclusion
-    - Outline of Test Exclusions
-- Test Approach
-    - Testings Techniques and Types
-        - Unit Testing
-        - User Interface Testing
-        - Performance Profiling
-- Entry and Exit Testing
-    - Test Plan
-        - Test Plan Entry Criteria
-        - Test Plan Exit Criteria
-- Deliverables
-    - Test Evaluation Summeries
-    - Reporting on Test Coverage 
-    - Perceived Quality Reports
-    - Incident Logs and Change Requests
-    - Smoke Test Suite and Supporting Test Scripts
-- Testing Workflow
-- Environmental Needs
-    - Base System Hardware
-    - Base Software Elements in the Test Environment
-    - Productivity and Support Tools
-- Responsibilities, Staffing, and Training Needs
-    - People and Roles
-    - Staffing and Training Needs
-- Iteration Milestones
-- Risks, Dependencies, Assumptions, and Constraints
-- Management Process and Procedures
-    
+- [Introduction](#1-introduction)
+    - [Purpose](#11-purpose)
+    - [Scope](#12-scope)
+    - [Intended Audience](#13-intended-audience)
+    - [Document Terminology and Acronyms](#14-document-termonlogy-and-acronyms)
+    - [References](#15-references)
+- [Evaluation Mission and Test Motivation](#2-evaluation-mission-and-test-motivation)
+    - [Background](#21-background)
+    - [Evaluation Mission](#22-evaluation-mission)
+    - [Test Motivators](#23-test-motivators)
+- [Target Test Items](#3-target-test-items)
+- [Outline of Planned Tests](#4-outline-of-planned-tests)
+    - [Outline of Test Inclusions](#41-outline-of-test-inclusions)
+    - [Outline of other candidates for Potential Inclusion](#42--outline-of-other-candidates-for-potential-inclusion)
+    - [Outline of Test Exclusions](#43-outline-of-exclusions)
+- [Test Approach](#5-test-approach)
+    - [Testings Techniques and Types](#51-testing-techniques-and-types)
+        - [Unit Testing](#511-unit-testing)
+        - [User Interface Testing](#512-user-interface-testing)
+        - [Smoke Testing](#513-smoke-testing)
+- [Entry and Exit Testing](#6-entry-and-exit-criteria)
+    - [Test Plan](#61-test-plan)
+        - [Test Plan Entry Criteria](#611-test-plan-entry-criteria)
+        - [Test Plan Exit Criteria](#612-test-plan-exit-criteria)
+- [Deliverables](#7-deliverables)
+    - [Test Evaluation Summeries](#71-test-evaluation-summaries)
+    - [Reporting on Test Coverage](#72-reporting-on-test-coverage)
+    - [Perceived Quality Reports](#73-perceived-quality-report)
+    - [Incident Logs and Change Requests](#74-incident-logs-and-change-requests)
+    - [Smoke Test Suite and Supporting Test Scripts](#75-smoke-test-suite-and-supporting-test-scripts)
+- [Testing Workflow](#8-testing-workflow)
+- [Environmental Needs](#9-environmental-needs)
+    - [Base System Hardware](#91-base-system-hardware)
+    - [Base Software Elements in the Test Environment](#92-base-software-elements-in-the-test-environment)
+    - [Productivity and Support Tools](#93-productivity-and-support-tools)
+- [Responsibilities, Staffing, and Training Needs](#10-responsibilities-staffing-and-training-needs)
+    - [People and Roles](#101-people-and-roles)
+    - [Staffing and Training Needs](#102-staffing-and-training-needs)
+- [Iteration Milestones](#11-iteration-milestones)
+- [Risks, Dependencies, Assumptions, and Constraints](#12-risks-dependencies-assumptions-and-constraints)
+
 ## 1 Introduction
 
 ## 1.1 Purpose
@@ -180,9 +180,18 @@ the user input is handled correctly.
 | Success Criteria       | Tests must pass and coverage must be higher than threshold. |
 | Special Considerations | Running UI tests headless on a CI server without an UI.     |
 
-#### 5.1.3 Performance Profiling
+#### 5.1.3 Smoke Testing
 
-Performance is not being tested at the moment.
+Smoke tests are a subset of test cases that cover the most important functionality of a component or system, used to aid assessment of whether main functions of the software appear to work correctly.
+
+|                        | Description                                                 |
+| ---------------------- | ----------------------------------------------------------- |
+| Technique Objective    | Ensuring that the basic functionality works correctly.      |
+| Technique              | Verifying that the expected result and no error occurs.     |
+| Oracles                | Test logs, console printing, watching tests, code coverage  |
+| Required Tools         | Selenium & JUnit (Maven Dependency)                         |
+| Success Criteria       | Tests must pass. Coverage is not suitable.                  |
+| Special Considerations | Running UI tests headless on a CI server without an UI.     |
 
 ## 6 Entry and Exit Criteria
 
@@ -239,6 +248,8 @@ into the master:
 <img src="github_checks.png" alt="GitHub Checks in Pull Request" />
 
 ### 7.5 Smoke Test Suite and Supporting Test Scripts
+
+We integrated in our test workflow smoke tests as well, to check before committing changes, whether the basic functionality works or not. Smoke tests are explained earlier (see [5.1.3 Smoke testing](#513-smoke-testing)) 
 
 Each master build publishes a code coverage result, that can be seen also here: 
 
