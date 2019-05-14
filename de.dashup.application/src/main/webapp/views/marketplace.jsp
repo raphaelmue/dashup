@@ -139,4 +139,6 @@
         });
 
     </script>
+
+    <jsp:include page="includes/webComponents.jsp" />
 </html>

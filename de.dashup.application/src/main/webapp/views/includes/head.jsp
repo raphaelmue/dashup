@@ -29,7 +29,5 @@
     <script type="text/javascript" src="../../libraries/classes/PostRequest.js"></script>
     <script type="text/javascript" src="../../libraries/index.js"></script>
 
-    <jsp:include page="webComponents.jsp" />
-
     <title>dashup</title>
 </head>

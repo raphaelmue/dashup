@@ -9,10 +9,7 @@ import de.dashup.shared.User;
 import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
 import org.json.JSONArray;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -22,6 +19,7 @@ import java.util.Locale;
 import java.util.Map;
 
 @SuppressWarnings("WeakerAccess")
+@Tag("unit")
 public class ServiceSettingsTest {
     private static final String USER_EMAIL = "nobody@test.com";
     private static final String USER_USERNAME = "NobodyTest";

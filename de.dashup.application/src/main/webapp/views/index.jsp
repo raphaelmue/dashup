@@ -6,6 +6,7 @@
 <!doctype html>
 <html lang="en">
     <jsp:include page="includes/head.jsp" />
+    <link rel="stylesheet" href="../styles/mainDashboard.css" />
     <style>
         body {
             background: url('${fn:escapeXml(backgroundImage)}') no-repeat center center fixed;
@@ -28,5 +29,7 @@
                 $("#nav-item-dashboard").parent().addClass("active");
             });
         </script>
+
+        <jsp:include page="includes/webComponents.jsp" />
     </body>
 </html>
