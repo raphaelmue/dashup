@@ -12,7 +12,7 @@ public class Hash {
         return create(plainText + salt);
     }
 
-    private static String create(String plainText) {
+    static String create(String plainText) {
         try {
             final MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
             digest.reset();

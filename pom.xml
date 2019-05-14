@@ -8,12 +8,74 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
+    <modules>
+        <module>de.dashup.application</module>
+        <module>de.dashup.model</module>
+        <module>de.dashup.shared</module>
+        <module>de.dashup.util</module>
+    </modules>
+
+    <properties>
+        <java.version>11</java.version>
+
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+
+        <project.testing.localhost>false</project.testing.localhost>
+        <project.testing.tags/>
+        <project.testing.skipTags>skip</project.testing.skipTags>
+        <project.testing.browser>chrome</project.testing.browser>
+        <project.testing.argLine/>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>unit-tests</id>
+            <properties>
+                <project.testing.tags>unit</project.testing.tags>
+            </properties>
+        </profile>
+        <profile>
+            <id>integration-tests</id>
+            <properties>
+                <project.testing.tags/>
+                <project.testing.skipTags>skip, unit</project.testing.skipTags>
+            </properties>
+        </profile>
+        <profile>
+            <id>smoke-tests</id>
+            <properties>
+                <project.testing.tags/>
+                <project.testing.skipTags>skip</project.testing.skipTags>
+                <argLine>-Dcucumber.options='--tags @Smoke'</argLine>
+            </properties>
+        </profile>
+        <profile>
+            <id>local-testing</id>
+            <properties>
+                <project.testing.localhost>true</project.testing.localhost>
+            </properties>
+        </profile>
+        <profile>
+            <id>chrome-testing</id>
+            <properties>
+                <project.testing.browser>chrome</project.testing.browser>
+            </properties>
+        </profile>
+        <profile>
+            <id>firefox-testing</id>
+            <properties>
+                <project.testing.browser>firefox</project.testing.browser>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.2</version>
+                <version>0.8.3</version>
                 <executions>
                     <execution>
                         <goals>
@@ -29,34 +91,62 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.1</version>
+                <configuration>
+                    <excludedGroups>${project.testing.skipTags}</excludedGroups>
+                    <groups>${project.testing.tags}</groups>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.1</version>
+                <executions>
+                    <execution>
+                        <id>integration-testing</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                        <configuration>
+                            <groups>smoke, integration</groups>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>write-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <outputFile>${project.basedir}/target/classes/testing.properties</outputFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
-    <modules>
-        <module>de.dashup.application</module>
-        <module>de.dashup.model</module>
-        <module>de.dashup.shared</module>
-        <module>de.dashup.util</module>
-    </modules>
-
-    <properties>
-        <java.version>11</java.version>
-
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-    </properties>
 
     <dependencies>
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>2.3.1</version>
+            <version>4.2.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
-            <version>2.3.1</version>
+            <version>4.2.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>

@@ -4,6 +4,7 @@ Feature: Login / Register
   I want to login or register to dashup
   In order to use the dashup platform
 
+  @EndToEnd
   Scenario: Successful login without remember me
     Given User is located on login page
     And User registered with e-mail "John.Doe@gmail.com" and password "password"
@@ -15,6 +16,7 @@ Feature: Login / Register
     And User was navigated to central dashboard
     And User can close dashup and is not longer logged in
 
+  @EndToEnd
   Scenario: Successful login with remember me
     Given User is located on login page
     And User registered with e-mail "John.Doe@gmail.com" and password "password"
@@ -25,6 +27,7 @@ Feature: Login / Register
     And User was navigated to central dashboard
     And User can close dashup and open it again without being logged out
 
+  @EndToEnd
   Scenario: Failed login
     Given User is located on login page
     And User registered with e-mail "John.Doe@gmail.com" and password "password"
@@ -33,11 +36,13 @@ Feature: Login / Register
     And User presses login button
     Then Login error message is displayed
 
+  @EndToEnd @Smoke
   Scenario: Navigate to registration page
     Given User is located on login page
     When User clicks on link to register
     Then User is navigated to registration page
 
+  @EndToEnd
   Scenario: Failed registration due to an invalid e-mail
     Given User is located on registration page
     And E-mail "John.Doe@gmail.com" already exists
@@ -48,6 +53,7 @@ Feature: Login / Register
     And User presses start button
     Then Registration error message is displayed stating that e-mail is invalid
 
+  @EndToEnd
   Scenario: Failed registration due to an invalid password
     Given User is located on registration page
     When User enters "John Doe" as username
@@ -57,6 +63,7 @@ Feature: Login / Register
     And User presses start button
     Then Registration error message is displayed stating that password is invalid
 
+  @EndToEnd
   Scenario: Failed registration due to an not matching passwords
     Given User is located on registration page
     When User enters "John Doe" as username
@@ -66,6 +73,7 @@ Feature: Login / Register
     And User presses start button
     Then Registration error message is displayed stating that passwords are not matching
 
+  @EndToEnd @Smoke
   Scenario: Successful registration
     Given User is located on registration page
     When User enters "John Doe" as username
