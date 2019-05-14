@@ -27,7 +27,7 @@ public class DatabaseWidget implements DatabaseObject {
     @SerializedName("short_description")
     private String shortDescription;
 
-    DatabaseWidget() {
+    public DatabaseWidget() {
     }
 
     DatabaseWidget(int id, String name, String description, int numberOfDownloads, int averageRating, int numberOfRatings, String publicationDate) {
