@@ -6,10 +6,7 @@ import de.dashup.shared.DatabaseUser;
 import de.dashup.shared.User;
 import de.dashup.util.string.Hash;
 import org.json.JSONArray;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -17,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("WeakerAccess")
+@Tag("unit")
 public class DatabaseUnitTest {
     private static Database database;
 
@@ -67,6 +65,19 @@ public class DatabaseUnitTest {
         whereParams.put("user_id", "1");
         database.delete(Database.Table.USERS_SETTINGS, whereParams);
         Assertions.assertEquals(0, database.get(Database.Table.USERS_SETTINGS, whereParams).length());
+        //delete panels in section of user, without this deletion of user will fail due to foreign key constraints
+        whereParams.clear();
+        whereParams.put("id","1");
+        database.delete(Database.Table.SECTIONS_PANELS,whereParams);
+        Assertions.assertEquals(0,database.get(Database.Table.SECTIONS_PANELS,whereParams).length());
+        //delete sections of user, without this deletion of user will fail due to foreign key constraints
+        whereParams.clear();
+        whereParams.put("user_id", "1");
+        database.delete(Database.Table.USER_SECTIONS,whereParams);
+        Assertions.assertEquals(0,database.get(Database.Table.USER_SECTIONS,whereParams).length());
+        //delete panels of user, without this deletion of user will fail due to foreign key constraints
+        database.delete(Database.Table.PANELS,whereParams);
+        Assertions.assertEquals(0,database.get(Database.Table.PANELS,whereParams).length());
         //delete User
         whereParams.clear();
         whereParams.put("id", "1");

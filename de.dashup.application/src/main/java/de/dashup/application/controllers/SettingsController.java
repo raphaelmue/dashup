@@ -2,6 +2,7 @@ package de.dashup.application.controllers;
 
 import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
+import de.dashup.model.exceptions.EmailAlreadyInUseException;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.Settings;
 import de.dashup.shared.User;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Locale;
 
 @Controller
@@ -25,9 +27,13 @@ public class SettingsController {
                            HttpServletRequest request, Model model) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "settings", user -> {
             model.addAttribute("name", user.getName());
+            model.addAttribute("userName", user.getUserName());
             model.addAttribute("surname", user.getSurname());
             model.addAttribute("fullName", user.getFullName());
             model.addAttribute("email", user.getEmail());
+            model.addAttribute("birthDate", user.getBirthDate());
+            model.addAttribute("company", user.getCompany());
+            model.addAttribute("bio", user.getBio());
             model.addAttribute("backgroundImage", user.getSettings().getBackgroundImage());
         });
     }
@@ -39,13 +45,35 @@ public class SettingsController {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             try {
-                DashupService.getInstance().updateEmail(user, email);
+                user.setEmail(email);
+                DashupService.getInstance().updateEmail(user);
             } catch (IllegalArgumentException illegalArgumentException) {
                 return "redirect:/settings/#invalidEmail";
+            } catch (EmailAlreadyInUseException emailAlreadyInUseException) {
+                return "redirect:/settings/#emailAlreadyInUse";
             } catch (Exception exception) {
                 return "redirect:/settings/#generalError";
             }
             return "redirect:/settings/#changedEmail";
+        }
+        return "redirect:/login";
+    }
+
+    @RequestMapping("/changeUserName")
+    public String handleChangeUserName(@CookieValue(name = "token", required = false) String token,
+                                    @RequestParam(value = "userName") String userName,
+                                    HttpServletRequest request) throws SQLException {
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            try {
+                user.setUserName(userName);
+                DashupService.getInstance().updateUserName(user);
+            } catch (EmailAlreadyInUseException emailAlreadyInUseException) {
+                return "redirect:/settings/#userNameAlreadyInUse";
+            } catch (Exception exception) {
+                return "redirect:/settings/#generalError";
+            }
+            return "redirect:/settings/#changedUserName";
         }
         return "redirect:/login";
     }
@@ -100,10 +128,20 @@ public class SettingsController {
     public String handlePersonalInfo(@CookieValue(name = "token", required = false) String token,
                                      @RequestParam("name") String name,
                                      @RequestParam("surname") String surname,
+                                     @RequestParam("birthDate") String birthDate,
+                                     @RequestParam("company") String company,
+                                     @RequestParam("bio") String bio,
                                      HttpServletRequest request) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            DashupService.getInstance().updateNameAndSurname(user, name, surname);
+            user.setName(name);
+            user.setSurname(surname);
+            if (birthDate != null && !birthDate.isBlank()) {
+                user.setBirthDate(LocalDate.parse(birthDate));
+            }
+            user.setCompany(company);
+            user.setBio(bio);
+            DashupService.getInstance().updatePersonalInformation(user);
             return "redirect:/settings/#changedPersonalInfo";
         }
         return "redirect:/login";

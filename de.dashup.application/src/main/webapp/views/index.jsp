@@ -6,6 +6,7 @@
 <!doctype html>
 <html lang="en">
     <jsp:include page="includes/head.jsp" />
+    <link rel="stylesheet" href="../styles/mainDashboard.css" />
     <style>
         body {
             background: url('${fn:escapeXml(backgroundImage)}') no-repeat center center fixed;
@@ -21,12 +22,14 @@
             ${content}
         </div>
 
-        <a href="${pageContext.request.contextPath}/layoutMode/" class="btn-floating btn-large waves-effect waves-light"><i class="fas fa-edit"></i></a>
+        <a href="${pageContext.request.contextPath}/layoutMode/" id="enter-layout-mode" class="btn-floating btn-large waves-effect waves-light"><i class="fas fa-edit"></i></a>
 
         <script type="text/javascript">
             $( document ).ready(function () {
                 $("#nav-item-dashboard").parent().addClass("active");
             });
         </script>
+
+        <jsp:include page="includes/webComponents.jsp" />
     </body>
 </html>

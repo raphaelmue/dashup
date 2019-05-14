@@ -1,12 +1,21 @@
 package de.dashup.shared;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class DatabaseUser implements Serializable, DatabaseObject {
     private static final long serialVersionUID = -8352045621135035810L;
 
     private int id;
-    private String email, userName, name, surname, password, salt;
+    private String email;
+    @SerializedName("user_name")
+    private String userName;
+    private String name, surname, password, salt;
+    @SerializedName("birth_date")
+    private String birthDate;
+    private String company, bio;
 
     public DatabaseUser() {
     }
@@ -45,6 +54,31 @@ public class DatabaseUser implements Serializable, DatabaseObject {
         this.salt = salt;
     }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        if (birthDate != null) {
+            this.birthDate = birthDate.toString();
+        }
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public LocalDate getBirthDate() {
+        if (birthDate != null && !birthDate.isBlank()) {
+            return LocalDate.parse(birthDate);
+        }
+        return null;
+    }
+
     @Override
     public int getId() {
         return id;
@@ -78,10 +112,13 @@ public class DatabaseUser implements Serializable, DatabaseObject {
         return userName;
     }
 
-    void setUserName(String userName) {
-        this.userName = userName;
+    public String getCompany() {
+        return company;
     }
 
+    public String getBio() {
+        return bio;
+    }
 
     @Override
     public String toString() {

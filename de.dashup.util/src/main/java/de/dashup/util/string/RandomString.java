@@ -9,9 +9,9 @@ public class RandomString {
 
     private static final String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    private static final String lower = upper.toLowerCase(Locale.ROOT);
+    static final String lower = upper.toLowerCase(Locale.ROOT);
 
-    private static final String digits = "0123456789";
+    static final String digits = "0123456789";
 
     private static final String alphanum = upper + lower + digits;
 
@@ -36,14 +36,14 @@ public class RandomString {
         this(length, random, alphanum);
     }
 
-    public RandomString(int length, String symbols) {
+    RandomString(int length, String symbols) {
         this(length, new SecureRandom(), symbols);
     }
 
     /**
      * Create an alphanumeric strings from a secure generator.
      */
-    private RandomString(int length) {
+    RandomString(int length) {
         this(length, new SecureRandom());
     }
 
@@ -57,7 +57,7 @@ public class RandomString {
     /**
      * Generate a random string.
      */
-    private String nextString() {
+    String nextString() {
         for (int idx = 0; idx < buf.length; ++idx)
             buf[idx] = symbols[random.nextInt(symbols.length)];
         return new String(buf);
