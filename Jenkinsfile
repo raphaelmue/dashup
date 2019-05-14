@@ -34,9 +34,9 @@ pipeline {
              }
         }
         stage('Publish test results') {
-            /*when {
+            when {
                 branch 'master'
-            }*/
+            }
             steps {
                 sh 'bash service/publish-test-report.sh'
             }
