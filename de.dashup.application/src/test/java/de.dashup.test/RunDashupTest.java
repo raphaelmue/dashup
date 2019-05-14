@@ -7,7 +7,8 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         plugin = {"pretty"},
-        features = {"src/test/resources/de.dashup.test"}
+        features = {"src/test/resources/de.dashup.test/"},
+        tags = {"@EndToEnd"}
 )
 public class RunDashupTest {
 }

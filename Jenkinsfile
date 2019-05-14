@@ -15,23 +15,31 @@ pipeline {
         }
         stage('Unit testing') {
              steps {
-                sh 'mvn test --projects de.dashup.shared,de.dashup.util,de.dashup.model'
+                sh 'mvn test -P unit-tests'
              }
         }
         stage('Testing in Chrome') {
             steps {
                 wrap([$class: 'Xvfb', additionalOptions: '', assignedLabels: '', autoDisplayName: true, debug: true, displayNameOffset: 0, installationName: 'Xvfb', parallelBuild: true, screen: '1024x758x24', timeout: 25]) {
-                    sh 'mvn -Dtesting=chrome test -pl de.dashup.application'
+                    sh 'mvn test -P integration-tests,chrome-testing'
                 }
             }
         }
         stage('Testing in Firefox') {
             steps {
                 wrap([$class: 'Xvfb', additionalOptions: '', assignedLabels: '', autoDisplayName: true, debug: true, displayNameOffset: 0, installationName: 'Xvfb', parallelBuild: true, screen: '1024x758x24', timeout: 25]) {
-                    sh 'mvn -Dtesting=firefox test -pl de.dashup.application'
+                    sh 'mvn test -P integration-tests,firefox-testing'
                 }
                 sh 'rm ./de.dashup.model/src/main/resources/de/dashup/model/db/config/database.conf'
              }
+        }
+        stage('Publish test results') {
+            when {
+                branch 'master'
+            }
+            steps {
+                sh 'bash service/publish-test-report.sh'
+            }
         }
         stage('Deploy') {
             when {
