@@ -4,10 +4,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("WeakerAccess")
 @Tag("unit")
 public class HashTest {
-    @Test
 
+    @Test
     public void testHashWithoutSalt() {
         String plain = "abcdefghijklmnopqrstuvwxyz";
         Assertions.assertEquals(Hash.create(plain),
