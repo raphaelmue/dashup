@@ -253,6 +253,18 @@
                         classes: "error"
                     };
                     break;
+                case "addedWidget":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.addedWidget" />",
+                        classes: "success"
+                    };
+                    break;
+                case "faieldToAddWidget":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.failedToAddWidget" />",
+                        classes: "error"
+                    };
+                    break;
                 default:
                     foreignAnchor=true;
                     break;
