@@ -175,7 +175,7 @@ public class Database {
      */
     public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters,
                                                     String orderByClause) throws SQLException, JsonParseException {
-        return this.getObject(table,null,resultType,null,whereParameters,orderByClause);
+        return this.getObject(table, null, resultType, null, whereParameters, orderByClause);
     }
 
     /**
@@ -185,13 +185,13 @@ public class Database {
         return this.getObject(table, resultType, whereParameters, null);
     }
 
-    public List<? extends  DatabaseObject> getObject(Table table, Table joinOn,Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters, String orderByClause) throws SQLException,JsonParseException {
+    public List<? extends DatabaseObject> getObject(Table table, Table joinOn, Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters, String orderByClause) throws SQLException, JsonParseException {
         Gson gson = new GsonBuilder().create();
         JSONArray jsonArray;
-        if(joinOn == null && onParameters == null) {
+        if (joinOn == null && onParameters == null) {
             jsonArray = this.get(table, whereParameters, orderByClause);
-        }else{
-            jsonArray = this.get(table,joinOn,onParameters,whereParameters,orderByClause);
+        } else {
+            jsonArray = this.get(table, joinOn, onParameters, whereParameters, orderByClause);
         }
         List<DatabaseObject> result = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -201,8 +201,8 @@ public class Database {
         return result;
     }
 
-    public List<? extends  DatabaseObject> getObject(Table table, Table joinOn,Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters) throws SQLException,JsonParseException {
-        return getObject(table,joinOn,resultType,onParameters,whereParameters,null);
+    public List<? extends DatabaseObject> getObject(Table table, Table joinOn, Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters) throws SQLException, JsonParseException {
+        return getObject(table, joinOn, resultType, onParameters, whereParameters, null);
     }
 
     /**
@@ -217,14 +217,14 @@ public class Database {
     /**
      * Fetches data from database by joining two tables.
      *
-     * @param table right table for the join
-     * @param joinOn left table for the join
-     * @param onParameters columns that are used for the join. It is important that the column,which is passed as key is
-     *                     in the right table and the column that is passed as value is in the left table of the join
+     * @param table           right table for the join
+     * @param joinOn          left table for the join
+     * @param onParameters    columns that are used for the join. It is important that the column,which is passed as key is
+     *                        in the right table and the column that is passed as value is in the left table of the join
      * @param whereParameters parameters that are used in the where clause to select data
      * @return result of the database query
      */
-    public JSONArray get(Table table, Table joinOn, Map<String, String> onParameters, Map<String, Object> whereParameters,String orderByClause) throws SQLException {
+    public JSONArray get(Table table, Table joinOn, Map<String, String> onParameters, Map<String, Object> whereParameters, String orderByClause) throws SQLException {
         PreparedStatement statement;
         StringBuilder query = new StringBuilder("SELECT * FROM " + table.getTableName() + " INNER JOIN " + joinOn.getTableName() +
                 " ON ");
@@ -243,7 +243,7 @@ public class Database {
     }
 
     public JSONArray get(Table table, Table joinOn, Map<String, String> onParameters, Map<String, Object> whereParameters) throws SQLException {
-        return get(table,joinOn,onParameters,whereParameters,null);
+        return get(table, joinOn, onParameters, whereParameters, null);
     }
 
     /**

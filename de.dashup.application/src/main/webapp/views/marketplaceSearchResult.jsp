@@ -11,7 +11,7 @@
             <div class="nav-wrapper">
                 <div class="col s12">
                     <a href="${pageContext.request.contextPath}/" class="breadcrumb">dashup</a>
-                    <a href="#" class="breadcrumb"><fmt:message key="i18n.marketplace" /></a>
+                    <a href="#" class="breadcrumb"><fmt:message key="i18n.marketplace"/></a>
                 </div>
             </div>
         </nav>
@@ -19,18 +19,18 @@
             <div class="col m4 offset-m4 s8 offset-s1">
                 <div class="input-field">
                     <input id="text-field-login-email" name="email" type="text" class="validate">
-                    <label for="text-field-login-email"><fmt:message key="i18n.enterSearchterm" /></label>
+                    <label for="text-field-login-email"><fmt:message key="i18n.enterSearchterm"/></label>
                 </div>
             </div>
             <div class="col m2 s2" style="margin-top: 18px">
                 <button id="btn_start_search_marketplace" class="btn waves-effect waves-light" type="submit" name="search">
-                    <fmt:message key="i18n.go" />
+                    <fmt:message key="i18n.go"/>
                 </button>
             </div>
         </div>
         <div class="row">
             <div class="col m6 offset-m3 s10 offset-s1">
-            Do some filter stuff here.
+                Do some filter stuff here.
             </div>
         </div>
         <div class="row">
@@ -55,7 +55,7 @@
                             </div>
                             <div class="col m2 offset-m3" style="margin-top: 30px">
                                 <button id="add" class="btn waves-effect waves-light" type="submit" name="search">
-                                    <fmt:message key="i18n.add" />
+                                    <fmt:message key="i18n.add"/>
                                 </button>
                             </div>
                         </div>

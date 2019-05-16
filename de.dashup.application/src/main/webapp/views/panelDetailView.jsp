@@ -57,8 +57,8 @@
                 </div>
                 <div class="col m2" style="margin-top: 40px">
                     <button id="btn-add-panel-to-dashup" class="btn waves-effect waves-light" type="submit"
-                                name="add">
-                            <fmt:message key="i18n.add"/>
+                            name="add">
+                        <fmt:message key="i18n.add"/>
                     </button>
                 </div>
             </div>
@@ -130,7 +130,8 @@
                                                     <i class="fa fa-star" aria-hidden="true"></i>
                                                     <i class="fa fa-star" aria-hidden="true"></i>
                                                     <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <div class="front-stars" style="width:  ${fn:escapeXml(rating.rating)}%">
+                                                    <div class="front-stars"
+                                                         style="width:  ${fn:escapeXml(rating.rating)}%">
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -142,7 +143,8 @@
                                         </div>
                                     </div>
                                     <div class="row" style="font-size: 15px; margin-left: 3px">
-                                        By ${fn:escapeXml(rating.userName)} ${fn:escapeXml(rating.userSurname)}, Last changed on ${fn:escapeXml(rating.changeDate)}
+                                        By ${fn:escapeXml(rating.userName)} ${fn:escapeXml(rating.userSurname)}, Last
+                                        changed on ${fn:escapeXml(rating.changeDate)}
                                     </div>
                                     <div class="row" style="margin-left: 3px">
                                             ${fn:escapeXml(rating.text)}
@@ -160,33 +162,34 @@
         <div id="dialog-add-panel-to-dashup" class="modal">
             <div class="modal-content">
                 <div class="row">
-                    <h4><fmt:message key="i18n.addPanelToDashup" /></h4>
+                    <h4><fmt:message key="i18n.addPanelToDashup"/></h4>
                     <div class="input-field col s12 m6">
                         <select id="section-dropdown">
-                            <option value="-1"><fmt:message key="i18n.newSection" /></option>
+                            <option value="-1"><fmt:message key="i18n.newSection"/></option>
                             <c:forEach items="${sections}" var="section">
                                 <option value="${fn:escapeXml(section.id)}">${fn:escapeXml(section.name)}</option>
                             </c:forEach>
                         </select>
-                        <label><fmt:message key="i18n.sections" /></label>
+                        <label><fmt:message key="i18n.sections"/></label>
                     </div>
                     <div class="input-field col s12 m6">
                         <select name="size" id="add-widget-size-dropdown">
-                            <option value="small" selected="selected"><fmt:message key="i18n.small" /></option>
-                            <option value="medium"><fmt:message key="i18n.medium" /></option>
-                            <option value="large"><fmt:message key="i18n.large" /></option>
+                            <option value="small" selected="selected"><fmt:message key="i18n.small"/></option>
+                            <option value="medium"><fmt:message key="i18n.medium"/></option>
+                            <option value="large"><fmt:message key="i18n.large"/></option>
                         </select>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <a id="btn-add-widget" class="modal-close waves-effect waves-green btn-flat"><fmt:message key="i18n.ok" /></a>
+                <a id="btn-add-widget" class="modal-close waves-effect waves-green btn-flat"><fmt:message
+                        key="i18n.ok"/></a>
             </div>
         </div>
         <div id="dialog-add-comment" class="modal">
             <div class="modal-content">
                 <div class="row">
-                    <h4><fmt:message key="i18n.addComment" /></h4>
+                    <h4><fmt:message key="i18n.addComment"/></h4>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m12" style="margin-top: 0">
@@ -230,7 +233,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a id="btn-submit-comment" class="modal-close waves-effect waves-green btn-flat"><fmt:message key="i18n.ok" /></a>
+                <a id="btn-submit-comment" class="modal-close waves-effect waves-green btn-flat"><fmt:message
+                        key="i18n.ok"/></a>
             </div>
         </div>
     </body>

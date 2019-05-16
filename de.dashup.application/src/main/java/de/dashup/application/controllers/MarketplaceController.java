@@ -52,10 +52,10 @@ public class MarketplaceController {
                             @RequestParam("rating") int rating) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            boolean success = DashupService.getInstance().addRating(user,title,text,rating,widgetId);
+            boolean success = DashupService.getInstance().addRating(user, title, text, rating, widgetId);
             if (success) {
                 return "redirect:/marketplace/detailView/" + widgetId + "#addedRating";
-            }else{
+            } else {
                 return "redirect:/marketplace/detailView/" + widgetId + "#faieldToAddRating";
             }
         }
@@ -66,14 +66,14 @@ public class MarketplaceController {
     public String addWidget(@CookieValue(name = "token", required = false) String token, HttpServletRequest request,
                             @PathVariable(value = "widgetId") int widgetId,
                             @RequestParam("sectionId") int sectionId,
-                            @RequestParam("widgetSize") String widgetSize) throws SQLException{
+                            @RequestParam("widgetSize") String widgetSize) throws SQLException {
 
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            boolean success = DashupService.getInstance().addWidget(user, widgetId,sectionId,widgetSize);
+            boolean success = DashupService.getInstance().addWidget(user, widgetId, sectionId, widgetSize);
             if (success) {
                 return "redirect:/marketplace/detailView/" + widgetId + "#addedWidget";
-            }else{
+            } else {
                 return "redirect:/marketplace/detailView/" + widgetId + "#faieldToAddWidget";
             }
         }

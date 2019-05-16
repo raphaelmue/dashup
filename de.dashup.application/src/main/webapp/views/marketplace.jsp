@@ -13,7 +13,7 @@
             <div class="nav-wrapper">
                 <div class="col s12">
                     <a href="${pageContext.request.contextPath}/" class="breadcrumb">dashup</a>
-                    <a href="#" class="breadcrumb"><fmt:message key="i18n.marketplace" /></a>
+                    <a href="#" class="breadcrumb"><fmt:message key="i18n.marketplace"/></a>
                 </div>
             </div>
         </nav>
@@ -22,19 +22,20 @@
                 <div class="col m4 offset-m4 s8 offset-s1">
                     <div class="input-field">
                         <input id="text-field-login-email" name="email" type="text" class="validate">
-                        <label for="text-field-login-email"><fmt:message key="i18n.enterSearchterm" /></label>
+                        <label for="text-field-login-email"><fmt:message key="i18n.enterSearchterm"/></label>
                     </div>
                 </div>
                 <div class="col m2 s2" style="margin-top: 18px">
-                    <button id="btn_start_search_marketplace" class="btn waves-effect waves-light" type="submit" name="search">
-                        <fmt:message key="i18n.go" />
+                    <button id="btn_start_search_marketplace" class="btn waves-effect waves-light" type="submit"
+                            name="search">
+                        <fmt:message key="i18n.go"/>
                     </button>
                 </div>
             </div>
         </form>
         <div class="row">
             <div class="col m6 offset-m3 s10 offset-s1">
-                <h3><fmt:message key="i18n.featured" /></h3>
+                <h3><fmt:message key="i18n.featured"/></h3>
                 <hr/>
             </div>
         </div>
@@ -62,7 +63,7 @@
         </div>
         <div class="row">
             <div class="col m6 offset-m3 s10 offset-s1">
-                <h3><fmt:message key="i18n.mostPopular" /></h3>
+                <h3><fmt:message key="i18n.mostPopular"/></h3>
                 <hr/>
             </div>
         </div>
@@ -100,7 +101,7 @@
         </div>
         <div class="row">
             <div class="col m6 offset-m3 s10 offset-s1">
-                <h3><fmt:message key="i18n.bestRating" /></h3>
+                <h3><fmt:message key="i18n.bestRating"/></h3>
                 <hr/>
             </div>
         </div>
@@ -112,14 +113,14 @@
                             <div class="card horizontal" style="height: 230px">
                                 <div class="card-stacked">
                                     <div class="card-content">
-                                       <div class="row">
-                                           <i class="fas fa-cloud fa-3x"></i>
-                                           <h5 style="display: inline">${fn:escapeXml(panel.name)}</h5>
-                                       </div>
-                                        ${fn:escapeXml(panel.shortDescription)}
+                                        <div class="row">
+                                            <i class="fas fa-cloud fa-3x"></i>
+                                            <h5 style="display: inline">${fn:escapeXml(panel.name)}</h5>
+                                        </div>
+                                            ${fn:escapeXml(panel.shortDescription)}
                                     </div>
                                     <div class="card-action">
-                                        <a href="/marketplace/detailView/${panel.id}"><fmt:message key="i18n.showMore" /></a>
+                                        <a href="/marketplace/detailView/${panel.id}"><fmt:message key="i18n.showMore"/></a>
                                     </div>
                                 </div>
                             </div>
