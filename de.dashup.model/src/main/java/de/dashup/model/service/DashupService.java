@@ -190,7 +190,7 @@ public class DashupService {
 
     public boolean addWidget(User user, int widgetId, int sectionId, String widgetSize) throws SQLException{
         Section sectionToAddTo = null;
-        user = this.getSectionsAndPanels(user);
+        this.getSectionsAndPanels(user);
         if (sectionId > 0) {
             for (Section section : user.getSections()) {
                 if (section.getId() == sectionId) {
