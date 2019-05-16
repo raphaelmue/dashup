@@ -66,11 +66,12 @@ public class MarketplaceController {
     @RequestMapping("/detailView/{widgetId}/addWidget")
     public String addWidget(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request,
                             @PathVariable(value = "widgetId") int widgetId,
-                            @RequestParam("sectionId") int sectionId) throws SQLException{
+                            @RequestParam("sectionId") int sectionId,
+                            @RequestParam("widgetSize") String widgetSize) throws SQLException{
 
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            boolean success = DashupService.getInstance().addWidget(user, widgetId,sectionId);
+            boolean success = DashupService.getInstance().addWidget(user, widgetId,sectionId,widgetSize);
             if (success) {
                 return "redirect:/marketplace/detailView/" + widgetId + "#addedWidget";
             }else{

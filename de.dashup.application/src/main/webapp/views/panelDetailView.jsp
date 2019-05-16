@@ -161,19 +161,26 @@
             <div class="modal-content">
                 <div class="row">
                     <h4><fmt:message key="i18n.addPanelToDashup" /></h4>
-                    <div class="input-field col s12">
-                        <select id="language-dropdown">
-                            <option value="default"><fmt:message key="i18n.newSection" /></option>
+                    <div class="input-field col s12 m6">
+                        <select id="section-dropdown">
+                            <option value="-1"><fmt:message key="i18n.newSection" /></option>
                             <c:forEach items="${sections}" var="section">
                                 <option value="${fn:escapeXml(section.id)}">${fn:escapeXml(section.name)}</option>
                             </c:forEach>
                         </select>
                         <label><fmt:message key="i18n.sections" /></label>
                     </div>
+                    <div class="input-field col s12 m6">
+                        <select name="size" id="add-widget-size-dropdown">
+                            <option value="small" selected="selected"><fmt:message key="i18n.small" /></option>
+                            <option value="medium"><fmt:message key="i18n.medium" /></option>
+                            <option value="large"><fmt:message key="i18n.large" /></option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <a id="btn-submit-section-to-add-to" class="modal-close waves-effect waves-green btn-flat"><fmt:message key="i18n.ok" /></a>
+                <a id="btn-add-widget" class="modal-close waves-effect waves-green btn-flat"><fmt:message key="i18n.ok" /></a>
             </div>
         </div>
         <div id="dialog-add-comment" class="modal">
@@ -297,6 +304,15 @@
                         rating: Math.round(currentRatingPercentage),
                     });
                 }
+            });
+            //add widget to dashup
+            $('#btn-add-widget').on('click',function () {
+                let sectionId = $('#section-dropdown').val();
+                let widgetSize = $('#add-widget-size-dropdown').val();
+                    PostRequest.getInstance().make("marketplace/detailView/${fn:escapeXml(widget.id)}/addWidget",{
+                        sectionId: sectionId,
+                        widgetSize: widgetSize,
+                    });
             });
         });
 

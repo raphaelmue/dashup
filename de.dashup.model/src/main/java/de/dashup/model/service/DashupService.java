@@ -116,12 +116,12 @@ public class DashupService {
 
     //-------------- Marketplace --------------\\
     public ArrayList<String> getTagsByPanelId(int panelId) throws SQLException {
-        Map<String,Object> whereParameters = new HashMap<>();
-        Map<String,String> onParameters = new HashMap<>();
+        Map<String, Object> whereParameters = new HashMap<>();
+        Map<String, String> onParameters = new HashMap<>();
         ArrayList<String> returningValue = new ArrayList<>();
-        whereParameters.put("panel_id",panelId);
-        onParameters.put("tag_id","id");
-        JSONArray databaseResult = this.database.get(Database.Table.PANELS_TAGS,Database.Table.TAGS,onParameters,whereParameters);
+        whereParameters.put("panel_id", panelId);
+        onParameters.put("tag_id", "id");
+        JSONArray databaseResult = this.database.get(Database.Table.PANELS_TAGS, Database.Table.TAGS, onParameters, whereParameters);
         for (int i = 0; i < databaseResult.length(); i++) {
             returningValue.add(databaseResult.getJSONObject(i).getString("text"));
         }
@@ -130,11 +130,11 @@ public class DashupService {
 
     public ArrayList<Rating> getRatingsByWidgetID(int widgetId) throws SQLException {
         ArrayList<Rating> returningValue = new ArrayList<>();
-        Map<String,String> onParameters = new HashMap<>();
-        Map<String,Object> whereParameters = new HashMap<>();
-        onParameters.put("user_id","id");
-        whereParameters.put("panel_id",widgetId);
-        List<? extends DatabaseObject> databaseResult = database.getObject(Database.Table.RATINGS,Database.Table.USERS,Rating.class,onParameters,whereParameters);
+        Map<String, String> onParameters = new HashMap<>();
+        Map<String, Object> whereParameters = new HashMap<>();
+        onParameters.put("user_id", "id");
+        whereParameters.put("panel_id", widgetId);
+        List<? extends DatabaseObject> databaseResult = database.getObject(Database.Table.RATINGS, Database.Table.USERS, Rating.class, onParameters, whereParameters);
         for (DatabaseObject databaseObject : databaseResult) {
             Rating rating = (Rating) databaseObject;
             returningValue.add(rating);
@@ -142,16 +142,16 @@ public class DashupService {
         return returningValue;
     }
 
-    public ArrayList<Widget> getBestRatedWidgets() throws SQLException{
+    public ArrayList<Widget> getBestRatedWidgets() throws SQLException {
         ArrayList<Widget> returningValue = new ArrayList<>();
-        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, new HashMap<>(),"avg_of_ratings DESC");
-        if (result != null && result.size()>=4) {
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, new HashMap<>(), "avg_of_ratings DESC");
+        if (result != null && result.size() >= 4) {
             for (int i = 0; i < 4; i++) {
                 Widget widget = (Widget) new Widget().fromDatabaseObject(result.get(i));
                 widget.setShortDescription(this.shortenShortDescOfPanel(widget.getShortDescription()));
                 returningValue.add(widget);
             }
-        }else {
+        } else {
             for (DatabaseObject databaseObject : result) {
                 Widget widget = (Widget) new Widget().fromDatabaseObject(databaseObject);
                 widget.setShortDescription(this.shortenShortDescOfPanel(widget.getShortDescription()));
@@ -161,34 +161,60 @@ public class DashupService {
         return returningValue;
     }
 
-    private String shortenShortDescOfPanel(String shortDescr){
-        if (shortDescr.length()>=100){
-            for (int charPosition = 99; charPosition>0;charPosition--){
-                if (shortDescr.charAt(charPosition)== ' '){
-                    return shortDescr.substring(0,charPosition) + "...";
+    private String shortenShortDescOfPanel(String shortDescr) {
+        if (shortDescr.length() >= 100) {
+            for (int charPosition = 99; charPosition > 0; charPosition--) {
+                if (shortDescr.charAt(charPosition) == ' ') {
+                    return shortDescr.substring(0, charPosition) + "...";
                 }
             }
         }
         return shortDescr;
     }
 
-    public boolean addRating(User user, String title, String text, int rating, int widgetId){
-        Map<String,Object> insertValue = new HashMap<>();
-        insertValue.put("user_id",user.getId());
-        insertValue.put("panel_id",widgetId);
-        insertValue.put("rating",rating);
-        insertValue.put("title",title);
+    public boolean addRating(User user, String title, String text, int rating, int widgetId) {
+        Map<String, Object> insertValue = new HashMap<>();
+        insertValue.put("user_id", user.getId());
+        insertValue.put("panel_id", widgetId);
+        insertValue.put("rating", rating);
+        insertValue.put("title", title);
         insertValue.put("text", text);
         insertValue.put("changed_on", new Date());
         try {
-            database.insert(Database.Table.RATINGS,insertValue);
-        }catch (SQLException e){
+            database.insert(Database.Table.RATINGS, insertValue);
+        } catch (SQLException e) {
             return false;
         }
         return true;
     }
 
-    public boolean addWidget(User user, int widgetId, int sectionId){
+    public boolean addWidget(User user, int widgetId, int sectionId, String widgetSize) throws SQLException{
+        Section sectionToAddTo = null;
+        user = this.getSectionsAndPanels(user);
+        if (sectionId > 0) {
+            for (Section section : user.getSections()) {
+                if (section.getId() == sectionId) {
+                    sectionToAddTo = section;
+                    break;
+                }
+            }
+            if (sectionToAddTo == null) {
+                return false;
+            }
+            try {
+                this.addWidgetToSection(this.getPanelById(widgetId), sectionToAddTo, widgetSize);
+            } catch (SQLException e) {
+                return false;
+            }
+        } else {
+            try {
+                sectionToAddTo = new Section(0, this.getPanelById(widgetId).getName(), user.getSections().size());
+                sectionToAddTo.setId(this.addNewSection(user, sectionToAddTo));
+                this.addWidgetToSection(this.getPanelById(widgetId), sectionToAddTo, widgetSize);
+            } catch (SQLException e) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -425,7 +451,7 @@ public class DashupService {
         return database.getLatestId(Database.Table.USER_SECTIONS);
     }
 
-    private void addWidgetToSection(Widget widget,  Section section, String size) throws SQLException {
+    private void addWidgetToSection(Widget widget, Section section, String size) throws SQLException {
         Map<String, Object> values = new HashMap<>();
         values.put("id", section.getId());
         values.put("panel_id", widget.getId());
