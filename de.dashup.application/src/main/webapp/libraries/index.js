@@ -5,6 +5,8 @@ $(document).ready(function () {
     $(".collapsible").collapsible();
     $("select").formSelect();
     $(".modal").modal();
+    M.textareaAutoResize($("textarea"));
+
 
     let undoBtn = $(".undo-button");
     if (undoBtn.length > 0) {

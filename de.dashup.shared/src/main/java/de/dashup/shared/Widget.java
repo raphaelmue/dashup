@@ -7,13 +7,15 @@ import org.jsoup.nodes.Element;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Widget extends DatabaseWidget implements Comparable<Widget> {
 
     public enum Size {
         SMALL("small", "m2 s6"),
         MEDIUM("medium", "m4 s12"),
-        LARGE("large", "m5 s12");
+        LARGE("large", "m6 s12");
 
         private final String name, styleClass;
 
@@ -43,11 +45,41 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
         public String toString() {
             return name;
         }
+
+    }
+
+    public enum Category {
+        PRODUCTIVITY("productivity"),
+        LIFESTYLE("lifestyle"),
+        TIME("time"),
+        FINANCE("finance"),
+        PLANNING("planning");
+
+        private final String name;
+
+        Category(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public static Category getCategoryByName(String name) {
+            for (Category category : values()) {
+                if (category.getName().equals(name)) {
+                    return category;
+                }
+            }
+            return null;
+        }
+
     }
 
     private Size size;
     @SerializedName("widget_index")
     private int index;
+    private final Set<Tag> tags = new HashSet<>();
 
     private final Map<String, Property> properties = new HashMap<>();
 
@@ -61,14 +93,17 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
     }
 
     @Override
-    public DatabaseObject fromDatabaseObject(DatabaseObject databaseObject) {
+    public Widget fromDatabaseObject(DatabaseObject databaseObject) {
         if (databaseObject instanceof DatabaseWidget) {
             this.setId(databaseObject.getId());
             this.setName(((DatabaseWidget) databaseObject).getName());
             this.setDescription(((DatabaseWidget) databaseObject).getDescription());
+            this.setShortDescription(((DatabaseWidget) databaseObject).getShortDescription());
             this.setCodeSmall(((DatabaseWidget) databaseObject).getCodeSmall());
             this.setCodeMedium(((DatabaseWidget) databaseObject).getCodeMedium());
             this.setCodeLarge(((DatabaseWidget) databaseObject).getCodeLarge());
+            this.setVisible(((DatabaseWidget) databaseObject).getIsVisible());
+            this.setCategory(((DatabaseWidget) databaseObject).getCategory());
         }
         return this;
     }
@@ -93,6 +128,22 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
                 return this.getCodeMedium();
             case LARGE:
                 return this.getCodeLarge();
+            default:
+                throw new IllegalArgumentException("No size is defined");
+        }
+    }
+
+    public void setCode(String code, Size size) {
+        switch (size) {
+            case SMALL:
+                this.setCodeSmall(code);
+                break;
+            case MEDIUM:
+                this.setCodeMedium(code);
+                break;
+            case LARGE:
+                this.setCodeLarge(code);
+                break;
             default:
                 throw new IllegalArgumentException("No size is defined");
         }
@@ -132,9 +183,20 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
         this.index = index;
     }
 
+    public Category getCategoryObject() {
+        return Category.getCategoryByName(this.getCategory());
+    }
+
+    public void setCategory(Category category) {
+        this.setCategory(category.getName());
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
     @Override
     public int compareTo(Widget widgetToCompare) {
         return Integer.compare(this.getIndex(), widgetToCompare.getIndex());
     }
-
 }
