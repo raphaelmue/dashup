@@ -75,6 +75,7 @@
                             <div class="col s12">
                                 <ul class="tabs" style="margin: 0">
                                     <li class="tab"><a class="active" href="#code"><fmt:message key="i18n.code" /></a></li>
+                                    <li class="tab"><a href="#properties"><fmt:message key="i18n.properties" /></a></li>
                                     <li class="tab"><a href="#basicInformation"><fmt:message key="i18n.basicInformation" /></a></li>
                                 </ul>
                             </div>
@@ -130,6 +131,58 @@
                                             <i class="fas fa-times"></i>
                                             <fmt:message key="i18n.undo"/>
                                         </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="properties" class="col s12">
+                                <div class="row">
+                                    <h3 class="col"><fmt:message key="i18n.basicInformation"/></h3>
+                                </div>
+                                <div class="properties-container">
+                                    <c:forEach items="${current.properties}" var="propertyEntry">
+                                        <div class="row property-row" data-property-id="${propertyEntry.value.id}">
+                                            <div class="col input-field s3 m3">
+                                                <input id="text-field-property-name" type="text" class="validate"
+                                                       value="${propertyEntry.value.name}"/>
+                                                <label for="text-field-property-name"><fmt:message key="i18n.propertyName"/></label>
+                                            </div>
+                                            <div class="col input-field s3 m3">
+                                                <input id="text-field-property" type="text" class="validate"
+                                                       value="${propertyEntry.value.property}"/>
+                                                <label for="text-field-property-name"><fmt:message key="i18n.property"/></label>
+                                            </div>
+                                            <div class="col input-field s2 m2">
+                                                <input id="text-field-property-type" type="text" class="validate"
+                                                       value="${propertyEntry.value.type}" />
+                                                <label for="text-field-property-name"><fmt:message key="i18n.propertyType"/></label>
+                                            </div>
+                                            <div class="col input-field s3 m3">
+                                                <input id="text-field-property-default-value" type="text" class="validate"
+                                                       value="${propertyEntry.value.defaultValue}" />
+                                                <label for="text-field-property-name"><fmt:message key="i18n.defaultValue"/></label>
+                                            </div>
+                                            <div class="col input-field s1 m1">
+                                                <a id="btn-delete-property" class="waves-effect btn-flat">
+                                                    <i class="fas fa-times" style="color: var(--color-error)"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                    <div class="row">
+                                        <div class="col s12 m12">
+                                            <button id="btn-update-properties" class="btn waves-light">
+                                                <i class="fas fa-check"></i>
+                                                <fmt:message key="i18n.save" />
+                                            </button>
+                                            <button id="btn-add-property" class="btn-flat waves-light">
+                                                <i class="fas fa-plus"></i>
+                                                <fmt:message key="i18n.add" />
+                                            </button>
+                                            <a id="btn-undo-properties" class="btn-flat undo-button waves-effect">
+                                                <i class="fas fa-times"></i>
+                                                <fmt:message key="i18n.undo"/>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -282,6 +335,8 @@
             {name: "${tag.text}", id: ${tag.id}},
             </c:forEach>
         ];
+
+        let propertiesToDelete = [];
 
         $( document ).ready(function () {
             $("#nav-item-workbench").parent().addClass("active");
@@ -454,6 +509,39 @@
                 parameters["code_" + size] = encodeURIComponent($("#textarea-code-" + size).val())
                 PostRequest.getInstance().make("/workbench/" + isPublished + "/${fn:escapeXml(current.id)}/changeCode", parameters);
             });
+
+            $("#btn-add-property").on("click", function () {
+                let row = $(".properties-container .property-row:last-child").clone();
+                row.find("input").val("");
+                row.attr("data-properties-id", "-1");
+                $(".properties-container .property-row:first-child").before(row.html());
+            });
+
+            $("#btn-delete-property").on("click", function () {
+                let row = $(this).parent().parent(),
+                    propertiesId = row.attr("data-property-id");
+                if (propertiesId > 0) {
+                    propertiesToDelete.push();
+                }
+                row.remove();
+            });
+
+            $("#btn-update-properties").on("click", function () {
+                let properties = [];
+                $(".properties-container .property-row").each(function () {
+                    properties.push({
+                        id: $(this).attr("data-property-id"),
+                        property: $(this).find("#text-field-property").val(),
+                        name: $(this).find("#text-field-property-name").val(),
+                        type: $(this).find("#text-field-property-type").val(),
+                        defaultValue: $(this).find("#text-field-property-default-value").val()
+                    });
+                });
+                PostRequest.getInstance().make("/workbench/" + isPublished + "/${fn:escapeXml(current.id)}/updateProperties", {
+                    properties: properties,
+                    propertiesToDelete: propertiesToDelete
+                });
+            })
         });
 
         function updatePreviewContainer(html, size) {
@@ -483,7 +571,7 @@
         function parseTags(tags, editedTags) {
             let result = [];
             editedTags.forEach(function (chipTag) {
-                let tag = isTagNameValid(chipTag.tag)
+                let tag = isTagNameValid(chipTag.tag);
                 if (tag !== false) {
                     result.push(tag);
                 }

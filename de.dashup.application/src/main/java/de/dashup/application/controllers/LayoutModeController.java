@@ -76,10 +76,10 @@ public class LayoutModeController {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 widget.getProperties().put(jsonObject.getString("property"),
                         new Property(jsonObject.getInt("id"), jsonObject.getString("property"),
-                                null, null, jsonObject.getString("value")));
+                                null, null, null, jsonObject.getString("value")));
             }
 
-            DashupService.getInstance().updateWidgetProperties(user, widget);
+            DashupService.getInstance().updateUsersWidgetProperties(user, widget);
             return "redirect:/layoutMode/";
         }
         return "redirect:/login";

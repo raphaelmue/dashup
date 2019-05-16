@@ -7,6 +7,7 @@ import de.dashup.model.exceptions.MissingInformationException;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.*;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -274,5 +275,28 @@ public class WorkbenchController {
             return "redirect:/workbench/#publishedDraft";
         }
         return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/draft/{draftId}/updateProperties", method = RequestMethod.POST)
+    public String handleUpdateProperties(@CookieValue(name = "token", required = false) String token,
+                                         HttpServletRequest request,
+                                         @PathVariable(value = "draftId") int draftId,
+                                         @RequestParam(value = "properties") String jsonProperties) throws SQLException, UnsupportedEncodingException {
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            Draft draft = new Draft();
+            draft.setId(draftId);
+            JSONArray jsonArray = new JSONArray(URLDecoder.decode(jsonProperties, StandardCharsets.UTF_8.name()));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                draft.getProperties().put(jsonObject.getString("property"),
+                        new Property(jsonObject.getInt("id"), jsonObject.getString("property"),
+                                null, jsonObject.getString("type"), jsonObject.getString("defaultValue"), null));
+            }
+            DashupService.getInstance().updateWidgetProperties(draft);
+            return "redirect:/workbench/draft/" + draftId + "#changedProperties";
+        }
+        return "redirect:/login";
+
     }
 }
