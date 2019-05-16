@@ -21,9 +21,8 @@ public class MarketplaceController {
 
     @RequestMapping("/")
     public String marketplace(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
-        return ControllerHelper.defaultMapping(token, request, model, "marketplace", user -> {
-            model.addAttribute("bestRated", DashupService.getInstance().getBestRatedWidgets());
-        });
+        return ControllerHelper.defaultMapping(token, request, model, "marketplace", user ->
+                model.addAttribute("bestRated", DashupService.getInstance().getBestRatedWidgets()));
     }
 
     @RequestMapping("/search")
@@ -46,7 +45,7 @@ public class MarketplaceController {
     }
 
     @RequestMapping("/detailView/{widgetId}/addRating")
-    public String addRating(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request,
+    public String addRating(@CookieValue(name = "token", required = false) String token, HttpServletRequest request,
                             @PathVariable(value = "widgetId") int widgetId,
                             @RequestParam("title") String title,
                             @RequestParam("text") String text,
@@ -64,7 +63,7 @@ public class MarketplaceController {
     }
 
     @RequestMapping("/detailView/{widgetId}/addWidget")
-    public String addWidget(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request,
+    public String addWidget(@CookieValue(name = "token", required = false) String token, HttpServletRequest request,
                             @PathVariable(value = "widgetId") int widgetId,
                             @RequestParam("sectionId") int sectionId,
                             @RequestParam("widgetSize") String widgetSize) throws SQLException{

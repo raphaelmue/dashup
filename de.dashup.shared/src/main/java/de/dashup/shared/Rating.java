@@ -23,30 +23,6 @@ public class Rating implements DatabaseObject {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getPanelId() {
-        return panelId;
-    }
-
-    public void setPanelId(int panelId) {
-        this.panelId = panelId;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -71,24 +47,9 @@ public class Rating implements DatabaseObject {
         this.userName = userName;
     }
 
-    public String getUserSurname() {
-        return userSurname;
-    }
-
-    public void setUserSurname(String userSurname) {
-        this.userSurname = userSurname;
-    }
-
     @Override
     public int getId() {
         return id;
     }
 
-    public String getChangeDate() {
-        return changeDate;
-    }
-
-    public void setChangeDate(String changeDate) {
-        this.changeDate = changeDate;
-    }
 }

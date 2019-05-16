@@ -151,7 +151,7 @@ public class DashupService {
                 widget.setShortDescription(this.shortenShortDescOfPanel(widget.getShortDescription()));
                 returningValue.add(widget);
             }
-        } else {
+        } else if (result != null) {
             for (DatabaseObject databaseObject : result) {
                 Widget widget = (Widget) new Widget().fromDatabaseObject(databaseObject);
                 widget.setShortDescription(this.shortenShortDescOfPanel(widget.getShortDescription()));
@@ -188,7 +188,7 @@ public class DashupService {
         return true;
     }
 
-    public boolean addWidget(User user, int widgetId, int sectionId, String widgetSize) throws SQLException{
+    public boolean addWidget(User user, int widgetId, int sectionId, String widgetSize) throws SQLException {
         Section sectionToAddTo = null;
         this.getSectionsAndPanels(user);
         if (sectionId > 0) {
