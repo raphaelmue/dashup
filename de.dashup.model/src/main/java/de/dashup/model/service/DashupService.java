@@ -90,6 +90,7 @@ public class DashupService {
                         Widget widget = this.getPanelById(innerResult.getJSONObject(i).getInt("panel_id"));
                         widget.setSize(Widget.Size.getSizeByName(innerResult.getJSONObject(i).getString("size")));
                         widget.setIndex(innerResult.getJSONObject(i).getInt("widget_index"));
+                        this.getPropertiesOfWidget(user, widget);
                         widgets.add(widget);
                     }
                     Collections.sort(widgets);
@@ -101,6 +102,35 @@ public class DashupService {
         Collections.sort(sections);
         user.setSections(sections);
         return user;
+    }
+
+    private void getPropertiesOfWidget(User user, Widget widget) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("widget_id", widget.getId());
+
+        boolean propertiesFound = false;
+        JSONArray jsonDefaultProperties = this.database.get(Database.Table.PROPERTIES, whereParameters);
+        for (int i = 0; i < jsonDefaultProperties.length(); i++) {
+            JSONObject jsonObject = jsonDefaultProperties.getJSONObject(i);
+            widget.getProperties().put(jsonObject.getString("property"),
+                    new Property(jsonObject.getInt("id"),
+                            jsonObject.getString("property"),
+                            jsonObject.getString("name"),
+                            jsonObject.getString("default_value"), null));
+            propertiesFound = true;
+        }
+
+        if (propertiesFound) {
+            whereParameters.clear();
+            whereParameters.put("user_id", user.getId());
+            for (Map.Entry<String, Property> propertyEntry : widget.getProperties().entrySet()) {
+                whereParameters.put("property_id", propertyEntry.getValue().getId());
+                JSONArray jsonProperty = this.database.get(Database.Table.USERS_PROPERTIES, whereParameters);
+                if (jsonProperty.length() > 0) {
+                    propertyEntry.getValue().setValue(jsonProperty.getJSONObject(0).getString("value"));
+                }
+            }
+        }
     }
 
     public Widget getPanelById(int id) throws SQLException {

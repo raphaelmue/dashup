@@ -1,8 +1,14 @@
 package de.dashup.shared;
 
 import com.google.gson.annotations.SerializedName;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
-public class Widget extends DatabaseWidget implements Comparable<Widget>{
+import java.util.HashMap;
+import java.util.Map;
+
+public class Widget extends DatabaseWidget implements Comparable<Widget> {
 
     public enum Size {
         SMALL("small", "m2 s6"),
@@ -42,6 +48,8 @@ public class Widget extends DatabaseWidget implements Comparable<Widget>{
     private Size size;
     @SerializedName("widget_index")
     private int index;
+
+    private final Map<String, Property> properties = new HashMap<>();
 
     public Widget() {
     }
@@ -91,11 +99,29 @@ public class Widget extends DatabaseWidget implements Comparable<Widget>{
     }
 
     public String getCodeWithWrapper() {
-        return "<div class=\"card col " + this.size.getStyleClass() + "\">" +
-                    "<div class=\"card-content\">" +
-                        this.getCode() +
-                    "</div>" +
-                "</div>";
+        StringBuilder html = new StringBuilder()
+                .append("<div class=\"card col ")
+                .append(this.size.getStyleClass())
+                .append("\">")
+                .append("<div class=\"card-content\">");
+        if (this.getProperties().size() > 0) {
+            Document document = Jsoup.parse(this.getCode());
+            for (Map.Entry<String, Property> propertyEntry : this.getProperties().entrySet()) {
+                String[] propertyName = propertyEntry.getValue().getProperty().split("[.]");
+                Element element = document.getElementsByAttributeValue("name", propertyName[0]).first();
+                element.attr(propertyName[1], propertyEntry.getValue().getValue());
+            }
+            html.append(document.html());
+        } else {
+            html.append(this.getCode());
+        }
+        html.append("</div>")
+                .append("</div>");
+        return html.toString();
+    }
+
+    public Map<String, Property> getProperties() {
+        return properties;
     }
 
     public void setSize(Size size) {
