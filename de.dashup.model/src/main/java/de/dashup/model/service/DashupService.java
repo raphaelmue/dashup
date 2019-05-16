@@ -133,6 +133,24 @@ public class DashupService {
         }
     }
 
+    public void updateWidgetProperties(User user, Widget widget) throws SQLException {
+        for (Map.Entry<String, Property> propertyEntry : widget.getProperties().entrySet()) {
+            Map<String, Object> whereParameters = new HashMap<>();
+            whereParameters.put("user_id", user.getId());
+            whereParameters.put("property_id", propertyEntry.getValue().getId());
+
+            JSONArray result = this.database.get(Database.Table.USERS_PROPERTIES, whereParameters);
+            Map<String, Object> values = new HashMap<>();
+            values.put("value", propertyEntry.getValue().getValue());
+            if (result.length() > 0) {
+                this.database.update(Database.Table.USERS_PROPERTIES, whereParameters, values);
+            } else {
+                values.putAll(whereParameters);
+                this.database.insert(Database.Table.USERS_PROPERTIES, values);
+            }
+        }
+    }
+
     public Widget getPanelById(int id) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", id);

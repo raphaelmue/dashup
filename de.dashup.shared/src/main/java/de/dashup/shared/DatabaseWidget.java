@@ -68,7 +68,7 @@ public abstract class DatabaseWidget implements DatabaseObject {
         return averageRating;
     }
 
-    void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
