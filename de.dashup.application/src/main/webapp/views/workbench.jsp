@@ -288,6 +288,12 @@
 
             let toastOptions = {};
             switch (getAnchor()) {
+                case "undoComplete":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.undoComplete" />",
+                        classes: "success"
+                    };
+                    break;
                 case "deletedDraft":
                     toastOptions = {
                         html: "<fmt:message key="i18n.successDeletedDraft" />",
@@ -439,19 +445,27 @@
             });
 
             $("#btn-save-draft-information").on("click", function () {
-                PostRequest.getInstance().make("workbench/" + isPublished + "/${fn:escapeXml(current.id)}/changeInformation", {
-                    category: $("#category-dropdown").val(),
-                    draftName: $("#text-field-draft-name").val(),
-                    shortDescription: $("#textarea-short-description").val(),
-                    description: $("#textarea-description").val(),
-                    tags: encodeURIComponent(JSON.stringify(parseTags(tags, tagsChips.getData())))
-                });
+                let shortDescription = $("#textarea-short-description").val();
+                if (shortDescription.length < 256) {
+                    PostRequest.getInstance().make("workbench/" + isPublished + "/${fn:escapeXml(current.id)}/changeInformation", {
+                        category: $("#category-dropdown").val(),
+                        draftName: $("#text-field-draft-name").val(),
+                        shortDescription: shortDescription,
+                        description: $("#textarea-description").val(),
+                        tags: encodeURIComponent(JSON.stringify(parseTags(tags, tagsChips.getData())))
+                    });
+                } else {
+                    M.toast({
+                        html: "<fmt:message key="i18n.errorSortDescriptionTooLong"/>",
+                        classes: "error"
+                    });
+                }
             });
 
             $("#btn-save-code").on("click", function () {
                 let parameters = {},
                     size = $("#size-dropdown").val();
-                parameters["code_" + size] = encodeURIComponent($("#textarea-code-" + size).val())
+                parameters["code_" + size] = encodeURIComponent($("#textarea-code-" + size).val());
                 PostRequest.getInstance().make("/workbench/" + isPublished + "/${fn:escapeXml(current.id)}/changeCode", parameters);
             });
         });
