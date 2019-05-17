@@ -100,8 +100,13 @@ public class WorkbenchController {
                                     @PathVariable(value = "draftId") int draftId) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            DashupService.getInstance().deleteDraft(draftId);
-            return "redirect:/workbench/#deletedDraft";
+            Draft draft = (Draft) DashupService.getInstance().getWidgetOfUser(user, draftId);
+            if (draft != null) {
+                DashupService.getInstance().deleteDraft(draftId);
+                return "redirect:/workbench/#deletedDraft";
+            } else {
+                return "redirect:/workbench/";
+            }
         }
         return "redirect:/login";
     }
@@ -112,8 +117,13 @@ public class WorkbenchController {
                                      @PathVariable(value = "publishedId") int publishedId) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            DashupService.getInstance().deleteDraft(publishedId);
-            return "redirect:/workbench/#deletedWidget";
+            Widget widget = DashupService.getInstance().getWidgetOfUser(user, publishedId);
+            if (widget != null) {
+                DashupService.getInstance().deleteDraft(widget.getId());
+                return "redirect:/workbench/#deletedDraft";
+            } else {
+                return "redirect:/workbench/";
+            }
         }
         return "redirect:/login";
     }
@@ -129,9 +139,12 @@ public class WorkbenchController {
                                                @RequestParam(value = "tags") String tagsJSON) throws SQLException, UnsupportedEncodingException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            Draft draft = new Draft();
-            updateInformation(draft, draftId, name, shortDescription, description, category, tagsJSON);
-            return "redirect:/workbench/draft/" + draftId + "#changedInformation";
+            Draft draft = (Draft) DashupService.getInstance().getWidgetOfUser(user, draftId);
+            if (draft != null) {
+                updateInformation(draft, draftId, name, shortDescription, description, category, tagsJSON);
+                return "redirect:/workbench/draft/" + draft + "#changedInformation";
+            }
+            return "redirect:/workbench/";
         }
         return "redirect:/login";
     }
@@ -147,9 +160,12 @@ public class WorkbenchController {
                                                 @RequestParam(value = "tags") String tagsJSON) throws SQLException, UnsupportedEncodingException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            Widget widget = new Widget();
-            updateInformation(widget, publishedId, name, shortDescription, description, category, tagsJSON);
-            return "redirect:/workbench/published/" + publishedId + "#changedInformation";
+            Widget widget = DashupService.getInstance().getWidgetOfUser(user, publishedId);
+            if (widget != null) {
+                updateInformation(widget, publishedId, name, shortDescription, description, category, tagsJSON);
+                return "redirect:/workbench/published/" + publishedId + "#changedInformation";
+            }
+            return "redirect:/workbench/";
         }
         return "redirect:/login";
     }
@@ -178,9 +194,12 @@ public class WorkbenchController {
                                         @RequestParam(value = "code_large", required = false) String codeLarge) throws SQLException, UnsupportedEncodingException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            Draft draft = new Draft();
-            updateCode(draftId, codeSmall, codeMedium, codeLarge, draft);
-            return "redirect:/workbench/draft/" + draftId + "#changedCode";
+            Draft draft = (Draft) DashupService.getInstance().getWidgetOfUser(user, draftId);
+            if (draft != null) {
+                updateCode(draftId, codeSmall, codeMedium, codeLarge, draft);
+                return "redirect:/workbench/draft/" + draftId + "#changedCode";
+            }
+            return "redirect:/workbench/";
         }
         return "redirect:/login";
     }
@@ -194,9 +213,12 @@ public class WorkbenchController {
                                          @RequestParam(value = "code_large", required = false) String codeLarge) throws SQLException, UnsupportedEncodingException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            Widget widget = new Widget();
-            updateCode(publishedId, codeSmall, codeMedium, codeLarge, widget);
-            return "redirect:/workbench/published/" + publishedId + "#changedCode";
+            Widget widget = DashupService.getInstance().getWidgetOfUser(user, publishedId);
+            if (widget != null) {
+                updateCode(publishedId, codeSmall, codeMedium, codeLarge, widget);
+                return "redirect:/workbench/published/" + publishedId + "#changedCode";
+            }
+            return "redirect:/workbench/";
         }
         return "redirect:/login";
     }
@@ -223,8 +245,12 @@ public class WorkbenchController {
                                  @RequestParam(value = "size") String size) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            addWidgetToDashup(user, draftId, sectionId, size);
-            return "redirect:/workbench/draft/" + draftId + "#addedWidget";
+            Draft draft = (Draft) DashupService.getInstance().getWidgetOfUser(user, draftId);
+            if (draft != null) {
+                addWidgetToDashup(user, draftId, sectionId, size);
+                return "redirect:/workbench/draft/" + draftId + "#addedWidget";
+            }
+            return "redirect:/workbench/";
         }
         return "redirect:/login";
     }
@@ -237,8 +263,12 @@ public class WorkbenchController {
                                  @RequestParam(value = "size") String size) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            addWidgetToDashup(user, publishedId, sectionId, size);
-            return "redirect:/workbench/published/" + publishedId + "#addedWidget";
+            Widget widget = DashupService.getInstance().getWidgetOfUser(user, publishedId);
+            if (widget != null) {
+                addWidgetToDashup(user, publishedId, sectionId, size);
+                return "redirect:/workbench/published/" + publishedId + "#addedWidget";
+            }
+            return "redirect:/workbench/";
         }
         return "redirect:/login";
     }

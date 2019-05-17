@@ -508,6 +508,18 @@ public class DashupService {
         return widgets;
     }
 
+    public Widget getWidgetOfUser(User user, int widgetId) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", widgetId);
+        whereParameters.put("user_id", user.getId());
+
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, Widget.class, whereParameters);
+        if (result != null && result.size() > 0) {
+            return (Widget) result.get(0);
+        }
+        return null;
+    }
+
 
     // --- TAGS --- \\
     public List<Tag> getAllTags() throws SQLException {
