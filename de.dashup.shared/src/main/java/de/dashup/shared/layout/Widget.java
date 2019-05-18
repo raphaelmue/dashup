@@ -1,6 +1,7 @@
-package de.dashup.shared;
+package de.dashup.shared.layout;
 
 import com.google.gson.annotations.SerializedName;
+import de.dashup.shared.DatabaseObject;
 
 public class Widget extends DatabaseWidget implements Comparable<Widget>{
 

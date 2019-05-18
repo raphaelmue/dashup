@@ -1,8 +1,8 @@
 package de.dashup.model.builder;
 
-import de.dashup.shared.Section;
+import de.dashup.shared.layout.Section;
 import de.dashup.shared.User;
-import de.dashup.shared.Widget;
+import de.dashup.shared.layout.Widget;
 
 public class DashupBuilder {
 

@@ -1,4 +1,6 @@
-package de.dashup.shared;
+package de.dashup.shared.layout;
+
+import de.dashup.shared.DataTransferObject;
 
 @SuppressWarnings("unused")
 public class LayoutModeWidgetDTO implements DataTransferObject {

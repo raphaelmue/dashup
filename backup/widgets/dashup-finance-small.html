@@ -26,20 +26,16 @@
     </dashup-radio-button-group>
     <dashup-button text="Add"
                    mode="add"
-                   consumers='{"financeList": ""}'
+                   storageAPI="/finance"
+                   consumers='[{"financeList": ""}]'
                    producers="amount category"
                    layout='{"row": 4, "offset": 0, "size": 5}'>
     </dashup-button>
     <dashup-button text="Del"
                    mode="delete"
-                   consumers='{"financeList": "financeList"}'
+                   storageAPI="/finance"
+                   consumers='[{"financeList": "financeList"}]'
                    producers="financeList"
                    layout='{"row": 4, "offset": 2, "size": 5}'>
-    </dashup-button>
-    <dashup-button text="Save"
-                   mode="save"
-                   producers="financeList"
-                   layout='{"row": 5, "offset": 0, "size": 12}'
-                   disabled>
     </dashup-button>
 </dashup-grid-layout>

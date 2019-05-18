@@ -3,6 +3,9 @@ package de.dashup.model.service;
 import de.dashup.model.db.Database;
 import de.dashup.model.exceptions.EmailAlreadyInUseException;
 import de.dashup.shared.*;
+import de.dashup.shared.layout.*;
+import de.dashup.shared.widgets.Entry;
+import de.dashup.shared.widgets.Todo;
 import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
 import org.json.JSONArray;
@@ -392,4 +395,29 @@ public class DashupService {
             sectionIndex++;
         }
     }
+
+    public void saveTodoWidgetState(User user, Todo todo) throws SQLException{
+        Map<String, Object> values = new HashMap<>();
+        values.put("user_id", user.getId());
+        this.database.delete(Database.Table.TODOS, values);
+        for(Entry entry: todo.getList()){
+            values.put("content", entry.getContent());
+            values.put("selected", entry.getSelected());
+            this.database.insert(Database.Table.TODOS, values);
+        }
+    }
+
+    public Todo loadTodoWidgetState(User user) throws SQLException{
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("user_id", user.getId());
+        JSONArray innerResult = this.database.get(Database.Table.TODOS, whereParameters);
+        List<Entry> entries = new ArrayList<>();
+        for(int i = 0; i < innerResult.length(); i++){
+            JSONObject result = innerResult.getJSONObject(i);
+            Entry entry = new Entry(result.getString("content"), result.getBoolean("selected"));
+            entries.add(entry);
+        }
+        return new Todo(entries);
+    }
+
 }

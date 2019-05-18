@@ -206,7 +206,7 @@ export class DashupChart extends DashupComponent {
     }
 
     getValue(){
-        return this.data;
+        return this.data ? this.data : null;
     }
 
 }

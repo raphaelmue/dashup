@@ -28,20 +28,14 @@
     </dashup-radio-button-group>
     <dashup-button text="Add"
                    mode="add"
-                   consumers='{"chart": ""}'
+                   consumers='[{"chart": ""}]'
                    producers="amount category"
-                   layout='{"row": 3, "offset": 0, "size": 3}'>
+                   layout='{"row": 3, "offset": 0, "size": 5}'>
     </dashup-button>
     <dashup-button text="Delete"
                    mode="delete"
-                   consumers='{"chart": "chart"}'
+                   consumers='[{"chart": "chart"}]'
                    producers="chart"
-                   layout='{"row": 3, "offset": 1, "size": 3}'>
-    </dashup-button>
-    <dashup-button text="Save"
-                   mode="save"
-                   producers="chart"
-                   layout='{"row": 3, "offset": 2, "size": 3}'
-                   disabled>
+                   layout='{"row": 3, "offset": 2, "size": 5}'>
     </dashup-button>
 </dashup-grid-layout>
