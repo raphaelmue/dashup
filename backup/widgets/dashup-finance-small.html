@@ -1,0 +1,45 @@
+<dashup-grid-layout>
+    <dashup-list name="financeList"
+                 layout='{"row": 1, "offset": 0, "size": 12}'
+                 items='[{"content": "Family: 300 €"}, {"content": "Investments: 150 €"}]'>
+    </dashup-list>
+    <dashup-text-input name="amount"
+                       placeholder="Amount"
+                       layout='{"row": 2, "offset": 0, "size": 12}'
+                       clear>
+    </dashup-text-input>
+    <dashup-radio-button-group name="category"
+                               layout='{"row": 3, "offset": 0, "size": 12}'>
+        <dashup-radio-button group="category"
+                             value="Family"
+                             checked>
+        </dashup-radio-button>
+        <dashup-radio-button group="category"
+                             value="Housing">
+        </dashup-radio-button>
+        <dashup-radio-button group="category"
+                             value="Meals">
+        </dashup-radio-button>
+        <dashup-radio-button group="category"
+                             value="Investments">
+        </dashup-radio-button>
+    </dashup-radio-button-group>
+    <dashup-button text="Add"
+                   mode="add"
+                   consumers='{"financeList": ""}'
+                   producers="amount category"
+                   layout='{"row": 4, "offset": 0, "size": 5}'>
+    </dashup-button>
+    <dashup-button text="Del"
+                   mode="delete"
+                   consumers='{"financeList": "financeList"}'
+                   producers="financeList"
+                   layout='{"row": 4, "offset": 2, "size": 5}'>
+    </dashup-button>
+    <dashup-button text="Save"
+                   mode="save"
+                   producers="financeList"
+                   layout='{"row": 5, "offset": 0, "size": 12}'
+                   disabled>
+    </dashup-button>
+</dashup-grid-layout>

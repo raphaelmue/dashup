@@ -4,14 +4,16 @@ export class DashupRadioButtonGroup extends DashupComponent {
 
     render() {
         return DashupComponent.html`
-            ${this.elements.sort().map((element) => DashupComponent.html`
-                <label>
-                    <input class="with-gap" name="${element.group}" 
-                           type="radio" @click="${() => this.value = `${element.value}`}" 
-                           ?checked="${element.checked}" ?disabled="${element.disabled}" />
-                    <span>${element.value}</span>
-                </label>
-            `)}
+            ${this.elements.sort().map((element) => 
+                DashupComponent.html`
+                    <label>
+                        <input class="with-gap" name="${element.group}" 
+                               type="radio" @click="${() => this.value = `${element.value}`}" 
+                               ?checked="${element.checked}" ?disabled="${element.disabled}" />
+                        <span>${element.value}</span>
+                    </label>
+                `
+             )}
         `;
     }
 

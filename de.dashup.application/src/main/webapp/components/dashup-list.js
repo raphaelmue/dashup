@@ -14,9 +14,9 @@ export class DashupList extends DashupComponent {
                 ${this.items.length ?
                     this.items.map((item) => {
                         return DashupComponent.html`
-                                            <a class="collection-item" @click="${this.selectEntry}" ?selected="${item.selected}">
-                                                ${item.content}
-                                            </a>`;
+                            <a class="collection-item" @click="${this.selectEntry}" ?selected="${item.selected}">
+                                ${item.content}
+                            </a>`;
                     }) :
                     DashupComponent.html`<a class="collection-item">No elements in the list</a>`}
             </div>
@@ -25,12 +25,12 @@ export class DashupList extends DashupComponent {
 
     static get properties() {
         return {
-            items: {type: Array, attribute: false},
+            items: {type: Array, attribute: true},
             selectable: {type: Boolean, reflect: true}
         };
     }
 
-    constructor() {
+    constructor(){
         super();
         this.items = [];
     }
@@ -50,7 +50,28 @@ export class DashupList extends DashupComponent {
     }
 
     addData(data) {
-        this.items = Array.isArray(data) ? [...this.items, ...data] : [...this.items, {content: data, selected: false}];
+        if (Array.isArray(data)) {
+            this.items = [...this.items, ...data];
+        } else if (typeof data === "object") {
+            let position = -1;
+            this.items.find((element, index) => {
+                if (element.content.split(":")[0] === data.category) {
+                    position = index;
+                    return true;
+                }
+                return false;
+            });
+            if (position >= 0) {
+                let categoryAmount = this.items[position].content.match(new RegExp(/[0-9]+/))[0];
+                let newAmount = Number(data.amount) + Number(categoryAmount);
+                this.items[position] = {content: `${data.category}: ${newAmount} €`};
+                this.requestUpdate();
+            } else {
+                this.items = [...this.items, {content: data.category + ": " + (data.amount) + " €"}];
+            }
+        } else {
+            this.items = [...this.items, {content: data}];
+        }
     }
 
     deleteData(data) {
@@ -60,13 +81,17 @@ export class DashupList extends DashupComponent {
     selectEntry(evt) {
         if (this.selectable) {
             let item = this.items.filter((item) => item.content === evt.target.innerText)[0];
-            item.selected = !item.selected;
+            if(item.selected === undefined){
+                item.selected = true;
+            } else {
+                item.selected = !item.selected;
+            }
             this.requestUpdate();
         }
     }
 
     getValue() {
-        return this.items.filter((item) => item.selected);
+        return this.selectable ? this.items.filter((item) => item.selected) : this.items;
     }
 }
 

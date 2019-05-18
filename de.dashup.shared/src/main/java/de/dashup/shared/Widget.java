@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class Widget extends DatabaseWidget implements Comparable<Widget>{
 
     public enum Size {
-        SMALL("small", "m2 s6"),
+        SMALL("small", "m3 s6"),
         MEDIUM("medium", "m4 s12"),
         LARGE("large", "m5 s12");
 
