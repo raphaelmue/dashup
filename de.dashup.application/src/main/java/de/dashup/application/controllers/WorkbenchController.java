@@ -141,8 +141,11 @@ public class WorkbenchController {
         if (user != null) {
             Widget draft = DashupService.getInstance().getWidgetOfUser(user, draftId);
             if (draft != null) {
-                updateInformation(draft, draftId, name, shortDescription, description, category, tagsJSON);
-                return "redirect:/workbench/draft/" + draft + "#changedInformation";
+                try {
+                    updateInformation(draft, draftId, name, shortDescription, description, category, tagsJSON);
+                } catch (InvalidCodeException | MissingInformationException ignored) {
+                }
+                return "redirect:/workbench/draft/" + draftId + "#changedInformation";
             }
             return "redirect:/workbench/";
         }
@@ -162,7 +165,10 @@ public class WorkbenchController {
         if (user != null) {
             Widget widget = DashupService.getInstance().getWidgetOfUser(user, publishedId);
             if (widget != null) {
-                updateInformation(widget, publishedId, name, shortDescription, description, category, tagsJSON);
+                try {
+                    updateInformation(widget, publishedId, name, shortDescription, description, category, tagsJSON);
+                } catch (InvalidCodeException | MissingInformationException ignored) {
+                }
                 return "redirect:/workbench/published/" + publishedId + "#changedInformation";
             }
             return "redirect:/workbench/";
@@ -170,7 +176,7 @@ public class WorkbenchController {
         return "redirect:/login";
     }
 
-    private void updateInformation(Widget widget, int publishedId, String name, String shortDescription, String description, String category, String tagsJSON) throws UnsupportedEncodingException, SQLException {
+    private void updateInformation(Widget widget, int publishedId, String name, String shortDescription, String description, String category, String tagsJSON) throws UnsupportedEncodingException, SQLException, InvalidCodeException, MissingInformationException {
         widget.setId(publishedId);
         widget.setName(name);
         widget.setShortDescription(shortDescription);
@@ -196,7 +202,12 @@ public class WorkbenchController {
         if (user != null) {
             Widget draft = DashupService.getInstance().getWidgetOfUser(user, draftId);
             if (draft != null) {
-                updateCode(draftId, codeSmall, codeMedium, codeLarge, draft);
+                try {
+                    updateCode(draftId, codeSmall, codeMedium, codeLarge, draft);
+                } catch (InvalidCodeException e) {
+                    return "redirect:/workbench/draft/" + draftId + "#draftCodeNotValid";
+                } catch (MissingInformationException ignored) {
+                }
                 return "redirect:/workbench/draft/" + draftId + "#changedCode";
             }
             return "redirect:/workbench/";
@@ -215,7 +226,12 @@ public class WorkbenchController {
         if (user != null) {
             Widget widget = DashupService.getInstance().getWidgetOfUser(user, publishedId);
             if (widget != null) {
-                updateCode(publishedId, codeSmall, codeMedium, codeLarge, widget);
+                try {
+                    updateCode(publishedId, codeSmall, codeMedium, codeLarge, widget);
+                } catch (InvalidCodeException e) {
+                    return "redirect:/workbench/published/" + publishedId + "#draftCodeNotValid";
+                } catch (MissingInformationException ignored) {
+                }
                 return "redirect:/workbench/published/" + publishedId + "#changedCode";
             }
             return "redirect:/workbench/";
@@ -223,7 +239,8 @@ public class WorkbenchController {
         return "redirect:/login";
     }
 
-    private void updateCode(int id, String codeSmall, String codeMedium, String codeLarge, Widget widget) throws UnsupportedEncodingException, SQLException {
+    private void updateCode(int id, String codeSmall, String codeMedium, String codeLarge, Widget widget)
+            throws UnsupportedEncodingException, SQLException, InvalidCodeException, MissingInformationException {
         widget.setId(id);
         if (codeSmall != null) {
             widget.setCodeSmall(URLDecoder.decode(codeSmall, StandardCharsets.UTF_8.name()));
@@ -234,7 +251,7 @@ public class WorkbenchController {
         if (codeLarge != null) {
             widget.setCodeLarge(URLDecoder.decode(codeLarge, StandardCharsets.UTF_8.name()));
         }
-        DashupService.getInstance().updateWidgetInformation(widget);
+        DashupService.getInstance().updateWidgetInformation(widget, !widget.getIsVisible());
     }
 
     @RequestMapping(value = "/draft/{draftId}/addDraft")
@@ -257,10 +274,10 @@ public class WorkbenchController {
 
     @RequestMapping(value = "/published/{publishedId}/addDraft")
     public String handleAddWidget(@CookieValue(name = "token", required = false) String token,
-                                 HttpServletRequest request,
-                                 @PathVariable(value = "publishedId") int publishedId,
-                                 @RequestParam(value = "sectionId") int sectionId,
-                                 @RequestParam(value = "size") String size) throws SQLException {
+                                  HttpServletRequest request,
+                                  @PathVariable(value = "publishedId") int publishedId,
+                                  @RequestParam(value = "sectionId") int sectionId,
+                                  @RequestParam(value = "size") String size) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             Widget widget = DashupService.getInstance().getWidgetOfUser(user, publishedId);

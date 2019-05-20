@@ -423,7 +423,15 @@ public class DashupService {
         return draft;
     }
 
-    public void updateWidgetInformation(Widget widget) throws SQLException {
+    public void updateWidgetInformation(Widget widget) throws SQLException, MissingInformationException, InvalidCodeException {
+        this.updateWidgetInformation(widget, true);
+    }
+
+    public void updateWidgetInformation(Widget widget, boolean checkAfterUpdate) throws SQLException, MissingInformationException, InvalidCodeException {
+        if (!checkAfterUpdate) {
+            checkWidget(widget);
+        }
+
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", widget.getId());
 
@@ -455,6 +463,24 @@ public class DashupService {
         if (widget.getTags().size() > 0) {
             this.updateWidgetTags(widget, widget.getTags());
         }
+
+        if (checkAfterUpdate) {
+            checkWidget(widget);
+        }
+    }
+
+    private void checkWidget(Widget widget) throws MissingInformationException, InvalidCodeException {
+        if ((Validator.isNullOrEmpty(widget.getName()) ||
+                Validator.isNullOrEmpty(widget.getDescription()) ||
+                Validator.isNullOrEmpty(widget.getShortDescription()) ||
+                Validator.isNullOrEmpty(widget.getCode(Widget.Size.SMALL)) ||
+                Validator.isNullOrEmpty(widget.getCode(Widget.Size.MEDIUM)) ||
+                Validator.isNullOrEmpty(widget.getCode(Widget.Size.LARGE)))) {
+            throw new MissingInformationException(Draft.class);
+        }
+        if (!Validator.validateWidget(widget, true)) {
+            throw new InvalidCodeException(widget);
+        }
     }
 
     public void deleteDraft(int draftId) throws SQLException {
@@ -478,17 +504,7 @@ public class DashupService {
         List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters);
         if (result != null && result.size() > 0) {
             Draft draft = new Draft().fromDatabaseObject(result.get(0));
-            if ((Validator.isNullOrEmpty(draft.getName()) ||
-                    Validator.isNullOrEmpty(draft.getDescription()) ||
-                    Validator.isNullOrEmpty(draft.getShortDescription()) ||
-                    Validator.isNullOrEmpty(draft.getCode(Widget.Size.SMALL)) ||
-                    Validator.isNullOrEmpty(draft.getCode(Widget.Size.MEDIUM)) ||
-                    Validator.isNullOrEmpty(draft.getCode(Widget.Size.LARGE)))) {
-                throw new MissingInformationException(Draft.class);
-            }
-            if (!Validator.validateWidget(draft, true)) {
-                throw new InvalidCodeException(draft);
-            }
+            checkWidget(draft);
 
             Map<String, Object> values = new HashMap<>();
             values.put("visibility", true);
