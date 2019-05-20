@@ -194,7 +194,7 @@ public class WorkbenchController {
                                         @RequestParam(value = "code_large", required = false) String codeLarge) throws SQLException, UnsupportedEncodingException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            Draft draft = (Draft) DashupService.getInstance().getWidgetOfUser(user, draftId);
+            Widget draft = DashupService.getInstance().getWidgetOfUser(user, draftId);
             if (draft != null) {
                 updateCode(draftId, codeSmall, codeMedium, codeLarge, draft);
                 return "redirect:/workbench/draft/" + draftId + "#changedCode";

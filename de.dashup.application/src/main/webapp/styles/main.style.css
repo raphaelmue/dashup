@@ -69,3 +69,9 @@ div.nav-wrapper {
 .widget.card .card-content {
     padding: 24px 0;
 }
+
+/*** WORKBENCH ***/
+
+.code-textarea {
+    font-family: "Courier New", serif;
+}
