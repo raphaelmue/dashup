@@ -20,7 +20,7 @@
         </nav>
         <div class="container">
             <div class="row">
-                <div class="col m2" style="margin-top: 2%; margin-left: 2%">
+                <div class="col m3" style="margin-top: 2%">
                     <i class="fas fa-cloud fa-10x"></i>
                 </div>
                 <div class="col m7">
