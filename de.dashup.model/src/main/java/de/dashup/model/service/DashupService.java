@@ -462,6 +462,11 @@ public class DashupService {
         whereParameters.put("id", draftId);
 
         this.database.delete(Database.Table.PANELS, whereParameters);
+
+        whereParameters.clear();
+        whereParameters.put("panel_id", draftId);
+
+        this.database.delete(Database.Table.PANELS_TAGS, whereParameters);
     }
 
     public void publishDraft(int draftId) throws SQLException, MissingInformationException, InvalidCodeException {
