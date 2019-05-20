@@ -59,11 +59,11 @@ div.nav-wrapper {
     }
 }
 
-
 /*** WIDGETS ***/
 
 .widget.card {
     background-color: rgba(256, 256, 256, 0.9);
+    height: 275px;
 }
 
 .widget.card .card-content {

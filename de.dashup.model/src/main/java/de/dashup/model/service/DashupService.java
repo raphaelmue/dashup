@@ -520,7 +520,7 @@ public class DashupService {
 
         List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, Widget.class, whereParameters);
         if (result != null && result.size() > 0) {
-            return (Widget) result.get(0);
+            return new Widget().fromDatabaseObject(result.get(0));
         }
         return null;
     }

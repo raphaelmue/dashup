@@ -139,7 +139,7 @@ public class WorkbenchController {
                                                @RequestParam(value = "tags") String tagsJSON) throws SQLException, UnsupportedEncodingException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            Draft draft = (Draft) DashupService.getInstance().getWidgetOfUser(user, draftId);
+            Widget draft = DashupService.getInstance().getWidgetOfUser(user, draftId);
             if (draft != null) {
                 updateInformation(draft, draftId, name, shortDescription, description, category, tagsJSON);
                 return "redirect:/workbench/draft/" + draft + "#changedInformation";

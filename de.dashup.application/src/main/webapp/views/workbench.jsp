@@ -95,8 +95,10 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col card m2 s6" style="float: none; margin: 0 auto;">
-                                                <div class="card-content" id="pre-view-container">${current.codeSmall}</div>
+                                            <div class="col m2 s6" style="float: none; margin: 0 auto;">
+                                                <div class="widget card">
+                                                    <div class="card-content" id="pre-view-container">${current.codeSmall}</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -386,7 +388,7 @@
             $("#size-dropdown").on("change", function () {
                 $("div#code-container div.input-field").css("display", "none");
                 let textArea = $("#textarea-code-" + $(this).val());
-                textArea.parent().css("display", "block");
+                textArea.parent().parent().css("display", "block");
                 updatePreviewContainer(textArea.val(), $(this).val());
             });
 
