@@ -396,6 +396,11 @@
                         classes: "success"
                     };
                     break;
+                case "changedProperties":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.successChangedProperties" />",
+                        classes: "success"
+                    }
             }
             if (getAnchor() !== null && getAnchor() !== "") {
                 M.toast(toastOptions);
@@ -597,7 +602,7 @@
             let row = $(this).parent().parent(),
                 propertiesId = row.attr("data-property-id");
             if (propertiesId > 0) {
-                propertiesToDelete.push();
+                propertiesToDelete.push(propertiesId);
             }
             row.remove();
         });

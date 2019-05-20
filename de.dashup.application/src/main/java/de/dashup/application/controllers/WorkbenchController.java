@@ -17,6 +17,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -328,7 +329,8 @@ public class WorkbenchController {
     public String handleUpdateProperties(@CookieValue(name = "token", required = false) String token,
                                          HttpServletRequest request,
                                          @PathVariable(value = "draftId") int draftId,
-                                         @RequestParam(value = "properties") String jsonProperties) throws SQLException, UnsupportedEncodingException {
+                                         @RequestParam(value = "properties") String jsonProperties,
+                                         @RequestParam(value = "propertiesToDelete") String jsonPropertiesToDelete) throws SQLException, UnsupportedEncodingException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             Draft draft = new Draft();
@@ -337,13 +339,23 @@ public class WorkbenchController {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 draft.getProperties().put(jsonObject.getString("property"),
-                        new Property(jsonObject.getInt("id"), jsonObject.getString("property"),
-                                null, jsonObject.getString("type"), jsonObject.getString("defaultValue"), null));
+                        new Property(jsonObject.getInt("id"),
+                                jsonObject.getString("property"),
+                                jsonObject.getString("name"),
+                                jsonObject.getString("type"),
+                                jsonObject.getString("defaultValue"),
+                                null));
             }
-            DashupService.getInstance().updateWidgetProperties(draft);
+
+            List<Integer> propertiesToDelete = new ArrayList<>();
+            jsonArray = new JSONArray(URLDecoder.decode(jsonPropertiesToDelete, StandardCharsets.UTF_8.name()));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                propertiesToDelete.add(jsonArray.getInt(i));
+            }
+
+            DashupService.getInstance().updateWidgetProperties(draft, propertiesToDelete);
             return "redirect:/workbench/draft/" + draftId + "#changedProperties";
         }
         return "redirect:/login";
-
     }
 }

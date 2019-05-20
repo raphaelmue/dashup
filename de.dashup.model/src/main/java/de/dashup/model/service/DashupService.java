@@ -136,7 +136,7 @@ public class DashupService {
         }
     }
 
-    public void updateWidgetProperties(Widget widget) throws SQLException {
+    public void updateWidgetProperties(Widget widget, List<Integer> propertiesToDelete) throws SQLException {
         for (Map.Entry<String, Property> propertyEntry : widget.getProperties().entrySet()) {
             if (propertyEntry.getValue().getId() == -1) {
                 Map<String, Object> values = new HashMap<>();
@@ -158,6 +158,16 @@ public class DashupService {
 
                 this.database.update(Database.Table.PROPERTIES, whereParameters, values);
             }
+        }
+
+        for (int propertyId : propertiesToDelete) {
+            Map<String, Object> whereParameters = new HashMap<>();
+            whereParameters.put("property_id", propertyId);
+            this.database.delete(Database.Table.USERS_PROPERTIES, whereParameters);
+
+            whereParameters.clear();
+            whereParameters.put("id", propertyId);
+            this.database.delete(Database.Table.PROPERTIES, whereParameters);
         }
     }
 
