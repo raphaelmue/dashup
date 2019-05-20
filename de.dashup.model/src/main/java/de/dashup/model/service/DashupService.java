@@ -459,14 +459,16 @@ public class DashupService {
 
     public void deleteDraft(int draftId) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("panel_id", draftId);
+
+        this.database.delete(Database.Table.SECTIONS_PANELS, whereParameters);
+
+        this.database.delete(Database.Table.PANELS_TAGS, whereParameters);
+
+        whereParameters.clear();
         whereParameters.put("id", draftId);
 
         this.database.delete(Database.Table.PANELS, whereParameters);
-
-        whereParameters.clear();
-        whereParameters.put("panel_id", draftId);
-
-        this.database.delete(Database.Table.PANELS_TAGS, whereParameters);
     }
 
     public void publishDraft(int draftId) throws SQLException, MissingInformationException, InvalidCodeException {

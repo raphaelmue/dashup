@@ -100,7 +100,7 @@ public class WorkbenchController {
                                     @PathVariable(value = "draftId") int draftId) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            Draft draft = (Draft) DashupService.getInstance().getWidgetOfUser(user, draftId);
+            Widget draft = DashupService.getInstance().getWidgetOfUser(user, draftId);
             if (draft != null) {
                 DashupService.getInstance().deleteDraft(draftId);
                 return "redirect:/workbench/#deletedDraft";
@@ -245,7 +245,7 @@ public class WorkbenchController {
                                  @RequestParam(value = "size") String size) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            Draft draft = (Draft) DashupService.getInstance().getWidgetOfUser(user, draftId);
+            Widget draft = DashupService.getInstance().getWidgetOfUser(user, draftId);
             if (draft != null) {
                 addWidgetToDashup(user, draftId, sectionId, size);
                 return "redirect:/workbench/draft/" + draftId + "#addedWidget";
