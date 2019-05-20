@@ -18,6 +18,9 @@ public class Rating implements DatabaseObject {
     @SerializedName("surname")
     private String userSurname;
 
+    public Rating() {
+    }
+
 
     public void setId(int id) {
         this.id = id;
@@ -52,4 +55,39 @@ public class Rating implements DatabaseObject {
         return id;
     }
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getUserSurname() {
+        return userSurname;
+    }
+
+    public void setUserSurname(String userSurname) {
+        this.userSurname = userSurname;
+    }
+
+    public String getChangeDate() {
+        return changeDate;
+    }
+
+    public void setChangeDate(String changeDate) {
+        this.changeDate = changeDate;
+    }
+
+    public int getPanelId() {
+        return panelId;
+    }
+
+    public void setPanelId(int panelId) {
+        this.panelId = panelId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
 }
