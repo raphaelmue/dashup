@@ -167,7 +167,7 @@
                                                 <label for="text-field-property-name"><fmt:message key="i18n.defaultValue"/></label>
                                             </div>
                                             <div class="col input-field s1 m1">
-                                                <a id="btn-delete-property" class="waves-effect btn-flat">
+                                                <a class="btn-delete-property waves-effect btn-flat">
                                                     <i class="fas fa-times" style="color: var(--color-error)"></i>
                                                 </a>
                                             </div>
@@ -530,19 +530,30 @@
             });
 
             $("#btn-add-property").on("click", function () {
-                let row = $(".properties-container .property-row:last-child").clone();
-                row.find("input").val("");
-                row.attr("data-properties-id", "-1");
-                $(".properties-container .property-row:first-child").before(row.html());
-            });
-
-            $("#btn-delete-property").on("click", function () {
-                let row = $(this).parent().parent(),
-                    propertiesId = row.attr("data-property-id");
-                if (propertiesId > 0) {
-                    propertiesToDelete.push();
-                }
-                row.remove();
+                let row = `<div class="row property-row" data-property-id="-1">
+                                <div class="col input-field s3 m3">
+                                    <input id="text-field-property-name" type="text" class="validate"/>
+                                    <label for="text-field-property-name"><fmt:message key="i18n.propertyName"/></label>
+                                </div>
+                                <div class="col input-field s3 m3">
+                                    <input id="text-field-property" type="text" class="validate"/>
+                                    <label for="text-field-property-name"><fmt:message key="i18n.property"/></label>
+                                </div>
+                                <div class="col input-field s2 m2">
+                                    <input id="text-field-property-type" type="text" class="validate" />
+                                    <label for="text-field-property-name"><fmt:message key="i18n.propertyType"/></label>
+                                </div>
+                                <div class="col input-field s3 m3">
+                                    <input id="text-field-property-default-value" type="text" class="validate" />
+                                    <label for="text-field-property-name"><fmt:message key="i18n.defaultValue"/></label>
+                                </div>
+                                <div class="col input-field s1 m1">
+                                    <a class="btn-delete-property waves-effect btn-flat">
+                                        <i class="fas fa-times" style="color: var(--color-error)"></i>
+                                    </a>
+                                </div>
+                            </div>`;
+                $(".properties-container .row:first-child").before(row);
             });
 
             $("#btn-update-properties").on("click", function () {
@@ -557,8 +568,8 @@
                     });
                 });
                 PostRequest.getInstance().make("/workbench/" + isPublished + "/${fn:escapeXml(current.id)}/updateProperties", {
-                    properties: properties,
-                    propertiesToDelete: propertiesToDelete
+                    properties: encodeURIComponent(JSON.stringify(properties)),
+                    propertiesToDelete: encodeURIComponent(JSON.stringify(propertiesToDelete))
                 });
             })
         });
@@ -581,6 +592,16 @@
                     this.selectionEnd = start + 1;
             }
         });
+
+        $(document).on("click", ".btn-delete-property", function () {
+            let row = $(this).parent().parent(),
+                propertiesId = row.attr("data-property-id");
+            if (propertiesId > 0) {
+                propertiesToDelete.push();
+            }
+            row.remove();
+        });
+
         function replaceCloseIconOfTags() {
             $(".material-icons.close").addClass("fas fa-times").html("");
         }
