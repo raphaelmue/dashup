@@ -115,7 +115,7 @@
                                 </div>
                                 <div class="col input-field s6 m6">
                                     <input id="text-input-value" data-property-id="${propertyEntry.value.id}"
-                                           data-property="${propertyEntry.value.property}" type="text"
+                                           data-property="${propertyEntry.value.property}" type="${propertyEntry.value.type}"
                                            class="validate" value="${propertyEntry.value.value}">
                                     <label for="text-input-value"><fmt:message key="i18n.value" /></label>
                                 </div>

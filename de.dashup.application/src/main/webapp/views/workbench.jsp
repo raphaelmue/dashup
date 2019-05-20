@@ -154,17 +154,20 @@
                                             <div class="col input-field s3 m3">
                                                 <input id="text-field-property" type="text" class="validate"
                                                        value="${propertyEntry.value.property}"/>
-                                                <label for="text-field-property-name"><fmt:message key="i18n.property"/></label>
+                                                <label for="text-field-property"><fmt:message key="i18n.property"/></label>
                                             </div>
                                             <div class="col input-field s2 m2">
-                                                <input id="text-field-property-type" type="text" class="validate"
-                                                       value="${propertyEntry.value.type}" />
-                                                <label for="text-field-property-name"><fmt:message key="i18n.propertyType"/></label>
+                                                <select id="text-field-property-type">
+                                                    <c:forEach items="${propertyTypes}" var="type" >
+                                                        <option value="${type.name}" <c:if test="${type.name == propertyEntry.value.type}">selected</c:if>><fmt:message key="i18n.${type.name}"/></option>
+                                                    </c:forEach>
+                                                </select>
+                                                <label for="text-field-property-type"><fmt:message key="i18n.propertyType"/></label>
                                             </div>
                                             <div class="col input-field s3 m3">
                                                 <input id="text-field-property-default-value" type="text" class="validate"
                                                        value="${propertyEntry.value.defaultValue}" />
-                                                <label for="text-field-property-name"><fmt:message key="i18n.defaultValue"/></label>
+                                                <label for="text-field-property-default-value"><fmt:message key="i18n.defaultValue"/></label>
                                             </div>
                                             <div class="col input-field s1 m1">
                                                 <a class="btn-delete-property waves-effect btn-flat">
@@ -333,6 +336,7 @@
             </div>
         </div>
     </body>
+
     <jsp:include page="includes/webComponents.jsp" />
     <script type="text/javascript">
         const tags = [
@@ -400,7 +404,8 @@
                     toastOptions = {
                         html: "<fmt:message key="i18n.successChangedProperties" />",
                         classes: "success"
-                    }
+                    };
+                    break;
             }
             if (getAnchor() !== null && getAnchor() !== "") {
                 M.toast(toastOptions);
@@ -537,20 +542,24 @@
             $("#btn-add-property").on("click", function () {
                 let row = `<div class="row property-row" data-property-id="-1">
                                 <div class="col input-field s3 m3">
-                                    <input id="text-field-property-name" type="text" class="validate"/>
+                                    <input id="text-field-property-name" type="text" class="validate" />
                                     <label for="text-field-property-name"><fmt:message key="i18n.propertyName"/></label>
                                 </div>
                                 <div class="col input-field s3 m3">
-                                    <input id="text-field-property" type="text" class="validate"/>
-                                    <label for="text-field-property-name"><fmt:message key="i18n.property"/></label>
+                                    <input id="text-field-property" type="text" class="validate" />
+                                    <label for="text-field-property"><fmt:message key="i18n.property"/></label>
                                 </div>
                                 <div class="col input-field s2 m2">
-                                    <input id="text-field-property-type" type="text" class="validate" />
-                                    <label for="text-field-property-name"><fmt:message key="i18n.propertyType"/></label>
+                                    <select id="text-field-property-type">
+                                        <c:forEach items="${propertyTypes}" var="type" >
+                                            <option value="${type.name}"><fmt:message key="i18n.${type.name}"/></option>
+                                        </c:forEach>
+                                    </select>
+                                    <label><fmt:message key="i18n.propertyType"/></label>
                                 </div>
                                 <div class="col input-field s3 m3">
                                     <input id="text-field-property-default-value" type="text" class="validate" />
-                                    <label for="text-field-property-name"><fmt:message key="i18n.defaultValue"/></label>
+                                    <label for="text-field-property-default-value"><fmt:message key="i18n.defaultValue"/></label>
                                 </div>
                                 <div class="col input-field s1 m1">
                                     <a class="btn-delete-property waves-effect btn-flat">
@@ -559,6 +568,7 @@
                                 </div>
                             </div>`;
                 $(".properties-container .row:first-child").before(row);
+                $("select").formSelect();
             });
 
             $("#btn-update-properties").on("click", function () {

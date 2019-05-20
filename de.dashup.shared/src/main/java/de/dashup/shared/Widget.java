@@ -160,7 +160,9 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
             for (Map.Entry<String, Property> propertyEntry : this.getProperties().entrySet()) {
                 String[] propertyName = propertyEntry.getValue().getProperty().split("[.]");
                 Element element = document.getElementsByAttributeValue("name", propertyName[0]).first();
-                element.attr(propertyName[1], propertyEntry.getValue().getValue());
+                if (element != null) {
+                    element.attr(propertyName.length == 2 ? propertyName[1] : "value", propertyEntry.getValue().getValue());
+                }
             }
             html.append(document.html());
         } else {

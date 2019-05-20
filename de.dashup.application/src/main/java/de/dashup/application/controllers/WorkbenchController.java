@@ -58,6 +58,7 @@ public class WorkbenchController {
             model.addAttribute("tags", DashupService.getInstance().getAllTags());
             DashupService.getInstance().getSectionsAndPanels(user);
             model.addAttribute("sections", user.getSections());
+            model.addAttribute("propertyTypes", Property.Type.values());
 
             for (Draft draft : user.getDrafts()) {
                 if (draft.getId() == draftId) {
@@ -83,7 +84,7 @@ public class WorkbenchController {
             model.addAttribute("tags", DashupService.getInstance().getAllTags());
             DashupService.getInstance().getSectionsAndPanels(user);
             model.addAttribute("sections", user.getSections());
-
+            model.addAttribute("propertyTypes", Property.Type.values());
 
             for (Widget widget : publishedWidgets) {
                 if (widget.getId() == publishedWidgetId) {
