@@ -18,8 +18,8 @@
         <div class="row" style="margin-top: 25px">
             <div class="col m4 offset-m4 s8 offset-s1">
                 <div class="input-field">
-                    <input id="text-field-login-email" name="email" type="text" class="validate">
-                    <label for="text-field-login-email"><fmt:message key="i18n.enterSearchterm"/></label>
+                    <input id="text-field-search-term" name="email" type="text" class="validate">
+                    <label for="text-field-search-term"><fmt:message key="i18n.enterSearchterm"/></label>
                 </div>
             </div>
             <div class="col m2 s2" style="margin-top: 18px">

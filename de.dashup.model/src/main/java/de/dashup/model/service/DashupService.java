@@ -115,11 +115,11 @@ public class DashupService {
     }
 
     //-------------- Marketplace --------------\\
-    public ArrayList<String> getTagsByPanelId(int panelId) throws SQLException {
+    public ArrayList<String> getTagsByPanelId(int widgetId) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         Map<String, String> onParameters = new HashMap<>();
         ArrayList<String> returningValue = new ArrayList<>();
-        whereParameters.put("panel_id", panelId);
+        whereParameters.put("panel_id", widgetId);
         onParameters.put("tag_id", "id");
         JSONArray databaseResult = this.database.get(Database.Table.PANELS_TAGS, Database.Table.TAGS, onParameters, whereParameters);
         for (int i = 0; i < databaseResult.length(); i++) {
