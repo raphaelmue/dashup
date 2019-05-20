@@ -96,8 +96,10 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col card m2 s6" style="float: none; margin: 0 auto;">
-                                                <div class="card-content" id="pre-view-container">${current.codeSmall}</div>
+                                            <div class="col s6 m6 l6 xl6" style="float: none; margin: 0 auto;">
+                                                <div class="widget card">
+                                                    <div class="card-content" id="pre-view-container">${current.codeSmall}</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -108,15 +110,18 @@
                                         <div class="row">
                                             <div class="col s12 m12" id="code-container">
                                                 <div class="input-field">
-                                                    <textarea id="textarea-code-small" class="materialize-textarea">${fn:escapeXml(current.codeSmall)}</textarea>
+                                                    <textarea id="textarea-code-small"
+                                                              class="materialize-textarea code-textarea">${fn:escapeXml(current.codeSmall)}</textarea>
                                                     <label for="textarea-code-small"><fmt:message key="i18n.code" /></label>
                                                 </div>
                                                 <div class="input-field" style="display: none;">
-                                                    <textarea id="textarea-code-medium" class="materialize-textarea">${fn:escapeXml(current.codeMedium)}</textarea>
+                                                    <textarea id="textarea-code-medium"
+                                                              class="materialize-textarea code-textarea">${fn:escapeXml(current.codeMedium)}</textarea>
                                                     <label for="textarea-code-medium"><fmt:message key="i18n.code" /></label>
                                                 </div>
                                                 <div class="input-field" style="display: none;">
-                                                    <textarea id="textarea-code-large" class="materialize-textarea">${fn:escapeXml(current.codeLarge)}</textarea>
+                                                    <textarea id="textarea-code-large"
+                                                              class="materialize-textarea code-textarea">${fn:escapeXml(current.codeLarge)}</textarea>
                                                     <label for="textarea-code-large"><fmt:message key="i18n.code" /></label>
                                                 </div>
                                             </div>
@@ -343,6 +348,12 @@
 
             let toastOptions = {};
             switch (getAnchor()) {
+                case "undoComplete":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.undoComplete" />",
+                        classes: "success"
+                    };
+                    break;
                 case "deletedDraft":
                     toastOptions = {
                         html: "<fmt:message key="i18n.successDeletedDraft" />",
@@ -391,7 +402,7 @@
                 clearAnchor()
             }
 
-            $("aside").css("height", window.innerHeight + "px")
+            $("aside").css("height", window.innerHeight + "px");
 
             let isPublished = document.URL.includes("published") ? "published" : "draft";
 
@@ -434,14 +445,14 @@
 
             $("#size-dropdown").on("change", function () {
                 $("div#code-container div.input-field").css("display", "none");
+                $("div#code-container #textarea-code-" + $(this).val()).parent().css("display", "block");
                 let textArea = $("#textarea-code-" + $(this).val());
-                textArea.parent().css("display", "block");
-                updatePreviewContainer(textArea.val(), $(this).val());
+                textArea.parent().parent().css("display", "block");
+                $("#pre-view-container").html(textArea.val());
             });
 
             $("#textarea-code-small, #textarea-code-medium, #textarea-code-large").bind('input propertychange', function () {
-                updatePreviewContainer($(this).val(),
-                    $(this).attr("id").substr($(this).attr("id").lastIndexOf("-") + 1));
+                $("#pre-view-container").html(($(this).val()));
             });
 
             let createDraftDialog = M.Modal.getInstance(document.getElementById("dialog-create-draft"));
@@ -494,19 +505,27 @@
             });
 
             $("#btn-save-draft-information").on("click", function () {
-                PostRequest.getInstance().make("workbench/" + isPublished + "/${fn:escapeXml(current.id)}/changeInformation", {
-                    category: $("#category-dropdown").val(),
-                    draftName: $("#text-field-draft-name").val(),
-                    shortDescription: $("#textarea-short-description").val(),
-                    description: $("#textarea-description").val(),
-                    tags: encodeURIComponent(JSON.stringify(parseTags(tags, tagsChips.getData())))
-                });
+                let shortDescription = $("#textarea-short-description").val();
+                if (shortDescription.length < 256) {
+                    PostRequest.getInstance().make("workbench/" + isPublished + "/${fn:escapeXml(current.id)}/changeInformation", {
+                        category: $("#category-dropdown").val(),
+                        draftName: $("#text-field-draft-name").val(),
+                        shortDescription: shortDescription,
+                        description: $("#textarea-description").val(),
+                        tags: encodeURIComponent(JSON.stringify(parseTags(tags, tagsChips.getData())))
+                    });
+                } else {
+                    M.toast({
+                        html: "<fmt:message key="i18n.errorSortDescriptionTooLong"/>",
+                        classes: "error"
+                    });
+                }
             });
 
             $("#btn-save-code").on("click", function () {
                 let parameters = {},
                     size = $("#size-dropdown").val();
-                parameters["code_" + size] = encodeURIComponent($("#textarea-code-" + size).val())
+                parameters["code_" + size] = encodeURIComponent($("#textarea-code-" + size).val());
                 PostRequest.getInstance().make("/workbench/" + isPublished + "/${fn:escapeXml(current.id)}/changeCode", parameters);
             });
 
@@ -544,26 +563,24 @@
             })
         });
 
-        function updatePreviewContainer(html, size) {
-            let previewContainer = $("#pre-view-container");
-            previewContainer.html(html);
+        $(document).delegate('.code-textarea', 'keydown', function(e) {
+            let keyCode = e.keyCode || e.which;
 
-            previewContainer.parent().removeClass();
-            previewContainer.parent().addClass("col card");
-            switch (size) {
-                case "small":
-                    previewContainer.parent().addClass("m2 s6");
-                    break;
-                case "medium":
-                    previewContainer.parent().addClass("m4 s12");
-                    break;
-                case "large":
-                    previewContainer.parent().addClass("m6 s12");
-                    break;
+            if (keyCode === 9) {
+                e.preventDefault();
+                let start = this.selectionStart;
+                let end = this.selectionEnd;
+
+                // set textarea value to: text before caret + tab + text after caret
+                $(this).val($(this).val().substring(0, start)
+                    + "\t"
+                    + $(this).val().substring(end));
+
+                // put caret at right position again
+                this.selectionStart =
+                    this.selectionEnd = start + 1;
             }
-
-        }
-
+        });
         function replaceCloseIconOfTags() {
             $(".material-icons.close").addClass("fas fa-times").html("");
         }

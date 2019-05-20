@@ -59,13 +59,19 @@ div.nav-wrapper {
     }
 }
 
-
 /*** WIDGETS ***/
 
 .widget.card {
     background-color: rgba(256, 256, 256, 0.9);
+    height: 275px;
 }
 
 .widget.card .card-content {
     padding: 24px 0;
+}
+
+/*** WORKBENCH ***/
+
+.code-textarea {
+    font-family: "Courier New", serif;
 }
