@@ -145,7 +145,7 @@ public class DashupService {
     public ArrayList<Widget> getBestRatedWidgets() throws SQLException {
         ArrayList<Widget> returningValue = new ArrayList<>();
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("visibility",1);
+        whereParameters.put("visibility", 1);
         List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters, "avg_of_ratings DESC");
         if (result != null && result.size() >= 4) {
             for (int i = 0; i < 4; i++) {
@@ -184,6 +184,17 @@ public class DashupService {
         insertValue.put("changed_on", new Date());
         try {
             database.insert(Database.Table.RATINGS, insertValue);
+        } catch (SQLException e) {
+            return false;
+        }
+        try {
+            Map<String, Object> whereParameters = new HashMap<>();
+            whereParameters.put("id", widgetId);
+            DatabaseWidget widget = (DatabaseWidget) database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters).get(0);
+            Map<String, Object> updateValues = new HashMap<>();
+            updateValues.put("number_of_ratings", widget.getNumberOfRatings() + 1);
+            updateValues.put("avg_of_ratings", ((widget.getAverageRating() * widget.getNumberOfRatings()) + rating) / (widget.getNumberOfRatings() + 1));
+            database.update(Database.Table.PANELS, whereParameters, updateValues);
         } catch (SQLException e) {
             return false;
         }
