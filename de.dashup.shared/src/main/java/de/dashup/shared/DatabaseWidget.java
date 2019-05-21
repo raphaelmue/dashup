@@ -30,14 +30,16 @@ public class DatabaseWidget implements DatabaseObject {
     public DatabaseWidget() {
     }
 
-    DatabaseWidget(int id, String name, String description, int numberOfDownloads, int averageRating, int numberOfRatings, String publicationDate) {
+    DatabaseWidget(int id, String name, String description, int numberOfDownloads, int averageRating, int numberOfRatings, LocalDate publicationDate) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.numberOfDownloads = numberOfDownloads;
         this.averageRating = averageRating;
         this.numberOfRatings = numberOfRatings;
-        this.publicationDate = publicationDate;
+        if (publicationDate != null) {
+            this.publicationDate = publicationDate.toString();
+        }
     }
 
 
@@ -123,7 +125,7 @@ public class DatabaseWidget implements DatabaseObject {
     }
 
     public LocalDate getPublicationDate() {
-        if (publicationDate!=null && !publicationDate.isBlank()) {
+        if (publicationDate != null && !publicationDate.isBlank()) {
             return LocalDate.parse(publicationDate);
         }
         return null;

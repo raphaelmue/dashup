@@ -325,7 +325,7 @@
             $('#btn-add-widget').on('click',function () {
                 let sectionId = $('#section-dropdown').val();
                 let widgetSize = $('#add-widget-size-dropdown').val();
-                    PostRequest.getInstance().make("marketplace/detailView/${fn:escapeXml(widget.id)}/addWidget",{
+                    PostRequest.getInstance().make("marketplace/detailView/${fn:escapeXml(widget.id)}/addWidgetToPersonalDashup",{
                         sectionId: sectionId,
                         widgetSize: widgetSize,
                     });

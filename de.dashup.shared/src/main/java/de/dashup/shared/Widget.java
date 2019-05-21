@@ -2,6 +2,8 @@ package de.dashup.shared;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDate;
+
 public class Widget extends DatabaseWidget implements Comparable<Widget>{
 
     public enum Size {
@@ -47,7 +49,7 @@ public class Widget extends DatabaseWidget implements Comparable<Widget>{
     }
 
     public Widget(int id, String name, String description, int numberOfDownloads, int averageRating,
-                  int index, int numberOfRatings, String publicationDate) {
+                  int index, int numberOfRatings, LocalDate publicationDate) {
         super(id, name, description, numberOfDownloads, averageRating,numberOfRatings,publicationDate);
         this.index = index;
     }

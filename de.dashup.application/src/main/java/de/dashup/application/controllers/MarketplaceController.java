@@ -70,11 +70,11 @@ public class MarketplaceController {
 
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            boolean success = DashupService.getInstance().addWidget(user, widgetId, sectionId, widgetSize);
+            boolean success = DashupService.getInstance().addWidgetToPersonalDashup(user, widgetId, sectionId, widgetSize);
             if (success) {
                 return "redirect:/marketplace/detailView/" + widgetId + "#addedWidget";
             } else {
-                return "redirect:/marketplace/detailView/" + widgetId + "#faieldToAddWidget";
+                return "redirect:/marketplace/detailView/" + widgetId + "#failedToAddWidget";
             }
         }
         return "redirect:/login";

@@ -115,7 +115,7 @@ public class DashupService {
     }
 
     //-------------- Marketplace --------------\\
-    public ArrayList<String> getTagsByPanelId(int widgetId) throws SQLException {
+    public List<String> getTagsByPanelId(int widgetId) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         Map<String, String> onParameters = new HashMap<>();
         ArrayList<String> returningValue = new ArrayList<>();
@@ -128,7 +128,7 @@ public class DashupService {
         return returningValue;
     }
 
-    public ArrayList<Rating> getRatingsByWidgetID(int widgetId) throws SQLException {
+    public List<Rating> getRatingsByWidgetID(int widgetId) throws SQLException {
         ArrayList<Rating> returningValue = new ArrayList<>();
         Map<String, String> onParameters = new HashMap<>();
         Map<String, Object> whereParameters = new HashMap<>();
@@ -142,7 +142,7 @@ public class DashupService {
         return returningValue;
     }
 
-    public ArrayList<Widget> getBestRatedWidgets() throws SQLException {
+    public List<Widget> getBestRatedWidgets() throws SQLException {
         ArrayList<Widget> returningValue = new ArrayList<>();
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("visibility", 1);
@@ -201,7 +201,7 @@ public class DashupService {
         return true;
     }
 
-    public boolean addWidget(User user, int widgetId, int sectionId, String widgetSize) throws SQLException {
+    public boolean addWidgetToPersonalDashup(User user, int widgetId, int sectionId, String widgetSize) throws SQLException {
         Section sectionToAddTo = null;
         this.getSectionsAndPanels(user);
         if (sectionId > 0) {
