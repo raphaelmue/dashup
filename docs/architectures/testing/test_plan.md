@@ -237,7 +237,7 @@ the current code coverage on the master branch:
 We are measuring our code quality with the help of _Codacy_. It checks for clean code and security or performance 
 improvements. The following badge shows the quality of the code on the master branch: 
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f592e1c013d3405d9bbc773a4ffc8c95)](https://app.codacy.com/app/raphael_6/dashup?utm_source=github.com&utm_medium=referral&utm_content=raphaelmue/dashup&utm_campaign=Badge_Grade_Settings)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/10a932c8811c4dd48cbd1c09c3f44703)](https://www.codacy.com/app/dashup/dashup?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=raphaelmue/dashup&amp;utm_campaign=Badge_Grade)
 
 ### 7.4 Incident Logs and Change Requests
 

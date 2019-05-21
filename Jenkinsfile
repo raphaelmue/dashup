@@ -33,6 +33,14 @@ pipeline {
                 sh 'rm ./de.dashup.model/src/main/resources/de/dashup/model/db/config/database.conf'
              }
         }
+        stage('Publish test results') {
+            when {
+                branch 'master'
+            }
+            steps {
+                sh 'bash service/publish-test-report.sh'
+            }
+        }
         stage('Deploy') {
             when {
                 branch 'deployment'

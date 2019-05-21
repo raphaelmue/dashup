@@ -1,6 +1,7 @@
 .idea/*
 !.idea/runConfigurations/
 target/
+build/
 *.iml
 database.conf
 chromedriver.exe
