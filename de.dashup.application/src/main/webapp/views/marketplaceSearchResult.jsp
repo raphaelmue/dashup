@@ -45,6 +45,16 @@
                     <script>console.log("#####");
                     console.log(${widgets});</script>
 
+                    <c:if test="${empty widgets}">
+                        <li class="collection-item" id="empty">
+                            <div class="row">
+                                <div class="col m4 s4">
+                                    <h5><fmt:message key="i18n.noResultFound"/></h5>
+                                </div>
+                            </div>
+                        </li>
+                    </c:if>
+
                     <c:forEach items="${widgets}" var="widget">
                         <li class="collection-item" id=${fn:escapeXml(widget.id)}>
                             <div class="row">
