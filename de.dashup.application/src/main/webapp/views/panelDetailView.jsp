@@ -104,9 +104,6 @@
                 </div>
                 <div id="ratings-tab" class="col s12">
                     <div class="row">
-                        <div class="col m8">
-                            Maybe we want to sort the comments here?
-                        </div>
                         <div class="col m2 offset-m2">
                             <button id="btn-add-comment" class="btn waves-effect waves-light" type="submit"
                                     name="comment">
