@@ -7,10 +7,7 @@ import de.dashup.shared.User;
 import de.dashup.shared.Widget;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
@@ -29,7 +26,8 @@ public class MarketplaceController {
     @RequestMapping("/search")
     public String searchMarketplace(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "marketplaceSearchResult", user -> {
-            // tbd
+            String searchQuery = request.getParameter("search");
+            model.addAttribute("widgets",DashupService.getInstance().findWidgetByName(searchQuery));
         });
     }
 

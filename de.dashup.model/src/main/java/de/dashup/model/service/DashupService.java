@@ -470,4 +470,19 @@ public class DashupService {
             sectionIndex++;
         }
     }
+
+    public List<Widget> findWidgetByName(String name) throws SQLException{
+        Map<String, Object> values = new HashMap<>();
+        values.put("name", name);
+
+        List<? extends DatabaseObject> result = this.database.find(Database.Table.PANELS,values,Widget.class);
+
+        List<Widget> widgets = new ArrayList<>();
+        for (int i = 0; i < result.size(); i++) {
+            Widget widget = (Widget) new Widget().fromDatabaseObject(result.get(i));
+            widgets.add(widget);
+        }
+
+        return widgets;
+    }
 }

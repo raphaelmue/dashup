@@ -269,6 +269,26 @@ public class Database {
         return Converter.convertResultSetIntoJSON(result);
     }
 
+    public List<? extends  DatabaseObject> find(Table tableName,Map<String, Object> whereParameters, Type resultType) throws SQLException{
+
+        Gson gson = new GsonBuilder().create();
+        PreparedStatement statement;
+        String query = "SELECT * FROM " + tableName.getTableName() + " WHERE" + whereParameters.keySet().toString().replace("[", " ").replace("]", " ") + "LIKE ?";
+        statement = this.preparedStatement(connection.prepareStatement(query),whereParameters);
+
+
+        // execute
+
+        JSONArray jsonArray = Converter.convertResultSetIntoJSON(statement.executeQuery());
+        List<DatabaseObject> result = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            result.add(gson.fromJson(jsonObject.toString(), resultType));
+        }
+
+        return result;
+    }
+
     /**
      * Inserts one data row into database.
      *

@@ -21,14 +21,18 @@
             <div class="row" style="margin-top: 25px">
                 <div class="col m4 offset-m4 s8 offset-s1">
                     <div class="input-field">
-                        <input id="text-field-login-email" name="email" type="text" class="validate">
+                        <input id="text-field-login-email" name="search" type="text" class="validate">
                         <label for="text-field-login-email"><fmt:message key="i18n.enterSearchterm" /></label>
                     </div>
                 </div>
                 <div class="col m2 s2" style="margin-top: 18px">
+                    <a class='waves-effect waves-light modal-trigger' href='#widget-filter'>
+                        <i class="colored-text fas fa-filter"></i>
+                    </a>
                     <button id="btn_start_search_marketplace" class="btn waves-effect waves-light" type="submit" name="search">
                         <fmt:message key="i18n.go" />
                     </button>
+
                 </div>
             </div>
         </form>
@@ -128,6 +132,46 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal Structure -->
+        <div id="widget-filter" class="modal">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col s12 m6 ">
+
+                        <div class="col s4 m6">
+                            Categories
+                        </div>
+                        <div class="col s8 m6">
+
+                            <div class="col col s8 m6 z-depth-2">2
+                                <div class="chip">
+                                    Tag
+                                    <i class="close material-icons">close</i>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col s4 m6">
+                            Categories
+                        </div>
+                        <div class="col s8 m6">
+                            --
+                        </div>
+                        <div class="col s4 m6">
+                            Categories
+                        </div>
+                        <div class="col s8 m6">
+                            --
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                </div>
+            </div>
+        </div>
     </body>
     <script type="text/javascript">
         $( document ).ready(function () {
@@ -136,7 +180,20 @@
                 fullWidth: true,
                 indicators: true
             });
+
+            document.addEventListener('DOMContentLoaded', function () {
+                let elems = document.querySelectorAll('.modal');
+                let instances = M.Modal.init(elems, options);
+            });
         });
+
+
+        // Or with jQuery
+
+        $(document).ready(function () {
+            $('.modal').modal();
+        });
+
 
     </script>
 
