@@ -90,6 +90,8 @@
     </body>
     <script>
         $( document ).ready(function () {
+            $("#nav-item-marketplace").parent().addClass("active");
+
             $("#weather-panel").on("click", function () {
                 PostRequest.getInstance().make("marketplace/detailView/1", {
                 });

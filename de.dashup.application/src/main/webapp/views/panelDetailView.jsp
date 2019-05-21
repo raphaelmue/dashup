@@ -182,8 +182,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a id="btn-add-widget" class="modal-close waves-effect waves-green btn-flat"><fmt:message
+                <a id="btn-add-widget" class="modal-close waves-effect btn"><fmt:message
                         key="i18n.ok"/></a>
+                <a id="btn-cancel-add-widget" class="btn-flat modal-close waves-effect"><fmt:message key="i18n.cancel" /></a>
             </div>
         </div>
         <div id="dialog-add-comment" class="modal">
@@ -233,8 +234,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a id="btn-submit-comment" class="modal-close waves-effect waves-green btn-flat"><fmt:message
+                <a id="btn-submit-comment" class="modal-close waves-effect btn"><fmt:message
                         key="i18n.ok"/></a>
+                <a id="btn-cancel-comment" class="btn-flat modal-close waves-effect"><fmt:message key="i18n.cancel" /></a>
             </div>
         </div>
     </body>
@@ -284,6 +286,7 @@
             let currentRatingPercentage = 0;
             $('.tabs').tabs();
             $('.chips').chips();
+            $("#nav-item-marketplace").parent().addClass("active");
 
             let chooseSectionToAddToDialog = M.Modal.getInstance(document.getElementById("dialog-add-panel-to-dashup"));
             $('#btn-add-panel-to-dashup').on("click", function () {
