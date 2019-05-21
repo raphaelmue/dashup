@@ -188,9 +188,9 @@ public class DashupService {
             return false;
         }
         try {
+            Widget widget = this.getPanelById(widgetId);
             Map<String, Object> whereParameters = new HashMap<>();
             whereParameters.put("id", widgetId);
-            DatabaseWidget widget = (DatabaseWidget) database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters).get(0);
             Map<String, Object> updateValues = new HashMap<>();
             updateValues.put("number_of_ratings", widget.getNumberOfRatings() + 1);
             updateValues.put("avg_of_ratings", ((widget.getAverageRating() * widget.getNumberOfRatings()) + rating) / (widget.getNumberOfRatings() + 1));
@@ -227,6 +227,16 @@ public class DashupService {
             } catch (SQLException e) {
                 return false;
             }
+        }
+        try {
+            Widget widget = this.getPanelById(widgetId);
+            Map<String, Object> whereParameters = new HashMap<>();
+            whereParameters.put("id", widgetId);
+            Map<String, Object> updateValues = new HashMap<>();
+            updateValues.put("number_of_downloads", widget.getNumberOfDownloads() + 1);
+            database.update(Database.Table.PANELS, whereParameters, updateValues);
+        } catch (SQLException e) {
+            return false;
         }
         return true;
     }
