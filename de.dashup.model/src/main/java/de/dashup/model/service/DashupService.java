@@ -144,7 +144,9 @@ public class DashupService {
 
     public ArrayList<Widget> getBestRatedWidgets() throws SQLException {
         ArrayList<Widget> returningValue = new ArrayList<>();
-        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, new HashMap<>(), "avg_of_ratings DESC");
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("visibility",1);
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters, "avg_of_ratings DESC");
         if (result != null && result.size() >= 4) {
             for (int i = 0; i < 4; i++) {
                 Widget widget = (Widget) new Widget().fromDatabaseObject(result.get(i));
