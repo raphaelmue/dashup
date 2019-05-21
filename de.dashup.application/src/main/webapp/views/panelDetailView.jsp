@@ -20,8 +20,8 @@
         </nav>
         <div class="container">
             <div class="row">
-                <div class="col m3" style="margin-top: 2%">
-                    <i class="fas fa-cloud fa-10x"></i>
+                <div class="col" style="margin-top: 2%">
+                    <i class="fas fa-${fn:escapeXml(widget.iconCode)} fa-10x"></i>
                 </div>
                 <div class="col m7">
                     <div class="row">
@@ -56,103 +56,103 @@
                     </div>
                 </div>
                 <div class="col m2" style="margin-top: 40px">
-                    <button id="btn-add-panel-to-dashup" class="btn waves-effect waves-light" type="submit"
-                            name="add">
-                        <fmt:message key="i18n.add"/>
-                    </button>
+                    <div class="row">
+                        <button id="btn-add-panel-to-dashup" class="btn waves-effect waves-light" type="submit"
+                                name="add">
+                            <fmt:message key="i18n.add"/>
+                        </button>
+                    </div>
+                    <div class="row">
+                        <button id="btn-add-comment" class="btn waves-effect waves-light" type="submit"
+                            name="comment">
+                            <fmt:message key="i18n.addComment"/>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col m10 offset-m1">
-                <ul id="tabs-swipe-demo" class="tabs tabs-fixed-width">
-                    <li class="tab col s3"><a class="active" href="#overview-tab">Overview</a></li>
-                    <li class="tab col s3"><a href="#ratings-tab">Ratings</a></li>
-                    <li class="tab col s3"><a href="#similar-tab">Similar</a></li>
-                </ul>
-                <div id="overview-tab" class="col s12">
-                    <div class="row">
-                        <div class="col m8">
-                            ${fn:escapeXml(widget.description)}
-                        </div>
-                        <div class="col m4">
-                            <blockquote style="color: var(--color-primary)">
-                                <div class="row">
-                                    <h4><fmt:message key="i18n.additionalInformation"/></h4>
-                                </div>
-                                <div class="row">
-                                    <b><fmt:message key="i18n.dateOfPublication"/></b>
-                                </div>
-                                <div class="row">
-                                    ${fn:escapeXml(widget.publicationDate)}
-                                </div>
-                                <div class="row">
-                                    <b><fmt:message key="i18n.tags"/></b>
-                                </div>
-                                <c:if test="${fn:length(tags) > 0}">
+            <div class="row">
+                <div class="col s12 l12 m12">
+                    <ul id="tabs-swipe-demo" class="tabs tabs-fixed-width">
+                        <li class="tab col s3"><a class="active" href="#overview-tab">Overview</a></li>
+                        <li class="tab col s3"><a href="#ratings-tab">Ratings</a></li>
+                        <li class="tab col s3"><a href="#similar-tab">Similar</a></li>
+                    </ul>
+                    <div id="overview-tab" class="col s12">
+                        <div class="row">
+                            <div class="col m8">
+                                ${fn:escapeXml(widget.description)}
+                            </div>
+                            <div class="col m4">
+                                <blockquote style="color: var(--color-primary)">
                                     <div class="row">
-                                        <c:forEach items="${tags}" var="tag">
-                                            <div class="chip">
-                                                    ${fn:escapeXml(tag)}
-                                            </div>
-                                        </c:forEach>
+                                        <h4><fmt:message key="i18n.additionalInformation"/></h4>
                                     </div>
-                                </c:if>
-                            </blockquote>
-                        </div>
-                    </div>
-                </div>
-                <div id="ratings-tab" class="col s12">
-                    <div class="row">
-                        <div class="col m2 offset-m2">
-                            <button id="btn-add-comment" class="btn waves-effect waves-light" type="submit"
-                                    name="comment">
-                                <fmt:message key="i18n.addComment"/>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <ul class="collection">
-                            <c:forEach items="${ratings}" var="rating">
-                                <li class="collection-item">
-                                    <div class="row" style="margin-bottom: 0px">
-                                        <div class="col m4">
-                                            <h5>${fn:escapeXml(rating.title)}</h5>
+                                    <div class="row">
+                                        <b><fmt:message key="i18n.dateOfPublication"/></b>
+                                    </div>
+                                    <div class="row">
+                                        ${fn:escapeXml(widget.publicationDate)}
+                                    </div>
+                                    <div class="row">
+                                        <b><fmt:message key="i18n.tags"/></b>
+                                    </div>
+                                    <c:if test="${fn:length(tags) > 0}">
+                                        <div class="row">
+                                            <c:forEach items="${tags}" var="tag">
+                                                <div class="chip">
+                                                        ${fn:escapeXml(tag)}
+                                                </div>
+                                            </c:forEach>
                                         </div>
-                                        <div class="col m2 offset-m6">
-                                            <div class="star-rating" style="font-size: 25px; margin-top: 15px">
-                                                <div class="back-stars">
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <div class="front-stars"
-                                                         style="width:  ${fn:escapeXml(rating.rating)}%">
+                                    </c:if>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="ratings-tab" class="col s12 l12 m12">
+                        <div class="row">
+                            <ul class="collection">
+                                <c:forEach items="${ratings}" var="rating">
+                                    <li class="collection-item">
+                                        <div class="row" style="margin-bottom: 0px">
+                                            <div class="col m4">
+                                                <h5>${fn:escapeXml(rating.title)}</h5>
+                                            </div>
+                                            <div class="col m2 offset-m6">
+                                                <div class="star-rating" style="font-size: 25px; margin-top: 15px">
+                                                    <div class="back-stars">
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <div class="front-stars"
+                                                             style="width:  ${fn:escapeXml(rating.rating)}%">
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row" style="font-size: 15px; margin-left: 3px">
-                                        By ${fn:escapeXml(rating.userName)} ${fn:escapeXml(rating.userSurname)}, Last
-                                        changed on ${fn:escapeXml(rating.changeDate)}
-                                    </div>
-                                    <div class="row" style="margin-left: 3px">
-                                            ${fn:escapeXml(rating.text)}
-                                    </div>
-                                </li>
-                            </c:forEach>
-                        </ul>
+                                        <div class="row" style="font-size: 15px; margin-left: 3px">
+                                            By ${fn:escapeXml(rating.userName)} ${fn:escapeXml(rating.userSurname)}, Last
+                                            changed on ${fn:escapeXml(rating.changeDate)}
+                                        </div>
+                                        <div class="row" style="margin-left: 3px">
+                                                ${fn:escapeXml(rating.text)}
+                                        </div>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div id="similar-tab" class="col s12">
+                    <div id="similar-tab" class="col s12 l12 m12">
 
+                    </div>
                 </div>
             </div>
         </div>

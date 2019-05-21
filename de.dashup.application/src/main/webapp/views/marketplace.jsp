@@ -114,8 +114,12 @@
                                 <div class="card-stacked">
                                     <div class="card-content">
                                         <div class="row">
-                                            <i class="fas fa-cloud fa-3x"></i>
-                                            <h5 style="display: inline">${fn:escapeXml(panel.name)}</h5>
+                                            <div class="col">
+                                                <i class="fas fa-${fn:escapeXml(panel.iconCode)} fa-3x"></i>
+                                            </div>
+                                            <div class="col">
+                                                <h5 style="margin-top: 10px;">${fn:escapeXml(panel.name)}</h5>
+                                            </div>
                                         </div>
                                             ${fn:escapeXml(panel.shortDescription)}
                                     </div>

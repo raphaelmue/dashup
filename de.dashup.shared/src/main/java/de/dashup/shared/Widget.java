@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDate;
 
-public class Widget extends DatabaseWidget implements Comparable<Widget>{
+public class Widget extends DatabaseWidget implements Comparable<Widget> {
 
     public enum Size {
         SMALL("small", "m2 s6"),
@@ -49,8 +49,8 @@ public class Widget extends DatabaseWidget implements Comparable<Widget>{
     }
 
     public Widget(int id, String name, String description, int numberOfDownloads, int averageRating,
-                  int index, int numberOfRatings, LocalDate publicationDate) {
-        super(id, name, description, numberOfDownloads, averageRating,numberOfRatings,publicationDate);
+                  int index, int numberOfRatings, LocalDate publicationDate, String iconCode) {
+        super(id, name, description, numberOfDownloads, averageRating, numberOfRatings, publicationDate, iconCode);
         this.index = index;
     }
 
@@ -67,6 +67,7 @@ public class Widget extends DatabaseWidget implements Comparable<Widget>{
             this.setNumberOfRatings(((DatabaseWidget) databaseObject).getNumberOfRatings());
             this.setPublicationDate(((DatabaseWidget) databaseObject).getPublicationDate());
             this.setShortDescription(((DatabaseWidget) databaseObject).getShortDescription());
+            this.setIconCode(((DatabaseWidget) databaseObject).getIconCode());
         }
         return this;
     }

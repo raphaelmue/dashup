@@ -26,11 +26,13 @@ public class DatabaseWidget implements DatabaseObject {
     private String publicationDate;
     @SerializedName("short_description")
     private String shortDescription;
+    @SerializedName("icon_code")
+    private String iconCode;
 
     public DatabaseWidget() {
     }
 
-    DatabaseWidget(int id, String name, String description, int numberOfDownloads, int averageRating, int numberOfRatings, LocalDate publicationDate) {
+    DatabaseWidget(int id, String name, String description, int numberOfDownloads, int averageRating, int numberOfRatings, LocalDate publicationDate, String iconCode) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -40,6 +42,7 @@ public class DatabaseWidget implements DatabaseObject {
         if (publicationDate != null) {
             this.publicationDate = publicationDate.toString();
         }
+        this.iconCode = iconCode;
     }
 
 
@@ -143,5 +146,13 @@ public class DatabaseWidget implements DatabaseObject {
 
     public void setShortDescription(String shortDescription) {
         this.shortDescription = shortDescription;
+    }
+
+    public String getIconCode() {
+        return iconCode;
+    }
+
+    public void setIconCode(String iconCode) {
+        this.iconCode = iconCode;
     }
 }

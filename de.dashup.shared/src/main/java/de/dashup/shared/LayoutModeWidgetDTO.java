@@ -39,7 +39,7 @@ public class LayoutModeWidgetDTO implements DataTransferObject {
 
         String widgetFrontendId = widgetId.substring(1);
         int widgetTechnicalId = Integer.valueOf(widgetFrontendId);
-        return new Widget(widgetTechnicalId, "", "", 0, 0, index,0,LocalDate.now());
+        return new Widget(widgetTechnicalId, "", "", 0, 0, index, 0, LocalDate.now(), "");
 
     }
 }
