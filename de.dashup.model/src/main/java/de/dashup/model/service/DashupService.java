@@ -473,7 +473,7 @@ public class DashupService {
 
     public List<Widget> findWidgetByName(String name) throws SQLException{
         Map<String, Object> values = new HashMap<>();
-        values.put("name", name);
+        values.put("name", "%" + name + "%");
 
         List<? extends DatabaseObject> result = this.database.find(Database.Table.PANELS,values,Widget.class);
 

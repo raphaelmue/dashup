@@ -1,4 +1,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <fmt:setLocale value="${param.lang}" scope="session" />
 <fmt:setBundle basename="i18n" />
@@ -16,17 +18,19 @@
             </div>
         </nav>
         <div class="row" style="margin-top: 25px">
-            <div class="col m4 offset-m4 s8 offset-s1">
-                <div class="input-field">
-                    <input id="text-field-login-email" name="email" type="text" class="validate">
-                    <label for="text-field-login-email"><fmt:message key="i18n.enterSearchterm" /></label>
+            <form action="${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search" method="post">
+                <div class="col m4 offset-m4 s8 offset-s1">
+                    <div class="input-field">
+                        <input id="text-field-login-email" name="search" type="text" class="validate">
+                        <label for="text-field-login-email"><fmt:message key="i18n.enterSearchterm" /></label>
+                    </div>
                 </div>
-            </div>
-            <div class="col m2 s2" style="margin-top: 18px">
-                <button id="btn_start_search_marketplace" class="btn waves-effect waves-light" type="submit" name="search">
-                    <fmt:message key="i18n.go" />
-                </button>
-            </div>
+                <div class="col m2 s2" style="margin-top: 18px">
+                    <button id="btn_start_search_marketplace" class="btn waves-effect waves-light" type="submit" name="search">
+                        <fmt:message key="i18n.go" />
+                    </button>
+                </div>
+            </form>
         </div>
         <div class="row">
             <div class="col m6 offset-m3 s10 offset-s1">
@@ -37,53 +41,35 @@
             <div class="col m6 offset-m3 s10 offset-s1">
                 <hr/>
                 <ul class="collection">
-                    <li class="collection-item" id="weather-panel">
-                        <div class="row">
-                            <div class="col m3 s3">
-                                <i class="fas fa-cloud fa-7x"></i>
-                            </div>
-                            <div class="col m4 s4">
-                                <h5>Weather Panel</h5>
-                                <div>This is the short description of this panel</div>
-                                <div style="margin-top: 5px">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+
+                    <script>console.log("#####");
+                    console.log(${widgets});</script>
+
+                    <c:forEach items="${widgets}" var="widget">
+                        <li class="collection-item" id=${fn:escapeXml(widget.id)}>
+                            <div class="row">
+                                <div class="col m3 s3">
+                                    <i class="fas fa-cloud fa-7x"></i>
+                                </div>
+                                <div class="col m4 s4">
+                                    <h5>${fn:escapeXml(widget.name)}</h5>
+                                    <div>${fn:escapeXml(widget.shortDescription)}</div>
+                                    <div style="margin-top: 5px">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="col m2 offset-m3" style="margin-top: 30px">
+                                    <button id="add" class="btn waves-effect waves-light" type="submit" name="search">
+                                        <fmt:message key="i18n.add"/>
+                                    </button>
                                 </div>
                             </div>
-                            <div class="col m2 offset-m3" style="margin-top: 30px">
-                                <button id="add" class="btn waves-effect waves-light" type="submit" name="search">
-                                    <fmt:message key="i18n.add" />
-                                </button>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="collection-item">
-                        <i class="material-icons circle">folder</i>
-                        <span class="title">Title</span>
-                        <p>First Line <br>
-                            Second Line
-                        </p>
-                        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                    </li>
-                    <li class="collection-item">
-                        <i class="material-icons circle green">insert_chart</i>
-                        <span class="title">Title</span>
-                        <p>First Line <br>
-                            Second Line
-                        </p>
-                        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                    </li>
-                    <li class="collection-item">
-                        <i class="material-icons circle red">play_arrow</i>
-                        <span class="title">Title</span>
-                        <p>First Line <br>
-                            Second Line
-                        </p>
-                        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                    </li>
+                        </li>
+                    </c:forEach>
                 </ul>
             </div>
         </div>
@@ -96,6 +82,9 @@
             });
             $("#add").on("click", function () {
 
+            });
+            $("#btn_start_search_marketplace").on("click", function () {
+                PostRequest.getInstance().make("${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search", {search: document.getElementById("text-field-login-email")})
             });
         });
     </script>
