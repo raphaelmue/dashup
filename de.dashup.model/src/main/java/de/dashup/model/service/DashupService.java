@@ -1,5 +1,6 @@
 package de.dashup.model.service;
 
+import com.mysql.cj.conf.ConnectionUrlParser;
 import de.dashup.model.db.Database;
 import de.dashup.model.exceptions.EmailAlreadyInUseException;
 import de.dashup.shared.*;
@@ -134,7 +135,7 @@ public class DashupService {
         Map<String, Object> whereParameters = new HashMap<>();
         onParameters.put("user_id", "id");
         whereParameters.put("panel_id", widgetId);
-        List<? extends DatabaseObject> databaseResult = database.getObject(Database.Table.RATINGS, Database.Table.USERS, Rating.class, onParameters, whereParameters,"ratings.changed_on DESC");
+        List<? extends DatabaseObject> databaseResult = database.getObject(Database.Table.RATINGS, Database.Table.USERS, Rating.class, onParameters, whereParameters, "ratings.changed_on DESC");
         for (DatabaseObject databaseObject : databaseResult) {
             Rating rating = (Rating) databaseObject;
             returningValue.add(rating);
@@ -146,7 +147,7 @@ public class DashupService {
         ArrayList<Widget> returningValue = new ArrayList<>();
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("visibility", 1);
-        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters, sortByField+" DESC");
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters, sortByField + " DESC");
         if (result != null && result.size() >= 4) {
             for (int i = 0; i < 4; i++) {
                 Widget widget = (Widget) new Widget().fromDatabaseObject(result.get(i));
@@ -161,6 +162,27 @@ public class DashupService {
             }
         }
         return returningValue;
+    }
+
+    public Map<Widget, Rating> getFeaturedWidgets(int[] widgetIds) throws SQLException {
+        Map<Widget, Rating> returningValue = new HashMap<>();
+        for (int i = 0; i < widgetIds.length; i++) {
+            returningValue.put(this.getPanelById(widgetIds[i]), this.getTopRating(widgetIds[i]));
+        }
+        return returningValue;
+    }
+
+    private Rating getTopRating(int widgetId) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("panel_id", widgetId);
+        Map<String, String> onParameters = new HashMap<>();
+        onParameters.put("user_id", "id");
+        List<? extends DatabaseObject> result = database.getObject(Database.Table.RATINGS, Database.Table.USERS, Rating.class, onParameters, whereParameters, "rating DESC");
+        if (result.size() > 0) {
+            return (Rating) result.get(0);
+        }else {
+            return new Rating();
+        }
     }
 
     private String shortenShortDescOfPanel(String shortDescr) {

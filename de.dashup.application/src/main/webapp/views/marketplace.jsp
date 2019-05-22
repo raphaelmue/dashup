@@ -42,58 +42,48 @@
         <div class="row">
             <div class="col m6 offset-m3 s10 offset-s1">
                 <div class="carousel carousel-slider center">
-                    <div class="carousel-item" href="#one!" style="background-color: var(--color-secondary);color: var(--color-black)">
-                        <div class="row" style="margin: 10px">
-                            <div class="col">
-                                <i class="fas fa-${fn:escapeXml(carouselWidget.iconCode)} fa-7x"></i>
+                    <c:forEach items="${featuredWidgets}" var="mapEntry">
+                        <div class="carousel-item" href="#one!" style="background-color: var(--color-secondary);color: #ffffff">
+                            <div class="row" style="margin: 10px">
+                                <div class="col">
+                                    <i class="fas fa-${fn:escapeXml(mapEntry.key.iconCode)} fa-7x"></i>
+                                </div>
+                                <div class="col">
+                                    <h1 style="margin-top: 20px">${fn:escapeXml(mapEntry.key.name)}</h1>
+                                </div>
                             </div>
-                            <div class="col">
-                                <h1 style="margin-top: 25px">${fn:escapeXml(carouselWidget.name)}</h1>
+                            <div class="row" style="margin-left: 10px; margin-right: 10px;">
+                                <p>
+                                    ${fn:escapeXml(mapEntry.key.shortDescription)}
+                                </p>
                             </div>
-                        </div>
-                        <div class="row" style="margin-left: 10px; margin-right: 10px;">
-                            <p>
-                                ${fn:escapeXml(carouselWidget.shortDescription)}
-                            </p>
-                        </div>
-                        <div class="row" style="margin-right: 10px; margin-left: 10px;">
-                            <div class="col">
-                                <div class="star-rating" style="font-size: 25px; margin-top: 15px">
-                                    <div class="back-stars">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <div class="front-stars"
-                                             style="width:  ${fn:escapeXml(carouselWidget.averageRating)}%">
+                            <div class="row" style="margin-right: 10px; margin-left: 10px;">
+                                <div class="col">
+                                    <div class="star-rating" style="font-size: 25px; margin-top: 15px">
+                                        <div class="back-stars">
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <i class="fa fa-star" aria-hidden="true"></i>
+                                            <div class="front-stars"
+                                                 style="width:  ${fn:escapeXml(mapEntry.key.averageRating)}%">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col m9" style="margin-top: 0px">
-                                <p>"This panel is so fantastic. Really the best one I have ever seen! You have to download it now."</p>
-                                <p>By Der Coolste</p>
+                                <div class="col m9" style="margin-top: 0px">
+                                    <p>"${fn:escapeXml(mapEntry.value.text)}"</p>
+                                    <p>By ${fn:escapeXml(mapEntry.value.userName)} ${fn:escapeXml(mapEntry.value.userSurname)}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="carousel-item grey lighten-2 black-text" href="#two!">
-                        <h2>Second Panel</h2>
-                        <p class="white-text">This is your second panel</p>
-                    </div>
-                    <div class="carousel-item grey lighten-2 black-text" href="#three!">
-                        <h2>Third Panel</h2>
-                        <p class="white-text">This is your third panel</p>
-                    </div>
-                    <div class="carousel-item grey lighten-2 black-text" href="#four!">
-                        <h2>Fourth Panel</h2>
-                        <p class="white-text">This is your fourth panel</p>
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
