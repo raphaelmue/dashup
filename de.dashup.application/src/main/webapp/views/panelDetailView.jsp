@@ -64,7 +64,7 @@
                     </div>
                     <div class="row">
                         <button id="btn-add-comment" class="btn waves-effect waves-light" type="submit"
-                            name="comment">
+                            name="comment" style="margin-left: 4%">
                             <fmt:message key="i18n.addComment"/>
                         </button>
                     </div>
@@ -78,8 +78,8 @@
                         <li class="tab col s3"><a href="#similar-tab">Similar</a></li>
                     </ul>
                     <div id="overview-tab" class="col s12">
-                        <div class="row">
-                            <div class="col m8">
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col m8" align="justify">
                                 ${fn:escapeXml(widget.description)}
                             </div>
                             <div class="col m4">
@@ -110,7 +110,7 @@
                         </div>
                     </div>
                     <div id="ratings-tab" class="col s12 l12 m12">
-                        <div class="row">
+                        <div class="row" style="margin-top: 10px;">
                             <ul class="collection">
                                 <c:forEach items="${ratings}" var="rating">
                                     <li class="collection-item">
@@ -151,7 +151,9 @@
                         </div>
                     </div>
                     <div id="similar-tab" class="col s12 l12 m12">
+                        <div class="row" style="margin-top: 10px;">
 
+                        </div>
                     </div>
                 </div>
             </div>
