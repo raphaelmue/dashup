@@ -14,7 +14,7 @@
                 <div class="col s12">
                     <a href="${pageContext.request.contextPath}/" class="breadcrumb">dashup</a>
                     <a href="/marketplace/" class="breadcrumb"><fmt:message key="i18n.marketplace"/></a>
-                    <a href="/marketplace/" class="breadcrumb">${fn:escapeXml(widget.name)}</a>
+                    <a href="/marketplace/detailView/${fn:escapeXml(widget.id)}" class="breadcrumb">${fn:escapeXml(widget.name)}</a>
                 </div>
             </div>
         </nav>

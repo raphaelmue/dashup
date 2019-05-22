@@ -68,34 +68,30 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s12 m3 offset-m3">
-                <div class="card horizontal">
-                    <div class="card-image">
-                        <img src="https://lorempixel.com/100/190/nature/6">
-                    </div>
-                    <div class="card-stacked">
-                        <div class="card-content">
-                            <p>I am a very simple card. I am good at containing small bits of information.</p>
+            <div class="col s12 m6 offset-m3">
+                <div class="row">
+                    <c:forEach items="${mostDownloaded}" var="panel">
+                        <div class="col m6">
+                            <div class="card horizontal" style="height: 230px">
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                        <div class="row">
+                                            <div class="col">
+                                                <i class="fas fa-${fn:escapeXml(panel.iconCode)} fa-3x"></i>
+                                            </div>
+                                            <div class="col">
+                                                <h5 style="margin-top: 10px;">${fn:escapeXml(panel.name)}</h5>
+                                            </div>
+                                        </div>
+                                            ${fn:escapeXml(panel.shortDescription)}
+                                    </div>
+                                    <div class="card-action">
+                                        <a href="/marketplace/detailView/${panel.id}"><fmt:message key="i18n.showMore"/></a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-action">
-                            <a href="#">This is a link</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m3">
-                <div class="card horizontal">
-                    <div class="card-image">
-                        <img src="https://lorempixel.com/100/190/nature/6">
-                    </div>
-                    <div class="card-stacked">
-                        <div class="card-content">
-                            <p>I am a very simple card. I am good at containing small bits of information.</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">This is a link</a>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
