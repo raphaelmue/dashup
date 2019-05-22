@@ -134,7 +134,7 @@ public class DashupService {
         Map<String, Object> whereParameters = new HashMap<>();
         onParameters.put("user_id", "id");
         whereParameters.put("panel_id", widgetId);
-        List<? extends DatabaseObject> databaseResult = database.getObject(Database.Table.RATINGS, Database.Table.USERS, Rating.class, onParameters, whereParameters);
+        List<? extends DatabaseObject> databaseResult = database.getObject(Database.Table.RATINGS, Database.Table.USERS, Rating.class, onParameters, whereParameters,"ratings.changed_on DESC");
         for (DatabaseObject databaseObject : databaseResult) {
             Rating rating = (Rating) databaseObject;
             returningValue.add(rating);
