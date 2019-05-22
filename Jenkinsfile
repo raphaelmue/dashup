@@ -41,6 +41,14 @@ pipeline {
                 sh 'bash service/publish-test-report.sh'
             }
         }
+        stage('Analyze Project') {
+            /*when {
+                branch 'master'
+            }*/
+            steps {
+                sh 'mvn sonar:sonar -P sonar -Dsonar.projectKey=dashup'
+            }
+        }
         stage('Deploy') {
             when {
                 branch 'deployment'
