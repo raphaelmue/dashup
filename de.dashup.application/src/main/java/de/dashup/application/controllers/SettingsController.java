@@ -19,10 +19,10 @@ import java.time.LocalDate;
 import java.util.Locale;
 
 @Controller
-@RequestMapping("/settings")
+@RequestMapping(value = "/settings")
 public class SettingsController {
 
-    @RequestMapping("/")
+    @RequestMapping(value = "/")
     public String settings(@CookieValue(name = "token", required = false) String token,
                            HttpServletRequest request, Model model) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "settings", user -> {
@@ -38,7 +38,7 @@ public class SettingsController {
         });
     }
 
-    @RequestMapping("/changeEmail")
+    @RequestMapping(value = "/changeEmail")
     public String handleChangeEmail(@CookieValue(name = "token", required = false) String token,
                                     @RequestParam(value = "email") String email,
                                     HttpServletRequest request) throws SQLException {
@@ -59,7 +59,7 @@ public class SettingsController {
         return "redirect:/login";
     }
 
-    @RequestMapping("/changeUserName")
+    @RequestMapping(value = "/changeUserName")
     public String handleChangeUserName(@CookieValue(name = "token", required = false) String token,
                                     @RequestParam(value = "userName") String userName,
                                     HttpServletRequest request) throws SQLException {
@@ -78,7 +78,7 @@ public class SettingsController {
         return "redirect:/login";
     }
 
-    @RequestMapping("/changeLanguage")
+    @RequestMapping(value = "/changeLanguage")
     public String handleChangeLanguage(@CookieValue(name = "token", required = false) String token,
                                        @RequestParam(value = "lang") String lang,
                                        HttpServletRequest request) throws SQLException {
@@ -92,7 +92,7 @@ public class SettingsController {
         return "redirect:/settings/#changedLanguage";
     }
 
-    @RequestMapping("/changePassword")
+    @RequestMapping(value = "/changePassword")
     public String handleChangePassword(@CookieValue(name = "token", required = false) String token,
                                        @RequestParam(name = "oldPassword") String oldPassword,
                                        @RequestParam(name = "newPassword") String newPassword,

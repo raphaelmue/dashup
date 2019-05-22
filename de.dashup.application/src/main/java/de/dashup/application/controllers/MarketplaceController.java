@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
 @Controller
-@RequestMapping("/marketplace")
+@RequestMapping(value = "/marketplace")
 public class MarketplaceController {
 
-    @RequestMapping("/")
+    @RequestMapping(value = "/")
     public String marketplace(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "marketplace", user -> {
             // tbd

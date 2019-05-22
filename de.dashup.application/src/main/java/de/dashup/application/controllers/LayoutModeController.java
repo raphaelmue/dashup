@@ -23,7 +23,7 @@ import java.sql.SQLException;
 import java.util.Locale;
 
 @Controller
-@RequestMapping("/layoutMode")
+@RequestMapping(value = "/layoutMode")
 public class LayoutModeController {
 
     @RequestMapping(value = "/")

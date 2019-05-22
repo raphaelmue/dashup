@@ -15,10 +15,10 @@ import java.sql.SQLException;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping(value = "/")
 public class DashupController {
     private final LocalStorage localStorage = LocalStorage.getInstance();
-    @RequestMapping("/")
+    @RequestMapping(value = "/")
     public String main(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "index", user -> {
             model.addAttribute("name", user.getName());
@@ -35,7 +35,7 @@ public class DashupController {
         });
     }
 
-    @RequestMapping("/handleLogout")
+    @RequestMapping(value = "/handleLogout")
     public String handleLogout(@CookieValue(name = "token", required = false) String token,
                                HttpServletRequest request, HttpServletResponse response) {
         this.localStorage.writeObjectToSession(request, "user", null);
@@ -51,7 +51,7 @@ public class DashupController {
         return "redirect:/login";
     }
 
-    @RequestMapping("/layoutMode")
+    @RequestMapping(value = "/layoutMode")
     public String layoutMode() {
         System.out.println("Delegating to the layoutMode controller");
         return "redirect:/layoutMode/";

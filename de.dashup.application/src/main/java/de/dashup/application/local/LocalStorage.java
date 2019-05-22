@@ -55,6 +55,7 @@ public class LocalStorage {
 
     public void writeCookie(HttpServletResponse response, String key, String value) {
         Cookie cookie = new Cookie(key, value);
+        cookie.setHttpOnly(true);
         cookie.setPath("/");
         cookie.setMaxAge(60 * 60 * 24 * 30);
         response.addCookie(cookie);
@@ -62,6 +63,7 @@ public class LocalStorage {
 
     public void deleteCookie(HttpServletResponse response, String key) {
         Cookie cookie = new Cookie(key, null);
+        cookie.setHttpOnly(true);
         cookie.setPath("/");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
