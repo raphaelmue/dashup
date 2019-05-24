@@ -43,48 +43,50 @@
             <div class="col m6 offset-m3 s10 offset-s1">
                 <div class="carousel carousel-slider center">
                     <c:forEach items="${featuredWidgets}" var="mapEntry">
-                        <div class="carousel-item" href="#one!" style="background-color: var(--color-secondary);color: #ffffff">
-                            <div class="row" style="margin: 10px">
-                                <div class="col">
-                                    <i class="fas fa-${fn:escapeXml(mapEntry.key.iconCode)} fa-7x"></i>
+                        <a style="display:block" href="${pageContext.request.contextPath}/marketplace/detailView/${fn:escapeXml(mapEntry.key.id)}">
+                            <div class="carousel-item" href="#one!" style="background-color: var(--color-secondary);color: #ffffff">
+                                <div class="row" style="margin: 10px">
+                                    <div class="col">
+                                        <i class="fas fa-${fn:escapeXml(mapEntry.key.iconCode)} fa-7x"></i>
+                                    </div>
+                                    <div class="col">
+                                        <h1 style="margin-top: 20px">${fn:escapeXml(mapEntry.key.name)}</h1>
+                                    </div>
                                 </div>
-                                <div class="col">
-                                    <h1 style="margin-top: 20px">${fn:escapeXml(mapEntry.key.name)}</h1>
+                                <div class="row" style="margin-left: 10px; margin-right: 10px;">
+                                    <p>
+                                        ${fn:escapeXml(mapEntry.key.shortDescription)}
+                                    </p>
                                 </div>
-                            </div>
-                            <div class="row" style="margin-left: 10px; margin-right: 10px;">
-                                <p>
-                                    ${fn:escapeXml(mapEntry.key.shortDescription)}
-                                </p>
-                            </div>
-                            <div class="row" style="margin: 0 auto; width: 164px">
-                                <div class="col">
-                                    <div class="star-rating" style="font-size: 25px; margin-top: 15px; color: var(--color-dark-gray);">
-                                        <div class="back-stars">
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <div class="front-stars"
-                                                 style="width:  ${fn:escapeXml(mapEntry.key.averageRating)}%;color: var(--color-background);">
+                                <div class="row" style="margin: 0 auto; width: 164px">
+                                    <div class="col">
+                                        <div class="star-rating" style="font-size: 25px; margin-top: 15px; color: var(--color-dark-gray);">
+                                            <div class="back-stars">
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                                 <i class="fa fa-star" aria-hidden="true"></i>
+                                                <div class="front-stars"
+                                                     style="width:  ${fn:escapeXml(mapEntry.key.averageRating)}%;color: var(--color-background);">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col" style="text-align: center; width: 100%;">
-                                    <p>"${fn:escapeXml(mapEntry.value.text)}"</p>
-                                    <p>By ${fn:escapeXml(mapEntry.value.userName)} ${fn:escapeXml(mapEntry.value.userSurname)}</p>
+                                <div class="row">
+                                    <div class="col" style="text-align: center; width: 100%;">
+                                        <p>"${fn:escapeXml(mapEntry.value.text)}"</p>
+                                        <p>By ${fn:escapeXml(mapEntry.value.userName)} ${fn:escapeXml(mapEntry.value.userSurname)}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </c:forEach>
                 </div>
             </div>
