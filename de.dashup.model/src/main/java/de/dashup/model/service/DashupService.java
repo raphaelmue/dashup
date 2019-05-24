@@ -555,7 +555,7 @@ public class DashupService {
 
         this.database.update(Database.Table.PANELS, whereParameters, values);
 
-        if (widget.getTags().size() > 0) {
+        if (widget.getTags() != null) {
             this.updateWidgetTags(widget, widget.getTags());
         }
 
@@ -670,9 +670,7 @@ public class DashupService {
 
         Set<Tag> tagsToDelete = new HashSet<>();
 
-        Iterator<Tag> iterator = newTags.iterator();
-        while (iterator.hasNext()) {
-            Tag tag = iterator.next();
+        for (Tag tag : newTags) {
             if (!widget.getTags().contains(tag)) {
                 Map<String, Object> values = new HashMap<>();
                 values.put("panel_id", widget.getId());
