@@ -64,7 +64,7 @@
                     </div>
                     <div class="row">
                         <button id="btn-add-comment" class="btn waves-effect waves-light" type="submit"
-                            name="comment" style="margin-left: 4%">
+                            name="comment">
                             <fmt:message key="i18n.addComment"/>
                         </button>
                     </div>
@@ -119,7 +119,7 @@
                                                 <h5>${fn:escapeXml(rating.title)}</h5>
                                             </div>
                                             <div class="col m2 offset-m6">
-                                                <div class="star-rating" style="font-size: 25px; margin-top: 15px">
+                                                <div class="star-rating" style="font-size: 25px; margin-top: 15px;">
                                                     <div class="back-stars">
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -127,7 +127,7 @@
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <div class="front-stars"
-                                                             style="width:  ${fn:escapeXml(rating.rating)}%">
+                                                             style="width:  ${fn:escapeXml(rating.rating)}%;">
                                                             <i class="fa fa-star" aria-hidden="true"></i>
                                                             <i class="fa fa-star" aria-hidden="true"></i>
                                                             <i class="fa fa-star" aria-hidden="true"></i>

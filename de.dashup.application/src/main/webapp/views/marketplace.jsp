@@ -57,9 +57,9 @@
                                     ${fn:escapeXml(mapEntry.key.shortDescription)}
                                 </p>
                             </div>
-                            <div class="row" style="margin-right: 10px; margin-left: 10px;">
+                            <div class="row" style="margin: 0 auto; width: 164px">
                                 <div class="col">
-                                    <div class="star-rating" style="font-size: 25px; margin-top: 15px">
+                                    <div class="star-rating" style="font-size: 25px; margin-top: 15px; color: var(--color-dark-gray);">
                                         <div class="back-stars">
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <i class="fa fa-star" aria-hidden="true"></i>
@@ -67,7 +67,7 @@
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <div class="front-stars"
-                                                 style="width:  ${fn:escapeXml(mapEntry.key.averageRating)}%">
+                                                 style="width:  ${fn:escapeXml(mapEntry.key.averageRating)}%;color: var(--color-background);">
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -77,7 +77,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col m9" style="margin-top: 0px">
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center; width: 100%;">
                                     <p>"${fn:escapeXml(mapEntry.value.text)}"</p>
                                     <p>By ${fn:escapeXml(mapEntry.value.userName)} ${fn:escapeXml(mapEntry.value.userSurname)}</p>
                                 </div>
