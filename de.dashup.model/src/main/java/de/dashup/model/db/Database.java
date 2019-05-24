@@ -388,6 +388,8 @@ public class Database {
         for (Map.Entry<String, Object> entry : values.entrySet()) {
             if (entry.getValue() instanceof LocalDate) {
                 statement.setObject(index, Date.valueOf((LocalDate) entry.getValue()).toString());
+            } else if (entry.getValue() instanceof Boolean) {
+                statement.setObject(index, (boolean) entry.getValue() ? 1 : 0);
             } else {
                 statement.setObject(index, entry.getValue());
             }
