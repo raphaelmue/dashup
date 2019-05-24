@@ -103,6 +103,7 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
             this.setIconCode(((DatabaseWidget) databaseObject).getIconCode());
             this.setVisible(((DatabaseWidget) databaseObject).getIsVisible());
             this.setCategory(((DatabaseWidget) databaseObject).getCategory());
+            this.setPublisherId((((DatabaseWidget) databaseObject).getPublisherId()));
         }
         return this;
     }

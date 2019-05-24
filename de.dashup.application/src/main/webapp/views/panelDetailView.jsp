@@ -94,6 +94,18 @@
                                         ${fn:escapeXml(widget.publicationDate)}
                                     </div>
                                     <div class="row">
+                                        <b><fmt:message key="i18n.publisherId"/></b>
+                                    </div>
+                                    <div class="row">
+                                        ${fn:escapeXml(publisher.userName)}
+                                    </div>
+                                    <div class="row">
+                                        <b><fmt:message key="i18n.category"/></b>
+                                    </div>
+                                    <div class="row">
+                                        ${fn:escapeXml(widget.category)}
+                                    </div>
+                                    <div class="row">
                                         <b><fmt:message key="i18n.tags"/></b>
                                     </div>
                                     <c:if test="${fn:length(tags) > 0}">

@@ -282,6 +282,13 @@ public class DashupService {
         return null;
     }
 
+    public User getUserById(int userId) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("id", userId);
+        User user = new User().fromDatabaseObject( this.database.getObject(Database.Table.USERS,User.class, whereParameters).get(0));
+        return user;
+    }
+
     public Settings getSettingsOfUser(User user) throws SQLException {
         Settings settings = new Settings();
 

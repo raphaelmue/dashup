@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class DatabaseWidget implements DatabaseObject {
     private int id;
     private String name;
-    @SerializedName("descriptions")
+    @SerializedName("description")
     private String description;
     @SerializedName("short_description")
     private String shortDescription;
@@ -30,6 +30,8 @@ public class DatabaseWidget implements DatabaseObject {
     private int numberOfRatings;
     @SerializedName("icon_code")
     private String iconCode;
+    @SerializedName("user_id")
+    private int publisherId;
 
     public DatabaseWidget() {
     }
@@ -164,5 +166,13 @@ public class DatabaseWidget implements DatabaseObject {
 
     public void setIconCode(String iconCode) {
         this.iconCode = iconCode;
+    }
+
+    public int getPublisherId() {
+        return publisherId;
+    }
+
+    public void setPublisherId(int publisherId) {
+        this.publisherId = publisherId;
     }
 }

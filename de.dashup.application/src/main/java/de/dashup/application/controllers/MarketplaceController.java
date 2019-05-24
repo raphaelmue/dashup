@@ -42,6 +42,8 @@ public class MarketplaceController {
         return ControllerHelper.defaultMapping(token, request, model, "panelDetailView", user -> {
             Widget widget = DashupService.getInstance().getPanelById(widgetID);
             model.addAttribute(widget);
+            User publisher = DashupService.getInstance().getUserById(widget.getPublisherId());
+            model.addAttribute("publisher",publisher);
             model.addAttribute("tags", DashupService.getInstance().getTagsByPanelId(widgetID));
             model.addAttribute("ratings", DashupService.getInstance().getRatingsByWidgetID(widgetID));
             user = DashupService.getInstance().getSectionsAndPanels(user);
