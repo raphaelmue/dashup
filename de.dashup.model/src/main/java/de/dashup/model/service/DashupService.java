@@ -1,6 +1,5 @@
 package de.dashup.model.service;
 
-import com.mysql.cj.conf.ConnectionUrlParser;
 import de.dashup.model.db.Database;
 import de.dashup.model.exceptions.EmailAlreadyInUseException;
 import de.dashup.shared.*;
@@ -166,8 +165,8 @@ public class DashupService {
 
     public Map<Widget, Rating> getFeaturedWidgets(int[] widgetIds) throws SQLException {
         Map<Widget, Rating> returningValue = new HashMap<>();
-        for (int i = 0; i < widgetIds.length; i++) {
-            returningValue.put(this.getPanelById(widgetIds[i]), this.getTopRating(widgetIds[i]));
+        for (int widgetId : widgetIds) {
+            returningValue.put(this.getPanelById(widgetId), this.getTopRating(widgetId));
         }
         return returningValue;
     }
