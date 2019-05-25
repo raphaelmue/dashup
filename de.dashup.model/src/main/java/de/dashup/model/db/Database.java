@@ -405,4 +405,20 @@ public class Database {
         }
         return orderByClauseString.toString();
     }
+
+    public List<? extends DatabaseObject> getRandomEntries(Table table, Type resultType, int limit) throws SQLException {
+        String statement = String.format("SELECT * FROM %s ORDER BY RAND() LIMIT ?", table.getTableName());
+        PreparedStatement preparedStatement = connection.prepareStatement(statement);
+        preparedStatement.setInt(1, limit);
+        ResultSet result = preparedStatement.executeQuery();
+        JSONArray jsonArray = Converter.convertResultSetIntoJSON(result);
+
+        Gson gson = new GsonBuilder().create();
+        List<? extends DatabaseObject> entries = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            entries.add(gson.fromJson(jsonObject.toString(), resultType));
+        }
+        return entries;
+    }
 }

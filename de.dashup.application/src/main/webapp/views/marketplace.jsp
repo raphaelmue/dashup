@@ -1,3 +1,6 @@
+<%@ page import="de.dashup.shared.Widget" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Arrays" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -62,18 +65,10 @@
                                     <div class="col">
                                         <div class="star-rating" style="font-size: 25px; margin-top: 15px; color: var(--color-dark-gray);">
                                             <div class="back-stars">
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <% for(int i = 0;i < 5; i++) out.print("<i class=\"fa fa-star\" aria-hidden=\"true\"></i>"); %>
                                                 <div class="front-stars"
                                                      style="width:  ${fn:escapeXml(mapEntry.key.averageRating)}%;color: var(--color-background);">
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <% for(int i = 0;i < 5; i++) out.print("<i class=\"fa fa-star\" aria-hidden=\"true\"></i>"); %>
                                                 </div>
                                             </div>
                                         </div>
@@ -91,74 +86,61 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col m6 offset-m3 s10 offset-s1">
-                <h3><fmt:message key="i18n.mostPopular"/></h3>
-                <hr/>
+        <%
+            class Category {
+                private List<Widget> widgets;
+                private String langCode;
+
+                public Category(List<Widget> widgets, String langCode){
+                    this.widgets = widgets;
+                    this.langCode = langCode;
+                }
+
+                public List<Widget> getWidgets() { return this.widgets; }
+                public void setWidgets(List<Widget> widgets) { this.widgets = widgets; }
+                public String getLangCode() { return this.langCode; }
+                public void setLangCode(String langCode) { this.langCode = langCode; }
+            }
+            Category[] categories = {new Category((List<Widget>) request.getAttribute("mostDownloaded"), "i18n.mostPopular"),
+                                     new Category((List<Widget>) request.getAttribute("bestRated"), "i18n.bestRating")};
+            pageContext.setAttribute("categories", Arrays.asList(categories));
+        %>
+        <c:forEach items="${categories}" var="category">
+            <div class="row">
+                <div class="col m6 offset-m3 s10 offset-s1">
+                    <h3><fmt:message key="${category.langCode}"/></h3>
+                    <hr/>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col s12 m6 offset-m3">
-                <div class="row">
-                    <c:forEach items="${mostDownloaded}" var="panel">
-                        <div class="col m6">
-                            <div class="card horizontal" style="height: 230px">
-                                <div class="card-stacked">
-                                    <div class="card-content">
-                                        <div class="row">
-                                            <div class="col">
-                                                <i class="fas fa-${fn:escapeXml(panel.iconCode)} fa-3x"></i>
+            <div class="row">
+                <div class="col s12 m6 offset-m3">
+                    <div class="row">
+                        <c:forEach items="${category.widgets}" var="panel">
+                            <div class="col m6">
+                                <div class="card horizontal" style="height: 230px">
+                                    <div class="card-stacked">
+                                        <div class="card-content">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <i class="fas fa-${fn:escapeXml(panel.iconCode)} fa-3x"></i>
+                                                </div>
+                                                <div class="col">
+                                                    <h5 style="margin-top: 10px;">${fn:escapeXml(panel.name)}</h5>
+                                                </div>
                                             </div>
-                                            <div class="col">
-                                                <h5 style="margin-top: 10px;">${fn:escapeXml(panel.name)}</h5>
-                                            </div>
+                                                ${fn:escapeXml(panel.shortDescription)}
                                         </div>
-                                            ${fn:escapeXml(panel.shortDescription)}
-                                    </div>
-                                    <div class="card-action">
-                                        <a href="/marketplace/detailView/${panel.id}"><fmt:message key="i18n.showMore"/></a>
+                                        <div class="card-action">
+                                            <a href="/marketplace/detailView/${panel.id}"><fmt:message key="i18n.showMore"/></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </c:forEach>
+                        </c:forEach>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col m6 offset-m3 s10 offset-s1">
-                <h3><fmt:message key="i18n.bestRating"/></h3>
-                <hr/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12 m6 offset-m3">
-                <div class="row">
-                    <c:forEach items="${bestRated}" var="panel">
-                        <div class="col m6">
-                            <div class="card horizontal" style="height: 230px">
-                                <div class="card-stacked">
-                                    <div class="card-content">
-                                        <div class="row">
-                                            <div class="col">
-                                                <i class="fas fa-${fn:escapeXml(panel.iconCode)} fa-3x"></i>
-                                            </div>
-                                            <div class="col">
-                                                <h5 style="margin-top: 10px;">${fn:escapeXml(panel.name)}</h5>
-                                            </div>
-                                        </div>
-                                            ${fn:escapeXml(panel.shortDescription)}
-                                    </div>
-                                    <div class="card-action">
-                                        <a href="/marketplace/detailView/${panel.id}"><fmt:message key="i18n.showMore"/></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
-            </div>
-        </div>
+        </c:forEach>
     </body>
     <script type="text/javascript">
         $( document ).ready(function () {
