@@ -2,7 +2,7 @@ package de.dashup.application.controllers;
 
 import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.Widget;
+import de.dashup.shared.layout.Widget;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;

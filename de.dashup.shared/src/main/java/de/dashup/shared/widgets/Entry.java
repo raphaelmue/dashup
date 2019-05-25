@@ -1,7 +1,5 @@
 package de.dashup.shared.widgets;
 
-import de.dashup.shared.DatabaseObject;
-
 public class Entry {
 
     private String content;

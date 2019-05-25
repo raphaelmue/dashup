@@ -63,11 +63,16 @@ div.nav-wrapper {
 
 .widget.card {
     background-color: rgba(256, 256, 256, 0.9);
-    height: 275px;
+    height: 300px;
+    overflow: auto;
 }
 
-.widget.card .card-content {
-    padding: 24px 0;
+.widget.card::-webkit-scrollbar {
+    width: 5px;
+}
+
+.widget.card::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary-dark);
 }
 
 /*** WORKBENCH ***/

@@ -397,6 +397,8 @@ public class DashupService {
         }
     }
 
+    // --- WIDGETS --- \\
+
     public void saveTodoWidgetState(User user, Todo todo) throws SQLException{
         Map<String, Object> values = new HashMap<>();
         values.put("user_id", user.getId());
@@ -419,6 +421,11 @@ public class DashupService {
             entries.add(entry);
         }
         return new Todo(entries);
+    }
+
+
+    public void saveFinanceWidgetState(User user, Todo data) {
+
     }
 
     // --- DRAFTS --- \\

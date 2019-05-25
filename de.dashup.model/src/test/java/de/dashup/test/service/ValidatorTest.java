@@ -1,7 +1,7 @@
 package de.dashup.test.service;
 
 import de.dashup.model.service.Validator;
-import de.dashup.shared.Widget;
+import de.dashup.shared.layout.Widget;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

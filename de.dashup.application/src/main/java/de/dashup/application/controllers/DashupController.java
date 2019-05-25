@@ -97,4 +97,34 @@ public class DashupController {
         return null;
     }
 
+    @PostMapping(value = "/finance", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<String> handleFinance(@CookieValue(name = "token", required = false) String token,
+                                             @RequestBody Todo data,
+                                             Locale locale,
+                                             HttpServletRequest request) throws SQLException {
+        ControllerHelper.setLocale(request, locale);
+        User user = LocalStorage.getInstance().getUser(request, token);
+        JSONObject entity = new JSONObject();
+        if (user != null) {
+            DashupService.getInstance().saveFinanceWidgetState(user, data);
+            entity.put("message", "Success");
+            return new ResponseEntity<>(entity.toString(), HttpStatus.OK);
+        }
+        entity.put("message", "Failure");
+        return new ResponseEntity<>(entity.toString(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @RequestMapping("/loadFinance")
+    public @ResponseBody Todo handleLoadFinance(@CookieValue(name = "token", required = false) String token,
+                                             HttpServletRequest request) throws SQLException {
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            Todo todo = DashupService.getInstance().loadTodoWidgetState(user);
+            if(!todo.getList().isEmpty()){
+                return todo;
+            }
+        }
+        return null;
+    }
+
 }

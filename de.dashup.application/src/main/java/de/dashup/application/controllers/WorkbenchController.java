@@ -6,6 +6,8 @@ import de.dashup.model.exceptions.InvalidCodeException;
 import de.dashup.model.exceptions.MissingInformationException;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.*;
+import de.dashup.shared.layout.Section;
+import de.dashup.shared.layout.Widget;
 import org.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
