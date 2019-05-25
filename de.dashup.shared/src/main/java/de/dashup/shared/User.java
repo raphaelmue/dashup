@@ -9,6 +9,7 @@ public class User extends DatabaseUser {
     private String token;
     private Settings settings;
     private List<Section> sections;
+    private List<Draft> drafts;
 
     public User() {
         this.sections = new ArrayList<>();
@@ -54,6 +55,10 @@ public class User extends DatabaseUser {
         return sections;
     }
 
+    public List<Draft> getDrafts() {
+        return drafts;
+    }
+
     public void setToken(String token) {
         this.token = token;
     }
@@ -64,6 +69,10 @@ public class User extends DatabaseUser {
 
     public void setSections(List<Section> sections) {
         this.sections = sections;
+    }
+
+    public void setDrafts(List<Draft> drafts) {
+        this.drafts = drafts;
     }
 
     public String getUserName(){

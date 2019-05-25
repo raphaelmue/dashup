@@ -3,10 +3,17 @@ package de.dashup.shared.layout;
 import com.google.gson.annotations.SerializedName;
 import de.dashup.shared.DatabaseObject;
 
-public abstract class DatabaseWidget implements DatabaseObject {
+import java.time.LocalDate;
+
+public class DatabaseWidget implements DatabaseObject {
     private int id;
     private String name;
+    @SerializedName("descriptions")
     private String description;
+    @SerializedName("short_description")
+    private String shortDescription;
+    @SerializedName("publication_date")
+    private String publicationDate;
     @SerializedName("code_small")
     private String codeSmall;
     @SerializedName("code_medium")
@@ -15,6 +22,7 @@ public abstract class DatabaseWidget implements DatabaseObject {
     private String codeLarge;
     @SerializedName("visibility")
     private boolean isVisible;
+    private String category;
     @SerializedName("number_of_downloads")
     private int numberOfDownloads;
     @SerializedName("average_rating")
@@ -41,8 +49,19 @@ public abstract class DatabaseWidget implements DatabaseObject {
         return name;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public LocalDate getPublicationDate() {
+        if (this.publicationDate != null) {
+            return LocalDate.parse(publicationDate);
+        }
+        return null;
     }
 
     public String getCodeSmall() {
@@ -57,8 +76,12 @@ public abstract class DatabaseWidget implements DatabaseObject {
         return codeLarge;
     }
 
-    public boolean isVisible() {
+    public boolean getIsVisible() {
         return isVisible;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     public int getNumberOfDownloads() {
@@ -69,32 +92,46 @@ public abstract class DatabaseWidget implements DatabaseObject {
         return averageRating;
     }
 
-    void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    void setCodeSmall(String codeSmall) {
+    public void setPublicationDate(LocalDate publicationDate) {
+        if (publicationDate != null) {
+            this.publicationDate = publicationDate.toString();
+        }
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public void setCodeSmall(String codeSmall) {
         this.codeSmall = codeSmall;
     }
 
-    void setCodeMedium(String codeMedium) {
+    public void setCodeMedium(String codeMedium) {
         this.codeMedium = codeMedium;
     }
 
-    void setCodeLarge(String codeLarge) {
+    public void setCodeLarge(String codeLarge) {
         this.codeLarge = codeLarge;
     }
 
     public void setVisible(boolean visible) {
         isVisible = visible;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public void setNumberOfDownloads(int numberOfDownloads) {

@@ -10,15 +10,15 @@ public class DashupBuilder {
         StringBuilder content = new StringBuilder();
         if (user.getSections() != null) {
             for (Section section : user.getSections()) {
-                content.append("<div class=\"row\"><h3 class=\"sectionHeading\">")
+                content.append("<div class=\"row\"><div class=\"col s12 m12\"><h3 class=\"sectionHeading\">")
                         .append(section.getName())
-                        .append("</h3><hr/><div>");
+                        .append("</h3><hr/></div>");
                 if (section.getWidgets() != null) {
                     for (Widget widget : section.getWidgets()) {
                         content.append(widget.getCodeWithWrapper());
                     }
                 }
-                content.append("<div class=\"clear-float\"></div></div></div>");
+                content.append("<div class=\"clear-float\"></div></div>");
             }
         }
         return content.toString();
