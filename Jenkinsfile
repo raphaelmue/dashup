@@ -42,12 +42,8 @@ pipeline {
             }
         }
         stage('Analyze Project') {
-            /*when {
-                branch 'master'
-            }*/
             steps {
-                sh 'mkdir -p ./de.dashup.shared/src/test/'
-                sh 'mvn sonar:sonar -P sonar -Dsonar.projectKey=dashup'
+                sh 'bash service/publish-to-sonar.sh'
             }
         }
         stage('Deploy') {
