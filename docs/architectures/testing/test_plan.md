@@ -8,6 +8,7 @@
 |------------|---------|------------------------------------------------------|------------------|
 | 25/04/2019 | 1.0     | Initial Documentation                                | Raphael Müßeler  |
 | 07/05/2019 | 2.0     | Addition of new test type                            | Raphael Müßeler  |
+| 26/05/2019 | 3.0     | Addition of metrics                                  | Sven Leonahrd    |
 
 # Table of Contents
 
@@ -51,6 +52,7 @@
     - [Staffing and Training Needs](#102-staffing-and-training-needs)
 - [Iteration Milestones](#11-iteration-milestones)
 - [Risks, Dependencies, Assumptions, and Constraints](#12-risks-dependencies-assumptions-and-constraints)
+- [Metrics](#13-metrics)
 
 ## 1 Introduction
 
@@ -190,7 +192,8 @@ Smoke tests are a subset of test cases that cover the most important functionali
 | Technique              | Verifying that the expected result and no error occurs.     |
 | Oracles                | Test logs, console printing, watching tests, code coverage  |
 | Required Tools         | Selenium & JUnit (Maven Dependency)                         |
-| Success Criteria       | Tests must pass. Coverage is not suitable.                  |
+| Success Criteria       | Tests must pass. 
+age is not suitable.                  |
 | Special Considerations | Running UI tests headless on a CI server without an UI.     |
 
 ## 6 Entry and Exit Criteria
@@ -318,3 +321,29 @@ Our goal is to keep instruction coverage above **70%** and branch coverage above
 
 Some use cases might be very hard to test. Furthermore testing all branches is not applicable for this project, since we 
 do not have that much resources.
+
+## 13 Metrics
+Metrics are used to numerically evaluate the code. It helps to find critical code sections, examine them more precisely and eliminate them in the best case. 
+For this purpose, we have integrated [sonarcloud.io](https://sonarcloud.io) into our CI process. This can be seen on the screenshot of our Jenkins Pipeline at the step **Analyze Project**.
+
+<img src="metrics_jenkins_screenshot.PNG" alt="Jenkins screenshot for Analyze Project step" />
+
+Sonar's dashboard gives an overview of the current code situation. Serious errors and grievances can be detected quickly. The dashboard is public and can be accessed [here](https://sonarcloud.io/dashboard?id=dashup).
+
+For more detailed metrics around the code the Intellij Plugin Metrics Reloaded is used. Here metrics of different categories can be automatically generated. In this way you can get a lot of information about the code and act if necessary. The following is about the [Chidamber & Kemerer object-oriented metrics suite](https://www.aivosto.com/project/help/pm-oo-ck.html), which unites various metrics.
+
+Two of these are Weighted Methods per Class (WMC) and Response for a Class (RFC). We will take a closer look at these two values now. WMC counts the number of methods in each class. This value is relevant because you want to avoid too many methods. This makes it difficult to maintain and reuse the code. Somewhat more complex is RFC. The methods are also counted here. In addition to this value, the number of methods that are called within the methods of the class are also counted. A high RFC value usually means that the class is more prone to errors. The complexity of the class is high. This can lead to difficulties in understanding and make both testing and debugging more difficult. 
+
+If you look at the values for WMC and RFC, you will notice the *Database* and the *DashupService* class. There are clear anomalies here that need to be reduced. Due to the architecture of dashup, there are some difficulties here. On the one hand we want to provide the functionality for CRUD operations in one place, on the other hand we want to establish a clear structure. In refactoring we tried to combine both approaches. The result is the [issue112 branch](https://github.com/raphaelmue/dashup/tree/issue112). Here all changes can be traced. This link leads to a commit before the refactor work. The table shows the before/after values. 
+
+
+| Class                                 | RFC before | RFC after | WMC before | WMC after |
+|---------------------------------------|------------|-----------|------------|-----------|
+| de.dashup.model.service.DashupService | 154        | 139       | 81         | 74        |
+| de.dashup.model.db.Database           | 56         | 53        | 36         | 32        |
+
+
+Another metric is Lack of Cohesion in Methods (LCOM). There are different versions from 1 to 4. According to documentation, the metric tool uses LCOM1. Basically, this metric measures the coherence of methods. This should be as high as possible. Therefore, it is important that the LCOM value is low. During the calculation all possible method pairs are considered. If both methods access one or more equal attributes, a variable Q is incremented by one otherwise, a variable called P is incremented by one. If P is greater than Q at the end, the LCOM value will be P - Q, otherwise LCOM is 0. If the values are high, you should consider splitting the affected class. More information about that can be found [here](https://www.aivosto.com/project/help/pm-oo-cohesion.html#LCOM1).
+
+With a value of 12, the *DatabaseWidget* class has a particularly high value, which requires to take a closer look at that code. However, since the class represents the database entry of a widget, we decided not to make any changes here. The class is only needed to make CRUD operations possible in the software. So, it contains instance variables that can be read or written with the help of getters and setters only. We do not consider changes to be useful, since some components require the functionality of this class. Furthermore, it makes no sense to split the class, because it represents an atomic object in this context of the software.
+
