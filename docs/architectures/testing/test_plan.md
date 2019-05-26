@@ -287,11 +287,13 @@ The following base software elements are required in the test environment for th
 
 The following tools will be employed to support the test process for this Test Plan.
 
-| Tool Category or Type                  | Tool Brand Name                                                  |
-| -------------------------------------- | ---------------------------------------------------------------- |
-| Code Hoster                            | [GitHub](https://www.github.com/raphaelmue/dashup/)              |
-| Test Coverage and Code Quality Monitor | [Codacy](https://app.codacy.com/project/dashup/dashup/dashboard) |
-| Continuous integration tool            | [Jenkins](https://jenkins.raphael-muesseler.de/)                 |
+| Tool Category or Type                  | Tool Brand Name                                                             |
+| -------------------------------------- | ----------------------------------------------------------------------------|
+| Code Hoster                            | [GitHub](https://www.github.com/raphaelmue/dashup/)                         |
+| Test Coverage and Code Quality Monitor | [Codacy](https://app.codacy.com/project/dashup/dashup/dashboard)            |
+| Continuous integration tool            | [Jenkins](https://jenkins.raphael-muesseler.de/)                            |
+| Continuous code inspection tool        | [SonarCloud](https://sonarcloud.io)                                         |
+| Metrics calculation plugin (IntelliJ)  | [Metrics Reloaded](https://plugins.jetbrains.com/plugin/93-metricsreloaded) |
 
 ## 10 Responsibilities, Staffing and Training Needs
 
@@ -334,7 +336,7 @@ For more detailed metrics around the code the Intellij Plugin Metrics Reloaded i
 
 Two of these are Weighted Methods per Class (WMC) and Response for a Class (RFC). We will take a closer look at these two values now. WMC counts the number of methods in each class. This value is relevant because you want to avoid too many methods. This makes it difficult to maintain and reuse the code. Somewhat more complex is RFC. The methods are also counted here. In addition to this value, the number of methods that are called within the methods of the class are also counted. A high RFC value usually means that the class is more prone to errors. The complexity of the class is high. This can lead to difficulties in understanding and make both testing and debugging more difficult. 
 
-If you look at the values for WMC and RFC, you will notice the *Database* and the *DashupService* class. There are clear anomalies here that need to be reduced. Due to the architecture of dashup, there are some difficulties here. On the one hand we want to provide the functionality for CRUD operations in one place, on the other hand we want to establish a clear structure. In refactoring we tried to combine both approaches. The result is the [issue112 branch](https://github.com/raphaelmue/dashup/tree/issue112). Here all changes can be traced. This link leads to a commit before the refactor work. The table shows the before/after values. 
+If you look at the values for WMC and RFC, you will notice the *Database* and the *DashupService* class. There are clear anomalies here that need to be reduced. Due to the architecture of dashup, there are some difficulties here. On the one hand we want to provide the functionality for CRUD operations in one place, on the other hand we want to establish a clear structure. In refactoring we tried to combine both approaches. The result is the [issue112 branch](https://github.com/raphaelmue/dashup/tree/issue112). Here all changes can be traced. This [link](https://github.com/raphaelmue/dashup/tree/fe4a4964f4358f86b3296718511ec6bc97874fd1) leads to a commit before the refactor work. The table shows the before/after values. 
 
 
 | Class                                 | RFC before | RFC after | WMC before | WMC after |
