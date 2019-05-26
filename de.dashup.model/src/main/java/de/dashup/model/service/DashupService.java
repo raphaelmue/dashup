@@ -310,7 +310,7 @@ public class DashupService {
         this.database.update(Database.Table.USERS_SETTINGS, whereParameter, values);
     }
 
-    private void updateSection(User user, Section section) throws SQLException {
+    void updateSection(User user, Section section) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
         whereParameters.put("id", section.getId());
@@ -322,14 +322,14 @@ public class DashupService {
         this.database.update(Database.Table.USER_SECTIONS, whereParameters, values);
     }
 
-    private void deleteSection(User user, Section section) throws SQLException {
+    void deleteSection(User user, Section section) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", section.getId());
         whereParameters.put("user_id", user.getId());
         database.delete(Database.Table.USER_SECTIONS, whereParameters);
     }
 
-    private void deleteWidgetsOfSection(Section section) throws SQLException {
+    void deleteWidgetsOfSection(Section section) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", section.getId());
         database.delete(Database.Table.SECTIONS_PANELS, whereParameters);
@@ -356,42 +356,6 @@ public class DashupService {
         values.put("size", size);
 
         this.database.insert(Database.Table.SECTIONS_PANELS, values);
-    }
-
-    public void processLayoutModeChanges(LayoutModeStructureDTO layoutModeStructureDTO, User user) throws SQLException {
-        List<LayoutModeSectionDTO> sectionsToDelete = layoutModeStructureDTO.getSectionsToDelete();
-
-        for (LayoutModeSectionDTO section : sectionsToDelete) {
-            Section sectionToDelete = section.toDataTransferObject();
-            deleteWidgetsOfSection(sectionToDelete);
-            deleteSection(user, sectionToDelete);
-        }
-
-        List<LayoutModeSectionDTO> sectionAndWidgetIndex = layoutModeStructureDTO.getSectionWidgetOrder();
-        int sectionIndex = 0;
-
-        for (LayoutModeSectionDTO sectionDTO : sectionAndWidgetIndex) {
-            sectionDTO.setIndex(sectionIndex);
-            Section sectionToProcess = sectionDTO.toDataTransferObject();
-
-            if (sectionDTO.isNewSection()) {
-                int newSectionId = addNewSection(user, sectionToProcess);
-                sectionToProcess.setId(newSectionId);
-            } else {
-                updateSection(user, sectionToProcess);
-                deleteWidgetsOfSection(sectionToProcess);
-            }
-
-            List<LayoutModeWidgetDTO> layoutModeWidgetsDTO = sectionDTO.getLayoutModeWidgets();
-            int widgetIndex = 0;
-            for (LayoutModeWidgetDTO widgetDTO : layoutModeWidgetsDTO) {
-                widgetDTO.setIndex(widgetIndex);
-                Widget widget = widgetDTO.toDataTransferObject();
-                addWidgetToSection(widget, sectionToProcess, widgetDTO.getWidgetSize());
-                widgetIndex++;
-            }
-            sectionIndex++;
-        }
     }
 
     // --- DRAFTS --- \\

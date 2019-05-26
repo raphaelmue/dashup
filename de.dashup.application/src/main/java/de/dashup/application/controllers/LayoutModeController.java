@@ -4,6 +4,7 @@ import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.model.builder.DashupBuilder;
 import de.dashup.model.service.DashupService;
+import de.dashup.model.service.LayoutModeService;
 import de.dashup.shared.LayoutModeStructureDTO;
 import de.dashup.shared.User;
 import de.dashup.shared.Widget;
@@ -46,7 +47,7 @@ public class LayoutModeController {
                                                     HttpServletRequest request) throws SQLException {
         ControllerHelper.setLocale(request, locale);
         User user = LocalStorage.getInstance().getUser(request, token);
-        DashupService.getInstance().processLayoutModeChanges(layoutModeStructureDTO, user);
+        LayoutModeService.getInstance().processLayoutModeChanges(layoutModeStructureDTO, user);
 
         JSONObject entity = new JSONObject();
         entity.put("message", "Success");

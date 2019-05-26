@@ -2,6 +2,7 @@ package de.dashup.test;
 
 import de.dashup.model.db.Database;
 import de.dashup.model.service.DashupService;
+import de.dashup.model.service.LayoutModeService;
 import de.dashup.shared.LayoutModeSectionDTO;
 import de.dashup.shared.LayoutModeStructureDTO;
 import de.dashup.shared.LayoutModeWidgetDTO;
@@ -57,7 +58,7 @@ public class LayoutModeTest {
         sectionPanelOrder.add(layoutModeSectionDTO2);
 
         LayoutModeStructureDTO layoutModeStructureDTO = new LayoutModeStructureDTO(sectionPanelOrder, sectionsToDelete);
-        dashupService.processLayoutModeChanges(layoutModeStructureDTO, user);
+        LayoutModeService.getInstance().processLayoutModeChanges(layoutModeStructureDTO, user);
 
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", 1);
@@ -78,7 +79,7 @@ public class LayoutModeTest {
         sectionPanelOrder.add(layoutModeSectionDTO2);
 
         LayoutModeStructureDTO layoutModeStructureDTO = new LayoutModeStructureDTO(sectionPanelOrder, sectionsToDelete);
-        dashupService.processLayoutModeChanges(layoutModeStructureDTO, user);
+        LayoutModeService.getInstance().processLayoutModeChanges(layoutModeStructureDTO, user);
 
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", 1);
@@ -116,7 +117,7 @@ public class LayoutModeTest {
         sectionPanelOrder.add(layoutModeSectionDTO2);
 
         LayoutModeStructureDTO layoutModeStructureDTO = new LayoutModeStructureDTO(sectionPanelOrder, sectionsToDelete);
-        dashupService.processLayoutModeChanges(layoutModeStructureDTO, user);
+        LayoutModeService.getInstance().processLayoutModeChanges(layoutModeStructureDTO, user);
 
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", 1);
@@ -143,7 +144,7 @@ public class LayoutModeTest {
         sectionsToDelete.add(layoutModeSectionDTO2);
 
         LayoutModeStructureDTO layoutModeStructureDTO = new LayoutModeStructureDTO(sectionPanelOrder, sectionsToDelete);
-        dashupService.processLayoutModeChanges(layoutModeStructureDTO, user);
+        LayoutModeService.getInstance().processLayoutModeChanges(layoutModeStructureDTO, user);
 
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", 1);
