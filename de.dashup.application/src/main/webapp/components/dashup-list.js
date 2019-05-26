@@ -73,7 +73,9 @@ export class DashupList extends DashupComponent {
                 this.items[position] = {content: `${data.category}: ${newAmount} €`, selected: false};
                 this.requestUpdate();
             } else {
-                this.items = [...this.items, {content: data.category + ": " + (data.amount) + " €", selected: false}];
+                if(data.amount !== undefined){
+                    this.items = [...this.items, {content: data.category + ": " + (data.amount) + " €", selected: false}];
+                }
             }
         } else {
             let contains = false;
@@ -89,7 +91,11 @@ export class DashupList extends DashupComponent {
     }
 
     deleteData() {
+        let sizeBefore = this.items.length;
         this.items = this.items.filter((item) => !item.selected);
+        if(this.items.length = sizeBefore){
+            this.items = [];
+        }
     }
 
     selectEntry(evt) {

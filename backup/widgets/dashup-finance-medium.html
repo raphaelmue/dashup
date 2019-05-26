@@ -2,7 +2,6 @@
     <dashup-chart name="chart"
                   title="My Spendings"
                   category="Personal Spendings"
-                  data='[{"category": "Family", "value": "300"}, {"category": "Investments", "value": "150"}]'
                   layout='{"row": 1, "offset": 0, "size": 12}'>
     </dashup-chart>
     <dashup-text-input name="amount"
@@ -28,13 +27,17 @@
     </dashup-radio-button-group>
     <dashup-button text="Add"
                    mode="add"
-                   consumers='[{"chart": ""}]'
+                   dataAPI="http://localhost:9004/loadFinanceChart"
+                   storageAPI="http://localhost:9004/financeChart"
+                   consumers='[{"chart": ""},{"chart": "apiData chart"}]'
                    producers="amount category"
-                   layout='{"row": 3, "offset": 0, "size": 5}'>
+                   layout='{"row": 3, "offset": 0, "size": 5}'
+                   handleOnStart>
     </dashup-button>
     <dashup-button text="Delete"
                    mode="delete"
-                   consumers='[{"chart": "chart"}]'
+                   storageAPI="http://localhost:9004/financeChart"
+                   consumers='[{"chart": ""},{"chart": "apiData chart"}]'
                    producers="chart"
                    layout='{"row": 3, "offset": 2, "size": 5}'>
     </dashup-button>

@@ -44,6 +44,7 @@ public class Database {
         USER_SECTIONS("users_sections"),
         SECTIONS_PANELS("sections_panels"),
         TODOS("todos"),
+        FINANCES("finances"),
         TAGS("tags"),
         RATINGS("ratings"),
         PANELS_TAGS("panels_tags");

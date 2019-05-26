@@ -4,21 +4,21 @@ import java.util.List;
 
 public class Todo {
 
-    private List<Entry> list;
+    private List<Task> list;
 
     public Todo(){
         super();
     }
 
-    public Todo(List<Entry> list){
+    public Todo(List<Task> list){
         this.list = list;
     }
 
-    public List<Entry> getList() {
+    public List<Task> getList() {
         return list;
     }
 
-    public void setList(List<Entry> list) {
+    public void setList(List<Task> list) {
         this.list = list;
     }
 

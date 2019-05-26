@@ -1,15 +1,15 @@
 package de.dashup.shared.widgets;
 
-public class Entry {
+public class Task {
 
     private String content;
     private boolean selected;
 
-    public Entry() {
+    public Task() {
         super();
     }
 
-    public Entry(String content, boolean selected) {
+    public Task(String content, boolean selected) {
         this.content = content;
         this.selected = selected;
     }

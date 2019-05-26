@@ -33,6 +33,9 @@ export class DashupRadioButtonGroup extends DashupComponent {
     firstUpdated() {
         Array.from(this.children).map((element) => {
             this.elements.push(element);
+            if(element.checked){
+                this.value = element.getValue();
+            }
         });
         this.requestUpdate();
     }

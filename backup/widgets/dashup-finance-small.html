@@ -1,7 +1,6 @@
 <dashup-grid-layout>
     <dashup-list name="financeList"
-                 layout='{"row": 1, "offset": 0, "size": 12}'
-                 items='[{"content": "Family: 300 €"}, {"content": "Investments: 150 €"}]'>
+                 layout='{"row": 1, "offset": 0, "size": 12}'>
     </dashup-list>
     <dashup-text-input name="amount"
                        placeholder="Amount"
@@ -26,15 +25,17 @@
     </dashup-radio-button-group>
     <dashup-button text="Add"
                    mode="add"
-                   storageAPI="/finance"
-                   consumers='[{"financeList": ""}]'
+                   dataAPI="http://localhost:9004/loadFinanceList"
+                   storageAPI="http://localhost:9004/financeList"
+                   consumers='[{"financeList": ""},{"financeList": "apiData financeList"}]'
                    producers="amount category"
-                   layout='{"row": 4, "offset": 0, "size": 12}'>
+                   layout='{"row": 4, "offset": 0, "size": 12}'
+                   handleOnStart>
     </dashup-button>
     <dashup-button text="Del"
                    mode="delete"
-                   storageAPI="/finance"
-                   consumers='[{"financeList": "financeList"}]'
+                   storageAPI="http://localhost:9004/financeChart"
+                   consumers='[{"financeList": ""},{"financeList": "apiData financeList"}]'
                    producers="financeList"
                    layout='{"row": 5, "offset": 0, "size": 12}'>
     </dashup-button>

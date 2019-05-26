@@ -181,24 +181,28 @@ export class DashupChart extends DashupComponent {
         if (values.length > 0) {
             switch(data.mode){
                 case MessageBroker.MessageMode.ADD:
-                    let position = -1;
-                    this.data.find((element, index) => {
-                        if(element.category === values[1]){
-                            position = index;
-                            return true;
-                        }
-                        return false;
-                    });
-                    if(position >= 0){
-                        this.data[position] = {"category": values[1], "value": Number(this.data[position].value) + Number(values[0])}
+                    if(Array.isArray(data.data)){
+                        this.data = [...data.data];
                     } else {
-                        this.data.push({"category": values[1], "value": values[0]});
+                        let position = -1;
+                        this.data.find((element, index) => {
+                            if(element.category === values[1]){
+                                position = index;
+                                return true;
+                            }
+                            return false;
+                        });
+                        if(position >= 0){
+                            this.data[position] = {"category": values[1], "value": Number(this.data[position].value) + Number(values[0])}
+                        } else {
+                            if(values[0]){
+                                this.data.push({"category": values[1], "value": Number(values[0])});
+                            }
+                        }
                     }
                      break;
                 case MessageBroker.MessageMode.DELETE:
-                    for(let element of values){
-                        this.data.splice(this.data.indexOf({"category": element[1], "value": element[0]}), 1);
-                    }
+                    this.data = [];
                     break;
             }
             this.requestUpdate();

@@ -6,8 +6,7 @@ import de.dashup.model.exceptions.InvalidCodeException;
 import de.dashup.model.exceptions.MissingInformationException;
 import de.dashup.shared.*;
 import de.dashup.shared.layout.*;
-import de.dashup.shared.widgets.Entry;
-import de.dashup.shared.widgets.Todo;
+import de.dashup.shared.widgets.*;
 import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
 import org.json.JSONArray;
@@ -403,9 +402,9 @@ public class DashupService {
         Map<String, Object> values = new HashMap<>();
         values.put("user_id", user.getId());
         this.database.delete(Database.Table.TODOS, values);
-        for(Entry entry: todo.getList()){
-            values.put("content", entry.getContent());
-            values.put("selected", entry.getSelected());
+        for(Task task : todo.getList()){
+            values.put("content", task.getContent());
+            values.put("selected", task.getSelected());
             this.database.insert(Database.Table.TODOS, values);
         }
     }
@@ -414,18 +413,72 @@ public class DashupService {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
         JSONArray innerResult = this.database.get(Database.Table.TODOS, whereParameters);
-        List<Entry> entries = new ArrayList<>();
+        List<Task> entries = new ArrayList<>();
         for(int i = 0; i < innerResult.length(); i++){
             JSONObject result = innerResult.getJSONObject(i);
-            Entry entry = new Entry(result.getString("content"), result.getBoolean("selected"));
-            entries.add(entry);
+            Task task = new Task(result.getString("content"), result.getBoolean("selected"));
+            entries.add(task);
         }
         return new Todo(entries);
     }
 
+    public void saveFinanceChartWidgetState(User user, FinanceChart chart) throws SQLException{
+        Map<String, Object> values = new HashMap<>();
+        values.put("user_id", user.getId());
+        this.database.delete(Database.Table.FINANCES, values);
+        for(SpendingChart spending : chart.getChart()){
+            values.put("category", spending.getCategory());
+            values.put("value", spending.getValue());
+            this.database.insert(Database.Table.FINANCES, values);
+        }
+    }
 
-    public void saveFinanceWidgetState(User user, Todo data) {
+    public void saveFinanceListWidgetState(User user, FinanceList list) throws SQLException{
+        Map<String, Object> values = new HashMap<>();
+        values.put("user_id", user.getId());
+        this.database.delete(Database.Table.FINANCES, values);
+        for(SpendingList spending : list.getFinanceList()){
+            values.put("content", spending.getContent());
+            values.put("selected", spending.getSelected());
+            this.database.insert(Database.Table.FINANCES, values);
+        }
+    }
 
+    public FinanceChart loadFinanceChartWidgetState(User user) throws SQLException{
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("user_id", user.getId());
+        JSONArray innerResult = this.database.get(Database.Table.FINANCES, whereParameters);
+        List<SpendingChart> entries = new ArrayList<>();
+        for(int i = 0; i < innerResult.length(); i++){
+            JSONObject result = innerResult.getJSONObject(i);
+            SpendingChart spending;
+            if(result.getString("content").isEmpty()){
+                spending = new SpendingChart(result.getString("category"), result.getInt("value"));
+            } else {
+                String[] split = result.getString("content").split(": ");
+                spending = new SpendingChart(split[0], Integer.valueOf(split[1].substring(0,split[1].length()-2)));
+            }
+            entries.add(spending);
+        }
+        return new FinanceChart(entries);
+    }
+
+    public FinanceList loadFinanceListWidgetState(User user) throws SQLException{
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("user_id", user.getId());
+        JSONArray innerResult = this.database.get(Database.Table.FINANCES, whereParameters);
+        List<SpendingList> entries = new ArrayList<>();
+        for(int i = 0; i < innerResult.length(); i++){
+            JSONObject result = innerResult.getJSONObject(i);
+            SpendingList spending;
+            if(result.getString("content").isEmpty()){
+                spending = new SpendingList(String.format("%s: %d €",result.getString("category"), result.getInt("value")), false);
+            } else {
+                spending = new SpendingList(result.getString("content"), result.getBoolean("selected"));
+            }
+            entries.add(spending);
+        }
+        return new FinanceList(entries);
     }
 
     // --- DRAFTS --- \\
