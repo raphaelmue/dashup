@@ -377,10 +377,6 @@ public class DashupService {
         return draft;
     }
 
-    public void updateWidgetInformation(Widget widget) throws SQLException, MissingInformationException, InvalidCodeException {
-        this.updateWidgetInformation(widget, true);
-    }
-
     public void updateWidgetInformation(Widget widget, boolean checkAfterUpdate) throws SQLException, MissingInformationException, InvalidCodeException {
         if (!checkAfterUpdate) {
             checkWidget(widget);

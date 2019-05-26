@@ -188,7 +188,7 @@ public class WorkbenchController {
             widget.getTags().add(new Tag(json.getJSONObject(i).getInt("id"), json.getJSONObject(i).getString("name")));
         }
 
-        DashupService.getInstance().updateWidgetInformation(widget);
+        DashupService.getInstance().updateWidgetInformation(widget,true);
     }
 
     @RequestMapping(value = "/draft/{draftId}/changeCode", method = RequestMethod.POST)
