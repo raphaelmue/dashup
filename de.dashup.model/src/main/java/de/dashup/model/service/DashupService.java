@@ -7,11 +7,10 @@ import de.dashup.model.exceptions.MissingInformationException;
 import de.dashup.shared.*;
 import de.dashup.util.string.Hash;
 import de.dashup.util.string.RandomString;
+import de.dashup.util.string.URLValidator;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
@@ -79,13 +78,13 @@ public class DashupService {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
 
-        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USER_SECTIONS, Section.class, whereParameters, "section_index");
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USER_SECTIONS, Section.class, whereParameters);
         if (result != null) {
             for (DatabaseObject databaseObject : result) {
                 Section section = (Section) databaseObject;
                 Map<String, Object> innerWhereParameters = new HashMap<>();
                 innerWhereParameters.put("id", section.getId());
-                JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerWhereParameters, "widget_index");
+                JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerWhereParameters);
                 if (innerResult != null && innerResult.length() > 0) {
                     List<Widget> widgets = new ArrayList<>();
                     for (int i = 0; i < innerResult.length(); i++) {
@@ -256,7 +255,7 @@ public class DashupService {
     }
 
     public void updateSettings(User user, boolean insert) throws SQLException {
-        if (!user.getSettings().getBackgroundImage().isEmpty() && !isValidURL(user.getSettings().getBackgroundImage()) && !insert) {
+        if (!user.getSettings().getBackgroundImage().isEmpty() && !URLValidator.isValidURL(user.getSettings().getBackgroundImage()) && !insert) {
             throw new IllegalArgumentException("URL is not valid.");
         }
 
@@ -273,15 +272,6 @@ public class DashupService {
             this.database.insert(Database.Table.USERS_SETTINGS, values);
         } else {
             this.database.update(Database.Table.USERS_SETTINGS, whereParameters, values);
-        }
-    }
-
-    private boolean isValidURL(String urlStr) {
-        try {
-            new URL(urlStr);
-            return true;
-        } catch (MalformedURLException e) {
-            return false;
         }
     }
 

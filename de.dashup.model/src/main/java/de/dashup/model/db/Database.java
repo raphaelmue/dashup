@@ -169,14 +169,13 @@ public class Database {
      * @param table           Database table to fetch from
      * @param resultType      Type of object, which will be returned
      * @param whereParameters Where parameters which will be concatenated by AND
-     * @param orderByClause   order by clause which will be appended on the sql statement
      * @return Object with fetched data
      * @throws SQLException thrown, when something went wrong executing the SQL statement
      */
-    public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters,
-                                                    String orderByClause) throws SQLException, JsonParseException {
+
+    public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters) throws SQLException, JsonParseException {
         Gson gson = new GsonBuilder().create();
-        JSONArray jsonArray = this.get(table, whereParameters, orderByClause);
+        JSONArray jsonArray = this.get(table, whereParameters);
         List<DatabaseObject> result = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -185,30 +184,11 @@ public class Database {
         return result;
     }
 
-    /**
-     * @see Database#getObject(Table, Type, Map, String)
-     */
-    public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters) throws SQLException, JsonParseException {
-        return this.getObject(table, resultType, whereParameters, null);
-    }
 
-    /**
-     * {@code orderByClause} set to null by default.
-     *
-     * @see Database#get(Table, Map, String)
-     */
     public JSONArray get(Table table, Map<String, Object> whereParameters) throws SQLException {
-        return this.get(table, whereParameters, null);
-    }
-
-    public JSONArray get(Table table, Table joinOn, Map<String, Object> onParameters, Map<String, Object> whereParameters) throws SQLException {
         PreparedStatement statement;
-        String query = "SELECT * FROM " + table.getTableName() + " INNER JOIN " + joinOn.getTableName() +
-                " ON ";
-        for (Map.Entry<String, Object> entry : onParameters.entrySet()) {
-            query += table.getTableName() + "." + entry.getKey() + " = " + joinOn.getTableName() + "." +entry.getValue();
-        }
-        query += this.getClause(whereParameters, "WHERE", " AND ");
+        String query = "SELECT * FROM " + table.getTableName() +
+                this.getClause(whereParameters, "WHERE", " AND ");
 
         statement = connection.prepareStatement(query);
         this.preparedStatement(statement, whereParameters);
@@ -219,19 +199,19 @@ public class Database {
     }
 
     /**
-     * @param tableName       database table to fetch from
+     * @param table      database table to fetch from
      * @param whereParameters where parameters which will be concatenated by AND
-     * @param orderByClause   order by clause which will be appended on the sql statement
      * @return JSONArray that contains
      * @throws SQLException thrown, when something went wrong executing the SQL statement
      */
-    // TODO select specific fields
-    // TODO escape strings
-    public JSONArray get(Table tableName, Map<String, Object> whereParameters, String orderByClause) throws SQLException {
+    public JSONArray get(Table table, Table joinOn, Map<String, Object> onParameters, Map<String, Object> whereParameters) throws SQLException {
         PreparedStatement statement;
-        String query = "SELECT * FROM " + tableName.getTableName() +
-                this.getClause(whereParameters, "WHERE", " AND ") +
-                this.getOrderByClause(orderByClause);
+        String query = "SELECT * FROM " + table.getTableName() + " INNER JOIN " + joinOn.getTableName() +
+                " ON ";
+        for (Map.Entry<String, Object> entry : onParameters.entrySet()) {
+            query += table.getTableName() + "." + entry.getKey() + " = " + joinOn.getTableName() + "." +entry.getValue();
+        }
+        query += this.getClause(whereParameters, "WHERE", " AND ");
 
         statement = connection.prepareStatement(query);
         this.preparedStatement(statement, whereParameters);

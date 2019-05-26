@@ -112,12 +112,6 @@ public class DatabaseUnitTest {
     }
 
     @Test
-    public void testGetWithOrderBy() throws SQLException {
-        JSONArray result = database.get(Database.Table.USERS, new HashMap<>(), "id DESC");
-        Assertions.assertEquals(2, result.getJSONObject(0).getInt("id"));
-    }
-
-    @Test
     public void testGetObject() throws SQLException {
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("id", "1");
@@ -125,14 +119,6 @@ public class DatabaseUnitTest {
         Assertions.assertEquals(1, result.size());
         User user = (User) new User().fromDatabaseObject(result.get(0));
         Assertions.assertEquals(1, user.getId());
-    }
-
-    @Test
-    public void testGetObjectWithOrderBy() throws SQLException {
-        List<? extends DatabaseObject> result = database.getObject(Database.Table.USERS, DatabaseUser.class, new HashMap<>(), "id DESC");
-        Assertions.assertEquals(2, result.size());
-        User user = (User) new User().fromDatabaseObject(result.get(0));
-        Assertions.assertEquals(2, user.getId());
     }
 
     @Test
