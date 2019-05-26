@@ -29,7 +29,7 @@ public class DashupService {
         return INSTANCE;
     }
 
-    private DashupService() {
+    public DashupService() {
         try {
             this.database = Database.getInstance();
         } catch (SQLException e) {

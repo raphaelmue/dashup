@@ -349,12 +349,4 @@ public class Database {
         }
         return statement;
     }
-
-    private String getOrderByClause(String field) {
-        StringBuilder orderByClauseString = new StringBuilder();
-        if (field != null) {
-            orderByClauseString.append(" ORDER BY ").append(field);
-        }
-        return orderByClauseString.toString();
-    }
 }
