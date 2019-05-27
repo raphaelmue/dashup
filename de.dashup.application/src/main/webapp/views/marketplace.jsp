@@ -19,7 +19,7 @@
         </nav>
         <%--<form action="${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search" method="POST">--%>
         <%--<form onsubmit="onSearch()">--%>
-            <div class="row" style="margin-top: 25px">
+            <div id="begin" class="row" style="margin-top: 25px">
                 <div class="col m4 offset-m4 s8 offset-s1">
                     <div class="input-field">
                         <input id="text-field-search" name="search" type="text" class="validate">
@@ -212,8 +212,7 @@
             $("#text-field-filter-publication-date").datepicker({
                 format: "yyyy-mm-dd",
                 yearRange: [2019, 2019],
-                defaultDate: new Date("${fn:escapeXml(birthDate)}"),
-                setDefaultDate: true,
+                container: document.getElementById("begin")
             });
 
             $(".star").on("click", function (element) {
@@ -242,6 +241,9 @@
             if(date === ""){
                 date = "2019-01-01";
             }
+
+            localStorage.setItem("date",instance);
+            localStorage.setItem("rating",rating);
 
             let url = "${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search?" + $.param({searchQuery:searchField.value,date,rating});
 

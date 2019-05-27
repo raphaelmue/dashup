@@ -264,17 +264,6 @@ public class Database {
         return Converter.convertResultSetIntoJSON(result);
     }
 
-    public List<? extends  DatabaseObject> find(Table tableName,Map<String, Object> whereParameters, Type resultType) throws SQLException{
-        Gson gson = new GsonBuilder().create();
-        PreparedStatement statement;
-        String query = "SELECT * FROM " + tableName.getTableName() + " WHERE" + whereParameters.keySet().toString().replace("[", " ").replace("]", " ") + "LIKE ?";
-        statement = this.preparedStatement(connection.prepareStatement(query),whereParameters);
-
-        // execute
-        JSONArray jsonArray = Converter.convertResultSetIntoJSON(statement.executeQuery());
-        return getDatabaseObjects(resultType, gson, jsonArray);
-    }
-
     public List<? extends DatabaseObject> findByRange(Table tableName,Map<String, Object> whereParameters, Type resultType, List<String> operatorList) throws SQLException{
         Gson gson = new GsonBuilder().create();
 

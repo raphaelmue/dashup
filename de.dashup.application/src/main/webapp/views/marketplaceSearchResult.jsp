@@ -38,7 +38,7 @@
                 <div class="col s1 valign-wrapper">
                     <h6>Rating</h6>
                 </div>
-                <div class="col s5">
+                <div class="col s3">
                     <div class="star-rating"
                          style="font-size: 25px; margin-top: 15px; color: var(--color-dark-gray);">
                         <div class="back-stars star">
@@ -58,15 +58,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col s1 valign-wrapper">
+                <div class="col s2 valign-wrapper">
                     <h6>Publication Date</h6>
                 </div>
                 <div class="col s5">
 
                     <label for="text-field-filter-publication-date"></label><input
                         id="text-field-filter-publication-date" name="birthDate" type="text"
-                        class="datepicker"
-                        value="<fmt:message key="i18n.showMore" />"/>
+                        class="datepicker"/>
 
                 </div>
             </div>
@@ -103,7 +102,7 @@
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <div class="front-stars"
-                                                 style="width:  ${fn:escapeXml(widget.averageRating)}%;color: var(--color-background);">
+                                                 style="width:  ${fn:escapeXml(widget.averageRating)}%;color: var(--color-primary);">
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -127,7 +126,7 @@
     </body>
     <script>
 
-        let rating = 0;
+        let rating = localStorage.getItem("rating");
 
         $( document ).ready(function () {
             $("#weather-panel").on("click", function () {
@@ -137,14 +136,11 @@
             $("#add").on("click", function () {
 
             });
-            <%--$("#btn_start_search_marketplace").on("click", function () {--%>
-            <%--PostRequest.getInstance().make("${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search", {search: document.getElementById("text-field-login-email")})--%>
-            <%--});--%>
 
             $("#text-field-filter-publication-date").datepicker({
                 format: "yyyy-mm-dd",
                 yearRange: [2019, 2019],
-                defaultDate: new Date("${fn:escapeXml(birthDate)}"),
+                defaultDate: localStorage.getItem("date"),
                 setDefaultDate: true,
             });
 
@@ -156,6 +152,10 @@
                 let frontStars = document.getElementById("front-stars");
                 frontStars.style.width = rating + "%";
             });
+
+            let frontStars = document.getElementById("front-stars");
+            frontStars.style.width = rating + "%";
+
         });
 
         function onSearch() {
@@ -164,11 +164,15 @@
             console.log(document.getElementById("text-field-search"));
             let instance = M.Datepicker.getInstance(document.getElementById("text-field-filter-publication-date"));
 
+
             let date = instance.toString();
 
             if (date === "") {
                 date = "2019-01-01";
             }
+
+            localStorage.setItem("date",date);
+            localStorage.setItem("rating",rating);
 
             let url = "${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search?" + $.param({
                 searchQuery: searchField.value,
