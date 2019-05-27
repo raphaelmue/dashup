@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
-import java.util.List;
 
 @Controller
 @RequestMapping("/marketplace")
@@ -23,9 +22,9 @@ public class MarketplaceController {
     @RequestMapping("/")
     public String marketplace(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "marketplace", user -> {
-            List<Widget> widgets = DashupService.getInstance().getRandomWidgets(4);
-            model.addAttribute("carouselWidget",widgets.get(0));
-            model.addAttribute("featuredWidgets",DashupService.getInstance().getFeaturedWidgets(widgets));
+            model.addAttribute("carouselWidget",DashupService.getInstance().getPanelById(1));
+            int[] featuredWidgets = {1,2,3,4};
+            model.addAttribute("featuredWidgets",DashupService.getInstance().getFeaturedWidgets(featuredWidgets));
             model.addAttribute("bestRated", DashupService.getInstance().getTopWidgets("avg_of_ratings"));
             model.addAttribute("mostDownloaded", DashupService.getInstance().getTopWidgets("number_of_downloads"));
         });

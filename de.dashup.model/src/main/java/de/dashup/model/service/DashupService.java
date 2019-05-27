@@ -165,10 +165,10 @@ public class DashupService {
         return returningValue;
     }
 
-    public Map<Widget, Rating> getFeaturedWidgets(List<Widget> widgets) throws SQLException {
+    public Map<Widget, Rating> getFeaturedWidgets(int[] widgetIds) throws SQLException {
         Map<Widget, Rating> returningValue = new HashMap<>();
-        for (Widget widget : widgets) {
-            returningValue.put(this.getPanelById(widget.getId()), this.getTopRating(widget.getId()));
+        for (int widgetId : widgetIds) {
+            returningValue.put(this.getPanelById(widgetId), this.getTopRating(widgetId));
         }
         return returningValue;
     }
@@ -707,10 +707,6 @@ public class DashupService {
             tags.add(new Tag(result.getJSONObject(i).getInt("id"), result.getJSONObject(i).getString("text")));
         }
         return tags;
-    }
-
-    public List<Widget> getRandomWidgets(int limit) throws SQLException{
-        return (List<Widget>) this.database.getRandomEntries(Database.Table.PANELS, Widget.class, limit);
     }
 
     public void getTagsByWidget(Widget widget) throws SQLException {
