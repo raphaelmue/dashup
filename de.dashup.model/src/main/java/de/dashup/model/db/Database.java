@@ -193,12 +193,7 @@ public class Database {
         }else{
             jsonArray = this.get(table,joinOn,onParameters,whereParameters,orderByClause);
         }
-        List<DatabaseObject> result = new ArrayList<>();
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            result.add(gson.fromJson(jsonObject.toString(), resultType));
-        }
-        return result;
+        return getDatabaseObjects(resultType, gson, jsonArray);
     }
 
     public List<? extends  DatabaseObject> getObject(Table table, Table joinOn,Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters) throws SQLException,JsonParseException {
@@ -270,16 +265,18 @@ public class Database {
     }
 
     public List<? extends  DatabaseObject> find(Table tableName,Map<String, Object> whereParameters, Type resultType) throws SQLException{
-
         Gson gson = new GsonBuilder().create();
         PreparedStatement statement;
         String query = "SELECT * FROM " + tableName.getTableName() + " WHERE" + whereParameters.keySet().toString().replace("[", " ").replace("]", " ") + "LIKE ?";
         statement = this.preparedStatement(connection.prepareStatement(query),whereParameters);
 
-
         // execute
 
         JSONArray jsonArray = Converter.convertResultSetIntoJSON(statement.executeQuery());
+        return getDatabaseObjects(resultType, gson, jsonArray);
+    }
+
+    private List<? extends DatabaseObject> getDatabaseObjects(Type resultType, Gson gson, JSONArray jsonArray) {
         List<DatabaseObject> result = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);

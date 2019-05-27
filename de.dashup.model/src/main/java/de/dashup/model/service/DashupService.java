@@ -1,5 +1,6 @@
 package de.dashup.model.service;
 
+import com.sun.jdi.event.StepEvent;
 import de.dashup.model.db.Database;
 import de.dashup.model.exceptions.EmailAlreadyInUseException;
 import de.dashup.shared.*;
@@ -8,6 +9,7 @@ import de.dashup.util.string.RandomString;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.xml.crypto.Data;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;

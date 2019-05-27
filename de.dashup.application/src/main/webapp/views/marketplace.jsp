@@ -144,12 +144,7 @@
                         </div>
                         <div class="col s8 m6">
 
-                            <div class="col col s8 m6 z-depth-2">2
-                                <div class="chip">
-                                    Tag
-                                    <i class="close material-icons">close</i>
-                                </div>
-                            </div>
+                            <div class="chips"></div>
 
                         </div>
                         <div class="col s4 m6">
@@ -185,6 +180,34 @@
                 let elems = document.querySelectorAll('.modal');
                 let instances = M.Modal.init(elems, options);
             });
+        });
+
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     var elems = document.querySelectorAll('.chips');
+        //     var instances = M.Chips.init(elems, options);
+        // });
+
+        $(function() {
+            $('.chips-initial').material_chip({
+                readOnly: true,
+                data: myData
+            });
+            var x = 1;
+            $(".myBTN").on("click",function(e){
+                var text = $(this).text()+x;
+                x++;
+                var e = jQuery.Event("keydown");
+                e.which = 13; // # Some key code value
+                $(".chips-initial input").val(text);
+                $(".chips-initial input").trigger(e);
+            });
+
+            $('.chips-placeholder').material_chip({
+                placeholder: 'Enter a tag',
+                secondaryPlaceholder: '+Tag',
+            });
+
+            $('.chips').material_chip();
         });
 
 

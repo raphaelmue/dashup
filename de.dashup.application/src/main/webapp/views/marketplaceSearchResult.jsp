@@ -13,7 +13,8 @@
             <div class="nav-wrapper">
                 <div class="col s12">
                     <a href="${pageContext.request.contextPath}/" class="breadcrumb">dashup</a>
-                    <a href="#" class="breadcrumb"><fmt:message key="i18n.marketplace" /></a>
+                    <a href="${pageContext.request.contextPath}/marketplace/" class="breadcrumb"><fmt:message key="i18n.marketplace" /></a>
+                    <a href="#" class="breadcrumb"><fmt:message key="i18n.searchResult" /></a>
                 </div>
             </div>
         </nav>
@@ -64,12 +65,22 @@
                                 <div class="col m4 s4">
                                     <h5>${fn:escapeXml(widget.name)}</h5>
                                     <div>${fn:escapeXml(widget.shortDescription)}</div>
-                                    <div style="margin-top: 5px">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
+                                    <div class="star-rating" style="font-size: 25px; margin-top: 15px; color: var(--color-dark-gray);">
+                                        <div class="back-stars">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <div class="front-stars"
+                                                 style="width:  ${fn:escapeXml(widget.averageRating)}%;color: var(--color-background);">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col m2 offset-m3" style="margin-top: 30px">
