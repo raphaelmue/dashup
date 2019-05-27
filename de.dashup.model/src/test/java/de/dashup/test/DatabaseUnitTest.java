@@ -4,11 +4,13 @@ import de.dashup.model.db.Database;
 import de.dashup.shared.DatabaseObject;
 import de.dashup.shared.DatabaseUser;
 import de.dashup.shared.User;
+import de.dashup.shared.Widget;
 import de.dashup.util.string.Hash;
 import org.json.JSONArray;
 import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,5 +143,25 @@ public class DatabaseUnitTest {
         whereParams.put("id", "3");
         JSONArray result = database.get(Database.Table.USERS, whereParams);
         Assertions.assertEquals(0, result.length());
+    }
+
+    @Test
+    public void getRangeOfRating() throws SQLException{
+        HashMap<String, Object> whereParams = new HashMap<>();
+        whereParams.put("avg_of_ratings", "75");
+        List<? extends DatabaseObject> result = database.getRange(Database.Table.PANELS,whereParams,Widget.class);
+        Assertions.assertEquals(1,result.size());
+        Widget widget = (Widget) new Widget().fromDatabaseObject(result.get(0));
+        Assertions.assertEquals(75,widget.getAverageRating());
+    }
+
+    @Test
+    public void getRangeOfPublicationDate() throws SQLException{
+        HashMap<String, Object> whereParams = new HashMap<>();
+        whereParams.put("publication_date", "2019-04-19");
+        List<? extends DatabaseObject> result = database.getRange(Database.Table.PANELS,whereParams,Widget.class);
+        Assertions.assertEquals(1,result.size());
+        Widget widget = (Widget) new Widget().fromDatabaseObject(result.get(0));
+        Assertions.assertEquals("2019-04-20",widget.getPublicationDate().toString());
     }
 }

@@ -185,7 +185,7 @@ public class Database {
         return this.getObject(table, resultType, whereParameters, null);
     }
 
-    public List<? extends  DatabaseObject> getObject(Table table, Table joinOn,Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters, String orderByClause) throws SQLException,JsonParseException {
+    private List<? extends  DatabaseObject> getObject(Table table, Table joinOn,Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters, String orderByClause) throws SQLException,JsonParseException {
         Gson gson = new GsonBuilder().create();
         JSONArray jsonArray;
         if(joinOn == null && onParameters == null) {
@@ -271,7 +271,22 @@ public class Database {
         statement = this.preparedStatement(connection.prepareStatement(query),whereParameters);
 
         // execute
+        JSONArray jsonArray = Converter.convertResultSetIntoJSON(statement.executeQuery());
+        return getDatabaseObjects(resultType, gson, jsonArray);
+    }
 
+    public List<? extends DatabaseObject> getRange(Table tableName,Map<String, Object> whereParameters, Type resultType) throws SQLException{
+        Gson gson = new GsonBuilder().create();
+        List<String> operatorList = new ArrayList<>();
+        operatorList.add(">=");
+        operatorList.add("<=");
+        PreparedStatement statement;
+        String query = "SELECT * FROM " + tableName.getTableName() +
+                this.getClause(whereParameters, "WHERE", " AND ",operatorList);
+
+        statement = this.preparedStatement(connection.prepareStatement(query),whereParameters);
+
+        // execute
         JSONArray jsonArray = Converter.convertResultSetIntoJSON(statement.executeQuery());
         return getDatabaseObjects(resultType, gson, jsonArray);
     }
@@ -392,6 +407,31 @@ public class Database {
                     whereClauseString.append(separator);
                 }
                 whereClauseString.append(entry.getKey()).append(" = ?");
+            }
+        }
+        return whereClauseString.toString();
+    }
+
+    private String getClause(Map<String, Object> values, String operation, String separator, List<String> operators) {
+        StringBuilder whereClauseString = new StringBuilder();
+        if (values.size() > 0) {
+            whereClauseString.append(" ").append(operation).append(" ");
+            boolean first = true;
+            int operatorIndex = 0;
+            for (Map.Entry<String, Object> entry : values.entrySet()) {
+                if (first) {
+                    first = false;
+                } else {
+                    whereClauseString.append(separator);
+                }
+                whereClauseString.append(entry.getKey()).append(" ")
+                        .append(operators.get(operatorIndex))
+                        .append(" ?");
+
+                operatorIndex++;
+                if(operatorIndex == operators.size()){
+                    operatorIndex = 0;
+                }
             }
         }
         return whereClauseString.toString();
