@@ -1,5 +1,7 @@
 package de.dashup.shared;
 
+import java.time.LocalDate;
+
 @SuppressWarnings("unused")
 public class LayoutModeWidgetDTO implements DataTransferObject {
 
@@ -37,7 +39,7 @@ public class LayoutModeWidgetDTO implements DataTransferObject {
 
         String widgetFrontendId = widgetId.substring(1);
         int widgetTechnicalId = Integer.valueOf(widgetFrontendId);
-        return new Widget(widgetTechnicalId, "", "", 0, 0, index);
+        return new Widget(widgetTechnicalId, "", "", 0, 0, index, 0, LocalDate.now(), "");
 
     }
 }
