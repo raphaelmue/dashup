@@ -14,6 +14,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class DashupService {
@@ -473,11 +474,24 @@ public class DashupService {
         }
     }
 
-    public List<Widget> findWidgetByName(String name) throws SQLException{
-        Map<String, Object> values = new HashMap<>();
-        values.put("name", "%" + name + "%");
+    public List<Widget> findWidgetByName(String name, String date, String rating) throws SQLException{
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("name", "%" + name + "%");
 
-        List<? extends DatabaseObject> result = this.database.find(Database.Table.PANELS,values,Widget.class);
+        List<String> operators = new ArrayList<>();
+        operators.add("LIKE");
+
+        if(date!=null){
+            whereParameters.put("publication_date",date);
+            operators.add(">=");
+        }
+
+        if(rating!=null){
+            whereParameters.put("avg_of_ratings",rating);
+            operators.add(">=");
+        }
+
+        List<? extends DatabaseObject> result = this.database.findByRange(Database.Table.PANELS,whereParameters,Widget.class,operators);
 
         List<Widget> widgets = new ArrayList<>();
         for (int i = 0; i < result.size(); i++) {

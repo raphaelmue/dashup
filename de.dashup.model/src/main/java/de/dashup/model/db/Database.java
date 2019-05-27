@@ -275,11 +275,9 @@ public class Database {
         return getDatabaseObjects(resultType, gson, jsonArray);
     }
 
-    public List<? extends DatabaseObject> getRange(Table tableName,Map<String, Object> whereParameters, Type resultType) throws SQLException{
+    public List<? extends DatabaseObject> findByRange(Table tableName,Map<String, Object> whereParameters, Type resultType, List<String> operatorList) throws SQLException{
         Gson gson = new GsonBuilder().create();
-        List<String> operatorList = new ArrayList<>();
-        operatorList.add(">=");
-        operatorList.add("<=");
+
         PreparedStatement statement;
         String query = "SELECT * FROM " + tableName.getTableName() +
                 this.getClause(whereParameters, "WHERE", " AND ",operatorList);
@@ -429,9 +427,7 @@ public class Database {
                         .append(" ?");
 
                 operatorIndex++;
-                if(operatorIndex == operators.size()){
-                    operatorIndex = 0;
-                }
+
             }
         }
         return whereClauseString.toString();

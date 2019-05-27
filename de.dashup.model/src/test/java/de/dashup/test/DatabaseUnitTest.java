@@ -11,6 +11,7 @@ import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -146,22 +147,21 @@ public class DatabaseUnitTest {
     }
 
     @Test
-    public void getRangeOfRating() throws SQLException{
+    public void findBySearchAndFilter() throws SQLException{
         HashMap<String, Object> whereParams = new HashMap<>();
-        whereParams.put("avg_of_ratings", "75");
-        List<? extends DatabaseObject> result = database.getRange(Database.Table.PANELS,whereParams,Widget.class);
-        Assertions.assertEquals(1,result.size());
-        Widget widget = (Widget) new Widget().fromDatabaseObject(result.get(0));
-        Assertions.assertEquals(75,widget.getAverageRating());
-    }
+        whereParams.put("name", "panel1");
+        List<String> operatorList = new ArrayList<>();
+        operatorList.add("=");
 
-    @Test
-    public void getRangeOfPublicationDate() throws SQLException{
-        HashMap<String, Object> whereParams = new HashMap<>();
-        whereParams.put("publication_date", "2019-04-19");
-        List<? extends DatabaseObject> result = database.getRange(Database.Table.PANELS,whereParams,Widget.class);
+        whereParams.put("avg_of_ratings","75");
+        operatorList.add(">=");
+
+        whereParams.put("publication_date","2019-04-19");
+        operatorList.add(">=");
+
+        List<? extends DatabaseObject> result = database.findByRange(Database.Table.PANELS,whereParams,Widget.class,operatorList);
         Assertions.assertEquals(1,result.size());
         Widget widget = (Widget) new Widget().fromDatabaseObject(result.get(0));
-        Assertions.assertEquals("2019-04-20",widget.getPublicationDate().toString());
+        Assertions.assertEquals(1,widget.getId());
     }
 }
