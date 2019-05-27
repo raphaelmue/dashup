@@ -20,7 +20,12 @@ export class DashupButton extends DashupComponent {
                     return false;
                 }
             },
-            api: {
+            dataAPI: {
+                type: String, hasChanged: () => {
+                    return false;
+                }
+            },
+            storageAPI: {
                 type: String, hasChanged: () => {
                     return false;
                 }
@@ -33,7 +38,7 @@ export class DashupButton extends DashupComponent {
                 }
             },
             consumers: {
-                type: Object, hasChanged: () => {
+                type: Array, hasChanged: () => {
                     return false;
                 }
             },
@@ -58,15 +63,20 @@ export class DashupButton extends DashupComponent {
     }
 
     async handleAction() {
-        let producerData = null;
-        let apiData = null;
-        if (this.producers) {
-            producerData = this.getProducerData();
-        }
-        if (this.api) {
-            apiData = await this.getAPIData();
-        }
+        let producerData = this.producers ? this.getProducerData() : null;
+        let apiData = this.dataAPI ? await this.getAPIData() : null;
         this.dispatchData({...producerData, ...apiData});
+    }
+
+    builtURL() {
+        let url = this.dataAPI;
+        if(this.params){
+            for(let param of this.params) {
+                let producer = this.getRootNode().querySelector("[name=" + param + "]");
+                url = url.replace(`%${producer.name}%`, producer.getValue());
+            }
+        }
+        return url;
     }
 
     getProducerData() {
@@ -79,33 +89,51 @@ export class DashupButton extends DashupComponent {
     }
 
     getAPIData() {
-        let url = this.api;
-        for (let param of this.params) {
-            let producer = this.getRootNode().querySelector("[name=" + param + "]");
-            url = url.replace(`%${producer.name}%`, producer.getValue());
-        }
-
         return new Promise((resolve, reject) => {
-            fetch(url).then((response) => {
-                return response.json();
-            }).then((json) => {
+            fetch(this.builtURL()).then((response) => response.json()).then((json) => {
                 resolve({apiData: json});
-            }, () => reject());
+            }).catch(err => {
+                resolve({apiData: null});
+            });
         });
     }
 
     dispatchData(data) {
-        for (let consumer in this.consumers) {
-            if ({}.hasOwnProperty.call(this.consumers, consumer)) {
-                let consumerControl = this.getRootNode().querySelector("[name=" + consumer + "]");
+        for (let consumer of this.consumers) {
+            let name = Object.keys(consumer)[0];
+            let consumerControl = this.getRootNode().querySelector("[name=" + name + "]");
+            let resolvedData = MessageBroker.getDataFromPath(consumer[name], data);
+            if(resolvedData){
                 consumerControl.handleData({
-                    data: MessageBroker.getDataFromPath(this.consumers[consumer], data),
+                    data: resolvedData,
                     mode: this.mode
                 });
             }
         }
+
+        if(this.storageAPI){
+            let uniqueConsumers = [];
+            for (let consumer of this.consumers) {
+                let name = Object.keys(consumer)[0];
+                let consumerControl = this.getRootNode().querySelector("[name=" + name + "]");
+                if(!uniqueConsumers.includes(name)){
+                    uniqueConsumers.push(name);
+                    let data = {};
+                    data[name] = consumerControl.getValue();
+                    fetch(this.storageAPI, {
+                        method: "POST",
+                        body: JSON.stringify(data),
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    }).then(result => result.json()).then((json) => {
+                        console.log(json);
+                    }).catch(() => {
+                        console.log("An error occurred");
+                    });
+                }
+            }
+        }
     }
-
 }
-
 customElements.define("dashup-button", DashupButton);

@@ -1,6 +1,6 @@
 <dashup-grid-layout>
     <dashup-text-input name="todo"
-                       placeholder='Enter a task here...'
+                       placeholder='Enter a task'
                        layout='{"row": 1, "offset": 0, "size": 8}'
                        clear>
     </dashup-text-input>
@@ -8,7 +8,7 @@
                    mode="add"
                    dataAPI="http://localhost:9004/loadTodo"
                    storageAPI="http://localhost:9004/todo"
-                   consumers='[{"list": "todo"}, {"list": "apiData list"}]'
+                   consumers='{"list": "todo", "list": "apiData list"}'
                    producers="todo"
                    layout='{"row": 1, "offset": 1, "size": 3}'
                    handleOnStart>
@@ -20,7 +20,7 @@
     <dashup-button text="Delete"
                    mode="delete"
                    storageAPI="http://localhost:9004/todo"
-                   consumers='[{"list": "list"}]'
+                   consumers='{"list": "list"}'
                    producers="list"
                    layout='{"row": 3, "offset": 0, "size": 12}'>
     </dashup-button>

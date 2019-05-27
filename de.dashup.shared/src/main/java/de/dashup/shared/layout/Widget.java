@@ -1,10 +1,12 @@
-package de.dashup.shared;
+package de.dashup.shared.layout;
 
 import com.google.gson.annotations.SerializedName;
+import de.dashup.shared.DatabaseObject;
+import de.dashup.shared.Property;
+import de.dashup.shared.Tag;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,7 +16,7 @@ import java.util.Set;
 public class Widget extends DatabaseWidget implements Comparable<Widget> {
 
     public enum Size {
-        SMALL("small", "m2 s6"),
+        SMALL("small", "m3 s6"),
         MEDIUM("medium", "m4 s12"),
         LARGE("large", "m6 s12");
 

@@ -1,5 +1,7 @@
 package de.dashup.shared;
 
+import de.dashup.shared.layout.Section;
+
 import java.util.ArrayList;
 import java.util.List;
 

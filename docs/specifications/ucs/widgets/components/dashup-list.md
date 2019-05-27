@@ -5,6 +5,13 @@
 Inherits from [DashupComponent](dashup-component.md).
 
 ##Properties        
+**Items**
+
+        Type: Array
+        Description: Elements of the list
+        
+            
+        
 **Selectable**
     
         Type: Boolean
