@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class DatabaseWidget implements DatabaseObject {
     private int id;
     private String name;
-    @SerializedName("description")
+    @SerializedName("descriptions")
     private String description;
     @SerializedName("short_description")
     private String shortDescription;

@@ -69,7 +69,7 @@ public class MarketplaceController {
         return "redirect:/login";
     }
 
-    @RequestMapping("/detailView/{widgetId}/addWidget")
+    @RequestMapping("/detailView/{widgetId}/addWidgetToPersonalDashup")
     public String addWidget(@CookieValue(name = "token", required = false) String token, HttpServletRequest request,
                             @PathVariable(value = "widgetId") int widgetId,
                             @RequestParam("sectionId") int sectionId,
