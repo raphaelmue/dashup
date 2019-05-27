@@ -94,6 +94,7 @@ public class DashupService {
                         Widget widget = this.getPanelById(innerResult.getJSONObject(i).getInt("panel_id"));
                         widget.setSize(Widget.Size.getSizeByName(innerResult.getJSONObject(i).getString("size")));
                         widget.setIndex(innerResult.getJSONObject(i).getInt("widget_index"));
+                        this.getPropertiesOfWidget(user, widget);
                         widgets.add(widget);
                     }
                     Collections.sort(widgets);
@@ -105,6 +106,98 @@ public class DashupService {
         Collections.sort(sections);
         user.setSections(sections);
         return user;
+    }
+
+    private void getPropertiesOfWidget(User user, Widget widget) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("widget_id", widget.getId());
+
+        boolean propertiesFound = false;
+        JSONArray jsonDefaultProperties = this.database.get(Database.Table.PROPERTIES, whereParameters);
+        for (int i = 0; i < jsonDefaultProperties.length(); i++) {
+            JSONObject jsonObject = jsonDefaultProperties.getJSONObject(i);
+            widget.getProperties().put(jsonObject.getString("property"),
+                    new Property(jsonObject.getInt("id"),
+                            jsonObject.getString("property"),
+                            jsonObject.getString("name"),
+                            jsonObject.getString("type"),
+                            jsonObject.getString("default_value"), null));
+            propertiesFound = true;
+        }
+
+        if (propertiesFound) {
+            whereParameters.clear();
+            whereParameters.put("user_id", user.getId());
+            for (Map.Entry<String, Property> propertyEntry : widget.getProperties().entrySet()) {
+                whereParameters.put("property_id", propertyEntry.getValue().getId());
+                JSONArray jsonProperty = this.database.get(Database.Table.USERS_PROPERTIES, whereParameters);
+                if (jsonProperty.length() > 0) {
+                    propertyEntry.getValue().setValue(jsonProperty.getJSONObject(0).getString("value"));
+                }
+            }
+        }
+    }
+
+    public void updateWidgetProperties(Widget widget, List<Integer> propertiesToDelete) throws SQLException {
+        for (Map.Entry<String, Property> propertyEntry : widget.getProperties().entrySet()) {
+            if (propertyEntry.getValue().getId() == -1) {
+                Map<String, Object> values = new HashMap<>();
+                values.put("widget_id", widget.getId());
+                values.put("property", propertyEntry.getValue().getProperty());
+                values.put("name", propertyEntry.getValue().getName());
+                values.put("type", propertyEntry.getValue().getType());
+                values.put("default_value", propertyEntry.getValue().getDefaultValue());
+                this.database.insert(Database.Table.PROPERTIES, values);
+            } else {
+                Map<String, Object> whereParameters = new HashMap<>();
+                whereParameters.put("id", propertyEntry.getValue().getId());
+
+                Map<String, Object> values = new HashMap<>();
+                values.put("property", propertyEntry.getValue().getProperty());
+                values.put("name", propertyEntry.getValue().getName());
+                values.put("type", propertyEntry.getValue().getType());
+                values.put("default_value", propertyEntry.getValue().getDefaultValue());
+
+                this.database.update(Database.Table.PROPERTIES, whereParameters, values);
+            }
+        }
+
+        for (int propertyId : propertiesToDelete) {
+            Map<String, Object> whereParameters = new HashMap<>();
+            whereParameters.put("property_id", propertyId);
+            this.database.delete(Database.Table.USERS_PROPERTIES, whereParameters);
+
+            whereParameters.clear();
+            whereParameters.put("id", propertyId);
+            this.database.delete(Database.Table.PROPERTIES, whereParameters);
+        }
+    }
+
+    public void deleteWidgetProperties(List<Integer> propertiesToDelete) throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        for (int propertyId : propertiesToDelete) {
+            whereParameters.put("id", propertyId);
+            this.database.delete(Database.Table.PROPERTIES, whereParameters);
+            whereParameters.clear();
+        }
+    }
+
+    public void updateUsersWidgetProperties(User user, Widget widget) throws SQLException {
+        for (Map.Entry<String, Property> propertyEntry : widget.getProperties().entrySet()) {
+            Map<String, Object> whereParameters = new HashMap<>();
+            whereParameters.put("user_id", user.getId());
+            whereParameters.put("property_id", propertyEntry.getValue().getId());
+
+            JSONArray result = this.database.get(Database.Table.USERS_PROPERTIES, whereParameters);
+            Map<String, Object> values = new HashMap<>();
+            values.put("value", propertyEntry.getValue().getValue());
+            if (result.length() > 0) {
+                this.database.update(Database.Table.USERS_PROPERTIES, whereParameters, values);
+            } else {
+                values.putAll(whereParameters);
+                this.database.insert(Database.Table.USERS_PROPERTIES, values);
+            }
+        }
     }
 
     public Widget getPanelById(int id) throws SQLException {
@@ -645,7 +738,9 @@ public class DashupService {
 
         List<Draft> drafts = new ArrayList<>();
         for (DatabaseObject databaseObject : this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters)) {
-            drafts.add(new Draft().fromDatabaseObject(databaseObject));
+            Draft draft = new Draft().fromDatabaseObject(databaseObject);
+            this.getPropertiesOfWidget(user, draft);
+            drafts.add(draft);
         }
         user.setDrafts(drafts);
     }
@@ -768,7 +863,9 @@ public class DashupService {
 
         List<Widget> widgets = new ArrayList<>();
         for (DatabaseObject databaseObject : this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters)) {
-            widgets.add(new Widget().fromDatabaseObject(databaseObject));
+            Widget widget = new Widget().fromDatabaseObject(databaseObject);
+            this.getPropertiesOfWidget(user, widget);
+            widgets.add(widget);
         }
         return widgets;
     }

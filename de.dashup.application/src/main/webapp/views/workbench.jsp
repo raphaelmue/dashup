@@ -75,6 +75,7 @@
                             <div class="col s12">
                                 <ul class="tabs" style="margin: 0">
                                     <li class="tab"><a class="active" href="#code"><fmt:message key="i18n.code" /></a></li>
+                                    <li class="tab"><a href="#properties"><fmt:message key="i18n.properties" /></a></li>
                                     <li class="tab"><a href="#basicInformation"><fmt:message key="i18n.basicInformation" /></a></li>
                                 </ul>
                             </div>
@@ -135,6 +136,61 @@
                                             <i class="fas fa-times"></i>
                                             <fmt:message key="i18n.undo"/>
                                         </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="properties" class="col s12">
+                                <div class="row">
+                                    <h3 class="col"><fmt:message key="i18n.basicInformation"/></h3>
+                                </div>
+                                <div class="properties-container">
+                                    <c:forEach items="${current.properties}" var="propertyEntry">
+                                        <div class="row property-row" data-property-id="${propertyEntry.value.id}">
+                                            <div class="col input-field s3 m3">
+                                                <input id="text-field-property-name" type="text" class="validate"
+                                                       value="${propertyEntry.value.name}"/>
+                                                <label for="text-field-property-name"><fmt:message key="i18n.propertyName"/></label>
+                                            </div>
+                                            <div class="col input-field s3 m3">
+                                                <input id="text-field-property" type="text" class="validate"
+                                                       value="${propertyEntry.value.property}"/>
+                                                <label for="text-field-property"><fmt:message key="i18n.property"/></label>
+                                            </div>
+                                            <div class="col input-field s2 m2">
+                                                <select id="text-field-property-type">
+                                                    <c:forEach items="${propertyTypes}" var="type" >
+                                                        <option value="${type.name}" <c:if test="${type.name == propertyEntry.value.type}">selected</c:if>><fmt:message key="i18n.${type.name}"/></option>
+                                                    </c:forEach>
+                                                </select>
+                                                <label for="text-field-property-type"><fmt:message key="i18n.propertyType"/></label>
+                                            </div>
+                                            <div class="col input-field s3 m3">
+                                                <input id="text-field-property-default-value" type="text" class="validate"
+                                                       value="${propertyEntry.value.defaultValue}" />
+                                                <label for="text-field-property-default-value"><fmt:message key="i18n.defaultValue"/></label>
+                                            </div>
+                                            <div class="col input-field s1 m1">
+                                                <a class="btn-delete-property waves-effect btn-flat">
+                                                    <i class="fas fa-times" style="color: var(--color-error)"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                    <div class="row">
+                                        <div class="col s12 m12">
+                                            <button id="btn-update-properties" class="btn waves-light">
+                                                <i class="fas fa-check"></i>
+                                                <fmt:message key="i18n.save" />
+                                            </button>
+                                            <button id="btn-add-property" class="btn-flat waves-light">
+                                                <i class="fas fa-plus"></i>
+                                                <fmt:message key="i18n.add" />
+                                            </button>
+                                            <a id="btn-undo-properties" class="btn-flat undo-button waves-effect">
+                                                <i class="fas fa-times"></i>
+                                                <fmt:message key="i18n.undo"/>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -280,6 +336,7 @@
             </div>
         </div>
     </body>
+
     <jsp:include page="includes/webComponents.jsp" />
     <script type="text/javascript">
         const tags = [
@@ -287,6 +344,8 @@
             {name: "${tag.text}", id: ${tag.id}},
             </c:forEach>
         ];
+
+        let propertiesToDelete = [];
 
         $( document ).ready(function () {
             $("#nav-item-workbench").parent().addClass("active");
@@ -338,6 +397,12 @@
                 case "publishedDraft":
                     toastOptions = {
                         html: "<fmt:message key="i18n.successPublishedDraft" />",
+                        classes: "success"
+                    };
+                    break;
+                case "changedProperties":
+                    toastOptions = {
+                        html: "<fmt:message key="i18n.successChangedProperties" />",
                         classes: "success"
                     };
                     break;
@@ -473,6 +538,55 @@
                 parameters["code_" + size] = encodeURIComponent($("#textarea-code-" + size).val());
                 PostRequest.getInstance().make("/workbench/" + isPublished + "/${fn:escapeXml(current.id)}/changeCode", parameters);
             });
+
+            $("#btn-add-property").on("click", function () {
+                let row = `<div class="row property-row" data-property-id="-1">
+                                <div class="col input-field s3 m3">
+                                    <input id="text-field-property-name" type="text" class="validate" />
+                                    <label for="text-field-property-name"><fmt:message key="i18n.propertyName"/></label>
+                                </div>
+                                <div class="col input-field s3 m3">
+                                    <input id="text-field-property" type="text" class="validate" />
+                                    <label for="text-field-property"><fmt:message key="i18n.property"/></label>
+                                </div>
+                                <div class="col input-field s2 m2">
+                                    <select id="text-field-property-type">
+                                        <c:forEach items="${propertyTypes}" var="type" >
+                                            <option value="${type.name}"><fmt:message key="i18n.${type.name}"/></option>
+                                        </c:forEach>
+                                    </select>
+                                    <label><fmt:message key="i18n.propertyType"/></label>
+                                </div>
+                                <div class="col input-field s3 m3">
+                                    <input id="text-field-property-default-value" type="text" class="validate" />
+                                    <label for="text-field-property-default-value"><fmt:message key="i18n.defaultValue"/></label>
+                                </div>
+                                <div class="col input-field s1 m1">
+                                    <a class="btn-delete-property waves-effect btn-flat">
+                                        <i class="fas fa-times" style="color: var(--color-error)"></i>
+                                    </a>
+                                </div>
+                            </div>`;
+                $(".properties-container .row:first-child").before(row);
+                $("select").formSelect();
+            });
+
+            $("#btn-update-properties").on("click", function () {
+                let properties = [];
+                $(".properties-container .property-row").each(function () {
+                    properties.push({
+                        id: $(this).attr("data-property-id"),
+                        property: $(this).find("#text-field-property").val(),
+                        name: $(this).find("#text-field-property-name").val(),
+                        type: $(this).find("#text-field-property-type").val(),
+                        defaultValue: $(this).find("#text-field-property-default-value").val()
+                    });
+                });
+                PostRequest.getInstance().make("/workbench/" + isPublished + "/${fn:escapeXml(current.id)}/updateProperties", {
+                    properties: encodeURIComponent(JSON.stringify(properties)),
+                    propertiesToDelete: encodeURIComponent(JSON.stringify(propertiesToDelete))
+                });
+            })
         });
 
         $(document).delegate('.code-textarea', 'keydown', function(e) {
@@ -493,6 +607,16 @@
                     this.selectionEnd = start + 1;
             }
         });
+
+        $(document).on("click", ".btn-delete-property", function () {
+            let row = $(this).parent().parent(),
+                propertiesId = row.attr("data-property-id");
+            if (propertiesId > 0) {
+                propertiesToDelete.push(propertiesId);
+            }
+            row.remove();
+        });
+
         function replaceCloseIconOfTags() {
             $(".material-icons.close").addClass("fas fa-times").html("");
         }
@@ -500,7 +624,7 @@
         function parseTags(tags, editedTags) {
             let result = [];
             editedTags.forEach(function (chipTag) {
-                let tag = isTagNameValid(chipTag.tag)
+                let tag = isTagNameValid(chipTag.tag);
                 if (tag !== false) {
                     result.push(tag);
                 }

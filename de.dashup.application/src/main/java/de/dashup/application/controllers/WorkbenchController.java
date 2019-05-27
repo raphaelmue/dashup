@@ -9,6 +9,7 @@ import de.dashup.shared.*;
 import de.dashup.shared.layout.Section;
 import de.dashup.shared.layout.Widget;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -58,6 +60,7 @@ public class WorkbenchController {
             model.addAttribute("tags", DashupService.getInstance().getAllTags());
             DashupService.getInstance().getSectionsAndPanels(user);
             model.addAttribute("sections", user.getSections());
+            model.addAttribute("propertyTypes", Property.Type.values());
 
             for (Draft draft : user.getDrafts()) {
                 if (draft.getId() == draftId) {
@@ -83,7 +86,7 @@ public class WorkbenchController {
             model.addAttribute("tags", DashupService.getInstance().getAllTags());
             DashupService.getInstance().getSectionsAndPanels(user);
             model.addAttribute("sections", user.getSections());
-
+            model.addAttribute("propertyTypes", Property.Type.values());
 
             for (Widget widget : publishedWidgets) {
                 if (widget.getId() == publishedWidgetId) {
@@ -321,6 +324,40 @@ public class WorkbenchController {
                 return "redirect:/workbench/draft/" + draftId + "#draftCodeNotValid";
             }
             return "redirect:/workbench/#publishedDraft";
+        }
+        return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/draft/{draftId}/updateProperties", method = RequestMethod.POST)
+    public String handleUpdateProperties(@CookieValue(name = "token", required = false) String token,
+                                         HttpServletRequest request,
+                                         @PathVariable(value = "draftId") int draftId,
+                                         @RequestParam(value = "properties") String jsonProperties,
+                                         @RequestParam(value = "propertiesToDelete") String jsonPropertiesToDelete) throws SQLException, UnsupportedEncodingException {
+        User user = LocalStorage.getInstance().getUser(request, token);
+        if (user != null) {
+            Draft draft = new Draft();
+            draft.setId(draftId);
+            JSONArray jsonArray = new JSONArray(URLDecoder.decode(jsonProperties, StandardCharsets.UTF_8.name()));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                draft.getProperties().put(jsonObject.getString("property"),
+                        new Property(jsonObject.getInt("id"),
+                                jsonObject.getString("property"),
+                                jsonObject.getString("name"),
+                                jsonObject.getString("type"),
+                                jsonObject.getString("defaultValue"),
+                                null));
+            }
+
+            List<Integer> propertiesToDelete = new ArrayList<>();
+            jsonArray = new JSONArray(URLDecoder.decode(jsonPropertiesToDelete, StandardCharsets.UTF_8.name()));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                propertiesToDelete.add(jsonArray.getInt(i));
+            }
+
+            DashupService.getInstance().updateWidgetProperties(draft, propertiesToDelete);
+            return "redirect:/workbench/draft/" + draftId + "#changedProperties";
         }
         return "redirect:/login";
     }

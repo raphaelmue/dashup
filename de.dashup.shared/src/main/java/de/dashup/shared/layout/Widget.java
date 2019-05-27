@@ -2,10 +2,15 @@ package de.dashup.shared.layout;
 
 import com.google.gson.annotations.SerializedName;
 import de.dashup.shared.DatabaseObject;
+import de.dashup.shared.Property;
 import de.dashup.shared.Tag;
-
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class Widget extends DatabaseWidget implements Comparable<Widget> {
@@ -78,6 +83,8 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
     @SerializedName("widget_index")
     private int index;
     private final Set<Tag> tags = new HashSet<>();
+
+    private final Map<String, Property> properties = new HashMap<>();
 
     public Widget() {
     }
@@ -152,13 +159,31 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
     }
 
     public String getCodeWithWrapper() {
-        return "<div class=\"col " + this.size.getStyleClass() + "\">" +
-                "<div class=\"widget card\">" +
-                "<div class=\"card-content\">" +
-                this.getCode() +
-                "</div>" +
-                "</div>" +
-                "</div>";
+        StringBuilder html = new StringBuilder()
+                .append("<div class=\"card col ")
+                .append(this.size.getStyleClass())
+                .append("\">")
+                .append("<div class=\"card-content\">");
+        if (this.getProperties().size() > 0) {
+            Document document = Jsoup.parse(this.getCode());
+            for (Map.Entry<String, Property> propertyEntry : this.getProperties().entrySet()) {
+                String[] propertyName = propertyEntry.getValue().getProperty().split("[.]");
+                Element element = document.getElementsByAttributeValue("name", propertyName[0]).first();
+                if (element != null) {
+                    element.attr(propertyName.length == 2 ? propertyName[1] : "value", propertyEntry.getValue().getValue());
+                }
+            }
+            html.append(document.html());
+        } else {
+            html.append(this.getCode());
+        }
+        html.append("</div>")
+                .append("</div>");
+        return html.toString();
+    }
+
+    public Map<String, Property> getProperties() {
+        return properties;
     }
 
     public void setSize(Size size) {
