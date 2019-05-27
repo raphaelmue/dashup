@@ -61,17 +61,17 @@ div.nav-wrapper {
 
 /*** WIDGETS ***/
 
-.widget.card {
+.card {
     background-color: rgba(256, 256, 256, 0.9);
     height: 300px;
     overflow: auto;
 }
 
-.widget.card::-webkit-scrollbar {
+.card::-webkit-scrollbar {
     width: 5px;
 }
 
-.widget.card::-webkit-scrollbar-thumb {
+.card::-webkit-scrollbar-thumb {
     background-color: var(--color-primary-dark);
 }
 
