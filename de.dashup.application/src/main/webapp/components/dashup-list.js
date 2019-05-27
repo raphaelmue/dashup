@@ -93,7 +93,7 @@ export class DashupList extends DashupComponent {
     deleteData() {
         let sizeBefore = this.items.length;
         this.items = this.items.filter((item) => !item.selected);
-        if(this.items.length = sizeBefore){
+        if(this.items.length === sizeBefore){
             this.items = [];
         }
     }

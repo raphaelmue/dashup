@@ -25,18 +25,29 @@ public class DatabaseWidget implements DatabaseObject {
     private String category;
     @SerializedName("number_of_downloads")
     private int numberOfDownloads;
-    @SerializedName("average_rating")
+    @SerializedName("avg_of_ratings")
     private int averageRating;
+    @SerializedName("number_of_ratings")
+    private int numberOfRatings;
+    @SerializedName("icon_code")
+    private String iconCode;
+    @SerializedName("user_id")
+    private int publisherId;
 
-    DatabaseWidget() {
+    public DatabaseWidget() {
     }
 
-    DatabaseWidget(int id, String name, String description, int numberOfDownloads, int average_rating) {
+    DatabaseWidget(int id, String name, String description, int numberOfDownloads, int averageRating, int numberOfRatings, LocalDate publicationDate, String iconCode) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.numberOfDownloads = numberOfDownloads;
-        this.averageRating = average_rating;
+        this.averageRating = averageRating;
+        this.numberOfRatings = numberOfRatings;
+        if (publicationDate != null) {
+            this.publicationDate = publicationDate.toString();
+        }
+        this.iconCode = iconCode;
     }
 
 
@@ -142,4 +153,27 @@ public class DatabaseWidget implements DatabaseObject {
         this.averageRating = averageRating;
     }
 
+    public int getNumberOfRatings() {
+        return numberOfRatings;
+    }
+
+    public void setNumberOfRatings(int numberOfRatings) {
+        this.numberOfRatings = numberOfRatings;
+    }
+
+    public String getIconCode() {
+        return iconCode;
+    }
+
+    public void setIconCode(String iconCode) {
+        this.iconCode = iconCode;
+    }
+
+    public int getPublisherId() {
+        return publisherId;
+    }
+
+    public void setPublisherId(int publisherId) {
+        this.publisherId = publisherId;
+    }
 }

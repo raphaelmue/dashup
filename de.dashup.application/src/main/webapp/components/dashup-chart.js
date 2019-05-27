@@ -182,7 +182,15 @@ export class DashupChart extends DashupComponent {
             switch(data.mode){
                 case MessageBroker.MessageMode.ADD:
                     if(Array.isArray(data.data)){
-                        this.data = [...data.data];
+                        data.data.filter(element => {
+                            for(let data of this.data){
+                                if(data.category === element.category){
+                                    return false;
+                                }
+                            }
+                            return true;
+                        }).forEach(element => this.data.push(element));
+                        this.requestUpdate();
                     } else {
                         let position = -1;
                         this.data.find((element, index) => {

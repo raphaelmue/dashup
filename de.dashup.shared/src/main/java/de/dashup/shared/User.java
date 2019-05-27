@@ -23,7 +23,7 @@ public class User extends DatabaseUser {
     }
 
     @Override
-    public DatabaseObject fromDatabaseObject(DatabaseObject databaseObject) {
+    public User fromDatabaseObject(DatabaseObject databaseObject) {
         if (databaseObject instanceof DatabaseUser) {
             this.setId(databaseObject.getId());
             this.setName(((DatabaseUser) databaseObject).getName());

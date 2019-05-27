@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import de.dashup.shared.DatabaseObject;
 import de.dashup.shared.Tag;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -82,8 +83,8 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
     }
 
     public Widget(int id, String name, String description, int numberOfDownloads, int averageRating,
-                  int index) {
-        super(id, name, description, numberOfDownloads, averageRating);
+                  int index, int numberOfRatings, LocalDate publicationDate, String iconCode) {
+        super(id, name, description, numberOfDownloads, averageRating, numberOfRatings, publicationDate, iconCode);
         this.index = index;
     }
 
@@ -97,8 +98,14 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
             this.setCodeSmall(((DatabaseWidget) databaseObject).getCodeSmall());
             this.setCodeMedium(((DatabaseWidget) databaseObject).getCodeMedium());
             this.setCodeLarge(((DatabaseWidget) databaseObject).getCodeLarge());
+            this.setAverageRating(((DatabaseWidget) databaseObject).getAverageRating());
+            this.setNumberOfRatings(((DatabaseWidget) databaseObject).getNumberOfRatings());
+            this.setPublicationDate(((DatabaseWidget) databaseObject).getPublicationDate());
+            this.setShortDescription(((DatabaseWidget) databaseObject).getShortDescription());
+            this.setIconCode(((DatabaseWidget) databaseObject).getIconCode());
             this.setVisible(((DatabaseWidget) databaseObject).getIsVisible());
             this.setCategory(((DatabaseWidget) databaseObject).getCategory());
+            this.setPublisherId((((DatabaseWidget) databaseObject).getPublisherId()));
         }
         return this;
     }
