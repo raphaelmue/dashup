@@ -43,6 +43,8 @@ public class Database {
         PANELS("panels"),
         USER_SECTIONS("users_sections"),
         SECTIONS_PANELS("sections_panels"),
+        PROPERTIES("properties"),
+        USERS_PROPERTIES("users_properties"),
         TAGS("tags"),
         RATINGS("ratings"),
         PANELS_TAGS("panels_tags");
