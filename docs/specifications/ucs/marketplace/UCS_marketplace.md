@@ -33,7 +33,7 @@ widgets reach from default widgets, that are natively available on the dashup pl
 were uploaded by users. A detailed view is given for each offered widget containing a description and comments about the 
 widget. Furthermore, similar widgets to the current inspected widget, that other users use as well in combination with 
 the current one, are displayed in a <i>similar</i> tab. As a developer it is possible to publish your own widgets to 
-the marketplace from the <i>Workbench</i>. The marketplace is as well the key entry point to add panels to the central 
+the marketplace from the <i>Workbench</i>. The marketplace is as well the key task point to add panels to the central 
 dashboard.
 
 # 2. Flow Of Events
@@ -89,8 +89,8 @@ The user has to be signed in and must have navigated to the marketplace menu.
 There must be at least one widget available to use the marketplace.
 
 ## 4.3 Metadata Provided For Each Widget
-To properly display information about a widget, metadata such as publisher, category etc. must be provided. Furthermore 
-the publisher must have given a detailed description about the widget to display it on the main menu in the marketplace. 
+To properly display information about a widget, metadata such as publisherId, category etc. must be provided. Furthermore 
+the publisherId must have given a detailed description about the widget to display it on the main menu in the marketplace. 
 Besides a description, the widget must be associated with a category and at least one tag.
 
 # 5. Postconditions

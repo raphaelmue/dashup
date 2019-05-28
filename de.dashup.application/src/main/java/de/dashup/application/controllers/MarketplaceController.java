@@ -3,8 +3,8 @@ package de.dashup.application.controllers;
 import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.model.service.DashupService;
+import de.dashup.shared.layout.Widget;
 import de.dashup.shared.User;
-import de.dashup.shared.Widget;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -21,8 +21,13 @@ public class MarketplaceController {
 
     @RequestMapping("/")
     public String marketplace(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
-        return ControllerHelper.defaultMapping(token, request, model, "marketplace", user ->
-                model.addAttribute("bestRated", DashupService.getInstance().getBestRatedWidgets()));
+        return ControllerHelper.defaultMapping(token, request, model, "marketplace", user -> {
+            model.addAttribute("carouselWidget",DashupService.getInstance().getPanelById(1));
+            int[] featuredWidgets = {1,2,3,4};
+            model.addAttribute("featuredWidgets",DashupService.getInstance().getFeaturedWidgets(featuredWidgets));
+            model.addAttribute("bestRated", DashupService.getInstance().getTopWidgets("avg_of_ratings"));
+            model.addAttribute("mostDownloaded", DashupService.getInstance().getTopWidgets("number_of_downloads"));
+        });
     }
 
     @RequestMapping("/search")
@@ -37,6 +42,8 @@ public class MarketplaceController {
         return ControllerHelper.defaultMapping(token, request, model, "panelDetailView", user -> {
             Widget widget = DashupService.getInstance().getPanelById(widgetID);
             model.addAttribute(widget);
+            User publisher = DashupService.getInstance().getUserById(widget.getPublisherId());
+            model.addAttribute("publisher",publisher);
             model.addAttribute("tags", DashupService.getInstance().getTagsByPanelId(widgetID));
             model.addAttribute("ratings", DashupService.getInstance().getRatingsByWidgetID(widgetID));
             user = DashupService.getInstance().getSectionsAndPanels(user);
@@ -45,35 +52,36 @@ public class MarketplaceController {
     }
 
     @RequestMapping("/detailView/{widgetId}/addRating")
-    public String addRating(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request,
+    public String addRating(@CookieValue(name = "token", required = false) String token, HttpServletRequest request,
                             @PathVariable(value = "widgetId") int widgetId,
                             @RequestParam("title") String title,
                             @RequestParam("text") String text,
                             @RequestParam("rating") int rating) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            boolean success = DashupService.getInstance().addRating(user,title,text,rating,widgetId);
+            boolean success = DashupService.getInstance().addRating(user, title, text, rating, widgetId);
             if (success) {
                 return "redirect:/marketplace/detailView/" + widgetId + "#addedRating";
-            }else{
+            } else {
                 return "redirect:/marketplace/detailView/" + widgetId + "#faieldToAddRating";
             }
         }
         return "redirect:/login";
     }
 
-    @RequestMapping("/detailView/{widgetId}/addWidget")
-    public String addWidget(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request,
+    @RequestMapping("/detailView/{widgetId}/addWidgetToPersonalDashup")
+    public String addWidget(@CookieValue(name = "token", required = false) String token, HttpServletRequest request,
                             @PathVariable(value = "widgetId") int widgetId,
-                            @RequestParam("sectionId") int sectionId) throws SQLException{
+                            @RequestParam("sectionId") int sectionId,
+                            @RequestParam("widgetSize") String widgetSize) throws SQLException {
 
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
-            boolean success = DashupService.getInstance().addWidget(user, widgetId,sectionId);
+            boolean success = DashupService.getInstance().addWidgetToPersonalDashup(user, widgetId, sectionId, widgetSize);
             if (success) {
                 return "redirect:/marketplace/detailView/" + widgetId + "#addedWidget";
-            }else{
-                return "redirect:/marketplace/detailView/" + widgetId + "#faieldToAddWidget";
+            } else {
+                return "redirect:/marketplace/detailView/" + widgetId + "#failedToAddWidget";
             }
         }
         return "redirect:/login";

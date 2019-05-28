@@ -1,13 +1,19 @@
-package de.dashup.shared;
+package de.dashup.shared.layout;
 
 import com.google.gson.annotations.SerializedName;
+import de.dashup.shared.DatabaseObject;
 
 import java.time.LocalDate;
 
 public class DatabaseWidget implements DatabaseObject {
     private int id;
     private String name;
+    @SerializedName("descriptions")
     private String description;
+    @SerializedName("short_description")
+    private String shortDescription;
+    @SerializedName("publication_date")
+    private String publicationDate;
     @SerializedName("code_small")
     private String codeSmall;
     @SerializedName("code_medium")
@@ -16,28 +22,32 @@ public class DatabaseWidget implements DatabaseObject {
     private String codeLarge;
     @SerializedName("visibility")
     private boolean isVisible;
+    private String category;
     @SerializedName("number_of_downloads")
     private int numberOfDownloads;
     @SerializedName("avg_of_ratings")
     private int averageRating;
     @SerializedName("number_of_ratings")
     private int numberOfRatings;
-    @SerializedName("publication_date")
-    private String publicationDate;
-    @SerializedName("short_description")
-    private String shortDescription;
+    @SerializedName("icon_code")
+    private String iconCode;
+    @SerializedName("user_id")
+    private int publisherId;
 
     public DatabaseWidget() {
     }
 
-    DatabaseWidget(int id, String name, String description, int numberOfDownloads, int averageRating, int numberOfRatings, String publicationDate) {
+    DatabaseWidget(int id, String name, String description, int numberOfDownloads, int averageRating, int numberOfRatings, LocalDate publicationDate, String iconCode) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.numberOfDownloads = numberOfDownloads;
         this.averageRating = averageRating;
         this.numberOfRatings = numberOfRatings;
-        this.publicationDate = publicationDate;
+        if (publicationDate != null) {
+            this.publicationDate = publicationDate.toString();
+        }
+        this.iconCode = iconCode;
     }
 
 
@@ -54,6 +64,17 @@ public class DatabaseWidget implements DatabaseObject {
         return description;
     }
 
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public LocalDate getPublicationDate() {
+        if (this.publicationDate != null) {
+            return LocalDate.parse(publicationDate);
+        }
+        return null;
+    }
+
     public String getCodeSmall() {
         return codeSmall;
     }
@@ -66,8 +87,12 @@ public class DatabaseWidget implements DatabaseObject {
         return codeLarge;
     }
 
-    public boolean isVisible() {
+    public boolean getIsVisible() {
         return isVisible;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     public int getNumberOfDownloads() {
@@ -78,32 +103,46 @@ public class DatabaseWidget implements DatabaseObject {
         return averageRating;
     }
 
-    void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    void setCodeSmall(String codeSmall) {
+    public void setPublicationDate(LocalDate publicationDate) {
+        if (publicationDate != null) {
+            this.publicationDate = publicationDate.toString();
+        }
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public void setCodeSmall(String codeSmall) {
         this.codeSmall = codeSmall;
     }
 
-    void setCodeMedium(String codeMedium) {
+    public void setCodeMedium(String codeMedium) {
         this.codeMedium = codeMedium;
     }
 
-    void setCodeLarge(String codeLarge) {
+    public void setCodeLarge(String codeLarge) {
         this.codeLarge = codeLarge;
     }
 
     public void setVisible(boolean visible) {
         isVisible = visible;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public void setNumberOfDownloads(int numberOfDownloads) {
@@ -122,24 +161,19 @@ public class DatabaseWidget implements DatabaseObject {
         this.numberOfRatings = numberOfRatings;
     }
 
-    public LocalDate getPublicationDate() {
-        if (publicationDate!=null && !publicationDate.isBlank()) {
-            return LocalDate.parse(publicationDate);
-        }
-        return null;
+    public String getIconCode() {
+        return iconCode;
     }
 
-    public void setPublicationDate(LocalDate publicationDate) {
-        if (publicationDate != null) {
-            this.publicationDate = publicationDate.toString();
-        }
+    public void setIconCode(String iconCode) {
+        this.iconCode = iconCode;
     }
 
-    public String getShortDescription() {
-        return shortDescription;
+    public int getPublisherId() {
+        return publisherId;
     }
 
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
+    public void setPublisherId(int publisherId) {
+        this.publisherId = publisherId;
     }
 }

@@ -1,0 +1,42 @@
+<dashup-grid-layout>
+    <dashup-list name="financeList"
+                 layout='{"row": 1, "offset": 0, "size": 12}'>
+    </dashup-list>
+    <dashup-text-input name="amount"
+                       placeholder="Amount"
+                       layout='{"row": 2, "offset": 0, "size": 12}'
+                       clear>
+    </dashup-text-input>
+    <dashup-radio-button-group name="category"
+                               layout='{"row": 3, "offset": 0, "size": 12}'>
+        <dashup-radio-button group="category"
+                             value="Family"
+                             checked>
+        </dashup-radio-button>
+        <dashup-radio-button group="category"
+                             value="Housing">
+        </dashup-radio-button>
+        <dashup-radio-button group="category"
+                             value="Meals">
+        </dashup-radio-button>
+        <dashup-radio-button group="category"
+                             value="Investments">
+        </dashup-radio-button>
+    </dashup-radio-button-group>
+    <dashup-button text="Add"
+                   mode="add"
+                   dataAPI="http://localhost:9004/loadFinanceList"
+                   storageAPI="http://localhost:9004/financeList"
+                   consumers='[{"financeList": ""},{"financeList": "apiData financeList"}]'
+                   producers="amount category"
+                   layout='{"row": 4, "offset": 0, "size": 12}'
+                   handleOnStart>
+    </dashup-button>
+    <dashup-button text="Del"
+                   mode="delete"
+                   storageAPI="http://localhost:9004/financeChart"
+                   consumers='[{"financeList": ""},{"financeList": "apiData financeList"}]'
+                   producers="financeList"
+                   layout='{"row": 5, "offset": 0, "size": 12}'>
+    </dashup-button>
+</dashup-grid-layout>

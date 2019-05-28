@@ -6,7 +6,6 @@
 <!doctype html>
 <html lang="en">
     <jsp:include page="includes/head.jsp" />
-    <link rel="stylesheet" href="../styles/mainDashboard.css" />
     <style>
         body {
             background: url('${fn:escapeXml(backgroundImage)}') no-repeat center center fixed;

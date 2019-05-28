@@ -13,13 +13,11 @@
             <div class="nav-wrapper">
                 <div class="col s12">
                     <a href="${pageContext.request.contextPath}/" class="breadcrumb">dashup</a>
-                    <a href="#" class="breadcrumb"><fmt:message key="i18n.marketplace" /></a>
+                    <a href="#" class="breadcrumb"><fmt:message key="i18n.marketplace"/></a>
                 </div>
             </div>
         </nav>
-        <%--<form action="${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search" method="POST">--%>
-        <%--<form onsubmit="onSearch()">--%>
-            <div id="begin" class="row" style="margin-top: 25px">
+            <div class="row" id="search-bar" style="margin-top: 25px">
                 <div class="col m4 offset-m4 s8 offset-s1">
                     <div class="input-field">
                         <input id="text-field-search" name="search" type="text" class="validate">
@@ -31,81 +29,105 @@
                         <i class="colored-text fas fa-filter"></i>
                     </a>
                     <button id="btn_start_search_marketplace" class="btn waves-effect waves-light" onclick="onSearch()">
-                        <fmt:message key="i18n.go" />
+                        <fmt:message key="i18n.go"/>
                     </button>
-
                 </div>
             </div>
-        <%--</form>--%>
         <div class="row">
             <div class="col m6 offset-m3 s10 offset-s1">
-                <h3><fmt:message key="i18n.featured" /></h3>
+                <h3><fmt:message key="i18n.featured"/></h3>
                 <hr/>
             </div>
         </div>
         <div class="row">
             <div class="col m6 offset-m3 s10 offset-s1">
                 <div class="carousel carousel-slider center">
-                    <div class="carousel-item red white-text" href="#one!">
-                        <h2>First Panel</h2>
-                        <p class="white-text">This is your first panel</p>
-                    </div>
-                    <div class="carousel-item amber white-text" href="#two!">
-                        <h2>Second Panel</h2>
-                        <p class="white-text">This is your second panel</p>
-                    </div>
-                    <div class="carousel-item green white-text" href="#three!">
-                        <h2>Third Panel</h2>
-                        <p class="white-text">This is your third panel</p>
-                    </div>
-                    <div class="carousel-item blue white-text" href="#four!">
-                        <h2>Fourth Panel</h2>
-                        <p class="white-text">This is your fourth panel</p>
-                    </div>
+                    <c:forEach items="${featuredWidgets}" var="mapEntry">
+                        <a style="display:block" href="${pageContext.request.contextPath}/marketplace/detailView/${fn:escapeXml(mapEntry.key.id)}">
+                            <div class="carousel-item" href="#one!" style="background-color: var(--color-secondary);color: #ffffff">
+                                <div class="row" style="margin: 10px">
+                                    <div class="col">
+                                        <i class="fas fa-${fn:escapeXml(mapEntry.key.iconCode)} fa-7x"></i>
+                                    </div>
+                                    <div class="col">
+                                        <h1 style="margin-top: 20px">${fn:escapeXml(mapEntry.key.name)}</h1>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-left: 10px; margin-right: 10px;">
+                                    <p>
+                                        ${fn:escapeXml(mapEntry.key.shortDescription)}
+                                    </p>
+                                </div>
+                                <div class="row" style="margin: 0 auto; width: 164px">
+                                    <div class="col">
+                                        <div class="star-rating" style="font-size: 25px; margin-top: 15px; color: var(--color-dark-gray);">
+                                            <div class="back-stars">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <div class="front-stars"
+                                                     style="width:  ${fn:escapeXml(mapEntry.key.averageRating)}%;color: var(--color-background);">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col" style="text-align: center; width: 100%;">
+                                        <p>"${fn:escapeXml(mapEntry.value.text)}"</p>
+                                        <p>By ${fn:escapeXml(mapEntry.value.userName)} ${fn:escapeXml(mapEntry.value.userSurname)}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </c:forEach>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col m6 offset-m3 s10 offset-s1">
-                <h3><fmt:message key="i18n.mostPopular" /></h3>
+                <h3><fmt:message key="i18n.mostPopular"/></h3>
                 <hr/>
             </div>
         </div>
         <div class="row">
-            <div class="col s12 m3 offset-m3">
-                <div class="card horizontal">
-                    <div class="card-image">
-                        <img src="https://lorempixel.com/100/190/nature/6">
-                    </div>
-                    <div class="card-stacked">
-                        <div class="card-content">
-                            <p>I am a very simple card. I am good at containing small bits of information.</p>
+            <div class="col s12 m6 offset-m3">
+                <div class="row">
+                    <c:forEach items="${mostDownloaded}" var="panel">
+                        <div class="col m6">
+                            <div class="card horizontal" style="height: 230px">
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                        <div class="row">
+                                            <div class="col">
+                                                <i class="fas fa-${fn:escapeXml(panel.iconCode)} fa-3x"></i>
+                                            </div>
+                                            <div class="col">
+                                                <h5 style="margin-top: 10px;">${fn:escapeXml(panel.name)}</h5>
+                                            </div>
+                                        </div>
+                                            ${fn:escapeXml(panel.shortDescription)}
+                                    </div>
+                                    <div class="card-action">
+                                        <a href="/marketplace/detailView/${panel.id}"><fmt:message key="i18n.showMore"/></a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-action">
-                            <a href="#">This is a link</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m3">
-                <div class="card horizontal">
-                    <div class="card-image">
-                        <img src="https://lorempixel.com/100/190/nature/6">
-                    </div>
-                    <div class="card-stacked">
-                        <div class="card-content">
-                            <p>I am a very simple card. I am good at containing small bits of information.</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">This is a link</a>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col m6 offset-m3 s10 offset-s1">
-                <h3><fmt:message key="i18n.bestRating" /></h3>
+                <h3><fmt:message key="i18n.bestRating"/></h3>
                 <hr/>
             </div>
         </div>
@@ -117,14 +139,18 @@
                             <div class="card horizontal" style="height: 230px">
                                 <div class="card-stacked">
                                     <div class="card-content">
-                                       <div class="row">
-                                           <i class="fas fa-cloud fa-3x"></i>
-                                           <h5 style="display: inline">${fn:escapeXml(panel.name)}</h5>
-                                       </div>
-                                        ${fn:escapeXml(panel.shortDescription)}
+                                        <div class="row">
+                                            <div class="col">
+                                                <i class="fas fa-${fn:escapeXml(panel.iconCode)} fa-3x"></i>
+                                            </div>
+                                            <div class="col">
+                                                <h5 style="margin-top: 10px;">${fn:escapeXml(panel.name)}</h5>
+                                            </div>
+                                        </div>
+                                            ${fn:escapeXml(panel.shortDescription)}
                                     </div>
                                     <div class="card-action">
-                                        <a href="/marketplace/detailView/${panel.id}"><fmt:message key="i18n.showMore" /></a>
+                                        <a href="/marketplace/detailView/${panel.id}"><fmt:message key="i18n.showMore"/></a>
                                     </div>
                                 </div>
                             </div>
@@ -148,42 +174,42 @@
 
                             <div class="col s4 m6 valign-wrapper">
                                 <h6><fmt:message key="i18n.publicationDate" /></h6>
-                        </div>
-                        <div class="col s8 m6">
+                            </div>
+                            <div class="col s8 m6">
 
-                            <label for="text-field-filter-publication-date"></label><input
-                                id="text-field-filter-publication-date" name="publicationDate" type="text"
-                                class="datepicker"
-                                value="<fmt:message key="i18n.showMore" />"/>
+                                <label for="text-field-filter-publication-date"></label><input
+                                    id="text-field-filter-publication-date" name="publicationDate" type="text"
+                                    class="datepicker"
+                                    value="<fmt:message key="i18n.showMore" />"/>
 
-                        </div>
+                            </div>
                         </div>
 
                         <div class="row">
                             <div class="col s4 m6 valign-wrapper">
                                 <h6><fmt:message key="i18n.rating" /></h6>
-                        </div>
-                        <div class="col s8 m6">
-                            <div class="star-rating"
-                                 style="font-size: 25px; margin-top: 15px; color: var(--color-dark-gray);">
-                                <div class="back-stars star">
-                                    <i id="i1" class="fa fa-star" aria-hidden="true"></i>
-                                    <i id="i2" class="fa fa-star" aria-hidden="true"></i>
-                                    <i id="i3" class="fa fa-star" aria-hidden="true"></i>
-                                    <i id="i4" class="fa fa-star" aria-hidden="true"></i>
-                                    <i id="i5" class="fa fa-star" aria-hidden="true"></i>
-                                    <div id="front-stars" class="front-stars star"
-                                         style="width:  20%; color: var(--color-primary);">
-                                        <i id="f1" class="fa fa-star" aria-hidden="true"></i>
-                                        <i id="f2" class="fa fa-star" aria-hidden="true"></i>
-                                        <i id="f3" class="fa fa-star" aria-hidden="true"></i>
-                                        <i id="f4" class="fa fa-star" aria-hidden="true"></i>
-                                        <i id="f5" class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                            <div class="col s8 m6">
+                                <div class="star-rating"
+                                     style="font-size: 25px; margin-top: 15px; color: var(--color-dark-gray);">
+                                    <div class="back-stars star">
+                                        <i id="i1" class="fa fa-star" aria-hidden="true"></i>
+                                        <i id="i2" class="fa fa-star" aria-hidden="true"></i>
+                                        <i id="i3" class="fa fa-star" aria-hidden="true"></i>
+                                        <i id="i4" class="fa fa-star" aria-hidden="true"></i>
+                                        <i id="i5" class="fa fa-star" aria-hidden="true"></i>
+                                        <div id="front-stars" class="front-stars star"
+                                             style="width:  20%; color: var(--color-primary);">
+                                            <i id="f1" class="fa fa-star" aria-hidden="true"></i>
+                                            <i id="f2" class="fa fa-star" aria-hidden="true"></i>
+                                            <i id="f3" class="fa fa-star" aria-hidden="true"></i>
+                                            <i id="f4" class="fa fa-star" aria-hidden="true"></i>
+                                            <i id="f5" class="fa fa-star" aria-hidden="true"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -191,6 +217,7 @@
                 </div>
             </div>
         </div>
+
     </body>
     <script type="text/javascript">
 
@@ -202,51 +229,31 @@
                 fullWidth: true,
                 indicators: true
             });
-
-            document.addEventListener('DOMContentLoaded', function () {
-                let elems = document.querySelectorAll('.modal');
-                let instances = M.Modal.init(elems, options);
-            });
-
-
-            $("#text-field-filter-publication-date").datepicker({
-                format: "yyyy-mm-dd",
-                yearRange: [2019, 2019],
-                container: document.getElementById("begin")
-            });
-
-            $(".star").on("click", function (element) {
-                let starId = element.target.id;
-                let factor = starId.substr(1, 1);
-                rating = factor * 20;
-
-                let frontStars = document.getElementById("front-stars");
-                frontStars.style.width = rating + "%";
-            });
         });
 
-        // Or with jQuery
-
-        $(document).ready(function () {
-            $('.modal').modal();
+        $("#text-field-filter-publication-date").datepicker({
+            format: "yyyy-mm-dd",
+            yearRange: [2019, 2019],
+            container: document.getElementById("search-bar")
+        });
+        $(".star").on("click", function (element) {
+            let starId = element.target.id;
+            let factor = starId.substr(1, 1);
+            rating = factor * 20;
+            let frontStars = document.getElementById("front-stars");
+            frontStars.style.width = rating + "%";
         });
 
         function onSearch() {
-
             let searchField = document.getElementById("text-field-search");
             let instance = M.Datepicker.getInstance(document.getElementById("text-field-filter-publication-date"));
-
             let date = instance.toString();
-
             if(date === ""){
                 date = "2019-01-01";
             }
-
             localStorage.setItem("date",instance.toString());
             localStorage.setItem("rating",rating);
-
             let url = "${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search?" + $.param({searchQuery:searchField.value,date,rating});
-
             window.location.replace(url);
         }
 

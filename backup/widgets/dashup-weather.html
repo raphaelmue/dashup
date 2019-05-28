@@ -6,9 +6,9 @@
     </dashup-text-input>
     <dashup-button text="Send"
                    mode="display"
-                   api="http://api.openweathermap.org/data/2.5/weather?units=metric&appid=524da7907b1939626510c547ae65d67c&q=%location%"
+                   dataAPI="http://api.openweathermap.org/data/2.5/weather?units=metric&appid=524da7907b1939626510c547ae65d67c&q=%location%"
                    params="location"
-                   consumers='{"temperature": "apiData main temp", "humidity": "apiData main humidity"}'
+                   consumers='[{"temperature": "apiData main temp"},{"humidity": "apiData main humidity"}]'
                    layout='{"row": 1, "offset": 1, "size": 3}'
                    handleOnStart>
     </dashup-button>

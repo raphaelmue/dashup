@@ -43,6 +43,10 @@ public class Database {
         PANELS("panels"),
         USER_SECTIONS("users_sections"),
         SECTIONS_PANELS("sections_panels"),
+        TODOS("todos"),
+        FINANCES("finances"),
+        PROPERTIES("properties"),
+        USERS_PROPERTIES("users_properties"),
         TAGS("tags"),
         RATINGS("ratings"),
         PANELS_TAGS("panels_tags");
@@ -175,7 +179,7 @@ public class Database {
      */
     public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters,
                                                     String orderByClause) throws SQLException, JsonParseException {
-        return this.getObject(table,null,resultType,null,whereParameters,orderByClause);
+        return this.getObject(table, null, resultType, null, whereParameters, orderByClause);
     }
 
     /**
@@ -185,19 +189,30 @@ public class Database {
         return this.getObject(table, resultType, whereParameters, null);
     }
 
-    private List<? extends  DatabaseObject> getObject(Table table, Table joinOn,Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters, String orderByClause) throws SQLException,JsonParseException {
+    public List<? extends DatabaseObject> getObject(Table table, Table joinOn, Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters, String orderByClause) throws SQLException, JsonParseException {
         Gson gson = new GsonBuilder().create();
         JSONArray jsonArray;
-        if(joinOn == null && onParameters == null) {
+        if (joinOn == null && onParameters == null) {
             jsonArray = this.get(table, whereParameters, orderByClause);
-        }else{
-            jsonArray = this.get(table,joinOn,onParameters,whereParameters,orderByClause);
+        } else {
+            jsonArray = this.get(table, joinOn, onParameters, whereParameters, orderByClause);
         }
-        return getDatabaseObjects(resultType, gson, jsonArray);
+
+        return getDatabaseObjects(resultType,gson,jsonArray);
     }
 
-    public List<? extends  DatabaseObject> getObject(Table table, Table joinOn,Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters) throws SQLException,JsonParseException {
-        return getObject(table,joinOn,resultType,onParameters,whereParameters,null);
+    public List<? extends DatabaseObject> getObject(Table table, Table joinOn, Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters) throws SQLException, JsonParseException {
+        return getObject(table, joinOn, resultType, onParameters, whereParameters, null);
+    }
+
+    private List<? extends DatabaseObject> getDatabaseObjects(Type resultType, Gson gson, JSONArray jsonArray) {
+        List<DatabaseObject> result = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            result.add(gson.fromJson(jsonObject.toString(), resultType));
+        }
+
+        return result;
     }
 
     /**
@@ -212,14 +227,14 @@ public class Database {
     /**
      * Fetches data from database by joining two tables.
      *
-     * @param table right table for the join
-     * @param joinOn left table for the join
-     * @param onParameters columns that are used for the join. It is important that the column,which is passed as key is
-     *                     in the right table and the column that is passed as value is in the left table of the join
+     * @param table           right table for the join
+     * @param joinOn          left table for the join
+     * @param onParameters    columns that are used for the join. It is important that the column,which is passed as key is
+     *                        in the right table and the column that is passed as value is in the left table of the join
      * @param whereParameters parameters that are used in the where clause to select data
      * @return result of the database query
      */
-    public JSONArray get(Table table, Table joinOn, Map<String, String> onParameters, Map<String, Object> whereParameters,String orderByClause) throws SQLException {
+    public JSONArray get(Table table, Table joinOn, Map<String, String> onParameters, Map<String, Object> whereParameters, String orderByClause) throws SQLException {
         PreparedStatement statement;
         StringBuilder query = new StringBuilder("SELECT * FROM " + table.getTableName() + " INNER JOIN " + joinOn.getTableName() +
                 " ON ");
@@ -238,7 +253,7 @@ public class Database {
     }
 
     public JSONArray get(Table table, Table joinOn, Map<String, String> onParameters, Map<String, Object> whereParameters) throws SQLException {
-        return get(table,joinOn,onParameters,whereParameters,null);
+        return get(table, joinOn, onParameters, whereParameters, null);
     }
 
     /**
@@ -264,29 +279,7 @@ public class Database {
         return Converter.convertResultSetIntoJSON(result);
     }
 
-    public List<? extends DatabaseObject> findByRange(Table tableName,Map<String, Object> whereParameters, Type resultType, List<String> operatorList) throws SQLException{
-        Gson gson = new GsonBuilder().create();
 
-        PreparedStatement statement;
-        String query = "SELECT * FROM " + tableName.getTableName() +
-                this.getClause(whereParameters, "WHERE", " AND ",operatorList);
-
-        statement = this.preparedStatement(connection.prepareStatement(query),whereParameters);
-
-        // execute
-        JSONArray jsonArray = Converter.convertResultSetIntoJSON(statement.executeQuery());
-        return getDatabaseObjects(resultType, gson, jsonArray);
-    }
-
-    private List<? extends DatabaseObject> getDatabaseObjects(Type resultType, Gson gson, JSONArray jsonArray) {
-        List<DatabaseObject> result = new ArrayList<>();
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            result.add(gson.fromJson(jsonObject.toString(), resultType));
-        }
-
-        return result;
-    }
 
     /**
      * Inserts one data row into database.
@@ -382,6 +375,20 @@ public class Database {
         return Converter.convertResultSetIntoJSON(result).getJSONObject(0).getInt("id");
     }
 
+    public List<? extends DatabaseObject> findByRange(Table tableName,Map<String, Object> whereParameters, Type resultType, List<String> operatorList) throws SQLException{
+        Gson gson = new GsonBuilder().create();
+
+        PreparedStatement statement;
+        String query = "SELECT * FROM " + tableName.getTableName() +
+                this.getClause(whereParameters, "WHERE", " AND ",operatorList);
+
+        statement = this.preparedStatement(connection.prepareStatement(query),whereParameters);
+
+        // execute
+        JSONArray jsonArray = Converter.convertResultSetIntoJSON(statement.executeQuery());
+        return getDatabaseObjects(resultType, gson, jsonArray);
+    }
+
     private String getClause(Map<String, Object> values, String operation, String separator) {
         StringBuilder whereClauseString = new StringBuilder();
         if (values.size() > 0) {
@@ -430,6 +437,8 @@ public class Database {
         for (Map.Entry<String, Object> entry : values.entrySet()) {
             if (entry.getValue() instanceof LocalDate) {
                 statement.setObject(index, Date.valueOf((LocalDate) entry.getValue()).toString());
+            } else if (entry.getValue() instanceof Boolean) {
+                statement.setObject(index, (boolean) entry.getValue() ? 1 : 0);
             } else {
                 statement.setObject(index, entry.getValue());
             }

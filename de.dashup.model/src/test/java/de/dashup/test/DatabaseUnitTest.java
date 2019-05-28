@@ -4,13 +4,12 @@ import de.dashup.model.db.Database;
 import de.dashup.shared.DatabaseObject;
 import de.dashup.shared.DatabaseUser;
 import de.dashup.shared.User;
-import de.dashup.shared.Widget;
+import de.dashup.shared.layout.Widget;
 import de.dashup.util.string.Hash;
 import org.json.JSONArray;
 import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -161,7 +160,7 @@ public class DatabaseUnitTest {
 
         List<? extends DatabaseObject> result = database.findByRange(Database.Table.PANELS,whereParams,Widget.class,operatorList);
         Assertions.assertEquals(1,result.size());
-        Widget widget = (Widget) new Widget().fromDatabaseObject(result.get(0));
+        Widget widget = new Widget().fromDatabaseObject(result.get(0));
         Assertions.assertEquals(1,widget.getId());
     }
 }
