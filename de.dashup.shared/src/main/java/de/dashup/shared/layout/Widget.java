@@ -7,6 +7,7 @@ import de.dashup.shared.Tag;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -160,9 +161,10 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
 
     public String getCodeWithWrapper() {
         StringBuilder html = new StringBuilder()
-                .append("<div class=\"card col ")
+                .append("<div class=\"col ")
                 .append(this.size.getStyleClass())
                 .append("\">")
+                .append("<div class=\"card widget\">")
                 .append("<div class=\"card-content\">");
         if (this.getProperties().size() > 0) {
             Document document = Jsoup.parse(this.getCode());
@@ -178,7 +180,9 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
             html.append(this.getCode());
         }
         html.append("</div>")
+                .append("</div>")
                 .append("</div>");
+
         return html.toString();
     }
 
