@@ -36,7 +36,7 @@
         <div class="row">
             <div class="col m6 offset-m3 s10 offset-s1">
                 <div class="col s1 valign-wrapper">
-                    <h6>Rating</h6>
+                    <h6><fmt:message key="i18n.rating" /></h6>
                 </div>
                 <div class="col s3">
                     <div class="star-rating"
@@ -59,12 +59,12 @@
                     </div>
                 </div>
                 <div class="col s2 valign-wrapper">
-                    <h6>Publication Date</h6>
+                    <h6><fmt:message key="i18n.publicationDate" /></h6>
                 </div>
                 <div class="col s5">
 
                     <label for="text-field-filter-publication-date"></label><input
-                        id="text-field-filter-publication-date" name="birthDate" type="text"
+                        id="text-field-filter-publication-date" name="publicationDate" type="text"
                         class="datepicker"/>
 
                 </div>
@@ -155,6 +155,11 @@
 
             let frontStars = document.getElementById("front-stars");
             frontStars.style.width = rating + "%";
+
+            let datepickerElement = document.getElementById("text-field-filter-publication-date");
+            datepickerElement.setAttribute("value",localStorage.getItem("date"));
+
+
 
         });
 

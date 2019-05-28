@@ -147,12 +147,12 @@
                         <div class="row">
 
                             <div class="col s4 m6 valign-wrapper">
-                                <h6>Publication Date</h6>
+                                <h6><fmt:message key="i18n.publicationDate" /></h6>
                         </div>
                         <div class="col s8 m6">
 
                             <label for="text-field-filter-publication-date"></label><input
-                                id="text-field-filter-publication-date" name="birthDate" type="text"
+                                id="text-field-filter-publication-date" name="publicationDate" type="text"
                                 class="datepicker"
                                 value="<fmt:message key="i18n.showMore" />"/>
 
@@ -161,7 +161,7 @@
 
                         <div class="row">
                             <div class="col s4 m6 valign-wrapper">
-                                <h6>Rating</h6>
+                                <h6><fmt:message key="i18n.rating" /></h6>
                         </div>
                         <div class="col s8 m6">
                             <div class="star-rating"
@@ -242,7 +242,7 @@
                 date = "2019-01-01";
             }
 
-            localStorage.setItem("date",instance);
+            localStorage.setItem("date",instance.toString());
             localStorage.setItem("rating",rating);
 
             let url = "${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search?" + $.param({searchQuery:searchField.value,date,rating});
