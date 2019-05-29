@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/marketplace")
@@ -32,9 +33,9 @@ public class MarketplaceController {
 
     @RequestMapping("/search")
     public String searchMarketplace(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request,
-                                    @RequestParam("searchQuery") String searchQuery, @RequestParam(value = "date", required = false) String date, @RequestParam(value = "rating", required = false) String rating) throws SQLException {
+                                    @RequestParam("searchQuery") String searchQuery, @RequestParam(value = "date", required = false) String date, @RequestParam(value = "rating", required = false) String rating, @RequestParam(value = "categories") List<String> categories) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "marketplaceSearchResult", user -> {
-            model.addAttribute("widgets", DashupService.getInstance().findWidgetByName(searchQuery, date, rating));
+            model.addAttribute("widgets", DashupService.getInstance().findWidgetByName(searchQuery, date, rating,categories));
             user = DashupService.getInstance().getSectionsAndPanels(user);
             model.addAttribute("sections", user.getSections());
         });

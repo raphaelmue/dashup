@@ -882,7 +882,7 @@ public class DashupService {
         return null;
     }
 
-    public List<Widget> findWidgetByName(String name, String date, String rating) throws SQLException{
+    public List<Widget> findWidgetByName(String name, String date, String rating, List<String> categories) throws SQLException{
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("name", "%" + name + "%");
 
@@ -902,12 +902,19 @@ public class DashupService {
         List<? extends DatabaseObject> result = this.database.findByRange(Database.Table.PANELS,whereParameters,Widget.class,operators);
 
         List<Widget> widgets = new ArrayList<>();
-        for (int i = 0; i < result.size(); i++) {
-            Widget widget = (Widget) new Widget().fromDatabaseObject(result.get(i));
+        for (DatabaseObject databaseObject : result) {
+            Widget widget = new Widget().fromDatabaseObject(databaseObject);
             widgets.add(widget);
         }
 
-        return widgets;
+        List<Widget> widgetCategoryFiltered = new ArrayList<>();
+        for (Widget widget : widgets) {
+            if (categories.contains(widget.getCategory())) {
+                widgetCategoryFiltered.add(widget);
+            }
+        }
+
+        return widgetCategoryFiltered;
     }
 
     // --- TAGS --- \\

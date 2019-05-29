@@ -210,6 +210,18 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col s4 m6 valign-wrapper">
+                                <h6><fmt:message key="i18n.tags"/></h6>
+                            </div>
+                            <div class="col s8 m6">
+                                <div id="chips-tags" class="chips chips-placeholder input-field">
+                                    <input class="input" placeholder="Enter a tag">
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -218,12 +230,24 @@
             </div>
         </div>
 
+        <div class="chip">
+            Tag
+            <i class="close material-icons">7l</i>
+        </div>
+
     </body>
     <script type="text/javascript">
 
         let rating = 0;
 
         $( document ).ready(function () {
+
+            $('.chips').chips();
+            $('.chips-placeholder').chips({
+                placeholder: 'Enter a tag',
+                secondaryPlaceholder: '+Tag',
+            });
+
             $("#nav-item-marketplace").parent().addClass("active");
             $('.carousel.carousel-slider').carousel({
                 fullWidth: true,
@@ -251,9 +275,12 @@
             if(date === ""){
                 date = "2019-01-01";
             }
+
+            let categories = M.Chips.getInstance($('#chips-tags')).chipsData;
             localStorage.setItem("date",instance.toString());
             localStorage.setItem("rating",rating);
             let url = "${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search?" + $.param({searchQuery:searchField.value,date,rating});
+            categories.forEach(category => url+="&categories=" + category.tag);
             window.location.replace(url);
         }
 
