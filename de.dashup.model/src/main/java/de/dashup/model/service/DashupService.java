@@ -268,6 +268,36 @@ public class DashupService {
         return returningValue;
     }
 
+    public List<Widget> getSimilarWidgets(String category) throws SQLException{
+        ArrayList<Widget> returningValue = new ArrayList<>();
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("category", category);
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters);
+        if (result != null && result.size() >= 3) {
+            for (int i = 0; i < 3; i++) {
+                Widget widget = new Widget().fromDatabaseObject(result.get(i));
+                widget.setShortDescription(this.shortenShortDescOfPanel(widget.getShortDescription()));
+                returningValue.add(widget);
+            }
+        } else if (result != null) {
+            for (DatabaseObject databaseObject : result) {
+                Widget widget = new Widget().fromDatabaseObject(databaseObject);
+                widget.setShortDescription(this.shortenShortDescOfPanel(widget.getShortDescription()));
+                returningValue.add(widget);
+            }
+            //fill rest of similar section with most popular widgets
+            result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class,new HashMap<>(),
+                                            "number_of_downloads DESC LIMIT"+(3-returningValue.size()));
+            for (DatabaseObject databaseObject : result) {
+                Widget widget = new Widget().fromDatabaseObject(databaseObject);
+                widget.setShortDescription(this.shortenShortDescOfPanel(widget.getShortDescription()));
+                returningValue.add(widget);
+            }
+
+        }
+        return returningValue;
+    }
+
     private Rating getTopRating(int widgetId) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("panel_id", widgetId);
