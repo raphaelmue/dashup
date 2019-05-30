@@ -6,6 +6,7 @@ import de.dashup.shared.User;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Optional;
@@ -27,8 +28,8 @@ public class LocalStorage {
         return request.getSession().getAttribute(key);
     }
 
-    public void writeObjectToSession(HttpServletRequest request, String key, Object object) {
-        request.getSession().setAttribute(key, object);
+    public void writeObjectToSession(HttpServletRequest request, String key, Serializable serializable) {
+        request.getSession().setAttribute(key, serializable);
     }
 
     public User getUser(HttpServletRequest request, String token) throws SQLException {
