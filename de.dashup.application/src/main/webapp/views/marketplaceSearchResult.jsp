@@ -26,49 +26,15 @@
                     </div>
                 </div>
                 <div class="col m2 s2" style="margin-top: 18px">
+                    <a class='waves-effect waves-light modal-trigger' href='#widget-filter'>
+                        <i class="colored-text fas fa-filter"></i>
+                    </a>
                     <button id="btn_start_search_marketplace" class="btn waves-effect waves-light" onclick="onSearch()"
                             name="search">
                         <fmt:message key="i18n.go" />
                     </button>
                 </div>
 
-        </div>
-        <div class="row">
-            <div class="col m6 offset-m3 s10 offset-s1">
-                <div class="col s1 valign-wrapper">
-                    <h6><fmt:message key="i18n.rating" /></h6>
-                </div>
-                <div class="col s3">
-                    <div class="star-rating"
-                         style="font-size: 25px; margin-top: 15px; color: var(--color-dark-gray);">
-                        <div class="back-stars star">
-                            <i id="i1" class="fa fa-star" aria-hidden="true"></i>
-                            <i id="i2" class="fa fa-star" aria-hidden="true"></i>
-                            <i id="i3" class="fa fa-star" aria-hidden="true"></i>
-                            <i id="i4" class="fa fa-star" aria-hidden="true"></i>
-                            <i id="i5" class="fa fa-star" aria-hidden="true"></i>
-                            <div id="front-stars" class="front-stars star"
-                                 style="width:  20%; color: var(--color-primary);">
-                                <i id="f1" class="fa fa-star" aria-hidden="true"></i>
-                                <i id="f2" class="fa fa-star" aria-hidden="true"></i>
-                                <i id="f3" class="fa fa-star" aria-hidden="true"></i>
-                                <i id="f4" class="fa fa-star" aria-hidden="true"></i>
-                                <i id="f5" class="fa fa-star" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s2 valign-wrapper">
-                    <h6><fmt:message key="i18n.publicationDate" /></h6>
-                </div>
-                <div class="col s5">
-
-                    <label for="text-field-filter-publication-date"></label><input
-                        id="text-field-filter-publication-date" name="publicationDate" type="text"
-                        class="datepicker"/>
-
-                </div>
-            </div>
         </div>
         <div class="row">
             <div class="col m6 offset-m3 s10 offset-s1">
@@ -156,19 +122,106 @@
                 <a id="btn-cancel-add-widget" class="btn-flat modal-close waves-effect"><fmt:message key="i18n.cancel" /></a>
             </div>
         </div>
-    </body>
-    <script>
 
+        <!-- Modal Structure -->
+        <div id="widget-filter" class="modal">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col s12 m6 ">
+
+                        <div class="row">
+                            <h5>Filter Options</h5>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s4 m6 valign-wrapper">
+                                <h6><fmt:message key="i18n.tags"/></h6>
+                            </div>
+                            <div class="col s8 m6 valign-wrapper">
+                                <div id="chips-tags" class="chips chips-placeholder input-field">
+                                    <input class="input" placeholder=<fmt:message key="i18n.enterTags"/>>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s4 m6 valign-wrapper">
+                                <h6><fmt:message key="i18n.rating"/></h6>
+                            </div>
+                            <div class="col s8 m6 valign-wrapper">
+                                <div class="star-rating"
+                                     style="font-size: 25px; margin-top: 15px; color: var(--color-dark-gray);">
+                                    <div class="back-stars star">
+                                        <i id="i1" class="fa fa-star" aria-hidden="true"></i>
+                                        <i id="i2" class="fa fa-star" aria-hidden="true"></i>
+                                        <i id="i3" class="fa fa-star" aria-hidden="true"></i>
+                                        <i id="i4" class="fa fa-star" aria-hidden="true"></i>
+                                        <i id="i5" class="fa fa-star" aria-hidden="true"></i>
+                                        <div id="front-stars" class="front-stars star"
+                                             style="width:  20%; color: var(--color-primary);">
+                                            <i id="f1" class="fa fa-star" aria-hidden="true"></i>
+                                            <i id="f2" class="fa fa-star" aria-hidden="true"></i>
+                                            <i id="f3" class="fa fa-star" aria-hidden="true"></i>
+                                            <i id="f4" class="fa fa-star" aria-hidden="true"></i>
+                                            <i id="f5" class="fa fa-star" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s4 m6 valign-wrapper">
+                                <h6><fmt:message key="i18n.category"/></h6>
+                            </div>
+                            <div class="col s8 m6 valign-wrapper">
+                                <div id="chips-categories" class="chips chips-placeholder input-field">
+                                    <input class="input" placeholder=<fmt:message key="i18n.selectCategory"/>>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col s4 m6 valign-wrapper">
+                                <h6><fmt:message key="i18n.publicationDate"/></h6>
+                            </div>
+                            <div class="col s8 m6 valign-wrapper">
+
+                                <label for="text-field-filter-publication-date"></label><input
+                                    id="text-field-filter-publication-date" name="publicationDate" type="text"
+                                    class="datepicker"
+                                    value="<fmt:message key="i18n.showMore" />"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+                </div>
+            </div>
+        </div>
+    </body>
+<script type="text/javascript">
         let rating = localStorage.getItem("rating");
         let currentWidget;
 
         $( document ).ready(function () {
+
+            $('.chips').chips();
+            $('.chips-placeholder').chips({
+                secondaryPlaceholder: '+' + '<fmt:message key="i18n.tag" />'
+            });
+
+            $('#chips-categories').chips({
+                placeholder: '<fmt:message key="i18n.selectCategory" />',
+                secondaryPlaceholder: '+' + '<fmt:message key="i18n.category" />'
+            });
+
             $("#weather-panel").on("click", function () {
                 PostRequest.getInstance().make("marketplace/detailView/1", {
                 });
-            });
-            $("#add").on("click", function () {
-
             });
 
             $("#text-field-filter-publication-date").datepicker({
@@ -187,16 +240,20 @@
                 frontStars.style.width = rating + "%";
             });
 
-            // let chooseSectionToAddToDialog = M.Modal.getInstance(document.getElementById("dialog-add-panel-to-dashup"));
-            // $('#btn-add').on("click", function () {
-            //     chooseSectionToAddToDialog.open();
-            // });
-
             let frontStars = document.getElementById("front-stars");
             frontStars.style.width = rating + "%";
 
             let datepickerElement = document.getElementById("text-field-filter-publication-date");
             datepickerElement.setAttribute("value",localStorage.getItem("date"));
+
+            let tagsInstance = M.Chips.getInstance($('#chips-tags'));
+            let categoriesInstance = M.Chips.getInstance($('#chips-categories'));
+
+            let tagsLocal = JSON.parse(localStorage.getItem("tags"));
+            let categoriesLocal = JSON.parse(localStorage.getItem("categories"));
+
+            tagsLocal.forEach(tag => tagsInstance.addChip(tag));
+            categoriesLocal.forEach(category => categoriesInstance.addChip(category));
 
             //add widget to dashup
             $('#btn-add-widget').on('click',function () {
@@ -208,9 +265,7 @@
                         widgetSize: widgetSize,
                     });
                 }
-
             });
-
         });
 
         function onAdd(widgetId) {
@@ -222,31 +277,25 @@
             let dialogAddPanel = document.getElementById("dialog-add-panel-to-dashup");
             let chooseSectionToAddToDialog = M.Modal.getInstance(dialogAddPanel);
             chooseSectionToAddToDialog.open();
-
         }
 
         function onSearch() {
-
             let searchField = document.getElementById("text-field-search");
-            console.log(document.getElementById("text-field-search"));
             let instance = M.Datepicker.getInstance(document.getElementById("text-field-filter-publication-date"));
-
-
             let date = instance.toString();
-
-            if (date === "") {
+            if(date === ""){
                 date = "2019-01-01";
             }
 
-            localStorage.setItem("date",date);
+            let tags = M.Chips.getInstance($('#chips-tags')).chipsData;
+            let categories = M.Chips.getInstance($('#chips-categories')).chipsData;
+            localStorage.setItem("date",instance.toString());
             localStorage.setItem("rating",rating);
-
-            let url = "${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search?" + $.param({
-                searchQuery: searchField.value,
-                date,
-                rating
-            });
-
+            localStorage.setItem("categories", JSON.stringify(categories));
+            localStorage.setItem("tags",JSON.stringify(tags));
+            let url = "${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search?" + $.param({searchQuery:searchField.value,date,rating});
+            tags.forEach(tag => url+="&tags=" + tag.tag);
+            categories.forEach(category => url+="&categories=" + category.tag);
             window.location.replace(url);
         }
     </script>

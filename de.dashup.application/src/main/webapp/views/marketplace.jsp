@@ -288,12 +288,14 @@
             }
 
             let tags = M.Chips.getInstance($('#chips-tags')).chipsData;
-            let categoies = M.Chips.getInstance($('#chips-categories')).chipsData;
+            let categories = M.Chips.getInstance($('#chips-categories')).chipsData;
             localStorage.setItem("date",instance.toString());
             localStorage.setItem("rating",rating);
+            localStorage.setItem("categories", JSON.stringify(categories));
+            localStorage.setItem("tags",JSON.stringify(tags));
             let url = "${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search?" + $.param({searchQuery:searchField.value,date,rating});
             tags.forEach(tag => url+="&tags=" + tag.tag);
-            categoies.forEach(category => url+="&categories=" + category.tag);
+            categories.forEach(category => url+="&categories=" + category.tag);
             window.location.replace(url);
         }
 
