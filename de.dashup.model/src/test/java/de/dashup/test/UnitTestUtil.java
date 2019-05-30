@@ -11,7 +11,7 @@ import java.util.Map;
 
 class UnitTestUtil {
     static Database getDBInstance() throws SQLException {
-        Database.setHost(true);
+        Database.setHost(false);
         if (System.getProperty("os.name").toLowerCase().contains("windows")) {
             Database.setDatabaseName(Database.DatabaseName.TEST);
         } else {
