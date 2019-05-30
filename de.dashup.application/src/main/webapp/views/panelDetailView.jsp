@@ -164,7 +164,28 @@
                     </div>
                     <div id="similar-tab" class="col s12 l12 m12">
                         <div class="row" style="margin-top: 10px;">
-
+                            <c:forEach items="${similarWidgets}" var="panel">
+                                <div class="col m4">
+                                    <div class="card horizontal" style="height: 230px">
+                                        <div class="card-stacked">
+                                            <div class="card-content">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <i class="fas fa-${fn:escapeXml(panel.iconCode)} fa-3x"></i>
+                                                    </div>
+                                                    <div class="col">
+                                                        <h5 style="margin-top: 10px;">${fn:escapeXml(panel.name)}</h5>
+                                                    </div>
+                                                </div>
+                                                    ${fn:escapeXml(panel.shortDescription)}
+                                            </div>
+                                            <div class="card-action">
+                                                <a href="/marketplace/detailView/${panel.id}"><fmt:message key="i18n.showMore"/></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>

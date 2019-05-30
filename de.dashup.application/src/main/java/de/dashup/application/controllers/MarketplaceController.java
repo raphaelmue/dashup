@@ -48,6 +48,7 @@ public class MarketplaceController {
             model.addAttribute("ratings", DashupService.getInstance().getRatingsByWidgetID(widgetID));
             user = DashupService.getInstance().getSectionsAndPanels(user);
             model.addAttribute("sections", user.getSections());
+            model.addAttribute("similarWidgets", DashupService.getInstance().getSimilarWidgets(widget.getCategory()));
         });
     }
 
