@@ -22,9 +22,9 @@ public class MarketplaceController {
     @RequestMapping("/")
     public String marketplace(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "marketplace", user -> {
-            model.addAttribute("carouselWidget",DashupService.getInstance().getPanelById(1));
-            int[] featuredWidgets = {1,2,3,4};
-            model.addAttribute("featuredWidgets",DashupService.getInstance().getFeaturedWidgets(featuredWidgets));
+            model.addAttribute("carouselWidget", DashupService.getInstance().getPanelById(1));
+            int[] featuredWidgets = {1, 2, 3, 4};
+            model.addAttribute("featuredWidgets", DashupService.getInstance().getFeaturedWidgets(featuredWidgets));
             model.addAttribute("bestRated", DashupService.getInstance().getTopWidgets("avg_of_ratings"));
             model.addAttribute("mostDownloaded", DashupService.getInstance().getTopWidgets("number_of_downloads"));
         });
@@ -43,12 +43,12 @@ public class MarketplaceController {
             Widget widget = DashupService.getInstance().getPanelById(widgetID);
             model.addAttribute(widget);
             User publisher = DashupService.getInstance().getUserById(widget.getPublisherId());
-            model.addAttribute("publisher",publisher);
+            model.addAttribute("publisher", publisher);
             model.addAttribute("tags", DashupService.getInstance().getTagsByPanelId(widgetID));
             model.addAttribute("ratings", DashupService.getInstance().getRatingsByWidgetID(widgetID));
             user = DashupService.getInstance().getSectionsAndPanels(user);
             model.addAttribute("sections", user.getSections());
-            model.addAttribute("similarWidgets", DashupService.getInstance().getSimilarWidgets(widget.getCategory()));
+            model.addAttribute("similarWidgets", DashupService.getInstance().getSimilarWidgets(widget.getCategory(), widgetID));
         });
     }
 

@@ -268,32 +268,43 @@ public class DashupService {
         return returningValue;
     }
 
-    public List<Widget> getSimilarWidgets(String category) throws SQLException{
+    public List<Widget> getSimilarWidgets(String category, int currentId) throws SQLException {
         ArrayList<Widget> returningValue = new ArrayList<>();
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("category", category);
         List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters);
-        if (result != null && result.size() >= 3) {
+        if (result != null && result.size() > 3) {
             for (int i = 0; i < 3; i++) {
                 Widget widget = new Widget().fromDatabaseObject(result.get(i));
                 widget.setShortDescription(this.shortenShortDescOfPanel(widget.getShortDescription()));
-                returningValue.add(widget);
+                //exclude widget we are currently on
+                if (widget.getId() != currentId) {
+                    returningValue.add(widget);
+                }
             }
         } else if (result != null) {
             for (DatabaseObject databaseObject : result) {
                 Widget widget = new Widget().fromDatabaseObject(databaseObject);
                 widget.setShortDescription(this.shortenShortDescOfPanel(widget.getShortDescription()));
-                returningValue.add(widget);
+                //exclude widget we are currently on
+                if (widget.getId() != currentId) {
+                    returningValue.add(widget);
+                }
             }
             //fill rest of similar section with most popular widgets
-            result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class,new HashMap<>(),
-                                            "number_of_downloads DESC LIMIT "+(3-returningValue.size()));
+            result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, new HashMap<>(),
+                    "number_of_downloads DESC LIMIT " + (3 - returningValue.size() + 1));
             for (DatabaseObject databaseObject : result) {
                 Widget widget = new Widget().fromDatabaseObject(databaseObject);
                 widget.setShortDescription(this.shortenShortDescOfPanel(widget.getShortDescription()));
-                returningValue.add(widget);
+                //exclude widget we are currently on
+                if (widget.getId() != currentId) {
+                    returningValue.add(widget);
+                }
+                if (returningValue.size() == 3){
+                    break;
+                }
             }
-
         }
         return returningValue;
     }
@@ -306,7 +317,7 @@ public class DashupService {
         List<? extends DatabaseObject> result = database.getObject(Database.Table.RATINGS, Database.Table.USERS, Rating.class, onParameters, whereParameters, "rating DESC");
         if (result.size() > 0) {
             return (Rating) result.get(0);
-        }else {
+        } else {
             return new Rating();
         }
     }
@@ -410,7 +421,7 @@ public class DashupService {
     public User getUserById(int userId) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", userId);
-        User user = new User().fromDatabaseObject( this.database.getObject(Database.Table.USERS,User.class, whereParameters).get(0));
+        User user = new User().fromDatabaseObject(this.database.getObject(Database.Table.USERS, User.class, whereParameters).get(0));
         return user;
     }
 
@@ -676,23 +687,23 @@ public class DashupService {
 
     // --- WIDGETS --- \\
 
-    public void saveTodoWidgetState(User user, Todo todo) throws SQLException{
+    public void saveTodoWidgetState(User user, Todo todo) throws SQLException {
         Map<String, Object> values = new HashMap<>();
         values.put("user_id", user.getId());
         this.database.delete(Database.Table.TODOS, values);
-        for(Task task : todo.getList()){
+        for (Task task : todo.getList()) {
             values.put("content", task.getContent());
             values.put("selected", task.getSelected());
             this.database.insert(Database.Table.TODOS, values);
         }
     }
 
-    public Todo loadTodoWidgetState(User user) throws SQLException{
+    public Todo loadTodoWidgetState(User user) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
         JSONArray innerResult = this.database.get(Database.Table.TODOS, whereParameters);
         List<Task> entries = new ArrayList<>();
-        for(int i = 0; i < innerResult.length(); i++){
+        for (int i = 0; i < innerResult.length(); i++) {
             JSONObject result = innerResult.getJSONObject(i);
             Task task = new Task(result.getString("content"), result.getBoolean("selected"));
             entries.add(task);
@@ -700,57 +711,57 @@ public class DashupService {
         return new Todo(entries);
     }
 
-    public void saveFinanceChartWidgetState(User user, FinanceChart chart) throws SQLException{
+    public void saveFinanceChartWidgetState(User user, FinanceChart chart) throws SQLException {
         Map<String, Object> values = new HashMap<>();
         values.put("user_id", user.getId());
         this.database.delete(Database.Table.FINANCES, values);
-        for(SpendingChart spending : chart.getChart()){
+        for (SpendingChart spending : chart.getChart()) {
             values.put("category", spending.getCategory());
             values.put("value", spending.getValue());
             this.database.insert(Database.Table.FINANCES, values);
         }
     }
 
-    public void saveFinanceListWidgetState(User user, FinanceList list) throws SQLException{
+    public void saveFinanceListWidgetState(User user, FinanceList list) throws SQLException {
         Map<String, Object> values = new HashMap<>();
         values.put("user_id", user.getId());
         this.database.delete(Database.Table.FINANCES, values);
-        for(SpendingList spending : list.getFinanceList()){
+        for (SpendingList spending : list.getFinanceList()) {
             values.put("content", spending.getContent());
             values.put("selected", spending.getSelected());
             this.database.insert(Database.Table.FINANCES, values);
         }
     }
 
-    public FinanceChart loadFinanceChartWidgetState(User user) throws SQLException{
+    public FinanceChart loadFinanceChartWidgetState(User user) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
         JSONArray innerResult = this.database.get(Database.Table.FINANCES, whereParameters);
         List<SpendingChart> entries = new ArrayList<>();
-        for(int i = 0; i < innerResult.length(); i++){
+        for (int i = 0; i < innerResult.length(); i++) {
             JSONObject result = innerResult.getJSONObject(i);
             SpendingChart spending;
-            if(result.getString("content").isEmpty()){
+            if (result.getString("content").isEmpty()) {
                 spending = new SpendingChart(result.getString("category"), result.getInt("value"));
             } else {
                 String[] split = result.getString("content").split(": ");
-                spending = new SpendingChart(split[0], Integer.valueOf(split[1].substring(0,split[1].length()-2)));
+                spending = new SpendingChart(split[0], Integer.valueOf(split[1].substring(0, split[1].length() - 2)));
             }
             entries.add(spending);
         }
         return new FinanceChart(entries);
     }
 
-    public FinanceList loadFinanceListWidgetState(User user) throws SQLException{
+    public FinanceList loadFinanceListWidgetState(User user) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("user_id", user.getId());
         JSONArray innerResult = this.database.get(Database.Table.FINANCES, whereParameters);
         List<SpendingList> entries = new ArrayList<>();
-        for(int i = 0; i < innerResult.length(); i++){
+        for (int i = 0; i < innerResult.length(); i++) {
             JSONObject result = innerResult.getJSONObject(i);
             SpendingList spending;
-            if(result.getString("content").isEmpty()){
-                spending = new SpendingList(String.format("%s: %d €",result.getString("category"), result.getInt("value")), false);
+            if (result.getString("content").isEmpty()) {
+                spending = new SpendingList(String.format("%s: %d €", result.getString("category"), result.getInt("value")), false);
             } else {
                 spending = new SpendingList(result.getString("content"), result.getBoolean("selected"));
             }
