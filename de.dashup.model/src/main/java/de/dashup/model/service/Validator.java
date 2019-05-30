@@ -1,6 +1,6 @@
 package de.dashup.model.service;
 
-import de.dashup.shared.Widget;
+import de.dashup.shared.layout.Widget;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 

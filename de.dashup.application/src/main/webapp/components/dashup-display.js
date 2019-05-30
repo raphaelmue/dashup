@@ -3,11 +3,14 @@ import {DashupComponent} from "./dashup-component.js";
 export class DashupDisplay extends DashupComponent {
 
     render() {
+        let style = {"margin-left": "0px"};
         return DashupComponent.html`
             <div class="collection">
                 <a class="collection-item">
-                ${this.label}
-                <span class="badge">${this.displayedText} ${this.displayedText ? this.quantity : ""}</span>
+                    <u>${this.label}:</u>
+                    <strong>
+                        <span class="badge" style="${DashupComponent.styleMap(style)}">${this.displayedText} ${this.displayedText ? this.quantity : ""}</span>
+                    </strong>
                 </a>
             </div>
         `;

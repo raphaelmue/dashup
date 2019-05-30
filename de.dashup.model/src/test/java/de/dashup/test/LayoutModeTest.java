@@ -2,9 +2,9 @@ package de.dashup.test;
 
 import de.dashup.model.db.Database;
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.LayoutModeSectionDTO;
-import de.dashup.shared.LayoutModeStructureDTO;
-import de.dashup.shared.LayoutModeWidgetDTO;
+import de.dashup.shared.layout.LayoutModeSectionDTO;
+import de.dashup.shared.layout.LayoutModeStructureDTO;
+import de.dashup.shared.layout.LayoutModeWidgetDTO;
 import de.dashup.shared.User;
 import de.dashup.util.string.Hash;
 import org.json.JSONArray;

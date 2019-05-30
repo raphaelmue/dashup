@@ -2,23 +2,21 @@
     <dashup-chart name="chart"
                   title="My Spendings"
                   category="Personal Spendings"
-                  data='[{"category": "Family", "value": "300"}, {"category": "Investments", "value": "150"}]'
                   layout='{"row": 1, "offset": 0, "size": 12}'>
     </dashup-chart>
     <dashup-text-input name="amount"
                        placeholder="Amount"
-                       layout='{"row": 2, "offset": 0, "size": 4}'
+                       layout='{"row": 2, "offset": 0, "size": 5}'
                        clear>
     </dashup-text-input>
     <dashup-radio-button-group name="category"
-                               layout='{"row": 2, "offset": 1, "size": 7}'>
+                               layout='{"row": 2, "offset": 1, "size": 6}'>
         <dashup-radio-button group="category"
                              value="Family"
-                             selected>
+                             checked>
         </dashup-radio-button>
         <dashup-radio-button group="category"
-                             value="Housing"
-                             checked>
+                             value="Housing">
         </dashup-radio-button>
         <dashup-radio-button group="category"
                              value="Meals">
@@ -29,20 +27,18 @@
     </dashup-radio-button-group>
     <dashup-button text="Add"
                    mode="add"
-                   consumers='{"chart": ""}'
+                   dataAPI="http://localhost:9004/loadFinanceChart"
+                   storageAPI="http://localhost:9004/financeChart"
+                   consumers='[{"chart": ""},{"chart": "apiData chart"}]'
                    producers="amount category"
-                   layout='{"row": 3, "offset": 0, "size": 3}'>
+                   layout='{"row": 3, "offset": 0, "size": 5}'
+                   handleOnStart>
     </dashup-button>
     <dashup-button text="Delete"
                    mode="delete"
-                   consumers='{"chart": "chart"}'
+                   storageAPI="http://localhost:9004/financeChart"
+                   consumers='[{"chart": ""},{"chart": "apiData chart"}]'
                    producers="chart"
-                   layout='{"row": 3, "offset": 1, "size": 3}'>
-    </dashup-button>
-    <dashup-button text="Save"
-                   mode="save"
-                   producers="chart"
-                   layout='{"row": 3, "offset": 2, "size": 3}'
-                   disabled>
+                   layout='{"row": 3, "offset": 2, "size": 5}'>
     </dashup-button>
 </dashup-grid-layout>

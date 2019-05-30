@@ -1,5 +1,7 @@
 package de.dashup.shared;
 
+import de.dashup.shared.layout.Section;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class User extends DatabaseUser {
     }
 
     @Override
-    public DatabaseObject fromDatabaseObject(DatabaseObject databaseObject) {
+    public User fromDatabaseObject(DatabaseObject databaseObject) {
         if (databaseObject instanceof DatabaseUser) {
             this.setId(databaseObject.getId());
             this.setName(((DatabaseUser) databaseObject).getName());

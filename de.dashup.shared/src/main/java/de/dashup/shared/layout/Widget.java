@@ -1,14 +1,23 @@
-package de.dashup.shared;
+package de.dashup.shared.layout;
 
 import com.google.gson.annotations.SerializedName;
+import de.dashup.shared.DatabaseObject;
+import de.dashup.shared.Property;
+import de.dashup.shared.Tag;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class Widget extends DatabaseWidget implements Comparable<Widget> {
 
     public enum Size {
-        SMALL("small", "m2 s6"),
+        SMALL("small", "m3 s6"),
         MEDIUM("medium", "m4 s12"),
         LARGE("large", "m6 s12");
 
@@ -76,12 +85,14 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
     private int index;
     private final Set<Tag> tags = new HashSet<>();
 
+    private final Map<String, Property> properties = new HashMap<>();
+
     public Widget() {
     }
 
     public Widget(int id, String name, String description, int numberOfDownloads, int averageRating,
-                  int index) {
-        super(id, name, description, numberOfDownloads, averageRating);
+                  int index, int numberOfRatings, LocalDate publicationDate, String iconCode) {
+        super(id, name, description, numberOfDownloads, averageRating, numberOfRatings, publicationDate, iconCode);
         this.index = index;
     }
 
@@ -95,8 +106,14 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
             this.setCodeSmall(((DatabaseWidget) databaseObject).getCodeSmall());
             this.setCodeMedium(((DatabaseWidget) databaseObject).getCodeMedium());
             this.setCodeLarge(((DatabaseWidget) databaseObject).getCodeLarge());
+            this.setAverageRating(((DatabaseWidget) databaseObject).getAverageRating());
+            this.setNumberOfRatings(((DatabaseWidget) databaseObject).getNumberOfRatings());
+            this.setPublicationDate(((DatabaseWidget) databaseObject).getPublicationDate());
+            this.setShortDescription(((DatabaseWidget) databaseObject).getShortDescription());
+            this.setIconCode(((DatabaseWidget) databaseObject).getIconCode());
             this.setVisible(((DatabaseWidget) databaseObject).getIsVisible());
             this.setCategory(((DatabaseWidget) databaseObject).getCategory());
+            this.setPublisherId((((DatabaseWidget) databaseObject).getPublisherId()));
         }
         return this;
     }
@@ -143,13 +160,34 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
     }
 
     public String getCodeWithWrapper() {
-        return "<div class=\"col " + this.size.getStyleClass() + "\">" +
-                "<div class=\"widget card\">" +
-                "<div class=\"card-content\">" +
-                this.getCode() +
-                "</div>" +
-                "</div>" +
-                "</div>";
+        StringBuilder html = new StringBuilder()
+                .append("<div class=\"col ")
+                .append(this.size.getStyleClass())
+                .append("\">")
+                .append("<div class=\"card widget\">")
+                .append("<div class=\"card-content\">");
+        if (this.getProperties().size() > 0) {
+            Document document = Jsoup.parse(this.getCode());
+            for (Map.Entry<String, Property> propertyEntry : this.getProperties().entrySet()) {
+                String[] propertyName = propertyEntry.getValue().getProperty().split("[.]");
+                Element element = document.getElementsByAttributeValue("name", propertyName[0]).first();
+                if (element != null) {
+                    element.attr(propertyName.length == 2 ? propertyName[1] : "value", propertyEntry.getValue().getValue());
+                }
+            }
+            html.append(document.html());
+        } else {
+            html.append(this.getCode());
+        }
+        html.append("</div>")
+                .append("</div>")
+                .append("</div>");
+
+        return html.toString();
+    }
+
+    public Map<String, Property> getProperties() {
+        return properties;
     }
 
     public void setSize(Size size) {

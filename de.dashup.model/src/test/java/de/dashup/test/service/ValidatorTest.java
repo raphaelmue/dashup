@@ -1,9 +1,11 @@
 package de.dashup.test.service;
 
 import de.dashup.model.service.Validator;
-import de.dashup.shared.Widget;
+import de.dashup.shared.layout.Widget;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
 
 @SuppressWarnings("WeakerAccess")
 public class ValidatorTest {
@@ -18,7 +20,7 @@ public class ValidatorTest {
 
     @Test
     public void testValidateWidget() {
-        Widget widget = new Widget(0, "Widget Name", "Description", 0, 0, 0);
+        Widget widget = new Widget(0, "Widget Name", "Description", 0, 0, 0, 0, LocalDate.now(), "cloud");
         Assertions.assertFalse(Validator.validateWidget(widget));
 
         widget.setShortDescription("Short Description");
