@@ -9,6 +9,7 @@ import de.dashup.util.string.Hash;
 import org.json.JSONArray;
 import org.junit.jupiter.api.*;
 
+import javax.xml.crypto.Data;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -149,14 +150,14 @@ public class DatabaseUnitTest {
     public void findBySearchAndFilter() throws SQLException{
         HashMap<String, Object> whereParams = new HashMap<>();
         whereParams.put("name", "panel1");
-        List<String> operatorList = new ArrayList<>();
-        operatorList.add("=");
+        HashMap<String, Object> operatorList = new HashMap<>();
+        operatorList.put("name","=");
 
         whereParams.put("avg_of_ratings","75");
-        operatorList.add(">=");
+        operatorList.put("avg_of_ratings",">=");
 
         whereParams.put("publication_date","2019-04-19");
-        operatorList.add(">=");
+        operatorList.put("publication_date",">=");
 
         List<? extends DatabaseObject> result = database.findByRange(Database.Table.PANELS,whereParams,Widget.class,operatorList);
         Assertions.assertEquals(1,result.size());

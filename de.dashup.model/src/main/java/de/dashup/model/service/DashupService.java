@@ -886,35 +886,84 @@ public class DashupService {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("name", "%" + name + "%");
 
-        List<String> operators = new ArrayList<>();
-        operators.add("LIKE");
+        Map<String, Object> operators = new HashMap<>();
+
+        operators.put("name","LIKE");
 
         if(date!=null){
             whereParameters.put("publication_date",date);
-            operators.add(">=");
+            operators.put("publication_date",">=");
         }
 
         if(rating!=null){
             whereParameters.put("avg_of_ratings",rating);
-            operators.add(">=");
+            operators.put("avg_of_ratings",">=");
         }
 
         List<? extends DatabaseObject> result = this.database.findByRange(Database.Table.PANELS,whereParameters,Widget.class,operators);
 
+       return filterWidgets(result,categories);
+    }
+
+    public List<Widget> findWidgetByName(String name, String date, String rating, List<String> categories,List<String> tags) throws SQLException{
+
+        List<Database.Table> tableList = new ArrayList<>();
+        tableList.add(Database.Table.PANELS);
+        tableList.add(Database.Table.PANELS_TAGS);
+        tableList.add(Database.Table.TAGS);
+
+
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put(Database.Table.PANELS.toString() + ".name", "%" + name + "%");
+
+        Map<String, Object> operators = new HashMap<>();
+        operators.put(Database.Table.PANELS.toString() + ".name","LIKE");
+
+        if(date!=null){
+            whereParameters.put(Database.Table.PANELS.toString() + ".publication_date",date);
+            operators.put(Database.Table.PANELS.toString() + ".publication_date",">=");
+        }
+
+        if(rating!=null){
+            whereParameters.put(Database.Table.PANELS.toString() + ".avg_of_ratings",rating);
+            operators.put(Database.Table.PANELS.toString() + ".avg_of_ratings",">=");
+        }
+
+        for (String tag:tags) {
+            whereParameters.put(Database.Table.TAGS.toString() + ".text",tag);
+            operators.put(Database.Table.TAGS.toString() + ".text","LIKE");
+        }
+
+        HashMap<String, Object> onParameters = new HashMap<>();
+        onParameters.put(Database.Table.PANELS_TAGS.toString() + ".tag_id",Database.Table.TAGS.toString() + ".id");
+        onParameters.put(Database.Table.PANELS.toString() + ".id",Database.Table.PANELS_TAGS.toString() + ".panel_id");
+
+        List<? extends DatabaseObject> result = database.findByRange(tableList,whereParameters,onParameters,Widget.class,operators);
+
+
+        return filterWidgets(result,categories);
+    }
+
+    private List<Widget> filterWidgets(List<? extends DatabaseObject> widgetDatabaseObjects, List<String> filterItems){
         List<Widget> widgets = new ArrayList<>();
-        for (DatabaseObject databaseObject : result) {
+        for (DatabaseObject databaseObject : widgetDatabaseObjects) {
             Widget widget = new Widget().fromDatabaseObject(databaseObject);
             widgets.add(widget);
         }
 
-        List<Widget> widgetCategoryFiltered = new ArrayList<>();
-        for (Widget widget : widgets) {
-            if (categories.contains(widget.getCategory())) {
-                widgetCategoryFiltered.add(widget);
+        if(filterItems!=null)
+        {
+            List<Widget> widgetFiltered = new ArrayList<>();
+            for (Widget widget : widgets) {
+                if (filterItems.contains(widget.getCategory())) {
+                    widgetFiltered.add(widget);
+                }
             }
+            return widgetFiltered;
         }
 
-        return widgetCategoryFiltered;
+        return widgets;
+
     }
 
     // --- TAGS --- \\

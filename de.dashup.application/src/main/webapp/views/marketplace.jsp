@@ -171,17 +171,13 @@
                         </div>
 
                         <div class="row">
-
                             <div class="col s4 m6 valign-wrapper">
-                                <h6><fmt:message key="i18n.publicationDate" /></h6>
+                                <h6><fmt:message key="i18n.tags"/></h6>
                             </div>
-                            <div class="col s8 m6">
-
-                                <label for="text-field-filter-publication-date"></label><input
-                                    id="text-field-filter-publication-date" name="publicationDate" type="text"
-                                    class="datepicker"
-                                    value="<fmt:message key="i18n.showMore" />"/>
-
+                            <div class="col s8 m6 valign-wrapper">
+                                <div id="chips-tags" class="chips chips-placeholder input-field">
+                                    <input class="input" placeholder=<fmt:message key="i18n.enterTags"/>>
+                                </div>
                             </div>
                         </div>
 
@@ -189,7 +185,7 @@
                             <div class="col s4 m6 valign-wrapper">
                                 <h6><fmt:message key="i18n.rating" /></h6>
                             </div>
-                            <div class="col s8 m6">
+                            <div class="col s8 m6 valign-wrapper">
                                 <div class="star-rating"
                                      style="font-size: 25px; margin-top: 15px; color: var(--color-dark-gray);">
                                     <div class="back-stars star">
@@ -213,12 +209,28 @@
 
                         <div class="row">
                             <div class="col s4 m6 valign-wrapper">
-                                <h6><fmt:message key="i18n.tags"/></h6>
+                                <h6><fmt:message key="i18n.category"/></h6>
                             </div>
-                            <div class="col s8 m6">
-                                <div id="chips-tags" class="chips chips-placeholder input-field">
-                                    <input class="input" placeholder="Enter a tag">
+                            <div class="col s8 m6 valign-wrapper">
+                                <div id="chips-categories" class="chips chips-placeholder input-field">
+                                    <input class="input" placeholder=<fmt:message key="i18n.selectCategory"/>>
                                 </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col s4 m6 valign-wrapper">
+                                <h6><fmt:message key="i18n.publicationDate" /></h6>
+                            </div>
+                            <div class="col s8 m6 valign-wrapper">
+
+                                <label for="text-field-filter-publication-date"></label><input
+                                    id="text-field-filter-publication-date" name="publicationDate" type="text"
+                                    class="datepicker"
+                                    value="<fmt:message key="i18n.showMore" />"/>
+
                             </div>
                         </div>
 
@@ -230,11 +242,6 @@
             </div>
         </div>
 
-        <div class="chip">
-            Tag
-            <i class="close material-icons">7l</i>
-        </div>
-
     </body>
     <script type="text/javascript">
 
@@ -244,8 +251,12 @@
 
             $('.chips').chips();
             $('.chips-placeholder').chips({
-                placeholder: 'Enter a tag',
-                secondaryPlaceholder: '+Tag',
+                secondaryPlaceholder: '+' + '<fmt:message key="i18n.tag" />'
+            });
+
+            $('#chips-categories').chips({
+                placeholder: '<fmt:message key="i18n.selectCategory" />',
+                secondaryPlaceholder: '+' + '<fmt:message key="i18n.category" />'
             });
 
             $("#nav-item-marketplace").parent().addClass("active");
@@ -276,11 +287,13 @@
                 date = "2019-01-01";
             }
 
-            let categories = M.Chips.getInstance($('#chips-tags')).chipsData;
+            let tags = M.Chips.getInstance($('#chips-tags')).chipsData;
+            let categoies = M.Chips.getInstance($('#chips-categories')).chipsData;
             localStorage.setItem("date",instance.toString());
             localStorage.setItem("rating",rating);
             let url = "${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search?" + $.param({searchQuery:searchField.value,date,rating});
-            categories.forEach(category => url+="&categories=" + category.tag);
+            tags.forEach(tag => url+="&tags=" + tag.tag);
+            categoies.forEach(category => url+="&categories=" + category.tag);
             window.location.replace(url);
         }
 

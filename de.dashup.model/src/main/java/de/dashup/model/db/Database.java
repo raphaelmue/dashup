@@ -375,7 +375,7 @@ public class Database {
         return Converter.convertResultSetIntoJSON(result).getJSONObject(0).getInt("id");
     }
 
-    public List<? extends DatabaseObject> findByRange(Table tableName,Map<String, Object> whereParameters, Type resultType, List<String> operatorList) throws SQLException{
+    public List<? extends DatabaseObject> findByRange(Table tableName,Map<String, Object> whereParameters, Type resultType,Map<String, Object> operatorList) throws SQLException{
         Gson gson = new GsonBuilder().create();
 
         PreparedStatement statement;
@@ -388,6 +388,37 @@ public class Database {
         JSONArray jsonArray = Converter.convertResultSetIntoJSON(statement.executeQuery());
         return getDatabaseObjects(resultType, gson, jsonArray);
     }
+
+    public List<? extends DatabaseObject> findByRange(List<Table> tableList, Map<String, Object> whereParameters, Map<String, Object> onParameters, Type resultType, Map<String, Object>  operatorList) throws SQLException {
+        Gson gson = new GsonBuilder().create();
+
+        StringBuilder query = new StringBuilder("SELECT " + tableList.get(0).getTableName() + ".* FROM ");
+
+        boolean first = true;
+        for (Table table : tableList) {
+            if (first) {
+                first = false;
+                query.append(table.getTableName());
+            }
+            else{
+                query.append(", ")
+                        .append(table.getTableName());
+            }
+        }
+
+        query.append(this.getClause(whereParameters, "WHERE", " AND ", operatorList));
+
+        for (Map.Entry<String, Object> entry : onParameters.entrySet()) {
+            query.append(" AND ").append(entry.getKey()).append(" = ").append(entry.getValue());
+        }
+
+        // execute
+        PreparedStatement statement;
+        statement = this.preparedStatement(connection.prepareStatement(query.toString()), whereParameters);
+        JSONArray jsonArray = Converter.convertResultSetIntoJSON(statement.executeQuery());
+        return getDatabaseObjects(resultType, gson, jsonArray);
+    }
+
 
     private String getClause(Map<String, Object> values, String operation, String separator) {
         StringBuilder whereClauseString = new StringBuilder();
@@ -406,12 +437,11 @@ public class Database {
         return whereClauseString.toString();
     }
 
-    private String getClause(Map<String, Object> values, String operation, String separator, List<String> operators) {
+    private String getClause(Map<String, Object> values, String operation, String separator,Map<String, Object> operators) {
         StringBuilder whereClauseString = new StringBuilder();
         if (values.size() > 0) {
             whereClauseString.append(" ").append(operation).append(" ");
             boolean first = true;
-            int operatorIndex = 0;
             for (Map.Entry<String, Object> entry : values.entrySet()) {
                 if (first) {
                     first = false;
@@ -419,11 +449,8 @@ public class Database {
                     whereClauseString.append(separator);
                 }
                 whereClauseString.append(entry.getKey()).append(" ")
-                        .append(operators.get(operatorIndex))
+                        .append(operators.get(entry.getKey()))
                         .append(" ?");
-
-                operatorIndex++;
-
             }
         }
         return whereClauseString.toString();
