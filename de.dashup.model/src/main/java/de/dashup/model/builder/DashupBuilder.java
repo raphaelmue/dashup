@@ -6,6 +6,10 @@ import de.dashup.shared.layout.Widget;
 
 public class DashupBuilder {
 
+    private DashupBuilder() {
+        super();
+    }
+
     public static String buildUsersPanels(User user) {
         StringBuilder content = new StringBuilder();
         if (user.getSections() != null) {

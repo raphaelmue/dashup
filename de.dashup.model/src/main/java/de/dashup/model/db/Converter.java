@@ -7,6 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 class Converter {
+
+    private Converter() {
+        super();
+    }
+
     /**
      * Convert a result set into a JSON Array
      *

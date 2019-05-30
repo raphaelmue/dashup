@@ -12,16 +12,16 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public class LocalStorage {
-    private static LocalStorage INSTANCE;
+    private static LocalStorage instance;
 
     private LocalStorage() {
     }
 
     public static LocalStorage getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new LocalStorage();
+        if (instance == null) {
+            instance = new LocalStorage();
         }
-        return INSTANCE;
+        return instance;
     }
 
     public Object readObjectFromSession(HttpServletRequest request, String key) {

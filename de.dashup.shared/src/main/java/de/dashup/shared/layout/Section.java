@@ -5,10 +5,11 @@ import de.dashup.shared.DatabaseObject;
 
 import java.util.List;
 
-public class Section implements DatabaseObject,Comparable<Section> {
+public class Section implements DatabaseObject, Comparable<Section> {
     @SerializedName("id")
     private int id;
-    private String section_name;
+    @SerializedName("sectionName")
+    private String sectionName;
     @SerializedName("section_index")
     private int index;
     private List<Widget> widgets;
@@ -18,7 +19,7 @@ public class Section implements DatabaseObject,Comparable<Section> {
 
     public Section(int sectionId, String sectionName, int index) {
         this.id = sectionId;
-        this.section_name = sectionName;
+        this.sectionName = sectionName;
         this.index = index;
     }
 
@@ -27,7 +28,7 @@ public class Section implements DatabaseObject,Comparable<Section> {
     }
 
     public void setName(String name) {
-        this.section_name = name;
+        this.sectionName = name;
     }
 
     public void setWidgets(List<Widget> widgets) {
@@ -35,7 +36,7 @@ public class Section implements DatabaseObject,Comparable<Section> {
     }
 
     public String getName() {
-        return section_name;
+        return sectionName;
     }
 
     public List<Widget> getWidgets() {
@@ -54,5 +55,10 @@ public class Section implements DatabaseObject,Comparable<Section> {
     @Override
     public int compareTo(Section sectionToCompare) {
         return Integer.compare(this.getIndex(), sectionToCompare.getIndex());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Section && this.compareTo((Section) obj) == 0;
     }
 }
