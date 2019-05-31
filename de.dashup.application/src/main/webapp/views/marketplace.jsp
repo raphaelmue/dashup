@@ -160,104 +160,28 @@
             </div>
         </div>
 
-        <!-- Modal Structure -->
-        <div id="widget-filter" class="modal">
-            <div class="modal-content">
-                <div class="row">
-                    <div class="col s12 m6 ">
 
-                        <div class="row">
-                            <h5>Filter Options</h5>
-                        </div>
-
-                        <div class="row">
-                            <div class="col s4 m6 valign-wrapper">
-                                <h6><fmt:message key="i18n.tags"/></h6>
-                            </div>
-                            <div class="col s8 m6 valign-wrapper">
-                                <div id="chips-tags" class="chips chips-placeholder input-field">
-                                    <input class="input" placeholder=<fmt:message key="i18n.enterTags"/>>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col s4 m6 valign-wrapper">
-                                <h6><fmt:message key="i18n.rating" /></h6>
-                            </div>
-                            <div class="col s8 m6 valign-wrapper">
-                                <div class="star-rating"
-                                     style="font-size: 25px; margin-top: 15px; color: var(--color-dark-gray);">
-                                    <div class="back-stars star">
-                                        <i id="i1" class="fa fa-star" aria-hidden="true"></i>
-                                        <i id="i2" class="fa fa-star" aria-hidden="true"></i>
-                                        <i id="i3" class="fa fa-star" aria-hidden="true"></i>
-                                        <i id="i4" class="fa fa-star" aria-hidden="true"></i>
-                                        <i id="i5" class="fa fa-star" aria-hidden="true"></i>
-                                        <div id="front-stars" class="front-stars star"
-                                             style="width:  20%; color: var(--color-primary);">
-                                            <i id="f1" class="fa fa-star" aria-hidden="true"></i>
-                                            <i id="f2" class="fa fa-star" aria-hidden="true"></i>
-                                            <i id="f3" class="fa fa-star" aria-hidden="true"></i>
-                                            <i id="f4" class="fa fa-star" aria-hidden="true"></i>
-                                            <i id="f5" class="fa fa-star" aria-hidden="true"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col s4 m6 valign-wrapper">
-                                <h6><fmt:message key="i18n.category"/></h6>
-                            </div>
-                            <div class="col s8 m6 valign-wrapper">
-                                <div id="chips-categories" class="chips chips-placeholder input-field">
-                                    <input class="input" placeholder=<fmt:message key="i18n.selectCategory"/>>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-
-                            <div class="col s4 m6 valign-wrapper">
-                                <h6><fmt:message key="i18n.publicationDate" /></h6>
-                            </div>
-                            <div class="col s8 m6 valign-wrapper">
-
-                                <label for="text-field-filter-publication-date"></label><input
-                                    id="text-field-filter-publication-date" name="publicationDate" type="text"
-                                    class="datepicker"
-                                    value="<fmt:message key="i18n.showMore" />"/>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
-                </div>
-            </div>
-        </div>
+        <jsp:include page="includes/filterModal.jsp">
+            <jsp:param name="lang" value="${param.lang}"/>
+            <jsp:param name="categories" value="${categories}"/>
+        </jsp:include>
 
     </body>
     <script type="text/javascript">
 
-        let rating = 0;
+        <%--let rating = 0;--%>
 
         $( document ).ready(function () {
 
-            $('.chips').chips();
-            $('.chips-placeholder').chips({
-                secondaryPlaceholder: '+' + '<fmt:message key="i18n.tag" />'
-            });
+            <%--$('.chips').chips();--%>
+            <%--$('.chips-placeholder').chips({--%>
+                <%--secondaryPlaceholder: '+' + '<fmt:message key="i18n.tag" />'--%>
+            <%--});--%>
 
-            $('#chips-categories').chips({
-                placeholder: '<fmt:message key="i18n.selectCategory" />',
-                secondaryPlaceholder: '+' + '<fmt:message key="i18n.category" />'
-            });
+            <%--$('#chips-categories').chips({--%>
+                <%--placeholder: '<fmt:message key="i18n.selectCategory" />',--%>
+                <%--secondaryPlaceholder: '+' + '<fmt:message key="i18n.category" />'--%>
+            <%--});--%>
 
             $("#nav-item-marketplace").parent().addClass("active");
             $('.carousel.carousel-slider').carousel({
@@ -266,38 +190,38 @@
             });
         });
 
-        $("#text-field-filter-publication-date").datepicker({
-            format: "yyyy-mm-dd",
-            yearRange: [2019, 2019],
-            container: document.getElementById("search-bar")
-        });
-        $(".star").on("click", function (element) {
-            let starId = element.target.id;
-            let factor = starId.substr(1, 1);
-            rating = factor * 20;
-            let frontStars = document.getElementById("front-stars");
-            frontStars.style.width = rating + "%";
-        });
+        <%--$("#text-field-filter-publication-date").datepicker({--%>
+            <%--format: "yyyy-mm-dd",--%>
+            <%--yearRange: [2019, 2019],--%>
+            <%--container: document.getElementById("search-bar")--%>
+        <%--});--%>
+        <%--$(".star").on("click", function (element) {--%>
+            <%--let starId = element.target.id;--%>
+            <%--let factor = starId.substr(1, 1);--%>
+            <%--rating = factor * 20;--%>
+            <%--let frontStars = document.getElementById("front-stars");--%>
+            <%--frontStars.style.width = rating + "%";--%>
+        <%--});--%>
 
-        function onSearch() {
-            let searchField = document.getElementById("text-field-search");
-            let instance = M.Datepicker.getInstance(document.getElementById("text-field-filter-publication-date"));
-            let date = instance.toString();
-            if(date === ""){
-                date = "2019-01-01";
-            }
+        <%--function onSearch() {--%>
+            <%--let searchField = document.getElementById("text-field-search");--%>
+            <%--let instance = M.Datepicker.getInstance(document.getElementById("text-field-filter-publication-date"));--%>
+            <%--let date = instance.toString();--%>
+            <%--if(date === ""){--%>
+                <%--date = "2019-01-01";--%>
+            <%--}--%>
 
-            let tags = M.Chips.getInstance($('#chips-tags')).chipsData;
-            let categories = M.Chips.getInstance($('#chips-categories')).chipsData;
-            localStorage.setItem("date",instance.toString());
-            localStorage.setItem("rating",rating);
-            localStorage.setItem("categories", JSON.stringify(categories));
-            localStorage.setItem("tags",JSON.stringify(tags));
-            let url = "${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search?" + $.param({searchQuery:searchField.value,date,rating});
-            tags.forEach(tag => url+="&tags=" + tag.tag);
-            categories.forEach(category => url+="&categories=" + category.tag);
-            window.location.replace(url);
-        }
+            <%--let tags = M.Chips.getInstance($('#chips-tags')).chipsData;--%>
+            <%--let categories = M.Chips.getInstance($('#chips-categories')).chipsData;--%>
+            <%--localStorage.setItem("date",instance.toString());--%>
+            <%--localStorage.setItem("rating",rating);--%>
+            <%--localStorage.setItem("categories", JSON.stringify(categories));--%>
+            <%--localStorage.setItem("tags",JSON.stringify(tags));--%>
+            <%--let url = "${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search?" + $.param({searchQuery:searchField.value,date,rating});--%>
+            <%--tags.forEach(tag => url+="&tags=" + tag.tag);--%>
+            <%--categories.forEach(category => url+="&categories=" + category.tag);--%>
+            <%--window.location = url;--%>
+        <%--}--%>
 
     </script>
 

@@ -28,22 +28,24 @@ public class MarketplaceController {
             model.addAttribute("featuredWidgets",DashupService.getInstance().getFeaturedWidgets(featuredWidgets));
             model.addAttribute("bestRated", DashupService.getInstance().getTopWidgets("avg_of_ratings"));
             model.addAttribute("mostDownloaded", DashupService.getInstance().getTopWidgets("number_of_downloads"));
+            model.addAttribute("categories", Widget.Category.values());
         });
     }
 
     @RequestMapping("/search")
     public String searchMarketplace(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request,
-                                    @RequestParam("searchQuery") String searchQuery, @RequestParam(value = "date", required = false) String date, @RequestParam(value = "rating", required = false) String rating, @RequestParam(value = "categories", required = false) List<String> categories, @RequestParam(value = "tags", required = false) List<String> tags) throws SQLException {
+                                    @RequestParam("searchQuery") String searchQuery, @RequestParam(value = "date", required = false) String date, @RequestParam(value = "rating", required = false) String rating, @RequestParam(value = "categories", required = false) List<String> categories, @RequestParam(value = "tags", required = false) List<String> tags,@RequestParam(value = "tags", required = false) List<String> publisher) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "marketplaceSearchResult", user -> {
             List<Widget> widgets;
             if (tags != null) {
                 widgets = DashupService.getInstance().findWidgetByName(searchQuery, date, rating, categories, tags);
             } else {
-                widgets = DashupService.getInstance().findWidgetByName(searchQuery, date, rating, categories);
+                widgets = DashupService.getInstance().findWidgetByName(searchQuery, date, rating, categories,publisher);
             }
             model.addAttribute("widgets", widgets);
             user = DashupService.getInstance().getSectionsAndPanels(user);
             model.addAttribute("sections", user.getSections());
+            model.addAttribute("categories", Widget.Category.values());
         });
 
     }

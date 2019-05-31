@@ -882,7 +882,7 @@ public class DashupService {
         return null;
     }
 
-    public List<Widget> findWidgetByName(String name, String date, String rating, List<String> categories) throws SQLException{
+    public List<Widget> findWidgetByName(String name, String date, String rating, List<String> categories, List<String> publisherList) throws SQLException{
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("name", "%" + name + "%");
 
@@ -902,10 +902,10 @@ public class DashupService {
 
         List<? extends DatabaseObject> result = this.database.findByRange(Database.Table.PANELS,whereParameters,Widget.class,operators);
 
-       return filterWidgets(result,categories);
+       return filterWidgets(result,categories,publisherList);
     }
 
-    public List<Widget> findWidgetByName(String name, String date, String rating, List<String> categories,List<String> tags) throws SQLException{
+    public List<Widget> findWidgetByName(String name, String date, String rating, List<String> categories,List<String> tags,List<String> publisherList) throws SQLException{
 
         List<Database.Table> tableList = new ArrayList<>();
         tableList.add(Database.Table.PANELS);
@@ -941,29 +941,31 @@ public class DashupService {
         List<? extends DatabaseObject> result = database.findByRange(tableList,whereParameters,onParameters,Widget.class,operators);
 
 
-        return filterWidgets(result,categories);
+        return filterWidgets(result,categories,publisherList);
     }
 
-    private List<Widget> filterWidgets(List<? extends DatabaseObject> widgetDatabaseObjects, List<String> filterItems){
+    private List<Widget> filterWidgets(List<? extends DatabaseObject> widgetDatabaseObjects, List<String> categoryItems, List<String> publisherList) throws SQLException {
         List<Widget> widgets = new ArrayList<>();
         for (DatabaseObject databaseObject : widgetDatabaseObjects) {
             Widget widget = new Widget().fromDatabaseObject(databaseObject);
             widgets.add(widget);
         }
 
-        if(filterItems!=null)
+        if (categoryItems != null)
         {
             List<Widget> widgetFiltered = new ArrayList<>();
             for (Widget widget : widgets) {
-                if (filterItems.contains(widget.getCategory())) {
-                    widgetFiltered.add(widget);
-                }
+
+                User publisher = getUserById(widget.getPublisherId());
+
+                if (publisherList.size()>0 && (publisherList.contains(publisher.getName()) || publisherList.contains(publisher.getFullName())))
+                    if (categoryItems.contains(widget.getCategory())) {
+                        widgetFiltered.add(widget);
+                    }
             }
             return widgetFiltered;
         }
-
         return widgets;
-
     }
 
     // --- TAGS --- \\
