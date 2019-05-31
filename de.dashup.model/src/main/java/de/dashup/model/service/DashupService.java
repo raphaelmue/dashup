@@ -953,17 +953,28 @@ public class DashupService {
             for (Widget widget : widgets) {
 
                 User publisher = getUserById(widget.getPublisherId());
-                if (publisherList.size() > 0 && (publisherList.contains(publisher.getName()) || publisherList.contains(publisher.getSurname()) || publisherList.contains(publisher.getFullName()))) {
-                    if (categoryItems == null) {
-                        widgetFiltered.add(widget);
-                    }
-                    if (categoryItems != null && categoryItems.contains(widget.getCategory())) {
-                        widgetFiltered.add(widget);
-                    }
+
+                boolean validPublisher = false;
+                if (publisherList == null) {
+                    publisherList = new ArrayList<>();
+                }
+
+                if (publisherList.size() == 0) {
+                    validPublisher = true;
+                }
+
+                if (publisherList.contains(publisher.getName()) || publisherList.contains(publisher.getSurname()) || publisherList.contains(publisher.getFullName())) {
+                    validPublisher = true;
+                }
+
+                if (categoryItems == null && validPublisher) {
+                    widgetFiltered.add(widget);
+                }
+                if (categoryItems != null && categoryItems.contains(widget.getCategory()) && validPublisher) {
+                    widgetFiltered.add(widget);
                 }
             }
             return widgetFiltered;
-
     }
 
     // --- TAGS --- \\

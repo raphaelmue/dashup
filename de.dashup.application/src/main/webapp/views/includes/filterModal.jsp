@@ -20,7 +20,7 @@
                     </div>
                     <div class="col s8 m9 l9">
                         <div id="chips-tags" class="col s12 chips chips-placeholder input-field">
-                            <input class="input" placeholder=<fmt:message key="i18n.enterTags"/>>
+                            <input class="input" placeholder="<fmt:message key="i18n.enterTags"/>">
                         </div>
                     </div>
                 </div>
@@ -56,18 +56,20 @@
                         <h6><fmt:message key="i18n.category"/></h6>
                     </div>
                     <div class="col s8 m9 l9 valign-wrapper">
-                        <div id="chips-categories" class="col s6 chips chips-placeholder input-field">
-                            <input class="input" placeholder=<fmt:message key="i18n.selectCategory"/>>
+                        <div id="chips-categories" class="col s8 chips chips-placeholder input-field">
+                            <input class="input" disabled placeholder=<fmt:message key="i18n.selectCategory"/>>
                         </div>
-                        <div class="col s6 valign-wrapper">
-                            <label for="category-dropdown"></label><select name="size" id="category-dropdown">
-                                <option value="" disabled selected><fmt:message
-                                        key="i18n.selectCategory"/></option>
-                                <c:forEach items="${categories}" var="category">
-                                    <option value="${category.name}">
-                                        <fmt:message key="i18n.${category.name}"/></option>
-                                </c:forEach>
-                            </select>
+                        <div class="col s4 valign-wrapper">
+                            <div class="input-field">
+                                <select name="size" id="category-dropdown">
+                                    <c:forEach items="${categories}" var="category">
+                                        <option value="${category.name}">
+                                            <fmt:message key="i18n.${category.name}"/></option>
+                                    </c:forEach>
+                                </select>
+                                <label><fmt:message key="i18n.category"/></label>
+                            </div>
+
 
                             <a id="add-category-button" href="#" class="waves-effect waves-light">
                                 <i class="fas fa-plus"></i>
@@ -96,7 +98,7 @@
                     </div>
                     <div class="col s8 m9 l9">
                         <div id="chips-publisher" class="col s12 chips chips-placeholder input-field">
-                            <input class="input" placeholder=<fmt:message key="i18n.enterPublisher"/>>
+                            <input class="input" placeholder="<fmt:message key="i18n.enterPublisher"/>">
                         </div>
                     </div>
                 </div>

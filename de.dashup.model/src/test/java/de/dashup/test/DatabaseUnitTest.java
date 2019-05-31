@@ -9,9 +9,7 @@ import de.dashup.util.string.Hash;
 import org.json.JSONArray;
 import org.junit.jupiter.api.*;
 
-import javax.xml.crypto.Data;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
