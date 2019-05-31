@@ -60,7 +60,7 @@
                             <input class="input" placeholder=<fmt:message key="i18n.selectCategory"/>>
                         </div>
                         <div class="col s6 valign-wrapper">
-                            <select name="size" id="category-dropdown">
+                            <label for="category-dropdown"></label><select name="size" id="category-dropdown">
                                 <option value="" disabled selected><fmt:message
                                         key="i18n.selectCategory"/></option>
                                 <c:forEach items="${categories}" var="category">
@@ -90,10 +90,22 @@
                     </div>
                 </div>
 
+                <div class="row valign-wrapper">
+                    <div class="col s4 m3 l3 ">
+                        <h6><fmt:message key="i18n.publisher"/></h6>
+                    </div>
+                    <div class="col s8 m9 l9">
+                        <div id="chips-publisher" class="col s12 chips chips-placeholder input-field">
+                            <input class="input" placeholder=<fmt:message key="i18n.enterPublisher"/>>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+            <a href="#" class="modal-close waves-effect waves-green btn-flat">OK</a>
         </div>
     </div>
 </div>
@@ -148,13 +160,16 @@
         }
 
         let tags = M.Chips.getInstance($('#chips-tags')).chipsData;
+        let publisher = M.Chips.getInstance($('#chips-publisher')).chipsData;
         let categories = M.Chips.getInstance($('#chips-categories')).chipsData;
         localStorage.setItem("date",instance.toString());
         localStorage.setItem("rating",rating);
         localStorage.setItem("categories", JSON.stringify(categories));
         localStorage.setItem("tags",JSON.stringify(tags));
+        localStorage.setItem("publisher",JSON.stringify(publisher));
         let url = "${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search?" + $.param({searchQuery:searchField.value,date,rating});
         tags.forEach(tag => url+="&tags=" + tag.tag);
+        publisher.forEach(publisherItem => url+="&publisher=" + publisherItem.tag);
         categories.forEach(category => url+="&categories=" + category.tag);
         window.location = url;
     }

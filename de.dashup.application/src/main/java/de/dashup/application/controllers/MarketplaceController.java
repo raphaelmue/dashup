@@ -34,11 +34,11 @@ public class MarketplaceController {
 
     @RequestMapping("/search")
     public String searchMarketplace(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request,
-                                    @RequestParam("searchQuery") String searchQuery, @RequestParam(value = "date", required = false) String date, @RequestParam(value = "rating", required = false) String rating, @RequestParam(value = "categories", required = false) List<String> categories, @RequestParam(value = "tags", required = false) List<String> tags,@RequestParam(value = "tags", required = false) List<String> publisher) throws SQLException {
+                                    @RequestParam("searchQuery") String searchQuery, @RequestParam(value = "date", required = false) String date, @RequestParam(value = "rating", required = false) String rating, @RequestParam(value = "categories", required = false) List<String> categories, @RequestParam(value = "tags", required = false) List<String> tags,@RequestParam(value = "publisher", required = false) List<String> publisher) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "marketplaceSearchResult", user -> {
             List<Widget> widgets;
             if (tags != null) {
-                widgets = DashupService.getInstance().findWidgetByName(searchQuery, date, rating, categories, tags);
+                widgets = DashupService.getInstance().findWidgetByName(searchQuery, date, rating, categories, tags,publisher);
             } else {
                 widgets = DashupService.getInstance().findWidgetByName(searchQuery, date, rating, categories,publisher);
             }

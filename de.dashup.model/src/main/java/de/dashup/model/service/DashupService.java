@@ -912,7 +912,6 @@ public class DashupService {
         tableList.add(Database.Table.PANELS_TAGS);
         tableList.add(Database.Table.TAGS);
 
-
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put(Database.Table.PANELS.toString() + ".name", "%" + name + "%");
 
@@ -940,7 +939,6 @@ public class DashupService {
 
         List<? extends DatabaseObject> result = database.findByRange(tableList,whereParameters,onParameters,Widget.class,operators);
 
-
         return filterWidgets(result,categories,publisherList);
     }
 
@@ -951,21 +949,21 @@ public class DashupService {
             widgets.add(widget);
         }
 
-        if (categoryItems != null)
-        {
-            List<Widget> widgetFiltered = new ArrayList<>();
+        List<Widget> widgetFiltered = new ArrayList<>();
             for (Widget widget : widgets) {
 
                 User publisher = getUserById(widget.getPublisherId());
-
-                if (publisherList.size()>0 && (publisherList.contains(publisher.getName()) || publisherList.contains(publisher.getFullName())))
-                    if (categoryItems.contains(widget.getCategory())) {
+                if (publisherList.size() > 0 && (publisherList.contains(publisher.getName()) || publisherList.contains(publisher.getSurname()) || publisherList.contains(publisher.getFullName()))) {
+                    if (categoryItems == null) {
                         widgetFiltered.add(widget);
                     }
+                    if (categoryItems != null && categoryItems.contains(widget.getCategory())) {
+                        widgetFiltered.add(widget);
+                    }
+                }
             }
             return widgetFiltered;
-        }
-        return widgets;
+
     }
 
     // --- TAGS --- \\

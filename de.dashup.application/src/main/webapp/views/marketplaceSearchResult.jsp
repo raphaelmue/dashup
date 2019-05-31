@@ -155,12 +155,15 @@
 
             let tagsInstance = M.Chips.getInstance($('#chips-tags'));
             let categoriesInstance = M.Chips.getInstance($('#chips-categories'));
+            let publisherInstance = M.Chips.getInstance($('#chips-publisher'));
 
             let tagsLocal = JSON.parse(localStorage.getItem("tags"));
             let categoriesLocal = JSON.parse(localStorage.getItem("categories"));
+            let publisherLocal = JSON.parse(localStorage.getItem("publisher"));
 
             tagsLocal.forEach(tag => tagsInstance.addChip(tag));
             categoriesLocal.forEach(category => categoriesInstance.addChip(category));
+            publisherLocal.forEach(publisherItem => publisherInstance.addChip(publisherItem));
         });
 
         function onAdd(widgetId) {
