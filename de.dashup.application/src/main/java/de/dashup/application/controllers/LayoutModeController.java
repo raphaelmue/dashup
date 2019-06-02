@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Controller
-@RequestMapping("/layoutMode")
+@RequestMapping(value = "/layoutMode")
 public class LayoutModeController {
 
     @RequestMapping(value = "/")

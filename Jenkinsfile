@@ -41,6 +41,11 @@ pipeline {
                 sh 'bash service/publish-test-report.sh'
             }
         }
+        stage('Analyze Project') {
+            steps {
+                sh 'bash service/publish-to-sonar.sh'
+            }
+        }
         stage('Deploy') {
             when {
                 branch 'deployment'

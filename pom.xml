@@ -69,6 +69,24 @@
                 <project.testing.browser>firefox</project.testing.browser>
             </properties>
         </profile>
+        <profile>
+            <id>sonar</id>
+            <properties>
+                <!-- General sonar information -->
+                <sonar.organization>raphaelmue-github</sonar.organization>
+                <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+                <sonar.login>c88497e2b3b58f9e622ec2327efc66572441d199</sonar.login>
+
+                <sonar.sources>src/main</sonar.sources>
+                <sonar.tests>src/test</sonar.tests>
+
+                <!-- Sending code coverage to sonar -->
+                <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+                <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+                <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+                <sonar.language>java</sonar.language>
+            </properties>
+        </profile>
     </profiles>
 
     <build>

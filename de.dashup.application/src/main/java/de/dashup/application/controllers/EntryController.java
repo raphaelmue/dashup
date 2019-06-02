@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.Locale;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping(value = "/")
 public class EntryController {
     private final LocalStorage localStorage = LocalStorage.getInstance();
 
