@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import de.dashup.shared.DatabaseObject;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Section implements DatabaseObject, Comparable<Section> {
     @SerializedName("id")
@@ -60,5 +61,10 @@ public class Section implements DatabaseObject, Comparable<Section> {
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Section && this.compareTo((Section) obj) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId(), this.getName());
     }
 }

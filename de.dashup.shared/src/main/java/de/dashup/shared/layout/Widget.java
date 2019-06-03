@@ -9,10 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Widget extends DatabaseWidget implements Comparable<Widget> {
 
@@ -219,5 +216,10 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Widget && this.compareTo((Widget) obj) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId(), this.getName());
     }
 }
