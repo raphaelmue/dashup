@@ -39,8 +39,8 @@ public class LayoutModeController {
             model.addAttribute("email", user.getEmail());
             model.addAttribute("content", DashupBuilder.buildUsersPanelsLayoutMode(user));
             model.addAttribute("small", Widget.Size.SMALL.getStyleClass());
-            model.addAttribute("medium",  Widget.Size.MEDIUM.getStyleClass());
-            model.addAttribute("large",  Widget.Size.LARGE.getStyleClass());
+            model.addAttribute("medium", Widget.Size.MEDIUM.getStyleClass());
+            model.addAttribute("large", Widget.Size.LARGE.getStyleClass());
             DashupService.getInstance().getSectionsAndPanels(user);
             List<Widget> widgets = new ArrayList<>();
             for (Section section : user.getSections()) {
@@ -66,7 +66,7 @@ public class LayoutModeController {
         return new ResponseEntity<>("{\"message\":\"success\"}", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/updateProperties", method = RequestMethod.POST)
+    @PostMapping(value = "/updateProperties")
     public String handleUpdateProperties(@CookieValue(name = "token", required = false) String token,
                                          @RequestParam(value = "widgetId") int widgetId,
                                          @RequestParam(value = "properties") String jsonProperties,

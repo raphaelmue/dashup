@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="row" style="margin: 0 auto; width: 164px">
                                     <div class="col">
-                                        <div class="star-rating" style="font-size: 25px; margin-top: 15px; color: var(--color-dark-gray);">
+                                        <div class="star-ratingValue" style="font-size: 25px; margin-top: 15px; color: var(--color-dark-gray);">
                                             <div class="back-stars">
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                                 <i class="fa fa-star" aria-hidden="true"></i>

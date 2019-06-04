@@ -9,10 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Widget extends DatabaseWidget implements Comparable<Widget> {
 
@@ -21,7 +18,8 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
         MEDIUM("medium", "m4 s12"),
         LARGE("large", "m6 s12");
 
-        private final String name, styleClass;
+        private final String name;
+        private final String styleClass;
 
         Size(String name, String styleClass) {
             this.name = name;
@@ -213,5 +211,15 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
     @Override
     public int compareTo(Widget widgetToCompare) {
         return Integer.compare(this.getIndex(), widgetToCompare.getIndex());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Widget && this.compareTo((Widget) obj) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId(), this.getName());
     }
 }

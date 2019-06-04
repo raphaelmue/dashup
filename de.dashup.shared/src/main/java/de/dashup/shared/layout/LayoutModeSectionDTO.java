@@ -5,8 +5,7 @@ import de.dashup.shared.DataTransferObject;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unused")
-public class LayoutModeSectionDTO implements DataTransferObject{
+public class LayoutModeSectionDTO implements DataTransferObject {
 
     private String sectionName;
     private String sectionId;
@@ -27,12 +26,12 @@ public class LayoutModeSectionDTO implements DataTransferObject{
         List<Widget> widgets = new ArrayList<>();
         for (LayoutModeWidgetDTO layoutModeWidgetDTO : layoutModeWidgets) {
             Widget widget = layoutModeWidgetDTO.toDataTransferObject();
+            widgets.add(widget);
         }
         return widgets;
     }
 
-    public List<LayoutModeWidgetDTO> getLayoutModeWidgets()
-    {
+    public List<LayoutModeWidgetDTO> getLayoutModeWidgets() {
         return layoutModeWidgets;
     }
 
@@ -54,12 +53,11 @@ public class LayoutModeSectionDTO implements DataTransferObject{
 
     @Override
     public Section toDataTransferObject() {
-        int sectionTechnicalId = Integer.valueOf(sectionId.substring(1));
+        int sectionTechnicalId = Integer.parseInt(sectionId.substring(1));
         return new Section(sectionTechnicalId, sectionName, index);
     }
 
-    public boolean isNewSection()
-    {
+    public boolean isNewSection() {
         String sectionIdPrefix = sectionId.substring(0, 1);
         return "n".equals(sectionIdPrefix);
 

@@ -13,9 +13,9 @@ class UnitTestUtil {
     static Database getDBInstance() throws SQLException {
         Database.setHost(false);
         if (System.getProperty("os.name").toLowerCase().contains("windows")) {
-            Database.setDbName(Database.DatabaseName.TEST);
+            Database.setDatabaseName(Database.DatabaseName.TEST);
         } else {
-            Database.setDbName(Database.DatabaseName.JENKINS);
+            Database.setDatabaseName(Database.DatabaseName.JENKINS);
         }
         return Database.getInstance();
     }

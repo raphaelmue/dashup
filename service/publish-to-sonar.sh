@@ -13,5 +13,9 @@ if [[ ${BRANCH_NAME} == PR-* ]] ; then
     echo "Pull Request number: ${PR_NUMBER}"
     mvn sonar:sonar -P sonar -Dsonar.projectKey=dashup -Dsonar.github.pullRequest=${PR_NUMBER}
 else
-    mvn sonar:sonar -P sonar -Dsonar.projectKey=dashup -Dsonar.branch.name=${BRANCH_NAME}
+    if [[ ${BRANCH_NAME} == "master" ]]; then
+        mvn sonar:sonar -P sonar -Dsonar.projectKey=dashup -Dsonar.verbose=true
+    else
+        mvn sonar:sonar -P sonar -Dsonar.projectKey=dashup -Dsonar.branch.name=${BRANCH_NAME} -Dsonar.branch.target=master -Dsonar.verbose=true
+    fi
 fi
