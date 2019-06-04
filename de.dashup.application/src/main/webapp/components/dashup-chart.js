@@ -167,7 +167,7 @@ export class DashupChart extends DashupComponent {
         return {
             title: {type: String},
             category: {type: String},
-            data: {type: Array}
+            data: {type: Array, attribute: false}
         };
     }
 

@@ -82,7 +82,7 @@
                                 <div class="row">
                                     <div class="col" style="text-align: center; width: 100%;">
                                         <p>"${fn:escapeXml(mapEntry.value.text)}"</p>
-                                        <p>By ${fn:escapeXml(mapEntry.value.userName)} ${fn:escapeXml(mapEntry.value.userSurname)}</p>
+                                        <p>By ${fn:escapeXml(mapEntry.value.userName)}</p>
                                     </div>
                                 </div>
                             </div>

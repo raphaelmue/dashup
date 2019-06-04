@@ -151,7 +151,7 @@
                                             </div>
                                         </div>
                                         <div class="row" style="font-size: 15px; margin-left: 3px">
-                                            By ${fn:escapeXml(rating.userName)} ${fn:escapeXml(rating.userSurname)}, Last
+                                            By ${fn:escapeXml(rating.userName)}, Last
                                             changed on ${fn:escapeXml(rating.changeDate)}
                                         </div>
                                         <div class="row" style="margin-left: 3px">
