@@ -61,7 +61,7 @@
                         </div>
                         <div class="col s4 valign-wrapper">
                             <div class="input-field">
-                                <select name="size" id="category-dropdown">
+                                <label for="category-dropdown"></label><select name="size" id="category-dropdown">
                                     <c:forEach items="${categories}" var="category">
                                         <option value="${category.name}">
                                             <fmt:message key="i18n.${category.name}"/></option>
@@ -69,8 +69,6 @@
                                 </select>
                                 <label><fmt:message key="i18n.category"/></label>
                             </div>
-
-
                             <a id="add-category-button" href="#" class="waves-effect waves-light">
                                 <i class="fas fa-plus"></i>
                             </a>
@@ -114,12 +112,17 @@
 <script type="text/javascript">
 
     let rating = 0;
+    let lockRating = false;
 
     $( document ).ready(function () {
 
         $('.chips').chips();
-        $('.chips-placeholder').chips({
+        $('#chips-tags').chips({
             secondaryPlaceholder: '+' + '<fmt:message key="i18n.tag" />'
+        });
+
+        $('#chips-publisher').chips({
+            secondaryPlaceholder: '+' + '<fmt:message key="i18n.publisher" />'
         });
 
         $('#chips-categories').chips({
@@ -143,12 +146,22 @@
         });
 
         $(".star").on("click", function (element) {
-            let starId = element.target.id;
-            let factor = starId.substr(1, 1);
-            rating = factor * 20;
+            if (!lockRating) {
+                let starId = element.target.id;
+                let factor = starId.substr(1, 1);
+                let newRating = factor * 20;
+                if (newRating > rating) {
+                    rating = newRating
+                } else {
+                    rating = newRating - 20;
+                    lockRating = true;
+                }
 
-            let frontStars = document.getElementById("front-stars");
-            frontStars.style.width = rating + "%";
+                let frontStars = document.getElementById("front-stars");
+                frontStars.style.width = rating + "%";
+            } else {
+                lockRating = false;
+            }
         });
 
     });

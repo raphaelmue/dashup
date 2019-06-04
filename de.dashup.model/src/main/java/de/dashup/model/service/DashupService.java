@@ -949,32 +949,29 @@ public class DashupService {
             widgets.add(widget);
         }
 
-        List<Widget> widgetFiltered = new ArrayList<>();
-            for (Widget widget : widgets) {
+        if (categoryItems != null) {
+            widgets.removeIf(widget -> !categoryItems.contains(widget.getCategory()));
+        }
 
-                User publisher = getUserById(widget.getPublisherId());
+        Iterator<Widget> publisherWidgetIterator = widgets.iterator();
+        if (publisherList != null) {
 
-                boolean validPublisher = false;
-                if (publisherList == null) {
-                    publisherList = new ArrayList<>();
-                }
+            publisherList.replaceAll(String::toLowerCase);
 
-                if (publisherList.size() == 0) {
-                    validPublisher = true;
-                }
+            while (publisherWidgetIterator.hasNext()) {
+                User publisher = getUserById(publisherWidgetIterator.next().getPublisherId());
 
-                if (publisherList.contains(publisher.getName()) || publisherList.contains(publisher.getSurname()) || publisherList.contains(publisher.getFullName())) {
-                    validPublisher = true;
-                }
+                String publisherName = publisher.getName().toLowerCase();
+                String publisherSurname = publisher.getSurname().toLowerCase();
+                String publisherFullName = publisher.getFullName().toLowerCase();
 
-                if (categoryItems == null && validPublisher) {
-                    widgetFiltered.add(widget);
-                }
-                if (categoryItems != null && categoryItems.contains(widget.getCategory()) && validPublisher) {
-                    widgetFiltered.add(widget);
+                if (!(publisherList.contains(publisherName) || publisherList.contains(publisherSurname) || publisherList.contains(publisherFullName))) {
+                    publisherWidgetIterator.remove();
                 }
             }
-            return widgetFiltered;
+        }
+
+        return widgets;
     }
 
     // --- TAGS --- \\
