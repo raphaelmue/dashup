@@ -126,6 +126,8 @@
         <jsp:include page="includes/filterModal.jsp">
             <jsp:param name="lang" value="${param.lang}"/>
             <jsp:param name="categories" value="${categories}"/>
+            <jsp:param name="tags" value="${tags}"/>
+            <jsp:param name="tags" value="${publisher}"/>
         </jsp:include>
 
     </body>

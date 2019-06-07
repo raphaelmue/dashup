@@ -32,7 +32,7 @@
                     <div class="col s8 m9 l9">
                         <div class="star-rating"
                              style="font-size: 25px; margin-top: 15px; color: var(--color-dark-gray);">
-                            <div class="back-stars star">
+                            <div class="back-stars star" fcate>
                                 <i id="i1" class="fa fa-star" aria-hidden="true"></i>
                                 <i id="i2" class="fa fa-star" aria-hidden="true"></i>
                                 <i id="i3" class="fa fa-star" aria-hidden="true"></i>
@@ -55,29 +55,13 @@
                     <div class="col s4 m3 l3">
                         <h6><fmt:message key="i18n.category"/></h6>
                     </div>
-                    <div class="col s8 m9 l9 valign-wrapper">
-                        <div id="chips-categories" class="col s8 chips chips-placeholder input-field">
-                            <input class="input" disabled placeholder=<fmt:message key="i18n.selectCategory"/>>
-                        </div>
-                        <div class="col s4 valign-wrapper">
-                            <div class="input-field">
-                                <label for="category-dropdown"></label><select name="size" id="category-dropdown">
-                                    <c:forEach items="${categories}" var="category">
-                                        <option value="${category.name}">
-                                            <fmt:message key="i18n.${category.name}"/></option>
-                                    </c:forEach>
-                                </select>
-                                <label><fmt:message key="i18n.category"/></label>
-                            </div>
-                            <a id="add-category-button" href="#" class="waves-effect waves-light">
-                                <i class="fas fa-plus"></i>
-                            </a>
+                    <div class="col s8 m9 l9">
+                        <div id="chips-categories" class="chips chips-autocomplete input-field">
                         </div>
                     </div>
                 </div>
 
                 <div class="row valign-wrapper">
-
                     <div class="col s4 m3 l3">
                         <h6><fmt:message key="i18n.publicationDate"/></h6>
                     </div>
@@ -95,8 +79,7 @@
                         <h6><fmt:message key="i18n.publisher"/></h6>
                     </div>
                     <div class="col s8 m9 l9">
-                        <div id="chips-publisher" class="col s12 chips chips-placeholder input-field">
-                            <input class="input" placeholder="<fmt:message key="i18n.enterPublisher"/>">
+                        <div id="chips-publisher" class="chips chips-autocomplete input-field">
                         </div>
                     </div>
                 </div>
@@ -114,6 +97,24 @@
     let rating = 0;
     let lockRating = false;
 
+    const categories = [
+        <c:forEach items="${categories}" var="category">
+        "${category.name}",
+        </c:forEach>
+    ];
+
+    const tags = [
+        <c:forEach items="${tags}" var="tag">
+        {name: "${tag.text}", id: ${tag.id}},
+        </c:forEach>
+    ];
+
+    const publisher = [
+        <c:forEach items="${publisher}" var="publisherItem">
+        "${publisherItem}",
+        </c:forEach>
+    ];
+
     $( document ).ready(function () {
 
         $('.chips').chips();
@@ -125,9 +126,64 @@
             secondaryPlaceholder: '+' + '<fmt:message key="i18n.publisher" />'
         });
 
-        $('#chips-categories').chips({
-            placeholder: '<fmt:message key="i18n.selectCategory" />',
-            secondaryPlaceholder: '+' + '<fmt:message key="i18n.category" />',
+        let categoryChips = M.Chips.init(document.getElementById("chips-categories"), {
+            autocompleteOptions: {
+                data: {
+                    <c:forEach items="${categories}" var="category">
+                    "${category.name}": null,
+                    </c:forEach>
+                },
+                limit: Infinity,
+                minLength: 1
+            },
+            placeholder: "<fmt:message key="i18n.enterCategory" />",
+            onChipAdd: function (element, chip) {
+                if (isValid($(chip).text().substr(0, $(chip).text().length - 5), categories) !== null) {
+                    replaceCloseIconOfTags();
+                    return true;
+                }
+                $(chip).remove();
+            }
+        });
+
+        let tagsChips = M.Chips.init(document.getElementById("chips-tags"), {
+            autocompleteOptions: {
+                data: {
+                    <c:forEach items="${tags}" var="tag">
+                    "${tag.text}": null,
+                    </c:forEach>
+                },
+                limit: Infinity,
+                minLength: 1
+            },
+            placeholder: "<fmt:message key="i18n.enterTags" />",
+            onChipAdd: function (element, chip) {
+                if (isValid($(chip).text().substr(0, $(chip).text().length - 5), tags) !== false) {
+                    replaceCloseIconOfTags();
+                    return true;
+                }
+                $(chip).remove();
+            },
+        });
+
+        M.Chips.init(document.getElementById("chips-publisher"), {
+            autocompleteOptions: {
+                data: {
+                    <c:forEach items="${publisher}" var="publisherItem">
+                    "${publisherItem}": null,
+                    </c:forEach>
+                },
+                limit: Infinity,
+                minLength: 1
+            },
+            placeholder: "<fmt:message key="i18n.enterPublisher" />",
+            onChipAdd: function (element, chip) {
+                if (isValid($(chip).text().substr(0, $(chip).text().length - 5), publisher) !== false) {
+                    replaceCloseIconOfTags();
+                    return true;
+                }
+                $(chip).remove();
+            },
         });
 
         $("#add-category-button").on("click", function () {
@@ -188,4 +244,19 @@
         categories.forEach(category => url+="&categories=" + category.tag);
         window.location = url;
     }
+
+    function isValid(itemName, itemList) {
+        let result = null;
+        itemList.forEach(item => {
+            if (item === itemName) {
+                result = item;
+            }
+        });
+        return result;
+    }
+
+    function replaceCloseIconOfTags() {
+        $(".material-icons.close").addClass("fas fa-times").html("");
+    }
+
 </script>

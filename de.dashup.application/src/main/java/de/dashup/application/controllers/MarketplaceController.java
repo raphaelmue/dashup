@@ -29,6 +29,7 @@ public class MarketplaceController {
             model.addAttribute("bestRated", DashupService.getInstance().getTopWidgets("avg_of_ratings"));
             model.addAttribute("mostDownloaded", DashupService.getInstance().getTopWidgets("number_of_downloads"));
             model.addAttribute("categories", Widget.Category.values());
+            model.addAttribute("tags", DashupService.getInstance().getAllTags());
         });
     }
 
@@ -46,6 +47,8 @@ public class MarketplaceController {
             user = DashupService.getInstance().getSectionsAndPanels(user);
             model.addAttribute("sections", user.getSections());
             model.addAttribute("categories", Widget.Category.values());
+            model.addAttribute("tags", DashupService.getInstance().getAllTags());
+            model.addAttribute("publisher", DashupService.getInstance().getAllPublisher());
         });
 
     }

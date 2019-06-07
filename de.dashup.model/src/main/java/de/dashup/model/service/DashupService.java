@@ -854,6 +854,19 @@ public class DashupService {
         }
     }
 
+    public List<String> getAllPublisher() throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("visibility", true);
+
+        List<String> publisherList = new ArrayList<>();
+        for (DatabaseObject databaseObject : this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters)) {
+            Widget widget = new Widget().fromDatabaseObject(databaseObject);
+            String publisher = getUserById(widget.getPublisherId()).getFullName();
+            publisherList.add(publisher);
+        }
+        return publisherList;
+
+    }
 
     // --- WIDGETS --- \\
     public List<Widget> getUsersWidgets(User user) throws SQLException {
@@ -884,11 +897,13 @@ public class DashupService {
 
     public List<Widget> findWidgetByName(String name, String date, String rating, List<String> categories, List<String> publisherList) throws SQLException{
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("name", "%" + name + "%");
+        whereParameters.put("visibility",1);
 
         Map<String, Object> operators = new HashMap<>();
-
         operators.put("name","LIKE");
+
+        whereParameters.put("name", "%" + name + "%");
+        operators.put("visibility", "=");
 
         if(date!=null){
             whereParameters.put("publication_date",date);
@@ -917,6 +932,9 @@ public class DashupService {
 
         Map<String, Object> operators = new HashMap<>();
         operators.put(Database.Table.PANELS.toString() + ".name","LIKE");
+
+        whereParameters.put("visibility",1);
+        operators.put("visibility", "=");
 
         if(date!=null){
             whereParameters.put(Database.Table.PANELS.toString() + ".publication_date",date);
