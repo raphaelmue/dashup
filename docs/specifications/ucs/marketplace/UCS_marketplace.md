@@ -54,7 +54,7 @@ dashboard.
 <br />
 <img src="./mockups/overview.png" alt="overview" />
 <br />
-<img src="./mockups/rating.png" alt="rating" />
+<img src="./mockups/ratingValue.png" alt="ratingValue" />
 <br />
 <img src="./mockups/comment.png" alt="comment" />
 <br />

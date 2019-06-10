@@ -26,15 +26,15 @@ public class Database {
 
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 
-    private static String HOST;
-    private static DatabaseName DB_NAME;
+    private static String host;
+    private static DatabaseName databaseName;
 
-    private static String DB_USER;
-    private static String DB_PASSWORD;
+    private static String user;
+    private static String password;
 
     private Connection connection;
 
-    private static Database INSTANCE = null;
+    private static Database instance = null;
 
     public enum Table {
         USERS("users"),
@@ -104,20 +104,20 @@ public class Database {
             // loading database driver
             Class.forName(JDBC_DRIVER);
 
-            if (HOST == null) {
+            if (host == null) {
                 throw new IllegalArgumentException("Database: No host is defined!");
             }
 
-            if (DB_USER == null || DB_PASSWORD == null) {
+            if (user == null || password == null) {
                 throw new IllegalArgumentException("Database: No user or password is defined!");
             }
 
             // initializing DB access
 
-            this.connection = DriverManager.getConnection("jdbc:mysql://" + HOST + ":3306/" + DB_NAME.getName() +
+            this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":3306/" + databaseName.getName() +
                             "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" +
                             "serverTimezone=UTC&autoReconnect=true",
-                    DB_USER, DB_PASSWORD);
+                    user, password);
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -131,15 +131,15 @@ public class Database {
      */
     public static void setHost(boolean local) {
         if (local) {
-            HOST = "localhost";
-            DB_USER = "root";
-            DB_PASSWORD = "";
+            host = "localhost";
+            user = "root";
+            password = "";
         } else {
             try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(
                     Database.class.getResourceAsStream("config/database.conf")))) {
-                HOST = fileReader.readLine();
-                DB_USER = fileReader.readLine();
-                DB_PASSWORD = fileReader.readLine();
+                host = fileReader.readLine();
+                user = fileReader.readLine();
+                password = fileReader.readLine();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -151,8 +151,8 @@ public class Database {
      *
      * @param databaseName DatabaseName Object
      */
-    public static void setDbName(DatabaseName databaseName) {
-        DB_NAME = databaseName;
+    public static void setDatabaseName(DatabaseName databaseName) {
+        Database.databaseName = databaseName;
     }
 
     /**
@@ -161,10 +161,10 @@ public class Database {
      * @return database object
      */
     public static Database getInstance() throws SQLException {
-        if (INSTANCE == null) {
-            INSTANCE = new Database();
+        if (instance == null) {
+            instance = new Database();
         }
-        return INSTANCE;
+        return instance;
     }
 
     /**
@@ -185,11 +185,11 @@ public class Database {
     /**
      * @see Database#getObject(Table, Type, Map, String)
      */
-    public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters) throws SQLException, JsonParseException {
+    public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters) throws SQLException {
         return this.getObject(table, resultType, whereParameters, null);
     }
 
-    public List<? extends DatabaseObject> getObject(Table table, Table joinOn, Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters, String orderByClause) throws SQLException, JsonParseException {
+    public List<? extends DatabaseObject> getObject(Table table, Table joinOn, Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters, String orderByClause) throws SQLException {
         Gson gson = new GsonBuilder().create();
         JSONArray jsonArray;
         if (joinOn == null && onParameters == null) {
@@ -211,7 +211,6 @@ public class Database {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             result.add(gson.fromJson(jsonObject.toString(), resultType));
         }
-
         return result;
     }
 
@@ -263,8 +262,6 @@ public class Database {
      * @return JSONArray that contains
      * @throws SQLException thrown, when something went wrong executing the SQL statement
      */
-    // TODO select specific fields
-    // TODO escape strings
     public JSONArray get(Table tableName, Map<String, Object> whereParameters, String orderByClause) throws SQLException {
         PreparedStatement statement;
         String query = "SELECT * FROM " + tableName.getTableName() +
@@ -278,8 +275,6 @@ public class Database {
         ResultSet result = statement.executeQuery();
         return Converter.convertResultSetIntoJSON(result);
     }
-
-
 
     /**
      * Inserts one data row into database.
@@ -351,7 +346,7 @@ public class Database {
      * @throws SQLException thrown, when something went wrong executing the SQL statement
      */
     public void clearDatabase() throws SQLException {
-        if (DB_NAME == DatabaseName.TEST || DB_NAME == DatabaseName.JENKINS) {
+        if (databaseName == DatabaseName.TEST || databaseName == DatabaseName.JENKINS) {
             this.connection.prepareStatement("SET FOREIGN_KEY_CHECKS = 0").execute();
             for (Table table : Table.values()) {
                 this.connection.prepareStatement("TRUNCATE TABLE " + table.getTableName()).execute();

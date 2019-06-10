@@ -27,17 +27,17 @@
     </dashup-radio-button-group>
     <dashup-button text="Add"
                    mode="add"
-                   dataAPI="http://localhost:9004/loadFinanceChart"
-                   storageAPI="http://localhost:9004/financeChart"
-                   consumers='[{"chart": ""},{"chart": "apiData chart"}]'
+                   dataAPI="http://dashup.de/loadFinanceChart"
+                   storageAPI="http://dashup.de/financeChart"
+                   consumers='[{"chart": "apiData chart"},{"chart": ""}]'
                    producers="amount category"
                    layout='{"row": 3, "offset": 0, "size": 5}'
                    handleOnStart>
     </dashup-button>
     <dashup-button text="Delete"
                    mode="delete"
-                   storageAPI="http://localhost:9004/financeChart"
-                   consumers='[{"chart": ""},{"chart": "apiData chart"}]'
+                   storageAPI="http://dashup.de/financeChart"
+                   consumers='[{"chart": "apiData chart"},{"chart": ""}]'
                    producers="chart"
                    layout='{"row": 3, "offset": 2, "size": 5}'>
     </dashup-button>

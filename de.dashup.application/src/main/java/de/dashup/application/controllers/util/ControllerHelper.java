@@ -11,6 +11,10 @@ import java.util.Locale;
 
 public class ControllerHelper {
 
+    private ControllerHelper() {
+        super();
+    }
+
     public static String defaultMapping(String token, HttpServletRequest request, Model model, String viewName, ControllerAction<User> action) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {

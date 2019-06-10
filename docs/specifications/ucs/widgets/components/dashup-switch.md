@@ -1,26 +1,27 @@
-# API Reference: DashupSwitch - V1.0
+# API Reference: DashupSwitch - V1.1
 
 ## Inheritance
 
 Inherits from [DashupComponent](dashup-component.md).
 
-##Properties
-**ValueRight**
+## Properties
+
+**valueRight**
     
         Type: String
         Description: Text of the value at the right side of the switch
         
-**ValueLeft**
+**valueLeft**
     
         Type: String
         Description: Text of the value at the left side of the switch
 
-**Active**
+**active**
     
         Type: Boolean
         Description: True if switch is active
         
-**Disabled**
+**disabled**
 
         Type: Boolean
         Description: Make the switch not clickable

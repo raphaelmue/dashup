@@ -27,6 +27,7 @@ public class ChangeLayoutStepDefinitions {
         WebElement header = driver.findElement(By.id("header-layout"));
         header.click();
         WebElement input = header.findElement(By.xpath("//input[@class=\"select-dropdown dropdown-trigger\"]"));
+
         Thread.sleep(1000);
         input.click();
         WebElement selectedTheme = input.findElement(By.xpath("//span[text()='" + newTheme + "']"));

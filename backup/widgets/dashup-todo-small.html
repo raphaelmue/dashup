@@ -6,9 +6,9 @@
     </dashup-text-input>
     <dashup-button text="Add"
                    mode="add"
-                   dataAPI="http://localhost:9004/loadTodo"
-                   storageAPI="http://localhost:9004/todo"
-                   consumers='{"list": "todo", "list": "apiData list"}'
+                   dataAPI="http://dashup.de/loadTodo"
+                   storageAPI="http://dashup.de/todo"
+                   consumers='[{"list": "todo"}, {"list": "apiData list"}]'
                    producers="todo"
                    layout='{"row": 1, "offset": 1, "size": 3}'
                    handleOnStart>
@@ -19,8 +19,8 @@
     </dashup-list>
     <dashup-button text="Delete"
                    mode="delete"
-                   storageAPI="http://localhost:9004/todo"
-                   consumers='{"list": "list"}'
+                   storageAPI="http://dashup.de/todo"
+                   consumers='[{"list": "list"}]'
                    producers="list"
                    layout='{"row": 3, "offset": 0, "size": 12}'>
     </dashup-button>

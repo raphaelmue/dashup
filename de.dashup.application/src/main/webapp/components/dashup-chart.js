@@ -167,7 +167,7 @@ export class DashupChart extends DashupComponent {
         return {
             title: {type: String},
             category: {type: String},
-            data: {type: Array}
+            data: {type: Array, attribute: false}
         };
     }
 
@@ -192,6 +192,8 @@ export class DashupChart extends DashupComponent {
                         }).forEach(element => this.data.push(element));
                         this.requestUpdate();
                     } else {
+                        if(!values[0])
+                            return;
                         let position = -1;
                         this.data.find((element, index) => {
                             if(element.category === values[1]){
@@ -203,9 +205,7 @@ export class DashupChart extends DashupComponent {
                         if(position >= 0){
                             this.data[position] = {"category": values[1], "value": Number(this.data[position].value) + Number(values[0])}
                         } else {
-                            if(values[0]){
-                                this.data.push({"category": values[1], "value": Number(values[0])});
-                            }
+                            this.data.push({"category": values[1], "value": Number(values[0])});
                         }
                     }
                      break;

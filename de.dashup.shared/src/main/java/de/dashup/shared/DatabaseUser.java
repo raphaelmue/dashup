@@ -12,7 +12,10 @@ public class DatabaseUser implements Serializable, DatabaseObject {
     private String email;
     @SerializedName("user_name")
     private String userName;
-    private String name, surname, password, salt;
+    private String name;
+    private String surname;
+    private String password;
+    private String salt;
     @SerializedName("birth_date")
     private String birthDate;
     private String company, bio;

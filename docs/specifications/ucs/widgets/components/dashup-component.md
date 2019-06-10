@@ -1,15 +1,16 @@
-# API Reference: DashupComponent - V1.0
+# API Reference: DashupComponent - V1.1
 
 ## Inheritance
 N.A.
 
-##Properties
-**Name**
+## Properties
+
+**name**
         
         Type: String
         Description: Unique name of the component
         
-**Layout**
+**layout**
 
         Type: Object
         Description: Describes where the component should be places inside the widget
