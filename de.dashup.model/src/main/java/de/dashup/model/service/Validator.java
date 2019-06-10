@@ -13,17 +13,19 @@ public class Validator {
 
     static {
         whitelist = new Whitelist();
-        whitelist.addAttributes("dashup-button", "name", "text", "mode", "api", "params", "consumers", "producers", "disabled");
-        whitelist.addAttributes("dashup-chart", "name", "title", "category", "data");
-        whitelist.addAttributes("dashup-checkbox", "name", "value", "checked", "disabled");
-        whitelist.addAttributes("dashup-component", "name");
-        whitelist.addAttributes("dashup-display", "name", "label", "displayedText", "quantity");
-        whitelist.addAttributes("dashup-grid-layout", "name");
-        whitelist.addAttributes("dashup-list", "name", "selectable");
-        whitelist.addAttributes("dashup-radio-button-group", "name", "value");
-        whitelist.addAttributes("dashup-radio-button", "name", "group", "value", "checked", "disabled");
-        whitelist.addAttributes("dashup-switch", "name", "valueRight", "valueLeft", "active", "disabled");
-        whitelist.addAttributes("dashup-text-input", "name", "value", "placeholder", "disabled");
+        whitelist.addAttributes("dashup-button", "name", "layout", "text", "disabled", "handleOnStart",
+                                                     "mode", "dataAPI", "storageAPI", "params", "consumers", "producers");
+        whitelist.addAttributes("dashup-chart", "name", "layout", "title", "category");
+        whitelist.addAttributes("dashup-checkbox", "name", "layout", "value", "checked", "disabled");
+        whitelist.addAttributes("dashup-clock");
+        whitelist.addAttributes("dashup-component", "name", "layout");
+        whitelist.addAttributes("dashup-display", "name", "layout", "label", "displayedText", "quantity");
+        whitelist.addAttributes("dashup-grid-layout", "name", "layout");
+        whitelist.addAttributes("dashup-list", "name", "layout", "items", "selectable");
+        whitelist.addAttributes("dashup-radio-button-group", "name", "layout", "value");
+        whitelist.addAttributes("dashup-radio-button", "name", "layout", "group", "value", "checked", "disabled");
+        whitelist.addAttributes("dashup-switch", "name", "layout", "valueRight", "valueLeft", "active", "disabled");
+        whitelist.addAttributes("dashup-text-input", "name", "layout", "value", "placeholder", "disabled", "clear");
     }
 
     public static boolean validateWidget(Widget widget) {

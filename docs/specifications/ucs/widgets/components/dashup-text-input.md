@@ -4,7 +4,7 @@
 
 Inherits from [DashupComponent](dashup-component.md).
 
-##Properties
+## Properties
 
 **value**
     
