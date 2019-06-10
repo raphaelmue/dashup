@@ -44,7 +44,7 @@ public class DashupController {
         });
     }
 
-    @PostMapping(value = "/handleLogout")
+    @GetMapping(value = "/handleLogout")
     public String handleLogout(@CookieValue(name = "token", required = false) String token,
                                HttpServletRequest request, HttpServletResponse response) {
         this.localStorage.writeObjectToSession(request, "user", null);

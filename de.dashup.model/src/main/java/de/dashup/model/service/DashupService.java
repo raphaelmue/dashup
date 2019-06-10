@@ -673,10 +673,12 @@ public class DashupService {
         Map<String, Object> values = new HashMap<>();
         values.put("user_id", user.getId());
         this.database.delete(Database.Table.FINANCES, values);
-        for (SpendingChart spending : chart.getChart()) {
-            values.put("category", spending.getCategory());
-            values.put("value", spending.getValue());
-            this.database.insert(Database.Table.FINANCES, values);
+        if(chart.getChart() != null) {
+            for (SpendingChart spending : chart.getChart()) {
+                values.put("category", spending.getCategory());
+                values.put("value", spending.getValue());
+                this.database.insert(Database.Table.FINANCES, values);
+            }
         }
     }
 

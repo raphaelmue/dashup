@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Section implements DatabaseObject, Comparable<Section> {
     @SerializedName("id")
     private int id;
-    @SerializedName("sectionName")
+    @SerializedName("section_name")
     private String sectionName;
     @SerializedName("section_index")
     private int index;
