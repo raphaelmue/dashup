@@ -17,7 +17,7 @@ public class Validator {
                                                      "mode", "dataAPI", "storageAPI", "params", "consumers", "producers");
         whitelist.addAttributes("dashup-chart", "name", "layout", "title", "category");
         whitelist.addAttributes("dashup-checkbox", "name", "layout", "value", "checked", "disabled");
-        whitelist.addAttributes("dashup-clock");
+        whitelist.addAttributes("dashup-clock", "name", "layout");
         whitelist.addAttributes("dashup-component", "name", "layout");
         whitelist.addAttributes("dashup-display", "name", "layout", "label", "displayedText", "quantity");
         whitelist.addAttributes("dashup-grid-layout", "name", "layout");
