@@ -8,10 +8,7 @@ import de.dashup.shared.Settings;
 import de.dashup.shared.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
@@ -22,7 +19,7 @@ import java.util.Locale;
 @RequestMapping(value = "/settings")
 public class SettingsController {
 
-    @RequestMapping(value = "/")
+    @GetMapping(value = "/")
     public String settings(@CookieValue(name = "token", required = false) String token,
                            HttpServletRequest request, Model model) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "settings", user -> {
@@ -38,7 +35,7 @@ public class SettingsController {
         });
     }
 
-    @RequestMapping(value = "/changeEmail")
+    @PostMapping(value = "/changeEmail")
     public String handleChangeEmail(@CookieValue(name = "token", required = false) String token,
                                     @RequestParam(value = "email") String email,
                                     HttpServletRequest request) throws SQLException {
@@ -59,10 +56,10 @@ public class SettingsController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/changeUserName")
+    @PostMapping(value = "/changeUserName")
     public String handleChangeUserName(@CookieValue(name = "token", required = false) String token,
-                                    @RequestParam(value = "userName") String userName,
-                                    HttpServletRequest request) throws SQLException {
+                                       @RequestParam(value = "userName") String userName,
+                                       HttpServletRequest request) throws SQLException {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             try {
@@ -78,7 +75,7 @@ public class SettingsController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/changeLanguage")
+    @PostMapping(value = "/changeLanguage")
     public String handleChangeLanguage(@CookieValue(name = "token", required = false) String token,
                                        @RequestParam(value = "lang") String lang,
                                        HttpServletRequest request) throws SQLException {
@@ -92,7 +89,7 @@ public class SettingsController {
         return "redirect:/settings/#changedLanguage";
     }
 
-    @RequestMapping(value = "/changePassword")
+    @PostMapping(value = "/changePassword")
     public String handleChangePassword(@CookieValue(name = "token", required = false) String token,
                                        @RequestParam(name = "oldPassword") String oldPassword,
                                        @RequestParam(name = "newPassword") String newPassword,
@@ -109,7 +106,7 @@ public class SettingsController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/changeLayout", method = RequestMethod.POST)
+    @PostMapping(value = "/changeLayout")
     public String handleLayout(@CookieValue(name = "token", required = false) String token,
                                @RequestParam("theme") String theme,
                                @RequestParam("backgroundImage") String backgroundImage,
@@ -124,7 +121,7 @@ public class SettingsController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/changePersonalInfo", method = RequestMethod.POST)
+    @PostMapping(value = "/changePersonalInfo")
     public String handlePersonalInfo(@CookieValue(name = "token", required = false) String token,
                                      @RequestParam("name") String name,
                                      @RequestParam("surname") String surname,

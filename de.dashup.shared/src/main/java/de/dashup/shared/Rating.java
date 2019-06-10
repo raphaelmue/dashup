@@ -8,7 +8,8 @@ public class Rating implements DatabaseObject {
     private int userId;
     @SerializedName("panel_id")
     private int panelId;
-    private int rating;
+    @SerializedName("rating")
+    private int ratingValue;
     private String title;
     private String text;
     @SerializedName("changed_on")
@@ -17,6 +18,7 @@ public class Rating implements DatabaseObject {
     private String userName;
 
     public Rating() {
+        super();
     }
 
     public int getId() {
@@ -55,12 +57,12 @@ public class Rating implements DatabaseObject {
         this.userName = userName;
     }
 
-    public int getRating() {
-        return rating;
+    public int getRatingValue() {
+        return ratingValue;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
+    public void setRatingValue(int ratingValue) {
+        this.ratingValue = ratingValue;
     }
 
     public String getUsername() {

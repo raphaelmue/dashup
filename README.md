@@ -15,3 +15,20 @@ at the beginning, they can later enhance their central dashboard with further wi
 there should be the possibility to integrate self-developed widgets consuming external APIs to visualize data in 
 order to make precise predictions and planning. Dashup is therefore considered to be a productivity tool, running as a 
 web application on modern browsers.
+
+## Installation
+
+To install or deploy our application on your server, you need to do the following steps:
+
+1. Clone our repository.
+1. Install MySQL and import the mysql scheme from [here](https://github.com/raphaelmue/dashup/tree/master/docs/architectures/database/dashup_prod.sql).
+1. Create a file called database.conf and copy it into `./de.dashup.model/src/main/resources/de/dashup/model/db/config`. This file must contain the following information separated by lines:
+    1. Host name of database
+    1. User to access database
+    1. Password to access database
+1. Install Java 11.
+1. Install Maven 3.6.1.
+1. Run `mvn clean install -DskipTests` to compile the application.
+1. You can start the application by executing `bash service/restart-application.sh`.
+
+Now you're ready to take full advantage of our application!
