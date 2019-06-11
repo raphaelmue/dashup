@@ -1,11 +1,12 @@
-# API Reference: DashupGridLayout - V1.0
+# API Reference: DashupGridLayout - V1.1
 
 ## Inheritance
 
 Inherits from [DashupComponent](dashup-component.md).
 
-##Properties
-**Elements**
+## Properties
+
+**elements**
     
         Type: Array (Set through child elements)
         Description: Stores the child elements of a grid layout, i.e. the components to put into the layout

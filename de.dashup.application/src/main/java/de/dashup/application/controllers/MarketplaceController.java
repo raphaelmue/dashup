@@ -7,19 +7,16 @@ import de.dashup.shared.layout.Widget;
 import de.dashup.shared.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
 @Controller
-@RequestMapping("/marketplace")
+@RequestMapping(value = "/marketplace")
 public class MarketplaceController {
 
-    @RequestMapping("/")
+    @GetMapping(value = "/")
     public String marketplace(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "marketplace", user -> {
             model.addAttribute("carouselWidget", DashupService.getInstance().getPanelById(1));
@@ -30,14 +27,14 @@ public class MarketplaceController {
         });
     }
 
-    @RequestMapping("/search")
+    @PostMapping(value = "/search")
     public String searchMarketplace(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "marketplaceSearchResult", user -> {
             // tbd
         });
     }
 
-    @RequestMapping("/detailView/{widgetId}")
+    @GetMapping(value = "/detailView/{widgetId}")
     public String detailView(@CookieValue(name = "token", required = false) String token, @PathVariable(value = "widgetId") int widgetID, Model model, HttpServletRequest request) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "panelDetailView", user -> {
             Widget widget = DashupService.getInstance().getPanelById(widgetID);
@@ -52,7 +49,7 @@ public class MarketplaceController {
         });
     }
 
-    @RequestMapping("/detailView/{widgetId}/addRating")
+    @PostMapping(value = "/detailView/{widgetId}/addRating")
     public String addRating(@CookieValue(name = "token", required = false) String token, HttpServletRequest request,
                             @PathVariable(value = "widgetId") int widgetId,
                             @RequestParam("title") String title,
@@ -70,7 +67,7 @@ public class MarketplaceController {
         return "redirect:/login";
     }
 
-    @RequestMapping("/detailView/{widgetId}/addWidgetToPersonalDashup")
+    @PostMapping(value = "/detailView/{widgetId}/addWidgetToPersonalDashup")
     public String addWidget(@CookieValue(name = "token", required = false) String token, HttpServletRequest request,
                             @PathVariable(value = "widgetId") int widgetId,
                             @RequestParam("sectionId") int sectionId,

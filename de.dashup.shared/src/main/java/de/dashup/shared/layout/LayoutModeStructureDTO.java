@@ -1,7 +1,5 @@
 package de.dashup.shared.layout;
 
-import de.dashup.shared.layout.LayoutModeSectionDTO;
-
 import java.util.List;
 
 @SuppressWarnings("unused")

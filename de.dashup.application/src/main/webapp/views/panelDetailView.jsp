@@ -35,15 +35,15 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col m12">
-                            <div class="star-rating">
+                        <div class="col m3">
+                            <div class="star-ratingValue">
                                 <div class="back-stars">
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                     <i class="fa fa-star" aria-hidden="true"></i>
-                                    <div class="front-stars" style="width:  ${fn:escapeXml(widget.averageRating)}%">
+                                    <div class="front-stars" style="width:  ${fn:escapeXml(widget.averageRating)}%;">
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -124,14 +124,14 @@
                     <div id="ratings-tab" class="col s12 l12 m12">
                         <div class="row" style="margin-top: 10px;">
                             <ul class="collection">
-                                <c:forEach items="${ratings}" var="rating">
+                                <c:forEach items="${ratings}" var="ratingValue">
                                     <li class="collection-item">
                                         <div class="row" style="margin-bottom: 0px">
                                             <div class="col m4">
-                                                <h5>${fn:escapeXml(rating.title)}</h5>
+                                                <h5>${fn:escapeXml(ratingValue.title)}</h5>
                                             </div>
                                             <div class="col m2 offset-m6">
-                                                <div class="star-rating" style="font-size: 25px; margin-top: 15px;">
+                                                <div class="star-ratingValue" style="font-size: 25px; margin-top: 15px;">
                                                     <div class="back-stars">
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -139,7 +139,7 @@
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <div class="front-stars"
-                                                             style="width:  ${fn:escapeXml(rating.rating)}%;">
+                                                             style="width:  ${fn:escapeXml(ratingValue.ratingValue)}%;">
                                                             <i class="fa fa-star" aria-hidden="true"></i>
                                                             <i class="fa fa-star" aria-hidden="true"></i>
                                                             <i class="fa fa-star" aria-hidden="true"></i>
@@ -151,11 +151,11 @@
                                             </div>
                                         </div>
                                         <div class="row" style="font-size: 15px; margin-left: 3px">
-                                            By ${fn:escapeXml(rating.userName)} ${fn:escapeXml(rating.userSurname)}, Last
-                                            changed on ${fn:escapeXml(rating.changeDate)}
+                                            By ${fn:escapeXml(ratingValue.userName)}, Last
+                                            changed on ${fn:escapeXml(ratingValue.changeDate)}
                                         </div>
                                         <div class="row" style="margin-left: 3px">
-                                                ${fn:escapeXml(rating.text)}
+                                                ${fn:escapeXml(ratingValue.text)}
                                         </div>
                                     </li>
                                 </c:forEach>
@@ -226,8 +226,8 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m12" style="margin-top: 0">
-                        <input id="text-field-title-new-rating" name="title" type="text" class="validate"/>
-                        <label for="text-field-title-new-rating"><fmt:message key="i18n.title"/></label>
+                        <input id="text-field-title-new-ratingValue" name="title" type="text" class="validate"/>
+                        <label for="text-field-title-new-ratingValue"><fmt:message key="i18n.title"/></label>
                     </div>
                 </div>
                 <div class="row">
@@ -238,14 +238,14 @@
                 </div>
                 <div class="row">
                     <div class="col m3">
-                        <div class="star-rating" style="margin-top: 10px">
-                            <div id="star-rating-new-comment" class="back-stars">
+                        <div class="star-ratingValue" style="margin-top: 10px">
+                            <div id="star-ratingValue-new-comment" class="back-stars">
                                 <i class="fa fa-star" aria-hidden="true"></i>
                                 <i class="fa fa-star" aria-hidden="true"></i>
                                 <i class="fa fa-star" aria-hidden="true"></i>
                                 <i class="fa fa-star" aria-hidden="true"></i>
                                 <i class="fa fa-star" aria-hidden="true"></i>
-                                <div id="star-rating-new-comment-front" class="front-stars" style="width: 0">
+                                <div id="star-ratingValue-new-comment-front" class="front-stars" style="width: 0">
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                     <i class="fa fa-star" aria-hidden="true"></i>
@@ -260,7 +260,7 @@
                     <div class="col m2" style="margin-top: 10px; font-size: 16px">
                         <p>
                             <fmt:message key="i18n.yourRating"/>:
-                            <span id="label-percentage-value-new-rating" style="color: var(--color-dark-gray)">0%</span>
+                            <span id="label-percentage-value-new-ratingValue" style="color: var(--color-dark-gray)">0%</span>
                         </p>
                     </div>
                 </div>
@@ -330,29 +330,29 @@
                 addCommentForPanelDialog.open();
             });
 
-            //star rating for new comment
-            $('#star-rating-new-comment').on('mousemove', function(e){
+            //star ratingValue for new comment
+            $('#star-ratingValue-new-comment').on('mousemove', function(e){
                 if (starsAreMovable) {
-                    let offset = $('#star-rating-new-comment').offset();
-                    currentRatingPercentage = (e.pageX - offset.left) / $('#star-rating-new-comment').width() * 100;
+                    let offset = $('#star-ratingValue-new-comment').offset();
+                    currentRatingPercentage = (e.pageX - offset.left) / $('#star-ratingValue-new-comment').width() * 100;
 
-                    $('#star-rating-new-comment-front').css('width', currentRatingPercentage + '%');
-                    $('#label-percentage-value-new-rating').html(Math.round(currentRatingPercentage)+'%');
+                    $('#star-ratingValue-new-comment-front').css('width', currentRatingPercentage + '%');
+                    $('#label-percentage-value-new-ratingValue').html(Math.round(currentRatingPercentage)+'%');
                 }
             });
 
-            $('#star-rating-new-comment').on('click',function () {
+            $('#star-ratingValue-new-comment').on('click',function () {
                 starsAreMovable = !starsAreMovable;
             });
 
             $('#btn-submit-comment').on('click',function () {
-                let title = $('#text-field-title-new-rating').val();
+                let title = $('#text-field-title-new-ratingValue').val();
                 let text = $('#text-field-add-new-comment').val();
                 if (title !== '' && text !== '') {
                     PostRequest.getInstance().make("marketplace/detailView/${fn:escapeXml(widget.id)}/addRating", {
                         title: title,
                         text: text,
-                        rating: Math.round(currentRatingPercentage),
+                        ratingValue: Math.round(currentRatingPercentage),
                     });
                 }
             });

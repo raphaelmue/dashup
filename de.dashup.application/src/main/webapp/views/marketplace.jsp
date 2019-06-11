@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="row" style="margin: 0 auto; width: 164px">
                                     <div class="col">
-                                        <div class="star-rating" style="font-size: 25px; margin-top: 15px; color: var(--color-dark-gray);">
+                                        <div class="star-ratingValue" style="font-size: 25px; margin-top: 15px; color: var(--color-dark-gray);">
                                             <div class="back-stars">
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -82,7 +82,7 @@
                                 <div class="row">
                                     <div class="col" style="text-align: center; width: 100%;">
                                         <p>"${fn:escapeXml(mapEntry.value.text)}"</p>
-                                        <p>By ${fn:escapeXml(mapEntry.value.userName)} ${fn:escapeXml(mapEntry.value.userSurname)}</p>
+                                        <p>By ${fn:escapeXml(mapEntry.value.userName)}</p>
                                     </div>
                                 </div>
                             </div>

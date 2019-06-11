@@ -23,13 +23,13 @@ public class DashupService {
     private Database database;
     private final RandomString randomString = new RandomString();
 
-    private static DashupService INSTANCE;
+    private static DashupService instance;
 
     public static DashupService getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new DashupService();
+        if (instance == null) {
+            instance = new DashupService();
         }
-        return INSTANCE;
+        return instance;
     }
 
     private DashupService() {
@@ -54,7 +54,7 @@ public class DashupService {
 
         List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters);
         if (result != null && result.size() == 1) {
-            User user = (User) new User().fromDatabaseObject(result.get(0));
+            User user = new User().fromDatabaseObject(result.get(0));
             user = this.getSectionsAndPanels(user);
             String hashedPassword = Hash.create(password, user.getSalt());
             if (hashedPassword.equals(user.getPassword())) {
@@ -317,7 +317,7 @@ public class DashupService {
         Map<String, String> onParameters = new HashMap<>();
         onParameters.put("user_id", "id");
         List<? extends DatabaseObject> result = database.getObject(Database.Table.RATINGS, Database.Table.USERS, Rating.class, onParameters, whereParameters, "rating DESC");
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return (Rating) result.get(0);
         } else {
             return new Rating();
@@ -410,7 +410,7 @@ public class DashupService {
         if (result != null && result.length() > 0) {
             whereParameters.clear();
             whereParameters.put("id", result.getJSONObject(0).get("user_id"));
-            User user = (User) new User().fromDatabaseObject(
+            User user = new User().fromDatabaseObject(
                     this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters).get(0));
             user.setToken(token);
 
@@ -423,8 +423,7 @@ public class DashupService {
     public User getUserById(int userId) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", userId);
-        User user = new User().fromDatabaseObject(this.database.getObject(Database.Table.USERS, User.class, whereParameters).get(0));
-        return user;
+        return new User().fromDatabaseObject(this.database.getObject(Database.Table.USERS, User.class, whereParameters).get(0));
     }
 
     public Settings getSettingsOfUser(User user) throws SQLException {
@@ -717,10 +716,12 @@ public class DashupService {
         Map<String, Object> values = new HashMap<>();
         values.put("user_id", user.getId());
         this.database.delete(Database.Table.FINANCES, values);
-        for (SpendingChart spending : chart.getChart()) {
-            values.put("category", spending.getCategory());
-            values.put("value", spending.getValue());
-            this.database.insert(Database.Table.FINANCES, values);
+        if(chart.getChart() != null) {
+            for (SpendingChart spending : chart.getChart()) {
+                values.put("category", spending.getCategory());
+                values.put("value", spending.getValue());
+                this.database.insert(Database.Table.FINANCES, values);
+            }
         }
     }
 
@@ -882,7 +883,7 @@ public class DashupService {
         whereParameters.put("id", draftId);
 
         List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters);
-        if (result != null && result.size() > 0) {
+        if (result != null && !result.isEmpty()) {
             Draft draft = new Draft().fromDatabaseObject(result.get(0));
             checkWidget(draft);
 
@@ -919,7 +920,7 @@ public class DashupService {
         whereParameters.put("user_id", user.getId());
 
         List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, Widget.class, whereParameters);
-        if (result != null && result.size() > 0) {
+        if (result != null && !result.isEmpty()) {
             return new Widget().fromDatabaseObject(result.get(0));
         }
         return null;
@@ -966,7 +967,7 @@ public class DashupService {
         }
         newTags.removeAll(tagsToDelete);
         widget.getTags().removeAll(tagsToDelete);
-        if (widget.getTags().size() > 0) {
+        if (!widget.getTags().isEmpty()) {
             for (Tag tag : widget.getTags()) {
                 Map<String, Object> whereParameters = new HashMap<>();
                 whereParameters.put("panel_id", widget.getId());

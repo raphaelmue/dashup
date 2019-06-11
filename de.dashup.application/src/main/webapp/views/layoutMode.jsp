@@ -102,7 +102,7 @@
         </template>
 
         <c:forEach items="${widgets}" var="widget">
-            <div id="dialog-properties-${widget.id}" class="modal">
+            <div id="dialog-properties-${widget.id}" class="modal col s3 m3 l3i">
                 <div class="modal-content">
                     <div class="row">
                        <h4><fmt:message key="i18n.properties" /></h4>

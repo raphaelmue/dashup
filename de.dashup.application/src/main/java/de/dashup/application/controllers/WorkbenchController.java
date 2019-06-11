@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("/workbench")
 public class WorkbenchController {
 
-    @RequestMapping("/")
+    @GetMapping(value = "/")
     public String workbench(@CookieValue(name = "token", required = false) String token,
                             HttpServletRequest request, Model model) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "workbench", user -> {
@@ -36,7 +36,7 @@ public class WorkbenchController {
         });
     }
 
-    @RequestMapping("/createDraft")
+    @PostMapping(value = "/createDraft")
     public String createDraft(@CookieValue(name = "token", required = false) String token,
                               HttpServletRequest request,
                               @RequestParam(value = "draftName") String draftName) throws SQLException {
@@ -48,7 +48,7 @@ public class WorkbenchController {
         return "redirect:/login";
     }
 
-    @RequestMapping("/draft/{draftId}")
+    @GetMapping(value = "/draft/{draftId}")
     public String workbenchDraft(@CookieValue(name = "token", required = false) String token,
                                  HttpServletRequest request, Model model,
                                  @PathVariable(value = "draftId") int draftId) throws SQLException {
@@ -73,7 +73,7 @@ public class WorkbenchController {
         });
     }
 
-    @RequestMapping("/published/{publishedWidgetId}")
+    @GetMapping(value = "/published/{publishedWidgetId}")
     public String workbenchPublished(@CookieValue(name = "token", required = false) String token,
                                      HttpServletRequest request, Model model,
                                      @PathVariable(value = "publishedWidgetId") int publishedWidgetId) throws SQLException {
@@ -99,7 +99,7 @@ public class WorkbenchController {
         });
     }
 
-    @RequestMapping(value = "/draft/{draftId}/deleteDraft")
+    @PostMapping(value = "/draft/{draftId}/deleteDraft")
     public String handleDeleteDraft(@CookieValue(name = "token", required = false) String token,
                                     HttpServletRequest request,
                                     @PathVariable(value = "draftId") int draftId) throws SQLException {
@@ -116,7 +116,7 @@ public class WorkbenchController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/published/{publishedId}/deleteDraft")
+    @PostMapping(value = "/published/{publishedId}/deleteDraft")
     public String handleDeleteWidget(@CookieValue(name = "token", required = false) String token,
                                      HttpServletRequest request,
                                      @PathVariable(value = "publishedId") int publishedId) throws SQLException {
@@ -133,7 +133,7 @@ public class WorkbenchController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/draft/{draftId}/changeInformation", method = RequestMethod.POST)
+    @PostMapping(value = "/draft/{draftId}/changeInformation")
     public String handleChangeDraftInformation(@CookieValue(name = "token", required = false) String token,
                                                HttpServletRequest request,
                                                @PathVariable(value = "draftId") int draftId,
@@ -157,7 +157,7 @@ public class WorkbenchController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/published/{publishedId}/changeInformation", method = RequestMethod.POST)
+    @PostMapping(value = "/published/{publishedId}/changeInformation")
     public String handleChangeWidgetInformation(@CookieValue(name = "token", required = false) String token,
                                                 HttpServletRequest request,
                                                 @PathVariable(value = "publishedId") int publishedId,
@@ -196,7 +196,7 @@ public class WorkbenchController {
         DashupService.getInstance().updateWidgetInformation(widget);
     }
 
-    @RequestMapping(value = "/draft/{draftId}/changeCode", method = RequestMethod.POST)
+    @PostMapping(value = "/draft/{draftId}/changeCode")
     public String handleChangeDraftCode(@CookieValue(name = "token", required = false) String token,
                                         HttpServletRequest request,
                                         @PathVariable(value = "draftId") int draftId,
@@ -220,7 +220,7 @@ public class WorkbenchController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/published/{publishedId}/changeCode", method = RequestMethod.POST)
+    @PostMapping(value = "/published/{publishedId}/changeCode")
     public String handleChangeWidgetCode(@CookieValue(name = "token", required = false) String token,
                                          HttpServletRequest request,
                                          @PathVariable(value = "publishedId") int publishedId,
@@ -259,7 +259,7 @@ public class WorkbenchController {
         DashupService.getInstance().updateWidgetInformation(widget, !widget.getIsVisible());
     }
 
-    @RequestMapping(value = "/draft/{draftId}/addDraft")
+    @PostMapping(value = "/draft/{draftId}/addDraft")
     public String handleAddDraft(@CookieValue(name = "token", required = false) String token,
                                  HttpServletRequest request,
                                  @PathVariable(value = "draftId") int draftId,
@@ -277,7 +277,7 @@ public class WorkbenchController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/published/{publishedId}/addDraft")
+    @PostMapping(value = "/published/{publishedId}/addDraft")
     public String handleAddWidget(@CookieValue(name = "token", required = false) String token,
                                   HttpServletRequest request,
                                   @PathVariable(value = "publishedId") int publishedId,
@@ -310,7 +310,7 @@ public class WorkbenchController {
         DashupService.getInstance().addWidgetToSection(draft, section, size);
     }
 
-    @RequestMapping(value = "/draft/{draftId}/publishDraft", method = RequestMethod.POST)
+    @PostMapping(value = "/draft/{draftId}/publishDraft")
     public String handlePublishDraft(@CookieValue(name = "token", required = false) String token,
                                      HttpServletRequest request,
                                      @PathVariable(value = "draftId") int draftId) throws SQLException {
@@ -328,7 +328,7 @@ public class WorkbenchController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/draft/{draftId}/updateProperties", method = RequestMethod.POST)
+    @PostMapping(value = "/draft/{draftId}/updateProperties")
     public String handleUpdateProperties(@CookieValue(name = "token", required = false) String token,
                                          HttpServletRequest request,
                                          @PathVariable(value = "draftId") int draftId,
