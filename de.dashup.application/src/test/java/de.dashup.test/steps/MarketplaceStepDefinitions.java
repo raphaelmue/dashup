@@ -13,7 +13,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.lang.model.element.Element;
 
 public class MarketplaceStepDefinitions {
     @Autowired
@@ -23,11 +22,11 @@ public class MarketplaceStepDefinitions {
     public void userClicksOnMarketplaceMenu() {
         WebDriver driver = GeneralStepDefinitions.getDriver();
         try {
-            driver.findElement(By.id("nav-item-marketplace")).click();
+            driver.findElement(By.id("li-for-nav-item-marketplace")).click();
         } catch (ElementNotInteractableException e) {
             //fallback for firefox
             driver.findElement(By.className("sidenav-trigger")).click();
-            driver.findElement(By.id("nav-item-marketplace")).click();
+            driver.findElement(By.id("li-for-nav-item-marketplace")).click();
         }
     }
 
@@ -37,7 +36,7 @@ public class MarketplaceStepDefinitions {
         WebDriver driver = GeneralStepDefinitions.getDriver();
         Assertions.assertEquals("dashup", driver.getTitle());
         Assertions.assertEquals(BASE_URL + "/marketplace/", driver.getCurrentUrl());
-        WebElement element = driver.findElement(By.id("nav-item-marketplace"));
+        WebElement element = driver.findElement(By.id("li-for-nav-item-marketplace"));
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
         Assertions.assertEquals("active", parent.getAttribute("class"));
@@ -59,15 +58,15 @@ public class MarketplaceStepDefinitions {
         final String BASE_URL = "http://localhost:" + springBootBase.getPort();
         WebDriver driver = GeneralStepDefinitions.getDriver();
         try {
-            driver.findElement(By.id("nav-item-marketplace")).click();
+            driver.findElement(By.id("li-for-nav-item-marketplace")).click();
         } catch (ElementNotInteractableException e) {
             //fallback for firefox
             driver.findElement(By.className("sidenav-trigger")).click();
-            driver.findElement(By.id("nav-item-marketplace")).click();
+            driver.findElement(By.id("li-for-nav-item-marketplace")).click();
         }
         Assertions.assertEquals("dashup", driver.getTitle());
         Assertions.assertEquals(BASE_URL + "/marketplace/", driver.getCurrentUrl());
-        WebElement element = driver.findElement(By.id("nav-item-marketplace"));
+        WebElement element = driver.findElement(By.id("li-for-nav-item-marketplace"));
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
         Assertions.assertEquals("active", parent.getAttribute("class"));
