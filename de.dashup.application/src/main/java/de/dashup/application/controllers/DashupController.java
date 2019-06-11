@@ -21,10 +21,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
 
 @Controller
 @RequestMapping(value = "/")
 public class DashupController {
+
+    /**
+     * Literals
+     */
+    private static final String MESSAGE = "message";
+    private static final String SUCCESS = "success";
+    private static final String FAILURE = "failure";
+
     private final LocalStorage localStorage = LocalStorage.getInstance();
 
     @GetMapping(value = "/")
@@ -52,7 +61,7 @@ public class DashupController {
             try {
                 DashupService.getInstance().deleteToken(token);
             } catch (SQLException e) {
-                e.printStackTrace();
+                ControllerHelper.getLogger().log(Level.SEVERE, e.getMessage(), e);
             }
         }
         this.localStorage.deleteCookie(response, "token");
@@ -70,14 +79,14 @@ public class DashupController {
         JSONObject entity = new JSONObject();
         if (user != null) {
             DashupService.getInstance().saveTodoWidgetState(user, data);
-            entity.put("message", "Success");
+            entity.put(MESSAGE, SUCCESS);
             return new ResponseEntity<>(entity.toString(), HttpStatus.OK);
         }
-        entity.put("message", "Failure");
+        entity.put(MESSAGE, FAILURE);
         return new ResponseEntity<>(entity.toString(), HttpStatus.UNAUTHORIZED);
     }
 
-    @RequestMapping("/loadTodo")
+    @PostMapping(value = "/loadTodo")
     public @ResponseBody
     Todo handleLoadTodo(@CookieValue(name = "token", required = false) String token,
                         HttpServletRequest request) throws SQLException {
@@ -101,10 +110,10 @@ public class DashupController {
         JSONObject entity = new JSONObject();
         if (user != null) {
             DashupService.getInstance().saveFinanceChartWidgetState(user, data);
-            entity.put("message", "Success");
+            entity.put(MESSAGE, SUCCESS);
             return new ResponseEntity<>(entity.toString(), HttpStatus.OK);
         }
-        entity.put("message", "Failure");
+        entity.put(MESSAGE, FAILURE);
         return new ResponseEntity<>(entity.toString(), HttpStatus.UNAUTHORIZED);
     }
 
@@ -118,14 +127,14 @@ public class DashupController {
         JSONObject entity = new JSONObject();
         if (user != null) {
             DashupService.getInstance().saveFinanceListWidgetState(user, data);
-            entity.put("message", "Success");
+            entity.put(MESSAGE, SUCCESS);
             return new ResponseEntity<>(entity.toString(), HttpStatus.OK);
         }
-        entity.put("message", "Failure");
+        entity.put(MESSAGE, FAILURE);
         return new ResponseEntity<>(entity.toString(), HttpStatus.UNAUTHORIZED);
     }
 
-    @RequestMapping("/loadFinanceChart")
+    @PostMapping(value = "/loadFinanceChart")
     public @ResponseBody
     FinanceChart handleLoadFinanceChart(@CookieValue(name = "token", required = false) String token,
                                         HttpServletRequest request) throws SQLException {
@@ -139,7 +148,7 @@ public class DashupController {
         return null;
     }
 
-    @RequestMapping("/loadFinanceList")
+    @PostMapping(value = "/loadFinanceList")
     public @ResponseBody
     FinanceList handleLoadFinanceList(@CookieValue(name = "token", required = false) String token,
                                       HttpServletRequest request) throws SQLException {

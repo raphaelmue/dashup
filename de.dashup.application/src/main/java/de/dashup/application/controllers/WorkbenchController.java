@@ -21,18 +21,31 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 @Controller
 @RequestMapping("/workbench")
 public class WorkbenchController {
 
+    /**
+     * Literals
+     */
+    private static final String WORKBENCH = "workbench";
+    private static final String DRAFTS = "drafts";
+    private static final String PUBLISHED_WIDGETS = "publishedWidgets";
+    private static final String REDIRECT_LOGIN = "redirect:/login";
+    private static final String REDIRECT_WORKBENCH = "redirect:/workbench/";
+    private static final String REDIRECT_DRAFT = "redirect:/workbench/draft/";
+    private static final String REDIRECT_PUBLISHED = "redirect:/workbench/published/";
+    private static final String DRAFT_CODE_NOT_VALID_MSG = "#draftCodeNotValid";
+
     @GetMapping(value = "/")
     public String workbench(@CookieValue(name = "token", required = false) String token,
                             HttpServletRequest request, Model model) throws SQLException {
-        return ControllerHelper.defaultMapping(token, request, model, "workbench", user -> {
+        return ControllerHelper.defaultMapping(token, request, model, WORKBENCH, user -> {
             DashupService.getInstance().getUsersDrafts(user);
-            model.addAttribute("drafts", user.getDrafts());
-            model.addAttribute("publishedWidgets", DashupService.getInstance().getUsersWidgets(user));
+            model.addAttribute(DRAFTS, user.getDrafts());
+            model.addAttribute(PUBLISHED_WIDGETS, DashupService.getInstance().getUsersWidgets(user));
         });
     }
 
@@ -43,19 +56,19 @@ public class WorkbenchController {
         User user = LocalStorage.getInstance().getUser(request, token);
         if (user != null) {
             Draft draft = DashupService.getInstance().createDraft(user, draftName);
-            return "redirect:/workbench/draft/" + draft.getId();
+            return REDIRECT_DRAFT + draft.getId();
         }
-        return "redirect:/login";
+        return REDIRECT_LOGIN;
     }
 
     @GetMapping(value = "/draft/{draftId}")
     public String workbenchDraft(@CookieValue(name = "token", required = false) String token,
                                  HttpServletRequest request, Model model,
                                  @PathVariable(value = "draftId") int draftId) throws SQLException {
-        return ControllerHelper.defaultMapping(token, request, model, "workbench", user -> {
+        return ControllerHelper.defaultMapping(token, request, model, WORKBENCH, user -> {
             DashupService.getInstance().getUsersDrafts(user);
-            model.addAttribute("drafts", user.getDrafts());
-            model.addAttribute("publishedWidgets", DashupService.getInstance().getUsersWidgets(user));
+            model.addAttribute(DRAFTS, user.getDrafts());
+            model.addAttribute(PUBLISHED_WIDGETS, DashupService.getInstance().getUsersWidgets(user));
             model.addAttribute("categories", Widget.Category.values());
             model.addAttribute("tags", DashupService.getInstance().getAllTags());
             DashupService.getInstance().getSectionsAndPanels(user);
@@ -77,11 +90,11 @@ public class WorkbenchController {
     public String workbenchPublished(@CookieValue(name = "token", required = false) String token,
                                      HttpServletRequest request, Model model,
                                      @PathVariable(value = "publishedWidgetId") int publishedWidgetId) throws SQLException {
-        return ControllerHelper.defaultMapping(token, request, model, "workbench", user -> {
+        return ControllerHelper.defaultMapping(token, request, model, WORKBENCH, user -> {
             DashupService.getInstance().getUsersDrafts(user);
-            model.addAttribute("drafts", user.getDrafts());
+            model.addAttribute(DRAFTS, user.getDrafts());
             List<Widget> publishedWidgets = DashupService.getInstance().getUsersWidgets(user);
-            model.addAttribute("publishedWidgets", publishedWidgets);
+            model.addAttribute(PUBLISHED_WIDGETS, publishedWidgets);
             model.addAttribute("categories", Widget.Category.values());
             model.addAttribute("tags", DashupService.getInstance().getAllTags());
             DashupService.getInstance().getSectionsAndPanels(user);
@@ -110,10 +123,10 @@ public class WorkbenchController {
                 DashupService.getInstance().deleteDraft(draftId);
                 return "redirect:/workbench/#deletedDraft";
             } else {
-                return "redirect:/workbench/";
+                return REDIRECT_WORKBENCH;
             }
         }
-        return "redirect:/login";
+        return REDIRECT_LOGIN;
     }
 
     @PostMapping(value = "/published/{publishedId}/deleteDraft")
@@ -127,10 +140,10 @@ public class WorkbenchController {
                 DashupService.getInstance().deleteDraft(widget.getId());
                 return "redirect:/workbench/#deletedDraft";
             } else {
-                return "redirect:/workbench/";
+                return REDIRECT_WORKBENCH;
             }
         }
-        return "redirect:/login";
+        return REDIRECT_LOGIN;
     }
 
     @PostMapping(value = "/draft/{draftId}/changeInformation")
@@ -148,13 +161,14 @@ public class WorkbenchController {
             if (draft != null) {
                 try {
                     updateInformation(draft, draftId, name, shortDescription, description, category, tagsJSON);
-                } catch (InvalidCodeException | MissingInformationException ignored) {
+                } catch (InvalidCodeException | MissingInformationException e) {
+                    ControllerHelper.getLogger().log(Level.SEVERE, e.getMessage(), e);
                 }
-                return "redirect:/workbench/draft/" + draftId + "#changedInformation";
+                return REDIRECT_DRAFT + draftId + "#changedInformation";
             }
-            return "redirect:/workbench/";
+            return REDIRECT_WORKBENCH;
         }
-        return "redirect:/login";
+        return REDIRECT_LOGIN;
     }
 
     @PostMapping(value = "/published/{publishedId}/changeInformation")
@@ -172,13 +186,14 @@ public class WorkbenchController {
             if (widget != null) {
                 try {
                     updateInformation(widget, publishedId, name, shortDescription, description, category, tagsJSON);
-                } catch (InvalidCodeException | MissingInformationException ignored) {
+                } catch (InvalidCodeException | MissingInformationException e) {
+                    ControllerHelper.getLogger().log(Level.SEVERE, e.getMessage(), e);
                 }
-                return "redirect:/workbench/published/" + publishedId + "#changedInformation";
+                return REDIRECT_PUBLISHED + publishedId + "#changedInformation";
             }
-            return "redirect:/workbench/";
+            return REDIRECT_WORKBENCH;
         }
-        return "redirect:/login";
+        return REDIRECT_LOGIN;
     }
 
     private void updateInformation(Widget widget, int publishedId, String name, String shortDescription, String description, String category, String tagsJSON) throws UnsupportedEncodingException, SQLException, InvalidCodeException, MissingInformationException {
@@ -210,14 +225,15 @@ public class WorkbenchController {
                 try {
                     updateCode(draftId, codeSmall, codeMedium, codeLarge, draft);
                 } catch (InvalidCodeException e) {
-                    return "redirect:/workbench/draft/" + draftId + "#draftCodeNotValid";
-                } catch (MissingInformationException ignored) {
+                    return REDIRECT_DRAFT + draftId + DRAFT_CODE_NOT_VALID_MSG;
+                } catch (MissingInformationException e) {
+                    ControllerHelper.getLogger().log(Level.SEVERE, e.getMessage(), e);
                 }
-                return "redirect:/workbench/draft/" + draftId + "#changedCode";
+                return REDIRECT_DRAFT + draftId + "#changedCode";
             }
-            return "redirect:/workbench/";
+            return REDIRECT_WORKBENCH;
         }
-        return "redirect:/login";
+        return REDIRECT_LOGIN;
     }
 
     @PostMapping(value = "/published/{publishedId}/changeCode")
@@ -234,14 +250,15 @@ public class WorkbenchController {
                 try {
                     updateCode(publishedId, codeSmall, codeMedium, codeLarge, widget);
                 } catch (InvalidCodeException e) {
-                    return "redirect:/workbench/published/" + publishedId + "#draftCodeNotValid";
-                } catch (MissingInformationException ignored) {
+                    return REDIRECT_PUBLISHED + publishedId + DRAFT_CODE_NOT_VALID_MSG;
+                } catch (MissingInformationException e) {
+                    ControllerHelper.getLogger().log(Level.SEVERE, e.getMessage(), e);
                 }
-                return "redirect:/workbench/published/" + publishedId + "#changedCode";
+                return REDIRECT_PUBLISHED + publishedId + "#changedCode";
             }
-            return "redirect:/workbench/";
+            return REDIRECT_WORKBENCH;
         }
-        return "redirect:/login";
+        return REDIRECT_LOGIN;
     }
 
     private void updateCode(int id, String codeSmall, String codeMedium, String codeLarge, Widget widget)
@@ -270,11 +287,11 @@ public class WorkbenchController {
             Widget draft = DashupService.getInstance().getWidgetOfUser(user, draftId);
             if (draft != null) {
                 addWidgetToDashup(user, draftId, sectionId, size);
-                return "redirect:/workbench/draft/" + draftId + "#addedWidget";
+                return REDIRECT_DRAFT + draftId + "#addedWidget";
             }
-            return "redirect:/workbench/";
+            return REDIRECT_WORKBENCH;
         }
-        return "redirect:/login";
+        return REDIRECT_LOGIN;
     }
 
     @PostMapping(value = "/published/{publishedId}/addDraft")
@@ -288,11 +305,11 @@ public class WorkbenchController {
             Widget widget = DashupService.getInstance().getWidgetOfUser(user, publishedId);
             if (widget != null) {
                 addWidgetToDashup(user, publishedId, sectionId, size);
-                return "redirect:/workbench/published/" + publishedId + "#addedWidget";
+                return REDIRECT_PUBLISHED + publishedId + "#addedWidget";
             }
-            return "redirect:/workbench/";
+            return REDIRECT_WORKBENCH;
         }
-        return "redirect:/login";
+        return REDIRECT_LOGIN;
     }
 
     private void addWidgetToDashup(User user, int publishedId, int sectionId, String size) throws SQLException {
@@ -319,13 +336,13 @@ public class WorkbenchController {
             try {
                 DashupService.getInstance().publishDraft(draftId);
             } catch (MissingInformationException e) {
-                return "redirect:/workbench/draft/" + draftId + "#draftNotValid";
+                return REDIRECT_DRAFT + draftId + "#draftNotValid";
             } catch (InvalidCodeException e) {
-                return "redirect:/workbench/draft/" + draftId + "#draftCodeNotValid";
+                return REDIRECT_DRAFT + draftId + DRAFT_CODE_NOT_VALID_MSG;
             }
             return "redirect:/workbench/#publishedDraft";
         }
-        return "redirect:/login";
+        return REDIRECT_LOGIN;
     }
 
     @PostMapping(value = "/draft/{draftId}/updateProperties")
@@ -357,8 +374,8 @@ public class WorkbenchController {
             }
 
             DashupService.getInstance().updateWidgetProperties(draft, propertiesToDelete);
-            return "redirect:/workbench/draft/" + draftId + "#changedProperties";
+            return REDIRECT_DRAFT + draftId + "#changedProperties";
         }
-        return "redirect:/login";
+        return REDIRECT_LOGIN;
     }
 }

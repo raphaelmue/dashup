@@ -22,9 +22,9 @@ class Converter {
     static JSONArray convertResultSetIntoJSON(ResultSet resultSet) throws SQLException {
         JSONArray jsonArray = new JSONArray();
         while (resultSet.next()) {
-            int total_rows = resultSet.getMetaData().getColumnCount();
+            int totalRows = resultSet.getMetaData().getColumnCount();
             JSONObject obj = new JSONObject();
-            for (int i = 0; i < total_rows; i++) {
+            for (int i = 0; i < totalRows; i++) {
                 String columnName = resultSet.getMetaData().getColumnLabel(i + 1).toLowerCase();
                 Object columnValue = resultSet.getObject(i + 1);
                 // if value in DB is null, then we set it to default value

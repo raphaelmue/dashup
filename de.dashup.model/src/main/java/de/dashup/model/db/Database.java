@@ -2,7 +2,6 @@ package de.dashup.model.db;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParseException;
 import de.dashup.shared.DatabaseObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,6 +15,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class provides a persistent connection a MySQL Database via JDBC.
@@ -24,7 +25,14 @@ import java.util.Map;
  */
 public class Database {
 
+    /**
+     * Literals
+     */
+    private static final String WHERE = "WHERE";
+    private static final String AND = " AND ";
+
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final Logger logger = Logger.getLogger("Dashup");
 
     private static String host;
     private static DatabaseName databaseName;
@@ -33,6 +41,7 @@ public class Database {
     private static String password;
 
     private Connection connection;
+
 
     private static Database instance = null;
 
@@ -120,7 +129,7 @@ public class Database {
                     user, password);
 
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage(), e);
         }
     }
 
@@ -141,7 +150,7 @@ public class Database {
                 user = fileReader.readLine();
                 password = fileReader.readLine();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.log(Level.SEVERE, e.getMessage(), e);
             }
         }
     }
@@ -177,19 +186,19 @@ public class Database {
      * @return Object with fetched data
      * @throws SQLException thrown, when something went wrong executing the SQL statement
      */
-    public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters,
-                                                    String orderByClause) throws SQLException, JsonParseException {
+    public List<DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters,
+                                                    String orderByClause) throws SQLException {
         return this.getObject(table, null, resultType, null, whereParameters, orderByClause);
     }
 
     /**
      * @see Database#getObject(Table, Type, Map, String)
      */
-    public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters) throws SQLException {
+    public List<DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters) throws SQLException {
         return this.getObject(table, resultType, whereParameters, null);
     }
 
-    public List<? extends DatabaseObject> getObject(Table table, Table joinOn, Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters, String orderByClause) throws SQLException {
+    public List<DatabaseObject> getObject(Table table, Table joinOn, Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters, String orderByClause) throws SQLException {
         Gson gson = new GsonBuilder().create();
         JSONArray jsonArray;
         if (joinOn == null && onParameters == null) {
@@ -205,7 +214,7 @@ public class Database {
         return result;
     }
 
-    public List<? extends DatabaseObject> getObject(Table table, Table joinOn, Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters) throws SQLException {
+    public List<DatabaseObject> getObject(Table table, Table joinOn, Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters) throws SQLException {
         return getObject(table, joinOn, resultType, onParameters, whereParameters, null);
     }
 
@@ -235,7 +244,7 @@ public class Database {
         for (Map.Entry<String, String> entry : onParameters.entrySet()) {
             query.append(table.getTableName()).append(".").append(entry.getKey()).append(" = ").append(joinOn.getTableName()).append(".").append(entry.getValue());
         }
-        query.append(this.getClause(whereParameters, "WHERE", " AND "));
+        query.append(this.getClause(whereParameters, WHERE, AND));
         query.append(this.getOrderByClause(orderByClause));
 
         statement = connection.prepareStatement(query.toString());
@@ -260,7 +269,7 @@ public class Database {
     public JSONArray get(Table tableName, Map<String, Object> whereParameters, String orderByClause) throws SQLException {
         PreparedStatement statement;
         String query = "SELECT * FROM " + tableName.getTableName() +
-                this.getClause(whereParameters, "WHERE", " AND ") +
+                this.getClause(whereParameters, WHERE, AND) +
                 this.getOrderByClause(orderByClause);
 
         statement = connection.prepareStatement(query);
@@ -311,7 +320,7 @@ public class Database {
         PreparedStatement statement;
         String query = "UPDATE " + tableName.getTableName() +
                 this.getClause(values, "SET", ", ") +
-                this.getClause(whereParameters, "WHERE", " AND ");
+                this.getClause(whereParameters, WHERE, AND);
 
         statement = connection.prepareStatement(query);
         this.preparedStatement(statement, values);
@@ -330,7 +339,7 @@ public class Database {
     public void delete(Table table, Map<String, Object> whereParameters) throws SQLException {
         PreparedStatement statement;
         String query = "DELETE FROM " + table.getTableName() + " " +
-                this.getClause(whereParameters, "WHERE", " AND ");
+                this.getClause(whereParameters, WHERE, AND);
         statement = this.preparedStatement(connection.prepareStatement(query), whereParameters);
         statement.execute();
     }
@@ -342,11 +351,17 @@ public class Database {
      */
     public void clearDatabase() throws SQLException {
         if (databaseName == DatabaseName.TEST || databaseName == DatabaseName.JENKINS) {
-            this.connection.prepareStatement("SET FOREIGN_KEY_CHECKS = 0").execute();
-            for (Table table : Table.values()) {
-                this.connection.prepareStatement("TRUNCATE TABLE " + table.getTableName()).execute();
+            try (PreparedStatement disableForeignKeyChecksStatement = this.connection.prepareStatement("SET FOREIGN_KEY_CHECKS = 0")) {
+                disableForeignKeyChecksStatement.execute();
             }
-            this.connection.prepareStatement("SET FOREIGN_KEY_CHECKS = 1").execute();
+            for (Table table : Table.values()) {
+                try (PreparedStatement truncateTableStatement = this.connection.prepareStatement("TRUNCATE TABLE " + table.getTableName())) {
+                    truncateTableStatement.execute();
+                }
+            }
+            try (PreparedStatement enableForeignKeyChecksStatement = this.connection.prepareStatement("SET FOREIGN_KEY_CHECKS = 1")) {
+                enableForeignKeyChecksStatement.execute();
+            }
         }
     }
 
@@ -358,11 +373,12 @@ public class Database {
      * @throws SQLException thrown, when something went wrong executing the SQL statement
      */
     public int getLatestId(Table table) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("SELECT id FROM " +
+        try (PreparedStatement statement = connection.prepareStatement("SELECT id FROM " +
                 table.getTableName() +
-                " ORDER BY id DESC LIMIT 1");
-        ResultSet result = statement.executeQuery();
-        return Converter.convertResultSetIntoJSON(result).getJSONObject(0).getInt("id");
+                " ORDER BY id DESC LIMIT 1")) {
+            ResultSet result = statement.executeQuery();
+            return Converter.convertResultSetIntoJSON(result).getJSONObject(0).getInt("id");
+        }
     }
 
     private String getClause(Map<String, Object> values, String operation, String separator) {
