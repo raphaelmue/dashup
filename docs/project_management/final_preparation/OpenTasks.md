@@ -21,6 +21,7 @@
     * time sheet for time spent per task for each person
     * the overall use case diagram with clearly marked scope!
 * Installation: Use Docker -> Full Points in ability to execute
+* Blog Post about CI and final Tech Stack
 
 ### Presentation
 
