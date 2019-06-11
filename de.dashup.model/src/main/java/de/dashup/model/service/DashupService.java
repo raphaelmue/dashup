@@ -268,6 +268,49 @@ public class DashupService {
         return returningValue;
     }
 
+    public List<Widget> getSimilarWidgets(String category, int currentId) throws SQLException {
+        ArrayList<Widget> returningValue = new ArrayList<>();
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("category", category);
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters);
+        Collections.shuffle(result);
+        if (result != null && result.size() > 3) {
+            for (int i = 0; i < 3; i++) {
+                Widget widget = new Widget().fromDatabaseObject(result.get(i));
+                widget.setShortDescription(this.shortenShortDescOfPanel(widget.getShortDescription()));
+                //exclude widget we are currently on
+                if (widget.getId() != currentId) {
+                    returningValue.add(widget);
+                }
+            }
+        } else if (result != null) {
+            for (DatabaseObject databaseObject : result) {
+                Widget widget = new Widget().fromDatabaseObject(databaseObject);
+                widget.setShortDescription(this.shortenShortDescOfPanel(widget.getShortDescription()));
+                //exclude widget we are currently on
+                if (widget.getId() != currentId) {
+                    returningValue.add(widget);
+                }
+            }
+            //fill rest of similar section with most popular widgets
+            result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, new HashMap<>(),
+                    "number_of_downloads DESC LIMIT " + (3 - returningValue.size() + 1));
+            Collections.shuffle(result);
+            for (DatabaseObject databaseObject : result) {
+                Widget widget = new Widget().fromDatabaseObject(databaseObject);
+                widget.setShortDescription(this.shortenShortDescOfPanel(widget.getShortDescription()));
+                //exclude widget we are currently on
+                if (widget.getId() != currentId) {
+                    returningValue.add(widget);
+                }
+                if (returningValue.size() == 3){
+                    break;
+                }
+            }
+        }
+        return returningValue;
+    }
+
     private Rating getTopRating(int widgetId) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("panel_id", widgetId);
