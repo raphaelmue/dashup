@@ -1,8 +1,11 @@
 package de.dashup.shared;
 
+import java.io.Serializable;
 import java.util.Locale;
 
-public class Settings {
+public class Settings implements Serializable {
+    private static final long serialVersionUID = -7111094553970271511L;
+
     public enum Theme {
         BLUE_SKY("blue-sky", "Blue Sky"),
         GREEN_NATURE("green-nature", "Green Nature"),

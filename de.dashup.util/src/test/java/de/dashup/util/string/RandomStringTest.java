@@ -18,12 +18,12 @@ public class RandomStringTest {
     @Test
     public void testRandomStringAlphabet() {
         final int length = 32;
-        final RandomString randomString = new RandomString(length, RandomString.digits);
+        final RandomString randomString = new RandomString(length, RandomString.DIGITS);
 
         final String string = randomString.nextString();
         Assertions.assertEquals(length, string.length());
 
-        for (int i = 0; i < RandomString.lower.length(); i++) {
+        for (int i = 0; i < RandomString.LOWER.length(); i++) {
             char c = string.charAt(i);
             Assertions.assertTrue(c >= 48 && c <= 57);
         }

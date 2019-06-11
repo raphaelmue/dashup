@@ -7,13 +7,13 @@ import java.util.Random;
 
 public class RandomString {
 
-    private static final String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    static final String lower = upper.toLowerCase(Locale.ROOT);
+    static final String LOWER = UPPER.toLowerCase(Locale.ROOT);
 
-    static final String digits = "0123456789";
+    static final String DIGITS = "0123456789";
 
-    private static final String alphanum = upper + lower + digits;
+    private static final String ALPHANUM = UPPER + LOWER + DIGITS;
 
     private final Random random;
 
@@ -33,7 +33,7 @@ public class RandomString {
      * Create an alphanumeric string generator.
      */
     private RandomString(int length, Random random) {
-        this(length, random, alphanum);
+        this(length, random, ALPHANUM);
     }
 
     RandomString(int length, String symbols) {

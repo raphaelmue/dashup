@@ -21,6 +21,7 @@ public class Rating implements DatabaseObject {
         super();
     }
 
+    @Override
     public int getId() {
         return id;
     }
@@ -63,14 +64,6 @@ public class Rating implements DatabaseObject {
 
     public void setRatingValue(int ratingValue) {
         this.ratingValue = ratingValue;
-    }
-
-    public String getUsername() {
-        return userName;
-    }
-
-    public void setUsername(String username) {
-        this.userName = username;
     }
 
     public String getChangeDate() {

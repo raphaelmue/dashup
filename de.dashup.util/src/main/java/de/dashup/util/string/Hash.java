@@ -3,6 +3,8 @@ package de.dashup.util.string;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Hash {
 
@@ -22,13 +24,13 @@ public class Hash {
             digest.reset();
             return binToHex(digest.digest(plainText.getBytes())).toLowerCase();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            Logger.getLogger("Dashup").log(Level.SEVERE, e.getMessage(), e);
         }
         return null;
     }
 
     private static String binToHex(byte[] data) {
-        return String.format("%0" + (data.length*2) + "X", new BigInteger(1, data));
+        return String.format("%0" + (data.length * 2) + "X", new BigInteger(1, data));
     }
 }
 

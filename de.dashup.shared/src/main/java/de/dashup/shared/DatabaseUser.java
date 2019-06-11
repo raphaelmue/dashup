@@ -18,7 +18,8 @@ public class DatabaseUser implements Serializable, DatabaseObject {
     private String salt;
     @SerializedName("birth_date")
     private String birthDate;
-    private String company, bio;
+    private String company;
+    private String bio;
 
     public DatabaseUser() {
     }

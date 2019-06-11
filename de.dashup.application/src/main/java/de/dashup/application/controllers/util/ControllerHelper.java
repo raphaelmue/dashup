@@ -18,7 +18,7 @@ public class ControllerHelper {
     private static final String LANGUAGE = "language";
 
 
-    private final static Logger logger = Logger.getLogger("Dashup");
+    private static final Logger logger = Logger.getLogger("Dashup");
 
     private ControllerHelper() {
         super();
