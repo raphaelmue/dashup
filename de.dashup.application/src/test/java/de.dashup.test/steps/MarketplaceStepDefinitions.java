@@ -11,6 +11,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -21,6 +23,8 @@ public class MarketplaceStepDefinitions {
     @When("^User clicks on marketplace menu$")
     public void userClicksOnMarketplaceMenu() {
         WebDriver driver = GeneralStepDefinitions.getDriver();
+        WebDriverWait wait = new WebDriverWait(driver, 3);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nav-item-marketplace")));
         try {
             driver.findElement(By.id("li-for-nav-item-marketplace")).click();
         } catch (ElementNotInteractableException e) {
