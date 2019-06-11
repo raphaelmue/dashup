@@ -112,7 +112,7 @@ public class DatabaseUser implements Serializable, DatabaseObject {
         return this.name + " " + this.surname;
     }
 
-    String getUserName() {
+    public String getUserName() {
         return userName;
     }
 
