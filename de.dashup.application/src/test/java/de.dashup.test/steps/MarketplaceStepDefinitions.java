@@ -36,7 +36,7 @@ public class MarketplaceStepDefinitions {
         WebDriver driver = GeneralStepDefinitions.getDriver();
         Assertions.assertEquals("dashup", driver.getTitle());
         Assertions.assertEquals(BASE_URL + "/marketplace/", driver.getCurrentUrl());
-        WebElement element = driver.findElement(By.id("li-for-nav-item-marketplace"));
+        WebElement element = driver.findElement(By.id("nav-item-marketplace"));
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
         Assertions.assertEquals("active", parent.getAttribute("class"));
@@ -66,7 +66,7 @@ public class MarketplaceStepDefinitions {
         }
         Assertions.assertEquals("dashup", driver.getTitle());
         Assertions.assertEquals(BASE_URL + "/marketplace/", driver.getCurrentUrl());
-        WebElement element = driver.findElement(By.id("li-for-nav-item-marketplace"));
+        WebElement element = driver.findElement(By.id("nav-item-marketplace"));
         Assertions.assertNotNull(element);
         WebElement parent = element.findElement(By.xpath("./.."));
         Assertions.assertEquals("active", parent.getAttribute("class"));
