@@ -26,7 +26,7 @@
                 <div class="col m7">
                     <div class="row">
                         <div class="col m12">
-                            <h2>${fn:escapeXml(widget.name)}</h2>
+                            <h2 id="h-widget-title">${fn:escapeXml(widget.name)}</h2>
                         </div>
                     </div>
                     <div class="row">
@@ -36,7 +36,7 @@
                     </div>
                     <div class="row">
                         <div class="col m3">
-                            <div class="star-ratingValue">
+                            <div class="star-rating">
                                 <div class="back-stars">
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                     <i class="fa fa-star" aria-hidden="true"></i>
@@ -96,7 +96,7 @@
                                     <div class="row">
                                         <b><fmt:message key="i18n.publisherId"/></b>
                                     </div>
-                                    <div class="row">
+                                    <div class="row" id="div-publisher-name">
                                         ${fn:escapeXml(publisher.userName)}
                                     </div>
                                     <div class="row">
@@ -131,7 +131,7 @@
                                                 <h5>${fn:escapeXml(ratingValue.title)}</h5>
                                             </div>
                                             <div class="col m2 offset-m6">
-                                                <div class="star-ratingValue" style="font-size: 25px; margin-top: 15px;">
+                                                <div class="star-rating" style="font-size: 25px; margin-top: 15px;">
                                                     <div class="back-stars">
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -238,7 +238,7 @@
                 </div>
                 <div class="row">
                     <div class="col m3">
-                        <div class="star-ratingValue" style="margin-top: 10px">
+                        <div class="star-rating" style="margin-top: 10px">
                             <div id="star-ratingValue-new-comment" class="back-stars">
                                 <i class="fa fa-star" aria-hidden="true"></i>
                                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -273,6 +273,8 @@
         </div>
     </body>
     <script>
+        let starsAreMovable = true;
+        let currentRatingPercentage = 0;
         $(document).ready(function () {
             //anchor handling
             let toastOptions = {}
@@ -313,9 +315,6 @@
                         clearAnchor()
                     }
 
-            //Init
-            let starsAreMovable = true;
-            let currentRatingPercentage = 0;
             $('.tabs').tabs();
             $('.chips').chips();
             $("#nav-item-marketplace").parent().addClass("active");
@@ -366,6 +365,9 @@
                     });
             });
         });
-
+        function setCurrentRating(rating) {
+            currentRatingPercentage = rating;
+            starsAreMovable = false;
+        }
     </script>
 </html>

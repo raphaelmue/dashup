@@ -263,7 +263,10 @@ public class DashupService {
     public Map<Widget, Rating> getFeaturedWidgets(int[] widgetIds) throws SQLException {
         Map<Widget, Rating> returningValue = new HashMap<>();
         for (int widgetId : widgetIds) {
-            returningValue.put(this.getPanelById(widgetId), this.getTopRating(widgetId));
+            Widget widget = this.getPanelById(widgetId);
+            if(widget != null) {
+                returningValue.put(widget, this.getTopRating(widgetId));
+            }
         }
         return returningValue;
     }

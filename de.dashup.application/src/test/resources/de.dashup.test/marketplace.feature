@@ -54,16 +54,18 @@ Feature: Marketplace
   #  | publisher           | dashup       |
   #  | date of publication | 04/11/2018   |
 
-#  @EndToEnd
-#  Scenario: Inspect widget
-#    Given User is located on marketplace menu
-#    When User clicks on a specific listed widget
-#    Then A detailed view of the widget will open up, containing the tabs overview, comments and similar
-#    And User is located on overview tab
-#
+  @EndToEnd
+  Scenario: Inspect widget
+    Given User is located on marketplace menu
+    When User clicks on a specific listed widget
+    Then A detailed view of the widget will open up, containing the tabs overview, comments and similar
+    And User is located on overview tab
+
+#  Not testable due to star rating...
 #  @EndToEnd
 #  Scenario Outline: Rate and comment widget
-#    Given User opened a widget's detailed view in the marketplace menu
+#    Given  User is located on marketplace menu
+#    And User clicks on a specific listed widget
 #    When User clicks on rating tab
 #    And User clicks comment icon
 #    And User writes "<comment>"
@@ -75,13 +77,13 @@ Feature: Marketplace
 #    | comment              | rating |
 #    | Top panel            | 95     |
 #    | Room for improvement | 35     |
-#
-#  @EndToEnd
-#  Scenario: Inspect similar panel
-#    Given User opened a widget's detailed view in the marketplace menu
-#    When User clicks on similar tab
-#    And User clicks on a specific listed widget
-#    Then A detailed view of the selected widget will open up, containing the tabs overview, comments and similar
+
+  @EndToEnd
+  Scenario: Inspect similar panel
+    Given User opened a widget's detailed view in the marketplace menu
+    When User clicks on similar tab
+    And User clicks on a specific listed similar widget
+    Then A detailed view of the selected widget will open up, containing the tabs overview, comments and similar
 
   #Scenario: Show more results
   #  Given User is located on marketplace menu
@@ -90,9 +92,9 @@ Feature: Marketplace
   #  When User clicks on the show more button
   #  Then More results will be loaded and shown on the marketplace list
 
-#  @EndToEnd
-#  Scenario: Add panel to dashup
-#    Given User is located on marketplace menu
-#    When User clicks on the add button
-#    Then Widget was added to a new section section of central dashboard at the top, named after the widget
-#    And Button to add widget is set to disabled in the marketplace
+  @EndToEnd
+  Scenario: Add panel to dashup
+    Given User is located on marketplace menu
+    And User clicks on a specific listed widget
+    When User clicks on the add button
+    Then Widget was added to a new section section of central dashboard at the top, named after the widget
