@@ -30,7 +30,7 @@ public class MarketplaceStepDefinitions {
         } catch (ElementNotInteractableException e) {
             //fallback for firefox
             driver.findElement(By.className("sidenav-trigger")).click();
-            driver.findElement(By.id("li-for-nav-item-marketplace")).click();
+            driver.findElement(By.id("li-for-nav-item-marketplace-sidenav")).click();
         }
     }
 
