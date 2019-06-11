@@ -273,6 +273,7 @@ public class DashupService {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("category", category);
         List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters);
+        Collections.shuffle(result);
         if (result != null && result.size() > 3) {
             for (int i = 0; i < 3; i++) {
                 Widget widget = new Widget().fromDatabaseObject(result.get(i));
@@ -294,6 +295,7 @@ public class DashupService {
             //fill rest of similar section with most popular widgets
             result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, new HashMap<>(),
                     "number_of_downloads DESC LIMIT " + (3 - returningValue.size() + 1));
+            Collections.shuffle(result);
             for (DatabaseObject databaseObject : result) {
                 Widget widget = new Widget().fromDatabaseObject(databaseObject);
                 widget.setShortDescription(this.shortenShortDescOfPanel(widget.getShortDescription()));
