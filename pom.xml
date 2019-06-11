@@ -101,6 +101,10 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.3</version>
+                <configuration>
+                    <destFile>${project.basedir}/../target/jacoco.exec</destFile>
+                    <append>true</append>
+                </configuration>
                 <executions>
                     <execution>
                         <id>agent-for-ut</id>
