@@ -22,10 +22,10 @@ To install or deploy our application on your server, you need to do the followin
 
 1. Clone our repository.
 1. Install MySQL and import the mysql scheme from [here](https://github.com/raphaelmue/dashup/tree/master/docs/architectures/database/dashup_prod.sql).
-1. Create a file called database.conf and copy it into `./de.dashup.model/src/main/resources/de/dashup/model/db/config`. This file must contain the following information separated by lines:
-    1. Host name of database
-    1. User to access database
-    1. Password to access database
+1. Create a file called database.conf and copy it into `./de.dashup.model/src/main/resources/de/dashup/model/db/config` (You need to create these folders). This file must contain the following information separated by lines:
+    1. Host name of database (e.g. `dashup.de`)
+    1. User to access database (e.g. `dashup_admin`)
+    1. Password to access database (e.g. `password`)
 1. Install Java 11.
 1. Install Maven 3.6.1.
 1. Run `mvn clean install -DskipTests` to compile the application.
