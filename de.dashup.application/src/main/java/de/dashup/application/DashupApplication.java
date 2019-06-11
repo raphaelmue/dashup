@@ -35,7 +35,7 @@ public class DashupApplication extends SpringBootServletInitializer implements W
             }
         }
 
-        Database.setDbName(Objects.requireNonNullElse(databaseName, Database.DatabaseName.DEV));
+        Database.setDatabaseName(Objects.requireNonNullElse(databaseName, Database.DatabaseName.DEV));
 
         // run spring application
         SpringApplication.run(DashupApplication.class, args);

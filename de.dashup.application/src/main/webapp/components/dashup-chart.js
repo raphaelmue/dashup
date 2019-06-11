@@ -167,7 +167,7 @@ export class DashupChart extends DashupComponent {
         return {
             title: {type: String},
             category: {type: String},
-            data: {type: Array}
+            data: {type: Array, attribute: false}
         };
     }
 
@@ -181,24 +181,36 @@ export class DashupChart extends DashupComponent {
         if (values.length > 0) {
             switch(data.mode){
                 case MessageBroker.MessageMode.ADD:
-                    let position = -1;
-                    this.data.find((element, index) => {
-                        if(element.category === values[1]){
-                            position = index;
+                    if(Array.isArray(data.data)){
+                        data.data.filter(element => {
+                            for(let data of this.data){
+                                if(data.category === element.category){
+                                    return false;
+                                }
+                            }
                             return true;
-                        }
-                        return false;
-                    });
-                    if(position >= 0){
-                        this.data[position] = {"category": values[1], "value": Number(this.data[position].value) + Number(values[0])}
+                        }).forEach(element => this.data.push(element));
+                        this.requestUpdate();
                     } else {
-                        this.data.push({"category": values[1], "value": values[0]});
+                        if(!values[0])
+                            return;
+                        let position = -1;
+                        this.data.find((element, index) => {
+                            if(element.category === values[1]){
+                                position = index;
+                                return true;
+                            }
+                            return false;
+                        });
+                        if(position >= 0){
+                            this.data[position] = {"category": values[1], "value": Number(this.data[position].value) + Number(values[0])}
+                        } else {
+                            this.data.push({"category": values[1], "value": Number(values[0])});
+                        }
                     }
                      break;
                 case MessageBroker.MessageMode.DELETE:
-                    for(let element of values){
-                        this.data.splice(this.data.indexOf({"category": element[1], "value": element[0]}), 1);
-                    }
+                    this.data = [];
                     break;
             }
             this.requestUpdate();
@@ -206,7 +218,7 @@ export class DashupChart extends DashupComponent {
     }
 
     getValue(){
-        return this.data;
+        return this.data ? this.data : null;
     }
 
 }

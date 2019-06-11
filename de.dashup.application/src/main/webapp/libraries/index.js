@@ -6,6 +6,12 @@ $(document).ready(function () {
     $("select").formSelect();
     $(".modal").modal();
 
+    let textAreas = $("textarea");
+    if (textAreas.length > 0) {
+        M.textareaAutoResize(textAreas);
+    }
+
+
     let undoBtn = $(".undo-button");
     if (undoBtn.length > 0) {
         undoBtn.on("click", function () {

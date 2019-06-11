@@ -1,21 +1,22 @@
-# API Reference: DashupCheckbox - V1.0
+# API Reference: DashupCheckbox - V1.1
 
 ## Inheritance
 
 Inherits from [DashupComponent](dashup-component.md).
 
-##Properties
-**Value**
+## Properties
+
+**value**
         
         Type: String
         Description: The value next to the checkbox
         
-**Checked**
+**checked**
 
         Type: Boolean
         Description: Make the checkbox checked
      
-**Disabled**
+**disabled**
 
         Type: Boolean
         Description: Make the checkbox not clickable

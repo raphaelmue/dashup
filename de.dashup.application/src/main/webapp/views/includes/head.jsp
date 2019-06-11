@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="../../styles/theme.style.css"/>
     <link rel="stylesheet" href="../../styles/themes/theme.${fn:escapeXml(theme)}.style.css"/>
     <link rel="stylesheet" href="../../styles/main.style.css"/>
+    <link rel="stylesheet" href="../../styles/marketplace.style.css"/>
 
     <%-- JavaScript Classes --%>
     <script type="text/javascript" src="../../libraries/classes/PostRequest.js"></script>

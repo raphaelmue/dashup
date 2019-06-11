@@ -26,15 +26,15 @@ public class Database {
 
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 
-    private static String HOST;
-    private static DatabaseName DB_NAME;
+    private static String host;
+    private static DatabaseName databaseName;
 
-    private static String DB_USER;
-    private static String DB_PASSWORD;
+    private static String user;
+    private static String password;
 
     private Connection connection;
 
-    private static Database INSTANCE = null;
+    private static Database instance = null;
 
     public enum Table {
         USERS("users"),
@@ -44,7 +44,14 @@ public class Database {
         USER_SECTIONS("users_sections"),
         SECTIONS_PANELS("sections_panels"),
         COMPONENTS("components"),
-        PANELS_COMPONENTS("panels_components");
+        PANELS_COMPONENTS("panels_components"),
+        TODOS("todos"),
+        FINANCES("finances"),
+        PROPERTIES("properties"),
+        USERS_PROPERTIES("users_properties"),
+        TAGS("tags"),
+        RATINGS("ratings"),
+        PANELS_TAGS("panels_tags");
 
         private final String tableName;
 
@@ -99,20 +106,20 @@ public class Database {
             // loading database driver
             Class.forName(JDBC_DRIVER);
 
-            if (HOST == null) {
+            if (host == null) {
                 throw new IllegalArgumentException("Database: No host is defined!");
             }
 
-            if (DB_USER == null || DB_PASSWORD == null) {
+            if (user == null || password == null) {
                 throw new IllegalArgumentException("Database: No user or password is defined!");
             }
 
             // initializing DB access
 
-            this.connection = DriverManager.getConnection("jdbc:mysql://" + HOST + ":3306/" + DB_NAME.getName() +
+            this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":3306/" + databaseName.getName() +
                             "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" +
                             "serverTimezone=UTC&autoReconnect=true",
-                    DB_USER, DB_PASSWORD);
+                    user, password);
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -126,15 +133,15 @@ public class Database {
      */
     public static void setHost(boolean local) {
         if (local) {
-            HOST = "localhost";
-            DB_USER = "root";
-            DB_PASSWORD = "";
+            host = "localhost";
+            user = "root";
+            password = "";
         } else {
             try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(
                     Database.class.getResourceAsStream("config/database.conf")))) {
-                HOST = fileReader.readLine();
-                DB_USER = fileReader.readLine();
-                DB_PASSWORD = fileReader.readLine();
+                host = fileReader.readLine();
+                user = fileReader.readLine();
+                password = fileReader.readLine();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -146,8 +153,8 @@ public class Database {
      *
      * @param databaseName DatabaseName Object
      */
-    public static void setDbName(DatabaseName databaseName) {
-        DB_NAME = databaseName;
+    public static void setDatabaseName(DatabaseName databaseName) {
+        Database.databaseName = databaseName;
     }
 
     /**
@@ -156,10 +163,10 @@ public class Database {
      * @return database object
      */
     public static Database getInstance() throws SQLException {
-        if (INSTANCE == null) {
-            INSTANCE = new Database();
+        if (instance == null) {
+            instance = new Database();
         }
-        return INSTANCE;
+        return instance;
     }
 
     /**
@@ -174,8 +181,24 @@ public class Database {
      */
     public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters,
                                                     String orderByClause) throws SQLException, JsonParseException {
+        return this.getObject(table, null, resultType, null, whereParameters, orderByClause);
+    }
+
+    /**
+     * @see Database#getObject(Table, Type, Map, String)
+     */
+    public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters) throws SQLException {
+        return this.getObject(table, resultType, whereParameters, null);
+    }
+
+    public List<? extends DatabaseObject> getObject(Table table, Table joinOn, Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters, String orderByClause) throws SQLException {
         Gson gson = new GsonBuilder().create();
-        JSONArray jsonArray = this.get(table, whereParameters, orderByClause);
+        JSONArray jsonArray;
+        if (joinOn == null && onParameters == null) {
+            jsonArray = this.get(table, whereParameters, orderByClause);
+        } else {
+            jsonArray = this.get(table, joinOn, onParameters, whereParameters, orderByClause);
+        }
         List<DatabaseObject> result = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -184,11 +207,8 @@ public class Database {
         return result;
     }
 
-    /**
-     * @see Database#getObject(Table, Type, Map, String)
-     */
-    public List<? extends DatabaseObject> getObject(Table table, Type resultType, Map<String, Object> whereParameters) throws SQLException, JsonParseException {
-        return this.getObject(table, resultType, whereParameters, null);
+    public List<? extends DatabaseObject> getObject(Table table, Table joinOn, Type resultType, Map<String, String> onParameters, Map<String, Object> whereParameters) throws SQLException {
+        return getObject(table, joinOn, resultType, onParameters, whereParameters, null);
     }
 
     /**
@@ -201,14 +221,44 @@ public class Database {
     }
 
     /**
+     * Fetches data from database by joining two tables.
+     *
+     * @param table           right table for the join
+     * @param joinOn          left table for the join
+     * @param onParameters    columns that are used for the join. It is important that the column,which is passed as key is
+     *                        in the right table and the column that is passed as value is in the left table of the join
+     * @param whereParameters parameters that are used in the where clause to select data
+     * @return result of the database query
+     */
+    public JSONArray get(Table table, Table joinOn, Map<String, String> onParameters, Map<String, Object> whereParameters, String orderByClause) throws SQLException {
+        PreparedStatement statement;
+        StringBuilder query = new StringBuilder("SELECT * FROM " + table.getTableName() + " INNER JOIN " + joinOn.getTableName() +
+                " ON ");
+        for (Map.Entry<String, String> entry : onParameters.entrySet()) {
+            query.append(table.getTableName()).append(".").append(entry.getKey()).append(" = ").append(joinOn.getTableName()).append(".").append(entry.getValue());
+        }
+        query.append(this.getClause(whereParameters, "WHERE", " AND "));
+        query.append(this.getOrderByClause(orderByClause));
+
+        statement = connection.prepareStatement(query.toString());
+        this.preparedStatement(statement, whereParameters);
+
+        // execute query
+        ResultSet result = statement.executeQuery();
+        return Converter.convertResultSetIntoJSON(result);
+    }
+
+    public JSONArray get(Table table, Table joinOn, Map<String, String> onParameters, Map<String, Object> whereParameters) throws SQLException {
+        return get(table, joinOn, onParameters, whereParameters, null);
+    }
+
+    /**
      * @param tableName       database table to fetch from
      * @param whereParameters where parameters which will be concatenated by AND
      * @param orderByClause   order by clause which will be appended on the sql statement
      * @return JSONArray that contains
      * @throws SQLException thrown, when something went wrong executing the SQL statement
      */
-    // TODO select specific fields
-    // TODO escape strings
     public JSONArray get(Table tableName, Map<String, Object> whereParameters, String orderByClause) throws SQLException {
         PreparedStatement statement;
         String query = "SELECT * FROM " + tableName.getTableName() +
@@ -293,7 +343,7 @@ public class Database {
      * @throws SQLException thrown, when something went wrong executing the SQL statement
      */
     public void clearDatabase() throws SQLException {
-        if (DB_NAME == DatabaseName.TEST || DB_NAME == DatabaseName.JENKINS) {
+        if (databaseName == DatabaseName.TEST || databaseName == DatabaseName.JENKINS) {
             this.connection.prepareStatement("SET FOREIGN_KEY_CHECKS = 0").execute();
             for (Table table : Table.values()) {
                 this.connection.prepareStatement("TRUNCATE TABLE " + table.getTableName()).execute();
@@ -342,6 +392,8 @@ public class Database {
         for (Map.Entry<String, Object> entry : values.entrySet()) {
             if (entry.getValue() instanceof LocalDate) {
                 statement.setObject(index, Date.valueOf((LocalDate) entry.getValue()).toString());
+            } else if (entry.getValue() instanceof Boolean) {
+                statement.setObject(index, (boolean) entry.getValue() ? 1 : 0);
             } else {
                 statement.setObject(index, entry.getValue());
             }

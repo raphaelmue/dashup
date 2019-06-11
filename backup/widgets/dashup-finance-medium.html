@@ -1,0 +1,44 @@
+<dashup-grid-layout>
+    <dashup-chart name="chart"
+                  title="My Spendings"
+                  category="Personal Spendings"
+                  layout='{"row": 1, "offset": 0, "size": 12}'>
+    </dashup-chart>
+    <dashup-text-input name="amount"
+                       placeholder="Amount"
+                       layout='{"row": 2, "offset": 0, "size": 5}'
+                       clear>
+    </dashup-text-input>
+    <dashup-radio-button-group name="category"
+                               layout='{"row": 2, "offset": 1, "size": 6}'>
+        <dashup-radio-button group="category"
+                             value="Family"
+                             checked>
+        </dashup-radio-button>
+        <dashup-radio-button group="category"
+                             value="Housing">
+        </dashup-radio-button>
+        <dashup-radio-button group="category"
+                             value="Meals">
+        </dashup-radio-button>
+        <dashup-radio-button group="category"
+                             value="Investments">
+        </dashup-radio-button>
+    </dashup-radio-button-group>
+    <dashup-button text="Add"
+                   mode="add"
+                   dataAPI="http://dashup.de/loadFinanceChart"
+                   storageAPI="http://dashup.de/financeChart"
+                   consumers='[{"chart": "apiData chart"},{"chart": ""}]'
+                   producers="amount category"
+                   layout='{"row": 3, "offset": 0, "size": 5}'
+                   handleOnStart>
+    </dashup-button>
+    <dashup-button text="Delete"
+                   mode="delete"
+                   storageAPI="http://dashup.de/financeChart"
+                   consumers='[{"chart": "apiData chart"},{"chart": ""}]'
+                   producers="chart"
+                   layout='{"row": 3, "offset": 2, "size": 5}'>
+    </dashup-button>
+</dashup-grid-layout>

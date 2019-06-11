@@ -1,24 +1,34 @@
-# API Reference: DashupChart - V1.0
+# API Reference: DashupChart - V1.1
 
 ## Inheritance
 
 Inherits from [DashupComponent](dashup-component.md).
 
-##Interface
-**Title**
+## Interface
+
+**title**
         
         Type: String
         Description: The name of the bar chart
         
-**Category**
+**category**
 
         Type: String
         Desciption: Additional descriptive text for the displayed data.
         
-**Data**
+## Data Format
 
-        Type: Array
-        Description: Dataset to display in the chart. Format must be compliant to the following:
+        To fill the chart with data delivered from an API, the format must be compliant with the following:
         
-            <dashup-chart name="myChart" title="finance chart" category="my spendings"
-                          data='[{"category": "family", "value": "3000"}, {"category": "car", "value": "150"}]' ...>
+        [
+            {
+                category: "...",
+                value: 1234
+            },
+            ...
+        ]
+        
+## Attention
+
+        The chart component is design to handle data with bigger numbers, otherwise the scaling of the chart will be 
+        missleading in the current state.

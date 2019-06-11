@@ -6,9 +6,7 @@ import de.dashup.model.service.DashupService;
 import de.dashup.shared.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,11 +14,11 @@ import java.sql.SQLException;
 import java.util.Locale;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping(value = "/")
 public class EntryController {
     private final LocalStorage localStorage = LocalStorage.getInstance();
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @GetMapping(value = "/login")
     public String login(@RequestParam(name = "lang", required = false) Locale locale,
                         Model model, HttpServletRequest request) {
         ControllerHelper.setLocale(request, locale);
@@ -28,7 +26,7 @@ public class EntryController {
         return "login";
     }
 
-    @RequestMapping(value = "/handleLogin", method = RequestMethod.POST)
+    @PostMapping(value = "/handleLogin")
     public String handleLogin(@RequestParam(name = "email") String email,
                               @RequestParam(name = "password") String password,
                               @RequestParam(name = "rememberMe", defaultValue = "false") boolean rememberMe,
@@ -49,13 +47,13 @@ public class EntryController {
         }
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @GetMapping(value = "/register")
     public String register(Model model) {
         model.addAttribute("theme", "blue-sky");
         return "register";
     }
 
-    @RequestMapping(value = "/handleRegisterUser", method = RequestMethod.POST)
+    @PostMapping(value = "/handleRegisterUser")
     public String handleRegisterUser(@RequestParam(name = "email") String email, @RequestParam(name = "userName") String userName,
                                      @RequestParam(name = "password") String password,
                                      @RequestParam(name = "lang", required = false) Locale locale,

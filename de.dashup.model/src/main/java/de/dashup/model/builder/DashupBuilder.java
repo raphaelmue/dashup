@@ -1,14 +1,15 @@
 package de.dashup.model.builder;
 
-import de.dashup.shared.Section;
+import de.dashup.shared.layout.Section;
 import de.dashup.shared.User;
-import de.dashup.shared.Widget;
+import de.dashup.shared.layout.Widget;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DashupBuilder {
 
+<<<<<<< HEAD
     public static String buildComponentsDependencies(User user) {
         StringBuilder content = new StringBuilder();
         List<String> dependencies = new ArrayList<String>();
@@ -32,21 +33,25 @@ public class DashupBuilder {
             content.append(System.lineSeparator());
         }
         return content.toString();
+=======
+    private DashupBuilder() {
+        super();
+>>>>>>> bdcb6d083eca863a94e8996106f50128def92a2d
     }
 
     public static String buildUsersPanels(User user) {
         StringBuilder content = new StringBuilder();
         if (user.getSections() != null) {
             for (Section section : user.getSections()) {
-                content.append("<div class=\"row\"><h3 class=\"sectionHeading\">")
+                content.append("<div class=\"row\"><div class=\"col s12 m12\"><h3 class=\"sectionHeading\">")
                         .append(section.getName())
-                        .append("</h3><hr/><div>");
+                        .append("</h3><hr/></div>");
                 if (section.getWidgets() != null) {
                     for (Widget widget : section.getWidgets()) {
                         content.append(widget.getCodeWithWrapper());
                     }
                 }
-                content.append("<div class=\"clear-float\"></div></div></div>");
+                content.append("<div class=\"clear-float\"></div></div>");
             }
         }
         return content.toString();

@@ -1,7 +1,9 @@
 package de.dashup.shared;
 
 import com.google.gson.annotations.SerializedName;
+import de.dashup.shared.layout.DatabaseWidget;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,9 +52,8 @@ public class Widget extends DatabaseWidget implements Comparable<Widget>{
     public Widget() {
     }
 
-    public Widget(int id, String name, String description, int numberOfDownloads, int averageRating,
-                  int index) {
-        super(id, name, description, numberOfDownloads, averageRating);
+    public Widget(int id, String name, String description, int numberOfDownloads, int averageRating, LocalDate publicationDate, String iconCode, int index) {
+        super(id, name, description, numberOfDownloads, averageRating, publicationDate, iconCode);
         this.index = index;
     }
 

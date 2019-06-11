@@ -10,7 +10,8 @@ public class Settings {
         WHITE_DIAMOND("white-diamond", "White Diamond"),
         BLACK_NIGHT("black-night", "Black Night");
 
-        private final String technicalName, name;
+        private final String technicalName;
+        private final String name;
 
         Theme(String technicalName, String name) {
             this.technicalName = technicalName;

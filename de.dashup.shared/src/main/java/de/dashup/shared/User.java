@@ -1,5 +1,7 @@
 package de.dashup.shared;
 
+import de.dashup.shared.layout.Section;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ public class User extends DatabaseUser {
     private String token;
     private Settings settings;
     private List<Section> sections;
+    private List<Draft> drafts;
 
     public User() {
         this.sections = new ArrayList<>();
@@ -20,7 +23,7 @@ public class User extends DatabaseUser {
     }
 
     @Override
-    public DatabaseObject fromDatabaseObject(DatabaseObject databaseObject) {
+    public User fromDatabaseObject(DatabaseObject databaseObject) {
         if (databaseObject instanceof DatabaseUser) {
             this.setId(databaseObject.getId());
             this.setName(((DatabaseUser) databaseObject).getName());
@@ -52,6 +55,10 @@ public class User extends DatabaseUser {
         return sections;
     }
 
+    public List<Draft> getDrafts() {
+        return drafts;
+    }
+
     public void setToken(String token) {
         this.token = token;
     }
@@ -62,6 +69,10 @@ public class User extends DatabaseUser {
 
     public void setSections(List<Section> sections) {
         this.sections = sections;
+    }
+
+    public void setDrafts(List<Draft> drafts) {
+        this.drafts = drafts;
     }
 
     public String getUserName(){

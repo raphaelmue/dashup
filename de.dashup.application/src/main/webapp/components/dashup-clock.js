@@ -38,11 +38,11 @@ export class DashupClock extends DashupComponent {
             }
             
             .clock {
-                height: 100px;
-                width: 100px;
-                background-color: #dddddd;
+                height: 150px;
+                width: 150px;
+                background-color: var(--color-background);
                 border-radius: 100%;
-                border: 3px solid #aaaaaa;
+                border: 4.5px solid var(--color-primary-dark);
                 margin: auto;
                 position: absolute;
                 top: 0;
@@ -53,9 +53,9 @@ export class DashupClock extends DashupComponent {
             
             .twelve {
                 position: absolute;
-                width: 3px;
-                height: 15px;
-                background: #111111;
+                width: 4.5px;
+                height: 22.5px;
+                background: var(--color-primary-light);
                 left: 0;
                 top: 0;
                 right: 0;
@@ -64,9 +64,9 @@ export class DashupClock extends DashupComponent {
             
             .three {
                 position: absolute;
-                width: 15px;
-                height: 3px;
-                background: #111111;
+                width: 22.5px;
+                height: 4.5px;
+                background: var(--color-primary-light);
                 top: 0;
                 bottom: 0;
                 right: 0;
@@ -75,9 +75,9 @@ export class DashupClock extends DashupComponent {
             
             .six {
                 position: absolute;
-                width: 3px;
-                height: 15px;
-                background: #111111;
+                width: 4.5px;
+                height: 22.5px;
+                background: var(--color-primary-light);
                 left: 0;
                 bottom: 0;
                 right: 0;
@@ -86,9 +86,9 @@ export class DashupClock extends DashupComponent {
             
             .nine {
                 position: absolute;
-                width: 15px;
-                height: 3px;
-                background: #111111;
+                width: 22.5px;
+                height: 4.5px;
+                background: var(--color-primary-light);
                 top: 0;
                 bottom: 0;
                 left: 0;
@@ -96,25 +96,25 @@ export class DashupClock extends DashupComponent {
             }
             
             .center {
-                width: 10px;
-                height: 10px;
+                width: 15px;
+                height: 15px;
                 position: absolute;
                 left: 0;
                 right: 0;
                 bottom: 0;
                 top: 0;
                 margin: auto;
-                background: #000;
+                background: var(--color-primary-light);
                 border-radius: 100%;
             }
             
             #seconds {
                 position: absolute;
-                height: 32px;
-                width: 2px;
+                height: 48px;
+                width: 3px;
                 left: 0;
                 right: 0;
-                bottom: 32px;
+                bottom: 48px;
                 top: 0px;
                 margin: auto;
                 background: #ff4136;
@@ -123,27 +123,27 @@ export class DashupClock extends DashupComponent {
             
             #minutes {
                 position: absolute;
-                height: 50px;
-                width: 2px;
+                height: 75px;
+                width: 3px;
                 left: 0;
                 right: 0;
-                bottom: 50px;
+                bottom: 75px;
                 top: 0px;
                 margin: auto;
-                background: #000;
+                background: var(--color-primary);
                 -webkit-transform-origin: bottom;
             }
             
             #hours {
                 position: absolute;
-                height: 25px;
-                width: 4px;
+                height: 37.5px;
+                width: 6px;
                 left: 0;
                 right: 0;
-                bottom: 25px;
+                bottom: 37.5px;
                 top: 0px;
                 margin: auto;
-                background: #000;
+                background: var(--color-primary);
                 -webkit-transform-origin: bottom;
             }
         `;
