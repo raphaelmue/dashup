@@ -77,7 +77,7 @@
                 <sonar.host.url>https://sonarcloud.io</sonar.host.url>
                 <sonar.login>c88497e2b3b58f9e622ec2327efc66572441d199</sonar.login>
 
-                <sonar.sources>src/main</sonar.sources>
+                <sonar.sources>src/main/java</sonar.sources>
                 <sonar.tests>src/test</sonar.tests>
 
                 <!-- Sending code coverage to sonar -->
