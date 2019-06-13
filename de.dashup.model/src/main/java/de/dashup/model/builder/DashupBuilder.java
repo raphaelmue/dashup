@@ -9,7 +9,10 @@ import java.util.List;
 
 public class DashupBuilder {
 
-<<<<<<< HEAD
+    private DashupBuilder() {
+        super();
+    }
+
     public static String buildComponentsDependencies(User user) {
         StringBuilder content = new StringBuilder();
         List<String> dependencies = new ArrayList<String>();
@@ -19,7 +22,7 @@ public class DashupBuilder {
                     for (Widget widget : section.getWidgets()) {
                         if (widget.getComponents() != null) {
                             for (String component : widget.getComponents()) {
-                                if(!dependencies.contains(component)){
+                                if (!dependencies.contains(component)) {
                                     dependencies.add(component);
                                 }
                             }
@@ -28,15 +31,12 @@ public class DashupBuilder {
                 }
             }
         }
-        for (String dependency : dependencies){
+        for (String dependency : dependencies) {
             content.append("import \"../../components/" + dependency + ".js\";");
             content.append(System.lineSeparator());
         }
         return content.toString();
-=======
-    private DashupBuilder() {
-        super();
->>>>>>> bdcb6d083eca863a94e8996106f50128def92a2d
+
     }
 
     public static String buildUsersPanels(User user) {

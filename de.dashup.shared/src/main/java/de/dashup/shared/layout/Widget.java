@@ -81,6 +81,7 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
     private Size size;
     @SerializedName("widget_index")
     private int index;
+    private List<String> component = new ArrayList<>();
     private final Set<Tag> tags = new HashSet<>();
 
     private final Map<String, Property> properties = new HashMap<>();
@@ -221,5 +222,15 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
     @Override
     public int hashCode() {
         return Objects.hash(this.getId(), this.getName());
+    }
+
+    public void addComponent(String component){
+        if(!this.component.contains(component)){
+            this.component.add(component);
+        }
+    }
+
+    public List<String> getComponents(){
+        return this.component;
     }
 }
