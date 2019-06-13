@@ -1,5 +1,5 @@
-dashup - Use Case Specification: Login / Register
-============================================
+# dashup - Use Case Specification: Login / Register
+
 ### Version 2.2
 
 # Revision History

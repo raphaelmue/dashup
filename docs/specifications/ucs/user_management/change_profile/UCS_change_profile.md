@@ -75,7 +75,7 @@ If the user leaves dashup before saving the changes, the old settings will be re
 
 # 6. Extension Points
 If enough time is left after having implemented all use cases, maybe a possibility to add references to social media 
-accounts could be added.
+accounts could be added or adding a profile picture like shown in the mock-ups (crossed out space).
 
 # 7. Function Points
 

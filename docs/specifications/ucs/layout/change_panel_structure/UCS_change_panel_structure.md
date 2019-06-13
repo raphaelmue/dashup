@@ -1,5 +1,5 @@
-dashup - Use Case Specification: Layout - Change Panel Structure
-============================================
+# dashup - Use Case Specification: Layout - Change Panel Structure
+
 ### Version 2.1
 
 # Revision History

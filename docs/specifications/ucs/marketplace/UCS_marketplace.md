@@ -1,5 +1,5 @@
-dashup - Use Case Specification: Marketplace
-============================================
+# dashup - Use Case Specification: Marketplace
+
 ### Version 2.1
 
 # Revision History
@@ -54,7 +54,7 @@ dashboard.
 <br />
 <img src="./mockups/overview.png" alt="overview" />
 <br />
-<img src="./mockups/ratingValue.png" alt="ratingValue" />
+<img src="./mockups/rating.png" alt="rating" />
 <br />
 <img src="./mockups/comment.png" alt="comment" />
 <br />
