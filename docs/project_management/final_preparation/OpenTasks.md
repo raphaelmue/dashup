@@ -1,9 +1,10 @@
 # Things left to do
 
-* Final Blog Entry (Link to blogs, marketing video, repo, youtrack, jenkins, codacy, sonar, direct links to files, etc.) (Felix)
+* Final Blog Entry (Link to blogs, marketing video, repo, youtrack, jenkins, codacy, sonar, direct links to files, Rahmen ziehen, App Bild, etc.) (Felix)
 * Transition: Get Blog printed as pdf and dashup zipped to copy to stick, send e-mail with blog as pdf and notification for final blog post
 -> Not later than one week after (Felix)
-* New blog post for final tech-stack and CI. Configuration Management Project Plan (CMPP) for CI, adapt test plan for tech stack and LINK to CMPP (Raphael)
+* Rework SAD (Class Diagram and Module diagram) -> Adapt the class diagram in the two blog posts (Raphael)
+* Update time estimation Blog (Felix)
 * Do all tasks have git integration (Joshua)
 * Go through gc of 3rd and 4th semester (Felix)
 * Go through YouTrack: (All)
@@ -12,6 +13,7 @@
 * Write tests to get coverage over 50% (Joshua and Raphael)
 * Metrics improvements (not much) (Raphael)
 * Go through Blog (see if links are working) + UPDATE Blog (Felix)
+* Create Release (Felix)
 * Handout (Sven)
     * Team name
     * Team member mails with e-mail address (sap)
@@ -40,12 +42,9 @@
 * Update all documents (especially ucs) (Felix)
 * Test logs in repo (Joshua)
 * UI Test Video (Joshua)
-* Include Tech Stack in test plan (Raphael)
-* Include Lifecycle Management Tools/Tech Stack in Test Plan (Raphael)
 * Include hours/team member breakdown in Function Point Blog (Felix)
 * Include GANTT Chart in FP analysis (Felix)
 * Include estimates and actual time spent in function point blog (Felix)
-* Include Pattern in SAD with class diagram (highlight parts) (Felix)
 * Show Code Sample when improving metric in blog post (Raphael)
 * Link presentation (Felix)
 
