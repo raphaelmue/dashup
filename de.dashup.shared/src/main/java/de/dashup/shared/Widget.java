@@ -52,8 +52,8 @@ public class Widget extends DatabaseWidget implements Comparable<Widget>{
     public Widget() {
     }
 
-    public Widget(int id, String name, String description, int numberOfDownloads, int averageRating, LocalDate publicationDate, String iconCode, int index) {
-        super(id, name, description, numberOfDownloads, averageRating, publicationDate, iconCode);
+    public Widget(int id, String name, String description, int numberOfDownloads, int averageRating, int numberOfRatings, LocalDate publicationDate, String iconCode, int index) {
+        super(id, name, description, numberOfDownloads, averageRating, numberOfRatings, publicationDate, iconCode);
         this.index = index;
     }
 

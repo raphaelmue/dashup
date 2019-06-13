@@ -37,7 +37,7 @@ public class DatabaseWidget implements DatabaseObject {
     public DatabaseWidget() {
     }
 
-    DatabaseWidget(int id, String name, String description, int numberOfDownloads, int averageRating, int numberOfRatings, LocalDate publicationDate, String iconCode) {
+    public DatabaseWidget(int id, String name, String description, int numberOfDownloads, int averageRating, int numberOfRatings, LocalDate publicationDate, String iconCode) {
         this.id = id;
         this.name = name;
         this.description = description;
