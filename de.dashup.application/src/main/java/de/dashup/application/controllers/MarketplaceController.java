@@ -3,14 +3,15 @@ package de.dashup.application.controllers;
 import de.dashup.application.controllers.util.ControllerHelper;
 import de.dashup.application.local.LocalStorage;
 import de.dashup.model.service.DashupService;
-import de.dashup.shared.layout.Widget;
 import de.dashup.shared.User;
+import de.dashup.shared.layout.Widget;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/marketplace")
@@ -24,13 +25,28 @@ public class MarketplaceController {
             model.addAttribute("featuredWidgets", DashupService.getInstance().getFeaturedWidgets(featuredWidgets));
             model.addAttribute("bestRated", DashupService.getInstance().getTopWidgets("avg_of_ratings"));
             model.addAttribute("mostDownloaded", DashupService.getInstance().getTopWidgets("number_of_downloads"));
+            model.addAttribute("categories", Widget.Category.values());
+            model.addAttribute("tags", DashupService.getInstance().getAllTags());
+            model.addAttribute("publisher", DashupService.getInstance().getAllPublisher());
         });
     }
 
-    @PostMapping(value = "/search")
-    public String searchMarketplace(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
+    @GetMapping("/search")
+    public String searchMarketplace(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request,
+                                    @RequestParam("searchQuery") String searchQuery, @RequestParam(value = "date", required = false) String date, @RequestParam(value = "rating", required = false) String rating, @RequestParam(value = "categories", required = false) List<String> categories, @RequestParam(value = "tags", required = false) List<String> tags,@RequestParam(value = "publisher", required = false) List<String> publisher) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "marketplaceSearchResult", user -> {
-            // tbd
+            List<Widget> widgets;
+            if (tags != null) {
+                widgets = DashupService.getInstance().findWidgetByName(searchQuery, date, rating, categories, tags,publisher);
+            } else {
+                widgets = DashupService.getInstance().findWidgetByName(searchQuery, date, rating, categories,publisher);
+            }
+            model.addAttribute("widgets", widgets);
+            user = DashupService.getInstance().getSectionsAndPanels(user);
+            model.addAttribute("sections", user.getSections());
+            model.addAttribute("categories", Widget.Category.values());
+            model.addAttribute("tags", DashupService.getInstance().getAllTags());
+            model.addAttribute("publisher", DashupService.getInstance().getAllPublisher());
         });
     }
 

@@ -901,6 +901,19 @@ public class DashupService {
         }
     }
 
+    public List<String> getAllPublisher() throws SQLException {
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("visibility", true);
+
+        List<String> publisherList = new ArrayList<>();
+        for (DatabaseObject databaseObject : this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters)) {
+            Widget widget = new Widget().fromDatabaseObject(databaseObject);
+            String publisher = getUserById(widget.getPublisherId()).getFullName();
+            publisherList.add(publisher);
+        }
+        return publisherList;
+
+    }
 
     // --- WIDGETS --- \\
     public List<Widget> getUsersWidgets(User user) throws SQLException {
@@ -929,6 +942,102 @@ public class DashupService {
         return null;
     }
 
+    public List<Widget> findWidgetByName(String name, String date, String rating, List<String> categories, List<String> publisherList) throws SQLException{
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put("visibility",1);
+
+        Map<String, Object> operators = new HashMap<>();
+        operators.put("name","LIKE");
+
+        whereParameters.put("name", "%" + name + "%");
+        operators.put("visibility", "=");
+
+        if(date!=null){
+            whereParameters.put("publication_date",date);
+            operators.put("publication_date",">=");
+        }
+
+        if(rating!=null){
+            whereParameters.put("avg_of_ratings",rating);
+            operators.put("avg_of_ratings",">=");
+        }
+
+        List<? extends DatabaseObject> result = this.database.findByRange(Database.Table.PANELS,whereParameters,Widget.class,operators);
+
+       return filterWidgets(result,categories,publisherList);
+    }
+
+    public List<Widget> findWidgetByName(String name, String date, String rating, List<String> categories,List<String> tags,List<String> publisherList) throws SQLException{
+
+        List<Database.Table> tableList = new ArrayList<>();
+        tableList.add(Database.Table.PANELS);
+        tableList.add(Database.Table.PANELS_TAGS);
+        tableList.add(Database.Table.TAGS);
+
+        Map<String, Object> whereParameters = new HashMap<>();
+        whereParameters.put(Database.Table.PANELS.toString() + ".name", "%" + name + "%");
+
+        Map<String, Object> operators = new HashMap<>();
+        operators.put(Database.Table.PANELS.toString() + ".name","LIKE");
+
+        whereParameters.put("visibility",1);
+        operators.put("visibility", "=");
+
+        if(date!=null){
+            whereParameters.put(Database.Table.PANELS.toString() + ".publication_date",date);
+            operators.put(Database.Table.PANELS.toString() + ".publication_date",">=");
+        }
+
+        if(rating!=null){
+            whereParameters.put(Database.Table.PANELS.toString() + ".avg_of_ratings",rating);
+            operators.put(Database.Table.PANELS.toString() + ".avg_of_ratings",">=");
+        }
+
+        for (String tag:tags) {
+            whereParameters.put(Database.Table.TAGS.toString() + ".text",tag);
+            operators.put(Database.Table.TAGS.toString() + ".text","LIKE");
+        }
+
+        HashMap<String, Object> onParameters = new HashMap<>();
+        onParameters.put(Database.Table.PANELS_TAGS.toString() + ".tag_id",Database.Table.TAGS.toString() + ".id");
+        onParameters.put(Database.Table.PANELS.toString() + ".id",Database.Table.PANELS_TAGS.toString() + ".panel_id");
+
+        List<? extends DatabaseObject> result = database.findByRange(tableList,whereParameters,onParameters,Widget.class,operators);
+
+        return filterWidgets(result,categories,publisherList);
+    }
+
+    private List<Widget> filterWidgets(List<? extends DatabaseObject> widgetDatabaseObjects, List<String> categoryItems, List<String> publisherList) throws SQLException {
+        List<Widget> widgets = new ArrayList<>();
+        for (DatabaseObject databaseObject : widgetDatabaseObjects) {
+            Widget widget = new Widget().fromDatabaseObject(databaseObject);
+            widgets.add(widget);
+        }
+
+        if (categoryItems != null) {
+            widgets.removeIf(widget -> !categoryItems.contains(widget.getCategory()));
+        }
+
+        Iterator<Widget> publisherWidgetIterator = widgets.iterator();
+        if (publisherList != null) {
+
+            publisherList.replaceAll(String::toLowerCase);
+
+            while (publisherWidgetIterator.hasNext()) {
+                User publisher = getUserById(publisherWidgetIterator.next().getPublisherId());
+
+                String publisherName = publisher.getName().toLowerCase();
+                String publisherSurname = publisher.getSurname().toLowerCase();
+                String publisherFullName = publisher.getFullName().toLowerCase();
+
+                if (!(publisherList.contains(publisherName) || publisherList.contains(publisherSurname) || publisherList.contains(publisherFullName))) {
+                    publisherWidgetIterator.remove();
+                }
+            }
+        }
+
+        return widgets;
+    }
 
     // --- TAGS --- \\
     public List<Tag> getAllTags() throws SQLException {
@@ -979,4 +1088,6 @@ public class DashupService {
             }
         }
     }
+
+
 }
