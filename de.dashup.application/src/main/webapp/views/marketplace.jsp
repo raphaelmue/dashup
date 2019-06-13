@@ -17,22 +17,22 @@
                 </div>
             </div>
         </nav>
-        <form action="${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search" method="post">
-            <div class="row" style="margin-top: 25px">
+            <div class="row" id="search-bar" style="margin-top: 25px">
                 <div class="col m4 offset-m4 s8 offset-s1">
                     <div class="input-field">
-                        <input id="text-field-search-term" name="email" type="text" class="validate">
-                        <label for="text-field-search-term"><fmt:message key="i18n.enterSearchterm"/></label>
+                        <input id="text-field-search" name="search" type="text" class="validate">
+                        <label for="text-field-search"><fmt:message key="i18n.enterSearchterm"/></label>
                     </div>
                 </div>
                 <div class="col m2 s2" style="margin-top: 18px">
-                    <button id="btn_start_search_marketplace" class="btn waves-effect waves-light" type="submit"
-                            name="search">
+                    <a class='waves-effect waves-light modal-trigger' href='#widget-filter'>
+                        <i class="colored-text fas fa-filter"></i>
+                    </a>
+                    <button id="btn_start_search_marketplace" class="btn waves-effect waves-light" onclick="onSearch()">
                         <fmt:message key="i18n.go"/>
                     </button>
                 </div>
             </div>
-        </form>
         <div class="row">
             <div class="col m6 offset-m3 s10 offset-s1">
                 <h3><fmt:message key="i18n.featured"/></h3>
@@ -159,6 +159,14 @@
                 </div>
             </div>
         </div>
+
+        <jsp:include page="includes/filterModal.jsp">
+            <jsp:param name="lang" value="${param.lang}"/>
+            <jsp:param name="categories" value="${categories}"/>
+            <jsp:param name="tags" value="${tags}"/>
+            <jsp:param name="tags" value="${publisher}"/>
+        </jsp:include>
+
     </body>
     <script type="text/javascript">
         $( document ).ready(function () {
@@ -168,7 +176,6 @@
                 indicators: true
             });
         });
-
     </script>
 
     <jsp:include page="includes/webComponents.jsp" />

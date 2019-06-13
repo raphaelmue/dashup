@@ -16,3 +16,7 @@
     position: absolute;
     top: 0;
 }
+.clickable{
+    color: var(--color-font);
+    cursor: pointer
+}

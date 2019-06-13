@@ -4,6 +4,7 @@ import de.dashup.model.db.Database;
 import de.dashup.shared.DatabaseObject;
 import de.dashup.shared.DatabaseUser;
 import de.dashup.shared.User;
+import de.dashup.shared.layout.Widget;
 import de.dashup.util.string.Hash;
 import org.json.JSONArray;
 import org.junit.jupiter.api.*;
@@ -141,5 +142,24 @@ public class DatabaseUnitTest {
         whereParams.put("id", "3");
         JSONArray result = database.get(Database.Table.USERS, whereParams);
         Assertions.assertEquals(0, result.length());
+    }
+
+    @Test
+    public void findBySearchAndFilter() throws SQLException{
+        HashMap<String, Object> whereParams = new HashMap<>();
+        whereParams.put("name", "panel1");
+        HashMap<String, Object> operatorList = new HashMap<>();
+        operatorList.put("name","=");
+
+        whereParams.put("avg_of_ratings","75");
+        operatorList.put("avg_of_ratings",">=");
+
+        whereParams.put("publication_date","2019-04-19");
+        operatorList.put("publication_date",">=");
+
+        List<? extends DatabaseObject> result = database.findByRange(Database.Table.PANELS,whereParams,Widget.class,operatorList);
+        Assertions.assertEquals(1,result.size());
+        Widget widget = new Widget().fromDatabaseObject(result.get(0));
+        Assertions.assertEquals(1,widget.getId());
     }
 }

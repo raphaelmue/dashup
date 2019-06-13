@@ -37,7 +37,7 @@
         - [Test Plan Entry Criteria](#611-test-plan-task-criteria)
         - [Test Plan Exit Criteria](#612-test-plan-exit-criteria)
 - [Deliverables](#7-deliverables)
-    - [Test Evaluation Summeries](#71-test-evaluation-summaries)
+    - [Test Evaluation Summaries](#71-test-evaluation-summaries)
     - [Reporting on Test Coverage](#72-reporting-on-test-coverage)
     - [Perceived Quality Reports](#73-perceived-quality-report)
     - [Incident Logs and Change Requests](#74-incident-logs-and-change-requests)
@@ -58,9 +58,7 @@
 
 ## 1.1 Purpose
 
-The purpose of the Iteration Test Plan is to gather all of the information necessary to plan and control the test effort 
-for a given iteration. It describes the approach to testing the software, and is the top-level plan generated and used 
-by managers to direct the test effort.
+The purpose of the Iteration Test Plan is to gather all of the information necessary to plan and control the test effort for a given iteration. It describes the approach to testing the software, and is the top-level plan generated and used by managers to direct the test effort.
 
 This _Test Plan_ for **dashup** supports the following objectives:
 
@@ -233,7 +231,7 @@ process in Jenkins.
 If the Jenkins build was successful, the code coverage will be reported to the GitHub plugin _Codacy_. This badge shows 
 the current code coverage on the master branch: 
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/10a932c8811c4dd48cbd1c09c3f44703)](https://www.codacy.com/app/dashup/dashup?utm_source=github.com&utm_medium=referral&utm_content=raphaelmue/dashup&utm_campaign=Badge_Coverage)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=dashup&metric=coverage)](https://sonarcloud.io/dashboard?id=dashup)
 
 ### 7.3 Perceived Quality Report
 
