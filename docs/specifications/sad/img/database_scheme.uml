@@ -1,91 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>DATABASE</ID>
-  <OriginalElement>70449a19-cc53-4cb3-beb1-1e25d8375d13.SCHEMA:dashup_dev</OriginalElement>
+  <OriginalElement>832ad934-481b-47c9-9c33-80cc77128bf1.SCHEMA:dashup_dev</OriginalElement>
   <nodes>
-    <node x="152.49999999999994" y="308.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users_drafts</node>
-    <node x="4.68181818181813" y="540.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.ratings</node>
-    <node x="574.5" y="330.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users_settings</node>
-    <node x="10.499999999999943" y="341.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users_tokens</node>
-    <node x="363.5" y="308.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.panels</node>
-    <node x="794.5" y="341.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users_sections</node>
-    <node x="561.3484848484848" y="551.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.sections_panels</node>
-    <node x="279.0" y="0.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users</node>
-    <node x="979.5" y="363.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.tags</node>
-    <node x="954.25" y="584.0">70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.panels_tags</node>
+    <node x="181.0" y="442.0">832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users_sections</node>
+    <node x="621.125" y="743.0">832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.properties</node>
+    <node x="869.0" y="442.0">832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users_tokens</node>
+    <node x="1211.0" y="464.0">832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.tags</node>
+    <node x="390.0" y="431.0">832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users_settings</node>
+    <node x="634.0" y="321.0">832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.panels</node>
+    <node x="972.25" y="967.0">832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users_properties</node>
+    <node x="1035.0" y="442.0">832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.todos</node>
+    <node x="1194.5" y="776.0">832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.panels_tags</node>
+    <node x="916.5" y="732.0">832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.ratings</node>
+    <node x="755.0" y="0.0">832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users</node>
+    <node x="240.5" y="765.0">832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.sections_panels</node>
+    <node x="0.0" y="420.0">832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.finances</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.ratings" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users">
-      <point x="-28.0" y="-80.0" />
-      <point x="32.68181818181813" y="520.0" />
-      <point x="0.0" y="520.0" />
-      <point x="0.0" y="268.0" />
-      <point x="291.41666666666663" y="268.0" />
-      <point x="-62.08333333333337" y="124.0" />
+    <edge source="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.panels" target="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users">
+      <point x="0.0" y="-180.5" />
+      <point x="741.5" y="301.0" />
+      <point x="830.6875" y="301.0" />
+      <point x="-10.8125" y="125.5" />
     </edge>
-    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.panels_tags" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.panels">
-      <point x="-27.25" y="-36.0" />
-      <point x="981.5" y="510.0" />
-      <point x="522.6666666666666" y="510.0" />
-      <point x="63.66666666666663" y="91.0" />
+    <edge source="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users_properties" target="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.properties">
+      <point x="-35.5" y="-59.5" />
+      <point x="1007.75" y="942.0" />
+      <point x="714.625" y="942.0" />
+      <point x="0.0" y="81.5" />
     </edge>
-    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.panels_tags" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.tags">
-      <point x="27.25" y="-36.0" />
-      <point x="0.0" y="36.0" />
+    <edge source="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.finances" target="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users">
+      <point x="0.0" y="-81.5" />
+      <point x="80.5" y="271.0" />
+      <point x="765.8125" y="271.0" />
+      <point x="-75.6875" y="125.5" />
     </edge>
-    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.panels" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users">
-      <point x="0.0" y="-91.0" />
-      <point x="459.0" y="288.0" />
-      <point x="365.91666666666663" y="288.0" />
-      <point x="12.416666666666629" y="124.0" />
+    <edge source="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.ratings" target="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users">
+      <point x="36.0" y="-92.5" />
+      <point x="1024.5" y="291.0" />
+      <point x="873.9375" y="291.0" />
+      <point x="32.4375" y="125.5" />
     </edge>
-    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users_tokens" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users">
-      <point x="0.0" y="-58.0" />
-      <point x="71.49999999999994" y="278.0" />
-      <point x="316.25" y="278.0" />
-      <point x="-37.25" y="124.0" />
+    <edge source="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.sections_panels" target="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.panels">
+      <point x="35.0" y="-59.5" />
+      <point x="345.5" y="712.0" />
+      <point x="660.875" y="712.0" />
+      <point x="-80.625" y="180.5" />
     </edge>
-    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.ratings" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.panels">
-      <point x="28.0" y="-80.0" />
-      <point x="88.68181818181813" y="520.0" />
-      <point x="395.3333333333333" y="520.0" />
-      <point x="-63.66666666666666" y="91.0" />
+    <edge source="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.panels_tags" target="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.panels">
+      <point x="-28.0" y="-48.5" />
+      <point x="1222.5" y="702.0" />
+      <point x="822.125" y="702.0" />
+      <point x="80.625" y="180.5" />
     </edge>
-    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users_sections" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users">
-      <point x="0.0" y="-58.0" />
-      <point x="877.0" y="268.0" />
-      <point x="415.58333333333326" y="268.0" />
-      <point x="62.08333333333326" y="124.0" />
+    <edge source="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users_tokens" target="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users">
+      <point x="0.0" y="-59.5" />
+      <point x="941.5" y="301.0" />
+      <point x="852.3125" y="301.0" />
+      <point x="10.8125" y="125.5" />
     </edge>
-    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.sections_panels" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.panels">
-      <point x="-41.75" y="-69.0" />
-      <point x="603.0984848484848" y="520.0" />
-      <point x="459.0" y="520.0" />
-      <point x="0.0" y="91.0" />
+    <edge source="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users_properties" target="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users">
+      <point x="35.5" y="-59.5" />
+      <point x="1078.75" y="942.0" />
+      <point x="1356.5" y="942.0" />
+      <point x="1356.5" y="271.0" />
+      <point x="917.1875" y="271.0" />
+      <point x="75.6875" y="125.5" />
     </edge>
-    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users_settings" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users">
-      <point x="0.0" y="-69.0" />
-      <point x="674.5" y="278.0" />
-      <point x="390.75" y="278.0" />
-      <point x="37.25" y="124.0" />
+    <edge source="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.panels_tags" target="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.tags">
+      <point x="28.0" y="-48.5" />
+      <point x="0.0" y="37.5" />
     </edge>
-    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.sections_panels" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users_sections">
-      <point x="41.75" y="-69.0" />
-      <point x="686.5984848484848" y="520.0" />
-      <point x="877.0" y="520.0" />
-      <point x="0.0" y="58.0" />
+    <edge source="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users_settings" target="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users">
+      <point x="0.0" y="-70.5" />
+      <point x="502.0" y="291.0" />
+      <point x="809.0625" y="291.0" />
+      <point x="-32.4375" y="125.5" />
     </edge>
-    <edge source="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users_drafts" target="70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.users">
-      <point x="0.0" y="-91.0" />
-      <point x="247.99999999999994" y="288.0" />
-      <point x="341.08333333333337" y="288.0" />
-      <point x="-12.416666666666629" y="124.0" />
+    <edge source="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.ratings" target="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.panels">
+      <point x="-36.0" y="-92.5" />
+      <point x="952.5" y="712.0" />
+      <point x="768.375" y="712.0" />
+      <point x="26.875" y="180.5" />
+    </edge>
+    <edge source="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.sections_panels" target="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users_sections">
+      <point x="-35.0" y="-59.5" />
+      <point x="0.0" y="59.5" />
+    </edge>
+    <edge source="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.todos" target="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users">
+      <point x="0.0" y="-59.5" />
+      <point x="1113.0" y="281.0" />
+      <point x="895.5625" y="281.0" />
+      <point x="54.0625" y="125.5" />
+    </edge>
+    <edge source="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users_sections" target="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.users">
+      <point x="0.0" y="-59.5" />
+      <point x="275.5" y="281.0" />
+      <point x="787.4375" y="281.0" />
+      <point x="-54.0625" y="125.5" />
+    </edge>
+    <edge source="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.properties" target="832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.panels">
+      <point x="0.0" y="-81.5" />
+      <point x="-26.875" y="180.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="546.5" y="350.0" />
+  <settings layout="Hierarchic Group" zoom="0.5895117540687161" x="678.3174846625766" y="405.59815950920245" />
   <SelectedNodes>
-    <node>70449a19-cc53-4cb3-beb1-1e25d8375d13.TABLE:dashup_dev.ratings</node>
+    <node>832ad934-481b-47c9-9c33-80cc77128bf1.TABLE:dashup_dev.finances</node>
   </SelectedNodes>
   <Categories>
     <Category>Key columns</Category>
