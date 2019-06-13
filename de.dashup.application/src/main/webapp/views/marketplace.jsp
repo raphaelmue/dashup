@@ -169,61 +169,13 @@
 
     </body>
     <script type="text/javascript">
-
-        <%--let rating = 0;--%>
-
         $( document ).ready(function () {
-
-            <%--$('.chips').chips();--%>
-            <%--$('.chips-placeholder').chips({--%>
-                <%--secondaryPlaceholder: '+' + '<fmt:message key="i18n.tag" />'--%>
-            <%--});--%>
-
-            <%--$('#chips-categories').chips({--%>
-                <%--placeholder: '<fmt:message key="i18n.selectCategory" />',--%>
-                <%--secondaryPlaceholder: '+' + '<fmt:message key="i18n.category" />'--%>
-            <%--});--%>
-
             $("#nav-item-marketplace").parent().addClass("active");
             $('.carousel.carousel-slider').carousel({
                 fullWidth: true,
                 indicators: true
             });
         });
-
-        <%--$("#text-field-filter-publication-date").datepicker({--%>
-            <%--format: "yyyy-mm-dd",--%>
-            <%--yearRange: [2019, 2019],--%>
-            <%--container: document.getElementById("search-bar")--%>
-        <%--});--%>
-        <%--$(".star").on("click", function (element) {--%>
-            <%--let starId = element.target.id;--%>
-            <%--let factor = starId.substr(1, 1);--%>
-            <%--rating = factor * 20;--%>
-            <%--let frontStars = document.getElementById("front-stars");--%>
-            <%--frontStars.style.width = rating + "%";--%>
-        <%--});--%>
-
-        <%--function onSearch() {--%>
-            <%--let searchField = document.getElementById("text-field-search");--%>
-            <%--let instance = M.Datepicker.getInstance(document.getElementById("text-field-filter-publication-date"));--%>
-            <%--let date = instance.toString();--%>
-            <%--if(date === ""){--%>
-                <%--date = "2019-01-01";--%>
-            <%--}--%>
-
-            <%--let tags = M.Chips.getInstance($('#chips-tags')).chipsData;--%>
-            <%--let categories = M.Chips.getInstance($('#chips-categories')).chipsData;--%>
-            <%--localStorage.setItem("date",instance.toString());--%>
-            <%--localStorage.setItem("rating",rating);--%>
-            <%--localStorage.setItem("categories", JSON.stringify(categories));--%>
-            <%--localStorage.setItem("tags",JSON.stringify(tags));--%>
-            <%--let url = "${fn:escapeXml(pageContext.request.contextPath)}/marketplace/search?" + $.param({searchQuery:searchField.value,date,rating});--%>
-            <%--tags.forEach(tag => url+="&tags=" + tag.tag);--%>
-            <%--categories.forEach(category => url+="&categories=" + category.tag);--%>
-            <%--window.location = url;--%>
-        <%--}--%>
-
     </script>
 
     <jsp:include page="includes/webComponents.jsp" />
