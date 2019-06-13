@@ -11,7 +11,6 @@
     * Is the time categorized?
 * Write tests to get coverage over 50% (Joshua and Raphael)
 * Metrics improvements (not much) (Raphael)
-* Patterns Issue (Felix)
 * Go through Blog (see if links are working) + UPDATE Blog (Felix)
 * Handout (Sven)
     * Team name

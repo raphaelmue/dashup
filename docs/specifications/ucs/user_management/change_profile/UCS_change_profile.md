@@ -1,6 +1,6 @@
-dashup - Use Case Specification: Change Profile
-============================================
-### Version 2.2
+# dashup - Use Case Specification: Change Profile
+
+### Version 2.3
 
 # Revision History
 
@@ -10,6 +10,7 @@ dashup - Use Case Specification: Change Profile
 | 17/03/2019 | 2.0     | Refactoring                                                            | Felix Hausberger |
 | 17/03/2019 | 2.1     | Adapted process of setting a new password                              | Felix Hausberger |
 | 22/04/2019 | 2.2     | Added function points estimation                                       | Felix Hausberger |
+| 13/06/2019 | 2.3     | Final Updates                                                          | Felix Hausberger |
 
 # Table Of Contents
 
@@ -27,9 +28,8 @@ dashup - Use Case Specification: Change Profile
 - [Function Points](#7-function-points)
 
 # 1. Change Profile - Brief Description
-In the use case _edit profile_ users can adapt personal information like name, birthday, company or a short biography 
-and profile picture in the <i>Settings</i> menu. Furthermore the unique username, login credentials and language 
-settings are changeable. 
+In the use case _edit profile_ users can adapt personal information like name, birthday, company or the short biography 
+in the <i>Settings</i> menu. Furthermore the unique username, login credentials and language settings are changeable. 
 
 # 2. Flow Of Events
 

@@ -28,9 +28,10 @@ be hosted as an external API offering RESTful services. A user has the possibili
 provided dashup web components in order to fetch data to display on the widget or to run server-side program logic. 
 After the user created his widget, he has the possibility to publish the widget to the dashup marketplace. Therefore he 
 needs to provide several metadata including widget name, short description, overview text, widget category and at least 
-one tag as well as a username in the account settings menu. Furthermore the user can add his own widget to his central 
-dashboard independent from having it published. If users wish to delete a custom widget, it gets deleted from the 
-marketplace as well, if published.
+one tag as well as a username in the account settings menu. To support further customization, a user can create custom 
+widget properties, that other users can later on edit individually to configure a default behavior for their own needs. 
+Furthermore the user can add his own widget to his central dashboard independent from having it published. If users wish 
+to delete a custom widget, it gets deleted from the marketplace as well, if published.
 
 # 2. Flow of Events
 

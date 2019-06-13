@@ -203,8 +203,9 @@ initialized the moment it is really needed and not from the very beginning. So w
 dashboard, then and only then the required new web components get loaded.
 
 To see which changes were made, please have a look at the methods highlighted red inside the orange marked classes of 
-the [class diagram](../../architectures/patterns/patterns.png). Classes belonging to an architectural design pattern are 
-highlighted blue. But these classes can most of the time either be associated with the MVC or Frontcontroller 
-architectural pattern. Anyways, there are as well some so called Data Access Objects (DAO) or Data Transfer Objects 
-(DTO) highlighted in blue. They are used to deserialize data send from the database into normal Java objects or to 
-abstract information from a DAO class to better use it in dashboard construction algorithms.
+the [class diagram](https://github.com/raphaelmue/dashup/blob/patterns/docs/architectures/patterns/patterns.png). 
+Classes belonging to an architectural design pattern are highlighted blue. But these classes can most of the time either 
+be associated with the MVC or Frontcontroller architectural pattern. Anyways, there are as well some so called Data 
+Access Objects (DAO) or Data Transfer Objects (DTO) highlighted in blue. They are used to deserialize data send from the 
+database into normal Java objects or to abstract information from a DAO class to better use it in dashboard construction 
+algorithms.
