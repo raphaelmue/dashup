@@ -1,5 +1,5 @@
-# Software Architecture Document
-================================
+# Dashup - Software Architecture Document
+
 ### Version 2.0
 
 # Revision history
@@ -61,8 +61,13 @@ well as the structure of classes.
 
 ### 1.4 References
 
-| Title                             | Date       | Publishing organization   |
-| --------------------------------- | ---------- | ------------------------- |
+| Reference                                                                             | Date       |
+|---------------------------------------------------------------------------------------|------------|
+| <a href="https://dashup2k18.wordpress.com/">Dashup Blog</a>                           | 21/10/2018 |
+| <a href="https://github.com/raphaelmue/dashup">GitHub Repository</a>                  | 21/10/2018 |
+| <a href="https://youtrack.dashup.de/issues">YouTrack</a>                              | 21/10/2018 |
+| <a href="http://jenkins.raphael-muesseler.de/job/dashup">Jenkins</a>                  | 21/10/2018 |
+| <a href="https://sonarcloud.io/dashboard?id=dashup">SonarCloud</a>                    | 13/06/2018 |
 
 ### 1.5 Overview
 
@@ -167,10 +172,11 @@ n/a
 
 To ensure a high quality we are using Jenkins as an continuous integration tool. It automatically builds, tests, 
 measures and deploys the application, if the respective previous step has not failed. This happens periodically and when 
-changes are pushed to a branch. When merging the master branch into the deployment branch, th application will 
+changes are pushed to a branch. When merging the master branch into the deployment branch, the application will 
 automatically be deployed as well.
 
-To see which metrics we use as well as which tool we use for such purposes, please have a look at the [Test Plan](). 
+To see which metrics we use as well as which tool we use for such purposes, please have a look at the 
+[test plan](../../architectures/testing/test_plan.md). 
 
 ## 12. Patterns
 

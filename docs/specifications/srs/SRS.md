@@ -1,4 +1,4 @@
-# dashup - Software Requirements Specification
+# Dashup - Software Requirements Specification
 
 ### Version 2.1
 
@@ -89,7 +89,7 @@ web application on modern browsers.
 | <a href="https://github.com/raphaelmue/dashup">GitHub Repository</a>                  | 21/10/2018 |
 | <a href="https://youtrack.dashup.de/issues">YouTrack</a>                              | 21/10/2018 |
 | <a href="http://jenkins.raphael-muesseler.de/job/dashup">Jenkins</a>                  | 21/10/2018 |
-| <a href="https://sonarcloud.io/dashboard?id=dashup">Sonar</a>                         | 13/06/2018 |
+| <a href="https://sonarcloud.io/dashboard?id=dashup">SonarCloud</a>                    | 13/06/2018 |
 
 ## 1.5 Overview
 In the next chapter, the general vision as well as the general UCD will be provided, in order to give a quick summary 
