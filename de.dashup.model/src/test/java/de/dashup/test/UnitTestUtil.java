@@ -93,7 +93,7 @@ class UnitTestUtil {
         testDataMap.put("name", "panel1");
         testDataMap.put("short_description", "test panel 1");
         testDataMap.put("description", "long description 1");
-        testDataMap.put("publication_date", "2019-03-19");
+        testDataMap.put("publication_date", "2019-04-20");
         testDataMap.put("visibility", 0);
         testDataMap.put("number_of_ratings", 10);
         testDataMap.put("avg_of_ratings", 75);
