@@ -1,7 +1,6 @@
 # Things left to do
 
-* Marketing Film (inside final blog) (Sven)
-* Final Blog Entry (Link to blogs, repo, youtrack, jenkins, codacy, sonar, direct links to files, etc.) (Felix)
+* Final Blog Entry (Link to blogs, marketing video, repo, youtrack, jenkins, codacy, sonar, direct links to files, etc.) (Felix)
 * Transition: Get Blog printed as pdf and dashup zipped to copy to stick, send e-mail with blog as pdf and notification for final blog post
 -> Not later than one week after (Felix)
 * New blog post for final tech-stack and CI. Configuration Management Project Plan (CMPP) for CI, adapt test plan for tech stack and LINK to CMPP (Raphael)
@@ -10,7 +9,6 @@
 * Go through YouTrack: (All)
     * Is a UC assigned and a workflow?
     * Is the time categorized?
-* Update reports (Felix)
 * Write tests to get coverage over 50% (Joshua and Raphael)
 * Metrics improvements (not much) (Raphael)
 * Patterns Issue (Felix)
