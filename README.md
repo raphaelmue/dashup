@@ -4,7 +4,7 @@
 [![Build Status](http://jenkins.raphael-muesseler.de/buildStatus/icon?job=dashup%2Fmaster)](http://jenkins.raphael-muesseler.de/job/dashup/job/master/)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/10a932c8811c4dd48cbd1c09c3f44703)](https://www.codacy.com/app/dashup/dashup?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=raphaelmue/dashup&amp;utm_campaign=Badge_Grade)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dashup&metric=alert_status)](https://sonarcloud.io/dashboard?id=dashup)
-[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/10a932c8811c4dd48cbd1c09c3f44703)](https://www.codacy.com/app/dashup/dashup?utm_source=github.com&utm_medium=referral&utm_content=raphaelmue/dashup&utm_campaign=Badge_Coverage)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=dashup&metric=coverage)](https://sonarcloud.io/dashboard?id=dashup)
 
 The dashup platform provides a quick overview over multiple widgets that can be used for productivity purposes. Its 
 intention is to standardize the usage of different widgets by defining a global design and functionality policy. 
@@ -22,10 +22,10 @@ To install or deploy our application on your server, you need to do the followin
 
 1. Clone our repository.
 1. Install MySQL and import the mysql scheme from [here](https://github.com/raphaelmue/dashup/tree/master/docs/architectures/database/dashup_prod.sql).
-1. Create a file called database.conf and copy it into `./de.dashup.model/src/main/resources/de/dashup/model/db/config`. This file must contain the following information separated by lines:
-    1. Host name of database
-    1. User to access database
-    1. Password to access database
+1. Create a file called database.conf and copy it into `./de.dashup.model/src/main/resources/de/dashup/model/db/config` (You need to create these folders). This file must contain the following information separated by lines:
+    1. Host name of database (e.g. `dashup.de`)
+    1. User to access database (e.g. `dashup_admin`)
+    1. Password to access database (e.g. `password`)
 1. Install Java 11.
 1. Install Maven 3.6.1.
 1. Run `mvn clean install -DskipTests` to compile the application.
