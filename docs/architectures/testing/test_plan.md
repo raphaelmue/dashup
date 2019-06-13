@@ -90,11 +90,12 @@ target audience is more advanced readers with the necessary background knowledge
 
 ## 1.5 References
 
-| Reference                                                                             | Date       |
-|---------------------------------------------------------------------------------------|------------|
-| <a href="https://dashup2k18.wordpress.com/">Dashup Blog</a>                           | 25/04/2019 |
-| <a href="https://github.com/raphaelmue/dashup">GitHub Repository</a>                  | 25/04/2019 |
-| <a href="http://jenkins.raphael-muesseler.de/job/dashup">Jenkins</a>                  | 25/04/2019 |
+| Reference                                                                                | Date       |
+|------------------------------------------------------------------------------------------|------------|
+| [Dashup Blog](https://dashup2k18.wordpress.com/)                                         | 12/06/2019 |
+| [GitHub Repository](https://github.com/raphaelmue/dashup)                                | 12/06/2019 |
+| [Jenkins](http://jenkins.raphael-muesseler.de/job/dashup)                                | 12/06/2019 |
+| [CMPP](http://github.com/raphaelmue/dashup/blob/master/docs/specifications/cmpp/CMPP.md) | 12/06/2019 |
 
 ## 2 Evaluation Mission and Test Motivation
 
@@ -222,9 +223,11 @@ hand Jenkins executes unit and integration tests.
 The following image shows how the tests are running with JUnit Jupiter in IntelliJ, whereas the second image shows build 
 process in Jenkins.
 
-<img src="intellij_tests.png" alt="JUnit Tests in IntelliJ" />
+![JUnit Tests in IntelliJ](intellij_tests.png "JUnit Tests in IntelliJ")
 
-<img src="jenkins_tests.png" alt="Build Process in Jenkins" />
+![Build Process in Jenkins](jenkins_tests.png "Build Process in Jenkins")
+
+There is more information about our Jenkins multibranch pipeline in our CMPP.
 
 ### 7.2 Reporting on Test Coverage
 
@@ -292,6 +295,10 @@ The following tools will be employed to support the test process for this Test P
 | Continuous integration tool            | [Jenkins](https://jenkins.raphael-muesseler.de/)                            |
 | Continuous code inspection tool        | [SonarCloud](https://sonarcloud.io)                                         |
 | Metrics calculation plugin (IntelliJ)  | [Metrics Reloaded](https://plugins.jetbrains.com/plugin/93-metricsreloaded) |
+
+The following figure shows our technology stack of our application:
+
+![Technology Stack](../tech_stack/tech_stack.png "Technology Stack")
 
 ## 10 Responsibilities, Staffing and Training Needs
 
