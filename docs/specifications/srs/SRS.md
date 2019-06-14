@@ -1,6 +1,6 @@
-dashup - Software Requirements Specification
-============================================
-### Version 2.0
+# Dashup - Software Requirements Specification
+
+### Version 2.1
 
 # Revision history
 
@@ -10,6 +10,7 @@ dashup - Software Requirements Specification
 | 28/10/2018 | 1.1     | Marketplace and Layout                               | Sven Leonhard    |
 | 14/11/2018 | 1.2     | System Architecture                                  | Felix Hausberger |
 | 09/03/2019 | 2.0     | Refactoring                                          | Felix Hausberger |
+| 13/06/2019 | 2.1     | Final Updates                                        | Felix Hausberger |
 
 # Table of Contents
 
@@ -88,6 +89,7 @@ web application on modern browsers.
 | <a href="https://github.com/raphaelmue/dashup">GitHub Repository</a>                  | 21/10/2018 |
 | <a href="https://youtrack.dashup.de/issues">YouTrack</a>                              | 21/10/2018 |
 | <a href="http://jenkins.raphael-muesseler.de/job/dashup">Jenkins</a>                  | 21/10/2018 |
+| <a href="https://sonarcloud.io/dashboard?id=dashup">SonarCloud</a>                    | 13/06/2018 |
 
 ## 1.5 Overview
 In the next chapter, the general vision as well as the general UCD will be provided, in order to give a quick summary 
@@ -135,12 +137,12 @@ dependencies within the project scope. Furthermore, non-functional requirements 
 # 3 Specific Requirements
 
 ## 3.1 System Architecture
-The system should always obey the the model view controller design pattern. Therefore it is built with the Spring MVC 
+The system should always obey to the model view controller design pattern. Therefore it is built with the Spring MVC 
 framework whereas as a frontend technology different libraries of the Polymer project will be integrated. As the 
 database management system MariaDB as the open source MySQL spin-off will be used. CI pipelines will be created in 
-Jenkins. For testing purposes Selenium and JUnit test will guarantee the promised standard of the dashup software. Of 
-course, the whole system architecture will be split into a development, testing and production environment. For further 
-information regarding the system architecture please refer to the 
+Jenkins and built management will be done by Maven. For testing purposes Selenium and JUnit tests will guarantee the 
+promised standard of the dashup software. Of course, the whole system architecture will be split into a development, 
+testing and production environment. For further information regarding the system architecture please refer to the 
 <a href="../sad/SAD.md">software architecture document</a>.
 
 ## 3.2 Functionality
@@ -174,8 +176,8 @@ _login / register_ each user is referenced by a unique e-mail address. During re
 username (which is as well unique), e-mail address and password. The password has to be repeated correctly. To log in 
 users have to provide the password and e-mail address for their account and are directed to the central dashboard if all 
 credentials entered are correct. Browser cookies will store user sessions, making repeated login processes redundant. 
-In the <i>Settings</i> menu, users can adapt personal information like name, birthday, company or a short biography and 
-profile picture. Furthermore the unique username, login credentials and language settings are changeable. 
+In the <i>Settings</i> menu, users can adapt personal information like name, birthday, company or the short biography. 
+Furthermore the unique username, login credentials and language settings are changeable. 
 (Use Case: <a href="../ucs/user_management/login_register/UCS_login_register.md">Login And Register</a>)
 (Use Case: <a href="../ucs/user_management/change_profile/UCS_change_profile.md">Change Profile</a>)
 
@@ -196,8 +198,10 @@ API offering RESTful services. A user has the possibility to connect such an API
 in order to fetch data to display on the widget or to run server-side program logic. After the user created his widget, 
 he has the possibility to publish the widget to the dashup marketplace. Therefore he needs to provide several metadata 
 including widget name, short description, overview text, widget category and at least one tag as well as a username in 
-the account settings menu. Furthermore the user can add his own widget to his central dashboard independent from having 
-it published. If users wish to delete a custom widget, it gets deleted from the marketplace as well, if published.
+the account settings menu. To support further customization, a user can create custom widget properties, that other 
+users can later on edit individually to configure a default behavior for their own needs. Furthermore the user can add 
+his own widget to his central dashboard independent from having it published. If users wish to delete a custom widget, 
+it gets deleted from the marketplace as well, if published.
 (Use Case: <a href="../ucs/workbench/UCS_workbench.md">Workbench</a>)
 
 ### 3.2.6 Widgets
@@ -275,13 +279,30 @@ UI design policy.
 
 ### 3.6.2 Maintenance
 For optimal results, the use of tools for automated testing is essential. Furthermore, every line of code has to be 
-reviewed to ensure compliance with the previously defined conventions and specifications. The porduct will most likely 
+reviewed to ensure compliance with the previously defined conventions and specifications. The product will most likely 
 not be maintained any longer beginning from July 2019.
 
 ## 3.7 Dependencies
 Find the list of used dependencies below:
 - Polymer LitElement
-- Google Material Design
+- Materialize
+- jQuery
+- Google Fonts
+- Dragula
+- Maven Dependencies
+    - spring-boot-starter-web
+    - spring-boot-starter-tomcat
+    - tomcat-embed-jasper
+    - jstl
+    - cucumber-java
+    - cucumber-junit
+    - cucumber-spring
+    - junit
+    - selenium-java
+    - spring-boot-starter-test
+    - mysql-connector-java
+    - jsoup
+    - junit-jupiter-engine
 
 ## 3.8 Design Constraints
 
@@ -299,6 +320,9 @@ Find the list of used developmental tools below:
 - Git: Version control system
 - YouTrack: Project planning tool
 - Jenkins: Continuous integration and delivery
+- Maven: Build Management
+- Sonar: Code metrics
+- Codacy: Code quality
 - Draw.IO: Architectural diagrams
 - Balsamiq: UI mockups
 
@@ -313,17 +337,16 @@ world wide web.
 ## 3.10 Interfaces
 
 ### 3.10.1 User Interfaces
-- Start screen: Simple welcome page with possibility to navigate to the login or registration screen
 - Login screen: Provides login form
 - Registration screen: Users can set up an new account
 - Dashboard screen: Users can see all their added widgets for productivity use
-- Profile screen: Users can edit and update their profile information
+- Settings screen: Users can edit and update their profile information or the look and feel of dashup
 - Marketplace screen: All widgets for the dashup platform can be found and added to the central dashboard
 - Layout screen: Change the design of dashup
 - Workbench screen: Developers can create their own custom widgets
 
 ### 3.10.2 Software Interfaces
-The dashup application runs in a web browser. We will try to make it work in as many different web browsers as possible. 
+The dashup application runs in a web browser. Native support is only guaranteed for Google Chrome and Mozilla Firefox.
 As dashup is published under the BSD 3-Clause license and open source, every web component of dashup can be cloned from 
 the GitHub repository. To see their interfaces have a look at their 
 <a href="../ucs/widgets/components">specifications</a>.
@@ -349,7 +372,7 @@ and therefore demand written requests for the use of similar ideas or applicatio
 
 # 4 Further Information
 **For more information please contact:**
-* <a href="mailto:felix.hausberger@t-online.de"> Felix Hausberger </a>
-* <a href="mailto:sven.leonhard@7lofficial.de"> Sven Leonhard </a>
+* <a href="mailto:felix.hausberger@sap.com"> Felix Hausberger </a>
+* <a href="mailto:sven.leonhard@sap.com"> Sven Leonhard </a>
 * <a href="mailto:raphael.muesseler@sap.com"> Raphael Müßeler </a>
 * <a href="mailto:joshua.schulz@sap.com"> Joshua Schulz </a>

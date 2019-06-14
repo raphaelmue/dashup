@@ -1,5 +1,5 @@
-dashup - Use Case Specification: Widget
-============================================
+# dashup - Use Case Specification: Widget
+
 ### Version 2.1
 
 # Revision History
@@ -29,7 +29,7 @@ Widgets describe small components, that represent the main use case of dashup. T
 unit, but are only responsible for data visualization and user interaction. Any logic related to data processing behind 
 a widget is outsourced to an external API. The API itself is hosted on external servers and is not part of the dashup 
 software. This idea makes it possible that users can create own widgets in dashup to connect to own business logic. With 
-a variety of <a href="../widgets/components">dashup web components</a> developing data visualization units or user 
+a variety of <a href="../components">dashup web components</a> developing data visualization units or user 
 interaction interfaces has never been that easy. Furthermore the widgets themselves are built as web components making 
 them reusable and fast.
 
@@ -62,21 +62,13 @@ N/A
 # 3. Special Requirements
 
 ## 3.1 Web Components
-To ensure, that users can lateron create custom widgets, the process of creating the widgets should be made as simple as 
-possible. Therefore dashup will provided predefined web components, that already embody certain behavior and 
+To ensure, that users can later on create custom widgets, the process of creating the widgets should be made as simple 
+as possible. Therefore dashup will provided predefined web components, that already embody certain behavior and 
 characteristics. Each widget consists out of several web components, whereas default widgets provided by dashup are web 
-component as well. Rendering of a web component takes place in the Shadow DOM of the browser, the user only has to pass 
-certain attribute values to the component to male it work correctly. These attribute values are:
-
-- name: Name of the component in order to address it uniquely
-- api: Address of the API of the user, that delivers the data to display (optional)
-- param: name of parameter for the API call, whose value is added by the component (optional)
-- action: use "data" to fetch data or "rfc" to make a remote function call with data of the component (optional)
-- consumers: components to which the response should be forwarded, in order to display the result (optional)
-- producers: components to get data from to send to API (optional)
-
-The API responses have to follow a specific JSON format. Please see the extra web components specification to get 
-further details. In general the API response must contain the name of a consumer as a key to related data.
+components as well. Rendering of a web component takes place in the Shadow DOM of the browser, the user only has to pass 
+certain attribute values to the component to make it work correctly. API responses have to follow a specific JSON format 
+as well. Please see the extra <a href="../components">web components specifications</a> to get further details 
+on how to design a widget with our dashup web components and how to communicate with them using your own API.
 
 # 4. Preconditions
 

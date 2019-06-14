@@ -1,6 +1,6 @@
-dashup - Use Case Specification: Workbench
-============================================
-### Version 1.1
+# dashup - Use Case Specification: Workbench
+
+### Version 1.2
 
 # Revision History
 
@@ -8,6 +8,7 @@ dashup - Use Case Specification: Workbench
 |------------|---------|------------------------------------------------------------------------|------------------|
 | 30/03/2018 | 1.0     | Initial ucs with description, activity diagram and screen flow diagram | Felix Hausberger |
 | 22/04/2019 | 1.1     | Added function points estimation                                       | Felix Hausberger |
+| 13/06/2019 | 1.2     | Final Updates                                                          | Felix Hausberger |
 
 # Table Of Contents
 
@@ -28,9 +29,10 @@ be hosted as an external API offering RESTful services. A user has the possibili
 provided dashup web components in order to fetch data to display on the widget or to run server-side program logic. 
 After the user created his widget, he has the possibility to publish the widget to the dashup marketplace. Therefore he 
 needs to provide several metadata including widget name, short description, overview text, widget category and at least 
-one tag as well as a username in the account settings menu. Furthermore the user can add his own widget to his central 
-dashboard independent from having it published. If users wish to delete a custom widget, it gets deleted from the 
-marketplace as well, if published.
+one tag as well as a username in the account settings menu. To support further customization, a user can create custom 
+widget properties, that other users can later on edit individually to configure a default behavior for their own needs. 
+Furthermore the user can add his own widget to his central dashboard independent from having it published. If users wish 
+to delete a custom widget, it gets deleted from the marketplace as well, if published.
 
 # 2. Flow of Events
 
@@ -59,6 +61,9 @@ marketplace as well, if published.
 <img src="./mockups/add_widget.png" alt="add widget" />
 <br />
 
+__NOTE:__ Due to an expired Balsamiq test license, the additional mockup to define custom properties when developing a 
+widget could not be added anymore. The rest has been updated accordingly.
+
 ### 2.1.3 Narrative
 You can see the entire _.feature file_ right <a href="./narratives/workbench.feature">here</a>.
 
@@ -66,12 +71,10 @@ You can see the entire _.feature file_ right <a href="./narratives/workbench.fea
 N/A
 
 # 3. Special Requirements
-When creating a new custom widget the user can choose between several widget templates, specified 
-<a href="/docs/specifications/ucs/widgets/templates">here</a>. If the user unfocuses the editor panel, a preview of the 
-custom widget will be displayed. Furthermore all metadata as well as a username must be provided in order to publish a 
-widget to the marketplace. The categories match to the defined categories in the marketplace specification. When adding 
-a widget from the workbench, a new section will be generated in the central dashboard at the top, named after the 
-widget. No metadata is needed in order to add widgets to ones own central dashboard.
+All metadata as well as a username must be provided in order to publish a widget to the marketplace. The categories 
+match to the defined categories in the marketplace specification. No metadata is needed in order to add widgets to ones 
+own central dashboard. To uniquely identify a widgets property, the unique name of the component has to be concatenated 
+with "." to the property name. This is important if users try to define a custom widget property.
 
 # 4. Preconditions
 
@@ -79,8 +82,8 @@ widget. No metadata is needed in order to add widgets to ones own central dashbo
 The user has to be signed in and must have navigated to the workbench menu.
 
 ## 4.2 Developer Role
-The user should have a basic understanding of HTML5 and should have read the documentation of dashup web components in 
-order to develop a widget.
+The user should have a basic understanding of HTML5 and should have read the documentation of 
+<a href="../widgets/components">dashup web components</a> in order to develop a widget.
 
 # 5. Postconditions
 

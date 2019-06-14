@@ -1,5 +1,5 @@
 # Dashup - Test Plan
-====================
+
 ### Version 2.0
 
 # Revision history
@@ -58,7 +58,9 @@
 
 ## 1.1 Purpose
 
-The purpose of the Iteration Test Plan is to gather all of the information necessary to plan and control the test effort for a given iteration. It describes the approach to testing the software, and is the top-level plan generated and used by managers to direct the test effort.
+The purpose of the Iteration Test Plan is to gather all of the information necessary to plan and control the test effort 
+for a given iteration. It describes the approach to testing the software, and is the top-level plan generated and used 
+by managers to direct the test effort.
 
 This _Test Plan_ for **dashup** supports the following objectives:
 
@@ -92,9 +94,11 @@ target audience is more advanced readers with the necessary background knowledge
 
 | Reference                                                                             | Date       |
 |---------------------------------------------------------------------------------------|------------|
-| <a href="https://dashup2k18.wordpress.com/">Dashup Blog</a>                           | 25/04/2019 |
-| <a href="https://github.com/raphaelmue/dashup">GitHub Repository</a>                  | 25/04/2019 |
-| <a href="http://jenkins.raphael-muesseler.de/job/dashup">Jenkins</a>                  | 25/04/2019 |
+| <a href="https://dashup2k18.wordpress.com/">Dashup Blog</a>                           | 12/06/2019 |
+| <a href="https://github.com/raphaelmue/dashup">GitHub Repository</a>                  | 12/06/2019 |
+| <a href="https://youtrack.dashup.de/issues">YouTrack</a>                              | 12/06/2019 |
+| <a href="http://jenkins.raphael-muesseler.de/job/dashup">Jenkins</a>                  | 12/06/2019 |
+| <a href="https://sonarcloud.io/dashboard?id=dashup">SonarCloud</a>                    | 12/06/2019 |
 
 ## 2 Evaluation Mission and Test Motivation
 
@@ -182,7 +186,8 @@ the user input is handled correctly.
 
 #### 5.1.3 Smoke Testing
 
-Smoke tests are a subset of test cases that cover the most important functionality of a component or system, used to aid assessment of whether main functions of the software appear to work correctly.
+Smoke tests are a subset of test cases that cover the most important functionality of a component or system, used to aid 
+assessment of whether main functions of the software appear to work correctly.
 
 |                        | Description                                                 |
 | ---------------------- | ----------------------------------------------------------- |
@@ -215,16 +220,19 @@ determine which tests failed.
 For our application we are using Jenkins as CI tool. On the one hand Jenkins performs the build process and on the other 
 hand Jenkins executes unit and integration tests. 
 
-| CI Service | Badge |
-| ---------- | ----- |
+| CI Service | Badge                                                                                                                                                   |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Jenkins    | [![Build Status](http://jenkins.raphael-muesseler.de/buildStatus/icon?job=dashup%2Fmaster)](http://jenkins.raphael-muesseler.de/job/dashup/job/master/) |
 
 The following image shows how the tests are running with JUnit Jupiter in IntelliJ, whereas the second image shows build 
 process in Jenkins.
 
-<img src="intellij_tests.png" alt="JUnit Tests in IntelliJ" />
+![JUnit Tests in IntelliJ](intellij_tests.png "JUnit Tests in IntelliJ")
 
-<img src="jenkins_tests.png" alt="Build Process in Jenkins" />
+![Build Process in Jenkins](jenkins_tests.png "Build Process in Jenkins")
+
+There is more information about our Jenkins multibranch pipeline in our 
+[CMPP](http://github.com/raphaelmue/dashup/blob/master/docs/specifications/cmpp/CMPP.md).
 
 ### 7.2 Reporting on Test Coverage
 
@@ -250,7 +258,8 @@ into the master:
 
 ### 7.5 Smoke Test Suite and Supporting Test Scripts
 
-We integrated in our test workflow smoke tests as well, to check before committing changes, whether the basic functionality works or not. Smoke tests are explained earlier (see [5.1.3 Smoke testing](#513-smoke-testing)) 
+We integrated in our test workflow smoke tests as well, to check before committing changes, whether the basic 
+functionality works or not. Smoke tests are explained earlier (see [5.1.3 Smoke testing](#513-smoke-testing)) 
 
 Each master build publishes a code coverage result, that can be seen also here: 
 
@@ -293,6 +302,10 @@ The following tools will be employed to support the test process for this Test P
 | Continuous code inspection tool        | [SonarCloud](https://sonarcloud.io)                                         |
 | Metrics calculation plugin (IntelliJ)  | [Metrics Reloaded](https://plugins.jetbrains.com/plugin/93-metricsreloaded) |
 
+The following figure shows our technology stack of our application:
+
+![Technology Stack](../tech_stack/tech_stack.png "Technology Stack")
+
 ## 10 Responsibilities, Staffing and Training Needs
 
 ### 10.1 People and Roles
@@ -323,18 +336,35 @@ Some use cases might be very hard to test. Furthermore testing all branches is n
 do not have that much resources.
 
 ## 13 Metrics
-Metrics are used to numerically evaluate the code. It helps to find critical code sections, examine them more precisely and eliminate them in the best case. 
-For this purpose, we have integrated [sonarcloud.io](https://sonarcloud.io) into our CI process. This can be seen on the screenshot of our Jenkins Pipeline at the step **Analyze Project**.
+Metrics are used to numerically evaluate the code. It helps to find critical code sections, examine them more precisely 
+and eliminate them in the best case. For this purpose, we have integrated [sonarcloud.io](https://sonarcloud.io) into 
+our CI process. This can be seen on the screenshot of our Jenkins Pipeline at the step **Analyze Project**.
 
 <img src="metrics_jenkins_screenshot.PNG" alt="Jenkins screenshot for Analyze Project step" />
 
-Sonar's dashboard gives an overview of the current code situation. Serious errors and grievances can be detected quickly. The dashboard is public and can be accessed [here](https://sonarcloud.io/dashboard?id=dashup).
+Sonar's dashboard gives an overview of the current code situation. Serious errors and grievances can be detected 
+quickly. The dashboard is public and can be accessed [here](https://sonarcloud.io/dashboard?id=dashup).
 
-For more detailed metrics around the code the Intellij Plugin Metrics Reloaded is used. Here metrics of different categories can be automatically generated. In this way you can get a lot of information about the code and act if necessary. The following is about the [Chidamber & Kemerer object-oriented metrics suite](https://www.aivosto.com/project/help/pm-oo-ck.html), which unites various metrics.
+For more detailed metrics around the code the Intellij Plugin Metrics Reloaded is used. Here metrics of different 
+categories can be automatically generated. In this way you can get a lot of information about the code and act if 
+necessary. The following is about the 
+[Chidamber & Kemerer object-oriented metrics suite](https://www.aivosto.com/project/help/pm-oo-ck.html), which unites 
+various metrics.
 
-Two of these are Weighted Methods per Class (WMC) and Response for a Class (RFC). We will take a closer look at these two values now. WMC counts the number of methods in each class. This value is relevant because you want to avoid too many methods. This makes it difficult to maintain and reuse the code. Somewhat more complex is RFC. The methods are also counted here. In addition to this value, the number of methods that are called within the methods of the class are also counted. A high RFC value usually means that the class is more prone to errors. The complexity of the class is high. This can lead to difficulties in understanding and make both testing and debugging more difficult. 
+Two of these are Weighted Methods per Class (WMC) and Response for a Class (RFC). We will take a closer look at these 
+two values now. WMC counts the number of methods in each class. This value is relevant because you want to avoid too 
+many methods. This makes it difficult to maintain and reuse the code. Somewhat more complex is RFC. The methods are also 
+counted here. In addition to this value, the number of methods that are called within the methods of the class are also 
+counted. A high RFC value usually means that the class is more prone to errors. The complexity of the class is high. 
+This can lead to difficulties in understanding and make both testing and debugging more difficult. 
 
-If you look at the values for WMC and RFC, you will notice the *Database* and the *DashupService* class. There are clear anomalies here that need to be reduced. Due to the architecture of dashup, there are some difficulties here. On the one hand we want to provide the functionality for CRUD operations in one place, on the other hand we want to establish a clear structure. In refactoring we tried to combine both approaches. The result is the [issue112 branch](https://github.com/raphaelmue/dashup/tree/issue112). Here all changes can be traced. This [link](https://github.com/raphaelmue/dashup/tree/fe4a4964f4358f86b3296718511ec6bc97874fd1) leads to a commit before the refactor work. The table shows the before/after values. 
+If you look at the values for WMC and RFC, you will notice the *Database* and the *DashupService* class. There are clear 
+anomalies here that need to be reduced. Due to the architecture of dashup, there are some difficulties here. On the one 
+hand we want to provide the functionality for CRUD operations in one place, on the other hand we want to establish a 
+clear structure. In refactoring we tried to combine both approaches. The result is the 
+[issue112 branch](https://github.com/raphaelmue/dashup/tree/issue112). Here all changes can be traced. This 
+[link](https://github.com/raphaelmue/dashup/tree/fe4a4964f4358f86b3296718511ec6bc97874fd1) leads to a commit before 
+the refactor work. The table shows the before/after values. 
 
 
 | Class                                 | RFC before | RFC after | WMC before | WMC after |
@@ -343,7 +373,18 @@ If you look at the values for WMC and RFC, you will notice the *Database* and th
 | de.dashup.model.db.Database           | 56         | 53        | 36         | 32        |
 
 
-Another metric is Lack of Cohesion in Methods (LCOM). There are different versions from 1 to 4. According to documentation, the metric tool uses LCOM1. Basically, this metric measures the coherence of methods. This should be as high as possible. Therefore, it is important that the LCOM value is low. During the calculation all possible method pairs are considered. If both methods access one or more equal attributes, a variable Q is incremented by one otherwise, a variable called P is incremented by one. If P is greater than Q at the end, the LCOM value will be P - Q, otherwise LCOM is 0. If the values are high, you should consider splitting the affected class. More information about that can be found [here](https://www.aivosto.com/project/help/pm-oo-cohesion.html#LCOM1).
+Another metric is Lack of Cohesion in Methods (LCOM). There are different versions from 1 to 4. According to 
+documentation, the metric tool uses LCOM1. Basically, this metric measures the coherence of methods. This should be as 
+high as possible. Therefore, it is important that the LCOM value is low. During the calculation all possible method 
+pairs are considered. If both methods access one or more equal attributes, a variable Q is incremented by one otherwise, 
+a variable called P is incremented by one. If P is greater than Q at the end, the LCOM value will be P - Q, otherwise 
+LCOM is 0. If the values are high, you should consider splitting the affected class. More information about that can be 
+found [here](https://www.aivosto.com/project/help/pm-oo-cohesion.html#LCOM1).
 
-With a value of 12, the *DatabaseWidget* class has a particularly high value, which requires to take a closer look at that code. However, since the class represents the database entry of a widget, we decided not to make any changes here. The class is only needed to make CRUD operations possible in the software. So, it contains instance variables that can be read or written with the help of getters and setters only. We do not consider changes to be useful, since some components require the functionality of this class. Furthermore, it makes no sense to split the class, because it represents an atomic object in this context of the software.
+With a value of 12, the *DatabaseWidget* class has a particularly high value, which requires to take a closer look at 
+that code. However, since the class represents the database entry of a widget, we decided not to make any changes here. 
+The class is only needed to make CRUD operations possible in the software. So, it contains instance variables that can 
+be read or written with the help of getters and setters only. We do not consider changes to be useful, since some 
+components require the functionality of this class. Furthermore, it makes no sense to split the class, because it 
+represents an atomic object in this context of the software.
 

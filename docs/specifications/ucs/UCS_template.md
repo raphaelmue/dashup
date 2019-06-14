@@ -1,5 +1,5 @@
-dashup - Use Case Specification: <enter name here>
-============================================
+# dashup - Use Case Specification: <enter name here>
+
 ### Version 1.0
 
 # Revision History

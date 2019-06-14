@@ -1,5 +1,5 @@
-dashup - Use Case Specification: Layout - Change Layout
-============================================
+# dashup - Use Case Specification: Layout - Change Layout
+
 ### Version 2.2
 
 # Revision History

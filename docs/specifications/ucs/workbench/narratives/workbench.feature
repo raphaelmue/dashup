@@ -86,6 +86,19 @@ Feature: Workbench
     And User clicks save button
     Then Success message toast opens stating metadata saved successfully
 
+  Scenario: Enter custom properties fields
+    Given User is located on workbench menu
+    And User opened a custom widget
+    When User clicks on properties tab
+    Then properties tab opens
+    When User clicks on add button
+    And User enters "Location" as property name
+    And User enters "location.value" as path to component property
+    And User selects "text" as type
+    And User enters "Karlsruhe" as default value
+    And User clicks save button
+    Then Success message toast opens stating metadata saved successfully
+
   Scenario: Delete custom widget
     Given User is located on workbench menu
     And User opened a custom widget
