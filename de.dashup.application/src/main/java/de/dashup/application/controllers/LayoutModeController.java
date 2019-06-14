@@ -31,7 +31,7 @@ import java.util.Locale;
 @RequestMapping(value = "/layoutMode")
 public class LayoutModeController {
 
-    @RequestMapping(value = "/")
+    @GetMapping(value = "/")
     public String login(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
         return ControllerHelper.defaultMapping(token, request, model, "layoutMode", user -> {
             DashupService.getInstance().getSectionsAndPanels(user);

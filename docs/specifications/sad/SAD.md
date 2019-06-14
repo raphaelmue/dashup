@@ -1,6 +1,6 @@
 # Dashup - Software Architecture Document
 
-### Version 2.0
+### Version 2.1
 
 # Revision history
 
@@ -8,6 +8,7 @@
 |------------|---------|------------------------------------------------------|------------------|
 | 15/11/2018 | 1.0     | Initial Documentation                                | Raphael Müßeler  |
 | 08/04/2019 | 2.0     | Reworked diagrams and small adjustments              | Raphael Müßeler  |
+| 14/06/2019 | 2.1     | Updated class diagram and database scheme            | Raphael Müßeler  |
 
 # Table of Contents
 - [Introduction](#1-introduction)
@@ -66,6 +67,7 @@ well as the structure of classes.
 | <a href="https://dashup2k18.wordpress.com/">Dashup Blog</a>                           | 21/10/2018 |
 | <a href="https://github.com/raphaelmue/dashup">GitHub Repository</a>                  | 21/10/2018 |
 | <a href="https://youtrack.dashup.de/issues">YouTrack</a>                              | 21/10/2018 |
+| <a href="https://www.youtube.com/channel/UCkzyPZ1hoasZHXEwxLfDu2w">YouTube</a>        | 21/10/2018 |
 | <a href="http://jenkins.raphael-muesseler.de/job/dashup">Jenkins</a>                  | 21/10/2018 |
 | <a href="https://sonarcloud.io/dashboard?id=dashup">SonarCloud</a>                    | 13/06/2018 |
 
@@ -159,8 +161,8 @@ Our data view is modelled as followed:
 
 <img src="./img/data_view.png" alt="Data View" />
 
-Note that the current database scheme looks a bit different regarding the name of the tables and fields. Here are the 
-current tables, that we use in order to generate the main dashboard:
+__Note:__ The current database scheme looks a bit different regarding the name of the tables and fields. There are even 
+some new tables included in the current database scheme shown below, that we use in order to generate the main dashboard:
 
 <img src="./img/database_scheme.png" alt="Database Scheme" />
 

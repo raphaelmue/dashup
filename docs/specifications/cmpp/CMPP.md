@@ -57,6 +57,7 @@ service.
 | <a href="https://dashup2k18.wordpress.com/">Dashup Blog</a>                           | 12/06/2019 |
 | <a href="https://github.com/raphaelmue/dashup">GitHub Repository</a>                  | 12/06/2019 |
 | <a href="https://youtrack.dashup.de/issues">YouTrack</a>                              | 12/06/2019 |
+| <a href="https://www.youtube.com/channel/UCkzyPZ1hoasZHXEwxLfDu2w">YouTube</a>        | 12/06/2019 |
 | <a href="http://jenkins.raphael-muesseler.de/job/dashup">Jenkins</a>                  | 12/06/2019 |
 | <a href="https://sonarcloud.io/dashboard?id=dashup">SonarCloud</a>                    | 12/06/2019 |
 

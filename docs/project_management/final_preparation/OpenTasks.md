@@ -3,13 +3,10 @@
 * Final Blog Entry (Link to blogs, marketing video, repo, youtrack, jenkins, codacy, sonar, direct links to files, Rahmen ziehen, App Bild, etc.) (Felix)
 * Transition: Get Blog printed as pdf and dashup zipped to copy to stick, send e-mail with blog as pdf and notification for final blog post
 -> Not later than one week after (Felix)
-* Rework SAD (Class Diagram and Module diagram) -> Adapt the class diagram in the two blog posts (Raphael)
 * Update time estimation Blog (Felix)
 * Do all tasks have git integration (Joshua)
 * Go through gc of 3rd and 4th semester (Felix)
-* Go through YouTrack: (All)
-    * Is a UC assigned and a workflow?
-    * Is the time categorized?
+* UC assigned to tasks (All)
 * Write tests to get coverage over 50% (Joshua and Raphael)
 * Metrics improvements (not much) (Raphael)
 * Go through Blog (see if links are working) + UPDATE Blog (Felix)
@@ -40,8 +37,6 @@
 ### Hand in
 
 * Update all documents (especially ucs) (Felix)
-* Test logs in repo (Joshua)
-* UI Test Video (Joshua)
 * Include hours/team member breakdown in Function Point Blog (Felix)
 * Include GANTT Chart in FP analysis (Felix)
 * Include estimates and actual time spent in function point blog (Felix)

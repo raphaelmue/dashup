@@ -88,6 +88,7 @@ web application on modern browsers.
 | <a href="https://dashup2k18.wordpress.com/">Dashup Blog</a>                           | 21/10/2018 |
 | <a href="https://github.com/raphaelmue/dashup">GitHub Repository</a>                  | 21/10/2018 |
 | <a href="https://youtrack.dashup.de/issues">YouTrack</a>                              | 21/10/2018 |
+| <a href="https://www.youtube.com/channel/UCkzyPZ1hoasZHXEwxLfDu2w">YouTube</a>        | 21/10/2018 |
 | <a href="http://jenkins.raphael-muesseler.de/job/dashup">Jenkins</a>                  | 21/10/2018 |
 | <a href="https://sonarcloud.io/dashboard?id=dashup">SonarCloud</a>                    | 13/06/2018 |
 
