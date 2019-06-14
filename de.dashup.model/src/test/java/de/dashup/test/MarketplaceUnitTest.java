@@ -3,7 +3,6 @@ package de.dashup.test;
 import de.dashup.model.db.Database;
 import de.dashup.model.service.DashupService;
 import de.dashup.shared.User;
-import de.dashup.shared.layout.Widget;
 import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
