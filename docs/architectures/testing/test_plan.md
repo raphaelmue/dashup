@@ -83,7 +83,7 @@ server that measures time, we are able to easily check if we have a performance 
 This test plan is written generally for ourselves as contributors. As this document is on a technical level, the general 
 target audience is more advanced readers with the necessary background knowledge. 
 
-### 1.4 Document Termonlogy and Acronyms
+## 1.4 Document Termonlogy and Acronyms
 
 | Abbrevation | Description                            |
 | ----------- | -------------------------------------- |

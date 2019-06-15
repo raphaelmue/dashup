@@ -1,16 +1,18 @@
 # Things left to do
 
-* Final Blog Entry (Link to blogs, marketing video, repo, youtrack, jenkins, codacy, sonar, direct links to files, Rahmen ziehen, App Bild, etc.) (Felix)
-* Transition: Get Blog printed as pdf and dashup zipped to copy to stick, send e-mail with blog as pdf and notification for final blog post
--> Not later than one week after (Felix)
-* Update time estimation Blog (Felix)
+* Final Blog Entry (Felix)
+    * Link to blogs, marketing video, repo, youtrack, youtube, jenkins, codacy, sonar, direct links to files
+    * Rahmen ziehen,
+    * App Bild 
+* Transition (Felix)
+    * Get Blog printed as pdf
+    * dashup zipped to copy to stick
+    * send e-mail with blog as pdf and notification for final blog post
+       -> Not later than one week after
+* Make Final Presentation (Felix & Sven)
 * Do all tasks have git integration (Joshua)
-* Go through gc of 3rd and 4th semester (Felix)
-* UC assigned to tasks (All)
 * Write tests to get coverage over 50% (Joshua and Raphael)
-* Metrics improvements (not much) (Raphael)
-* Go through Blog (see if links are working) + UPDATE Blog (Felix)
-* Create Release (Felix)
+* Metrics improvements (not much) + show code sample when improving metric in blog post (Raphael)
 * Handout (Sven)
     * Team name
     * Team member mails with e-mail address (sap)
@@ -36,11 +38,10 @@
 
 ### Hand in
 
+* Go through Blog (see if links are working) + update Blog (Felix)
+* Go through gc of 3rd and 4th semester (Felix)
+* Create Release (Felix)
 * Update all documents (especially ucs) (Felix)
-* Include hours/team member breakdown in Function Point Blog (Felix)
-* Include GANTT Chart in FP analysis (Felix)
-* Include estimates and actual time spent in function point blog (Felix)
-* Show Code Sample when improving metric in blog post (Raphael)
 * Link presentation (Felix)
 
 ### Grading Criteria
