@@ -263,7 +263,7 @@ functionality works or not. Smoke tests are explained earlier (see [5.1.3 Smoke 
 
 Each master build publishes a code coverage result, that can be seen also here: 
 
-<img src="codacy_coverage.png" alt="Code Coverage in Codacy" />
+![Code Coverage in Codacy](sonar_coverage.png "Code Coverage in Codacy")
 
 ## 8 Testing Workflow
 
@@ -328,7 +328,7 @@ The following trainings are needed for writing tests:
 
 ## 11 Iteration Milestones
 
-Our goal is to keep instruction coverage above **70%** and branch coverage above **50%** for the classes we are testing.
+Our goal is to keep instruction coverage above **50%** and branch coverage above **30%** for the classes we are testing.
 
 ## 12 Risks, Dependencies, Assumptions and Constraints
 
