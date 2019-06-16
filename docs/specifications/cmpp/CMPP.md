@@ -29,9 +29,9 @@
 
 ## 1.1 Purpose
 
-The purpose of this document is to define the Configuration Management of the project *dashup*. 
+The purpose of this document is to define the Configuration Management of the project **dashup**. 
 
-This __Configuration Management Project Plan__ for the project **dashup** supports the following objectives:
+This __Configuration Management Project Plan__ supports the following objectives:
 
 - Outlines the developing and contributing process.
 - Defines the continuous integration workflow. 
@@ -39,7 +39,7 @@ This __Configuration Management Project Plan__ for the project **dashup** suppor
  
 ## 1.2 Scope
 
-As a continuous integration service, we use __Jenkins__ for **dashup**. In this project we will focus only on Jenkins 
+As a continuous integration service, we use __Jenkins__. In this project we will focus only on Jenkins 
 as we have shown that it best fits our project requirements. For now, there will be no other continuous integration 
 service. 
 
@@ -48,7 +48,6 @@ service.
 | Abbreviation | Description                            |
 | ------------ | -------------------------------------- |
 | CI           | Continuous Integration                 |
-| n/a          | not applicable                         |
 
 ## 1.4 References
 
@@ -67,8 +66,16 @@ The technology stack for the **dashup** application looks as follows:
 
 ![Technology Stack](../../architectures/tech_stack/tech_stack.png "Technology Stack")
 
-This technology stack gives a quick overview about how developing and contributing to the project **dashup** works. In 
-addition, contributors are informed which tools are used and for what purpose. 
+This technology stack gives a quick overview about how developing and contributing to the project **dashup** works.
+Our backend is designed according to a MVC architecture using Spring Boot, whereas frontend technology is based on JSP 
+Views and native web components using Polymers' [LitElement](https://lit-element.polymer-project.org/) library. Our 
+Jenkins server helps us to automate building, testing (in Chrome and Firefox), measuring an deploying our application in 
+a single pipeline. See more information about testing above. Codacy is used the measure code quality and SonarCloud 
+additionally measures code coverage for us. To manage dependencies, Maven is used. Dashup itself is as well divided into
+four Maven modules: application, model, shared and util. Nothing works without a version control system, which is why we 
+use git. GitHub is the platform, we regularly push our latest code changes to, after developing them using IntelliJ IDEA.
+To measure time, assign or create tasks, or to do other project management related tasks, we integrated a plugin for 
+YouTrack into our IDE, but as well use the web based application of YouTrack.
 
 ## 2.1 Contribution and development process
 
@@ -86,12 +93,13 @@ other contributors approved this PR, it can be merged into master.
 # 3 Project Management
 
 As we are using agile project management, we integrated YouTrack into our development process. It gives us the 
-possibility to track our project management. You can find further information on that in our Blog Posts.  
+possibility to track our project management. You can find further information on that in our 
+[blog post](https://dashup2k18.wordpress.com/2018/11/18/scrumming-with-youtrack/).  
 
 # 4 Development and Architecture
 
-Our architecture is described in our Software Architecture Document, as well as information about our Build Management 
-Tools.
+Our architecture is described in our [Software Architecture Document](../sad/SAD.md), as well as information about our 
+build management tools.
 
 # 5 Continuous Integration
 
@@ -140,24 +148,24 @@ The multibranch pipeline for dashup looks as follows:
 1. Stage: Running JUnit Tests.
 
     In this stage all unit tests will be executed. You can find further information on unit testing in our 
-    [Test Plan](https://github.com/raphaelmue/dashup/blob/master/docs/architectures/testing/test_plan.md) Document.
+    [Test Plan](https://github.com/raphaelmue/dashup/blob/master/docs/architectures/testing/test_plan.md) document.
     
 1. Stage: Running integration tests in Chrome.
     
     This stage is for executing all integration tests in Google's Chrome Browser. You can find further information on 
     integration testing in our [Test Plan](https://github.com/raphaelmue/dashup/blob/master/docs/architectures/testing/test_plan.md) 
-    Document.
+    document.
     
 1. Stage: Running integration tests in Firefox.
         
     This stage is for executing all integration tests in Mozialla's Firefox Browser. You can find further information on 
     integration testing in our [Test Plan](https://github.com/raphaelmue/dashup/blob/master/docs/architectures/testing/test_plan.md) 
-    Document.
+    document.
         
 1. Stage: Analyzing Project
 
      After all tests went green, Jacoco has automatically collected information on the code coverage. This data as well 
-     as other information are now sent to Sonar, which will after that analyze the project.
+     as other information are now sent to SonarCloud, which will after that analyze the project.
      
 # 6 Deployment
 
@@ -169,4 +177,5 @@ service to run the new job. On this branch, there is a special stage called **De
 application on the latest version. 
 
 You can checkout the status of the deployment branch here: 
+
 [![Build Status](http://jenkins.raphael-muesseler.de/job/dashup/job/deployment/badge/icon)](http://jenkins.raphael-muesseler.de/job/dashup/job/deployment/)

@@ -38,8 +38,8 @@
 
 ### Hand in
 
-* Go through Blog (see if links are working) + update Blog (Felix)
 * Go through gc of 3rd and 4th semester (Felix)
+* Design Patterns (Felix)
 * Create Release (Felix)
 * Update all documents (especially ucs) (Felix)
 * Link presentation (Felix)

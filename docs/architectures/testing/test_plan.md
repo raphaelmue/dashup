@@ -244,8 +244,8 @@ There is more information about our Jenkins multi-branch pipeline in our
 
 ### 7.2 Reporting on Test Coverage
 
-If the Jenkins build was successful, _SonarCloud_ will analyze the repository for its test coverage. This badge shows 
-the current code coverage on the master branch: 
+If the Jenkins build was successful, _SonarCloud_ will analyze the repository for its test coverage using test data 
+provided by our maven plugin Jacoco. This badge shows the current code coverage on the master branch: 
 
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=dashup&metric=coverage)](https://sonarcloud.io/dashboard?id=dashup)
 
@@ -306,13 +306,23 @@ The following tools will be employed to support the test process for this Test P
 | ------------------------------------------------- | ----------------------------------------------------------------------------|
 | Code Hoster                                       | [GitHub](https://www.github.com/raphaelmue/dashup/)                         |
 | Code Quality Monitor                              | [Codacy](https://app.codacy.com/project/dashup/dashup/dashboard)            |
-| Continuous Integration Tool                       | [Jenkins](https://jenkins.raphael-muesseler.de/)                            |
+| Continuous Integration Tool                       | [Jenkins](https://jenkins.raphael-muesseler.de/job/dashup/)                 |
 | Code Coverage and Continuous Code Inspection Tool | [SonarCloud](https://sonarcloud.io)                                         |
 | Metrics Calculation Plugin (IntelliJ)             | [Metrics Reloaded](https://plugins.jetbrains.com/plugin/93-metricsreloaded) |
 
 ### 9.4 Technology Stack
 
 ![Technology Stack](../tech_stack/tech_stack.png "Technology Stack")
+
+Our backend is designed according to a MVC architecture using Spring Boot, whereas frontend technology is based on JSP 
+Views and native web components using Polymers' [LitElement](https://lit-element.polymer-project.org/) library. Our 
+Jenkins server helps us to automate building, testing (in Chrome and Firefox), measuring an deploying our application in 
+a single pipeline. See more information about testing above. Codacy is used the measure code quality and SonarCloud 
+additionally measures code coverage for us. To manage dependencies, Maven is used. Dashup itself is as well divided into
+four Maven modules: application, model, shared and util. Nothing works without a version control system, which is why we 
+use git. GitHub is the platform, we regularly push our latest code changes to, after developing them using IntelliJ IDEA.
+To measure time, assign or create tasks, or to do other project management related tasks, we integrated a plugin for 
+YouTrack into our IDE, but as well use the web based application of YouTrack.
 
 ## 10 Responsibilities, Staffing and Training Needs
 
@@ -350,7 +360,7 @@ our CI process. This can be seen on the screenshot of our Jenkins Pipeline at th
 
 <img src="metrics_jenkins_screenshot.PNG" alt="Jenkins screenshot for Analyze Project step" />
 
-Sonar's dashboard gives an overview of the current code situation. Serious errors and grievances can be detected 
+SonarCloud's dashboard gives an overview of the current code situation. Serious errors and grievances can be detected 
 quickly. The dashboard is public and can be accessed [here](https://sonarcloud.io/dashboard?id=dashup).
 
 For more detailed metrics around the code the Intellij Plugin Metrics Reloaded is used. Here metrics of different 

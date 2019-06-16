@@ -56,7 +56,7 @@ well as the structure of classes.
 | SRS          | Software Requirements Specification    |
 | UC           | Use Case                               |
 | VCS          | Version Control System                 |
-| n/a          | not applicable                         |
+| N/A          | Not Applicable                         |
 | DAO          | Data Access Object                     |
 | DTO          | Data Transfer Object                   |
 
@@ -86,7 +86,7 @@ Our project dashup uses the classic MVC structure as follows:
 
 As our main technology we decided to use Spring MVC, which is a framework that takes not only care of the backend but 
 also of the frontend. Besides the controller and model language is Java, so that we do not have to care about 
-serialization. 
+serialization. To implement custom web components, Google Polymers' LitElement library is used.
 
 The main architectural goal of this project is portability, distribution and reuse. Since we want our users to customize 
 their dashup in any way they want, everything has to be kept abstract and must be made for reuse. 
@@ -140,7 +140,7 @@ compromises the whole modeling.
 
 ## 6. Process View
 
-n/a
+N/A
 
 ## 7. Deployment View
 
@@ -153,7 +153,7 @@ server due to the same reason.
 
 ## 8. Implementation View
 
-n/a
+N/A
 
 ## 9. Data View
 
@@ -168,7 +168,7 @@ some new tables included in the current database scheme shown below, that we use
 
 ## 10. Size and Performance
 
-n/a
+N/A
 
 ## 11. Quality/Metrics
 
