@@ -1,6 +1,6 @@
 # Dashup - Test Plan
 
-### Version 2.0
+### Version 3.0
 
 # Revision history
 
@@ -16,7 +16,7 @@
     - [Purpose](#11-purpose)
     - [Scope](#12-scope)
     - [Intended Audience](#13-intended-audience)
-    - [Document Terminology and Acronyms](#14-document-termonlogy-and-acronyms)
+    - [Document Terminology and Acronyms](#14-document-terminology-and-acronyms)
     - [References](#15-references)
 - [Evaluation Mission and Test Motivation](#2-evaluation-mission-and-test-motivation)
     - [Background](#21-background)
@@ -32,9 +32,9 @@
         - [Unit Testing](#511-unit-testing)
         - [User Interface Testing](#512-user-interface-testing)
         - [Smoke Testing](#513-smoke-testing)
-- [Entry and Exit Testing](#6-task-and-exit-criteria)
+- [Entry and Exit Testing](#6-entry-and-exit-criteria)
     - [Test Plan](#61-test-plan)
-        - [Test Plan Entry Criteria](#611-test-plan-task-criteria)
+        - [Test Plan Entry Criteria](#611-test-plan-entry-criteria)
         - [Test Plan Exit Criteria](#612-test-plan-exit-criteria)
 - [Deliverables](#7-deliverables)
     - [Test Evaluation Summaries](#71-test-evaluation-summaries)
@@ -47,6 +47,7 @@
     - [Base System Hardware](#91-base-system-hardware)
     - [Base Software Elements in the Test Environment](#92-base-software-elements-in-the-test-environment)
     - [Productivity and Support Tools](#93-productivity-and-support-tools)
+    - [Technology Stack](#94-technology-stack)
 - [Responsibilities, Staffing, and Training Needs](#10-responsibilities-staffing-and-training-needs)
     - [People and Roles](#101-people-and-roles)
     - [Staffing and Training Needs](#102-staffing-and-training-needs)
@@ -71,9 +72,11 @@ This _Test Plan_ for **dashup** supports the following objectives:
 
 ## 1.2 Scope
 
-Within the **dashup** project we use unit and integration testing. Unit tests have to purpose to test single logical 
-units primarily within the backend, since there is the main logic placed. Integration tests help us to test and 
-end-to-end scenario. Furthermore they test the 2 other layers: views and controllers.
+Within the dashup project we use unit, smoke and UI testing. Unit tests have the purpose to test single logical 
+units primarily within the backend, since there is the main logic placed. Smoke tests aim to guarantee that the most 
+important features of dashup are working on an end-to-end scenario, whereas UI test checks for UI related functionality. 
+Some of these tests correlate with each other and form integration tests, that help us to test end-to-end scenarios. 
+Furthermore they test 2 other layers: views and controllers.
 
 This means that we are only testing for functionality (logic), usability, and reliability. Since our tests run on a CI 
 server that measures time, we are able to easily check if we have a performance flaw.  
@@ -83,12 +86,13 @@ server that measures time, we are able to easily check if we have a performance 
 This test plan is written generally for ourselves as contributors. As this document is on a technical level, the general 
 target audience is more advanced readers with the necessary background knowledge. 
 
-## 1.4 Document Termonlogy and Acronyms
+## 1.4 Document Terminology and Acronyms
 
-| Abbrevation | Description                            |
-| ----------- | -------------------------------------- |
-| CI          | Continuous Integration                 |
-| n/a         | not applicable                         |
+| Abbreviation | Description                            |
+| ------------ | -------------------------------------- |
+| CI           | Continuous Integration                 |
+| UI           | User Interface                         |
+| CMPP         | Configuration Management Project Plan  |
 
 ## 1.5 References
 
@@ -97,6 +101,7 @@ target audience is more advanced readers with the necessary background knowledge
 | <a href="https://dashup2k18.wordpress.com/">Dashup Blog</a>                           | 12/06/2019 |
 | <a href="https://github.com/raphaelmue/dashup">GitHub Repository</a>                  | 12/06/2019 |
 | <a href="https://youtrack.dashup.de/issues">YouTrack</a>                              | 12/06/2019 |
+| <a href="https://www.youtube.com/channel/UCkzyPZ1hoasZHXEwxLfDu2w">YouTube</a>        | 12/06/2019 |
 | <a href="http://jenkins.raphael-muesseler.de/job/dashup">Jenkins</a>                  | 12/06/2019 |
 | <a href="https://sonarcloud.io/dashboard?id=dashup">SonarCloud</a>                    | 12/06/2019 |
 
@@ -104,9 +109,9 @@ target audience is more advanced readers with the necessary background knowledge
 
 ### 2.1 Background
 
-Unit and integration tests allow us to keep track of issues and bugs, when there are future changes. Their code coverage 
-gives us information about how well our application is covered with tests. When deploying our application without any 
-test failures, we can at least be sure, that all of our tests cases are working correctly. 
+Unit, UI, smoke and integration tests allow us to keep track of issues and bugs, when there are future changes. Their 
+code coverage give us information about how well our application is covered with tests. When deploying our application 
+without any test failures, we can at least be sure, that all of our tests cases are working correctly. 
 
 Furthermore, when using an CI server, we become aware of issues of bugs, if some tests fail. We benefit from this as we 
 can save time and effort. 
@@ -134,8 +139,9 @@ identified as targets for testing. This list represents what items will be teste
 
 ### 4.1 Outline of Test Inclusions
 
-We will test units of our backend and the integration between frontend and backend. The integration tests of course do 
-test the frontend as well. 
+We will test units of our backend and the integration between frontend and backend. Besides the UI tests within the 
+integration tests, we do have dedicated frontend tests as well. Smoke tests especially help us to receive quick feedback, 
+whether the main features are still working or not and test both frontend and backend.
 
 ### 4.2  Outline of other Candidates for Potential Inclusion
 
@@ -152,6 +158,9 @@ needs.
 ## 5 Test Approach
 
 ### 5.1 Testing Techniques and Types
+
+The three testing techniques below are especially used to test end-to-end scenarios and many are used within an 
+integration test series, nevertheless others represent exclusive frontend or backend tests.
 
 #### 5.1.1 Unit Testing
 
@@ -195,8 +204,7 @@ assessment of whether main functions of the software appear to work correctly.
 | Technique              | Verifying that the expected result and no error occurs.     |
 | Oracles                | Test logs, console printing, watching tests, code coverage  |
 | Required Tools         | Selenium & JUnit (Maven Dependency)                         |
-| Success Criteria       | Tests must pass. 
-age is not suitable.                  |
+| Success Criteria       | Tests must pass.                                            |
 | Special Considerations | Running UI tests headless on a CI server without an UI.     |
 
 ## 6 Entry and Exit Criteria
@@ -217,8 +225,8 @@ determine which tests failed.
 
 ### 7.1 Test Evaluation Summaries
 
-For our application we are using Jenkins as CI tool. On the one hand Jenkins performs the build process and on the other 
-hand Jenkins executes unit and integration tests. 
+For our application we are using _Jenkins_ as CI tool. On the one hand Jenkins performs the build process and on the other 
+hand Jenkins executes the mentioned tests. 
 
 | CI Service | Badge                                                                                                                                                   |
 | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -231,12 +239,12 @@ process in Jenkins.
 
 ![Build Process in Jenkins](jenkins_tests.png "Build Process in Jenkins")
 
-There is more information about our Jenkins multibranch pipeline in our 
+There is more information about our Jenkins multi-branch pipeline in our 
 [CMPP](http://github.com/raphaelmue/dashup/blob/master/docs/specifications/cmpp/CMPP.md).
 
 ### 7.2 Reporting on Test Coverage
 
-If the Jenkins build was successful, the code coverage will be reported to the GitHub plugin _Codacy_. This badge shows 
+If the Jenkins build was successful, _SonarCloud_ will analyze the repository for its test coverage. This badge shows 
 the current code coverage on the master branch: 
 
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=dashup&metric=coverage)](https://sonarcloud.io/dashboard?id=dashup)
@@ -258,7 +266,7 @@ into the master:
 
 ### 7.5 Smoke Test Suite and Supporting Test Scripts
 
-We integrated in our test workflow smoke tests as well, to check before committing changes, whether the basic 
+We integrated smoke tests in our test workflow as well to check before committing changes, whether the basic 
 functionality works or not. Smoke tests are explained earlier (see [5.1.3 Smoke testing](#513-smoke-testing)) 
 
 Each master build publishes a code coverage result, that can be seen also here: 
@@ -294,15 +302,15 @@ The following base software elements are required in the test environment for th
 
 The following tools will be employed to support the test process for this Test Plan.
 
-| Tool Category or Type                  | Tool Brand Name                                                             |
-| -------------------------------------- | ----------------------------------------------------------------------------|
-| Code Hoster                            | [GitHub](https://www.github.com/raphaelmue/dashup/)                         |
-| Test Coverage and Code Quality Monitor | [Codacy](https://app.codacy.com/project/dashup/dashup/dashboard)            |
-| Continuous integration tool            | [Jenkins](https://jenkins.raphael-muesseler.de/)                            |
-| Continuous code inspection tool        | [SonarCloud](https://sonarcloud.io)                                         |
-| Metrics calculation plugin (IntelliJ)  | [Metrics Reloaded](https://plugins.jetbrains.com/plugin/93-metricsreloaded) |
+| Tool Category or Type                             | Tool Brand Name                                                             |
+| ------------------------------------------------- | ----------------------------------------------------------------------------|
+| Code Hoster                                       | [GitHub](https://www.github.com/raphaelmue/dashup/)                         |
+| Code Quality Monitor                              | [Codacy](https://app.codacy.com/project/dashup/dashup/dashboard)            |
+| Continuous Integration Tool                       | [Jenkins](https://jenkins.raphael-muesseler.de/)                            |
+| Code Coverage and Continuous Code Inspection Tool | [SonarCloud](https://sonarcloud.io)                                         |
+| Metrics Calculation Plugin (IntelliJ)             | [Metrics Reloaded](https://plugins.jetbrains.com/plugin/93-metricsreloaded) |
 
-The following figure shows our technology stack of our application:
+### 9.4 Technology Stack
 
 ![Technology Stack](../tech_stack/tech_stack.png "Technology Stack")
 
@@ -324,7 +332,7 @@ This table displays the staffing assumptions for the test effort of our project.
 The following trainings are needed for writing tests:
     
 - Writing JUnit tests
-- Writing selenium tests
+- Writing Selenium tests
 
 ## 11 Iteration Milestones
 
@@ -337,7 +345,7 @@ do not have that much resources.
 
 ## 13 Metrics
 Metrics are used to numerically evaluate the code. It helps to find critical code sections, examine them more precisely 
-and eliminate them in the best case. For this purpose, we have integrated [sonarcloud.io](https://sonarcloud.io) into 
+and eliminate them in the best case. For this purpose, we have integrated [SonarCloud](https://sonarcloud.io) into 
 our CI process. This can be seen on the screenshot of our Jenkins Pipeline at the step **Analyze Project**.
 
 <img src="metrics_jenkins_screenshot.PNG" alt="Jenkins screenshot for Analyze Project step" />
@@ -387,4 +395,3 @@ The class is only needed to make CRUD operations possible in the software. So, i
 be read or written with the help of getters and setters only. We do not consider changes to be useful, since some 
 components require the functionality of this class. Furthermore, it makes no sense to split the class, because it 
 represents an atomic object in this context of the software.
-

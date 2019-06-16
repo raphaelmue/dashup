@@ -45,10 +45,10 @@ service.
 
 ## 1.3 Definitions, Acronyms and Abbreviations
 
-| Abbrevation | Description                            |
-| ----------- | -------------------------------------- |
-| CI          | Continuous Integration                 |
-| n/a         | not applicable                         |
+| Abbreviation | Description                            |
+| ------------ | -------------------------------------- |
+| CI           | Continuous Integration                 |
+| n/a          | not applicable                         |
 
 ## 1.4 References
 

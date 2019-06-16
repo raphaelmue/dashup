@@ -47,18 +47,18 @@ well as the structure of classes.
 
 ### 1.3 Definitions, Acronyms and Abbreviations
 
-| Abbrevation | Description                            |
-| ----------- | -------------------------------------- |
-| API         | Application programming interface      |
-| MVC         | Model View Controller                  |
-| REST        | Representational state transfer        |
-| SDK         | Software development kit               |
-| SRS         | Software Requirements Specification    |
-| UC          | Use Case                               |
-| VCS         | Version Control System                 |
-| n/a         | not applicable                         |
-| DAO         | Data Access Object                     |
-| DTO         | Data Transfer Object                   |
+| Abbreviation | Description                            |
+| ------------ | -------------------------------------- |
+| API          | Application programming interface      |
+| MVC          | Model View Controller                  |
+| REST         | Representational state transfer        |
+| SDK          | Software development kit               |
+| SRS          | Software Requirements Specification    |
+| UC           | Use Case                               |
+| VCS          | Version Control System                 |
+| n/a          | not applicable                         |
+| DAO          | Data Access Object                     |
+| DTO          | Data Transfer Object                   |
 
 ### 1.4 References
 

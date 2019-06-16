@@ -322,7 +322,7 @@ Find the list of used developmental tools below:
 - YouTrack: Project planning tool
 - Jenkins: Continuous integration and delivery
 - Maven: Build Management
-- Sonar: Code metrics
+- SonarCloud: Code metrics
 - Codacy: Code quality
 - Draw.IO: Architectural diagrams
 - Balsamiq: UI mockups
