@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class Section implements DatabaseObject, Comparable<Section> {
+    private static final long serialVersionUID = 1627079302818067150L;
+
     @SerializedName("id")
     private int id;
     @SerializedName("section_name")

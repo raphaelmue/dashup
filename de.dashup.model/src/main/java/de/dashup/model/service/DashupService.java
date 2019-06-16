@@ -17,8 +17,31 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DashupService {
+
+    /**
+     * Literals
+     */
+    private static final String EMAIL = "email";
+    private static final String USER_ID = "user_id";
+    private static final String TOKEN = "token";
+    private static final String SECTION_INDEX = "section_index";
+    private static final String WIDGET_INDEX = "widget_index";
+    private static final String PANEL_ID = "panel_id";
+    private static final String PROPERTY = "property";
+    private static final String DEFAULT_VALUE = "default_value";
+    private static final String PROPERTY_ID = "property_id";
+    private static final String VALUE = "value";
+    private static final String TAG_ID = "tag_id";
+    private static final String VISIBILITY = "visibility";
+    private static final String CATEGORY = "category";
+    private static final String LANGUAGE = "language";
+    private static final String BACKGROUND_IMAGE = "background_image";
+    private static final String CONTENT = "content";
+    private static final String SELECTED = "selected";
 
     private Database database;
     private final RandomString randomString = new RandomString();
@@ -36,7 +59,7 @@ public class DashupService {
         try {
             this.database = Database.getInstance();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger("Dashup").log(Level.SEVERE, e.getMessage(), e);
         }
     }
 
@@ -50,7 +73,7 @@ public class DashupService {
      */
     public User checkCredentials(String email, String password, boolean rememberMe) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("email", email);
+        whereParameters.put(EMAIL, email);
 
         List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters);
         if (result != null && result.size() == 1) {
@@ -63,8 +86,8 @@ public class DashupService {
                     String token = this.randomString.nextString(64);
                     user.setToken(token);
                     HashMap<String, Object> values = new HashMap<>();
-                    values.put("user_id", user.getId());
-                    values.put("token", token);
+                    values.put(USER_ID, user.getId());
+                    values.put(TOKEN, token);
                     values.put("expire_date", LocalDate.now().plusMonths(1));
                     this.database.insert(Database.Table.USERS_TOKENS, values);
                 }
@@ -79,21 +102,21 @@ public class DashupService {
         ArrayList<Section> sections = new ArrayList<>();
 
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("user_id", user.getId());
+        whereParameters.put(USER_ID, user.getId());
 
-        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USER_SECTIONS, Section.class, whereParameters, "section_index");
+        List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USER_SECTIONS, Section.class, whereParameters, SECTION_INDEX);
         if (result != null) {
             for (DatabaseObject databaseObject : result) {
                 Section section = (Section) databaseObject;
                 Map<String, Object> innerWhereParameters = new HashMap<>();
                 innerWhereParameters.put("id", section.getId());
-                JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerWhereParameters, "widget_index");
+                JSONArray innerResult = this.database.get(Database.Table.SECTIONS_PANELS, innerWhereParameters, WIDGET_INDEX);
                 if (innerResult != null && innerResult.length() > 0) {
                     List<Widget> widgets = new ArrayList<>();
                     for (int i = 0; i < innerResult.length(); i++) {
-                        Widget widget = this.getPanelById(innerResult.getJSONObject(i).getInt("panel_id"));
+                        Widget widget = this.getPanelById(innerResult.getJSONObject(i).getInt(PANEL_ID));
                         widget.setSize(Widget.Size.getSizeByName(innerResult.getJSONObject(i).getString("size")));
-                        widget.setIndex(innerResult.getJSONObject(i).getInt("widget_index"));
+                        widget.setIndex(innerResult.getJSONObject(i).getInt(WIDGET_INDEX));
                         this.getPropertiesOfWidget(user, widget);
                         widgets.add(widget);
                     }
@@ -116,23 +139,23 @@ public class DashupService {
         JSONArray jsonDefaultProperties = this.database.get(Database.Table.PROPERTIES, whereParameters);
         for (int i = 0; i < jsonDefaultProperties.length(); i++) {
             JSONObject jsonObject = jsonDefaultProperties.getJSONObject(i);
-            widget.getProperties().put(jsonObject.getString("property"),
+            widget.getProperties().put(jsonObject.getString(PROPERTY),
                     new Property(jsonObject.getInt("id"),
-                            jsonObject.getString("property"),
+                            jsonObject.getString(PROPERTY),
                             jsonObject.getString("name"),
                             jsonObject.getString("type"),
-                            jsonObject.getString("default_value"), null));
+                            jsonObject.getString(DEFAULT_VALUE), null));
             propertiesFound = true;
         }
 
         if (propertiesFound) {
             whereParameters.clear();
-            whereParameters.put("user_id", user.getId());
+            whereParameters.put(USER_ID, user.getId());
             for (Map.Entry<String, Property> propertyEntry : widget.getProperties().entrySet()) {
-                whereParameters.put("property_id", propertyEntry.getValue().getId());
+                whereParameters.put(PROPERTY_ID, propertyEntry.getValue().getId());
                 JSONArray jsonProperty = this.database.get(Database.Table.USERS_PROPERTIES, whereParameters);
                 if (jsonProperty.length() > 0) {
-                    propertyEntry.getValue().setValue(jsonProperty.getJSONObject(0).getString("value"));
+                    propertyEntry.getValue().setValue(jsonProperty.getJSONObject(0).getString(VALUE));
                 }
             }
         }
@@ -143,20 +166,20 @@ public class DashupService {
             if (propertyEntry.getValue().getId() == -1) {
                 Map<String, Object> values = new HashMap<>();
                 values.put("widget_id", widget.getId());
-                values.put("property", propertyEntry.getValue().getProperty());
+                values.put(PROPERTY, propertyEntry.getValue().getProperty());
                 values.put("name", propertyEntry.getValue().getName());
                 values.put("type", propertyEntry.getValue().getType());
-                values.put("default_value", propertyEntry.getValue().getDefaultValue());
+                values.put(DEFAULT_VALUE, propertyEntry.getValue().getDefaultValue());
                 this.database.insert(Database.Table.PROPERTIES, values);
             } else {
                 Map<String, Object> whereParameters = new HashMap<>();
                 whereParameters.put("id", propertyEntry.getValue().getId());
 
                 Map<String, Object> values = new HashMap<>();
-                values.put("property", propertyEntry.getValue().getProperty());
+                values.put(PROPERTY, propertyEntry.getValue().getProperty());
                 values.put("name", propertyEntry.getValue().getName());
                 values.put("type", propertyEntry.getValue().getType());
-                values.put("default_value", propertyEntry.getValue().getDefaultValue());
+                values.put(DEFAULT_VALUE, propertyEntry.getValue().getDefaultValue());
 
                 this.database.update(Database.Table.PROPERTIES, whereParameters, values);
             }
@@ -164,7 +187,7 @@ public class DashupService {
 
         for (int propertyId : propertiesToDelete) {
             Map<String, Object> whereParameters = new HashMap<>();
-            whereParameters.put("property_id", propertyId);
+            whereParameters.put(PROPERTY_ID, propertyId);
             this.database.delete(Database.Table.USERS_PROPERTIES, whereParameters);
 
             whereParameters.clear();
@@ -185,12 +208,12 @@ public class DashupService {
     public void updateUsersWidgetProperties(User user, Widget widget) throws SQLException {
         for (Map.Entry<String, Property> propertyEntry : widget.getProperties().entrySet()) {
             Map<String, Object> whereParameters = new HashMap<>();
-            whereParameters.put("user_id", user.getId());
-            whereParameters.put("property_id", propertyEntry.getValue().getId());
+            whereParameters.put(USER_ID, user.getId());
+            whereParameters.put(PROPERTY_ID, propertyEntry.getValue().getId());
 
             JSONArray result = this.database.get(Database.Table.USERS_PROPERTIES, whereParameters);
             Map<String, Object> values = new HashMap<>();
-            values.put("value", propertyEntry.getValue().getValue());
+            values.put(VALUE, propertyEntry.getValue().getValue());
             if (result.length() > 0) {
                 this.database.update(Database.Table.USERS_PROPERTIES, whereParameters, values);
             } else {
@@ -216,8 +239,8 @@ public class DashupService {
         Map<String, Object> whereParameters = new HashMap<>();
         Map<String, String> onParameters = new HashMap<>();
         ArrayList<String> returningValue = new ArrayList<>();
-        whereParameters.put("panel_id", widgetId);
-        onParameters.put("tag_id", "id");
+        whereParameters.put(PANEL_ID, widgetId);
+        onParameters.put(TAG_ID, "id");
         JSONArray databaseResult = this.database.get(Database.Table.PANELS_TAGS, Database.Table.TAGS, onParameters, whereParameters);
         for (int i = 0; i < databaseResult.length(); i++) {
             returningValue.add(databaseResult.getJSONObject(i).getString("text"));
@@ -229,8 +252,8 @@ public class DashupService {
         ArrayList<Rating> returningValue = new ArrayList<>();
         Map<String, String> onParameters = new HashMap<>();
         Map<String, Object> whereParameters = new HashMap<>();
-        onParameters.put("user_id", "id");
-        whereParameters.put("panel_id", widgetId);
+        onParameters.put(USER_ID, "id");
+        whereParameters.put(PANEL_ID, widgetId);
         List<? extends DatabaseObject> databaseResult = database.getObject(Database.Table.RATINGS, Database.Table.USERS, Rating.class, onParameters, whereParameters, "ratings.changed_on DESC");
         for (DatabaseObject databaseObject : databaseResult) {
             Rating rating = (Rating) databaseObject;
@@ -242,7 +265,7 @@ public class DashupService {
     public List<Widget> getTopWidgets(String sortByField) throws SQLException {
         ArrayList<Widget> returningValue = new ArrayList<>();
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("visibility", 1);
+        whereParameters.put(VISIBILITY, 1);
         List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters, sortByField + " DESC");
         if (result != null && result.size() >= 4) {
             for (int i = 0; i < 4; i++) {
@@ -274,10 +297,10 @@ public class DashupService {
     public List<Widget> getSimilarWidgets(String category, int currentId) throws SQLException {
         ArrayList<Widget> returningValue = new ArrayList<>();
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("category", category);
+        whereParameters.put(CATEGORY, category);
         List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters);
         Collections.shuffle(result);
-        if (result != null && result.size() > 3) {
+        if (result.size() > 3) {
             for (int i = 0; i < 3; i++) {
                 Widget widget = new Widget().fromDatabaseObject(result.get(i));
                 widget.setShortDescription(this.shortenShortDescOfPanel(widget.getShortDescription()));
@@ -286,7 +309,7 @@ public class DashupService {
                     returningValue.add(widget);
                 }
             }
-        } else if (result != null) {
+        } else {
             for (DatabaseObject databaseObject : result) {
                 Widget widget = new Widget().fromDatabaseObject(databaseObject);
                 widget.setShortDescription(this.shortenShortDescOfPanel(widget.getShortDescription()));
@@ -316,9 +339,9 @@ public class DashupService {
 
     private Rating getTopRating(int widgetId) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("panel_id", widgetId);
+        whereParameters.put(PANEL_ID, widgetId);
         Map<String, String> onParameters = new HashMap<>();
-        onParameters.put("user_id", "id");
+        onParameters.put(USER_ID, "id");
         List<? extends DatabaseObject> result = database.getObject(Database.Table.RATINGS, Database.Table.USERS, Rating.class, onParameters, whereParameters, "rating DESC");
         if (!result.isEmpty()) {
             return (Rating) result.get(0);
@@ -340,8 +363,8 @@ public class DashupService {
 
     public boolean addRating(User user, String title, String text, int rating, int widgetId) {
         Map<String, Object> insertValue = new HashMap<>();
-        insertValue.put("user_id", user.getId());
-        insertValue.put("panel_id", widgetId);
+        insertValue.put(USER_ID, user.getId());
+        insertValue.put(PANEL_ID, widgetId);
         insertValue.put("rating", rating);
         insertValue.put("title", title);
         insertValue.put("text", text);
@@ -407,12 +430,12 @@ public class DashupService {
 
     public User getUserByToken(String token) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("token", token);
+        whereParameters.put(TOKEN, token);
 
         JSONArray result = this.database.get(Database.Table.USERS_TOKENS, whereParameters);
         if (result != null && result.length() > 0) {
             whereParameters.clear();
-            whereParameters.put("id", result.getJSONObject(0).get("user_id"));
+            whereParameters.put("id", result.getJSONObject(0).get(USER_ID));
             User user = new User().fromDatabaseObject(
                     this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters).get(0));
             user.setToken(token);
@@ -433,13 +456,13 @@ public class DashupService {
         Settings settings = new Settings();
 
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("user_id", user.getId());
+        whereParameters.put(USER_ID, user.getId());
 
         JSONObject jsonObject = this.database.get(Database.Table.USERS_SETTINGS, whereParameters).getJSONObject(0);
-        settings.setLanguage(Locale.forLanguageTag(jsonObject.getString("language").isEmpty() ?
-                "en" : jsonObject.getString("language")));
+        settings.setLanguage(Locale.forLanguageTag(jsonObject.getString(LANGUAGE).isEmpty() ?
+                "en" : jsonObject.getString(LANGUAGE)));
         settings.setTheme(Settings.Theme.getThemeByTechnicalName(jsonObject.getString("theme")));
-        settings.setBackgroundImage(jsonObject.getString("background_image").equals("null") ? "" : jsonObject.getString("background_image"));
+        settings.setBackgroundImage(jsonObject.getString(BACKGROUND_IMAGE).equals("null") ? "" : jsonObject.getString(BACKGROUND_IMAGE));
 
         return settings;
     }
@@ -452,21 +475,21 @@ public class DashupService {
      */
     public void deleteToken(String token) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("token", token);
+        whereParameters.put(TOKEN, token);
         this.database.delete(Database.Table.USERS_TOKENS, whereParameters);
     }
 
     public User registerUser(String email, String userName, String password) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("email", email);
+        whereParameters.put(EMAIL, email);
 
         List<? extends DatabaseObject> result = this.database.getObject(Database.Table.USERS, DatabaseUser.class, whereParameters);
-        if (result == null || result.size() == 0) {
+        if (result == null || result.isEmpty()) {
             String salt = this.randomString.nextString(32);
             String hashedPassword = Hash.create(password, salt);
 
             Map<String, Object> values = new HashMap<>();
-            values.put("email", email);
+            values.put(EMAIL, email);
             values.put("user_name", userName);
             values.put("password", hashedPassword);
             values.put("salt", salt);
@@ -479,7 +502,7 @@ public class DashupService {
         return null;
     }
 
-    public void updatePassword(User user, String oldPassword, String newPassword) throws SQLException, IllegalArgumentException {
+    public void updatePassword(User user, String oldPassword, String newPassword) throws SQLException {
         if (user.getPassword().equals(Hash.create(oldPassword, user.getSalt()))) {
             String newSalt = this.randomString.nextString(32);
             String newHashedPassword = Hash.create(newPassword, newSalt);
@@ -509,7 +532,7 @@ public class DashupService {
         whereParameters.put("id", user.getId());
 
         Map<String, Object> values = new HashMap<>();
-        values.put("email", user.getEmail());
+        values.put(EMAIL, user.getEmail());
 
         JSONArray result = this.database.get(Database.Table.USERS, values);
         if (result.length() > 0) {
@@ -556,13 +579,13 @@ public class DashupService {
         }
 
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("user_id", user.getId());
+        whereParameters.put(USER_ID, user.getId());
 
         Map<String, Object> values = new HashMap<>();
-        values.put("user_id", user.getId());
-        values.put("background_image", user.getSettings().getBackgroundImage());
+        values.put(USER_ID, user.getId());
+        values.put(BACKGROUND_IMAGE, user.getSettings().getBackgroundImage());
         values.put("theme", user.getSettings().getTheme().getTechnicalName());
-        values.put("language", user.getSettings().getLanguage().toLanguageTag());
+        values.put(LANGUAGE, user.getSettings().getLanguage().toLanguageTag());
 
         if (insert) {
             this.database.insert(Database.Table.USERS_SETTINGS, values);
@@ -582,7 +605,7 @@ public class DashupService {
 
     public Map<String, String> loadLayout(User user) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("user_id", user.getId());
+        whereParameters.put(USER_ID, user.getId());
         JSONObject jsonObject = this.database.get(Database.Table.USERS_SETTINGS, whereParameters).getJSONObject(0);
 
         Map<String, String> result = new HashMap<>();
@@ -591,28 +614,28 @@ public class DashupService {
             result.put(key, jsonObject.get(key).toString());
         }
         result.remove("id");
-        result.remove("user_id");
+        result.remove(USER_ID);
         return result;
     }
 
     public void updateLanguage(User user) throws SQLException {
         Map<String, Object> whereParameter = new HashMap<>();
-        whereParameter.put("user_id", user.getId());
+        whereParameter.put(USER_ID, user.getId());
 
         Map<String, Object> values = new HashMap<>();
-        values.put("language", user.getSettings().getLanguage().toLanguageTag());
+        values.put(LANGUAGE, user.getSettings().getLanguage().toLanguageTag());
 
         this.database.update(Database.Table.USERS_SETTINGS, whereParameter, values);
     }
 
     private void updateSection(User user, Section section) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("user_id", user.getId());
+        whereParameters.put(USER_ID, user.getId());
         whereParameters.put("id", section.getId());
 
         Map<String, Object> values = new HashMap<>();
         values.put("section_name", section.getName());
-        values.put("section_index", section.getIndex());
+        values.put(SECTION_INDEX, section.getIndex());
 
         this.database.update(Database.Table.USER_SECTIONS, whereParameters, values);
     }
@@ -620,7 +643,7 @@ public class DashupService {
     private void deleteSection(User user, Section section) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", section.getId());
-        whereParameters.put("user_id", user.getId());
+        whereParameters.put(USER_ID, user.getId());
         database.delete(Database.Table.USER_SECTIONS, whereParameters);
     }
 
@@ -631,12 +654,12 @@ public class DashupService {
 
     }
 
-    public int addNewSection(User user, Section section) throws SQLException, NumberFormatException {
+    public int addNewSection(User user, Section section) throws SQLException {
         Map<String, Object> values = new HashMap<>();
 
         values.put("section_name", Objects.requireNonNullElse(section.getName(), "-"));
-        values.put("user_id", user.getId());
-        values.put("section_index", section.getIndex());
+        values.put(USER_ID, user.getId());
+        values.put(SECTION_INDEX, section.getIndex());
 
         this.database.insert(Database.Table.USER_SECTIONS, values);
 
@@ -646,8 +669,8 @@ public class DashupService {
     public void addWidgetToSection(Widget widget, Section section, String size) throws SQLException {
         Map<String, Object> values = new HashMap<>();
         values.put("id", section.getId());
-        values.put("panel_id", widget.getId());
-        values.put("widget_index", widget.getIndex());
+        values.put(PANEL_ID, widget.getId());
+        values.put(WIDGET_INDEX, widget.getIndex());
         values.put("size", size);
 
         this.database.insert(Database.Table.SECTIONS_PANELS, values);
@@ -693,23 +716,23 @@ public class DashupService {
 
     public void saveTodoWidgetState(User user, Todo todo) throws SQLException {
         Map<String, Object> values = new HashMap<>();
-        values.put("user_id", user.getId());
+        values.put(USER_ID, user.getId());
         this.database.delete(Database.Table.TODOS, values);
         for (Task task : todo.getList()) {
-            values.put("content", task.getContent());
-            values.put("selected", task.getSelected());
+            values.put(CONTENT, task.getContent());
+            values.put(SELECTED, task.getSelected());
             this.database.insert(Database.Table.TODOS, values);
         }
     }
 
     public Todo loadTodoWidgetState(User user) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("user_id", user.getId());
+        whereParameters.put(USER_ID, user.getId());
         JSONArray innerResult = this.database.get(Database.Table.TODOS, whereParameters);
         List<Task> entries = new ArrayList<>();
         for (int i = 0; i < innerResult.length(); i++) {
             JSONObject result = innerResult.getJSONObject(i);
-            Task task = new Task(result.getString("content"), result.getBoolean("selected"));
+            Task task = new Task(result.getString(CONTENT), result.getBoolean(SELECTED));
             entries.add(task);
         }
         return new Todo(entries);
@@ -717,12 +740,12 @@ public class DashupService {
 
     public void saveFinanceChartWidgetState(User user, FinanceChart chart) throws SQLException {
         Map<String, Object> values = new HashMap<>();
-        values.put("user_id", user.getId());
+        values.put(USER_ID, user.getId());
         this.database.delete(Database.Table.FINANCES, values);
         if(chart.getChart() != null) {
             for (SpendingChart spending : chart.getChart()) {
-                values.put("category", spending.getCategory());
-                values.put("value", spending.getValue());
+                values.put(CATEGORY, spending.getCategory());
+                values.put(VALUE, spending.getValue());
                 this.database.insert(Database.Table.FINANCES, values);
             }
         }
@@ -730,27 +753,27 @@ public class DashupService {
 
     public void saveFinanceListWidgetState(User user, FinanceList list) throws SQLException {
         Map<String, Object> values = new HashMap<>();
-        values.put("user_id", user.getId());
+        values.put(USER_ID, user.getId());
         this.database.delete(Database.Table.FINANCES, values);
         for (SpendingList spending : list.getFinanceList()) {
-            values.put("content", spending.getContent());
-            values.put("selected", spending.getSelected());
+            values.put(CONTENT, spending.getContent());
+            values.put(SELECTED, spending.getSelected());
             this.database.insert(Database.Table.FINANCES, values);
         }
     }
 
     public FinanceChart loadFinanceChartWidgetState(User user) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("user_id", user.getId());
+        whereParameters.put(USER_ID, user.getId());
         JSONArray innerResult = this.database.get(Database.Table.FINANCES, whereParameters);
         List<SpendingChart> entries = new ArrayList<>();
         for (int i = 0; i < innerResult.length(); i++) {
             JSONObject result = innerResult.getJSONObject(i);
             SpendingChart spending;
-            if (result.getString("content").isEmpty()) {
-                spending = new SpendingChart(result.getString("category"), result.getInt("value"));
+            if (result.getString(CONTENT).isEmpty()) {
+                spending = new SpendingChart(result.getString(CATEGORY), result.getInt(VALUE));
             } else {
-                String[] split = result.getString("content").split(": ");
+                String[] split = result.getString(CONTENT).split(": ");
                 spending = new SpendingChart(split[0], Integer.valueOf(split[1].substring(0, split[1].length() - 2)));
             }
             entries.add(spending);
@@ -760,16 +783,16 @@ public class DashupService {
 
     public FinanceList loadFinanceListWidgetState(User user) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("user_id", user.getId());
+        whereParameters.put(USER_ID, user.getId());
         JSONArray innerResult = this.database.get(Database.Table.FINANCES, whereParameters);
         List<SpendingList> entries = new ArrayList<>();
         for (int i = 0; i < innerResult.length(); i++) {
             JSONObject result = innerResult.getJSONObject(i);
             SpendingList spending;
-            if (result.getString("content").isEmpty()) {
-                spending = new SpendingList(String.format("%s: %d €", result.getString("category"), result.getInt("value")), false);
+            if (result.getString(CONTENT).isEmpty()) {
+                spending = new SpendingList(String.format("%s: %d €", result.getString(CATEGORY), result.getInt(VALUE)), false);
             } else {
-                spending = new SpendingList(result.getString("content"), result.getBoolean("selected"));
+                spending = new SpendingList(result.getString(CONTENT), result.getBoolean(SELECTED));
             }
             entries.add(spending);
         }
@@ -780,8 +803,8 @@ public class DashupService {
 
     public void getUsersDrafts(User user) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("user_id", user.getId());
-        whereParameters.put("visibility", false);
+        whereParameters.put(USER_ID, user.getId());
+        whereParameters.put(VISIBILITY, false);
 
         List<Draft> drafts = new ArrayList<>();
         for (DatabaseObject databaseObject : this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters)) {
@@ -794,9 +817,9 @@ public class DashupService {
 
     public Draft createDraft(User user, String draftName) throws SQLException {
         Map<String, Object> values = new HashMap<>();
-        values.put("user_id", user.getId());
+        values.put(USER_ID, user.getId());
         values.put("name", draftName);
-        values.put("visibility", false);
+        values.put(VISIBILITY, false);
 
         this.database.insert(Database.Table.PANELS, values);
 
@@ -839,7 +862,7 @@ public class DashupService {
             values.put("descriptions", widget.getDescription());
         }
         if (widget.getCategoryObject() != null) {
-            values.put("category", widget.getCategory());
+            values.put(CATEGORY, widget.getCategory());
         }
 
         this.database.update(Database.Table.PANELS, whereParameters, values);
@@ -869,7 +892,7 @@ public class DashupService {
 
     public void deleteDraft(int draftId) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("panel_id", draftId);
+        whereParameters.put(PANEL_ID, draftId);
 
         this.database.delete(Database.Table.SECTIONS_PANELS, whereParameters);
 
@@ -891,7 +914,7 @@ public class DashupService {
             checkWidget(draft);
 
             Map<String, Object> values = new HashMap<>();
-            values.put("visibility", true);
+            values.put(VISIBILITY, true);
             values.put("publication_date", LocalDate.now());
             values.put("code_small", draft.getCodeSmall());
             values.put("code_medium", draft.getCodeMedium());
@@ -918,8 +941,8 @@ public class DashupService {
     // --- WIDGETS --- \\
     public List<Widget> getUsersWidgets(User user) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("user_id", user.getId());
-        whereParameters.put("visibility", true);
+        whereParameters.put(USER_ID, user.getId());
+        whereParameters.put(VISIBILITY, true);
 
         List<Widget> widgets = new ArrayList<>();
         for (DatabaseObject databaseObject : this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters)) {
@@ -933,7 +956,7 @@ public class DashupService {
     public Widget getWidgetOfUser(User user, int widgetId) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         whereParameters.put("id", widgetId);
-        whereParameters.put("user_id", user.getId());
+        whereParameters.put(USER_ID, user.getId());
 
         List<? extends DatabaseObject> result = this.database.getObject(Database.Table.PANELS, Widget.class, whereParameters);
         if (result != null && !result.isEmpty()) {
@@ -1052,8 +1075,8 @@ public class DashupService {
     public void getTagsByWidget(Widget widget) throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
         Map<String, String> onParameters = new HashMap<>();
-        whereParameters.put("panel_id", widget.getId());
-        onParameters.put("tag_id", "id");
+        whereParameters.put(PANEL_ID, widget.getId());
+        onParameters.put(TAG_ID, "id");
         JSONArray result = this.database.get(Database.Table.PANELS_TAGS, Database.Table.TAGS, onParameters, whereParameters);
         for (int i = 0; i < result.length(); i++) {
             widget.getTags().add(new Tag(result.getJSONObject(i).getInt("id"),
@@ -1071,8 +1094,8 @@ public class DashupService {
         for (Tag tag : newTags) {
             if (!widget.getTags().contains(tag)) {
                 Map<String, Object> values = new HashMap<>();
-                values.put("panel_id", widget.getId());
-                values.put("tag_id", tag.getId());
+                values.put(PANEL_ID, widget.getId());
+                values.put(TAG_ID, tag.getId());
                 this.database.insert(Database.Table.PANELS_TAGS, values);
             }
             tagsToDelete.add(tag);
@@ -1082,8 +1105,8 @@ public class DashupService {
         if (!widget.getTags().isEmpty()) {
             for (Tag tag : widget.getTags()) {
                 Map<String, Object> whereParameters = new HashMap<>();
-                whereParameters.put("panel_id", widget.getId());
-                whereParameters.put("tag_id", tag.getId());
+                whereParameters.put(PANEL_ID, widget.getId());
+                whereParameters.put(TAG_ID, tag.getId());
                 this.database.delete(Database.Table.PANELS_TAGS, whereParameters);
             }
         }

@@ -19,6 +19,11 @@ import java.util.Locale;
 @RequestMapping(value = "/settings")
 public class SettingsController {
 
+    /**
+     * Literals
+     */
+    private static final String REDIRECT_LOGIN = "redirect:/login";
+
     @GetMapping(value = "/")
     public String settings(@CookieValue(name = "token", required = false) String token,
                            HttpServletRequest request, Model model) throws SQLException {
@@ -53,7 +58,7 @@ public class SettingsController {
             }
             return "redirect:/settings/#changedEmail";
         }
-        return "redirect:/login";
+        return REDIRECT_LOGIN;
     }
 
     @PostMapping(value = "/changeUserName")
@@ -72,7 +77,7 @@ public class SettingsController {
             }
             return "redirect:/settings/#changedUserName";
         }
-        return "redirect:/login";
+        return REDIRECT_LOGIN;
     }
 
     @PostMapping(value = "/changeLanguage")
@@ -103,7 +108,7 @@ public class SettingsController {
             }
             return "redirect:/settings/#changedPassword";
         }
-        return "redirect:/login";
+        return REDIRECT_LOGIN;
     }
 
     @PostMapping(value = "/changeLayout")
@@ -118,7 +123,7 @@ public class SettingsController {
             DashupService.getInstance().updateSettings(user, false);
             return "redirect:/settings/#changedLayout";
         }
-        return "redirect:/login";
+        return REDIRECT_LOGIN;
     }
 
     @PostMapping(value = "/changePersonalInfo")
@@ -141,6 +146,6 @@ public class SettingsController {
             DashupService.getInstance().updatePersonalInformation(user);
             return "redirect:/settings/#changedPersonalInfo";
         }
-        return "redirect:/login";
+        return REDIRECT_LOGIN;
     }
 }

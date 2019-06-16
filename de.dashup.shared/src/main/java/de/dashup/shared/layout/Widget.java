@@ -177,9 +177,7 @@ public class Widget extends DatabaseWidget implements Comparable<Widget> {
         } else {
             html.append(this.getCode());
         }
-        html.append("</div>")
-                .append("</div>")
-                .append("</div>");
+        html.append("</div>".repeat(3));
 
         return html.toString();
     }

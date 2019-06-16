@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User extends DatabaseUser {
+    private static final long serialVersionUID = 6721259358362261977L;
+
     private String token;
     private Settings settings;
     private List<Section> sections;
@@ -73,9 +75,5 @@ public class User extends DatabaseUser {
 
     public void setDrafts(List<Draft> drafts) {
         this.drafts = drafts;
-    }
-
-    public String getUserName(){
-        return super.getUserName();
     }
 }
