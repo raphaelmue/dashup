@@ -42,6 +42,8 @@ public class DashupService {
     private static final String BACKGROUND_IMAGE = "background_image";
     private static final String CONTENT = "content";
     private static final String SELECTED = "selected";
+    private static final String AVG_OF_RATINGS = "avg_of_ratings";
+    private static final String PUBLICATION_DATE = "publication_date";
 
     private Database database;
     private final RandomString randomString = new RandomString();
@@ -380,7 +382,7 @@ public class DashupService {
             whereParameters.put("id", widgetId);
             Map<String, Object> updateValues = new HashMap<>();
             updateValues.put("number_of_ratings", widget.getNumberOfRatings() + 1);
-            updateValues.put("avg_of_ratings", ((widget.getAverageRating() * widget.getNumberOfRatings()) + rating) / (widget.getNumberOfRatings() + 1));
+            updateValues.put(AVG_OF_RATINGS, ((widget.getAverageRating() * widget.getNumberOfRatings()) + rating) / (widget.getNumberOfRatings() + 1));
             database.update(Database.Table.PANELS, whereParameters, updateValues);
         } catch (SQLException e) {
             return false;
@@ -915,7 +917,7 @@ public class DashupService {
 
             Map<String, Object> values = new HashMap<>();
             values.put(VISIBILITY, true);
-            values.put("publication_date", LocalDate.now());
+            values.put(PUBLICATION_DATE, LocalDate.now());
             values.put("code_small", draft.getCodeSmall());
             values.put("code_medium", draft.getCodeMedium());
             values.put("code_large", draft.getCodeLarge());
@@ -926,7 +928,7 @@ public class DashupService {
 
     public List<String> getAllPublisher() throws SQLException {
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("visibility", true);
+        whereParameters.put(VISIBILITY, true);
 
         List<String> publisherList = new ArrayList<>();
         for (DatabaseObject databaseObject : this.database.getObject(Database.Table.PANELS, DatabaseWidget.class, whereParameters)) {
@@ -967,22 +969,22 @@ public class DashupService {
 
     public List<Widget> findWidgetByName(String name, String date, String rating, List<String> categories, List<String> publisherList) throws SQLException{
         Map<String, Object> whereParameters = new HashMap<>();
-        whereParameters.put("visibility",1);
+        whereParameters.put(VISIBILITY, 1);
 
         Map<String, Object> operators = new HashMap<>();
         operators.put("name","LIKE");
 
         whereParameters.put("name", "%" + name + "%");
-        operators.put("visibility", "=");
+        operators.put(VISIBILITY, "=");
 
         if(date!=null){
-            whereParameters.put("publication_date",date);
-            operators.put("publication_date",">=");
+            whereParameters.put(PUBLICATION_DATE, date);
+            operators.put(PUBLICATION_DATE, ">=");
         }
 
         if(rating!=null){
-            whereParameters.put("avg_of_ratings",rating);
-            operators.put("avg_of_ratings",">=");
+            whereParameters.put(AVG_OF_RATINGS, rating);
+            operators.put(AVG_OF_RATINGS, ">=");
         }
 
         List<? extends DatabaseObject> result = this.database.findByRange(Database.Table.PANELS,whereParameters,Widget.class,operators);
@@ -1003,8 +1005,8 @@ public class DashupService {
         Map<String, Object> operators = new HashMap<>();
         operators.put(Database.Table.PANELS.toString() + ".name","LIKE");
 
-        whereParameters.put("visibility",1);
-        operators.put("visibility", "=");
+        whereParameters.put(VISIBILITY, 1);
+        operators.put(VISIBILITY, "=");
 
         if(date!=null){
             whereParameters.put(Database.Table.PANELS.toString() + ".publication_date",date);

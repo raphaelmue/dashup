@@ -8,24 +8,31 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validator {
+    /**
+     * Literals
+     */
+    private static final String DISABLED = "disabled";
+    private static final String LAYOUT = "layout";
+    private static final String VALUE = "value";
+
     public static final String EMAIL_REGEX = "^[\\w-+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
     private static final Whitelist WHITELIST;
 
     static {
         WHITELIST = new Whitelist();
-        WHITELIST.addAttributes("dashup-button", "name", "layout", "text", "disabled", "handleOnStart",
+        WHITELIST.addAttributes("dashup-button", "name", LAYOUT, "text", DISABLED, "handleOnStart",
                                                      "mode", "dataAPI", "storageAPI", "params", "consumers", "producers");
-        WHITELIST.addAttributes("dashup-chart", "name", "layout", "title", "category");
-        WHITELIST.addAttributes("dashup-checkbox", "name", "layout", "value", "checked", "disabled");
-        WHITELIST.addAttributes("dashup-clock", "name", "layout");
-        WHITELIST.addAttributes("dashup-component", "name", "layout");
-        WHITELIST.addAttributes("dashup-display", "name", "layout", "label", "displayedText", "quantity");
-        WHITELIST.addAttributes("dashup-grid-layout", "name", "layout");
-        WHITELIST.addAttributes("dashup-list", "name", "layout", "items", "selectable");
-        WHITELIST.addAttributes("dashup-radio-button-group", "name", "layout", "value");
-        WHITELIST.addAttributes("dashup-radio-button", "name", "layout", "group", "value", "checked", "disabled");
-        WHITELIST.addAttributes("dashup-switch", "name", "layout", "valueRight", "valueLeft", "active", "disabled");
-        WHITELIST.addAttributes("dashup-text-input", "name", "layout", "value", "placeholder", "disabled", "clear");
+        WHITELIST.addAttributes("dashup-chart", "name", LAYOUT, "title", "category");
+        WHITELIST.addAttributes("dashup-checkbox", "name", LAYOUT, VALUE, "checked", DISABLED);
+        WHITELIST.addAttributes("dashup-clock", "name", LAYOUT);
+        WHITELIST.addAttributes("dashup-component", "name", LAYOUT);
+        WHITELIST.addAttributes("dashup-display", "name", LAYOUT, "label", "displayedText", "quantity");
+        WHITELIST.addAttributes("dashup-grid-layout", "name", LAYOUT);
+        WHITELIST.addAttributes("dashup-list", "name", LAYOUT, "items", "selectable");
+        WHITELIST.addAttributes("dashup-radio-button-group", "name", LAYOUT, VALUE);
+        WHITELIST.addAttributes("dashup-radio-button", "name", LAYOUT, "group", VALUE, "checked", DISABLED);
+        WHITELIST.addAttributes("dashup-switch", "name", LAYOUT, "valueRight", "valueLeft", "active", DISABLED);
+        WHITELIST.addAttributes("dashup-text-input", "name", LAYOUT, VALUE, "placeholder", DISABLED, "clear");
     }
 
     private Validator() {
