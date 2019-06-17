@@ -62,7 +62,7 @@ dashboard.
 
 ### 2.1.3 Narrative
 
-You can see the entire _.feature file_ right <a href="./marketplace.feature">here</a>.
+You can see the entire _.feature file_ right <a href="./narratives/marketplace.feature">here</a>.
 
 ## 2.2 Alternative Flows
 N/A

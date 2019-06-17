@@ -1,8 +1,7 @@
 # Things left to do
 
 * Final Blog Entry (Felix)
-    * Link to blogs, marketing video, repo, youtrack, youtube, jenkins, codacy, sonar, direct links to files
-    * Rahmen ziehen,
+    * Links to blogs and to direct files
     * App Bild 
 * Transition (Felix)
     * Get Blog printed as pdf
@@ -41,7 +40,6 @@
 * Go through gc of 3rd and 4th semester (Felix)
 * Design Patterns (Felix)
 * Create Release (Felix)
-* Update all documents (especially ucs) (Felix)
 * Link presentation (Felix)
 
 ### Grading Criteria
