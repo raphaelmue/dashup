@@ -30,6 +30,7 @@ public class Database {
      */
     private static final String WHERE = "WHERE";
     private static final String AND = " AND ";
+    private static final String SELECT_FROM = "SELECT * FROM ";
 
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final Logger logger = Logger.getLogger("Dashup");
@@ -244,7 +245,7 @@ public class Database {
      */
     public JSONArray get(Table table, Table joinOn, Map<String, String> onParameters, Map<String, Object> whereParameters, String orderByClause) throws SQLException {
         PreparedStatement statement;
-        StringBuilder query = new StringBuilder("SELECT * FROM " + table.getTableName() + " INNER JOIN " + joinOn.getTableName() +
+        StringBuilder query = new StringBuilder(SELECT_FROM + table.getTableName() + " INNER JOIN " + joinOn.getTableName() +
                 " ON ");
         for (Map.Entry<String, String> entry : onParameters.entrySet()) {
             query.append(table.getTableName()).append(".").append(entry.getKey()).append(" = ").append(joinOn.getTableName()).append(".").append(entry.getValue());
@@ -273,7 +274,7 @@ public class Database {
      */
     public JSONArray get(Table tableName, Map<String, Object> whereParameters, String orderByClause) throws SQLException {
         PreparedStatement statement;
-        String query = "SELECT * FROM " + tableName.getTableName() +
+        String query = SELECT_FROM + tableName.getTableName() +
                 this.getClause(whereParameters, WHERE, AND) +
                 this.getOrderByClause(orderByClause);
 
@@ -390,8 +391,8 @@ public class Database {
         Gson gson = new GsonBuilder().create();
 
         PreparedStatement statement;
-        String query = "SELECT * FROM " + tableName.getTableName() +
-                this.getClause(whereParameters, "WHERE", " AND ",operatorList);
+        String query = SELECT_FROM + tableName.getTableName() +
+                this.getClause(whereParameters, WHERE, " " + AND + " ", operatorList);
 
         statement = this.preparedStatement(connection.prepareStatement(query),whereParameters);
 
@@ -417,7 +418,7 @@ public class Database {
             }
         }
 
-        query.append(this.getClause(whereParameters, "WHERE", " AND ", operatorList));
+        query.append(this.getClause(whereParameters, WHERE, " " + AND + " ", operatorList));
 
         for (Map.Entry<String, Object> entry : onParameters.entrySet()) {
             query.append(" AND ").append(entry.getKey()).append(" = ").append(entry.getValue());
