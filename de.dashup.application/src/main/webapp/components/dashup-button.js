@@ -126,8 +126,6 @@ export class DashupButton extends DashupComponent {
                         headers: {
                             "Content-Type": "application/json"
                         }
-                    }).then(result => result.json()).then((json) => {
-                        console.log(json);
                     }).catch(() => {
                         console.log("An error occurred");
                     });

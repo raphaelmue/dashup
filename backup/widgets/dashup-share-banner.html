@@ -6,15 +6,14 @@
     </dashup-text-input>
     <dashup-button text="Send"
                    mode="display"
-                   dataAPI="https://api.iextrading.com/1.0/stock/%code%/chart"
+                   dataAPI="https://financialmodelingprep.com/api/v3/company/profile/%code%"
                    params="code"
-                   consumers='[{"price": "apiData 19 high"},{"development": "apiData 19 changePercent"}]'
+                   consumers='[{"price": "apiData profile price"},{"development": "apiData profile changesPercentage"}]'
                    layout='{"row": 1, "offset": 1, "size": 3}'
                    handleOnStart>
     </dashup-button>
     <dashup-display name="development"
                     label="Development"
-                    quantity="%"
                     layout='{"row": 2, "offset": 0, "size": 12}'>
     </dashup-display>
     <dashup-display name="price"

@@ -86,7 +86,7 @@ public class DashupController {
         return new ResponseEntity<>(entity.toString(), HttpStatus.UNAUTHORIZED);
     }
 
-    @PostMapping(value = "/loadTodo")
+    @GetMapping(value = "/loadTodo")
     public @ResponseBody
     Todo handleLoadTodo(@CookieValue(name = "token", required = false) String token,
                         HttpServletRequest request) throws SQLException {
@@ -134,7 +134,7 @@ public class DashupController {
         return new ResponseEntity<>(entity.toString(), HttpStatus.UNAUTHORIZED);
     }
 
-    @PostMapping(value = "/loadFinanceChart")
+    @GetMapping(value = "/loadFinanceChart")
     public @ResponseBody
     FinanceChart handleLoadFinanceChart(@CookieValue(name = "token", required = false) String token,
                                         HttpServletRequest request) throws SQLException {
@@ -148,7 +148,7 @@ public class DashupController {
         return null;
     }
 
-    @PostMapping(value = "/loadFinanceList")
+    @GetMapping(value = "/loadFinanceList")
     public @ResponseBody
     FinanceList handleLoadFinanceList(@CookieValue(name = "token", required = false) String token,
                                       HttpServletRequest request) throws SQLException {

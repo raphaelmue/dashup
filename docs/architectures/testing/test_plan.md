@@ -380,9 +380,9 @@ If you look at the values for WMC and RFC, you will notice the *Database* and th
 anomalies here that need to be reduced. Due to the architecture of dashup, there are some difficulties here. On the one 
 hand we want to provide the functionality for CRUD operations in one place, on the other hand we want to establish a 
 clear structure. In refactoring we tried to combine both approaches. The result is the 
-[issue112 branch](https://github.com/raphaelmue/dashup/tree/issue112). Here all changes can be traced. This 
-[link](https://github.com/raphaelmue/dashup/tree/fe4a4964f4358f86b3296718511ec6bc97874fd1) leads to a commit before 
-the refactor work. The table shows the before/after values. 
+[issue112 branch](https://github.com/raphaelmue/dashup/tree/issue112). Here all changes can be traced by clicking the 
+_compare_ button on the top right corner. This [link](https://github.com/raphaelmue/dashup/tree/fe4a4964f4358f86b3296718511ec6bc97874fd1) 
+leads to a commit before the refactor work. The table shows the before/after values. 
 
 
 | Class                                 | RFC before | RFC after | WMC before | WMC after |

@@ -210,6 +210,8 @@ This thought hits the true point of lazy initialization or lazy loading, as depe
 initialized the moment it is really needed and not from the very beginning. So when a client adds a new widget to his 
 dashboard, then and only then the required new web components get loaded.
 
+<img src="https://github.com/raphaelmue/dashup/blob/patterns/docs/architectures/patterns/patterns.png" alt="Patterns" />
+
 To see which changes were made, please have a look at the methods highlighted red inside the orange marked classes of 
 the [class diagram](https://github.com/raphaelmue/dashup/blob/patterns/docs/architectures/patterns/patterns.png). 
 Classes belonging to an architectural design pattern are highlighted blue. But these classes can most of the time either 

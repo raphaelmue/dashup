@@ -1,14 +1,13 @@
 # Things left to do
 
-* Final Blog Entry (Felix)
-    * Links to blogs and to direct files
-    * App Bild 
+* App Bild 
 * Transition (Felix)
     * Get Blog printed as pdf
     * dashup zipped to copy to stick
     * send e-mail with blog as pdf and notification for final blog post
        -> Not later than one week after
 * Make Final Presentation (Felix & Sven)
+* Get deployed version fixed (Raphael) (We don't want to show our IDE during the presentation)
 * Do all tasks have git integration (Joshua)
 * Write tests to get coverage over 50% (Joshua and Raphael)
 * Metrics improvements (not much) + show code sample when improving metric in blog post (Raphael)
@@ -40,7 +39,6 @@
 * Go through gc of 3rd and 4th semester (Felix)
 * Design Patterns (Felix)
 * Create Release (Felix)
-* Link presentation (Felix)
 
 ### Grading Criteria
 
