@@ -16,6 +16,11 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/marketplace")
 public class MarketplaceController {
+    /**
+     * Literals
+     */
+    private static final String PUBLISH_ATTRIBUTE_NAME = "publisher";
+    private static final String REDIRECT_DETAIL_VIEW = "redirect:/marketplace/detailView/";
 
     @GetMapping(value = "/")
     public String marketplace(@CookieValue(name = "token", required = false) String token, Model model, HttpServletRequest request) throws SQLException {
@@ -27,7 +32,7 @@ public class MarketplaceController {
             model.addAttribute("mostDownloaded", DashupService.getInstance().getTopWidgets("number_of_downloads"));
             model.addAttribute("categories", Widget.Category.values());
             model.addAttribute("tags", DashupService.getInstance().getAllTags());
-            model.addAttribute("publisher", DashupService.getInstance().getAllPublisher());
+            model.addAttribute(PUBLISH_ATTRIBUTE_NAME, DashupService.getInstance().getAllPublisher());
         });
     }
 
@@ -46,7 +51,7 @@ public class MarketplaceController {
             model.addAttribute("sections", user.getSections());
             model.addAttribute("categories", Widget.Category.values());
             model.addAttribute("tags", DashupService.getInstance().getAllTags());
-            model.addAttribute("publisher", DashupService.getInstance().getAllPublisher());
+            model.addAttribute(PUBLISH_ATTRIBUTE_NAME, DashupService.getInstance().getAllPublisher());
         });
     }
 
@@ -56,7 +61,7 @@ public class MarketplaceController {
             Widget widget = DashupService.getInstance().getPanelById(widgetID);
             model.addAttribute(widget);
             User publisher = DashupService.getInstance().getUserById(widget.getPublisherId());
-            model.addAttribute("publisher", publisher);
+            model.addAttribute(PUBLISH_ATTRIBUTE_NAME, publisher);
             model.addAttribute("tags", DashupService.getInstance().getTagsByPanelId(widgetID));
             model.addAttribute("ratings", DashupService.getInstance().getRatingsByWidgetID(widgetID));
             user = DashupService.getInstance().getSectionsAndPanels(user);
@@ -75,9 +80,9 @@ public class MarketplaceController {
         if (user != null) {
             boolean success = DashupService.getInstance().addRating(user, title, text, rating, widgetId);
             if (success) {
-                return "redirect:/marketplace/detailView/" + widgetId + "#addedRating";
+                return REDIRECT_DETAIL_VIEW + widgetId + "#addedRating";
             } else {
-                return "redirect:/marketplace/detailView/" + widgetId + "#faieldToAddRating";
+                return REDIRECT_DETAIL_VIEW + widgetId + "#faieldToAddRating";
             }
         }
         return "redirect:/login";
@@ -93,9 +98,9 @@ public class MarketplaceController {
         if (user != null) {
             boolean success = DashupService.getInstance().addWidgetToPersonalDashup(user, widgetId, sectionId, widgetSize);
             if (success) {
-                return "redirect:/marketplace/detailView/" + widgetId + "#addedWidget";
+                return REDIRECT_DETAIL_VIEW + widgetId + "#addedWidget";
             } else {
-                return "redirect:/marketplace/detailView/" + widgetId + "#failedToAddWidget";
+                return REDIRECT_DETAIL_VIEW + widgetId + "#failedToAddWidget";
             }
         }
         return "redirect:/login";

@@ -1,10 +1,15 @@
 package de.dashup.model.builder;
 
-import de.dashup.shared.layout.Section;
 import de.dashup.shared.User;
+import de.dashup.shared.layout.Section;
 import de.dashup.shared.layout.Widget;
 
 public class DashupBuilder {
+
+    /**
+     * Literals
+     */
+    private static final String DIV_END_TAG = "</div>";
 
     private DashupBuilder() {
         super();
@@ -41,7 +46,7 @@ public class DashupBuilder {
                         .append(section.getName())
                         .append("\" />")
                         .append("<i class=\"section-minus fas fa-minus col s1\" style=\"margin:0\"></i></div>")
-                        .append("</div>")
+                        .append(DIV_END_TAG)
                         .append("<div class=\"bloc col s12\">");
 
                 if (section.getWidgets() != null) {
@@ -65,13 +70,13 @@ public class DashupBuilder {
                                 .append("<h6 class=\"center-align\">")
                                 .append(widget.getName())
                                 .append("</h6>")
-                                .append("</div>")
-                                .append("</div>")
-                                .append("</div>");
+                                .append(DIV_END_TAG)
+                                .append(DIV_END_TAG)
+                                .append(DIV_END_TAG);
                     }
                 }
-                content.append("</div>")
-                        .append("</div>");
+                content.append(DIV_END_TAG)
+                        .append(DIV_END_TAG);
             }
         }
         return content.toString();
